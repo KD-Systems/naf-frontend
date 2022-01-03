@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NotFound from "./pages/NotFound";
 import Footer from "./components/sections/Footer";
 import Dashboard from "./pages/Dashboard";
+import Login from "./pages/auth/Login";
 function App() {
   return (
     <BrowserRouter>
@@ -18,6 +19,8 @@ function App() {
         <Breadcrumbs />
         <SideMenu />
         <Routes>
+         <Route path="/" element={< Login/>} />
+          
           <Route path="/dashboard" element={< Dashboard/>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
