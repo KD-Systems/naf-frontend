@@ -14,8 +14,7 @@ const HomePage = () => {
         }}
       >
        
-            <SideMenu />
-            <NavBar />
+            <SideMenu />       
             <Breadcrumbs />
           </div>
     </>

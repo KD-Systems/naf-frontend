@@ -2330,7 +2330,7 @@ const NavBar = () => {
 														<div className="mb-5">
 															<div className="nav-group nav-group-fluid">
 																<label>
-																	<input type="radio" className="btn-check" name="type" defaultValue="has" checked="checked" />
+																	<input type="radio" className="btn-check" name="type" defaultValue="has"  />
 																	<span className="btn btn-sm btn-color-muted btn-active btn-active-primary">All</span>
 																</label>
 																<label>
@@ -2356,7 +2356,7 @@ const NavBar = () => {
 														<div className="mb-5">
 															<div className="nav-group nav-group-fluid">
 																<label>
-																	<input type="radio" className="btn-check" name="attachment" defaultValue="has" checked="checked" />
+																	<input type="radio" className="btn-check" name="attachment" defaultValue="has"  />
 																	<span className="btn btn-sm btn-color-muted btn-active btn-active-primary">Has attachment</span>
 																</label>
 																<label>
@@ -2396,13 +2396,13 @@ const NavBar = () => {
 														<div className="pb-4 border-bottom">
 															<label className="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack">
 																<span className="form-check-label text-gray-700 fs-6 fw-bold ms-0 me-2">Projects</span>
-																<input className="form-check-input" type="checkbox" defaultValue="1" checked="checked" />
+																<input className="form-check-input" type="checkbox" defaultValue="1"  />
 															</label>
 														</div>
 														<div className="py-4 border-bottom">
 															<label className="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack">
 																<span className="form-check-label text-gray-700 fs-6 fw-bold ms-0 me-2">Targets</span>
-																<input className="form-check-input" type="checkbox" defaultValue="1" checked="checked" />
+																<input className="form-check-input" type="checkbox" defaultValue="1"  />
 															</label>
 														</div>
 														<div className="py-4 border-bottom">
@@ -2414,7 +2414,7 @@ const NavBar = () => {
 														<div className="py-4 border-bottom">
 															<label className="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack">
 																<span className="form-check-label text-gray-700 fs-6 fw-bold ms-0 me-2">Referrals</span>
-																<input className="form-check-input" type="checkbox" defaultValue="1" checked="checked" />
+																<input className="form-check-input" type="checkbox" defaultValue="1"  />
 															</label>
 														</div>
 														<div className="py-4 border-bottom">
@@ -2878,7 +2878,7 @@ const NavBar = () => {
 														<div className="menu-item px-3">
 															<div className="menu-content px-3">
 																<label className="form-check form-switch form-check-custom form-check-solid">
-																	<input className="form-check-input w-30px h-20px" type="checkbox" defaultValue="1" checked="checked" name="notifications" />
+																	<input className="form-check-input w-30px h-20px" type="checkbox" defaultValue="1"  name="notifications" />
 																	<span className="form-check-label text-muted fs-7">Notifications</span>
 																</label>
 															</div>
