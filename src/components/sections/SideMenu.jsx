@@ -18,7 +18,7 @@ const SideMenu = () => {
           data-kt-drawer-toggle="#kt_aside_mobile_toggle"
         >
           <div className="aside-logo flex-column-auto" id="kt_aside_logo">
-            <Link to="#">
+            <Link to="/login">
               <img
                 alt="Logo"
                 src="/assets/media/logos/logo-1-dark.svg"
@@ -366,13 +366,13 @@ const SideMenu = () => {
                 </div>
               </div>
               <div className="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
-                <Link to="#" className="d-lg-none">
+                <a href="../../demo1/dist/index.html" className="d-lg-none">
                   <img
                     alt="Logo"
                     src="assets/media/logos/logo-2.svg"
                     className="h-30px"
                   />
-                </Link>
+                </a>
               </div>
               <NavBar />
             </div>
