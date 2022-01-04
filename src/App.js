@@ -24,7 +24,7 @@ function App() {
         <Routes>
           
           
-          <Route path="/" element={<AuthLayoutRoute><AuthLayout/></AuthLayoutRoute>} />
+          {/* <Route path="/" element={<AuthLayoutRoute><AuthLayout/></AuthLayoutRoute>} /> */}
           
           <Route path="/login" element={< Login/>} />
           <Route path="/dashboard" element={< Dashboard/>} />
