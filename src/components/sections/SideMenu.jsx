@@ -78,7 +78,7 @@ const SideMenu = () => {
                   </div>
                 </div>
                 <div className="menu-item">
-                  <Link className="menu-link active" to="/">
+                  <Link className="menu-link active" to="dashboard">
                     <span className="menu-icon">
                       <span className="svg-icon svg-icon-2">
                         <svg
@@ -137,7 +137,7 @@ const SideMenu = () => {
                     </span>
                   </div>
                 </div>
-
+                <Link to="employees">
                 <div
                   data-kt-menu-trigger="click"
                   className="menu-item menu-accordion"
@@ -149,6 +149,8 @@ const SideMenu = () => {
                     <span className="menu-title">Employees</span>
                   </span>
                 </div>
+                </Link>
+       
 
                 <div
                   data-kt-menu-trigger="click"
@@ -366,13 +368,13 @@ const SideMenu = () => {
                 </div>
               </div>
               <div className="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
-                <a href="../../demo1/dist/index.html" className="d-lg-none">
+                <Link to="#" className="d-lg-none">
                   <img
                     alt="Logo"
                     src="assets/media/logos/logo-2.svg"
                     className="h-30px"
                   />
-                </a>
+                </Link>
               </div>
               <NavBar />
             </div>
