@@ -1,29 +1,27 @@
 import Breadcrumbs from "./components/sections/Breadcrumbs";
 import SideMenu from "./components/sections/SideMenu";
-import HomePage from "./pages/HomePage";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
 import NotFound from "./pages/NotFound";
 import Footer from "./components/sections/Footer";
 import Dashboard from "./pages/Dashboard";
+import AppLayout from "./pages/AppLayout";
+import Login from "./pages/Login";
 function App() {
+
   return (
+    <>
     <BrowserRouter>
-      <div
-        className="header-fixed header-tablet-and-mobile-fixed toolbar-enabled toolbar-fixed toolbar-tablet-and-mobile-fixed aside-enabled aside-fixed"
-        style={{
-          "--kt-toolbar-height": "55px",
-          "--kt-toolbar-height-tablet-and-mobile": "55px",
-        }}
-      >
-        <Breadcrumbs />
-        <SideMenu />
-        <Routes>
-          <Route path="/dashboard" element={< Dashboard/>} />
+      <Routes>
+        <Route path="/panel/*" element={<AppLayout/>}>
+          <Route path="dashboard" element={< Dashboard/>}/>
           <Route path="*" element={<NotFound />} />
-        </Routes>
-        <Footer/>
-      </div>
-    </BrowserRouter>
+        </Route>
+
+        <Route path="/" element={<Login />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 
