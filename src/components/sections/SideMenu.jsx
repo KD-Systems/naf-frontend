@@ -18,13 +18,13 @@ const SideMenu = () => {
           data-kt-drawer-toggle="#kt_aside_mobile_toggle"
         >
           <div className="aside-logo flex-column-auto" id="kt_aside_logo">
-            <a href="../../demo1/dist/index.html">
+            <Link to="/login">
               <img
                 alt="Logo"
                 src="/assets/media/logos/logo-1-dark.svg"
                 className="h-25px logo"
               />
-            </a>
+            </Link>
             <div
               id="kt_aside_toggle"
               className="btn btn-icon w-auto px-0 btn-active-color-primary aside-toggle"
@@ -129,7 +129,7 @@ const SideMenu = () => {
                     <span className="menu-title">Dashboard</span>
                   </Link>
                 </div>
-               
+
                 <div className="menu-item">
                   <div className="menu-content pt-8 pb-2">
                     <span className="menu-section text-muted text-uppercase fs-8 ls-1">
@@ -144,7 +144,7 @@ const SideMenu = () => {
                 >
                   <span className="menu-link">
                     <span className="menu-icon">
-					<i className="fa fa-users"></i>
+                      <i className="fa fa-users"></i>
                     </span>
                     <span className="menu-title">Employees</span>
                   </span>
@@ -156,7 +156,7 @@ const SideMenu = () => {
                 >
                   <span className="menu-link">
                     <span className="menu-icon">
-                <i className="fa fa-sitemap"></i>
+                      <i className="fa fa-sitemap"></i>
                     </span>
                     <span className="menu-title">Depatrments</span>
                   </span>
@@ -168,7 +168,7 @@ const SideMenu = () => {
                 >
                   <span className="menu-link">
                     <span className="menu-icon">
-					<i className="fa fa-user-shield"></i>
+                      <i className="fa fa-user-shield"></i>
                     </span>
                     <span className="menu-title">Roles</span>
                   </span>
@@ -188,7 +188,7 @@ const SideMenu = () => {
                 >
                   <span className="menu-link">
                     <span className="menu-icon">
-					<i className="fa fa-building"></i>
+                      <i className="fa fa-building"></i>
                     </span>
                     <span className="menu-title">Companies</span>
                   </span>
@@ -200,7 +200,7 @@ const SideMenu = () => {
                 >
                   <span className="menu-link">
                     <span className="menu-icon">
-					<i className="bi bi-sticky fs-3"></i>
+                      <i className="bi bi-sticky fs-3"></i>
                     </span>
                     <span className="menu-title">Contracts</span>
                   </span>
@@ -220,7 +220,7 @@ const SideMenu = () => {
                 >
                   <span className="menu-link">
                     <span className="menu-icon">
-					<i className="fab fa-wpforms"></i>
+                      <i className="fab fa-wpforms"></i>
                     </span>
                     <span className="menu-title">Requisitions</span>
                   </span>
@@ -232,7 +232,7 @@ const SideMenu = () => {
                 >
                   <span className="menu-link">
                     <span className="menu-icon">
-					<i className="fas fa-money-bill"></i>
+                      <i className="fas fa-money-bill"></i>
                     </span>
                     <span className="menu-title">Quotations</span>
                   </span>
@@ -244,7 +244,7 @@ const SideMenu = () => {
                 >
                   <span className="menu-link">
                     <span className="menu-icon">
-					<i className="fa fa-credit-card "></i>
+                      <i className="fa fa-credit-card "></i>
                     </span>
                     <span className="menu-title">Invoices</span>
                   </span>
@@ -256,7 +256,7 @@ const SideMenu = () => {
                 >
                   <span className="menu-link">
                     <span className="menu-icon">
-						<i className="fa fa-sticky-note"></i>
+                      <i className="fa fa-sticky-note"></i>
                     </span>
                     <span className="menu-title">Delivery Notes</span>
                   </span>
@@ -276,7 +276,7 @@ const SideMenu = () => {
                 >
                   <span className="menu-link">
                     <span className="menu-icon">
-                    <i className="fas fa-warehouse"></i>
+                      <i className="fas fa-warehouse"></i>
                     </span>
                     <span className="menu-title">Ware Houses</span>
                   </span>
@@ -288,13 +288,10 @@ const SideMenu = () => {
                 >
                   <span className="menu-link">
                     <span className="menu-icon">
-					<i className="fa fa-cogs"></i>
+                      <i className="fa fa-cogs"></i>
                     </span>
                     <span className="menu-title">Machines</span>
-              
                   </span>
-
-             
                 </div>
 
                 <div
@@ -303,16 +300,11 @@ const SideMenu = () => {
                 >
                   <span className="menu-link">
                     <span className="menu-icon">
-					<i className="fa fa-tools"></i>
+                      <i className="fa fa-tools"></i>
                     </span>
                     <span className="menu-title">Parts</span>
-          
                   </span>
-
                 </div>
-
-
-				
 
                 <div className="menu-item">
                   <div className="menu-content">
@@ -320,18 +312,16 @@ const SideMenu = () => {
                   </div>
                 </div>
 
-				<div
+                <div
                   data-kt-menu-trigger="click"
                   className="menu-item menu-accordion"
                 >
                   <span className="menu-link">
                     <span className="menu-icon">
-					<i className="fa fa-cog"></i>
+                      <i className="fa fa-cog"></i>
                     </span>
                     <span className="menu-title">Settings</span>
-          
                   </span>
-
                 </div>
               </div>
             </div>
@@ -387,8 +377,6 @@ const SideMenu = () => {
               <NavBar />
             </div>
           </div>
-          
-          
         </div>
 
         {/* end Mobile aside */}
