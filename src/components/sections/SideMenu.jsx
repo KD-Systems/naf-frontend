@@ -79,7 +79,7 @@ const SideMenu = () => {
                 className={(navinfo) =>
                   navinfo.isActive ? "menu-link active" : "menu-link"
                 }
-                to="/dashboard"
+                to="/panel/dashboard"
               >
                 <span className="menu-icon">
                   <span className="svg-icon svg-icon-2">
@@ -145,7 +145,7 @@ const SideMenu = () => {
                 className={(navinfo) =>
                   navinfo.isActive ? "menu-link active" : "menu-link"
                 }
-                to="/employees"
+                to="/panel/employees"
               >
                 <span className="menu-icon">
                   <i className="fa fa-users"></i>
@@ -159,10 +159,10 @@ const SideMenu = () => {
                 className={(navinfo) =>
                   navinfo.isActive ? "menu-link active" : "menu-link"
                 }
-                to="/departments"
+                to="/panel/departments"
               >
                 <span className="menu-icon">
-                  <i className="fa fa-users"></i>
+                  <i className="fa fa-sitemap"></i>
                 </span>
                 <span className="menu-title">Departments</span>
               </NavLink>

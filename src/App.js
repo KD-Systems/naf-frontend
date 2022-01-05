@@ -8,23 +8,13 @@ import AccountSettings from "./pages/auth/AccountSettings";
 import Employee from "./pages/Employee";
 import Department from "./pages/Department";
 import Role from "./pages/Role";
-// import "./assets/plugins/global/plugins.bundle"
-// import "./assets/js/scripts.bundle"
-// import "./assets/plugins/custom/fullcalendar/fullcalendar.bundle"
-// import "./assets/plugins/custom/datatables/datatables.bundle"
-// import "./assets/js/custom/apps/ecommerce/catalog/products"
-// import "./assets/js/custom/widgets"
-// import "./assets/js/custom/apps/chat/chat"
-// import "./assets/js/custom/modals/create-app"
-// import "./assets/js/custom/modals/upgrade-plan"
-
 
 function App() {
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/*" element={<AppLayout />}>
+          <Route path="/panel/*" element={<AppLayout />}>
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="employees" element={<Employee />} />
             <Route path="departments" element={<Department />} />
