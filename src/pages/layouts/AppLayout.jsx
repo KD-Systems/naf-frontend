@@ -19,7 +19,7 @@ export default function AppLayout() {
         id="wrapper"
       >
         <NavBar />
-        <div class="post d-flex flex-column-fluid mt-5" id="kt_post">
+        <div className="post d-flex flex-column-fluid mt-5" id="kt_post">
           <Outlet />
         </div>
         <Footer />

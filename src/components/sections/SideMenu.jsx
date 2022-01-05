@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const SideMenu = () => {
   return (
@@ -15,13 +15,13 @@ const SideMenu = () => {
       data-kt-drawer-toggle="#kt_aside_mobile_toggle"
     >
       <div className="aside-logo flex-column-auto" id="kt_aside_logo">
-        <Link to="/login">
+        <NavLink to="/login">
           <img
             alt="Logo"
             src="/assets/media/logos/logo-1-dark.svg"
             className="h-25px logo"
           />
-        </Link>
+        </NavLink>
         <div
           id="kt_aside_toggle"
           className="btn btn-icon w-auto px-0 btn-active-color-primary aside-toggle"
@@ -75,7 +75,12 @@ const SideMenu = () => {
               </div>
             </div>
             <div className="menu-item">
-              <Link className="menu-link active" to="/">
+              <NavLink
+                className={(navinfo) =>
+                  navinfo.isActive ? "menu-link active" : "menu-link"
+                }
+                to="/dashboard"
+              >
                 <span className="menu-icon">
                   <span className="svg-icon svg-icon-2">
                     <svg
@@ -124,7 +129,7 @@ const SideMenu = () => {
                   </span>
                 </span>
                 <span className="menu-title">Dashboard</span>
-              </Link>
+              </NavLink>
             </div>
 
             <div className="menu-item">
@@ -135,29 +140,35 @@ const SideMenu = () => {
               </div>
             </div>
 
-            <div
-              data-kt-menu-trigger="click"
-              className="menu-item menu-accordion"
-            >
-              <span className="menu-link">
+            <div className="menu-item">
+              <NavLink
+                className={(navinfo) =>
+                  navinfo.isActive ? "menu-link active" : "menu-link"
+                }
+                to="/employees"
+              >
                 <span className="menu-icon">
                   <i className="fa fa-users"></i>
                 </span>
                 <span className="menu-title">Employees</span>
-              </span>
+              </NavLink>
             </div>
 
-            <div
-              data-kt-menu-trigger="click"
-              className="menu-item menu-accordion"
-            >
-              <span className="menu-link">
+            <div className="menu-item">
+              <NavLink
+                className={(navinfo) =>
+                  navinfo.isActive ? "menu-link active" : "menu-link"
+                }
+                to="/departments"
+              >
                 <span className="menu-icon">
-                  <i className="fa fa-sitemap"></i>
+                  <i className="fa fa-users"></i>
                 </span>
-                <span className="menu-title">Depatrments</span>
-              </span>
+                <span className="menu-title">Departments</span>
+              </NavLink>
             </div>
+
+       
 
             <div
               data-kt-menu-trigger="click"
