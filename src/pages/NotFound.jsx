@@ -1,6 +1,14 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 const NotFound = () => {
+  const navigate = useNavigate()
+
+  const goBack = ()=>{
+    navigate("/")
+    // window.history.go(-1);
+    // // window.location.reload((navigate(-2))); 
+    
+  }
   return (
     <div className="d-flex flex-column flex-root">
       <div className="d-flex flex-column flex-center flex-column-fluid p-10">
@@ -14,9 +22,13 @@ const NotFound = () => {
           Seems there is nothing here
         </h1>
 
-        <Link onClick={() => window.history.go(-2)} to="#" className="btn btn-primary">
+        <a
+          onClick={goBack}
+          href="!#"
+          className="btn btn-primary"
+        >
           Return to Previous Page
-        </Link>
+        </a>
       </div>
     </div>
   );

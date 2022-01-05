@@ -168,9 +168,23 @@ const SideMenu = () => {
               </NavLink>
             </div>
 
+            <div className="menu-item">
+              <NavLink
+                className={(navinfo) =>
+                  navinfo.isActive ? "menu-link active" : "menu-link"
+                }
+                to="/roles"
+              >
+                <span className="menu-icon">
+                  <i className="fa fa-user-shield"></i>
+                </span>
+                <span className="menu-title">Roles</span>
+              </NavLink>
+            </div>
+
        
 
-            <div
+            {/* <div
               data-kt-menu-trigger="click"
               className="menu-item menu-accordion"
             >
@@ -180,7 +194,7 @@ const SideMenu = () => {
                 </span>
                 <span className="menu-title">Roles</span>
               </span>
-            </div>
+            </div> */}
 
             <div className="menu-item">
               <div className="menu-content pt-8 pb-2">
