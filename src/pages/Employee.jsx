@@ -9,242 +9,150 @@ const Employee = () => {
     >
       <div className="post d-flex flex-column-fluid" id="kt_post">
         <div id="kt_content_container" className="container-xxl">
-          <div className="card mb-5 mb-xl-8">
-            <div className="card-header border-0 pt-5">
-              <h3 className="card-title align-items-start flex-column">
-                <span className="card-label fw-bolder fs-3 mb-1">
-                  Recent Orders
-                </span>
-                <span className="text-muted mt-1 fw-bold fs-7">
-                  Over 500 orders
-                </span>
-              </h3>
-              <div className="card-toolbar">
-                <button
-                  type="button"
-                  className="btn btn-sm btn-icon btn-color-primary btn-active-light-primary"
-                  data-kt-menu-trigger="click"
-                  data-kt-menu-placement="bottom-end"
-                >
-                  <span className="svg-icon svg-icon-2">
+          <div className="card card-flush">
+            <div className="card-header align-items-center py-5 gap-2 gap-md-5">
+              <div className="card-title">
+                <div className="d-flex align-items-center position-relative my-1">
+                  <span className="svg-icon svg-icon-1 position-absolute ms-4">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      width="24px"
-                      height="24px"
+                      width="24"
+                      height="24"
                       viewBox="0 0 24 24"
+                      fill="none"
                     >
-                      <g
-                        stroke="none"
-                        strokeWidth="1"
-                        fill="none"
-                        fillRule="evenodd"
-                      >
-                        <rect
-                          x="5"
-                          y="5"
-                          width="5"
-                          height="5"
-                          rx="1"
-                          fill="#000000"
-                        />
-                        <rect
-                          x="14"
-                          y="5"
-                          width="5"
-                          height="5"
-                          rx="1"
-                          fill="#000000"
-                          opacity="0.3"
-                        />
-                        <rect
-                          x="5"
-                          y="14"
-                          width="5"
-                          height="5"
-                          rx="1"
-                          fill="#000000"
-                          opacity="0.3"
-                        />
-                        <rect
-                          x="14"
-                          y="14"
-                          width="5"
-                          height="5"
-                          rx="1"
-                          fill="#000000"
-                          opacity="0.3"
-                        />
-                      </g>
+                      <rect
+                        opacity="0.5"
+                        x="17.0365"
+                        y="15.1223"
+                        width="8.15546"
+                        height="2"
+                        rx="1"
+                        transform="rotate(45 17.0365 15.1223)"
+                        fill="black"
+                      />
+                      <path
+                        d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
+                        fill="black"
+                      />
                     </svg>
                   </span>
-                </button>
 
-                <div
-                  className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-bold w-200px"
-                  data-kt-menu="true"
-                >
-                  <div className="menu-item px-3">
-                    <div className="menu-content fs-6 text-dark fw-bolder px-3 py-4">
-                      Quick Actions
-                    </div>
-                  </div>
-
-                  <div className="separator mb-3 opacity-75"></div>
-
-                  <div className="menu-item px-3">
-                    <Link to="#" className="menu-link px-3">
-                      New Ticket
-                    </Link>
-                  </div>
-
-                  <div className="menu-item px-3">
-                    <Link to="#" className="menu-link px-3">
-                      New Customer
-                    </Link>
-                  </div>
-
-                  <div
-                    className="menu-item px-3"
-                    data-kt-menu-trigger="hover"
-                    data-kt-menu-placement="right-start"
-                  >
-                    <Link to="#" className="menu-link px-3">
-                      <span className="menu-title">New Group</span>
-                      <span className="menu-arrow"></span>
-                    </Link>
-
-                    <div className="menu-sub menu-sub-dropdown w-175px py-4">
-                      <div className="menu-item px-3">
-                        <Link to="#" className="menu-link px-3">
-                          Admin Group
-                        </Link>
-                      </div>
-
-                      <div className="menu-item px-3">
-                        <Link to="#" className="menu-link px-3">
-                          Staff Group
-                        </Link>
-                      </div>
-
-                      <div className="menu-item px-3">
-                        <Link to="#" className="menu-link px-3">
-                          Member Group
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="menu-item px-3">
-                    <Link to="#" className="menu-link px-3">
-                      New Contact
-                    </Link>
-                  </div>
-
-                  <div className="separator mt-3 opacity-75"></div>
-
-                  <div className="menu-item px-3">
-                    <div className="menu-content px-3 py-3">
-                      <Link className="btn btn-primary btn-sm px-4" to="#">
-                        Generate Reports
-                      </Link>
-                    </div>
-                  </div>
+                  <input
+                    type="text"
+                    data-kt-ecommerce-product-filter="search"
+                    className="form-control form-control-solid w-250px ps-14"
+                    placeholder="Search Product"
+                  />
                 </div>
+              </div>
+
+              <div className="card-toolbar flex-row-fluid justify-content-end gap-5">
+                <div className="w-100 mw-150px">
+                  <select
+                    className="form-select form-select-solid"
+                    data-control="select2"
+                    data-hide-search="true"
+                    data-placeholder="Status"
+                    data-kt-ecommerce-product-filter="status"
+                  >
+                    <option></option>
+                    <option value="all">All</option>
+                    <option value="published">Published</option>
+                    <option value="scheduled">Scheduled</option>
+                    <option value="inactive">Inactive</option>
+                  </select>
+                </div>
+
+                <Link
+                  to="../../demo1/dist/apps/ecommerce/catalog/add-product.html"
+                  className="btn btn-primary"
+                >
+                  Add Product
+                </Link>
               </div>
             </div>
 
-            <div className="card-body py-3">
-              <div className="table-responsive">
-                <table className="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
-                  <thead>
-                    <tr className="fw-bolder text-muted">
-                      <th className="w-25px">
-                        <div className="form-check form-check-sm form-check-custom form-check-solid">
-                          <input
-                            className="form-check-input"
-                            type="checkbox"
-                            value="1"
-                            data-kt-check="true"
-                            data-kt-check-target=".widget-13-check"
-                          />
-                        </div>
-                      </th>
-                      <th className="min-w-150px">Order Id</th>
-                      <th className="min-w-140px">Country</th>
-                      <th className="min-w-120px">Date</th>
-                      <th className="min-w-120px">Company</th>
-                      <th className="min-w-120px">Total</th>
-                      <th className="min-w-120px">Status</th>
-                      <th className="min-w-100px text-end">Actions</th>
-                    </tr>
-                  </thead>
+            <div className="card-body pt-0">
+              <table
+                className="table align-middle table-row-dashed fs-6 gy-5"
+                id="kt_ecommerce_products_table"
+              >
+                <thead>
+                  <tr className="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
+                    <th className="w-10px pe-2">
+                      <div className="form-check form-check-sm form-check-custom form-check-solid me-3">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          data-kt-check="true"
+                          data-kt-check-target="#kt_ecommerce_products_table .form-check-input"
+                          value="1"
+                        />
+                      </div>
+                    </th>
+                    <th className="min-w-200px">Product</th>
+                    <th className="text-end min-w-100px">SKU</th>
+                    <th className="text-end min-w-70px">Qty</th>
+                    <th className="text-end min-w-100px">Price</th>
+                    <th className="text-end min-w-100px">Rating</th>
+                    <th className="text-end min-w-100px">Status</th>
+                    <th className="text-end min-w-70px">Actions</th>
+                  </tr>
+                </thead>
 
-                  <tbody>
-                    <tr>
-                      <td>
-                        <div className="form-check form-check-sm form-check-custom form-check-solid">
-                          <input
-                            className="form-check-input widget-13-check"
-                            type="checkbox"
-                            value="1"
-                          />
+                <tbody className="fw-bold text-gray-600">
+                  <tr>
+                    <td>
+                      <div className="form-check form-check-sm form-check-custom form-check-solid">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value="1"
+                        />
+                      </div>
+                    </td>
+
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(assets/media//stock/ecommerce/1.gif)"}}
+                          ></span>
+                        </Link>
+
+                        <div className="ms-5">
+                          <Link
+                            to="#"
+                            className="text-gray-800 text-hover-primary fs-5 fw-bolder"
+                            data-kt-ecommerce-product-filter="product_name"
+                          >
+                            Product 1
+                          </Link>
                         </div>
-                      </td>
-                      <td>
-                        <Link
-                          to="#"
-                          className="text-dark fw-bolder text-hover-primary fs-6"
-                        >
-                          56037-XDER
-                        </Link>
-                      </td>
-                      <td>
-                        <Link
-                          to="#"
-                          className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
-                        >
-                          Brasil
-                        </Link>
-                        <span className="text-muted fw-bold text-muted d-block fs-7">
-                          Code: PH
-                        </span>
-                      </td>
-                      <td>
-                        <Link
-                          to="#"
-                          className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
-                        >
-                          05/28/2020
-                        </Link>
-                        <span className="text-muted fw-bold text-muted d-block fs-7">
-                          Code: Paid
-                        </span>
-                      </td>
-                      <td>
-                        <Link
-                          to="#"
-                          className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
-                        >
-                          Intertico
-                        </Link>
-                        <span className="text-muted fw-bold text-muted d-block fs-7">
-                          Web, UI/UX Design
-                        </span>
-                      </td>
-                      <td className="text-dark fw-bolder text-hover-primary fs-6">
-                        $3560
-                      </td>
-                      <td>
-                        <span className="badge badge-light-success">
-                          Approved
-                        </span>
-                      </td>
-                      <td className="text-end">
-                        <Link
-                          to="#"
-                          className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-                        >
-                          <span className="svg-icon svg-icon-3">
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder">02506002</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="32">
+                      <span className="fw-bolder ms-3">32</span>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder text-dark">$279.00</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="rating-3">
+                      <div className="rating justify-content-end">
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               width="24"
@@ -253,137 +161,14 @@ const Employee = () => {
                               fill="none"
                             >
                               <path
-                                d="M17.5 11H6.5C4 11 2 9 2 6.5C2 4 4 2 6.5 2H17.5C20 2 22 4 22 6.5C22 9 20 11 17.5 11ZM15 6.5C15 7.9 16.1 9 17.5 9C18.9 9 20 7.9 20 6.5C20 5.1 18.9 4 17.5 4C16.1 4 15 5.1 15 6.5Z"
-                                fill="black"
-                              />
-                              <path
-                                opacity="0.3"
-                                d="M17.5 22H6.5C4 22 2 20 2 17.5C2 15 4 13 6.5 13H17.5C20 13 22 15 22 17.5C22 20 20 22 17.5 22ZM4 17.5C4 18.9 5.1 20 6.5 20C7.9 20 9 18.9 9 17.5C9 16.1 7.9 15 6.5 15C5.1 15 4 16.1 4 17.5Z"
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
                                 fill="black"
                               />
                             </svg>
                           </span>
-                        </Link>
-                        <Link
-                          to="#"
-                          className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-                        >
-                          <span className="svg-icon svg-icon-3">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                            >
-                              <path
-                                opacity="0.3"
-                                d="M21.4 8.35303L19.241 10.511L13.485 4.755L15.643 2.59595C16.0248 2.21423 16.5426 1.99988 17.0825 1.99988C17.6224 1.99988 18.1402 2.21423 18.522 2.59595L21.4 5.474C21.7817 5.85581 21.9962 6.37355 21.9962 6.91345C21.9962 7.45335 21.7817 7.97122 21.4 8.35303ZM3.68699 21.932L9.88699 19.865L4.13099 14.109L2.06399 20.309C1.98815 20.5354 1.97703 20.7787 2.03189 21.0111C2.08674 21.2436 2.2054 21.4561 2.37449 21.6248C2.54359 21.7934 2.75641 21.9115 2.989 21.9658C3.22158 22.0201 3.4647 22.0084 3.69099 21.932H3.68699Z"
-                                fill="black"
-                              />
-                              <path
-                                d="M5.574 21.3L3.692 21.928C3.46591 22.0032 3.22334 22.0141 2.99144 21.9594C2.75954 21.9046 2.54744 21.7864 2.3789 21.6179C2.21036 21.4495 2.09202 21.2375 2.03711 21.0056C1.9822 20.7737 1.99289 20.5312 2.06799 20.3051L2.696 18.422L5.574 21.3ZM4.13499 14.105L9.891 19.861L19.245 10.507L13.489 4.75098L4.13499 14.105Z"
-                                fill="black"
-                              />
-                            </svg>
-                          </span>
-                        </Link>
-                        <Link
-                          to="#"
-                          className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
-                        >
-                          <span className="svg-icon svg-icon-3">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                            >
-                              <path
-                                d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z"
-                                fill="black"
-                              />
-                              <path
-                                opacity="0.5"
-                                d="M5 5C5 4.44772 5.44772 4 6 4H18C18.5523 4 19 4.44772 19 5V5C19 5.55228 18.5523 6 18 6H6C5.44772 6 5 5.55228 5 5V5Z"
-                                fill="black"
-                              />
-                              <path
-                                opacity="0.5"
-                                d="M9 4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V4H9V4Z"
-                                fill="black"
-                              />
-                            </svg>
-                          </span>
-                        </Link>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div className="form-check form-check-sm form-check-custom form-check-solid">
-                          <input
-                            className="form-check-input widget-13-check"
-                            type="checkbox"
-                            value="1"
-                          />
                         </div>
-                      </td>
-                      <td>
-                        <Link
-                          to="#"
-                          className="text-dark fw-bolder text-hover-primary fs-6"
-                        >
-                          05822-FXSP
-                        </Link>
-                      </td>
-                      <td>
-                        <Link
-                          to="#"
-                          className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
-                        >
-                          Belarus
-                        </Link>
-                        <span className="text-muted fw-bold text-muted d-block fs-7">
-                          Code: BY
-                        </span>
-                      </td>
-                      <td>
-                        <Link
-                          to="#"
-                          className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
-                        >
-                          04/18/2021
-                        </Link>
-                        <span className="text-muted fw-bold text-muted d-block fs-7">
-                          Code: Paid
-                        </span>
-                      </td>
-                      <td>
-                        <Link
-                          to="#"
-                          className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
-                        >
-                          Agoda
-                        </Link>
-                        <span className="text-muted fw-bold text-muted d-block fs-7">
-                          Houses &amp; Hotels
-                        </span>
-                      </td>
-                      <td className="text-dark fw-bolder text-hover-primary fs-6">
-                        $4850
-                      </td>
-                      <td>
-                        <span className="badge badge-light-warning">
-                          In Progress
-                        </span>
-                      </td>
-                      <td className="text-end">
-                        <Link
-                          to="#"
-                          className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-                        >
-                          <span className="svg-icon svg-icon-3">
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               width="24"
@@ -392,137 +177,14 @@ const Employee = () => {
                               fill="none"
                             >
                               <path
-                                d="M17.5 11H6.5C4 11 2 9 2 6.5C2 4 4 2 6.5 2H17.5C20 2 22 4 22 6.5C22 9 20 11 17.5 11ZM15 6.5C15 7.9 16.1 9 17.5 9C18.9 9 20 7.9 20 6.5C20 5.1 18.9 4 17.5 4C16.1 4 15 5.1 15 6.5Z"
-                                fill="black"
-                              />
-                              <path
-                                opacity="0.3"
-                                d="M17.5 22H6.5C4 22 2 20 2 17.5C2 15 4 13 6.5 13H17.5C20 13 22 15 22 17.5C22 20 20 22 17.5 22ZM4 17.5C4 18.9 5.1 20 6.5 20C7.9 20 9 18.9 9 17.5C9 16.1 7.9 15 6.5 15C5.1 15 4 16.1 4 17.5Z"
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
                                 fill="black"
                               />
                             </svg>
                           </span>
-                        </Link>
-                        <Link
-                          to="#"
-                          className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-                        >
-                          <span className="svg-icon svg-icon-3">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                            >
-                              <path
-                                opacity="0.3"
-                                d="M21.4 8.35303L19.241 10.511L13.485 4.755L15.643 2.59595C16.0248 2.21423 16.5426 1.99988 17.0825 1.99988C17.6224 1.99988 18.1402 2.21423 18.522 2.59595L21.4 5.474C21.7817 5.85581 21.9962 6.37355 21.9962 6.91345C21.9962 7.45335 21.7817 7.97122 21.4 8.35303ZM3.68699 21.932L9.88699 19.865L4.13099 14.109L2.06399 20.309C1.98815 20.5354 1.97703 20.7787 2.03189 21.0111C2.08674 21.2436 2.2054 21.4561 2.37449 21.6248C2.54359 21.7934 2.75641 21.9115 2.989 21.9658C3.22158 22.0201 3.4647 22.0084 3.69099 21.932H3.68699Z"
-                                fill="black"
-                              />
-                              <path
-                                d="M5.574 21.3L3.692 21.928C3.46591 22.0032 3.22334 22.0141 2.99144 21.9594C2.75954 21.9046 2.54744 21.7864 2.3789 21.6179C2.21036 21.4495 2.09202 21.2375 2.03711 21.0056C1.9822 20.7737 1.99289 20.5312 2.06799 20.3051L2.696 18.422L5.574 21.3ZM4.13499 14.105L9.891 19.861L19.245 10.507L13.489 4.75098L4.13499 14.105Z"
-                                fill="black"
-                              />
-                            </svg>
-                          </span>
-                        </Link>
-                        <Link
-                          to="#"
-                          className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
-                        >
-                          <span className="svg-icon svg-icon-3">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                            >
-                              <path
-                                d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z"
-                                fill="black"
-                              />
-                              <path
-                                opacity="0.5"
-                                d="M5 5C5 4.44772 5.44772 4 6 4H18C18.5523 4 19 4.44772 19 5V5C19 5.55228 18.5523 6 18 6H6C5.44772 6 5 5.55228 5 5V5Z"
-                                fill="black"
-                              />
-                              <path
-                                opacity="0.5"
-                                d="M9 4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V4H9V4Z"
-                                fill="black"
-                              />
-                            </svg>
-                          </span>
-                        </Link>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div className="form-check form-check-sm form-check-custom form-check-solid">
-                          <input
-                            className="form-check-input widget-13-check"
-                            type="checkbox"
-                            value="1"
-                          />
                         </div>
-                      </td>
-                      <td>
-                        <Link
-                          to="#"
-                          className="text-dark fw-bolder text-hover-primary fs-6"
-                        >
-                          4472-QREX
-                        </Link>
-                      </td>
-                      <td>
-                        <Link
-                          to="#"
-                          className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
-                        >
-                          Phillipines
-                        </Link>
-                        <span className="text-muted fw-bold text-muted d-block fs-7">
-                          Code: BH
-                        </span>
-                      </td>
-                      <td>
-                        <Link
-                          to="#"
-                          className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
-                        >
-                          07/23/2019
-                        </Link>
-                        <span className="text-muted fw-bold text-muted d-block fs-7">
-                          Code: Paid
-                        </span>
-                      </td>
-                      <td>
-                        <Link
-                          to="#"
-                          className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
-                        >
-                          RoadGee
-                        </Link>
-                        <span className="text-muted fw-bold text-muted d-block fs-7">
-                          Transportation
-                        </span>
-                      </td>
-                      <td className="text-dark fw-bolder text-hover-primary fs-6">
-                        $8376
-                      </td>
-                      <td>
-                        <span className="badge badge-light-danger">
-                          Success
-                        </span>
-                      </td>
-                      <td className="text-end">
-                        <Link
-                          to="#"
-                          className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-                        >
-                          <span className="svg-icon svg-icon-3">
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               width="24"
@@ -531,135 +193,14 @@ const Employee = () => {
                               fill="none"
                             >
                               <path
-                                d="M17.5 11H6.5C4 11 2 9 2 6.5C2 4 4 2 6.5 2H17.5C20 2 22 4 22 6.5C22 9 20 11 17.5 11ZM15 6.5C15 7.9 16.1 9 17.5 9C18.9 9 20 7.9 20 6.5C20 5.1 18.9 4 17.5 4C16.1 4 15 5.1 15 6.5Z"
-                                fill="black"
-                              />
-                              <path
-                                opacity="0.3"
-                                d="M17.5 22H6.5C4 22 2 20 2 17.5C2 15 4 13 6.5 13H17.5C20 13 22 15 22 17.5C22 20 20 22 17.5 22ZM4 17.5C4 18.9 5.1 20 6.5 20C7.9 20 9 18.9 9 17.5C9 16.1 7.9 15 6.5 15C5.1 15 4 16.1 4 17.5Z"
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
                                 fill="black"
                               />
                             </svg>
                           </span>
-                        </Link>
-                        <Link
-                          to="#"
-                          className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-                        >
-                          <span className="svg-icon svg-icon-3">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                            >
-                              <path
-                                opacity="0.3"
-                                d="M21.4 8.35303L19.241 10.511L13.485 4.755L15.643 2.59595C16.0248 2.21423 16.5426 1.99988 17.0825 1.99988C17.6224 1.99988 18.1402 2.21423 18.522 2.59595L21.4 5.474C21.7817 5.85581 21.9962 6.37355 21.9962 6.91345C21.9962 7.45335 21.7817 7.97122 21.4 8.35303ZM3.68699 21.932L9.88699 19.865L4.13099 14.109L2.06399 20.309C1.98815 20.5354 1.97703 20.7787 2.03189 21.0111C2.08674 21.2436 2.2054 21.4561 2.37449 21.6248C2.54359 21.7934 2.75641 21.9115 2.989 21.9658C3.22158 22.0201 3.4647 22.0084 3.69099 21.932H3.68699Z"
-                                fill="black"
-                              />
-                              <path
-                                d="M5.574 21.3L3.692 21.928C3.46591 22.0032 3.22334 22.0141 2.99144 21.9594C2.75954 21.9046 2.54744 21.7864 2.3789 21.6179C2.21036 21.4495 2.09202 21.2375 2.03711 21.0056C1.9822 20.7737 1.99289 20.5312 2.06799 20.3051L2.696 18.422L5.574 21.3ZM4.13499 14.105L9.891 19.861L19.245 10.507L13.489 4.75098L4.13499 14.105Z"
-                                fill="black"
-                              />
-                            </svg>
-                          </span>
-                        </Link>
-                        <Link
-                          to="#"
-                          className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
-                        >
-                          <span className="svg-icon svg-icon-3">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                            >
-                              <path
-                                d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z"
-                                fill="black"
-                              />
-                              <path
-                                opacity="0.5"
-                                d="M5 5C5 4.44772 5.44772 4 6 4H18C18.5523 4 19 4.44772 19 5V5C19 5.55228 18.5523 6 18 6H6C5.44772 6 5 5.55228 5 5V5Z"
-                                fill="black"
-                              />
-                              <path
-                                opacity="0.5"
-                                d="M9 4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V4H9V4Z"
-                                fill="black"
-                              />
-                            </svg>
-                          </span>
-                        </Link>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div className="form-check form-check-sm form-check-custom form-check-solid">
-                          <input
-                            className="form-check-input widget-13-check"
-                            type="checkbox"
-                            value="1"
-                          />
                         </div>
-                      </td>
-                      <td>
-                        <Link
-                          to="#"
-                          className="text-dark fw-bolder text-hover-primary fs-6"
-                        >
-                          00347-BCLQ
-                        </Link>
-                      </td>
-                      <td>
-                        <Link
-                          to="#"
-                          className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
-                        >
-                          Argentina
-                        </Link>
-                        <span className="text-muted fw-bold text-muted d-block fs-7">
-                          Code: BR
-                        </span>
-                      </td>
-                      <td>
-                        <Link
-                          to="#"
-                          className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
-                        >
-                          12/21/2021
-                        </Link>
-                        <span className="text-muted fw-bold text-muted d-block fs-7">
-                          Code: Paid
-                        </span>
-                      </td>
-                      <td>
-                        <Link
-                          to="#"
-                          className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
-                        >
-                          The Hill
-                        </Link>
-                        <span className="text-muted fw-bold text-muted d-block fs-7">
-                          Insurance
-                        </span>
-                      </td>
-                      <td className="text-dark fw-bolder text-hover-primary fs-6">
-                        $9486
-                      </td>
-                      <td>
-                        <span className="badge badge-light-info">Rejected</span>
-                      </td>
-                      <td className="text-end">
-                        <Link
-                          to="#"
-                          className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-                        >
-                          <span className="svg-icon svg-icon-3">
+                        <div className="rating-label">
+                          <span className="svg-icon svg-icon-2">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               width="24"
@@ -668,137 +209,14 @@ const Employee = () => {
                               fill="none"
                             >
                               <path
-                                d="M17.5 11H6.5C4 11 2 9 2 6.5C2 4 4 2 6.5 2H17.5C20 2 22 4 22 6.5C22 9 20 11 17.5 11ZM15 6.5C15 7.9 16.1 9 17.5 9C18.9 9 20 7.9 20 6.5C20 5.1 18.9 4 17.5 4C16.1 4 15 5.1 15 6.5Z"
-                                fill="black"
-                              />
-                              <path
-                                opacity="0.3"
-                                d="M17.5 22H6.5C4 22 2 20 2 17.5C2 15 4 13 6.5 13H17.5C20 13 22 15 22 17.5C22 20 20 22 17.5 22ZM4 17.5C4 18.9 5.1 20 6.5 20C7.9 20 9 18.9 9 17.5C9 16.1 7.9 15 6.5 15C5.1 15 4 16.1 4 17.5Z"
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
                                 fill="black"
                               />
                             </svg>
                           </span>
-                        </Link>
-                        <Link
-                          to="#"
-                          className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-                        >
-                          <span className="svg-icon svg-icon-3">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                            >
-                              <path
-                                opacity="0.3"
-                                d="M21.4 8.35303L19.241 10.511L13.485 4.755L15.643 2.59595C16.0248 2.21423 16.5426 1.99988 17.0825 1.99988C17.6224 1.99988 18.1402 2.21423 18.522 2.59595L21.4 5.474C21.7817 5.85581 21.9962 6.37355 21.9962 6.91345C21.9962 7.45335 21.7817 7.97122 21.4 8.35303ZM3.68699 21.932L9.88699 19.865L4.13099 14.109L2.06399 20.309C1.98815 20.5354 1.97703 20.7787 2.03189 21.0111C2.08674 21.2436 2.2054 21.4561 2.37449 21.6248C2.54359 21.7934 2.75641 21.9115 2.989 21.9658C3.22158 22.0201 3.4647 22.0084 3.69099 21.932H3.68699Z"
-                                fill="black"
-                              />
-                              <path
-                                d="M5.574 21.3L3.692 21.928C3.46591 22.0032 3.22334 22.0141 2.99144 21.9594C2.75954 21.9046 2.54744 21.7864 2.3789 21.6179C2.21036 21.4495 2.09202 21.2375 2.03711 21.0056C1.9822 20.7737 1.99289 20.5312 2.06799 20.3051L2.696 18.422L5.574 21.3ZM4.13499 14.105L9.891 19.861L19.245 10.507L13.489 4.75098L4.13499 14.105Z"
-                                fill="black"
-                              />
-                            </svg>
-                          </span>
-                        </Link>
-                        <Link
-                          to="#"
-                          className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
-                        >
-                          <span className="svg-icon svg-icon-3">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                            >
-                              <path
-                                d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z"
-                                fill="black"
-                              />
-                              <path
-                                opacity="0.5"
-                                d="M5 5C5 4.44772 5.44772 4 6 4H18C18.5523 4 19 4.44772 19 5V5C19 5.55228 18.5523 6 18 6H6C5.44772 6 5 5.55228 5 5V5Z"
-                                fill="black"
-                              />
-                              <path
-                                opacity="0.5"
-                                d="M9 4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V4H9V4Z"
-                                fill="black"
-                              />
-                            </svg>
-                          </span>
-                        </Link>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div className="form-check form-check-sm form-check-custom form-check-solid">
-                          <input
-                            className="form-check-input widget-13-check"
-                            type="checkbox"
-                            value="1"
-                          />
                         </div>
-                      </td>
-                      <td>
-                        <Link
-                          to="#"
-                          className="text-dark fw-bolder text-hover-primary fs-6"
-                        >
-                          59486-XDER
-                        </Link>
-                      </td>
-                      <td>
-                        <Link
-                          to="#"
-                          className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
-                        >
-                          Agoda
-                        </Link>
-                        <span className="text-muted fw-bold text-muted d-block fs-7">
-                          Code: BT
-                        </span>
-                      </td>
-                      <td>
-                        <Link
-                          to="#"
-                          className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
-                        >
-                          05/28/2020
-                        </Link>
-                        <span className="text-muted fw-bold text-muted d-block fs-7">
-                          Code: Paid
-                        </span>
-                      </td>
-                      <td>
-                        <Link
-                          to="#"
-                          className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
-                        >
-                          Phillipines
-                        </Link>
-                        <span className="text-muted fw-bold text-muted d-block fs-7">
-                          Transportation
-                        </span>
-                      </td>
-                      <td className="text-dark fw-bolder text-hover-primary fs-6">
-                        $8476
-                      </td>
-                      <td>
-                        <span className="badge badge-light-primary">
-                          Approved
-                        </span>
-                      </td>
-                      <td className="text-end">
-                        <Link
-                          to="#"
-                          className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-                        >
-                          <span className="svg-icon svg-icon-3">
+                        <div className="rating-label">
+                          <span className="svg-icon svg-icon-2">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               width="24"
@@ -807,22 +225,120 @@ const Employee = () => {
                               fill="none"
                             >
                               <path
-                                d="M17.5 11H6.5C4 11 2 9 2 6.5C2 4 4 2 6.5 2H17.5C20 2 22 4 22 6.5C22 9 20 11 17.5 11ZM15 6.5C15 7.9 16.1 9 17.5 9C18.9 9 20 7.9 20 6.5C20 5.1 18.9 4 17.5 4C16.1 4 15 5.1 15 6.5Z"
-                                fill="black"
-                              />
-                              <path
-                                opacity="0.3"
-                                d="M17.5 22H6.5C4 22 2 20 2 17.5C2 15 4 13 6.5 13H17.5C20 13 22 15 22 17.5C22 20 20 22 17.5 22ZM4 17.5C4 18.9 5.1 20 6.5 20C7.9 20 9 18.9 9 17.5C9 16.1 7.9 15 6.5 15C5.1 15 4 16.1 4 17.5Z"
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
                                 fill="black"
                               />
                             </svg>
                           </span>
-                        </Link>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="Scheduled">
+                      <div className="badge badge-light-primary">Scheduled</div>
+                    </td>
+
+                    <td className="text-end">
+                      <button
+                       
+                        className="btn btn-sm btn-light btn-active-light-primary"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                      >
+                        Actions
+                        <span className="svg-icon svg-icon-5 m-0">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                          data-kt-menu="true"
+                        >
+                          <div className="menu-item px-3">
+                            <Link
+                              to="#"
+                              className="menu-link px-3"
+                            >
+                              Edit
+                            </Link>
+                          </div>
+
+                          <div className="menu-item px-3">
+                            <Link
+                              to="#"
+                              className="menu-link px-3"
+                              data-kt-ecommerce-product-filter="delete_row"
+                            >
+                              Delete
+                            </Link>
+                          </div>
+                        </div>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div className="form-check form-check-sm form-check-custom form-check-solid">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value="1"
+                        />
+                      </div>
+                    </td>
+
+                    <td>
+                      <div className="d-flex align-items-center">
                         <Link
                           to="#"
-                          className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+                          className="symbol symbol-50px"
                         >
-                          <span className="svg-icon svg-icon-3">
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(assets/media//stock/ecommerce/2.gif)"}}
+
+                          ></span>
+                        </Link>
+
+                        <div className="ms-5">
+                          <Link
+                            to="#"
+                            className="text-gray-800 text-hover-primary fs-5 fw-bolder"
+                            data-kt-ecommerce-product-filter="product_name"
+                          >
+                            Product 2
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder">02738005</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="11">
+                      <span className="fw-bolder ms-3">11</span>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder text-dark">$180.00</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="rating-4">
+                      <div className="rating justify-content-end">
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               width="24"
@@ -831,22 +347,14 @@ const Employee = () => {
                               fill="none"
                             >
                               <path
-                                opacity="0.3"
-                                d="M21.4 8.35303L19.241 10.511L13.485 4.755L15.643 2.59595C16.0248 2.21423 16.5426 1.99988 17.0825 1.99988C17.6224 1.99988 18.1402 2.21423 18.522 2.59595L21.4 5.474C21.7817 5.85581 21.9962 6.37355 21.9962 6.91345C21.9962 7.45335 21.7817 7.97122 21.4 8.35303ZM3.68699 21.932L9.88699 19.865L4.13099 14.109L2.06399 20.309C1.98815 20.5354 1.97703 20.7787 2.03189 21.0111C2.08674 21.2436 2.2054 21.4561 2.37449 21.6248C2.54359 21.7934 2.75641 21.9115 2.989 21.9658C3.22158 22.0201 3.4647 22.0084 3.69099 21.932H3.68699Z"
-                                fill="black"
-                              />
-                              <path
-                                d="M5.574 21.3L3.692 21.928C3.46591 22.0032 3.22334 22.0141 2.99144 21.9594C2.75954 21.9046 2.54744 21.7864 2.3789 21.6179C2.21036 21.4495 2.09202 21.2375 2.03711 21.0056C1.9822 20.7737 1.99289 20.5312 2.06799 20.3051L2.696 18.422L5.574 21.3ZM4.13499 14.105L9.891 19.861L19.245 10.507L13.489 4.75098L4.13499 14.105Z"
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
                                 fill="black"
                               />
                             </svg>
                           </span>
-                        </Link>
-                        <Link
-                          to="#"
-                          className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
-                        >
-                          <span className="svg-icon svg-icon-3">
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               width="24"
@@ -855,27 +363,9010 @@ const Employee = () => {
                               fill="none"
                             >
                               <path
-                                d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z"
-                                fill="black"
-                              />
-                              <path
-                                opacity="0.5"
-                                d="M5 5C5 4.44772 5.44772 4 6 4H18C18.5523 4 19 4.44772 19 5V5C19 5.55228 18.5523 6 18 6H6C5.44772 6 5 5.55228 5 5V5Z"
-                                fill="black"
-                              />
-                              <path
-                                opacity="0.5"
-                                d="M9 4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V4H9V4Z"
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
                                 fill="black"
                               />
                             </svg>
                           </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="Inactive">
+                      <div className="badge badge-light-danger">Inactive</div>
+                    </td>
+
+                    <td className="text-end">
+                      <button
+                        to="#"
+                        className="btn btn-sm btn-light btn-active-light-primary"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                      >
+                        Actions
+                        <span className="svg-icon svg-icon-5 m-0">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                          data-kt-menu="true"
+                        >
+                          <div className="menu-item px-3">
+                            <Link
+                              to="#"
+                              className="menu-link px-3"
+                            >
+                              Edit
+                            </Link>
+                          </div>
+
+                          <div className="menu-item px-3">
+                            <Link
+                              to="#"
+                              className="menu-link px-3"
+                              data-kt-ecommerce-product-filter="delete_row"
+                            >
+                              Delete
+                            </Link>
+                          </div>
+                        </div>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div className="form-check form-check-sm form-check-custom form-check-solid">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value="1"
+                        />
+                      </div>
+                    </td>
+
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(assets/media//stock/ecommerce/3.gif)"}}
+                          
+                          ></span>
                         </Link>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+
+                        <div className="ms-5">
+                          <Link
+                            to="#"
+                            className="text-gray-800 text-hover-primary fs-5 fw-bolder"
+                            data-kt-ecommerce-product-filter="product_name"
+                          >
+                            Product 3
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder">04866006</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="2">
+                      <span className="badge badge-light-warning">Low stock</span>
+                      <span className="fw-bolder text-warning ms-3">2</span>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder text-dark">$131.00</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="rating-5">
+                      <div className="rating justify-content-end">
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="Inactive">
+                      <div className="badge badge-light-danger">Inactive</div>
+                    </td>
+
+                    <td className="text-end">
+                      <button
+                        to="#"
+                        className="btn btn-sm btn-light btn-active-light-primary"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                      >
+                        Actions
+                        <span className="svg-icon svg-icon-5 m-0">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                          data-kt-menu="true"
+                        >
+                          <div className="menu-item px-3">
+                            <Link
+                              to="../../demo1/dist/apps/ecommerce/catalog/add-product.html"
+                              className="menu-link px-3"
+                            >
+                              Edit
+                            </Link>
+                          </div>
+
+                          <div className="menu-item px-3">
+                            <Link
+                              to="#"
+                              className="menu-link px-3"
+                              data-kt-ecommerce-product-filter="delete_row"
+                            >
+                              Delete
+                            </Link>
+                          </div>
+                        </div>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div className="form-check form-check-sm form-check-custom form-check-solid">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value="1"
+                        />
+                      </div>
+                    </td>
+
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            
+                            style={{backgroundImage:"url(assets/media//stock/ecommerce/4.gif)"}}
+                          ></span>
+                        </Link>
+
+                        <div className="ms-5">
+                          <Link
+                            to="#"
+                            className="text-gray-800 text-hover-primary fs-5 fw-bolder"
+                            data-kt-ecommerce-product-filter="product_name"
+                          >
+                            Product 4
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder">03354001</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="15">
+                      <span className="fw-bolder ms-3">15</span>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder text-dark">$239.00</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="rating-3">
+                      <div className="rating justify-content-end">
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="Inactive">
+                      <div className="badge badge-light-danger">Inactive</div>
+                    </td>
+
+                    <td className="text-end">
+                      <button
+                        to="#"
+                        className="btn btn-sm btn-light btn-active-light-primary"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                      >
+                        Actions
+                        <span className="svg-icon svg-icon-5 m-0">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                          data-kt-menu="true"
+                        >
+                          <div className="menu-item px-3">
+                            <Link
+                              to="../../demo1/dist/apps/ecommerce/catalog/add-product.html"
+                              className="menu-link px-3"
+                            >
+                              Edit
+                            </Link>
+                          </div>
+
+                          <div className="menu-item px-3">
+                            <Link
+                              to="#"
+                              className="menu-link px-3"
+                              data-kt-ecommerce-product-filter="delete_row"
+                            >
+                              Delete
+                            </Link>
+                          </div>
+                        </div>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div className="form-check form-check-sm form-check-custom form-check-solid">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value="1"
+                        />
+                      </div>
+                    </td>
+
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(assets/media//stock/ecommerce/5.gif)"}}
+                          ></span>
+                        </Link>
+
+                        <div className="ms-5">
+                          <Link
+                            to="#"
+                            className="text-gray-800 text-hover-primary fs-5 fw-bolder"
+                            data-kt-ecommerce-product-filter="product_name"
+                          >
+                            Product 5
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder">03635007</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="29">
+                      <span className="fw-bolder ms-3">29</span>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder text-dark">$186.00</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="rating-5">
+                      <div className="rating justify-content-end">
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="Published">
+                      <div className="badge badge-light-success">Published</div>
+                    </td>
+
+                    <td className="text-end">
+                      <button
+                        to="#"
+                        className="btn btn-sm btn-light btn-active-light-primary"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                      >
+                        Actions
+                        <span className="svg-icon svg-icon-5 m-0">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                          data-kt-menu="true"
+                        >
+                          <div className="menu-item px-3">
+                            <Link
+                              to="../../demo1/dist/apps/ecommerce/catalog/add-product.html"
+                              className="menu-link px-3"
+                            >
+                              Edit
+                            </Link>
+                          </div>
+
+                          <div className="menu-item px-3">
+                            <Link
+                              to="#"
+                              className="menu-link px-3"
+                              data-kt-ecommerce-product-filter="delete_row"
+                            >
+                              Delete
+                            </Link>
+                          </div>
+                        </div>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div className="form-check form-check-sm form-check-custom form-check-solid">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value="1"
+                        />
+                      </div>
+                    </td>
+
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(assets/media//stock/ecommerce/6.gif)"}}
+                          ></span>
+                        </Link>
+
+                        <div className="ms-5">
+                          <Link
+                            to="#"
+                            className="text-gray-800 text-hover-primary fs-5 fw-bolder"
+                            data-kt-ecommerce-product-filter="product_name"
+                          >
+                            Product 6
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder">03656009</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="46">
+                      <span className="fw-bolder ms-3">46</span>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder text-dark">$157.00</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="rating-5">
+                      <div className="rating justify-content-end">
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="Published">
+                      <div className="badge badge-light-success">Published</div>
+                    </td>
+
+                    <td className="text-end">
+                      <button
+                        to="#"
+                        className="btn btn-sm btn-light btn-active-light-primary"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                      >
+                        Actions
+                        <span className="svg-icon svg-icon-5 m-0">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                          data-kt-menu="true"
+                        >
+                          <div className="menu-item px-3">
+                            <Link
+                              to="../../demo1/dist/apps/ecommerce/catalog/add-product.html"
+                              className="menu-link px-3"
+                            >
+                              Edit
+                            </Link>
+                          </div>
+
+                          <div className="menu-item px-3">
+                            <Link
+                              to="#"
+                              className="menu-link px-3"
+                              data-kt-ecommerce-product-filter="delete_row"
+                            >
+                              Delete
+                            </Link>
+                          </div>
+                        </div>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div className="form-check form-check-sm form-check-custom form-check-solid">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value="1"
+                        />
+                      </div>
+                    </td>
+
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(assets/media//stock/ecommerce/7.gif)"}}
+                          ></span>
+                        </Link>
+
+                        <div className="ms-5">
+                          <Link
+                            to="#"
+                            className="text-gray-800 text-hover-primary fs-5 fw-bolder"
+                            data-kt-ecommerce-product-filter="product_name"
+                          >
+                            Product 7
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder">01304001</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="3">
+                      <span className="badge badge-light-warning">Low stock</span>
+                      <span className="fw-bolder text-warning ms-3">3</span>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder text-dark">$15.00</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="rating-5">
+                      <div className="rating justify-content-end">
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="Scheduled">
+                      <div className="badge badge-light-primary">Scheduled</div>
+                    </td>
+
+                    <td className="text-end">
+                      <button
+                        to="#"
+                        className="btn btn-sm btn-light btn-active-light-primary"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                      >
+                        Actions
+                        <span className="svg-icon svg-icon-5 m-0">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                          data-kt-menu="true"
+                        >
+                          <div className="menu-item px-3">
+                            <Link
+                              to="../../demo1/dist/apps/ecommerce/catalog/add-product.html"
+                              className="menu-link px-3"
+                            >
+                              Edit
+                            </Link>
+                          </div>
+
+                          <div className="menu-item px-3">
+                            <Link
+                              to="#"
+                              className="menu-link px-3"
+                              data-kt-ecommerce-product-filter="delete_row"
+                            >
+                              Delete
+                            </Link>
+                          </div>
+                        </div>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div className="form-check form-check-sm form-check-custom form-check-solid">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value="1"
+                        />
+                      </div>
+                    </td>
+
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(assets/media//stock/ecommerce/8.gif)"}}
+                          ></span>
+                        </Link>
+
+                        <div className="ms-5">
+                          <Link
+                            to="#"
+                            className="text-gray-800 text-hover-primary fs-5 fw-bolder"
+                            data-kt-ecommerce-product-filter="product_name"
+                          >
+                            Product 8
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder">01797006</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="7">
+                      <span className="badge badge-light-warning">Low stock</span>
+                      <span className="fw-bolder text-warning ms-3">7</span>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder text-dark">$200.00</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="rating-5">
+                      <div className="rating justify-content-end">
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="Published">
+                      <div className="badge badge-light-success">Published</div>
+                    </td>
+
+                    <td className="text-end">
+                      <button
+                        to="#"
+                        className="btn btn-sm btn-light btn-active-light-primary"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                      >
+                        Actions
+                        <span className="svg-icon svg-icon-5 m-0">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                          data-kt-menu="true"
+                        >
+                          <div className="menu-item px-3">
+                            <Link
+                              to="../../demo1/dist/apps/ecommerce/catalog/add-product.html"
+                              className="menu-link px-3"
+                            >
+                              Edit
+                            </Link>
+                          </div>
+
+                          <div className="menu-item px-3">
+                            <Link
+                              to="#"
+                              className="menu-link px-3"
+                              data-kt-ecommerce-product-filter="delete_row"
+                            >
+                              Delete
+                            </Link>
+                          </div>
+                        </div>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div className="form-check form-check-sm form-check-custom form-check-solid">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value="1"
+                        />
+                      </div>
+                    </td>
+
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(assets/media//stock/ecommerce/9.gif)"}}
+                          ></span>
+                        </Link>
+
+                        <div className="ms-5">
+                          <Link
+                            to="#"
+                            className="text-gray-800 text-hover-primary fs-5 fw-bolder"
+                            data-kt-ecommerce-product-filter="product_name"
+                          >
+                            Product 9
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder">01635001</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="32">
+                      <span className="fw-bolder ms-3">32</span>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder text-dark">$214.00</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="rating-3">
+                      <div className="rating justify-content-end">
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="Scheduled">
+                      <div className="badge badge-light-primary">Scheduled</div>
+                    </td>
+
+                    <td className="text-end">
+                      <button
+                        to="#"
+                        className="btn btn-sm btn-light btn-active-light-primary"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                      >
+                        Actions
+                        <span className="svg-icon svg-icon-5 m-0">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                          data-kt-menu="true"
+                        >
+                          <div className="menu-item px-3">
+                            <Link
+                              to="../../demo1/dist/apps/ecommerce/catalog/add-product.html"
+                              className="menu-link px-3"
+                            >
+                              Edit
+                            </Link>
+                          </div>
+
+                          <div className="menu-item px-3">
+                            <Link
+                              to="#"
+                              className="menu-link px-3"
+                              data-kt-ecommerce-product-filter="delete_row"
+                            >
+                              Delete
+                            </Link>
+                          </div>
+                        </div>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div className="form-check form-check-sm form-check-custom form-check-solid">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value="1"
+                        />
+                      </div>
+                    </td>
+
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(assets/media//stock/ecommerce/10.gif)"}}
+                          ></span>
+                        </Link>
+
+                        <div className="ms-5">
+                          <Link
+                            to="#"
+                            className="text-gray-800 text-hover-primary fs-5 fw-bolder"
+                            data-kt-ecommerce-product-filter="product_name"
+                          >
+                            Product 10
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder">03597008</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="35">
+                      <span className="fw-bolder ms-3">35</span>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder text-dark">$141.00</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="rating-4">
+                      <div className="rating justify-content-end">
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="Scheduled">
+                      <div className="badge badge-light-primary">Scheduled</div>
+                    </td>
+
+                    <td className="text-end">
+                      <button
+                        to="#"
+                        className="btn btn-sm btn-light btn-active-light-primary"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                      >
+                        Actions
+                        <span className="svg-icon svg-icon-5 m-0">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                          data-kt-menu="true"
+                        >
+                          <div className="menu-item px-3">
+                            <Link
+                              to="../../demo1/dist/apps/ecommerce/catalog/add-product.html"
+                              className="menu-link px-3"
+                            >
+                              Edit
+                            </Link>
+                          </div>
+
+                          <div className="menu-item px-3">
+                            <Link
+                              to="#"
+                              className="menu-link px-3"
+                              data-kt-ecommerce-product-filter="delete_row"
+                            >
+                              Delete
+                            </Link>
+                          </div>
+                        </div>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div className="form-check form-check-sm form-check-custom form-check-solid">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value="1"
+                        />
+                      </div>
+                    </td>
+
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(assets/media//stock/ecommerce/11.gif)"}}
+                          ></span>
+                        </Link>
+
+                        <div className="ms-5">
+                          <Link
+                            to="#"
+                            className="text-gray-800 text-hover-primary fs-5 fw-bolder"
+                            data-kt-ecommerce-product-filter="product_name"
+                          >
+                            Product 11
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder">01104009</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="40">
+                      <span className="fw-bolder ms-3">40</span>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder text-dark">$81.00</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="rating-4">
+                      <div className="rating justify-content-end">
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="Inactive">
+                      <div className="badge badge-light-danger">Inactive</div>
+                    </td>
+
+                    <td className="text-end">
+                      <button
+                        to="#"
+                        className="btn btn-sm btn-light btn-active-light-primary"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                      >
+                        Actions
+                        <span className="svg-icon svg-icon-5 m-0">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                          data-kt-menu="true"
+                        >
+                          <div className="menu-item px-3">
+                            <Link
+                              to="../../demo1/dist/apps/ecommerce/catalog/add-product.html"
+                              className="menu-link px-3"
+                            >
+                              Edit
+                            </Link>
+                          </div>
+
+                          <div className="menu-item px-3">
+                            <Link
+                              to="#"
+                              className="menu-link px-3"
+                              data-kt-ecommerce-product-filter="delete_row"
+                            >
+                              Delete
+                            </Link>
+                          </div>
+                        </div>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div className="form-check form-check-sm form-check-custom form-check-solid">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value="1"
+                        />
+                      </div>
+                    </td>
+
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(assets/media//stock/ecommerce/12.gif)"}}
+                          ></span>
+                        </Link>
+
+                        <div className="ms-5">
+                          <Link
+                            to="#"
+                            className="text-gray-800 text-hover-primary fs-5 fw-bolder"
+                            data-kt-ecommerce-product-filter="product_name"
+                          >
+                            Product 12
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder">01230003</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="9">
+                      <span className="badge badge-light-warning">Low stock</span>
+                      <span className="fw-bolder text-warning ms-3">9</span>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder text-dark">$101.00</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="rating-5">
+                      <div className="rating justify-content-end">
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="Scheduled">
+                      <div className="badge badge-light-primary">Scheduled</div>
+                    </td>
+
+                    <td className="text-end">
+                      <button
+                        to="#"
+                        className="btn btn-sm btn-light btn-active-light-primary"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                      >
+                        Actions
+                        <span className="svg-icon svg-icon-5 m-0">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                          data-kt-menu="true"
+                        >
+                          <div className="menu-item px-3">
+                            <Link
+                              to="../../demo1/dist/apps/ecommerce/catalog/add-product.html"
+                              className="menu-link px-3"
+                            >
+                              Edit
+                            </Link>
+                          </div>
+
+                          <div className="menu-item px-3">
+                            <Link
+                              to="#"
+                              className="menu-link px-3"
+                              data-kt-ecommerce-product-filter="delete_row"
+                            >
+                              Delete
+                            </Link>
+                          </div>
+                        </div>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div className="form-check form-check-sm form-check-custom form-check-solid">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value="1"
+                        />
+                      </div>
+                    </td>
+
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(assets/media//stock/ecommerce/13.gif)"}}
+                          ></span>
+                        </Link>
+
+                        <div className="ms-5">
+                          <Link
+                            to="#"
+                            className="text-gray-800 text-hover-primary fs-5 fw-bolder"
+                            data-kt-ecommerce-product-filter="product_name"
+                          >
+                            Product 13
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder">03317008</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="1">
+                      <span className="badge badge-light-warning">Low stock</span>
+                      <span className="fw-bolder text-warning ms-3">1</span>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder text-dark">$35.00</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="rating-4">
+                      <div className="rating justify-content-end">
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="Published">
+                      <div className="badge badge-light-success">Published</div>
+                    </td>
+
+                    <td className="text-end">
+                      <button
+                        to="#"
+                        className="btn btn-sm btn-light btn-active-light-primary"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                      >
+                        Actions
+                        <span className="svg-icon svg-icon-5 m-0">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                          data-kt-menu="true"
+                        >
+                          <div className="menu-item px-3">
+                            <Link
+                              to="../../demo1/dist/apps/ecommerce/catalog/add-product.html"
+                              className="menu-link px-3"
+                            >
+                              Edit
+                            </Link>
+                          </div>
+
+                          <div className="menu-item px-3">
+                            <Link
+                              to="#"
+                              className="menu-link px-3"
+                              data-kt-ecommerce-product-filter="delete_row"
+                            >
+                              Delete
+                            </Link>
+                          </div>
+                        </div>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div className="form-check form-check-sm form-check-custom form-check-solid">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value="1"
+                        />
+                      </div>
+                    </td>
+
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(assets/media//stock/ecommerce/14.gif)"}}
+                          ></span>
+                        </Link>
+
+                        <div className="ms-5">
+                          <Link
+                            to="#"
+                            className="text-gray-800 text-hover-primary fs-5 fw-bolder"
+                            data-kt-ecommerce-product-filter="product_name"
+                          >
+                            Product 14
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder">04662003</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="3">
+                      <span className="badge badge-light-warning">Low stock</span>
+                      <span className="fw-bolder text-warning ms-3">3</span>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder text-dark">$33.00</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="rating-4">
+                      <div className="rating justify-content-end">
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="Inactive">
+                      <div className="badge badge-light-danger">Inactive</div>
+                    </td>
+
+                    <td className="text-end">
+                      <button
+                        to="#"
+                        className="btn btn-sm btn-light btn-active-light-primary"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                      >
+                        Actions
+                        <span className="svg-icon svg-icon-5 m-0">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                          data-kt-menu="true"
+                        >
+                          <div className="menu-item px-3">
+                            <Link
+                              to="../../demo1/dist/apps/ecommerce/catalog/add-product.html"
+                              className="menu-link px-3"
+                            >
+                              Edit
+                            </Link>
+                          </div>
+
+                          <div className="menu-item px-3">
+                            <Link
+                              to="#"
+                              className="menu-link px-3"
+                              data-kt-ecommerce-product-filter="delete_row"
+                            >
+                              Delete
+                            </Link>
+                          </div>
+                        </div>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div className="form-check form-check-sm form-check-custom form-check-solid">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value="1"
+                        />
+                      </div>
+                    </td>
+
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(assets/media//stock/ecommerce/15.gif)"}}
+                          ></span>
+                        </Link>
+
+                        <div className="ms-5">
+                          <Link
+                            to="#"
+                            className="text-gray-800 text-hover-primary fs-5 fw-bolder"
+                            data-kt-ecommerce-product-filter="product_name"
+                          >
+                            Product 15
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder">03608007</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="45">
+                      <span className="fw-bolder ms-3">45</span>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder text-dark">$170.00</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="rating-4">
+                      <div className="rating justify-content-end">
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="Published">
+                      <div className="badge badge-light-success">Published</div>
+                    </td>
+
+                    <td className="text-end">
+                      <button
+                        to="#"
+                        className="btn btn-sm btn-light btn-active-light-primary"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                      >
+                        Actions
+                        <span className="svg-icon svg-icon-5 m-0">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                          data-kt-menu="true"
+                        >
+                          <div className="menu-item px-3">
+                            <Link
+                              to="../../demo1/dist/apps/ecommerce/catalog/add-product.html"
+                              className="menu-link px-3"
+                            >
+                              Edit
+                            </Link>
+                          </div>
+
+                          <div className="menu-item px-3">
+                            <Link
+                              to="#"
+                              className="menu-link px-3"
+                              data-kt-ecommerce-product-filter="delete_row"
+                            >
+                              Delete
+                            </Link>
+                          </div>
+                        </div>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div className="form-check form-check-sm form-check-custom form-check-solid">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value="1"
+                        />
+                      </div>
+                    </td>
+
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(assets/media//stock/ecommerce/16.gif)"}}
+                          ></span>
+                        </Link>
+
+                        <div className="ms-5">
+                          <Link
+                            to="#"
+                            className="text-gray-800 text-hover-primary fs-5 fw-bolder"
+                            data-kt-ecommerce-product-filter="product_name"
+                          >
+                            Product 16
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder">03544005</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="40">
+                      <span className="fw-bolder ms-3">40</span>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder text-dark">$199.00</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="rating-3">
+                      <div className="rating justify-content-end">
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="Scheduled">
+                      <div className="badge badge-light-primary">Scheduled</div>
+                    </td>
+
+                    <td className="text-end">
+                      <button
+                        to="#"
+                        className="btn btn-sm btn-light btn-active-light-primary"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                      >
+                        Actions
+                        <span className="svg-icon svg-icon-5 m-0">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                          data-kt-menu="true"
+                        >
+                          <div className="menu-item px-3">
+                            <Link
+                              to="../../demo1/dist/apps/ecommerce/catalog/add-product.html"
+                              className="menu-link px-3"
+                            >
+                              Edit
+                            </Link>
+                          </div>
+
+                          <div className="menu-item px-3">
+                            <Link
+                              to="#"
+                              className="menu-link px-3"
+                              data-kt-ecommerce-product-filter="delete_row"
+                            >
+                              Delete
+                            </Link>
+                          </div>
+                        </div>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div className="form-check form-check-sm form-check-custom form-check-solid">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value="1"
+                        />
+                      </div>
+                    </td>
+
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(assets/media//stock/ecommerce/17.gif)"}}
+                          ></span>
+                        </Link>
+
+                        <div className="ms-5">
+                          <Link
+                            to="#"
+                            className="text-gray-800 text-hover-primary fs-5 fw-bolder"
+                            data-kt-ecommerce-product-filter="product_name"
+                          >
+                            Product 17
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder">03174006</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="12">
+                      <span className="fw-bolder ms-3">12</span>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder text-dark">$77.00</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="rating-4">
+                      <div className="rating justify-content-end">
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="Inactive">
+                      <div className="badge badge-light-danger">Inactive</div>
+                    </td>
+
+                    <td className="text-end">
+                      <button
+                        to="#"
+                        className="btn btn-sm btn-light btn-active-light-primary"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                      >
+                        Actions
+                        <span className="svg-icon svg-icon-5 m-0">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                          data-kt-menu="true"
+                        >
+                          <div className="menu-item px-3">
+                            <Link
+                              to="../../demo1/dist/apps/ecommerce/catalog/add-product.html"
+                              className="menu-link px-3"
+                            >
+                              Edit
+                            </Link>
+                          </div>
+
+                          <div className="menu-item px-3">
+                            <Link
+                              to="#"
+                              className="menu-link px-3"
+                              data-kt-ecommerce-product-filter="delete_row"
+                            >
+                              Delete
+                            </Link>
+                          </div>
+                        </div>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div className="form-check form-check-sm form-check-custom form-check-solid">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value="1"
+                        />
+                      </div>
+                    </td>
+
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(assets/media//stock/ecommerce/18.gif)"}}
+                          ></span>
+                        </Link>
+
+                        <div className="ms-5">
+                          <Link
+                            to="#"
+                            className="text-gray-800 text-hover-primary fs-5 fw-bolder"
+                            data-kt-ecommerce-product-filter="product_name"
+                          >
+                            Product 18
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder">04212002</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="29">
+                      <span className="fw-bolder ms-3">29</span>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder text-dark">$148.00</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="rating-5">
+                      <div className="rating justify-content-end">
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="Scheduled">
+                      <div className="badge badge-light-primary">Scheduled</div>
+                    </td>
+
+                    <td className="text-end">
+                      <button
+                        to="#"
+                        className="btn btn-sm btn-light btn-active-light-primary"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                      >
+                        Actions
+                        <span className="svg-icon svg-icon-5 m-0">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                          data-kt-menu="true"
+                        >
+                          <div className="menu-item px-3">
+                            <Link
+                              to="../../demo1/dist/apps/ecommerce/catalog/add-product.html"
+                              className="menu-link px-3"
+                            >
+                              Edit
+                            </Link>
+                          </div>
+
+                          <div className="menu-item px-3">
+                            <Link
+                              to="#"
+                              className="menu-link px-3"
+                              data-kt-ecommerce-product-filter="delete_row"
+                            >
+                              Delete
+                            </Link>
+                          </div>
+                        </div>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div className="form-check form-check-sm form-check-custom form-check-solid">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value="1"
+                        />
+                      </div>
+                    </td>
+
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(assets/media//stock/ecommerce/19.gif)"}}
+                          ></span>
+                        </Link>
+
+                        <div className="ms-5">
+                          <Link
+                            to="#"
+                            className="text-gray-800 text-hover-primary fs-5 fw-bolder"
+                            data-kt-ecommerce-product-filter="product_name"
+                          >
+                            Product 19
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder">01136008</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="17">
+                      <span className="fw-bolder ms-3">17</span>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder text-dark">$58.00</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="rating-4">
+                      <div className="rating justify-content-end">
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="Scheduled">
+                      <div className="badge badge-light-primary">Scheduled</div>
+                    </td>
+
+                    <td className="text-end">
+                      <button
+                        to="#"
+                        className="btn btn-sm btn-light btn-active-light-primary"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                      >
+                        Actions
+                        <span className="svg-icon svg-icon-5 m-0">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                          data-kt-menu="true"
+                        >
+                          <div className="menu-item px-3">
+                            <Link
+                              to="../../demo1/dist/apps/ecommerce/catalog/add-product.html"
+                              className="menu-link px-3"
+                            >
+                              Edit
+                            </Link>
+                          </div>
+
+                          <div className="menu-item px-3">
+                            <Link
+                              to="#"
+                              className="menu-link px-3"
+                              data-kt-ecommerce-product-filter="delete_row"
+                            >
+                              Delete
+                            </Link>
+                          </div>
+                        </div>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div className="form-check form-check-sm form-check-custom form-check-solid">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value="1"
+                        />
+                      </div>
+                    </td>
+
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(assets/media//stock/ecommerce/20.gif)"}}
+                          ></span>
+                        </Link>
+
+                        <div className="ms-5">
+                          <Link
+                            to="#"
+                            className="text-gray-800 text-hover-primary fs-5 fw-bolder"
+                            data-kt-ecommerce-product-filter="product_name"
+                          >
+                            Product 20
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder">03770002</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="49">
+                      <span className="fw-bolder ms-3">49</span>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder text-dark">$281.00</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="rating-4">
+                      <div className="rating justify-content-end">
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="Scheduled">
+                      <div className="badge badge-light-primary">Scheduled</div>
+                    </td>
+
+                    <td className="text-end">
+                      <button
+                        to="#"
+                        className="btn btn-sm btn-light btn-active-light-primary"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                      >
+                        Actions
+                        <span className="svg-icon svg-icon-5 m-0">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                          data-kt-menu="true"
+                        >
+                          <div className="menu-item px-3">
+                            <Link
+                              to="../../demo1/dist/apps/ecommerce/catalog/add-product.html"
+                              className="menu-link px-3"
+                            >
+                              Edit
+                            </Link>
+                          </div>
+
+                          <div className="menu-item px-3">
+                            <Link
+                              to="#"
+                              className="menu-link px-3"
+                              data-kt-ecommerce-product-filter="delete_row"
+                            >
+                              Delete
+                            </Link>
+                          </div>
+                        </div>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div className="form-check form-check-sm form-check-custom form-check-solid">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value="1"
+                        />
+                      </div>
+                    </td>
+
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(assets/media//stock/ecommerce/21.gif)"}}
+                          ></span>
+                        </Link>
+
+                        <div className="ms-5">
+                          <Link
+                            to="#"
+                            className="text-gray-800 text-hover-primary fs-5 fw-bolder"
+                            data-kt-ecommerce-product-filter="product_name"
+                          >
+                            Product 21
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder">02232003</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="17">
+                      <span className="fw-bolder ms-3">17</span>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder text-dark">$26.00</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="rating-3">
+                      <div className="rating justify-content-end">
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="Inactive">
+                      <div className="badge badge-light-danger">Inactive</div>
+                    </td>
+
+                    <td className="text-end">
+                      <button
+                        to="#"
+                        className="btn btn-sm btn-light btn-active-light-primary"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                      >
+                        Actions
+                        <span className="svg-icon svg-icon-5 m-0">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                          data-kt-menu="true"
+                        >
+                          <div className="menu-item px-3">
+                            <Link
+                              to="../../demo1/dist/apps/ecommerce/catalog/add-product.html"
+                              className="menu-link px-3"
+                            >
+                              Edit
+                            </Link>
+                          </div>
+
+                          <div className="menu-item px-3">
+                            <Link
+                              to="#"
+                              className="menu-link px-3"
+                              data-kt-ecommerce-product-filter="delete_row"
+                            >
+                              Delete
+                            </Link>
+                          </div>
+                        </div>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div className="form-check form-check-sm form-check-custom form-check-solid">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value="1"
+                        />
+                      </div>
+                    </td>
+
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(assets/media//stock/ecommerce/17.gif)"}}
+                          ></span>
+                        </Link>
+
+                        <div className="ms-5">
+                          <Link
+                            to="#"
+                            className="text-gray-800 text-hover-primary fs-5 fw-bolder"
+                            data-kt-ecommerce-product-filter="product_name"
+                          >
+                            Product 22
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder">03535003</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="25">
+                      <span className="fw-bolder ms-3">25</span>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder text-dark">$232.00</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="rating-3">
+                      <div className="rating justify-content-end">
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="Scheduled">
+                      <div className="badge badge-light-primary">Scheduled</div>
+                    </td>
+
+                    <td className="text-end">
+                      <button
+                        to="#"
+                        className="btn btn-sm btn-light btn-active-light-primary"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                      >
+                        Actions
+                        <span className="svg-icon svg-icon-5 m-0">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                          data-kt-menu="true"
+                        >
+                          <div className="menu-item px-3">
+                            <Link
+                              to="../../demo1/dist/apps/ecommerce/catalog/add-product.html"
+                              className="menu-link px-3"
+                            >
+                              Edit
+                            </Link>
+                          </div>
+
+                          <div className="menu-item px-3">
+                            <Link
+                              to="#"
+                              className="menu-link px-3"
+                              data-kt-ecommerce-product-filter="delete_row"
+                            >
+                              Delete
+                            </Link>
+                          </div>
+                        </div>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div className="form-check form-check-sm form-check-custom form-check-solid">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value="1"
+                        />
+                      </div>
+                    </td>
+
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(assets/media//stock/ecommerce/23.gif)"}}
+                          ></span>
+                        </Link>
+
+                        <div className="ms-5">
+                          <Link
+                            to="#"
+                            className="text-gray-800 text-hover-primary fs-5 fw-bolder"
+                            data-kt-ecommerce-product-filter="product_name"
+                          >
+                            Product 23
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder">02864005</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="20">
+                      <span className="fw-bolder ms-3">20</span>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder text-dark">$162.00</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="rating-3">
+                      <div className="rating justify-content-end">
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="Published">
+                      <div className="badge badge-light-success">Published</div>
+                    </td>
+
+                    <td className="text-end">
+                      <button
+                        to="#"
+                        className="btn btn-sm btn-light btn-active-light-primary"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                      >
+                        Actions
+                        <span className="svg-icon svg-icon-5 m-0">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                          data-kt-menu="true"
+                        >
+                          <div className="menu-item px-3">
+                            <Link
+                              to="../../demo1/dist/apps/ecommerce/catalog/add-product.html"
+                              className="menu-link px-3"
+                            >
+                              Edit
+                            </Link>
+                          </div>
+
+                          <div className="menu-item px-3">
+                            <Link
+                              to="#"
+                              className="menu-link px-3"
+                              data-kt-ecommerce-product-filter="delete_row"
+                            >
+                              Delete
+                            </Link>
+                          </div>
+                        </div>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div className="form-check form-check-sm form-check-custom form-check-solid">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value="1"
+                        />
+                      </div>
+                    </td>
+
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(assets/media//stock/ecommerce/24.gif)"}}
+                          ></span>
+                        </Link>
+
+                        <div className="ms-5">
+                          <Link
+                            to="#"
+                            className="text-gray-800 text-hover-primary fs-5 fw-bolder"
+                            data-kt-ecommerce-product-filter="product_name"
+                          >
+                            Product 24
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder">01244002</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="6">
+                      <span className="badge badge-light-warning">Low stock</span>
+                      <span className="fw-bolder text-warning ms-3">6</span>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder text-dark">$279.00</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="rating-3">
+                      <div className="rating justify-content-end">
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="Scheduled">
+                      <div className="badge badge-light-primary">Scheduled</div>
+                    </td>
+
+                    <td className="text-end">
+                      <button
+                        to="#"
+                        className="btn btn-sm btn-light btn-active-light-primary"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                      >
+                        Actions
+                        <span className="svg-icon svg-icon-5 m-0">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                          data-kt-menu="true"
+                        >
+                          <div className="menu-item px-3">
+                            <Link
+                              to="../../demo1/dist/apps/ecommerce/catalog/add-product.html"
+                              className="menu-link px-3"
+                            >
+                              Edit
+                            </Link>
+                          </div>
+
+                          <div className="menu-item px-3">
+                            <Link
+                              to="#"
+                              className="menu-link px-3"
+                              data-kt-ecommerce-product-filter="delete_row"
+                            >
+                              Delete
+                            </Link>
+                          </div>
+                        </div>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div className="form-check form-check-sm form-check-custom form-check-solid">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value="1"
+                        />
+                      </div>
+                    </td>
+
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(assets/media//stock/ecommerce/25.gif)"}}
+                          ></span>
+                        </Link>
+
+                        <div className="ms-5">
+                          <Link
+                            to="#"
+                            className="text-gray-800 text-hover-primary fs-5 fw-bolder"
+                            data-kt-ecommerce-product-filter="product_name"
+                          >
+                            Product 25
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder">03226003</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="36">
+                      <span className="fw-bolder ms-3">36</span>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder text-dark">$36.00</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="rating-5">
+                      <div className="rating justify-content-end">
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="Inactive">
+                      <div className="badge badge-light-danger">Inactive</div>
+                    </td>
+
+                    <td className="text-end">
+                      <button
+                        to="#"
+                        className="btn btn-sm btn-light btn-active-light-primary"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                      >
+                        Actions
+                        <span className="svg-icon svg-icon-5 m-0">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                          data-kt-menu="true"
+                        >
+                          <div className="menu-item px-3">
+                            <Link
+                              to="../../demo1/dist/apps/ecommerce/catalog/add-product.html"
+                              className="menu-link px-3"
+                            >
+                              Edit
+                            </Link>
+                          </div>
+
+                          <div className="menu-item px-3">
+                            <Link
+                              to="#"
+                              className="menu-link px-3"
+                              data-kt-ecommerce-product-filter="delete_row"
+                            >
+                              Delete
+                            </Link>
+                          </div>
+                        </div>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div className="form-check form-check-sm form-check-custom form-check-solid">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value="1"
+                        />
+                      </div>
+                    </td>
+
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(assets/media//stock/ecommerce/26.gif)"}}
+                          ></span>
+                        </Link>
+
+                        <div className="ms-5">
+                          <Link
+                            to="#"
+                            className="text-gray-800 text-hover-primary fs-5 fw-bolder"
+                            data-kt-ecommerce-product-filter="product_name"
+                          >
+                            Product 26
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder">03493002</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="8">
+                      <span className="badge badge-light-warning">Low stock</span>
+                      <span className="fw-bolder text-warning ms-3">8</span>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder text-dark">$220.00</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="rating-3">
+                      <div className="rating justify-content-end">
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="Inactive">
+                      <div className="badge badge-light-danger">Inactive</div>
+                    </td>
+
+                    <td className="text-end">
+                      <button
+                        to="#"
+                        className="btn btn-sm btn-light btn-active-light-primary"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                      >
+                        Actions
+                        <span className="svg-icon svg-icon-5 m-0">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                          data-kt-menu="true"
+                        >
+                          <div className="menu-item px-3">
+                            <Link
+                              to="../../demo1/dist/apps/ecommerce/catalog/add-product.html"
+                              className="menu-link px-3"
+                            >
+                              Edit
+                            </Link>
+                          </div>
+
+                          <div className="menu-item px-3">
+                            <Link
+                              to="#"
+                              className="menu-link px-3"
+                              data-kt-ecommerce-product-filter="delete_row"
+                            >
+                              Delete
+                            </Link>
+                          </div>
+                        </div>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div className="form-check form-check-sm form-check-custom form-check-solid">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value="1"
+                        />
+                      </div>
+                    </td>
+
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(assets/media//stock/ecommerce/27.gif)"}}
+                          ></span>
+                        </Link>
+
+                        <div className="ms-5">
+                          <Link
+                            to="#"
+                            className="text-gray-800 text-hover-primary fs-5 fw-bolder"
+                            data-kt-ecommerce-product-filter="product_name"
+                          >
+                            Product 27
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder">03738003</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="49">
+                      <span className="fw-bolder ms-3">49</span>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder text-dark">$118.00</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="rating-5">
+                      <div className="rating justify-content-end">
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="Published">
+                      <div className="badge badge-light-success">Published</div>
+                    </td>
+
+                    <td className="text-end">
+                      <button
+                        to="#"
+                        className="btn btn-sm btn-light btn-active-light-primary"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                      >
+                        Actions
+                        <span className="svg-icon svg-icon-5 m-0">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                          data-kt-menu="true"
+                        >
+                          <div className="menu-item px-3">
+                            <Link
+                              to="../../demo1/dist/apps/ecommerce/catalog/add-product.html"
+                              className="menu-link px-3"
+                            >
+                              Edit
+                            </Link>
+                          </div>
+
+                          <div className="menu-item px-3">
+                            <Link
+                              to="#"
+                              className="menu-link px-3"
+                              data-kt-ecommerce-product-filter="delete_row"
+                            >
+                              Delete
+                            </Link>
+                          </div>
+                        </div>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div className="form-check form-check-sm form-check-custom form-check-solid">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value="1"
+                        />
+                      </div>
+                    </td>
+
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(assets/media//stock/ecommerce/28.gif)"}}
+                          ></span>
+                        </Link>
+
+                        <div className="ms-5">
+                          <Link
+                            to="#"
+                            className="text-gray-800 text-hover-primary fs-5 fw-bolder"
+                            data-kt-ecommerce-product-filter="product_name"
+                          >
+                            Product 28
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder">02279001</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="9">
+                      <span className="badge badge-light-warning">Low stock</span>
+                      <span className="fw-bolder text-warning ms-3">9</span>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder text-dark">$14.00</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="rating-5">
+                      <div className="rating justify-content-end">
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="Published">
+                      <div className="badge badge-light-success">Published</div>
+                    </td>
+
+                    <td className="text-end">
+                      <button
+                        to="#"
+                        className="btn btn-sm btn-light btn-active-light-primary"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                      >
+                        Actions
+                        <span className="svg-icon svg-icon-5 m-0">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                          data-kt-menu="true"
+                        >
+                          <div className="menu-item px-3">
+                            <Link
+                              to="../../demo1/dist/apps/ecommerce/catalog/add-product.html"
+                              className="menu-link px-3"
+                            >
+                              Edit
+                            </Link>
+                          </div>
+
+                          <div className="menu-item px-3">
+                            <Link
+                              to="#"
+                              className="menu-link px-3"
+                              data-kt-ecommerce-product-filter="delete_row"
+                            >
+                              Delete
+                            </Link>
+                          </div>
+                        </div>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div className="form-check form-check-sm form-check-custom form-check-solid">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value="1"
+                        />
+                      </div>
+                    </td>
+
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(assets/media//stock/ecommerce/29.gif)"}}
+                          ></span>
+                        </Link>
+
+                        <div className="ms-5">
+                          <Link
+                            to="#"
+                            className="text-gray-800 text-hover-primary fs-5 fw-bolder"
+                            data-kt-ecommerce-product-filter="product_name"
+                          >
+                            Product 29
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder">02260002</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="43">
+                      <span className="fw-bolder ms-3">43</span>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder text-dark">$253.00</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="rating-3">
+                      <div className="rating justify-content-end">
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="Published">
+                      <div className="badge badge-light-success">Published</div>
+                    </td>
+
+                    <td className="text-end">
+                      <button
+                        to="#"
+                        className="btn btn-sm btn-light btn-active-light-primary"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                      >
+                        Actions
+                        <span className="svg-icon svg-icon-5 m-0">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                          data-kt-menu="true"
+                        >
+                          <div className="menu-item px-3">
+                            <Link
+                              to="../../demo1/dist/apps/ecommerce/catalog/add-product.html"
+                              className="menu-link px-3"
+                            >
+                              Edit
+                            </Link>
+                          </div>
+
+                          <div className="menu-item px-3">
+                            <Link
+                              to="#"
+                              className="menu-link px-3"
+                              data-kt-ecommerce-product-filter="delete_row"
+                            >
+                              Delete
+                            </Link>
+                          </div>
+                        </div>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div className="form-check form-check-sm form-check-custom form-check-solid">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value="1"
+                        />
+                      </div>
+                    </td>
+
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(assets/media//stock/ecommerce/30.gif)"}}
+                          ></span>
+                        </Link>
+
+                        <div className="ms-5">
+                          <Link
+                            to="#"
+                            className="text-gray-800 text-hover-primary fs-5 fw-bolder"
+                            data-kt-ecommerce-product-filter="product_name"
+                          >
+                            Product 30
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder">02891004</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="14">
+                      <span className="fw-bolder ms-3">14</span>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder text-dark">$27.00</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="rating-5">
+                      <div className="rating justify-content-end">
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="Inactive">
+                      <div className="badge badge-light-danger">Inactive</div>
+                    </td>
+
+                    <td className="text-end">
+                      <button
+                        to="#"
+                        className="btn btn-sm btn-light btn-active-light-primary"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                      >
+                        Actions
+                        <span className="svg-icon svg-icon-5 m-0">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                          data-kt-menu="true"
+                        >
+                          <div className="menu-item px-3">
+                            <Link
+                              to="../../demo1/dist/apps/ecommerce/catalog/add-product.html"
+                              className="menu-link px-3"
+                            >
+                              Edit
+                            </Link>
+                          </div>
+
+                          <div className="menu-item px-3">
+                            <Link
+                              to="#"
+                              className="menu-link px-3"
+                              data-kt-ecommerce-product-filter="delete_row"
+                            >
+                              Delete
+                            </Link>
+                          </div>
+                        </div>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div className="form-check form-check-sm form-check-custom form-check-solid">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value="1"
+                        />
+                      </div>
+                    </td>
+
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(assets/media//stock/ecommerce/31.gif)"}}
+                          ></span>
+                        </Link>
+
+                        <div className="ms-5">
+                          <Link
+                            to="#"
+                            className="text-gray-800 text-hover-primary fs-5 fw-bolder"
+                            data-kt-ecommerce-product-filter="product_name"
+                          >
+                            Product 31
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder">03432001</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="14">
+                      <span className="fw-bolder ms-3">14</span>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder text-dark">$250.00</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="rating-5">
+                      <div className="rating justify-content-end">
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="Inactive">
+                      <div className="badge badge-light-danger">Inactive</div>
+                    </td>
+
+                    <td className="text-end">
+                      <button
+                        to="#"
+                        className="btn btn-sm btn-light btn-active-light-primary"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                      >
+                        Actions
+                        <span className="svg-icon svg-icon-5 m-0">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                          data-kt-menu="true"
+                        >
+                          <div className="menu-item px-3">
+                            <Link
+                              to="../../demo1/dist/apps/ecommerce/catalog/add-product.html"
+                              className="menu-link px-3"
+                            >
+                              Edit
+                            </Link>
+                          </div>
+
+                          <div className="menu-item px-3">
+                            <Link
+                              to="#"
+                              className="menu-link px-3"
+                              data-kt-ecommerce-product-filter="delete_row"
+                            >
+                              Delete
+                            </Link>
+                          </div>
+                        </div>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div className="form-check form-check-sm form-check-custom form-check-solid">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value="1"
+                        />
+                      </div>
+                    </td>
+
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(assets/media//stock/ecommerce/32.gif)"}}
+                          ></span>
+                        </Link>
+
+                        <div className="ms-5">
+                          <Link
+                            to="#"
+                            className="text-gray-800 text-hover-primary fs-5 fw-bolder"
+                            data-kt-ecommerce-product-filter="product_name"
+                          >
+                            Product 32
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder">03737001</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="16">
+                      <span className="fw-bolder ms-3">16</span>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder text-dark">$296.00</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="rating-5">
+                      <div className="rating justify-content-end">
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="Published">
+                      <div className="badge badge-light-success">Published</div>
+                    </td>
+
+                    <td className="text-end">
+                      <button
+                        to="#"
+                        className="btn btn-sm btn-light btn-active-light-primary"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                      >
+                        Actions
+                        <span className="svg-icon svg-icon-5 m-0">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                          data-kt-menu="true"
+                        >
+                          <div className="menu-item px-3">
+                            <Link
+                              to="../../demo1/dist/apps/ecommerce/catalog/add-product.html"
+                              className="menu-link px-3"
+                            >
+                              Edit
+                            </Link>
+                          </div>
+
+                          <div className="menu-item px-3">
+                            <Link
+                              to="#"
+                              className="menu-link px-3"
+                              data-kt-ecommerce-product-filter="delete_row"
+                            >
+                              Delete
+                            </Link>
+                          </div>
+                        </div>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div className="form-check form-check-sm form-check-custom form-check-solid">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value="1"
+                        />
+                      </div>
+                    </td>
+
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(assets/media//stock/ecommerce/33.gif)"}}
+                          ></span>
+                        </Link>
+
+                        <div className="ms-5">
+                          <Link
+                            to="#"
+                            className="text-gray-800 text-hover-primary fs-5 fw-bolder"
+                            data-kt-ecommerce-product-filter="product_name"
+                          >
+                            Product 33
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder">04779004</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="43">
+                      <span className="fw-bolder ms-3">43</span>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder text-dark">$179.00</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="rating-3">
+                      <div className="rating justify-content-end">
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="Scheduled">
+                      <div className="badge badge-light-primary">Scheduled</div>
+                    </td>
+
+                    <td className="text-end">
+                      <button
+                        to="#"
+                        className="btn btn-sm btn-light btn-active-light-primary"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                      >
+                        Actions
+                        <span className="svg-icon svg-icon-5 m-0">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                          data-kt-menu="true"
+                        >
+                          <div className="menu-item px-3">
+                            <Link
+                              to="../../demo1/dist/apps/ecommerce/catalog/add-product.html"
+                              className="menu-link px-3"
+                            >
+                              Edit
+                            </Link>
+                          </div>
+
+                          <div className="menu-item px-3">
+                            <Link
+                              to="#"
+                              className="menu-link px-3"
+                              data-kt-ecommerce-product-filter="delete_row"
+                            >
+                              Delete
+                            </Link>
+                          </div>
+                        </div>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div className="form-check form-check-sm form-check-custom form-check-solid">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value="1"
+                        />
+                      </div>
+                    </td>
+
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(assets/media//stock/ecommerce/34.gif)"}}
+                          ></span>
+                        </Link>
+
+                        <div className="ms-5">
+                          <Link
+                            to="#"
+                            className="text-gray-800 text-hover-primary fs-5 fw-bolder"
+                            data-kt-ecommerce-product-filter="product_name"
+                          >
+                            Product 34
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder">03544003</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="20">
+                      <span className="fw-bolder ms-3">20</span>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder text-dark">$129.00</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="rating-3">
+                      <div className="rating justify-content-end">
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="Inactive">
+                      <div className="badge badge-light-danger">Inactive</div>
+                    </td>
+
+                    <td className="text-end">
+                      <button
+                        to="#"
+                        className="btn btn-sm btn-light btn-active-light-primary"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                      >
+                        Actions
+                        <span className="svg-icon svg-icon-5 m-0">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                          data-kt-menu="true"
+                        >
+                          <div className="menu-item px-3">
+                            <Link
+                              to="../../demo1/dist/apps/ecommerce/catalog/add-product.html"
+                              className="menu-link px-3"
+                            >
+                              Edit
+                            </Link>
+                          </div>
+
+                          <div className="menu-item px-3">
+                            <Link
+                              to="#"
+                              className="menu-link px-3"
+                              data-kt-ecommerce-product-filter="delete_row"
+                            >
+                              Delete
+                            </Link>
+                          </div>
+                        </div>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div className="form-check form-check-sm form-check-custom form-check-solid">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value="1"
+                        />
+                      </div>
+                    </td>
+
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(assets/media//stock/ecommerce/35.gif)"}}
+                          ></span>
+                        </Link>
+
+                        <div className="ms-5">
+                          <Link
+                            to="#"
+                            className="text-gray-800 text-hover-primary fs-5 fw-bolder"
+                            data-kt-ecommerce-product-filter="product_name"
+                          >
+                            Product 35
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder">02151006</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="46">
+                      <span className="fw-bolder ms-3">46</span>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder text-dark">$96.00</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="rating-3">
+                      <div className="rating justify-content-end">
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="Scheduled">
+                      <div className="badge badge-light-primary">Scheduled</div>
+                    </td>
+
+                    <td className="text-end">
+                      <button
+                        to="#"
+                        className="btn btn-sm btn-light btn-active-light-primary"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                      >
+                        Actions
+                        <span className="svg-icon svg-icon-5 m-0">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                          data-kt-menu="true"
+                        >
+                          <div className="menu-item px-3">
+                            <Link
+                              to="../../demo1/dist/apps/ecommerce/catalog/add-product.html"
+                              className="menu-link px-3"
+                            >
+                              Edit
+                            </Link>
+                          </div>
+
+                          <div className="menu-item px-3">
+                            <Link
+                              to="#"
+                              className="menu-link px-3"
+                              data-kt-ecommerce-product-filter="delete_row"
+                            >
+                              Delete
+                            </Link>
+                          </div>
+                        </div>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div className="form-check form-check-sm form-check-custom form-check-solid">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value="1"
+                        />
+                      </div>
+                    </td>
+
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(assets/media//stock/ecommerce/36.gif)"}}
+                          ></span>
+                        </Link>
+
+                        <div className="ms-5">
+                          <Link
+                            to="#"
+                            className="text-gray-800 text-hover-primary fs-5 fw-bolder"
+                            data-kt-ecommerce-product-filter="product_name"
+                          >
+                            Product 36
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder">04602007</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="17">
+                      <span className="fw-bolder ms-3">17</span>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder text-dark">$137.00</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="rating-5">
+                      <div className="rating justify-content-end">
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="Published">
+                      <div className="badge badge-light-success">Published</div>
+                    </td>
+
+                    <td className="text-end">
+                      <button
+                        to="#"
+                        className="btn btn-sm btn-light btn-active-light-primary"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                      >
+                        Actions
+                        <span className="svg-icon svg-icon-5 m-0">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                          data-kt-menu="true"
+                        >
+                          <div className="menu-item px-3">
+                            <Link
+                              to="../../demo1/dist/apps/ecommerce/catalog/add-product.html"
+                              className="menu-link px-3"
+                            >
+                              Edit
+                            </Link>
+                          </div>
+
+                          <div className="menu-item px-3">
+                            <Link
+                              to="#"
+                              className="menu-link px-3"
+                              data-kt-ecommerce-product-filter="delete_row"
+                            >
+                              Delete
+                            </Link>
+                          </div>
+                        </div>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div className="form-check form-check-sm form-check-custom form-check-solid">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value="1"
+                        />
+                      </div>
+                    </td>
+
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(assets/media//stock/ecommerce/37.gif)"}}
+                          ></span>
+                        </Link>
+
+                        <div className="ms-5">
+                          <Link
+                            to="#"
+                            className="text-gray-800 text-hover-primary fs-5 fw-bolder"
+                            data-kt-ecommerce-product-filter="product_name"
+                          >
+                            Product 37
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder">02696002</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="34">
+                      <span className="fw-bolder ms-3">34</span>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder text-dark">$13.00</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="rating-3">
+                      <div className="rating justify-content-end">
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="Published">
+                      <div className="badge badge-light-success">Published</div>
+                    </td>
+
+                    <td className="text-end">
+                      <button
+                        to="#"
+                        className="btn btn-sm btn-light btn-active-light-primary"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                      >
+                        Actions
+                        <span className="svg-icon svg-icon-5 m-0">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                          data-kt-menu="true"
+                        >
+                          <div className="menu-item px-3">
+                            <Link
+                              to="../../demo1/dist/apps/ecommerce/catalog/add-product.html"
+                              className="menu-link px-3"
+                            >
+                              Edit
+                            </Link>
+                          </div>
+
+                          <div className="menu-item px-3">
+                            <Link
+                              to="#"
+                              className="menu-link px-3"
+                              data-kt-ecommerce-product-filter="delete_row"
+                            >
+                              Delete
+                            </Link>
+                          </div>
+                        </div>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div className="form-check form-check-sm form-check-custom form-check-solid">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value="1"
+                        />
+                      </div>
+                    </td>
+
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(assets/media//stock/ecommerce/38.gif)"}}
+                          ></span>
+                        </Link>
+
+                        <div className="ms-5">
+                          <Link
+                            to="#"
+                            className="text-gray-800 text-hover-primary fs-5 fw-bolder"
+                            data-kt-ecommerce-product-filter="product_name"
+                          >
+                            Product 38
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder">03846006</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="9">
+                      <span className="badge badge-light-warning">Low stock</span>
+                      <span className="fw-bolder text-warning ms-3">9</span>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder text-dark">$217.00</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="rating-3">
+                      <div className="rating justify-content-end">
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="Published">
+                      <div className="badge badge-light-success">Published</div>
+                    </td>
+
+                    <td className="text-end">
+                      <button
+                        to="#"
+                        className="btn btn-sm btn-light btn-active-light-primary"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                      >
+                        Actions
+                        <span className="svg-icon svg-icon-5 m-0">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                          data-kt-menu="true"
+                        >
+                          <div className="menu-item px-3">
+                            <Link
+                              to="../../demo1/dist/apps/ecommerce/catalog/add-product.html"
+                              className="menu-link px-3"
+                            >
+                              Edit
+                            </Link>
+                          </div>
+
+                          <div className="menu-item px-3">
+                            <Link
+                              to="#"
+                              className="menu-link px-3"
+                              data-kt-ecommerce-product-filter="delete_row"
+                            >
+                              Delete
+                            </Link>
+                          </div>
+                        </div>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div className="form-check form-check-sm form-check-custom form-check-solid">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value="1"
+                        />
+                      </div>
+                    </td>
+
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(assets/media//stock/ecommerce/39.gif)"}}
+                          ></span>
+                        </Link>
+
+                        <div className="ms-5">
+                          <Link
+                            to="#"
+                            className="text-gray-800 text-hover-primary fs-5 fw-bolder"
+                            data-kt-ecommerce-product-filter="product_name"
+                          >
+                            Product 39
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder">02500005</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="42">
+                      <span className="fw-bolder ms-3">42</span>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder text-dark">$53.00</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="rating-4">
+                      <div className="rating justify-content-end">
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="Scheduled">
+                      <div className="badge badge-light-primary">Scheduled</div>
+                    </td>
+
+                    <td className="text-end">
+                      <button
+                        to="#"
+                        className="btn btn-sm btn-light btn-active-light-primary"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                      >
+                        Actions
+                        <span className="svg-icon svg-icon-5 m-0">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                          data-kt-menu="true"
+                        >
+                          <div className="menu-item px-3">
+                            <Link
+                              to="../../demo1/dist/apps/ecommerce/catalog/add-product.html"
+                              className="menu-link px-3"
+                            >
+                              Edit
+                            </Link>
+                          </div>
+
+                          <div className="menu-item px-3">
+                            <Link
+                              to="#"
+                              className="menu-link px-3"
+                              data-kt-ecommerce-product-filter="delete_row"
+                            >
+                              Delete
+                            </Link>
+                          </div>
+                        </div>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div className="form-check form-check-sm form-check-custom form-check-solid">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value="1"
+                        />
+                      </div>
+                    </td>
+
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(assets/media//stock/ecommerce/40.gif)"}}
+                          ></span>
+                        </Link>
+
+                        <div className="ms-5">
+                          <Link
+                            to="#"
+                            className="text-gray-800 text-hover-primary fs-5 fw-bolder"
+                            data-kt-ecommerce-product-filter="product_name"
+                          >
+                            Product 40
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder">04970003</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="17">
+                      <span className="fw-bolder ms-3">17</span>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder text-dark">$294.00</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="rating-4">
+                      <div className="rating justify-content-end">
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="Scheduled">
+                      <div className="badge badge-light-primary">Scheduled</div>
+                    </td>
+
+                    <td className="text-end">
+                      <button
+                        to="#"
+                        className="btn btn-sm btn-light btn-active-light-primary"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                      >
+                        Actions
+                        <span className="svg-icon svg-icon-5 m-0">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                          data-kt-menu="true"
+                        >
+                          <div className="menu-item px-3">
+                            <Link
+                              to="../../demo1/dist/apps/ecommerce/catalog/add-product.html"
+                              className="menu-link px-3"
+                            >
+                              Edit
+                            </Link>
+                          </div>
+
+                          <div className="menu-item px-3">
+                            <Link
+                              to="#"
+                              className="menu-link px-3"
+                              data-kt-ecommerce-product-filter="delete_row"
+                            >
+                              Delete
+                            </Link>
+                          </div>
+                        </div>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div className="form-check form-check-sm form-check-custom form-check-solid">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value="1"
+                        />
+                      </div>
+                    </td>
+
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(assets/media//stock/ecommerce/41.gif)"}}
+                          ></span>
+                        </Link>
+
+                        <div className="ms-5">
+                          <Link
+                            to="#"
+                            className="text-gray-800 text-hover-primary fs-5 fw-bolder"
+                            data-kt-ecommerce-product-filter="product_name"
+                          >
+                            Product 41
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder">02119004</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="50">
+                      <span className="fw-bolder ms-3">50</span>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder text-dark">$179.00</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="rating-4">
+                      <div className="rating justify-content-end">
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="Published">
+                      <div className="badge badge-light-success">Published</div>
+                    </td>
+
+                    <td className="text-end">
+                      <button
+                        to="#"
+                        className="btn btn-sm btn-light btn-active-light-primary"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                      >
+                        Actions
+                        <span className="svg-icon svg-icon-5 m-0">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                          data-kt-menu="true"
+                        >
+                          <div className="menu-item px-3">
+                            <Link
+                              to="../../demo1/dist/apps/ecommerce/catalog/add-product.html"
+                              className="menu-link px-3"
+                            >
+                              Edit
+                            </Link>
+                          </div>
+
+                          <div className="menu-item px-3">
+                            <Link
+                              to="#"
+                              className="menu-link px-3"
+                              data-kt-ecommerce-product-filter="delete_row"
+                            >
+                              Delete
+                            </Link>
+                          </div>
+                        </div>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div className="form-check form-check-sm form-check-custom form-check-solid">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value="1"
+                        />
+                      </div>
+                    </td>
+
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(assets/media//stock/ecommerce/42.gif)"}}
+                          ></span>
+                        </Link>
+
+                        <div className="ms-5">
+                          <Link
+                            to="#"
+                            className="text-gray-800 text-hover-primary fs-5 fw-bolder"
+                            data-kt-ecommerce-product-filter="product_name"
+                          >
+                            Product 42
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder">04592007</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="50">
+                      <span className="fw-bolder ms-3">50</span>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder text-dark">$90.00</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="rating-3">
+                      <div className="rating justify-content-end">
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="Scheduled">
+                      <div className="badge badge-light-primary">Scheduled</div>
+                    </td>
+
+                    <td className="text-end">
+                      <button
+                        to="#"
+                        className="btn btn-sm btn-light btn-active-light-primary"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                      >
+                        Actions
+                        <span className="svg-icon svg-icon-5 m-0">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                          data-kt-menu="true"
+                        >
+                          <div className="menu-item px-3">
+                            <Link
+                              to="../../demo1/dist/apps/ecommerce/catalog/add-product.html"
+                              className="menu-link px-3"
+                            >
+                              Edit
+                            </Link>
+                          </div>
+
+                          <div className="menu-item px-3">
+                            <Link
+                              to="#"
+                              className="menu-link px-3"
+                              data-kt-ecommerce-product-filter="delete_row"
+                            >
+                              Delete
+                            </Link>
+                          </div>
+                        </div>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div className="form-check form-check-sm form-check-custom form-check-solid">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value="1"
+                        />
+                      </div>
+                    </td>
+
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(assets/media//stock/ecommerce/43.gif)"}}
+                          ></span>
+                        </Link>
+
+                        <div className="ms-5">
+                          <Link
+                            to="#"
+                            className="text-gray-800 text-hover-primary fs-5 fw-bolder"
+                            data-kt-ecommerce-product-filter="product_name"
+                          >
+                            Product 43
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder">04450006</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="15">
+                      <span className="fw-bolder ms-3">15</span>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder text-dark">$84.00</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="rating-5">
+                      <div className="rating justify-content-end">
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="Published">
+                      <div className="badge badge-light-success">Published</div>
+                    </td>
+
+                    <td className="text-end">
+                      <button
+                        to="#"
+                        className="btn btn-sm btn-light btn-active-light-primary"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                      >
+                        Actions
+                        <span className="svg-icon svg-icon-5 m-0">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                          data-kt-menu="true"
+                        >
+                          <div className="menu-item px-3">
+                            <Link
+                              to="../../demo1/dist/apps/ecommerce/catalog/add-product.html"
+                              className="menu-link px-3"
+                            >
+                              Edit
+                            </Link>
+                          </div>
+
+                          <div className="menu-item px-3">
+                            <Link
+                              to="#"
+                              className="menu-link px-3"
+                              data-kt-ecommerce-product-filter="delete_row"
+                            >
+                              Delete
+                            </Link>
+                          </div>
+                        </div>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div className="form-check form-check-sm form-check-custom form-check-solid">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value="1"
+                        />
+                      </div>
+                    </td>
+
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(assets/media//stock/ecommerce/44.gif)"}}
+                          ></span>
+                        </Link>
+
+                        <div className="ms-5">
+                          <Link
+                            to="#"
+                            className="text-gray-800 text-hover-primary fs-5 fw-bolder"
+                            data-kt-ecommerce-product-filter="product_name"
+                          >
+                            Product 44
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder">04764005</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="33">
+                      <span className="fw-bolder ms-3">33</span>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder text-dark">$119.00</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="rating-4">
+                      <div className="rating justify-content-end">
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="Scheduled">
+                      <div className="badge badge-light-primary">Scheduled</div>
+                    </td>
+
+                    <td className="text-end">
+                      <button
+                        to="#"
+                        className="btn btn-sm btn-light btn-active-light-primary"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                      >
+                        Actions
+                        <span className="svg-icon svg-icon-5 m-0">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                          data-kt-menu="true"
+                        >
+                          <div className="menu-item px-3">
+                            <Link
+                              to="../../demo1/dist/apps/ecommerce/catalog/add-product.html"
+                              className="menu-link px-3"
+                            >
+                              Edit
+                            </Link>
+                          </div>
+
+                          <div className="menu-item px-3">
+                            <Link
+                              to="#"
+                              className="menu-link px-3"
+                              data-kt-ecommerce-product-filter="delete_row"
+                            >
+                              Delete
+                            </Link>
+                          </div>
+                        </div>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div className="form-check form-check-sm form-check-custom form-check-solid">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value="1"
+                        />
+                      </div>
+                    </td>
+
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(assets/media//stock/ecommerce/45.gif)"}}
+                          ></span>
+                        </Link>
+
+                        <div className="ms-5">
+                          <Link
+                            to="#"
+                            className="text-gray-800 text-hover-primary fs-5 fw-bolder"
+                            data-kt-ecommerce-product-filter="product_name"
+                          >
+                            Product 45
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder">04695002</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="50">
+                      <span className="fw-bolder ms-3">50</span>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder text-dark">$296.00</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="rating-5">
+                      <div className="rating justify-content-end">
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="Published">
+                      <div className="badge badge-light-success">Published</div>
+                    </td>
+
+                    <td className="text-end">
+                      <button
+                        to="#"
+                        className="btn btn-sm btn-light btn-active-light-primary"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                      >
+                        Actions
+                        <span className="svg-icon svg-icon-5 m-0">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                          data-kt-menu="true"
+                        >
+                          <div className="menu-item px-3">
+                            <Link
+                              to="../../demo1/dist/apps/ecommerce/catalog/add-product.html"
+                              className="menu-link px-3"
+                            >
+                              Edit
+                            </Link>
+                          </div>
+
+                          <div className="menu-item px-3">
+                            <Link
+                              to="#"
+                              className="menu-link px-3"
+                              data-kt-ecommerce-product-filter="delete_row"
+                            >
+                              Delete
+                            </Link>
+                          </div>
+                        </div>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div className="form-check form-check-sm form-check-custom form-check-solid">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value="1"
+                        />
+                      </div>
+                    </td>
+
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(assets/media//stock/ecommerce/46.gif)"}}
+                          ></span>
+                        </Link>
+
+                        <div className="ms-5">
+                          <Link
+                            to="#"
+                            className="text-gray-800 text-hover-primary fs-5 fw-bolder"
+                            data-kt-ecommerce-product-filter="product_name"
+                          >
+                            Product 46
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder">04888009</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="24">
+                      <span className="fw-bolder ms-3">24</span>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder text-dark">$167.00</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="rating-4">
+                      <div className="rating justify-content-end">
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="Inactive">
+                      <div className="badge badge-light-danger">Inactive</div>
+                    </td>
+
+                    <td className="text-end">
+                      <button
+                        to="#"
+                        className="btn btn-sm btn-light btn-active-light-primary"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                      >
+                        Actions
+                        <span className="svg-icon svg-icon-5 m-0">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                          data-kt-menu="true"
+                        >
+                          <div className="menu-item px-3">
+                            <Link
+                              to="../../demo1/dist/apps/ecommerce/catalog/add-product.html"
+                              className="menu-link px-3"
+                            >
+                              Edit
+                            </Link>
+                          </div>
+
+                          <div className="menu-item px-3">
+                            <Link
+                              to="#"
+                              className="menu-link px-3"
+                              data-kt-ecommerce-product-filter="delete_row"
+                            >
+                              Delete
+                            </Link>
+                          </div>
+                        </div>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div className="form-check form-check-sm form-check-custom form-check-solid">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value="1"
+                        />
+                      </div>
+                    </td>
+
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(assets/media//stock/ecommerce/47.gif)"}}
+                          ></span>
+                        </Link>
+
+                        <div className="ms-5">
+                          <Link
+                            to="#"
+                            className="text-gray-800 text-hover-primary fs-5 fw-bolder"
+                            data-kt-ecommerce-product-filter="product_name"
+                          >
+                            Product 47
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder">02266006</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="25">
+                      <span className="fw-bolder ms-3">25</span>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder text-dark">$17.00</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="rating-5">
+                      <div className="rating justify-content-end">
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="Scheduled">
+                      <div className="badge badge-light-primary">Scheduled</div>
+                    </td>
+
+                    <td className="text-end">
+                      <button
+                        to="#"
+                        className="btn btn-sm btn-light btn-active-light-primary"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                      >
+                        Actions
+                        <span className="svg-icon svg-icon-5 m-0">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                          data-kt-menu="true"
+                        >
+                          <div className="menu-item px-3">
+                            <Link
+                              to="../../demo1/dist/apps/ecommerce/catalog/add-product.html"
+                              className="menu-link px-3"
+                            >
+                              Edit
+                            </Link>
+                          </div>
+
+                          <div className="menu-item px-3">
+                            <Link
+                              to="#"
+                              className="menu-link px-3"
+                              data-kt-ecommerce-product-filter="delete_row"
+                            >
+                              Delete
+                            </Link>
+                          </div>
+                        </div>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div className="form-check form-check-sm form-check-custom form-check-solid">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value="1"
+                        />
+                      </div>
+                    </td>
+
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(assets/media//stock/ecommerce/48.gif)"}}
+                          ></span>
+                        </Link>
+
+                        <div className="ms-5">
+                          <Link
+                            to="#"
+                            className="text-gray-800 text-hover-primary fs-5 fw-bolder"
+                            data-kt-ecommerce-product-filter="product_name"
+                          >
+                            Product 48
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder">02404006</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="24">
+                      <span className="fw-bolder ms-3">24</span>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder text-dark">$286.00</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="rating-5">
+                      <div className="rating justify-content-end">
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="Scheduled">
+                      <div className="badge badge-light-primary">Scheduled</div>
+                    </td>
+
+                    <td className="text-end">
+                      <button
+                        to="#"
+                        className="btn btn-sm btn-light btn-active-light-primary"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                      >
+                        Actions
+                        <span className="svg-icon svg-icon-5 m-0">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                          data-kt-menu="true"
+                        >
+                          <div className="menu-item px-3">
+                            <Link
+                              to="../../demo1/dist/apps/ecommerce/catalog/add-product.html"
+                              className="menu-link px-3"
+                            >
+                              Edit
+                            </Link>
+                          </div>
+
+                          <div className="menu-item px-3">
+                            <Link
+                              to="#"
+                              className="menu-link px-3"
+                              data-kt-ecommerce-product-filter="delete_row"
+                            >
+                              Delete
+                            </Link>
+                          </div>
+                        </div>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div className="form-check form-check-sm form-check-custom form-check-solid">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value="1"
+                        />
+                      </div>
+                    </td>
+
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(assets/media//stock/ecommerce/49.gif)"}}
+                          ></span>
+                        </Link>
+
+                        <div className="ms-5">
+                          <Link
+                            to="#"
+                            className="text-gray-800 text-hover-primary fs-5 fw-bolder"
+                            data-kt-ecommerce-product-filter="product_name"
+                          >
+                            Product 49
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder">01322005</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="34">
+                      <span className="fw-bolder ms-3">34</span>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder text-dark">$208.00</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="rating-4">
+                      <div className="rating justify-content-end">
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="Published">
+                      <div className="badge badge-light-success">Published</div>
+                    </td>
+
+                    <td className="text-end">
+                      <button
+                        to="#"
+                        className="btn btn-sm btn-light btn-active-light-primary"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                      >
+                        Actions
+                        <span className="svg-icon svg-icon-5 m-0">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                          data-kt-menu="true"
+                        >
+                          <div className="menu-item px-3">
+                            <Link
+                              to="../../demo1/dist/apps/ecommerce/catalog/add-product.html"
+                              className="menu-link px-3"
+                            >
+                              Edit
+                            </Link>
+                          </div>
+
+                          <div className="menu-item px-3">
+                            <Link
+                              to="#"
+                              className="menu-link px-3"
+                              data-kt-ecommerce-product-filter="delete_row"
+                            >
+                              Delete
+                            </Link>
+                          </div>
+                        </div>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div className="form-check form-check-sm form-check-custom form-check-solid">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value="1"
+                        />
+                      </div>
+                    </td>
+
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(assets/media//stock/ecommerce/5.gif)"}}
+                          ></span>
+                        </Link>
+
+                        <div className="ms-5">
+                          <Link
+                            to="#"
+                            className="text-gray-800 text-hover-primary fs-5 fw-bolder"
+                            data-kt-ecommerce-product-filter="product_name"
+                          >
+                            Product 50
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder">04403004</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="8">
+                      <span className="badge badge-light-warning">Low stock</span>
+                      <span className="fw-bolder text-warning ms-3">8</span>
+                    </td>
+
+                    <td className="text-end pe-0">
+                      <span className="fw-bolder text-dark">$239.00</span>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="rating-4">
+                      <div className="rating justify-content-end">
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label checked">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="rating-label">
+                          <span className="svg-icon svg-icon-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                fill="black"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-end pe-0" data-order="Scheduled">
+                      <div className="badge badge-light-primary">Scheduled</div>
+                    </td>
+
+                    <td className="text-end">
+                      <button
+                        to="#"
+                        className="btn btn-sm btn-light btn-active-light-primary"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                      >
+                        Actions
+                        <span className="svg-icon svg-icon-5 m-0">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                          data-kt-menu="true"
+                        >
+                          <div className="menu-item px-3">
+                            <Link
+                              to="../../demo1/dist/apps/ecommerce/catalog/add-product.html"
+                              className="menu-link px-3"
+                            >
+                              Edit
+                            </Link>
+                          </div>
+
+                          <div className="menu-item px-3">
+                            <Link
+                              to="#"
+                              className="menu-link px-3"
+                              data-kt-ecommerce-product-filter="delete_row"
+                            >
+                              Delete
+                            </Link>
+                          </div>
+                        </div>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
