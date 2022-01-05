@@ -12,18 +12,18 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/*" element={<AppLayout />}>
+          <Route path="/panel/*" element={<AppLayout />}>
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="employees" element={<Employee />} />
             <Route path="profile" element={<Profile />} />
             <Route path="profile/settings" element={<AccountSettings />} />
-            <Route path="*" element={<Navigate to="/404" />} />
+            <Route path="*" element={<NotFound />} />
           </Route>
 
           <Route path="/" element={<Navigate to="/login" />} />
           <Route path="/login" element={<Login />} />
 
-          <Route path="/404" element={<NotFound />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </>

@@ -54,7 +54,7 @@ const Login = () => {
               <form
                 className="form w-100"
                 noValidate="novalidate"
-                action="/dashboard"
+                action="/panel/dashboard"
               >
                 <div className="text-center mb-10">
                   <h1 className="text-dark mb-3">Sign In to the Panel</h1>
@@ -105,46 +105,6 @@ const Login = () => {
                       <span className="spinner-border spinner-border-sm align-middle ms-2"></span>
                     </span>
                   </button>
-
-                  <div className="text-center text-muted text-uppercase fw-bolder mb-5">
-                    or
-                  </div>
-
-                  <a
-                    href="!#"
-                    className="btn btn-flex flex-center btn-light btn-lg w-100 mb-5"
-                  >
-                    <img
-                      alt="Logo"
-                      src="assets/media/svg/brand-logos/google-icon.svg"
-                      className="h-20px me-3"
-                    />
-                    Continue with Google
-                  </a>
-
-                  <a
-                    href="!#"
-                    className="btn btn-flex flex-center btn-light btn-lg w-100 mb-5"
-                  >
-                    <img
-                      alt="Logo"
-                      src="assets/media/svg/brand-logos/facebook-4.svg"
-                      className="h-20px me-3"
-                    />
-                    Continue with Facebook
-                  </a>
-
-                  <a
-                    href="!#"
-                    className="btn btn-flex flex-center btn-light btn-lg w-100"
-                  >
-                    <img
-                      alt="Logo"
-                      src="assets/media/svg/brand-logos/apple-black.svg"
-                      className="h-20px me-3"
-                    />
-                    Continue with Apple
-                  </a>
                 </div>
               </form>
             </div>

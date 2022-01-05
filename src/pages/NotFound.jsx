@@ -1,11 +1,15 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+
 const NotFound = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
   return (
     <div className="d-flex flex-column flex-root">
       <div className="d-flex flex-column flex-center flex-column-fluid p-10">
         <img
-          src="assets/media/illustrations/sketchy-1/18.png"
+          src="/assets/media/illustrations/sketchy-1/18.png"
           alt="404"
           className="mw-100 mb-10 h-lg-450px"
         />
@@ -14,8 +18,18 @@ const NotFound = () => {
           Seems there is nothing here
         </h1>
 
-        <Link onClick={() => window.history.go(-2)} to="#" className="btn btn-primary">
-          Return to Previous Page
+        <Link
+          onClick={() =>
+            location.pathname.includes("panel")
+              ? navigate(-1)
+              : (window.location.href = "/")
+          }
+          to="#"
+          className="btn btn-primary"
+        >
+          {location.pathname.includes("panel")
+            ? "Return to Previous Page"
+            : "Back to Home"}
         </Link>
       </div>
     </div>
