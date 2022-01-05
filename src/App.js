@@ -6,6 +6,8 @@ import Login from "./pages/auth/Login";
 import Profile from "./pages/auth/Profile";
 import AccountSettings from "./pages/auth/AccountSettings";
 import Employee from "./pages/Employee";
+import Department from "./pages/Department";
+import Role from "./pages/Role";
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
           <Route path="/panel/*" element={<AppLayout />}>
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="employees" element={<Employee />} />
+            <Route path="departments" element={<Department />} />
+            <Route path="roles" element={<Role />} />
             <Route path="profile" element={<Profile />} />
             <Route path="profile/settings" element={<AccountSettings />} />
             <Route path="*" element={<NotFound />} />

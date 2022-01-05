@@ -182,6 +182,20 @@ const SideMenu = () => {
               </NavLink>
             </div>
 
+       
+
+            {/* <div
+              data-kt-menu-trigger="click"
+              className="menu-item menu-accordion"
+            >
+              <span className="menu-link">
+                <span className="menu-icon">
+                  <i className="fa fa-user-shield"></i>
+                </span>
+                <span className="menu-title">Roles</span>
+              </span>
+            </div> */}
+
             <div className="menu-item">
               <div className="menu-content pt-8 pb-2">
                 <span className="menu-section text-muted text-uppercase fs-8 ls-1">
