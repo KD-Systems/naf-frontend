@@ -2,12 +2,17 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Login = () => {
+  //Replace the classes of body for the page
+  let body = document.getElementsByTagName('body');
+  body[0].setAttribute('class', 'bg-body');
+
+
   return (
     <div className="d-flex flex-column flex-root">
       <div className="d-flex flex-column flex-lg-row flex-column-fluid">
         <div
           className="d-flex flex-column flex-lg-row-auto w-xl-600px positon-xl-relative"
-          style={{ backgroundColor: "#F2C98A" }}
+          style={{ backgroundColor: "#F2C98A", height: '100vh' }}
         >
           <div className="d-flex flex-column position-xl-fixed top-0 bottom-0 w-xl-600px scroll-y">
             <div className="d-flex flex-row-fluid flex-column text-center p-10 pt-lg-20">
@@ -49,21 +54,10 @@ const Login = () => {
               <form
                 className="form w-100"
                 noValidate="novalidate"
-                id="kt_sign_in_form"
-                action="#"
+                action="/dashboard"
               >
                 <div className="text-center mb-10">
-                  <h1 className="text-dark mb-3">Sign In to Metronic</h1>
-
-                  <div className="text-gray-400 fw-bold fs-4">
-                    New Here?
-                    <a
-                      href="../../demo1/dist/authentication/layouts/aside/sign-up.html"
-                      className="link-primary fw-bolder"
-                    >
-                      Create an Account
-                    </a>
-                  </div>
+                  <h1 className="text-dark mb-3">Sign In to the Panel</h1>
                 </div>
 
                 <div className="fv-row mb-10">
@@ -74,7 +68,6 @@ const Login = () => {
                   <input
                     className="form-control form-control-lg form-control-solid"
                     type="text"
-                    name="email"
                     autoComplete="off"
                   />
                 </div>
@@ -96,7 +89,6 @@ const Login = () => {
                   <input
                     className="form-control form-control-lg form-control-solid"
                     type="password"
-                    name="password"
                     autoComplete="off"
                   />
                 </div>
