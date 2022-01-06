@@ -155,7 +155,7 @@ const Role = () => {
                       <th className="w-25px">
                  
                       </th>
-                      <th className="min-w-150px">Id</th>
+                      <th className="min-w-50px">Id</th>
                       <th className="min-w-140px">Name</th>
                       <th className="min-w-120px">Users</th>
                     
