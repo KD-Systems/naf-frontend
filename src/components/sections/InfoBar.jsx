@@ -764,13 +764,13 @@ const InfoBar = () => {
             <div className="separator my-2"></div>
 
             <div className="menu-item px-5">
-              <Link to="/panel/profile" className="menu-link px-5">
+              <Link to="/panel/profile/" className="menu-link px-5">
                 My Profile
               </Link>
             </div>
 
             <div className="menu-item px-5 my-1">
-              <Link to="!#" className="menu-link px-5">
+              <Link to="/panel/profile/settings" className="menu-link px-5">
                 Account Settings
               </Link>
             </div>
