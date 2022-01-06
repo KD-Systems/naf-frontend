@@ -41,7 +41,7 @@ const NavBar = () => {
             <a href="/panel/dashboard" className="d-lg-none">
               <img
                 alt="Logo"
-                src="assets/media/logos/logo-2.svg"
+                src="/assets/media/logos/naf.png"
                 className="h-30px"
               />
             </a>
