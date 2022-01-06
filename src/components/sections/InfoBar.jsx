@@ -731,7 +731,7 @@ const InfoBar = () => {
             data-kt-menu-attach="parent"
             data-kt-menu-placement="bottom-end"
           >
-            <img src="/assets/media/avatars/150-26.jpg" alt="user" />
+            <span class="symbol-label" style={{ backgroundImage: "url(assets/media//stock/ecommerce/3.gif)" }}></span>
           </div>
 
           <div
@@ -741,21 +741,18 @@ const InfoBar = () => {
             <div className="menu-item px-3">
               <div className="menu-content d-flex align-items-center px-3">
                 <div className="symbol symbol-50px me-5">
-                  <img alt="Logo" src="/assets/media/avatars/150-26.jpg" />
+                  <span class="symbol-label" style={{ backgroundImage: "url(assets/media//stock/ecommerce/3.gif)" }}></span>
                 </div>
 
                 <div className="d-flex flex-column">
-                  <div className="fw-bolder d-flex align-items-center fs-5">
-                    Max Smith
-                    <span className="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">
-                      Pro
-                    </span>
+                  <div className="fw-bolder d-flex align-items-center">
+                    Safil Nawaz Chowdhury
                   </div>
                   <a
                     href="!#"
                     className="fw-bold text-muted text-hover-primary fs-7"
                   >
-                    max@kt.com
+                    safil@nafgroup.com
                   </a>
                 </div>
               </div>
