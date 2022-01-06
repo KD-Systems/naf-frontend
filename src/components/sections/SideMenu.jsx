@@ -173,7 +173,7 @@ const SideMenu = () => {
                 className={(navinfo) =>
                   navinfo.isActive ? "menu-link active" : "menu-link"
                 }
-                to="/roles"
+                to="roles"
               >
                 <span className="menu-icon">
                   <i className="fa fa-user-shield"></i>
