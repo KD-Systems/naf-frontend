@@ -19,7 +19,7 @@ const Login = () => {
               <Link to="#" className="py-9 mb-5">
                 <img
                   alt="Logo"
-                  src="assets/media/logos/logo-2.svg"
+                  src="assets/media/logos/naf.png"
                   className="h-60px"
                 />
               </Link>
@@ -28,13 +28,11 @@ const Login = () => {
                 className="fw-bolder fs-2qx pb-5 pb-md-10"
                 style={{ color: "#986923" }}
               >
-                Welcome to Metronic
+                Welcome to NAF Inventory
               </h1>
 
               <p className="fw-bold fs-2" style={{ color: "#986923" }}>
-                Discover Amazing Metronic
-                <br />
-                with great build tools
+              Naf Group is one of the most prestigious and experienced commercial and industrial conglomerates in Bangladesh today
               </p>
             </div>
 
