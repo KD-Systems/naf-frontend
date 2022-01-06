@@ -38,7 +38,7 @@ const NavBar = () => {
           </div>
 
           <div className="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
-            <a href="../../demo1/dist/index.html" className="d-lg-none">
+            <a href="/panel/dashboard" className="d-lg-none">
               <img
                 alt="Logo"
                 src="assets/media/logos/logo-2.svg"

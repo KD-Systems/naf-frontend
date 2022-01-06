@@ -11,9 +11,6 @@ const Department = () => {
               <span className="card-label fw-bolder fs-3 mb-1">
                 Departments
               </span>
-              {/* <span className="text-muted mt-1 fw-bold fs-7">
-                Over 500 orders
-              </span> */}
             </h3>
             <div className="card-toolbar">
               <button
@@ -31,9 +28,9 @@ const Department = () => {
                   >
                     <g
                       stroke="none"
-                      stroke-width="1"
+                      strokeWidth="1"
                       fill="none"
-                      fill-rule="evenodd"
+                      fillRule="evenodd"
                     >
                       <rect
                         x="5"

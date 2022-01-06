@@ -16,7 +16,6 @@ const AccountSettings = () => {
 
                 </div>
 
-
                 <div id="kt_account_settings_profile_details" className="collapse show">
                     <form id="kt_account_profile_details_form" className="form fv-plugins-bootstrap5 fv-plugins-framework" noValidate="novalidate">
                         <div className="card-body border-top p-9">
