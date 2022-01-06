@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Department = () => {
+const Designations = () => {
   return (
     <div className="post d-flex flex-column-fluid" id="kt_post">
       <div id="kt_content_container" className="container-xxl">
@@ -9,141 +9,9 @@ const Department = () => {
           <div className="card-header border-0 pt-5">
             <h3 className="card-title align-items-start flex-column">
               <span className="card-label fw-bolder fs-3 mb-1">
-                Departments
+              Designations
               </span>
             </h3>
-            <div className="card-toolbar">
-              <button
-                type="button"
-                className="btn btn-sm btn-icon btn-color-primary btn-active-light-primary"
-                data-kt-menu-trigger="click"
-                data-kt-menu-placement="bottom-end"
-              >
-                <span className="svg-icon svg-icon-2">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24px"
-                    height="24px"
-                    viewBox="0 0 24 24"
-                  >
-                    <g
-                      stroke="none"
-                      strokeWidth="1"
-                      fill="none"
-                      fillRule="evenodd"
-                    >
-                      <rect
-                        x="5"
-                        y="5"
-                        width="5"
-                        height="5"
-                        rx="1"
-                        fill="#000000"
-                      />
-                      <rect
-                        x="14"
-                        y="5"
-                        width="5"
-                        height="5"
-                        rx="1"
-                        fill="#000000"
-                        opacity="0.3"
-                      />
-                      <rect
-                        x="5"
-                        y="14"
-                        width="5"
-                        height="5"
-                        rx="1"
-                        fill="#000000"
-                        opacity="0.3"
-                      />
-                      <rect
-                        x="14"
-                        y="14"
-                        width="5"
-                        height="5"
-                        rx="1"
-                        fill="#000000"
-                        opacity="0.3"
-                      />
-                    </g>
-                  </svg>
-                </span>
-              </button>
-
-              <div
-                className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-bold w-200px"
-                data-kt-menu="true"
-              >
-                <div className="menu-item px-3">
-                  <div className="menu-content fs-6 text-dark fw-bolder px-3 py-4">
-                    Quick Actions
-                  </div>
-                </div>
-
-                <div className="separator mb-3 opacity-75"></div>
-
-                <div className="menu-item px-3">
-                  <Link to="#" className="menu-link px-3">
-                    New Ticket
-                  </Link>
-                </div>
-
-                <div className="menu-item px-3">
-                  <Link to="#" className="menu-link px-3">
-                    New Customer
-                  </Link>
-                </div>
-
-                <div
-                  className="menu-item px-3"
-                  data-kt-menu-trigger="hover"
-                  data-kt-menu-placement="right-start"
-                >
-                  <Link to="#" className="menu-link px-3">
-                    <span className="menu-title">New Group</span>
-                    <span className="menu-arrow"></span>
-                  </Link>
-
-                  <div className="menu-sub menu-sub-dropdown w-175px py-4">
-                    <div className="menu-item px-3">
-                      <Link to="#" className="menu-link px-3">
-                        Admin Group
-                      </Link>
-                    </div>
-
-                    <div className="menu-item px-3">
-                      <Link to="#" className="menu-link px-3">
-                        Staff Group
-                      </Link>
-                    </div>
-
-                    <div className="menu-item px-3">
-                      <Link to="#" className="menu-link px-3">
-                        Member Group
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="menu-item px-3">
-                  <Link to="#" className="menu-link px-3">
-                    New Contact
-                  </Link>
-                </div>
-
-                <div className="separator mt-3 opacity-75"></div>
-
-                <div className="menu-item px-3">
-                  <div className="menu-content px-3 py-3">
-                    <Link className="btn btn-primary btn-sm px-4" to="#">
-                      Generate Reports
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
 
           <div className="card-body py-3">
@@ -156,7 +24,7 @@ const Department = () => {
                     </th>
                     <th className="min-w-50px">Id</th>
                     
-                    <th className="min-w-120px">Department Name</th>
+                    <th className="min-w-120px">Designation</th>
                     <th className="min-w-120px">Members</th>
                     <th className="min-w-100px text-end">Actions</th>
                   </tr>
@@ -181,18 +49,15 @@ const Department = () => {
                         to="#"
                         className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
                       >
-                        Software development
+                        Deputy Managing Director
                       </Link>
-                      {/* <span className="text-muted fw-bold text-muted d-block fs-7">
-                        Code: Paid
-                      </span> */}
                     </td>
                     <td>
                       <Link
                         to="#"
                         className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
                       >
-                        10
+                        1
                       </Link>
              
                     </td>
@@ -295,7 +160,7 @@ const Department = () => {
                         to="#"
                         className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
                       >
-                        SEO
+                        Sales Manager
                       </Link>
                      
                     </td>
@@ -304,7 +169,7 @@ const Department = () => {
                         to="#"
                         className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
                       >
-                       15
+                       2
                       </Link>
                      
                     </td>
@@ -407,7 +272,7 @@ const Department = () => {
                         to="#"
                         className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
                       >
-                        Content Writing
+                        Marketing Officer
                       </Link>
                     
                     </td>
@@ -416,7 +281,7 @@ const Department = () => {
                         to="#"
                         className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
                       >
-                        12
+                        4
                       </Link>
                       {/* <span className="text-muted fw-bold text-muted d-block fs-7">
                         Code: Paid
@@ -517,4 +382,4 @@ const Department = () => {
   );
 };
 
-export default Department;
+export default Designations;
