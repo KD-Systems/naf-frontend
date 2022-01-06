@@ -18,7 +18,7 @@ const SideMenu = () => {
         <NavLink to="/login">
           <img
             alt="Logo"
-            src="/assets/media/logos/logo-1-dark.svg"
+            src="/assets/media/logos/naf.png"
             className="h-25px logo"
           />
         </NavLink>
@@ -204,7 +204,21 @@ const SideMenu = () => {
               </div>
             </div>
 
-            <div
+            <div className="menu-item">
+              <NavLink
+                className={(navinfo) =>
+                  navinfo.isActive ? "menu-link active" : "menu-link"
+                }
+                to="companies"
+              >
+                <span className="menu-icon">
+                  <i className="fa fa-building"></i>
+                </span>
+                <span className="menu-title">Companies</span>
+              </NavLink>
+            </div>
+
+            {/* <div
               data-kt-menu-trigger="click"
               className="menu-item menu-accordion"
             >
@@ -214,7 +228,7 @@ const SideMenu = () => {
                 </span>
                 <span className="menu-title">Companies</span>
               </span>
-            </div>
+            </div> */}
 
             <div
               data-kt-menu-trigger="click"

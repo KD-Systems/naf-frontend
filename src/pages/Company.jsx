@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const Role = () => {
+const Company = () => {
     return (
         <div className="post d-flex flex-column-fluid" id="kt_post">
         <div id="kt_content_container" className="container-xxl">
@@ -9,7 +9,7 @@ const Role = () => {
             <div className="card-header border-0 pt-5">
               <h3 className="card-title align-items-start flex-column">
                 <span className="card-label fw-bolder fs-3 mb-1">
-                  Roles
+                  Companies
                 </span>
                 {/* <span className="text-muted mt-1 fw-bold fs-7">
                   Over 500 orders
@@ -159,7 +159,8 @@ const Role = () => {
                       </th>
                       <th className="min-w-150px">Id</th>
                       <th className="min-w-140px">Name</th>
-                      <th className="min-w-120px">Roles</th>
+                      <th className="min-w-120px">Logo</th>
+                      <th className="min-w-120px">Description</th>
                     
                       <th className="min-w-100px text-end">Actions</th>
                     </tr>
@@ -183,16 +184,29 @@ const Role = () => {
                           to="#"
                           className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
                         >
-                          Lionel Messi
+                          Apple
                         </Link>
                      
                       </td>
+                      <td>
+                      <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(/assets/media//stock/ecommerce/2.gif)"}}
+
+                          ></span>
+                        </Link>
+                      </td>
+
                       <td>
                         <Link
                           to="#"
                           className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
                         >
-                          admin
+                            Apple Inc. is an American multinational technology
                         </Link>
                        
                       </td>
@@ -296,20 +310,30 @@ const Role = () => {
                           to="#"
                           className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
                         >
-                          Christiano Ronaldo
+                          Amazon
                         </Link>
                      
+                      </td>
+                      <td>
+                      <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(/assets/media//stock/ecommerce/2.gif)"}}
+
+                          ></span>
+                        </Link>
                       </td>
                       <td>
                         <Link
                           to="#"
                           className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
                         >
-                         admin
+                         Amazon is an American multinational technology
                         </Link>
-                        {/* <span className="text-muted fw-bold text-muted d-block fs-7">
-                          Code: Paid
-                        </span> */}
+                 
                       </td>
                   
                     
@@ -410,22 +434,33 @@ const Role = () => {
                           to="#"
                           className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
                         >
-                          Karim Benzema
+                          Microsoft
                         </Link>
-                        {/* <span className="text-muted fw-bold text-muted d-block fs-7">
-                          Code: BH
-                        </span> */}
+                        
                       </td>
+
+                      <td>
+                      <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(/assets/media//stock/ecommerce/2.gif)"}}
+
+                          ></span>
+                        </Link>
+                 
+                      </td>
+
                       <td>
                         <Link
                           to="#"
                           className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
                         >
-                        user
+                        Microsoft is a multinational company
                         </Link>
-                        {/* <span className="text-muted fw-bold text-muted d-block fs-7">
-                          Code: Paid
-                        </span> */}
+                       
                       </td>
                     
   
@@ -527,22 +562,32 @@ const Role = () => {
                           to="#"
                           className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
                         >
-                          Luca Modric
+                          Walmart
                         </Link>
-                        {/* <span className="text-muted fw-bold text-muted d-block fs-7">
-                          Code: BR
-                        </span> */}
+                    
+                      </td>
+
+                      <td>
+                      <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(/assets/media//stock/ecommerce/2.gif)"}}
+
+                          ></span>
+                        </Link>
+                 
                       </td>
                       <td>
                         <Link
                           to="#"
                           className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
                         >
-                          user
+                         Walmart is a multinational company
                         </Link>
-                        {/* <span className="text-muted fw-bold text-muted d-block fs-7">
-                          Code: Paid
-                        </span> */}
+                    
                       </td>
                 
                     
@@ -643,22 +688,34 @@ const Role = () => {
                           to="#"
                           className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
                         >
-                          Andres Iniesta
+                          ICBC
                         </Link>
-                        {/* <span className="text-muted fw-bold text-muted d-block fs-7">
-                          Code: BT
-                        </span> */}
+          
                       </td>
+
+                       
+                      <td>
+                      <Link
+                          to="#"
+                          className="symbol symbol-50px"
+                        >
+                          <span
+                            className="symbol-label"
+                            style={{backgroundImage:"url(/assets/media//stock/ecommerce/2.gif)"}}
+
+                          ></span>
+                        </Link>
+                 
+                      </td> 
+
                       <td>
                         <Link
                           to="#"
                           className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
                         >
-                         user
+                         ICBC is a multinational Company
                         </Link>
-                        {/* <span className="text-muted fw-bold text-muted d-block fs-7">
-                          Code: Paid
-                        </span> */}
+               
                       </td>
                 
                     
@@ -752,4 +809,4 @@ const Role = () => {
     )
 }
 
-export default Role
+export default Company

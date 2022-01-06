@@ -121,7 +121,7 @@ const Employee = () => {
                         >
                           <span
                             className="symbol-label"
-                            style={{backgroundImage:"url(assets/media//stock/ecommerce/1.gif)"}}
+                            style={{backgroundImage:"url(/assets/media//stock/ecommerce/1.gif)"}}
                           ></span>
                         </Link>
 
@@ -306,7 +306,7 @@ const Employee = () => {
                         >
                           <span
                             className="symbol-label"
-                            style={{backgroundImage:"url(assets/media//stock/ecommerce/2.gif)"}}
+                            style={{backgroundImage:"url(/assets/media//stock/ecommerce/2.gif)"}}
 
                           ></span>
                         </Link>

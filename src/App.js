@@ -8,6 +8,7 @@ import AccountSettings from "./pages/auth/AccountSettings";
 import Employee from "./pages/Employee";
 import Department from "./pages/Department";
 import Role from "./pages/Role";
+import Company from "./pages/Company";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             <Route path="employees" element={<Employee />} />
             <Route path="departments" element={<Department />} />
             <Route path="roles" element={<Role />} />
+            <Route path="companies" element={<Company />} />
             <Route path="profile" element={<Profile />} />
             <Route path="profile/settings" element={<AccountSettings />} />
             <Route path="*" element={<NotFound />} />
