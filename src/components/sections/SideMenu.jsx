@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const SideMenu = () => {
   return (
@@ -159,12 +159,12 @@ const SideMenu = () => {
                 className={(navinfo) =>
                   navinfo.isActive ? "menu-link active" : "menu-link"
                 }
-                to="/panel/departments"
+                to="/panel/designations"
               >
                 <span className="menu-icon">
                   <i className="fa fa-sitemap"></i>
                 </span>
-                <span className="menu-title">Departments</span>
+                <span className="menu-title">Designations</span>
               </NavLink>
             </div>
 

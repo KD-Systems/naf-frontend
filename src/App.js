@@ -6,7 +6,7 @@ import Login from "./pages/auth/Login";
 import Profile from "./pages/auth/Profile";
 import AccountSettings from "./pages/auth/AccountSettings";
 import Employee from "./pages/Employee";
-import Department from "./pages/Department";
+import Designations from "./pages/Designations";
 import Role from "./pages/Role";
 import Company from "./pages/Company";
 
@@ -18,7 +18,7 @@ function App() {
           <Route path="/panel/*" element={<AppLayout />}>
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="employees" element={<Employee />} />
-            <Route path="departments" element={<Department />} />
+            <Route path="designations" element={<Designations />} />
             <Route path="roles" element={<Role />} />
             <Route path="companies" element={<Company />} />
             <Route path="profile" element={<Profile />} />

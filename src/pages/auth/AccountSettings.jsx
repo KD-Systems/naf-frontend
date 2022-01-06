@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import TopCard from '../../components/profile/TopCard'
 
 const AccountSettings = () => {
@@ -15,7 +16,6 @@ const AccountSettings = () => {
                     </div>
 
                 </div>
-
 
                 <div id="kt_account_settings_profile_details" className="collapse show">
                     <form id="kt_account_profile_details_form" className="form fv-plugins-bootstrap5 fv-plugins-framework" noValidate="novalidate">
@@ -63,37 +63,24 @@ const AccountSettings = () => {
 
 
                             <div className="row mb-6">
-                                <label className="col-lg-4 col-form-label required fw-bold fs-6">Company</label>
+                                <label className="col-lg-4 col-form-label required fw-bold fs-6">Designation</label>
                                 <div className="col-lg-8 fv-row fv-plugins-icon-container">
                                     <input type="text" name="company" className="form-control form-control-lg form-control-solid" placeholder="Company name" defaultValue="Keenthemes" />
                                     <div className="fv-plugins-message-container invalid-feedback"></div>
                                 </div>
                             </div>
 
-
                             <div className="row mb-6">
-                                <label className="col-lg-4 col-form-label fw-bold fs-6">
-                                    <span className="required">Contact Phone</span>
-                                    <i className="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="" data-bs-original-title="Phone number must be active" aria-label="Phone number must be active"></i>
-                                </label>
-
-
+                                <label className="col-lg-4 col-form-label required fw-bold fs-6">Email</label>
                                 <div className="col-lg-8 fv-row fv-plugins-icon-container">
-                                    <input type="tel" name="phone" className="form-control form-control-lg form-control-solid" placeholder="Phone number" defaultValue="044 3276 454 935" />
+                                    <input type="text" name="company" className="form-control form-control-lg form-control-solid" placeholder="Company name" defaultValue="safil@nafgroup.com" />
                                     <div className="fv-plugins-message-container invalid-feedback"></div>
-                                </div>
-                            </div>
-
-                            <div className="row mb-6">
-                                <label className="col-lg-4 col-form-label fw-bold fs-6">Company Site</label>
-                                <div className="col-lg-8 fv-row">
-                                    <input type="text" name="website" className="form-control form-control-lg form-control-solid" placeholder="Company website" defaultValue="keenthemes.com" />
                                 </div>
                             </div>
 
 
                             <div className="row mb-0">
-                                <label className="col-lg-4 col-form-label fw-bold fs-6">Allow Marketing</label>
+                                <label className="col-lg-4 col-form-label fw-bold fs-6">Allow Notification</label>
                                 <div className="col-lg-8 d-flex align-items-center">
                                     <div className="form-check form-check-solid form-switch fv-row">
                                         <input className="form-check-input w-45px h-30px" type="checkbox" id="allowmarketing" />
@@ -104,7 +91,7 @@ const AccountSettings = () => {
                         </div>
 
                         <div className="card-footer d-flex justify-content-end py-6 px-9">
-                            <button type="reset" className="btn btn-light btn-active-light-primary me-2">Discard</button>
+                            <Link to="/panel/profile" type="reset" className="btn btn-light btn-active-light-primary me-2">Discard</Link>
                             <button type="submit" className="btn btn-primary" id="kt_account_profile_details_submit">Save Changes</button>
                         </div>
                     </form>

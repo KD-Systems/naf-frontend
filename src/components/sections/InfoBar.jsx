@@ -45,31 +45,21 @@ const InfoBar = () => {
             <div
               className="d-flex flex-column bgi-no-repeat rounded-top"
               style={{
-                backgroundImage: "url('assets/media/misc/pattern-1.jpg')",
+                backgroundImage: "url('/assets/media/misc/pattern-1.jpg')",
               }}
             >
               <h3 className="text-white fw-bold px-9 mt-10 mb-6">
                 Notifications
-                <span className="fs-8 opacity-75 ps-3">24 reports</span>
               </h3>
 
               <ul className="nav nav-line-tabs nav-line-tabs-2x nav-stretch fw-bold px-9">
                 <li className="nav-item">
                   <a
-                    className="nav-link text-white opacity-75 opacity-state-100 pb-4"
+                    className="nav-link text-white opacity-75 opacity-state-100 pb-4 active"
                     data-bs-toggle="tab"
                     href="#kt_topbar_notifications_1"
                   >
                     Alerts
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a
-                    className="nav-link text-white opacity-75 opacity-state-100 pb-4 active"
-                    data-bs-toggle="tab"
-                    href="#kt_topbar_notifications_2"
-                  >
-                    Updates
                   </a>
                 </li>
                 <li className="nav-item">
@@ -86,7 +76,7 @@ const InfoBar = () => {
 
             <div className="tab-content">
               <div
-                className="tab-pane fade"
+                className="tab-pane fade show active"
                 id="kt_topbar_notifications_1"
                 role="tabpanel"
               >
@@ -448,44 +438,6 @@ const InfoBar = () => {
               </div>
 
               <div
-                className="tab-pane fade show active"
-                id="kt_topbar_notifications_2"
-                role="tabpanel"
-              >
-                <div className="d-flex flex-column px-9">
-                  <div className="pt-10 pb-0">
-                    <h3 className="text-dark text-center fw-bolder">
-                      Get Pro Access
-                    </h3>
-
-                    <div className="text-center text-gray-600 fw-bold pt-1">
-                      Outlines keep you honest. They stoping you from amazing
-                      poorly about drive
-                    </div>
-
-                    <div className="text-center mt-5 mb-9">
-                      <a
-                        href="!#"
-                        className="btn btn-sm btn-primary px-6"
-                        data-bs-toggle="modal"
-                        data-bs-target="#kt_modal_upgrade_plan"
-                      >
-                        Upgrade
-                      </a>
-                    </div>
-                  </div>
-
-                  <div className="text-center px-4">
-                    <img
-                      className="mw-100 mh-200px"
-                      alt="image"
-                      src="assets/media/illustrations/sketchy-1/1.png"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div
                 className="tab-pane fade"
                 id="kt_topbar_notifications_3"
                 role="tabpanel"
@@ -779,7 +731,7 @@ const InfoBar = () => {
             data-kt-menu-attach="parent"
             data-kt-menu-placement="bottom-end"
           >
-            <img src="/assets/media/avatars/150-26.jpg" alt="user" />
+            <span class="symbol-label" style={{ backgroundImage: "url(assets/media//stock/ecommerce/3.gif)" }}></span>
           </div>
 
           <div
@@ -789,21 +741,18 @@ const InfoBar = () => {
             <div className="menu-item px-3">
               <div className="menu-content d-flex align-items-center px-3">
                 <div className="symbol symbol-50px me-5">
-                  <img alt="Logo" src="/assets/media/avatars/150-26.jpg" />
+                  <span class="symbol-label" style={{ backgroundImage: "url(assets/media//stock/ecommerce/3.gif)" }}></span>
                 </div>
 
                 <div className="d-flex flex-column">
-                  <div className="fw-bolder d-flex align-items-center fs-5">
-                    Max Smith
-                    <span className="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">
-                      Pro
-                    </span>
+                  <div className="fw-bolder d-flex align-items-center">
+                    Safil Nawaz Chowdhury
                   </div>
                   <a
                     href="!#"
                     className="fw-bold text-muted text-hover-primary fs-7"
                   >
-                    max@kt.com
+                    safil@nafgroup.com
                   </a>
                 </div>
               </div>
@@ -812,13 +761,13 @@ const InfoBar = () => {
             <div className="separator my-2"></div>
 
             <div className="menu-item px-5">
-              <Link to="/profile" className="menu-link px-5">
+              <Link to="/panel/profile/" className="menu-link px-5">
                 My Profile
               </Link>
             </div>
 
             <div className="menu-item px-5 my-1">
-              <Link to="!#" className="menu-link px-5">
+              <Link to="/panel/profile/settings" className="menu-link px-5">
                 Account Settings
               </Link>
             </div>
