@@ -1,7 +1,14 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { Link } from "react-router-dom";
-
+import DesignationService from "../services/DesignationService"
 const Designations = () => {
+
+  useEffect(()=>{
+   console.log(DesignationService.getAll());;
+   
+    
+  },[])
+  
   return (
     <div className="post d-flex flex-column-fluid" id="kt_post">
       <div id="kt_content_container" className="container-xxl">
