@@ -5,14 +5,12 @@ import React,{useState} from "react";
 
 
 
-const  getAll = ()=>{
-    return  http.get("/designations")
-            .then((res)=>{
-                return res.data;
-            })
-            .catch((err)=>{
-                console.log(err.data);
-            });
+const  getAll = async()=>{
+    const res =  await http.get("/designations")
+
+    return res.data
+    
+            
 };
 
 const get = id =>{
@@ -37,6 +35,7 @@ const DesignationService = {
     create,
     update,
     remove,
+    
     
   };
 
