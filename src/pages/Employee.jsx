@@ -65,8 +65,8 @@ const Employee = () => {
                 </div>
 
                 <Link
-                  to="../../demo1/dist/apps/ecommerce/catalog/add-product.html"
-                  className="btn btn-primary"
+                  to="#"
+                  className="btn btn-light-primary btn-md"
                 >
                   Add Employee
                 </Link>

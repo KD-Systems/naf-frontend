@@ -29,6 +29,7 @@ const update = async(id,data) =>{
 };
 
 const remove = async(id) => {
+    console.log(id);
     const res = await http.delete(`/designations/${id}`)
     return res.data
 };
@@ -39,8 +40,6 @@ const DesignationService = {
     create,
     update,
     remove,
-    
-    
   };
 
   export default DesignationService;
