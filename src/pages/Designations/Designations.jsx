@@ -68,6 +68,20 @@ const Designations = () => {
 //update designation
   const onSubmit = ()=>{
     updateDesignation();
+    onCloseModal()
+  }
+
+
+  //delete Designation
+  const deleteDesignation = async(id)=>{
+    if(!window.confirm('Are you want to do it?'))
+        return false;
+
+    await DesignationService.remove(id)
+    getDesignations();
+    setOpen(false)
+
+    
   }
 
   useEffect(() => {
@@ -99,7 +113,18 @@ const Designations = () => {
                   Designations
                 </span>
               </h3>
+
+              <div>
+            <Link
+                  to="#"
+                  className="btn btn-light-primary btn-md"
+                >
+                  Add Designation
+                </Link>
             </div>
+            
+            </div>
+          
 
             <div className="card-body py-3">
               <div className="table-responsive">
@@ -201,6 +226,7 @@ const Designations = () => {
                           <Link
                             to="#"
                             className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
+                            onClick={()=>deleteDesignation(item.id)}
                           >
                             <span className="svg-icon svg-icon-3">
                               <svg
@@ -253,7 +279,7 @@ const Designations = () => {
                   placeholder="Enter Designation Name"
                   name="name"
                   id="name"
-                  value={data.name}
+                  value={data.name || ''}
                   onChange={handleChange}
                 />
 
@@ -268,7 +294,7 @@ const Designations = () => {
                   placeholder="Enter Designation Description"
                   name="description"
                   id="description"
-                  value={data.description}
+                  value={data.description || ''}
                   onChange={handleChange}
                 />
 
@@ -281,7 +307,7 @@ const Designations = () => {
                 style={{ marginRight: "1rem" }}
                 onClick={onSubmit}
               >
-                Submit
+                Update
               </button>
               <button
                 type="reset"
