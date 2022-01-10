@@ -1,24 +1,92 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Modal from "../../components/utils/Modal";
 import DesignationService from "../../services/DesignationService";
-import "react-responsive-modal/styles.css";
-import { Modal } from "react-responsive-modal";
+import Designation from "./Designation";
 
 const Designations = () => {
   const [designations, setDesignations] = useState([]);
+  const [designationId, setDesignationId] = useState("");
+  const [designation, setDesignation] = useState("");
+
+  const [data,setData] = useState({name:"",description:""})
 
   const [open, setOpen] = useState(false);
 
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
 
+
+  const closeIcon = (
+    <span className="svg-icon svg-icon-primary svg-icon-2x mt-7">
+      <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+        <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+          <g
+            transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) translate(4.000000, 4.000000)"
+            fill="#000000"
+          >
+            <rect x="0" y="7" width="16" height="2" rx="1" />
+            <rect
+              opacity="0.3"
+              transform="translate(8.000000, 8.000000) rotate(-270.000000) translate(-8.000000, -8.000000) "
+              x="0"
+              y="7"
+              width="16"
+              height="2"
+              rx="1"
+            />
+          </g>
+        </g>
+      </svg>
+    </span>
+  );
+
   const getDesignations = async () => {
     setDesignations(await DesignationService.getAll());
+    
   };
+
+  const getDesignation = async ()=>{
+    setDesignation(await DesignationService.get(designationId))
+    
+  }
+
+  const updateDesignation =async()=>{
+    await DesignationService.update(designationId,data)
+  }
+
+  // change data
+  const handleChange = (e)=>{
+    const value = e.target.value;
+    const name = e.target.name;
+   
+    let tempdata = {...data}
+    tempdata[name]=value
+
+    setData(tempdata)
+  }
+//update designation
+  const onSubmit = ()=>{
+    updateDesignation();
+  }
 
   useEffect(() => {
     getDesignations();
   }, []);
+
+  useEffect(()=>{
+    if(designationId){
+      getDesignation();
+    }
+  },[designationId])
+
+  useEffect(()=>{
+    let tempdata = {...data}
+    tempdata.name =designation.name
+    tempdata.description =designation.description
+    setData(tempdata)
+  },[designation])
+
 
   return (
     <>
@@ -48,8 +116,8 @@ const Designations = () => {
                   </thead>
 
                   <tbody>
-                    {designations?.map((item) => (
-                      <tr>
+                    {designations?.map((item, index) => (
+                      <tr key={index}>
                         <td></td>
                         <td>
                           <Link
@@ -105,7 +173,10 @@ const Designations = () => {
                           <Link
                             to="#"
                             className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-                            onClick={onOpenModal}
+                            onClick={()=>{
+                              onOpenModal();
+                              setDesignationId(item.id)
+                            }}
                           >
                             <span className="svg-icon svg-icon-3">
                               <svg
@@ -166,46 +237,63 @@ const Designations = () => {
           </div>
         </div>
       </div>
+      <Modal
+        open={open}
+        onCloseModal={onCloseModal}
+        closeIcon={closeIcon}
+        title={<>Edit Designation</>}
+        id={designationId}
+        body={
+          <>
+            <form>
+              <div className="form-group">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Enter Designation Name"
+                  name="name"
+                  id="name"
+                  value={data.name}
+                  onChange={handleChange}
+                />
 
-      <Modal open={open} onClose={onCloseModal} blockScroll={false}>
-        <div
-          className="modal position-relative d-block"
-          tabIndex="-1"
-          role="dialog"
-          ariaHidden="true"
-        >
-          <div className="modal-dialog " role="document">
-            <div className="modal-content ">
-              <div className="modal-header">
-                <h5 className="modal-title">Edit Designation</h5>
+               
               </div>
-              <div className="modal-body">
-                <div className="form-group">
-                  <label>Designation</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Enter Designation"
-                  />
-                </div>
+
+              <div className="form-group mt-5">
+                <textarea
+                  rows="3"
+                  type="text"
+                  className="form-control"
+                  placeholder="Enter Designation Description"
+                  name="description"
+                  id="description"
+                  value={data.description}
+                  onChange={handleChange}
+                />
+
+               
               </div>
-              <div className="modal-footer">
-                <button
-                  type="button"
-                  className="btn btn-secondary"
-                  data-dismiss="modal"
-                  onClick={onCloseModal}
-                >
-                  Close
-                </button>
-                <button type="button" className="btn btn-primary">
-                  Save changes
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </Modal>
+
+              <button
+                type="reset"
+                className="btn btn-primary mr-2 mt-5"
+                style={{ marginRight: "1rem" }}
+                onClick={onSubmit}
+              >
+                Submit
+              </button>
+              <button
+                type="reset"
+                className="btn btn-secondary  mt-5 "
+                onClick={onCloseModal}
+              >
+                Cancel
+              </button>
+            </form>
+          </>
+        }
+      />
     </>
   );
 };

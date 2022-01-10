@@ -731,7 +731,7 @@ const InfoBar = () => {
             data-kt-menu-attach="parent"
             data-kt-menu-placement="bottom-end"
           >
-            <span class="symbol-label" style={{ backgroundImage: "url(assets/media//stock/ecommerce/3.gif)" }}></span>
+            <span className="symbol-label" style={{ backgroundImage: "url(assets/media//stock/ecommerce/3.gif)" }}></span>
           </div>
 
           <div
@@ -741,7 +741,7 @@ const InfoBar = () => {
             <div className="menu-item px-3">
               <div className="menu-content d-flex align-items-center px-3">
                 <div className="symbol symbol-50px me-5">
-                  <span class="symbol-label" style={{ backgroundImage: "url(assets/media//stock/ecommerce/3.gif)" }}></span>
+                  <span className="symbol-label" style={{ backgroundImage: "url(assets/media//stock/ecommerce/3.gif)" }}></span>
                 </div>
 
                 <div className="d-flex flex-column">

@@ -13,20 +13,24 @@ const  getAll = async()=>{
             
 };
 
-const get = id =>{
-    return http.get(`/designations/${id}`)
+const get = async(id) =>{
+    const res = await http.get(`/designations/${id}`)
+    return res.data
 };
 
-const create = data =>{
+const create = async(data) =>{
     return http.post("/designations",data)
 };
 
-const update = (id,data) =>{
-    return http.put(`/designations/${id}`,data)
+const update = async(id,data) =>{
+    
+    const res = await http.put(`/designations/${id}`,data)
+    return res.data
 };
 
-const remove = id => {
-    return http.delete(`/designations/${id}`)
+const remove = async(id) => {
+    const res = await http.delete(`/designations/${id}`)
+    return res.data
 };
 
 const DesignationService = {
