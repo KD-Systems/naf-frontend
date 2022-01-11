@@ -15,7 +15,7 @@ const create = async (data) => {
 };
 
 const update = async (id, data) => {
-  const res = await http.put(`/companies/${id}`, data);
+  const res = await http.post(`/companies/${id}`, data);
   return res.data;
 };
 

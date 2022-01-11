@@ -11,6 +11,7 @@ import Role from "./pages/Role";
 
 
 import Companies from "./pages/companies/Index";
+import ShowCompany from "./pages/companies/Show";
 import ShowDesignation from "./pages/Designations/Show";
 
 
@@ -31,7 +32,10 @@ function App() {
 
              {/* Employee End */}
             <Route path="roles" element={<Role />} />
+
             <Route path="companies" element={<Companies />} />
+            <Route path="companies/:id" element={<ShowCompany />} />
+
             <Route path="profile" element={<Profile />} />
             <Route path="profile/settings" element={<AccountSettings />} />
             <Route path="*" element={<NotFound />} />
