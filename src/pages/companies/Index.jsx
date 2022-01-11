@@ -1,73 +1,51 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Modal from "../../components/utils/Modal";
 import CompanyService from "../../services/CompanyService";
+import EditCompany from "./Edit";
 
 const Companies = () => {
   const [companies, setCompanies] = useState([]);
   const [companyId, setcompanyId] = useState("");
-  const [company, setCompany] = useState("");
-  const [data, setData] = useState({ name: "", description: "" });
   const [open, setOpen] = useState(false);
-
-  const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
 
   const getCompanies = async () => {
     setCompanies(await CompanyService.getAll());
   };
 
-  const getCompany = async () => {
-    setCompany(await CompanyService.get(companyId));
-  };
-
-  const updateCompany = async () => {
-    await CompanyService.update(companyId, data);
-  };
-
-  // change data
-  const handleChange = (e) => {
-    const value = e.target.value;
-    const name = e.target.name;
-
-    let tempdata = { ...data };
-    tempdata[name] = value;
-
-    setData(tempdata);
-  };
-  //update designation
-  const onSubmit = () => {
-    updateCompany();
-  };
-
   useEffect(() => {
     getCompanies();
   }, []);
-
-  useEffect(() => {
-    if (companyId) {
-      getCompany();
-    }
-  }, [companyId]);
-
-  useEffect(() => {
-    let tempdata = { ...data };
-    tempdata.name = company.name;
-    tempdata.description = company.description;
-    setData(tempdata);
-  }, [company]);
 
   return (
     <>
       <div className="post d-flex flex-column-fluid" id="kt_post">
         <div id="kt_content_container" className="container-xxl">
           <div className="card mb-5 mb-xl-8">
-            <div className="card-header border-0 pt-5">
-              <h3 className="card-title align-items-start flex-column">
-                <span className="card-label fw-bolder fs-3 mb-1">
-                  Companies
-                </span>
-              </h3>
+            <div className="card-header mt-6">
+              <div className="card-title">
+                <div className="d-flex align-items-center position-relative my-1 me-5">
+                  <span className="svg-icon svg-icon-1 position-absolute ms-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                      <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="black"></rect>
+                      <path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="black"></path>
+                    </svg>
+                  </span>
+                  <input type="text" className="form-control form-control-solid w-250px ps-15" placeholder="Search Companies" />
+                </div>
+              </div>
+              <div className="card-toolbar">
+                <button type="button" className="btn btn-light-primary">
+                  <span className="svg-icon svg-icon-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                      <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5" fill="black"></rect>
+                      <rect x="10.8891" y="17.8033" width="12" height="2" rx="1" transform="rotate(-90 10.8891 17.8033)" fill="black"></rect>
+                      <rect x="6.01041" y="10.9247" width="12" height="2" rx="1" fill="black"></rect>
+                    </svg>
+                  </span>
+                  Add Company
+                </button>
+              </div>
             </div>
 
             <div className="card-body py-3">
@@ -104,7 +82,7 @@ const Companies = () => {
                             </div>
                           </div>
                         </td>
-                        <td dangerouslySetInnerHTML={{ __html: item.status ? '<span class="badge badge-light-success fs-7 fw-bold">Active</span>' : '<span class="badge badge-light-danger fs-7 fw-bold">Inactive</span>' }}>
+                        <td dangerouslySetInnerHTML={{ __html: item.status ? '<span className="badge badge-light-success fs-7 fw-bold">Active</span>' : '<span className="badge badge-light-danger fs-7 fw-bold">Inactive</span>' }}>
                         </td>
 
                         <td className="text-end">
@@ -136,7 +114,7 @@ const Companies = () => {
                             to="#"
                             className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
                             onClick={() => {
-                              onOpenModal();
+                              setOpen(true);
                               setcompanyId(item.id);
                             }}
                           >
@@ -200,57 +178,7 @@ const Companies = () => {
         </div>
       </div>
 
-      <Modal
-        open={open}
-        onCloseModal={onCloseModal}
-        title={<>Edit Designation</>}
-        body={
-          <>
-            <form>
-              <div className="form-group">
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Enter Designation Name"
-                  name="name"
-                  id="name"
-                  value={data.name}
-                  onChange={handleChange}
-                />
-              </div>
-
-              <div className="form-group mt-5">
-                <textarea
-                  rows="3"
-                  type="text"
-                  className="form-control"
-                  placeholder="Enter Designation Description"
-                  name="description"
-                  id="description"
-                  value={data.description}
-                  onChange={handleChange}
-                />
-              </div>
-
-              <button
-                type="reset"
-                className="btn btn-primary mr-2 mt-5"
-                style={{ marginRight: "1rem" }}
-                onClick={onSubmit}
-              >
-                Submit
-              </button>
-              <button
-                type="reset"
-                className="btn btn-secondary  mt-5 "
-                onClick={onCloseModal}
-              >
-                Cancel
-              </button>
-            </form>
-          </>
-        }
-      />
+      <EditCompany open={open} companyId={companyId} onClose={onCloseModal} />
     </>
   );
 };
