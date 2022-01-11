@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const Employee = () => {
+  const [action, setAction] = useState(false);
+
+  console.log("action", action);
   return (
     <div
       className="content d-flex flex-column flex-column-fluid"
@@ -64,10 +67,7 @@ const Employee = () => {
                   </select>
                 </div>
 
-                <Link
-                  to="#"
-                  className="btn btn-light-primary btn-md"
-                >
+                <Link to="#" className="btn btn-light-primary btn-md">
                   Add Employee
                 </Link>
               </div>
@@ -141,7 +141,9 @@ const Employee = () => {
                     </td>
 
                     <td className="pe-0" data-order="32">
-                      <span className="fw-bolder ms-3">Deputy Managing Director</span>
+                      <span className="fw-bolder ms-3">
+                        Deputy Managing Director
+                      </span>
                     </td>
 
                     <td className="pe-0" data-order="32">
@@ -155,8 +157,10 @@ const Employee = () => {
                     <td>
                       <button
                         className="btn btn-sm btn-light btn-active-light-primary"
+                        style={{ position: "relative" }}
                         data-kt-menu-trigger="click"
                         data-kt-menu-placement="bottom-end"
+                        onClick={() => setAction(!action)}
                       >
                         Actions
                         <span className="svg-icon svg-icon-5 m-0">
@@ -173,219 +177,43 @@ const Employee = () => {
                             />
                           </svg>
                         </span>
-                        <div
-                          className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
-                          data-kt-menu="true"
-                        >
-                          <div className="menu-item px-3">
-                            <Link to="#" className="menu-link px-3">
-                              Edit
-                            </Link>
-                          </div>
-
-                          <div className="menu-item px-3">
-                            <Link
-                              to="#"
-                              className="menu-link px-3"
-                              data-kt-ecommerce-product-filter="delete_row"
-                            >
-                              Delete
-                            </Link>
-                          </div>
-                        </div>
                       </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div className="form-check form-check-sm form-check-custom form-check-solid">
-                        <input
-                          className="form-check-input"
-                          type="checkbox"
-                          value="1"
-                        />
-                      </div>
-                    </td>
-
-                    <td>
-                      <div className="d-flex align-items-center">
-                        <Link to="#" className="symbol symbol-50px">
-                          <span
-                            className="symbol-label"
+                      {action ? (
+                        <>
+                          <div
+                            className="menu  menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4 "
                             style={{
-                              backgroundImage:
-                                "url(assets/media//stock/ecommerce/1.gif)",
+                              position: "absolute",
+                              background: "white",
+                              boxShadow:
+                                "-2px -1px 42px -11px rgba(158,156,156,0.7)",
+                              transition: "height .4s ease;",
                             }}
-                          ></span>
-                        </Link>
-
-                        <div className="ms-5">
-                          <Link
-                            to="#"
-                            className="text-gray-800 text-hover-primary fs-5 fw-bolder"
-                            data-kt-ecommerce-product-filter="product_name"
+                            data-kt-menu="true"
                           >
-                            Mahzabien Chowdhury
-                          </Link>
-                        </div>
-                      </div>
-                    </td>
+                            <div className="menu-item px-3">
+                              <Link to="#" className="menu-link px-3">
+                                Edit
+                              </Link>
+                            </div>
 
-                    <td className="pe-0">
-                      <span className="fw-bolder">#2</span>
-                    </td>
-
-                    <td className="pe-0" data-order="32">
-                      <span className="fw-bolder ms-3">Sales Manager</span>
-                    </td>
-
-                    <td className="pe-0" data-order="32">
-                      <span className="fw-bolder ms-3">Sales</span>
-                    </td>
-
-                    <td className="pe-0" data-order="Scheduled">
-                      <div className="badge badge-light-success">Active</div>
-                    </td>
-
-                    <td>
-                      <button
-                        className="btn btn-sm btn-light btn-active-light-primary"
-                        data-kt-menu-trigger="click"
-                        data-kt-menu-placement="bottom-end"
-                      >
-                        Actions
-                        <span className="svg-icon svg-icon-5 m-0">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                          >
-                            <path
-                              d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
-                              fill="black"
-                            />
-                          </svg>
-                        </span>
-                        <div
-                          className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
-                          data-kt-menu="true"
-                        >
-                          <div className="menu-item px-3">
-                            <Link to="#" className="menu-link px-3">
-                              Edit
-                            </Link>
+                            <div className="menu-item px-3">
+                              <Link
+                                to="#"
+                                className="menu-link px-3"
+                                data-kt-ecommerce-product-filter="delete_row"
+                              >
+                                Delete
+                              </Link>
+                            </div>
                           </div>
-
-                          <div className="menu-item px-3">
-                            <Link
-                              to="#"
-                              className="menu-link px-3"
-                              data-kt-ecommerce-product-filter="delete_row"
-                            >
-                              Delete
-                            </Link>
-                          </div>
-                        </div>
-                      </button>
+                        </>
+                      ) : (
+                        ""
+                      )}
                     </td>
                   </tr>
-                  <tr>
-                    <td>
-                      <div className="form-check form-check-sm form-check-custom form-check-solid">
-                        <input
-                          className="form-check-input"
-                          type="checkbox"
-                          value="1"
-                        />
-                      </div>
-                    </td>
-
-                    <td>
-                      <div className="d-flex align-items-center">
-                        <Link to="#" className="symbol symbol-50px">
-                          <span
-                            className="symbol-label"
-                            style={{
-                              backgroundImage:
-                                "url(assets/media//stock/ecommerce/1.gif)",
-                            }}
-                          ></span>
-                        </Link>
-
-                        <div className="ms-5">
-                          <Link
-                            to="#"
-                            className="text-gray-800 text-hover-primary fs-5 fw-bolder"
-                            data-kt-ecommerce-product-filter="product_name"
-                          >
-                            Mirza Bashir
-                          </Link>
-                        </div>
-                      </div>
-                    </td>
-
-                    <td className="pe-0">
-                      <span className="fw-bolder">#3</span>
-                    </td>
-
-                    <td className="pe-0" data-order="32">
-                      <span className="fw-bolder ms-3">Marketing Officer</span>
-                    </td>
-
-                    <td className="pe-0" data-order="32">
-                      <span className="fw-bolder ms-3">Marketing</span>
-                    </td>
-
-                    <td className="pe-0" data-order="Scheduled">
-                      <div className="badge badge-light-danger">Inactive</div>
-                    </td>
-
-                    <td>
-                      <button
-                        className="btn btn-sm btn-light btn-active-light-primary"
-                        data-kt-menu-trigger="click"
-                        data-kt-menu-placement="bottom-end"
-                      >
-                        Actions
-                        <span className="svg-icon svg-icon-5 m-0">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                          >
-                            <path
-                              d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
-                              fill="black"
-                            />
-                          </svg>
-                        </span>
-                        <div
-                          className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
-                          data-kt-menu="true"
-                        >
-                          <div className="menu-item px-3">
-                            <Link to="#" className="menu-link px-3">
-                              Edit
-                            </Link>
-                          </div>
-
-                          <div className="menu-item px-3">
-                            <Link
-                              to="#"
-                              className="menu-link px-3"
-                              data-kt-ecommerce-product-filter="delete_row"
-                            >
-                              Delete
-                            </Link>
-                          </div>
-                        </div>
-                      </button>
-                    </td>
-                  </tr>
+               
                 </tbody>
               </table>
             </div>

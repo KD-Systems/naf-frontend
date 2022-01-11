@@ -26,6 +26,10 @@ function App() {
             <Route path="designations" element={<Designations />} />
             <Route path="designations/:id" element={<ShowDesignation />} />
              {/* Designation end */}
+
+             {/* Employee Start */}
+
+             {/* Employee End */}
             <Route path="roles" element={<Role />} />
             <Route path="companies" element={<Companies />} />
             <Route path="profile" element={<Profile />} />
