@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Modal from "../../components/utils/Modal";
 import DesignationService from "../../services/DesignationService";
-import Designation from "./Designation";
+import Create from "./Create";
 
-const Designations = () => {
+
+const Index = () => {
   const [designations, setDesignations] = useState([]);
   const [designationId, setDesignationId] = useState("");
   const [designation, setDesignation] = useState("");
@@ -13,33 +14,16 @@ const Designations = () => {
 
   const [open, setOpen] = useState(false);
 
+  const [openModal,setOpenModal] = useState(false);
+
+  
+  const onOpenNewModal = ()=>setOpenModal(true)
+  const onCloseNewModal = ()=>setOpenModal(false)
+
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
 
 
-  const closeIcon = (
-    <span className="svg-icon svg-icon-primary svg-icon-2x mt-7">
-      <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-        <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-          <g
-            transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) translate(4.000000, 4.000000)"
-            fill="#000000"
-          >
-            <rect x="0" y="7" width="16" height="2" rx="1" />
-            <rect
-              opacity="0.3"
-              transform="translate(8.000000, 8.000000) rotate(-270.000000) translate(-8.000000, -8.000000) "
-              x="0"
-              y="7"
-              width="16"
-              height="2"
-              rx="1"
-            />
-          </g>
-        </g>
-      </svg>
-    </span>
-  );
 
   const getDesignations = async () => {
     setDesignations(await DesignationService.getAll());
@@ -101,7 +85,7 @@ const Designations = () => {
     setData(tempdata)
   },[designation])
 
-
+console.log("openmodal",openModal);
   return (
     <>
       <div className="post d-flex flex-column-fluid" id="kt_post">
@@ -118,6 +102,9 @@ const Designations = () => {
             <Link
                   to="#"
                   className="btn btn-light-primary btn-md"
+                  onClick={()=>{
+                    onOpenNewModal();     
+                  }}
                 >
                   Add Designation
                 </Link>
@@ -266,7 +253,7 @@ const Designations = () => {
       <Modal
         open={open}
         onCloseModal={onCloseModal}
-        closeIcon={closeIcon}
+  
         title={<>Edit Designation</>}
         id={designationId}
         body={
@@ -320,8 +307,9 @@ const Designations = () => {
           </>
         }
       />
+      <Create open={open}  onCloseModal={onCloseNewModal} onOpenModal={onOpenNewModal}/>
     </>
   );
 };
 
-export default Designations;
+export default Index;

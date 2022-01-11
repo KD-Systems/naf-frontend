@@ -6,10 +6,10 @@ import Login from "./pages/auth/Login";
 import Profile from "./pages/auth/Profile";
 import AccountSettings from "./pages/auth/AccountSettings";
 import Employee from "./pages/Employee";
-import Designations from "./pages/Designations/Designations";
+import Designations from "./pages/Designations/Index";
 import Role from "./pages/Role";
 import Company from "./pages/Company";
-import Designation from "./pages/Designations/Designation";
+
 
 function App() {
   return (
@@ -21,7 +21,7 @@ function App() {
             <Route path="employees" element={<Employee />} />
             {/* Designation start */}
             <Route path="designations" element={<Designations />} />
-            <Route path="designation/:id" element={<Designation />} />
+  
              {/* Designation end */}
             <Route path="roles" element={<Role />} />
             <Route path="companies" element={<Company />} />
