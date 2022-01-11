@@ -8,7 +8,9 @@ import AccountSettings from "./pages/auth/AccountSettings";
 import Employee from "./pages/Employee";
 import Designations from "./pages/Designations/Index";
 import Role from "./pages/Role";
-import Company from "./pages/Company";
+
+
+import Companies from "./pages/companies/Index";
 
 
 function App() {
@@ -24,7 +26,7 @@ function App() {
   
              {/* Designation end */}
             <Route path="roles" element={<Role />} />
-            <Route path="companies" element={<Company />} />
+            <Route path="companies" element={<Companies />} />
             <Route path="profile" element={<Profile />} />
             <Route path="profile/settings" element={<AccountSettings />} />
             <Route path="*" element={<NotFound />} />

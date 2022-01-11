@@ -1,160 +1,88 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Modal from "../../components/utils/Modal";
-import DesignationService from "../../services/DesignationService";
-import CreateDesignation from "./Create";
+import CompanyService from "../../services/CompanyService";
+import EditCompany from "./Edit";
 
-
-const Index = () => {
-  const [designations, setDesignations] = useState([]);
-  const [designationId, setDesignationId] = useState("");
-  const [designation, setDesignation] = useState("");
-
-  const [data,setData] = useState({name:"",description:""})
-
+const Companies = () => {
+  const [companies, setCompanies] = useState([]);
+  const [companyId, setcompanyId] = useState("");
   const [open, setOpen] = useState(false);
-
-  const [openModal,setOpenModal] = useState(false);
-
-  
-  const onOpenNewModal = ()=>setOpenModal(true)
-  const onCloseNewModal = ()=>setOpenModal(false)
-
-  const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
 
-
-
-  const getDesignations = async () => {
-    setDesignations(await DesignationService.getAll());
-    
+  const getCompanies = async () => {
+    setCompanies(await CompanyService.getAll());
   };
 
-  const getDesignation = async ()=>{
-    setDesignation(await DesignationService.get(designationId))
-    
-  }
-
-  const updateDesignation =async()=>{
-    await DesignationService.update(designationId,data)
-  }
-
-  // change data
-  const handleChange = (e)=>{
-    const value = e.target.value;
-    const name = e.target.name;
-   
-    let tempdata = {...data}
-    tempdata[name]=value
-
-    setData(tempdata)
-  }
-//update designation
-  const onSubmit = ()=>{
-    updateDesignation();
-    onCloseModal()
-  }
-
-
-  //delete Designation
-  const deleteDesignation = async(id)=>{
-    if(!window.confirm('Are you want to do it?'))
-        return false;
-
-    await DesignationService.remove(id)
-    getDesignations();
-    setOpen(false)
-
-    
-  }
-
   useEffect(() => {
-    getDesignations();
+    getCompanies();
   }, []);
-
-  useEffect(()=>{
-    if(designationId){
-      getDesignation();
-    }
-  },[designationId])
-
-  useEffect(()=>{
-    let tempdata = {...data}
-    tempdata.name =designation.name
-    tempdata.description =designation.description
-    setData(tempdata)
-  },[designation])
-
 
   return (
     <>
       <div className="post d-flex flex-column-fluid" id="kt_post">
         <div id="kt_content_container" className="container-xxl">
           <div className="card mb-5 mb-xl-8">
-            <div className="card-header border-0 pt-5">
-              <h3 className="card-title align-items-start flex-column">
-                <span className="card-label fw-bolder fs-3 mb-1">
-                  Designations
-                </span>
-              </h3>
-
-              <div>
-            <Link
-                  to="#"
-                  className="btn btn-light-primary btn-md"
-                  onClick={()=>{
-                    onOpenNewModal();     
-                  }}
-                >
-                  Add Designation
-                </Link>
+            <div className="card-header mt-6">
+              <div className="card-title">
+                <div className="d-flex align-items-center position-relative my-1 me-5">
+                  <span className="svg-icon svg-icon-1 position-absolute ms-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                      <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="black"></rect>
+                      <path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="black"></path>
+                    </svg>
+                  </span>
+                  <input type="text" className="form-control form-control-solid w-250px ps-15" placeholder="Search Companies" />
+                </div>
+              </div>
+              <div className="card-toolbar">
+                <button type="button" className="btn btn-light-primary">
+                  <span className="svg-icon svg-icon-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                      <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5" fill="black"></rect>
+                      <rect x="10.8891" y="17.8033" width="12" height="2" rx="1" transform="rotate(-90 10.8891 17.8033)" fill="black"></rect>
+                      <rect x="6.01041" y="10.9247" width="12" height="2" rx="1" fill="black"></rect>
+                    </svg>
+                  </span>
+                  Add Company
+                </button>
+              </div>
             </div>
-            
-            </div>
-          
 
             <div className="card-body py-3">
               <div className="table-responsive">
                 <table className="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
                   <thead>
                     <tr className="fw-bolder text-muted">
-                      <th className="w-25px"></th>
-                      <th className="min-w-50px">Id</th>
-
-                      <th className="min-w-120px">Designation</th>
-                      <th className="min-w-120px">Members</th>
+                      <th className="min-w-50px">ID</th>
+                      <th className="min-w-120px">Name</th>
+                      <th className="min-w-120px">Contract Status</th>
                       <th className="min-w-100px text-end">Actions</th>
                     </tr>
                   </thead>
 
                   <tbody>
-                    {designations?.map((item, index) => (
+                    {companies?.map((item, index) => (
                       <tr key={index}>
-                        <td></td>
                         <td>
-                          <Link
-                            to="#"
-                            className="text-dark fw-bolder text-hover-primary fs-6"
-                          >
-                            {item.id}
-                          </Link>
+                          #{item.id}
                         </td>
 
                         <td>
-                          <Link
-                            to="#"
-                            className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
-                          >
-                            {item.name}
-                          </Link>
+                          <div className="d-flex align-items-center">
+                            <div className="symbol symbol-50px me-5">
+                              <span className="symbol-label bg-light">
+                                <img src={item.logo} className="h-75 align-self-end" alt="" />
+                              </span>
+                            </div>
+                            <div className="d-flex justify-content-start flex-column">
+                              <a href="!#" className="text-dark fw-bolder text-hover-primary mb-1 fs-6">
+                                {item.name}
+                              </a>
+                              <span className="text-muted fw-bold text-muted d-block fs-7">HTML, JS, ReactJS</span>
+                            </div>
+                          </div>
                         </td>
-                        <td>
-                          <Link
-                            to="#"
-                            className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
-                          >
-                            1
-                          </Link>
+                        <td dangerouslySetInnerHTML={{ __html: item.status ? '<span className="badge badge-light-success fs-7 fw-bold">Active</span>' : '<span className="badge badge-light-danger fs-7 fw-bold">Inactive</span>' }}>
                         </td>
 
                         <td className="text-end">
@@ -185,9 +113,9 @@ const Index = () => {
                           <Link
                             to="#"
                             className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-                            onClick={()=>{
-                              onOpenModal();
-                              setDesignationId(item.id)
+                            onClick={() => {
+                              setOpen(true);
+                              setcompanyId(item.id);
                             }}
                           >
                             <span className="svg-icon svg-icon-3">
@@ -213,7 +141,6 @@ const Index = () => {
                           <Link
                             to="#"
                             className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
-                            onClick={()=>deleteDesignation(item.id)}
                           >
                             <span className="svg-icon svg-icon-3">
                               <svg
@@ -250,66 +177,10 @@ const Index = () => {
           </div>
         </div>
       </div>
-      <Modal
-        open={open}
-        onCloseModal={onCloseModal}
-  
-        title={<>Edit Designation</>}
-        id={designationId}
-        body={
-          <>
-            <form>
-              <div className="form-group">
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Enter Designation Name"
-                  name="name"
-                  id="name"
-                  value={data.name || ''}
-                  onChange={handleChange}
-                />
 
-               
-              </div>
-
-              <div className="form-group mt-5">
-                <textarea
-                  rows="3"
-                  type="text"
-                  className="form-control"
-                  placeholder="Enter Designation Description"
-                  name="description"
-                  id="description"
-                  value={data.description || ''}
-                  onChange={handleChange}
-                />
-
-               
-              </div>
-
-              <button
-                type="reset"
-                className="btn btn-primary mr-2 mt-5"
-                style={{ marginRight: "1rem" }}
-                onClick={onSubmit}
-              >
-                Update
-              </button>
-              <button
-                type="reset"
-                className="btn btn-secondary  mt-5 "
-                onClick={onCloseModal}
-              >
-                Cancel
-              </button>
-            </form>
-          </>
-        }
-      />
-      <CreateDesignation open={openModal}  onCloseModal={onCloseNewModal} getDesignations={getDesignations}/>
+      <EditCompany open={open} companyId={companyId} onClose={onCloseModal} />
     </>
   );
 };
 
-export default Index;
+export default Companies;

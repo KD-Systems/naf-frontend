@@ -1,29 +1,65 @@
-import React from 'react'
+import React,{useState,useEffect} from "react";
 import Modal from "../../components/utils/Modal";
-const Create = ({open,onCloseModal,onOpenModal}) => {
-   
-    return (
-        <div>
-            <Modal
+import DesignationService from "../../services/DesignationService";
+const CreateDesignation = ({ open, onCloseModal,getDesignations }) => {
+
+    
+
+    const createDesignation =async(data)=>{
+        await DesignationService.create(data);
+        getDesignations();
+      }
+
+    const [data,setData]=useState({
+        name:"", designation:""
+    })
+
+
+    const handleChange=(e)=>{
+        const value = e.target.value;
+        const name = e.target.name;
+
+        setData({
+            ...data,[name]:value
+        })
+    }
+
+
+
+    const onSumbit = (e)=>{
+        e.preventDefault();
+        createDesignation(data);
+       
+        onCloseModal();
+       
+    }
+
+
+
+
+  return (
+    <div>
+      <Modal
         open={open}
-        onCloseModal={onCloseModal}      
-        title={<>Edit Designation</>}
+        onCloseModal={onCloseModal}
+        title={<>Create Designation</>}
         body={
           <>
             <form>
               <div className="form-group">
+              <label className="required form-label">Name</label>
                 <input
                   type="text"
                   className="form-control"
                   placeholder="Enter Designation Name"
                   name="name"
-                  id="name" 
+                  id="name"
+                  onChange={handleChange}
                 />
-
-               
               </div>
 
               <div className="form-group mt-5">
+              <label className="form-label">Description</label>
                 <textarea
                   rows="3"
                   type="text"
@@ -31,19 +67,17 @@ const Create = ({open,onCloseModal,onOpenModal}) => {
                   placeholder="Enter Designation Description"
                   name="description"
                   id="description"
-                  
+                  onChange={handleChange}
                 />
-
-               
               </div>
 
               <button
                 type="reset"
                 className="btn btn-primary mr-2 mt-5"
                 style={{ marginRight: "1rem" }}
-                
+                onClick={onSumbit}
               >
-                Update
+                Create
               </button>
               <button
                 type="reset"
@@ -56,8 +90,8 @@ const Create = ({open,onCloseModal,onOpenModal}) => {
           </>
         }
       />
-        </div>
-    )
-}
+    </div>
+  );
+};
 
-export default Create
+export default CreateDesignation;
