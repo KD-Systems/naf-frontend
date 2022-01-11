@@ -10,6 +10,7 @@ import Designations from "./pages/Designations/Designations";
 import Role from "./pages/Role";
 import Companies from "./pages/companies/Index";
 import Designation from "./pages/Designations/Designation";
+import ShowCompany from "./pages/companies/Show";
 
 function App() {
   return (
@@ -24,7 +25,10 @@ function App() {
             <Route path="designation/:id" element={<Designation />} />
              {/* Designation end */}
             <Route path="roles" element={<Role />} />
+
             <Route path="companies" element={<Companies />} />
+            <Route path="companies/:id" element={<ShowCompany />} />
+
             <Route path="profile" element={<Profile />} />
             <Route path="profile/settings" element={<AccountSettings />} />
             <Route path="*" element={<NotFound />} />
