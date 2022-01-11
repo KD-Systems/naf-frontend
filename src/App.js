@@ -5,7 +5,7 @@ import AppLayout from "./pages/layouts/AppLayout";
 import Login from "./pages/auth/Login";
 import Profile from "./pages/auth/Profile";
 import AccountSettings from "./pages/auth/AccountSettings";
-import Employee from "./pages/Employee";
+import Employee from "./pages/Employee/Index";
 import Designations from "./pages/Designations/Index";
 import Role from "./pages/Role";
 
@@ -29,7 +29,7 @@ function App() {
              {/* Designation end */}
 
              {/* Employee Start */}
-
+             <Route path="employees" element={<Employee />} />
              {/* Employee End */}
             <Route path="roles" element={<Role />} />
 

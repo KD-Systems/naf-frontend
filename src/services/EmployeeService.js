@@ -2,32 +2,32 @@ import http from "../http-common";
 
 
 const getAll = async () => {
-  const res = await http.get("/designations");
+  const res = await http.get("/employees");
 
   return res.data;
 };
 
 const get = async (id) => {
-  const res = await http.get(`/designations/${id}`);
+  const res = await http.get(`/employees/${id}`);
   return res.data;
 };
 
 const create = async (data) => {
-    const res = await http.post("/designations",data)
+    const res = await http.post("/employees",data)
     return res.data;
 };
 
 const update = async (id, data) => {
-  const res = await http.put(`/designations/${id}`, data);
+  const res = await http.put(`/employees/${id}`, data);
   return res.data;
 };
 
 const remove = async (id) => {
-  const res = await http.delete(`/designations/${id}`);
+  const res = await http.delete(`/employees/${id}`);
   return res.data;
 };
 
-const DesignationService = {
+const EmployeeService = {
   getAll,
   get,
   create,
@@ -35,4 +35,4 @@ const DesignationService = {
   remove,
 };
 
-export default DesignationService;
+export default EmployeeService;
