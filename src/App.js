@@ -6,11 +6,14 @@ import Login from "./pages/auth/Login";
 import Profile from "./pages/auth/Profile";
 import AccountSettings from "./pages/auth/AccountSettings";
 import Employee from "./pages/Employee";
-import Designations from "./pages/Designations/Designations";
+import Designations from "./pages/Designations/Index";
 import Role from "./pages/Role";
+
+
 import Companies from "./pages/companies/Index";
-import Designation from "./pages/Designations/Designation";
 import ShowCompany from "./pages/companies/Show";
+import ShowDesignation from "./pages/Designations/Show";
+
 
 function App() {
   return (
@@ -22,7 +25,7 @@ function App() {
             <Route path="employees" element={<Employee />} />
             {/* Designation start */}
             <Route path="designations" element={<Designations />} />
-            <Route path="designation/:id" element={<Designation />} />
+            <Route path="designations/:id" element={<ShowDesignation />} />
              {/* Designation end */}
             <Route path="roles" element={<Role />} />
 

@@ -2,105 +2,78 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Modal from "../../components/utils/Modal";
 import DesignationService from "../../services/DesignationService";
-import Designation from "./Designation";
+import CreateDesignation from "./Create";
 
-const Designations = () => {
+const Index = () => {
   const [designations, setDesignations] = useState([]);
   const [designationId, setDesignationId] = useState("");
   const [designation, setDesignation] = useState("");
 
-  const [data,setData] = useState({name:"",description:""})
+  const [data, setData] = useState({ name: "", description: "" });
 
   const [open, setOpen] = useState(false);
+
+  const [openModal, setOpenModal] = useState(false);
+
+  const onOpenNewModal = () => setOpenModal(true);
+  const onCloseNewModal = () => setOpenModal(false);
 
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
 
-
-  const closeIcon = (
-    <span className="svg-icon svg-icon-primary svg-icon-2x mt-7">
-      <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-        <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-          <g
-            transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) translate(4.000000, 4.000000)"
-            fill="#000000"
-          >
-            <rect x="0" y="7" width="16" height="2" rx="1" />
-            <rect
-              opacity="0.3"
-              transform="translate(8.000000, 8.000000) rotate(-270.000000) translate(-8.000000, -8.000000) "
-              x="0"
-              y="7"
-              width="16"
-              height="2"
-              rx="1"
-            />
-          </g>
-        </g>
-      </svg>
-    </span>
-  );
-
   const getDesignations = async () => {
     setDesignations(await DesignationService.getAll());
-    
   };
 
-  const getDesignation = async ()=>{
-    setDesignation(await DesignationService.get(designationId))
-    
-  }
+  const getDesignation = async () => {
+    setDesignation(await DesignationService.get(designationId));
+  };
 
-  const updateDesignation =async()=>{
-    await DesignationService.update(designationId,data)
-  }
+  const updateDesignation = async () => {
+    await DesignationService.update(designationId, data);
+  };
 
   // change data
-  const handleChange = (e)=>{
+  const handleChange = (e) => {
     const value = e.target.value;
     const name = e.target.name;
-   
-    let tempdata = {...data}
-    tempdata[name]=value
 
-    setData(tempdata)
-  }
-//update designation
-  const onSubmit = ()=>{
+    let tempdata = { ...data };
+    tempdata[name] = value;
+
+    setData(tempdata);
+  };
+  //update designation
+  const onSubmit = () => {
     updateDesignation();
-    onCloseModal()
-  }
-
+    onCloseModal();
+  };
 
   //delete Designation
-  const deleteDesignation = async(id)=>{
-    if(!window.confirm('Are you want to do it?'))
-        return false;
+  const deleteDesignation = async (id) => {
+    if (!window.confirm("Are you want to do it?")) return false;
 
-    await DesignationService.remove(id)
+    await DesignationService.remove(id);
     getDesignations();
-    setOpen(false)
-
-    
-  }
+    setOpen(false);
+  };
 
   useEffect(() => {
     getDesignations();
   }, []);
 
-  useEffect(()=>{
-    if(designationId){
+  useEffect(() => {
+    if (designationId) {
       getDesignation();
     }
-  },[designationId])
+  }, [designationId]);
 
-  useEffect(()=>{
-    let tempdata = {...data}
-    tempdata.name =designation.name
-    tempdata.description =designation.description
-    setData(tempdata)
-  },[designation])
-
+  useEffect(() => {
+    let tempdata = { ...data };
+    tempdata.name = designation.name;
+    tempdata.description = designation.description;
+    setData(tempdata);
+  }, [designation]);
 
   return (
     <>
@@ -114,17 +87,25 @@ const Designations = () => {
                 </span>
               </h3>
 
-              <div>
-            <Link
-                  to="#"
+              <div className="card-toolbar">
+                <button
+                  
                   className="btn btn-light-primary btn-md"
+                  onClick={() => {
+                    onOpenNewModal();
+                  }}
                 >
+                  <span className="svg-icon svg-icon-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                      <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5" fill="black"></rect>
+                      <rect x="10.8891" y="17.8033" width="12" height="2" rx="1" transform="rotate(-90 10.8891 17.8033)" fill="black"></rect>
+                      <rect x="6.01041" y="10.9247" width="12" height="2" rx="1" fill="black"></rect>
+                    </svg>
+                  </span>
                   Add Designation
-                </Link>
+                </button>
+              </div>
             </div>
-            
-            </div>
-          
 
             <div className="card-body py-3">
               <div className="table-responsive">
@@ -155,7 +136,7 @@ const Designations = () => {
 
                         <td>
                           <Link
-                            to="#"
+                            to="/"
                             className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
                           >
                             {item.name}
@@ -172,7 +153,7 @@ const Designations = () => {
 
                         <td className="text-end">
                           <Link
-                            to="#"
+                           to={"/panel/designations/" + item.id}
                             className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
                           >
                             <span className="svg-icon svg-icon-3">
@@ -198,9 +179,9 @@ const Designations = () => {
                           <Link
                             to="#"
                             className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-                            onClick={()=>{
+                            onClick={() => {
                               onOpenModal();
-                              setDesignationId(item.id)
+                              setDesignationId(item.id);
                             }}
                           >
                             <span className="svg-icon svg-icon-3">
@@ -226,7 +207,7 @@ const Designations = () => {
                           <Link
                             to="#"
                             className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
-                            onClick={()=>deleteDesignation(item.id)}
+                            onClick={() => deleteDesignation(item.id)}
                           >
                             <span className="svg-icon svg-icon-3">
                               <svg
@@ -266,7 +247,6 @@ const Designations = () => {
       <Modal
         open={open}
         onCloseModal={onCloseModal}
-        closeIcon={closeIcon}
         title={<>Edit Designation</>}
         id={designationId}
         body={
@@ -279,11 +259,9 @@ const Designations = () => {
                   placeholder="Enter Designation Name"
                   name="name"
                   id="name"
-                  value={data.name || ''}
+                  value={data.name || ""}
                   onChange={handleChange}
                 />
-
-               
               </div>
 
               <div className="form-group mt-5">
@@ -294,11 +272,9 @@ const Designations = () => {
                   placeholder="Enter Designation Description"
                   name="description"
                   id="description"
-                  value={data.description || ''}
+                  value={data.description || ""}
                   onChange={handleChange}
                 />
-
-               
               </div>
 
               <button
@@ -320,8 +296,13 @@ const Designations = () => {
           </>
         }
       />
+      <CreateDesignation
+        open={openModal}
+        onCloseModal={onCloseNewModal}
+        getDesignations={getDesignations}
+      />
     </>
   );
 };
 
-export default Designations;
+export default Index;

@@ -11,7 +11,8 @@ const get = async (id) => {
 };
 
 const create = async (data) => {
-  return http.post("/designations", data);
+    const res = await http.post("/designations",data)
+    return res.data;
 };
 
 const update = async (id, data) => {
