@@ -1,18 +1,29 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import EmployeeService from "../../services/EmployeeService";
+import CreateEmployee from "./Create";
 const Employee = () => {
   const [action, setAction] = useState(false);
   const [employees, setEmployees] = useState([]);
+  const [open, setOpen] = useState(false);
+  const onOpenModal = () => setOpen(true);
+  const onCloseModal = () => setOpen(false);
 
-  const getDesignations = async () => {
+  const getEmployees = async () => {
     setEmployees(await EmployeeService.getAll());
   };
   useEffect(() => {
-    getDesignations();
+    getEmployees();
   }, []);
 
-  console.log("employees", employees);
+  const deleteEmployee = async (id) => {
+    if (!window.confirm("Are you want to do it?")) return false;
+
+    await EmployeeService.remove(id);
+    getEmployees();
+    setAction(false);
+    console.log(id);
+  };
 
   return (
     <div
@@ -60,23 +71,13 @@ const Employee = () => {
               </div>
 
               <div className="card-toolbar flex-row-fluid justify-content-end gap-5">
-                {/* <div className="w-100 mw-150px">
-                  <select
-                    className="form-select form-select-solid"
-                    data-control="select2"
-                    data-hide-search="true"
-                    data-placeholder="Status"
-                    data-kt-ecommerce-product-filter="status"
-                  >
-                    <option></option>
-                    <option value="all">All</option>
-                    <option value="published">Published</option>
-                    <option value="scheduled">Scheduled</option>
-                    <option value="inactive">Inactive</option>
-                  </select>
-                </div> */}
-
-                <Link to="#" className="btn btn-light-primary btn-md">
+                <Link
+                  to="#"
+                  className="btn btn-light-primary btn-md"
+                  onClick={() => {
+                    onOpenModal();
+                  }}
+                >
                   Add Employee
                 </Link>
               </div>
@@ -85,7 +86,7 @@ const Employee = () => {
             <div className="card-body pt-0">
               <table
                 className="table align-middle table-row-dashed fs-6 gy-5"
-                id="kt_ecommerce_products_table"
+                id=""
               >
                 <thead>
                   <tr className="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
@@ -111,7 +112,7 @@ const Employee = () => {
 
                 <tbody className="fw-bold text-gray-600">
                   {employees.map((item, index) => (
-                    <tr>
+                    <tr key={index}>
                       <td>
                         <div className="form-check form-check-sm form-check-custom form-check-solid">
                           <input
@@ -152,7 +153,7 @@ const Employee = () => {
 
                       <td className="pe-0" data-order="32">
                         <span className="fw-bolder ms-3">
-                        {item?.designation?.name}
+                          {item?.designation?.name}
                         </span>
                       </td>
 
@@ -161,7 +162,17 @@ const Employee = () => {
                       </td>
 
                       <td className="pe-0" data-order="Scheduled">
-                        <div className= {item?.user?.status =='active'?"badge badge-light-success":"badge badge-light-danger"}>{item?.user?.status =='active' ? "active":"inactive"}</div>
+                        <div
+                          className={
+                            item?.user?.status == "active"
+                              ? "badge badge-light-success"
+                              : "badge badge-light-danger"
+                          }
+                        >
+                          {item?.user?.status == "active"
+                            ? "active"
+                            : "inactive"}
+                        </div>
                       </td>
 
                       <td>
@@ -197,7 +208,8 @@ const Employee = () => {
                                 background: "white",
                                 boxShadow:
                                   "-2px -1px 42px -11px rgba(158,156,156,0.7)",
-                                transition: "height .4s ease;",
+                                transition: "height .4s ease",
+                                zIndex: "1000",
                               }}
                               data-kt-menu="true"
                             >
@@ -212,6 +224,7 @@ const Employee = () => {
                                   to="#"
                                   className="menu-link px-3"
                                   data-kt-ecommerce-product-filter="delete_row"
+                                  onClick={() => deleteEmployee(item.id)}
                                 >
                                   Delete
                                 </Link>
@@ -230,6 +243,12 @@ const Employee = () => {
           </div>
         </div>
       </div>
+
+      <CreateEmployee
+        open={open}
+        onCloseModal={onCloseModal}
+        getEmployees={getEmployees}
+      />
     </div>
   );
 };

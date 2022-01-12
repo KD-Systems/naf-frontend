@@ -2,18 +2,18 @@ import http from "../http-common";
 
 
 const getAll = async () => {
-  const res = await http.get("/employees");
+  const res = await http.get("/users");
 
   return res.data;
 };
 
 const get = async (id) => {
-  const res = await http.get(`/employees/${id}`);
+  const res = await http.get(`/users/${id}`);
   return res.data;
 };
 
 const create = async (data) => {
-    const res = await http.post("/employees",data)
+    const res = await http.post("/users",data)
     return res.data;
 };
 
