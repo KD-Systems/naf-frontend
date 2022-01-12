@@ -3,14 +3,38 @@ import "react-responsive-modal/styles.css";
 import { Modal as PModal } from "react-responsive-modal";
 
 const Modal = (props) => {
+  const closeIcon = (
+    <span className="svg-icon svg-icon-primary svg-icon-2x mt-7">
+      <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+        <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+          <g
+            transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) translate(4.000000, 4.000000)"
+            fill="#000000"
+          >
+            <rect x="0" y="7" width="16" height="2" rx="1" />
+            <rect
+              opacity="0.3"
+              transform="translate(8.000000, 8.000000) rotate(-270.000000) translate(-8.000000, -8.000000) "
+              x="0"
+              y="7"
+              width="16"
+              height="2"
+              rx="1"
+            />
+          </g>
+        </g>
+      </svg>
+    </span>
+  );
 
-    
+  let options = { ...{ open: false, title: 'Modal heading here', body: '', closeIcon: closeIcon }, ...props }
+
   return (
     <div>
       <PModal
-        open={props?.open}
-        onClose={props?.onCloseModal}
-        closeIcon={props?.closeIcon}
+        open={options?.open}
+        onClose={options?.onCloseModal}
+        closeIcon={options?.closeIcon}
       >
         <div className="card card-custom gutter-b">
           <div className="card-header">
