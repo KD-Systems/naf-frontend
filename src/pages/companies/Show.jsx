@@ -183,7 +183,7 @@ const ShowCompany = () => {
 																	<div className="symbol symbol-50px me-5">
 																		<span className="symbol-label bg-light">
 																			<img
-																				src={item.logo}
+																				src={item.avatar}
 																				className="h-75 align-self-end"
 																				alt=""
 																			/>
@@ -325,6 +325,7 @@ const ShowCompany = () => {
 				open={openAddUser}
 				onCloseModal={onCloseModal}
 				onCreate={getCompany}
+				companyId={id}
 			/>
 
 		</div>

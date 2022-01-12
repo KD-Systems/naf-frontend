@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Modal from "../../components/utils/Modal";
 import CompanyService from "../../services/CompanyService";
 
-const AddUser = ({ open, onCloseModal, onCreate }) => {
+const AddUser = ({ open, onCloseModal, onCreate, companyId }) => {
   // Set the selected image to preview
   const setImage = async (e) => {
     let logoShow = document.getElementById("logo");
@@ -15,12 +15,25 @@ const AddUser = ({ open, onCloseModal, onCreate }) => {
   };
 
   //Store data
-  const createCompany = async () => {
+  const storeUser = async () => {
     let formData = new FormData(document.getElementById("update-company"));
-    await CompanyService.create(formData);
+    await CompanyService.addUser(companyId, formData);
     onCreate();
     onCloseModal();
   };
+
+  const [data, setData] = useState({
+    name: "", email: "", password: "", phone: "", avatar: ""
+  })
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    const name = e.target.name;
+
+    setData({
+      ...data, [name]: value
+    })
+  }
 
   return (
     <div>
@@ -55,7 +68,8 @@ const AddUser = ({ open, onCloseModal, onCreate }) => {
                       type="file"
                       name="avatar"
                       accept=".png, .jpg, .jpeg"
-                      onChange={setImage}
+                      onChange={(e) => { setImage(e); handleChange(e) }}
+                      value={data.avatar}
                     />
                   </label>
                 </div>
@@ -70,6 +84,8 @@ const AddUser = ({ open, onCloseModal, onCreate }) => {
                   placeholder="Enter Name"
                   name="name"
                   id="name"
+                  value={data.name}
+                  onChange={handleChange}
                 />
                 <div className="fv-plugins-message-container invalid-feedback"></div>
               </div>
@@ -82,6 +98,8 @@ const AddUser = ({ open, onCloseModal, onCreate }) => {
                   placeholder="Enter Email"
                   name="email"
                   id="email"
+                  value={data.email}
+                  onChange={handleChange}
                 />
                 <div className="fv-plugins-message-container invalid-feedback"></div>
               </div>
@@ -94,6 +112,8 @@ const AddUser = ({ open, onCloseModal, onCreate }) => {
                   placeholder="Enter Password"
                   name="password"
                   id="password"
+                  value={data.password}
+                  onChange={handleChange}
                 />
                 <div className="fv-plugins-message-container invalid-feedback"></div>
               </div>
@@ -106,6 +126,8 @@ const AddUser = ({ open, onCloseModal, onCreate }) => {
                   placeholder="Enter Phone"
                   name="phone"
                   id="phone"
+                  value={data.phone}
+                  onChange={handleChange}
                 />
                 <div className="fv-plugins-message-container invalid-feedback"></div>
               </div>
@@ -114,7 +136,7 @@ const AddUser = ({ open, onCloseModal, onCreate }) => {
                 type="reset"
                 className="btn btn-primary mr-2 mt-5"
                 style={{ marginRight: "1rem" }}
-                onClick={createCompany}
+                onClick={storeUser}
               >
                 Submit
               </button>

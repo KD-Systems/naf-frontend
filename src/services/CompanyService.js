@@ -24,12 +24,17 @@ const remove = async (id) => {
   return res.data;
 };
 
+const addUser = async (id, data) => {
+  return http.post(`/companies/${id}/users`, data);
+};
+
 const CompanyService = {
   getAll,
   get,
   create,
   update,
   remove,
+  addUser
 };
 
 export default CompanyService;

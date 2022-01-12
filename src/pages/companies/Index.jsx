@@ -167,7 +167,7 @@ const Companies = () => {
 
                         <td className="text-end">
                           <Link
-                            to={'/panel/companies/'+item.id}
+                            to={'/panel/companies/' + item.id}
                             className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
                           >
                             <span className="svg-icon svg-icon-3">
