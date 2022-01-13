@@ -31,7 +31,6 @@ const Employee = () => {
     await EmployeeService.remove(id);
     getEmployees();
     setAction(false);
-    console.log(id);
   };
 
 
@@ -39,7 +38,6 @@ const Employee = () => {
   return (
     <div
       className="content d-flex flex-column flex-column-fluid"
-      id="kt_content"
     >
       <div className="post d-flex flex-column-fluid" id="kt_post">
         <div id="kt_content_container" className="container-xxl">
