@@ -121,18 +121,17 @@ const Companies = () => {
                 <table className="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
                   <thead>
                     <tr className="fw-bolder text-muted">
-                      <th className="min-w-50px">ID</th>
-                      <th className="min-w-120px">Name</th>
-                      <th className="min-w-120px">Contract Status</th>
-                      <th className="min-w-100px text-end">Actions</th>
+                      <th className="min-w-150px">Name</th>
+                      <th className="min-w-120px">Group of Company</th>
+                      <th className="min-w-120px">Machine Types</th>
+                      <th className="min-w-50px">Contract Status</th>
+                      <th className="min-w-100px text-center">Actions</th>
                     </tr>
                   </thead>
 
                   <tbody>
                     {companies?.map((item, index) => (
                       <tr key={index}>
-                        <td>#{item.id}</td>
-
                         <td>
                           <div className="d-flex align-items-center">
                             <div className="symbol symbol-50px me-5">
@@ -152,20 +151,35 @@ const Companies = () => {
                                 {item.name}
                               </a>
                               <span className="text-muted fw-bold text-muted d-block fs-7">
-                                HTML, JS, ReactJS
+                                {item.company_group ?? '--'}
                               </span>
                             </div>
                           </div>
                         </td>
-                        <td
-                          dangerouslySetInnerHTML={{
-                            __html: item.status
-                              ? '<span className="badge badge-light-success fs-7 fw-bold">Active</span>'
-                              : '<span className="badge badge-light-danger fs-7 fw-bold">Inactive</span>',
-                          }}
-                        ></td>
 
-                        <td className="text-end">
+                        <td>
+                          {item.company_group}
+                        </td>
+
+                        <td>
+                          {item.machine_types}
+                        </td>
+
+                        <td>
+                          <div
+                            className={
+                              item.status === "active"
+                                ? "badge badge-light-success"
+                                : "badge badge-light-danger"
+                            }
+                          >
+                            {item.status === "active"
+                              ? "active"
+                              : "inactive"}
+                          </div>
+                        </td>
+
+                        <td className="text-center">
                           <Link
                             to={'/panel/companies/' + item.id}
                             className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"

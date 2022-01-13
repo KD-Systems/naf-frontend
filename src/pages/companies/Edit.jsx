@@ -1,9 +1,16 @@
 import React, { useEffect, useState } from "react";
 import Modal from "../../components/utils/Modal";
+import Tags from "../../components/utils/Tags";
 import CompanyService from "../../services/CompanyService";
 
 const EditCompany = ({ open, companyId, onCloseModal, onUpdate }) => {
-    const [company, setCompany] = useState({});
+    const [company, setCompany] = useState({
+        logo: '',
+        name: '',
+        company_group: '',
+        machine_types: '',
+        description: '',
+    });
 
     // Set the selected image to preview
     const setImage = async (e) => {
@@ -28,15 +35,13 @@ const EditCompany = ({ open, companyId, onCloseModal, onUpdate }) => {
         onCloseModal();
     };
 
-    // change data
     const handleChange = (e) => {
         const value = e.target.value;
         const name = e.target.name;
 
-        let tempdata = { ...company }
-        tempdata[name] = value
-
-        setCompany(tempdata)
+        setCompany({
+            ...company, [name]: value
+        })
     }
 
     useEffect(() => {
@@ -54,7 +59,7 @@ const EditCompany = ({ open, companyId, onCloseModal, onUpdate }) => {
                 body={
                     <>
                         <form id="update-company">
-                            <div className="mb-10 fv-row fv-plugins-icon-container text-center">
+                            <div className="mb-5 fv-row fv-plugins-icon-container text-center">
                                 <div
                                     className="mx-auto image-input image-input-outline image-input-changed"
                                     data-kt-image-input="true"
@@ -92,7 +97,7 @@ const EditCompany = ({ open, companyId, onCloseModal, onUpdate }) => {
                                 <div className="fv-plugins-message-container invalid-feedback"></div>
                             </div>
 
-                            <div className="mb-10 fv-row fv-plugins-icon-container">
+                            <div className="mb-5 fv-row fv-plugins-icon-container">
                                 <label className="required form-label">Company Name</label>
                                 <input
                                     type="text"
@@ -106,21 +111,33 @@ const EditCompany = ({ open, companyId, onCloseModal, onUpdate }) => {
                                 <div className="fv-plugins-message-container invalid-feedback"></div>
                             </div>
 
-                            <div className="mb-10 fv-row fv-plugins-icon-container">
-                                <label className="form-label">Company Slug</label>
+                            <div className="mb-5 fv-row fv-plugins-icon-container">
+                                <label className="form-label">Group of Company</label>
                                 <input
                                     type="text"
                                     className="form-control mb-2"
-                                    placeholder="Enter Company Slug"
-                                    name="slug"
-                                    id="slug"
-                                    value={company.slug ?? ""}
+                                    placeholder="Enter Group of Company"
+                                    name="company_group"
+                                    id="company_group"
+                                    value={company.company_group}
                                     onChange={handleChange}
                                 />
                                 <div className="fv-plugins-message-container invalid-feedback"></div>
                             </div>
 
-                            <div className="mb-10 fv-row fv-plugins-icon-container">
+                            <div className="mb-5 fv-row fv-plugins-icon-container">
+                                <label className="form-label">Machine Types</label>
+                                <Tags
+                                    placeholder="Enter Machine Types"
+                                    name="machine_types"
+                                    id="machine_types"
+                                    value={company.machine_types}
+                                    onChange={handleChange}
+                                />
+                                <div className="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
+
+                            <div className="mb-5 fv-row fv-plugins-icon-container">
                                 <label className="form-label">Description</label>
                                 <textarea
                                     rows="3"

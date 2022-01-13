@@ -32,7 +32,7 @@ const Login = () => {
               </h1>
 
               <p className="fw-bold fs-2" style={{ color: "#986923" }}>
-              Naf Group is one of the most prestigious and experienced commercial and industrial conglomerates in Bangladesh today
+                Naf Group is one of the most prestigious and experienced commercial and industrial conglomerates in Bangladesh today
               </p>
             </div>
 

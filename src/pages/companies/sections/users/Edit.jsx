@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
-import Modal from "../../components/utils/Modal";
-import Tags from "../../components/utils/Tags";
-import CompanyService from "../../services/CompanyService";
+import Modal from "../../../../components/utils/Modal";
+import CompanyService from "../../../../services/CompanyService";
 
-const CreateCompany = ({ open, onCloseModal, onCreate }) => {
+const EditUser = ({ open, onCloseModal, onCreate, companyId, userId }) => {
   const [data, setData] = useState({
-    logo: '',
-    name: '',
-    company_group: '',
-    machine_types: '',
-    description: '',
-  });
+    name: "",
+    email: "",
+    password: "",
+    phone: "",
+    avatar: ""
+  })
 
   // Set the selected image to preview
   const setImage = async (e) => {
@@ -23,6 +22,19 @@ const CreateCompany = ({ open, onCloseModal, onCreate }) => {
     });
   };
 
+  //Get user data
+  const getUser = async () => {
+    await CompanyService.getUser(companyId, userId);
+  };
+
+  //Store data
+  const updateUser = async () => {
+    let formData = new FormData(document.getElementById("update-company"));
+    await CompanyService.addUser(companyId, formData);
+    onCreate();
+    onCloseModal();
+  };
+
   const handleChange = (e) => {
     const value = e.target.value;
     const name = e.target.name;
@@ -32,24 +44,21 @@ const CreateCompany = ({ open, onCloseModal, onCreate }) => {
     })
   }
 
-  //Store data
-  const createCompany = async () => {
-    let formData = new FormData(document.getElementById("update-company"));
-    await CompanyService.create(formData);
-    onCreate();
-    onCloseModal();
-  };
+  useEffect(() => {
+    if (userId)
+      getUser();
+  }, [userId])
 
   return (
     <div>
       <Modal
         open={open}
         onCloseModal={onCloseModal}
-        title={<>Add Company</>}
+        title={<>Add User</>}
         body={
           <>
             <form id="update-company">
-              <div className="mb-5 fv-row fv-plugins-icon-container text-center">
+              <div className="mb-10 fv-row fv-plugins-icon-container text-center">
                 <div
                   className="mx-auto image-input image-input-outline image-input-changed"
                   data-kt-image-input="true"
@@ -71,22 +80,22 @@ const CreateCompany = ({ open, onCloseModal, onCreate }) => {
                     <i className="bi bi-pencil-fill fs-7"></i>
                     <input
                       type="file"
-                      name="logo"
+                      name="avatar"
                       accept=".png, .jpg, .jpeg"
-                      value={data.logo}
                       onChange={(e) => { setImage(e); handleChange(e) }}
+                      value={data.avatar}
                     />
                   </label>
                 </div>
                 <div className="fv-plugins-message-container invalid-feedback"></div>
               </div>
 
-              <div className="mb-5 fv-row fv-plugins-icon-container">
-                <label className="required form-label">Company Name</label>
+              <div className="mb-10 fv-row fv-plugins-icon-container">
+                <label className="required form-label">Name</label>
                 <input
                   type="text"
                   className="form-control mb-2"
-                  placeholder="Enter Company Name"
+                  placeholder="Enter Name"
                   name="name"
                   id="name"
                   value={data.name}
@@ -95,42 +104,43 @@ const CreateCompany = ({ open, onCloseModal, onCreate }) => {
                 <div className="fv-plugins-message-container invalid-feedback"></div>
               </div>
 
-              <div className="mb-5 fv-row fv-plugins-icon-container">
-                <label className="form-label">Group of Company</label>
+              <div className="mb-10 fv-row fv-plugins-icon-container">
+                <label className="form-label required">Email</label>
+                <input
+                  type="email"
+                  className="form-control mb-2"
+                  placeholder="Enter Email"
+                  name="email"
+                  id="email"
+                  value={data.email}
+                  onChange={handleChange}
+                />
+                <div className="fv-plugins-message-container invalid-feedback"></div>
+              </div>
+
+              <div className="mb-10 fv-row fv-plugins-icon-container">
+                <label className="form-label required">Password</label>
+                <input
+                  type="password"
+                  className="form-control mb-2"
+                  placeholder="Enter Password"
+                  name="password"
+                  id="password"
+                  value={data.password}
+                  onChange={handleChange}
+                />
+                <div className="fv-plugins-message-container invalid-feedback"></div>
+              </div>
+
+              <div className="mb-10 fv-row fv-plugins-icon-container">
+                <label className="form-label">Phone</label>
                 <input
                   type="text"
                   className="form-control mb-2"
-                  placeholder="Enter Group of Company"
-                  name="company_group"
-                  id="company_group"
-                  value={data.company_group}
-                  onChange={handleChange}
-                />
-                <div className="fv-plugins-message-container invalid-feedback"></div>
-              </div>
-
-              <div className="mb-5 fv-row fv-plugins-icon-container">
-                <label className="form-label">Machine Types</label>
-                <Tags
-                  placeholder="Enter Machine Types"
-                  name="machine_types"
-                  id="machine_types"
-                  value={data.machine_types}
-                  onChange={handleChange}
-                />
-                <div className="fv-plugins-message-container invalid-feedback"></div>
-              </div>
-
-              <div className="mb-5 fv-row fv-plugins-icon-container">
-                <label className="form-label">Description</label>
-                <textarea
-                  rows="3"
-                  type="text"
-                  className="form-control"
-                  placeholder="Enter Description"
-                  name="description"
-                  id="description"
-                  value={data.description}
+                  placeholder="Enter Phone"
+                  name="phone"
+                  id="phone"
+                  value={data.phone}
                   onChange={handleChange}
                 />
                 <div className="fv-plugins-message-container invalid-feedback"></div>
@@ -140,7 +150,7 @@ const CreateCompany = ({ open, onCloseModal, onCreate }) => {
                 type="reset"
                 className="btn btn-primary mr-2 mt-5"
                 style={{ marginRight: "1rem" }}
-                onClick={createCompany}
+                onClick={updateUser}
               >
                 Submit
               </button>
@@ -159,4 +169,4 @@ const CreateCompany = ({ open, onCloseModal, onCreate }) => {
   );
 };
 
-export default CreateCompany;
+export default EditUser;

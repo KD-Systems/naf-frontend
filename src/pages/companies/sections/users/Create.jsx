@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import Modal from "../../components/utils/Modal";
-import CompanyService from "../../services/CompanyService";
+import React, { useState } from "react";
+import Modal from "../../../../components/utils/Modal";
+import CompanyService from "../../../../services/CompanyService";
 
 const AddUser = ({ open, onCloseModal, onCreate, companyId }) => {
   // Set the selected image to preview
@@ -23,7 +23,11 @@ const AddUser = ({ open, onCloseModal, onCreate, companyId }) => {
   };
 
   const [data, setData] = useState({
-    name: "", email: "", password: "", phone: "", avatar: ""
+    name: "",
+    email: "",
+    password: "",
+    phone: "",
+    avatar: ""
   })
 
   const handleChange = (e) => {

@@ -28,13 +28,18 @@ const addUser = async (id, data) => {
   return http.post(`/companies/${id}/users`, data);
 };
 
+const getUser = async (companyId, userId) => {
+  return http.get(`/companies/${companyId}/users/${userId}`);
+};
+
 const CompanyService = {
   getAll,
   get,
   create,
   update,
   remove,
-  addUser
+  addUser,
+  getUser
 };
 
 export default CompanyService;
