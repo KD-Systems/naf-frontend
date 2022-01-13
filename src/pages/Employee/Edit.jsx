@@ -1,14 +1,26 @@
 import React, { useState, useEffect } from "react";
 import Modal from "../../components/utils/Modal";
+
 import EmployeeService from "../../services/EmployeeService";
 import DesignationService from "../../services/DesignationService";
-const CreateEmployee = ({ open, onCloseModal, getEmployees }) => {
+const EditEmployee = ({ open, onCloseModal, getEmployees, employeeId }) => {
+  const [employee, setEmployee] = useState("");
+
+  const [designations, setDesignations] = useState([]);
   const [data, setData] = useState({
-    name:"",
-    email:"",
-    password:"",
+    name: "",
+    email: "",
+    avatar: "",
+    password: "",
     designation_id: null,
   });
+  const getEmployee = async () => {
+    setEmployee(await EmployeeService.get(employeeId));
+  };
+
+  const getDesignations = async () => {
+    setDesignations(await DesignationService.getAll());
+  };
 
 
   const setImage = async (e) => {
@@ -21,65 +33,65 @@ const CreateEmployee = ({ open, onCloseModal, getEmployees }) => {
     });
   };
 
-  const createEmployee = async () => {
-    let formData = new FormData(document.getElementById("create-employee"));
-    await EmployeeService.create(formData);
-    getEmployees();
-    onCloseModal();
+  const handleChange = (e) => {
+    const value = e.target.value;
+    const name = e.target.name;
+
+    let tempdata = { ...data };
+    tempdata[name] = value;
+
+    setData(tempdata);
   };
-  const [designations, setDesignations] = useState([]);
 
+  useEffect(() => {
+    if (employeeId) {
+      getEmployee();
+    }
+  }, [open,employeeId]);
 
+  useEffect(() => {
+    setData(employee);
+  }, [employee]);
 
-  const getDesignations = async () => {
-    setDesignations(await DesignationService.getAll());
-  };
 
   useEffect(() => {
     getDesignations();
   }, []);
 
-  const handleChange = (e) => {
-    const value = e.target.value;
-    const name = e.target.name;
-
-    setData({
-      ...data,
-      [name]: value,
-    });
-  };
-
-  const onSumbit = (e) => {
-    e.preventDefault();
-    createEmployee(data);
-
+  const updateEmployee = async () => {
+    let formData = new FormData(document.getElementById("update-employee"));
+    formData.append("_method", "PUT");
+    await EmployeeService.update(employeeId,formData);
+    getEmployees();
     onCloseModal();
   };
-
-  
+  const onSumbit = (e) => {
+    e.preventDefault();
+    updateEmployee();
+    onCloseModal();
+  };
 
   return (
     <div>
       <Modal
         open={open}
         onCloseModal={onCloseModal}
-        title={<>Create Employee</>}
+        title={<>Edit Employee</>}
         body={
           <>
-            <form id="create-employee">
-
-            <div className="mb-10 fv-row fv-plugins-icon-container text-center">
+            <form id="update-employee">
+              <div className="mb-10 fv-row fv-plugins-icon-container text-center">
                 <div
                   className="mx-auto image-input image-input-outline image-input-changed"
                   data-kt-image-input="true"
                 >
                   <div
+                    id="avatar"
                     className="image-input-wrapper w-125px h-125px"
                     style={{
                       backgroundImage:
                         "url(/assets/media/svg/files/blank-image.svg)",
                     }}
-                    id="avatar"
                   ></div>
                   <label
                     className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
@@ -92,7 +104,7 @@ const CreateEmployee = ({ open, onCloseModal, getEmployees }) => {
                       type="file"
                       name="avatar"
                       accept=".png, .jpg, .jpeg"
-                      onChange={(e) => {setImage(e)}}
+                      onChange={setImage}
                     />
                   </label>
                 </div>
@@ -106,6 +118,7 @@ const CreateEmployee = ({ open, onCloseModal, getEmployees }) => {
                   placeholder="Enter  Name"
                   name="name"
                   id="name"
+                  value={data.name || ""}
                   onChange={handleChange}
                 />
               </div>
@@ -118,32 +131,40 @@ const CreateEmployee = ({ open, onCloseModal, getEmployees }) => {
                   placeholder="Enter Email"
                   name="email"
                   id="email"
+                  value={data.email || ""}
                   onChange={handleChange}
                 />
               </div>
 
               <div className="form-group mt-5">
-                <label className="required form-label">Password</label>
+                <label className="form-label">Password</label>
                 <input
                   type="text"
                   className="form-control"
                   placeholder="Enter Password"
                   name="password"
                   id="password"
+                  value={data.password || ""}
                   onChange={handleChange}
                 />
               </div>
 
               <div className="form-group mt-5">
-                <label className="required form-label">Designation</label>
-              
+                <label className="form-label">Designation</label>
+
                 <div className="col-lg-9 col-md-9 col-sm-12">
-                  <select className="form-control" name="designation_id" id="designation_id" onChange={handleChange}>
+                  <select
+                    className="form-control"
+                    name="designation_id"
+                    id="designation_id"
+                    onChange={handleChange}
+                  >
                     <option value="">Select</option>
-                    {designations?.map((item,index)=>(
-                        <option value={item?.id} key={index}>{item?.name}</option>
+                    {designations?.map((item, index) => (
+                      <option value={item?.id} selected={data?.designation?.id == item?.id ? "selected":""} key={index} >
+                        {item?.name}
+                      </option>
                     ))}
-                   
                   </select>
                   <span className="form-text text-muted">
                     Please select an option.
@@ -157,7 +178,7 @@ const CreateEmployee = ({ open, onCloseModal, getEmployees }) => {
                 style={{ marginRight: "1rem" }}
                 onClick={onSumbit}
               >
-                Create
+                Update
               </button>
               <button
                 type="reset"
@@ -174,4 +195,4 @@ const CreateEmployee = ({ open, onCloseModal, getEmployees }) => {
   );
 };
 
-export default CreateEmployee;
+export default EditEmployee;
