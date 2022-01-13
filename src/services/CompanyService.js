@@ -24,6 +24,10 @@ const remove = async (id) => {
   return res.data;
 };
 
+const getUsers = async (companyId) => {
+  return http.get(`/companies/${companyId}/users`);
+};
+
 const addUser = async (id, data) => {
   return http.post(`/companies/${id}/users`, data);
 };
@@ -38,6 +42,7 @@ const CompanyService = {
   create,
   update,
   remove,
+  getUsers,
   addUser,
   getUser
 };

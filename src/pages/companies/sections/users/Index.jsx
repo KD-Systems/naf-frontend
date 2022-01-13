@@ -1,17 +1,29 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import CompanyService from '../../../../services/CompanyService';
 import AddUser from './Create';
 import EditUser from './Edit';
 
-const CompanyUsers = ({ company, getCompany }) => {
+const CompanyUsers = ({ active, getCompany }) => {
     const [userId, setUserId] = useState(false);
+    const [users, setUsers] = useState([]);
     const [openAddUser, setOpenAddUser] = useState(false);
     const [openEditModal, setOpenEditModal] = useState(false);
+    const {id} = useParams();
 
     const onCloseModal = () => {
         setOpenAddUser(false);
         setOpenEditModal(false);
     };
+
+    const getUsers = async () => {
+        setUsers(await CompanyService.getUsers(id))
+    }
+
+    useEffect(() => {
+        if (active && id)
+            getUsers()
+    }, [])
 
     return (
         <div
@@ -19,7 +31,7 @@ const CompanyUsers = ({ company, getCompany }) => {
             id="users"
             role="tab-panel"
         >
-            <div className="d-flex flex-column gap-7 gap-lg-10">
+            <div className="d-flex flex-column gacompanyIdgap-lg-10">
                 <div className="card card-flush py-4">
                     <div className="card-header">
                         <div className="card-title">
@@ -83,7 +95,7 @@ const CompanyUsers = ({ company, getCompany }) => {
                             </thead>
 
                             <tbody>
-                                {company.users?.map((item, index) => (
+                                {users.map((item, index) => (
                                     <tr key={index}>
                                         <td>#{item.id}</td>
 
@@ -121,7 +133,7 @@ const CompanyUsers = ({ company, getCompany }) => {
 
                                         <td className="text-end">
                                             <Link
-                                                to={'/panel/companies/' + company.id + '/users/' + item.id}
+                                                to={'/panel/companies/' + id + '/users/' + item.id}
                                                 className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
                                             >
                                                 <span className="svg-icon svg-icon-3">
@@ -146,7 +158,7 @@ const CompanyUsers = ({ company, getCompany }) => {
                                             </Link>
                                             <button
                                                 className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-                                                onClick={() => {setUserId(item.id); setOpenEditModal(true)}}
+                                                onClick={() => { setUserId(item.id); setOpenEditModal(true) }}
                                             >
                                                 <span className="svg-icon svg-icon-3">
                                                     <svg
@@ -209,14 +221,14 @@ const CompanyUsers = ({ company, getCompany }) => {
                 open={openAddUser}
                 onCloseModal={onCloseModal}
                 onCreate={getCompany}
-                companyId={company.id}
+                companyId={id}
             />
 
             <EditUser
                 open={openEditModal}
                 onCloseModal={onCloseModal}
                 onCreate={getCompany}
-                companyId={company.id}
+                companyId={id}
                 userId={userId}
             />
         </div>

@@ -1,6 +1,6 @@
 import React from 'react'
+import Moment from 'react-moment';
 import { useNavigate } from 'react-router-dom';
-import Moment from "react-moment";
 
 const CompanyInfo = ({company}) => {
 	const navigate = useNavigate();

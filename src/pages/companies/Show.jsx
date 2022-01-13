@@ -7,6 +7,8 @@ import CompanyUsers from "./sections/users/Index";
 const ShowCompany = () => {
 	const { id } = useParams();
 	const [company, setCompany] = useState({});
+    const [active, setActive] = useState('users')
+
 
 	const getCompany = async () => {
 		setCompany(await CompanyService.get(id));
@@ -29,6 +31,7 @@ const ShowCompany = () => {
 									className="nav-link text-active-primary pb-4 active"
 									data-bs-toggle="tab"
 									href="#users"
+								onClick={() => {setActive('users')}}
 								>
 									Users
 								</a>
@@ -38,6 +41,7 @@ const ShowCompany = () => {
 									className="nav-link text-active-primary pb-4"
 									data-bs-toggle="tab"
 									href="#contracts"
+								onClick={() => {setActive('contracts')}}
 								>
 									Contracts
 								</a>
@@ -46,7 +50,8 @@ const ShowCompany = () => {
 								<a
 									className="nav-link text-active-primary pb-4"
 									data-bs-toggle="tab"
-									href="#kt_ecommerce_add_product_reviews"
+									href="#machines"
+								onClick={() => {setActive('machines')}}
 								>
 									Machines
 								</a>
@@ -55,7 +60,7 @@ const ShowCompany = () => {
 
 						<div className="tab-content">
 							{/* Tabs start from here */}
-							<CompanyUsers company={company} getCompany={() => { getCompany() }} />
+							<CompanyUsers active={active} companyId={company.id} getCompany={() => { getCompany() }} />
 
 							<div
 								className="tab-pane fade"
