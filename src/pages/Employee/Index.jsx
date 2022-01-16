@@ -170,19 +170,19 @@ const Employee = () => {
                       <td className="pe-0" data-order="Scheduled">
                         <div
                           className={
-                            item?.status == "active"
+                            item?.status == 1
                               ? "badge badge-light-success"
                               : "badge badge-light-danger"
                           }
                         >
-                          {item?.status == "active" ? "active" : "inactive"}
+                          {item?.status == 1 ? "active" : "inactive"}
                         </div>
                       </td>
 
                       <td className="text-end">
                         <Link
                           //  to={"/panel/designations/" + item.id}
-                          to=""
+                          to={"/panel/employees/"+item.id}
                           className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
                         >
                           <span className="svg-icon svg-icon-3">

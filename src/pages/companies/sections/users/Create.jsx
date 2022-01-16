@@ -15,11 +15,13 @@ const AddUser = ({ open, onCloseModal, onCreate, companyId }) => {
   };
 
   //Store data
-  const storeUser = async () => {
+  const storeUser = async (e) => {
+    e.target.disabled = true
     let formData = new FormData(document.getElementById("update-company"));
     await CompanyService.addUser(companyId, formData);
     onCreate();
     onCloseModal();
+    e.target.disabled = false
   };
 
   const [data, setData] = useState({
@@ -27,7 +29,6 @@ const AddUser = ({ open, onCloseModal, onCreate, companyId }) => {
     email: "",
     password: "",
     phone: "",
-    avatar: ""
   })
 
   const handleChange = (e) => {
@@ -73,7 +74,6 @@ const AddUser = ({ open, onCloseModal, onCreate, companyId }) => {
                       name="avatar"
                       accept=".png, .jpg, .jpeg"
                       onChange={(e) => { setImage(e); handleChange(e) }}
-                      value={data.avatar}
                     />
                   </label>
                 </div>

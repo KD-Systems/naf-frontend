@@ -2,19 +2,18 @@ import React, { useEffect, useState } from "react";
 import Modal from "../../../../components/utils/Modal";
 import CompanyService from "../../../../services/CompanyService";
 
-const EditUser = ({ open, onCloseModal, onCreate, companyId, userId }) => {
+const EditUser = ({ open, onCloseModal, onUpdate, companyId, userId }) => {
   const [data, setData] = useState({
     name: "",
     email: "",
     password: "",
     phone: "",
     avatar: "",
-    avatarFile: "",
   });
 
   // Set the selected image to preview
   const setImage = async (e) => {
-    let logoShow = document.getElementById("logo");
+    let logoShow = document.getElementById("avatar");
     let fr = new FileReader();
     fr.readAsDataURL(e.target.files[0]);
 
@@ -29,11 +28,13 @@ const EditUser = ({ open, onCloseModal, onCreate, companyId, userId }) => {
   };
 
   //Store data
-  const updateUser = async () => {
-    let formData = new FormData(document.getElementById("update-company"));
+  const updateUser = async (e) => {
+    e.target.disabled = true
+    let formData = new FormData(document.getElementById("update-user"));
     await CompanyService.updateUser(companyId, userId, formData);
-    onCreate();
+    onUpdate();
     onCloseModal();
+    e.target.disabled = false
   };
 
   const handleChange = (e) => {
@@ -64,18 +65,18 @@ const EditUser = ({ open, onCloseModal, onCreate, companyId, userId }) => {
         title={<>Edit User</>}
         body={
           <>
-            <form id="update-company">
+            <form id="update-user">
               <div className="mb-10 fv-row fv-plugins-icon-container text-center">
                 <div
                   className="mx-auto image-input image-input-outline image-input-changed"
                   data-kt-image-input="true"
                 >
                   <div
-                    id="logo"
+                    id="avatar"
                     className="image-input-wrapper w-125px h-125px"
                     style={{
                       backgroundImage:
-                        "url(/assets/media/svg/files/blank-image.svg)",
+                        "url(" + data.avatar ?? +"/assets/media/svg/files/blank-image.svg)",
                     }}
                   ></div>
                   <label
@@ -93,7 +94,6 @@ const EditUser = ({ open, onCloseModal, onCreate, companyId, userId }) => {
                         setImage(e);
                         handleChange(e);
                       }}
-                      value={data.avatarFile ?? ""}
                     />
                   </label>
                 </div>

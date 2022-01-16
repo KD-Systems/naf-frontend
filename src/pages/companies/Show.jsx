@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import CompanyService from "../../services/CompanyService";
 import CompanyInfo from "./sections/Info";
 import CompanyUsers from "./sections/users/Index";
@@ -60,7 +60,7 @@ const ShowCompany = () => {
 
 						<div className="tab-content">
 							{/* Tabs start from here */}
-							<CompanyUsers active={active} companyId={company.id} getCompany={() => { getCompany() }} />
+							<CompanyUsers active={active} companyId={company.id} />
 
 							<div
 								className="tab-pane fade"

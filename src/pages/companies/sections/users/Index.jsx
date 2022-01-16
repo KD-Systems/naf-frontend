@@ -4,8 +4,8 @@ import CompanyService from '../../../../services/CompanyService';
 import AddUser from './Create';
 import EditUser from './Edit';
 
-const CompanyUsers = ({ active, getCompany }) => {
-    const [userId, setUserId] = useState(false);
+const CompanyUsers = ({ active }) => {
+    const [userId, setUserId] = useState(null);
     const [users, setUsers] = useState([]);
     const [openAddUser, setOpenAddUser] = useState(false);
     const [openEditModal, setOpenEditModal] = useState(false);
@@ -18,6 +18,11 @@ const CompanyUsers = ({ active, getCompany }) => {
 
     const getUsers = async () => {
         setUsers(await CompanyService.getUsers(id))
+    }
+
+    const deleteUser = async (userId) => {
+        if (window.confirm('Are you sure want to delete?'))
+            await CompanyService.deleteUser(id, userId)
     }
 
     useEffect(() => {
@@ -87,7 +92,6 @@ const CompanyUsers = ({ active, getCompany }) => {
                         <table className="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
                             <thead>
                                 <tr className="fw-bolder text-muted">
-                                    <th className="min-w-50px">ID</th>
                                     <th className="min-w-150px">Name</th>
                                     <th className="min-w-120px">Status</th>
                                     <th className="min-w-100px text-end">Actions</th>
@@ -176,6 +180,9 @@ const CompanyUsers = ({ active, getCompany }) => {
                                                 </span>
                                             </button>
                                             <button
+                                                onClick={() => {
+                                                    deleteUser(item.id);
+                                                }}
                                                 className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
                                             >
                                                 <span className="svg-icon svg-icon-3">
@@ -214,15 +221,15 @@ const CompanyUsers = ({ active, getCompany }) => {
 
             <AddUser
                 open={openAddUser}
-                onCloseModal={onCloseModal}
-                onCreate={getCompany}
+                onCloseModal={() => { onCloseModal() }}
+                onCreate={() => { getUsers(); }}
                 companyId={id}
             />
 
             <EditUser
                 open={openEditModal}
-                onCloseModal={onCloseModal}
-                onCreate={getCompany}
+                onCloseModal={() => { onCloseModal() }}
+                onUpdate={() => { getUsers() }}
                 companyId={id}
                 userId={userId}
             />

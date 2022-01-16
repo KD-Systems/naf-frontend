@@ -5,7 +5,6 @@ import CompanyService from "../../services/CompanyService";
 
 const CreateCompany = ({ open, onCloseModal, onCreate }) => {
   const [data, setData] = useState({
-    logo: '',
     name: '',
     company_group: '',
     machine_types: '',
@@ -34,7 +33,7 @@ const CreateCompany = ({ open, onCloseModal, onCreate }) => {
 
   //Store data
   const createCompany = async () => {
-    let formData = new FormData(document.getElementById("update-company"));
+    let formData = new FormData(document.getElementById("create-company"));
     await CompanyService.create(formData);
     onCreate();
     onCloseModal();
@@ -48,7 +47,7 @@ const CreateCompany = ({ open, onCloseModal, onCreate }) => {
         title={<>Add Company</>}
         body={
           <>
-            <form id="update-company">
+            <form id="create-company">
               <div className="mb-5 fv-row fv-plugins-icon-container text-center">
                 <div
                   className="mx-auto image-input image-input-outline image-input-changed"
@@ -73,7 +72,6 @@ const CreateCompany = ({ open, onCloseModal, onCreate }) => {
                       type="file"
                       name="logo"
                       accept=".png, .jpg, .jpeg"
-                      value={data.logo}
                       onChange={(e) => { setImage(e); handleChange(e) }}
                     />
                   </label>
@@ -89,7 +87,7 @@ const CreateCompany = ({ open, onCloseModal, onCreate }) => {
                   placeholder="Enter Company Name"
                   name="name"
                   id="name"
-                  value={data.name}
+                  value={data.name ?? ''}
                   onChange={handleChange}
                 />
                 <div className="fv-plugins-message-container invalid-feedback"></div>
@@ -103,7 +101,7 @@ const CreateCompany = ({ open, onCloseModal, onCreate }) => {
                   placeholder="Enter Group of Company"
                   name="company_group"
                   id="company_group"
-                  value={data.company_group}
+                  value={data.company_group ?? ''}
                   onChange={handleChange}
                 />
                 <div className="fv-plugins-message-container invalid-feedback"></div>
@@ -115,7 +113,7 @@ const CreateCompany = ({ open, onCloseModal, onCreate }) => {
                   placeholder="Enter Machine Types"
                   name="machine_types"
                   id="machine_types"
-                  value={data.machine_types}
+                  value={data.machine_types ?? ''}
                   onChange={handleChange}
                 />
                 <div className="fv-plugins-message-container invalid-feedback"></div>
@@ -130,7 +128,7 @@ const CreateCompany = ({ open, onCloseModal, onCreate }) => {
                   placeholder="Enter Description"
                   name="description"
                   id="description"
-                  value={data.description}
+                  value={data.description ?? ''}
                   onChange={handleChange}
                 />
                 <div className="fv-plugins-message-container invalid-feedback"></div>

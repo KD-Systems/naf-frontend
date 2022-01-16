@@ -30,8 +30,8 @@ const getUsers = async (companyId) => {
   return res.data;
 };
 
-const addUser = async (companyId) => {
-  let res = await http.post(`/companies/${companyId}/users`);
+const addUser = async (companyId, data) => {
+  let res = await http.post(`/companies/${companyId}/users`, data);
   return res.data;
 };
 
@@ -46,6 +46,11 @@ const updateUser = async (companyId, userId, data) => {
   return res.data;
 };
 
+const deleteUser = async (companyId, userId) => {
+  let res = await http.delete(`/companies/${companyId}/users/${userId}`);
+  return res.data;
+};
+
 const CompanyService = {
   getAll,
   get,
@@ -55,7 +60,8 @@ const CompanyService = {
   getUsers,
   addUser,
   getUser,
-  updateUser
+  updateUser,
+  deleteUser
 };
 
 export default CompanyService;
