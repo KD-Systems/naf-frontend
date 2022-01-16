@@ -13,6 +13,7 @@ import Role from "./pages/Role";
 import Companies from "./pages/companies/Index";
 import ShowCompany from "./pages/companies/Show";
 import ShowDesignation from "./pages/Designations/Show";
+import ShowEmployee from "./pages/Employee/Show";
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
 
              {/* Employee Start */}
              <Route path="employees" element={<Employee />} />
+             <Route path="employees/:id" element={<ShowEmployee />} />
              {/* Employee End */}
             <Route path="roles" element={<Role />} />
 

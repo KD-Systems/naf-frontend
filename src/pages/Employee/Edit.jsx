@@ -1,19 +1,23 @@
 import React, { useState, useEffect } from "react";
 import Modal from "../../components/utils/Modal";
-
 import EmployeeService from "../../services/EmployeeService";
 import DesignationService from "../../services/DesignationService";
+import "./Employee.css"
+
 const EditEmployee = ({ open, onCloseModal, getEmployees, employeeId }) => {
   const [employee, setEmployee] = useState("");
-
   const [designations, setDesignations] = useState([]);
+  const [toogle,setToogle] = useState(false)
   const [data, setData] = useState({
     name: "",
     email: "",
     avatar: "",
     password: "",
+    status:false,
     designation_id: null,
   });
+
+
   const getEmployee = async () => {
     setEmployee(await EmployeeService.get(employeeId));
   };
@@ -21,7 +25,6 @@ const EditEmployee = ({ open, onCloseModal, getEmployees, employeeId }) => {
   const getDesignations = async () => {
     setDesignations(await DesignationService.getAll());
   };
-
 
   const setImage = async (e) => {
     let logoShow = document.getElementById("avatar");
@@ -34,11 +37,15 @@ const EditEmployee = ({ open, onCloseModal, getEmployees, employeeId }) => {
   };
 
   const handleChange = (e) => {
-    const value = e.target.value;
+
+   const target = e.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = e.target.name;
 
     let tempdata = { ...data };
     tempdata[name] = value;
+
+    console.log(tempdata);
 
     setData(tempdata);
   };
@@ -47,12 +54,11 @@ const EditEmployee = ({ open, onCloseModal, getEmployees, employeeId }) => {
     if (employeeId) {
       getEmployee();
     }
-  }, [open,employeeId]);
+  }, [open, employeeId]);
 
   useEffect(() => {
     setData(employee);
   }, [employee]);
-
 
   useEffect(() => {
     getDesignations();
@@ -60,8 +66,9 @@ const EditEmployee = ({ open, onCloseModal, getEmployees, employeeId }) => {
 
   const updateEmployee = async () => {
     let formData = new FormData(document.getElementById("update-employee"));
+
     formData.append("_method", "PUT");
-    await EmployeeService.update(employeeId,formData);
+    await EmployeeService.update(employeeId, formData);
     getEmployees();
     onCloseModal();
   };
@@ -161,7 +168,13 @@ const EditEmployee = ({ open, onCloseModal, getEmployees, employeeId }) => {
                   >
                     <option value="">Select</option>
                     {designations?.map((item, index) => (
-                      <option value={item?.id} selected={data?.designation?.id == item?.id ? "selected":""} key={index} >
+                      <option
+                        value={item?.id}
+                        selected={
+                          data?.designation?.id == item?.id ? "selected" : ""
+                        }
+                        key={index}
+                      >
                         {item?.name}
                       </option>
                     ))}
@@ -169,6 +182,23 @@ const EditEmployee = ({ open, onCloseModal, getEmployees, employeeId }) => {
                   <span className="form-text text-muted">
                     Please select an option.
                   </span>
+                </div>
+              </div>
+
+              <div className="form-group mt-5">
+                <div className="form-check form-switch form-check-custom form-check-solid">
+                  <input
+                    className="form-check-input"
+                    type="checkbox"
+                    defaultChecked={data.status}
+                    defaultValue={data.status == true ? "true":"false"}
+                    name="status"
+                    id="flexSwitchDefault"
+                    onChange={handleChange}
+                  />
+                  <label className="form-check-label" htmlFor="flexSwitchDefault">
+                    Status {data.status?"active":"inactive"}
+                  </label>
                 </div>
               </div>
 
