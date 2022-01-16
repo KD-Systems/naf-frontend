@@ -9,7 +9,7 @@ const CompanyUsers = ({ active, getCompany }) => {
     const [users, setUsers] = useState([]);
     const [openAddUser, setOpenAddUser] = useState(false);
     const [openEditModal, setOpenEditModal] = useState(false);
-    const {id} = useParams();
+    const { id } = useParams();
 
     const onCloseModal = () => {
         setOpenAddUser(false);
@@ -95,10 +95,8 @@ const CompanyUsers = ({ active, getCompany }) => {
                             </thead>
 
                             <tbody>
-                                {users.map((item, index) => (
+                                {users?.map((item, index) => (
                                     <tr key={index}>
-                                        <td>#{item.id}</td>
-
                                         <td>
                                             <div className="d-flex align-items-center">
                                                 <div className="symbol symbol-50px me-5">
@@ -117,9 +115,6 @@ const CompanyUsers = ({ active, getCompany }) => {
                                                     >
                                                         {item.name}
                                                     </a>
-                                                    <span className="text-muted fw-bold text-muted d-block fs-7">
-                                                        HTML, JS, ReactJS
-                                                    </span>
                                                 </div>
                                             </div>
                                         </td>

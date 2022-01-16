@@ -8,8 +8,9 @@ const EditUser = ({ open, onCloseModal, onCreate, companyId, userId }) => {
     email: "",
     password: "",
     phone: "",
-    avatar: ""
-  })
+    avatar: "",
+    avatarFile: "",
+  });
 
   // Set the selected image to preview
   const setImage = async (e) => {
@@ -24,13 +25,13 @@ const EditUser = ({ open, onCloseModal, onCreate, companyId, userId }) => {
 
   //Get user data
   const getUser = async () => {
-    await CompanyService.getUser(companyId, userId);
+    setData(await CompanyService.getUser(companyId, userId));
   };
 
   //Store data
   const updateUser = async () => {
     let formData = new FormData(document.getElementById("update-company"));
-    await CompanyService.addUser(companyId, formData);
+    await CompanyService.updateUser(companyId, userId, formData);
     onCreate();
     onCloseModal();
   };
@@ -40,21 +41,27 @@ const EditUser = ({ open, onCloseModal, onCreate, companyId, userId }) => {
     const name = e.target.name;
 
     setData({
-      ...data, [name]: value
-    })
-  }
+      ...data,
+      [name]: value,
+    });
+  };
 
   useEffect(() => {
-    if (userId)
-      getUser();
-  }, [userId])
+    if (userId) getUser();
+
+    //Load the plugins after rendering the page
+    setTimeout(() => {
+      window.$('[data-bs-toggle="popover"]').popover()
+      window.$('[data-bs-toggle="tooltip"]').tooltip()
+    }, 100);
+  }, [userId]);
 
   return (
     <div>
       <Modal
         open={open}
         onCloseModal={onCloseModal}
-        title={<>Add User</>}
+        title={<>Edit User</>}
         body={
           <>
             <form id="update-company">
@@ -82,8 +89,11 @@ const EditUser = ({ open, onCloseModal, onCreate, companyId, userId }) => {
                       type="file"
                       name="avatar"
                       accept=".png, .jpg, .jpeg"
-                      onChange={(e) => { setImage(e); handleChange(e) }}
-                      value={data.avatar}
+                      onChange={(e) => {
+                        setImage(e);
+                        handleChange(e);
+                      }}
+                      value={data.avatarFile ?? ""}
                     />
                   </label>
                 </div>
@@ -98,7 +108,7 @@ const EditUser = ({ open, onCloseModal, onCreate, companyId, userId }) => {
                   placeholder="Enter Name"
                   name="name"
                   id="name"
-                  value={data.name}
+                  value={data.name ?? ""}
                   onChange={handleChange}
                 />
                 <div className="fv-plugins-message-container invalid-feedback"></div>
@@ -112,21 +122,30 @@ const EditUser = ({ open, onCloseModal, onCreate, companyId, userId }) => {
                   placeholder="Enter Email"
                   name="email"
                   id="email"
-                  value={data.email}
+                  value={data.email ?? ""}
                   onChange={handleChange}
                 />
                 <div className="fv-plugins-message-container invalid-feedback"></div>
               </div>
 
               <div className="mb-10 fv-row fv-plugins-icon-container">
-                <label className="form-label required">Password</label>
+                <label className="form-label">
+                  Password
+                  <i
+                    className="fas fa-exclamation-circle ms-2 fs-7"
+                    data-bs-toggle="popover"
+                    data-bs-trigger="hover"
+                    data-bs-html="true"
+                    data-bs-content="Keep the input box empty to unchanged the password."
+                  />
+                </label>
                 <input
                   type="password"
                   className="form-control mb-2"
                   placeholder="Enter Password"
                   name="password"
                   id="password"
-                  value={data.password}
+                  value={data.password ?? ""}
                   onChange={handleChange}
                 />
                 <div className="fv-plugins-message-container invalid-feedback"></div>
@@ -140,7 +159,7 @@ const EditUser = ({ open, onCloseModal, onCreate, companyId, userId }) => {
                   placeholder="Enter Phone"
                   name="phone"
                   id="phone"
-                  value={data.phone}
+                  value={data.phone ?? ""}
                   onChange={handleChange}
                 />
                 <div className="fv-plugins-message-container invalid-feedback"></div>

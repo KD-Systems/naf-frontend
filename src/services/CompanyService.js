@@ -15,6 +15,7 @@ const create = async (data) => {
 };
 
 const update = async (id, data) => {
+  data.append("_method", "PUT");
   const res = await http.post(`/companies/${id}`, data);
   return res.data;
 };
@@ -25,15 +26,24 @@ const remove = async (id) => {
 };
 
 const getUsers = async (companyId) => {
-  return http.get(`/companies/${companyId}/users`);
+  let res = await http.get(`/companies/${companyId}/users`);
+  return res.data;
 };
 
-const addUser = async (id, data) => {
-  return http.post(`/companies/${id}/users`, data);
+const addUser = async (companyId) => {
+  let res = await http.post(`/companies/${companyId}/users`);
+  return res.data;
 };
 
 const getUser = async (companyId, userId) => {
-  return http.get(`/companies/${companyId}/users/${userId}`);
+  let res = await http.get(`/companies/${companyId}/users/${userId}`);
+  return res.data;
+};
+
+const updateUser = async (companyId, userId, data) => {
+  data.append("_method", "PUT");
+  let res = await http.post(`/companies/${companyId}/users/${userId}`, data);
+  return res.data;
 };
 
 const CompanyService = {
@@ -44,7 +54,8 @@ const CompanyService = {
   remove,
   getUsers,
   addUser,
-  getUser
+  getUser,
+  updateUser
 };
 
 export default CompanyService;

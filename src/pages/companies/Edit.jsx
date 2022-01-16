@@ -29,7 +29,6 @@ const EditCompany = ({ open, companyId, onCloseModal, onUpdate }) => {
 
     const updateCompany = async () => {
         let formData = new FormData(document.getElementById("update-company"));
-        formData.append("_method", "PUT");
         await CompanyService.update(companyId, formData);
         onUpdate();
         onCloseModal();
