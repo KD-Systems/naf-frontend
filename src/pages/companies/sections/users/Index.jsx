@@ -107,7 +107,7 @@ const CompanyUsers = ({ active }) => {
                                                     <span className="symbol-label bg-light">
                                                         <img
                                                             src={item.avatar}
-                                                            className="h-75 align-self-end"
+                                                            className="h-75 overflow-hidden"
                                                             alt=""
                                                         />
                                                     </span>
