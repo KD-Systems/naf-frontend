@@ -8,11 +8,13 @@ import AccountSettings from "./pages/auth/AccountSettings";
 import Employee from "./pages/Employee/Index";
 import Designations from "./pages/Designations/Index";
 import Role from "./pages/Role";
-
 import Companies from "./pages/companies/Index";
 import ShowCompany from "./pages/companies/Show";
 import ShowDesignation from "./pages/Designations/Show";
 import ShowEmployee from "./pages/Employee/Show";
+import ShowUser from "./pages/companies/sections/users/Show";
+import Contracts from "./pages/contracts/Index";
+import ShowContract from "./pages/contracts/Show";
 
 
 import WareHouse from "./pages/warehouses/Index"
@@ -57,6 +59,10 @@ function App() {
 
             <Route path="companies" element={<Companies />} />
             <Route path="companies/:id" element={<ShowCompany />} />
+            <Route path="companies/:companyId/users/:id" element={<ShowUser />} />
+
+            <Route path="contracts" element={<Contracts />} />
+            <Route path="contracts/:id" element={<ShowContract />} />
 
             {/* WareHouse Start */}
             <Route path="warehouses" element={<WareHouse />} />
