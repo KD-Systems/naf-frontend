@@ -1,10 +1,50 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate, Navigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
+import { login } from "../../features/Auth";
+
+import AuthService from "../../services/AuthService";
 
 const Login = () => {
   //Replace the classes of body for the page
-  let body = document.getElementsByTagName('body');
-  body[0].setAttribute('class', 'bg-body');
+  let body = document.getElementsByTagName("body");
+  body[0].setAttribute("class", "bg-body");
+
+  const { isLoggedIn } = useSelector((state) => state.auth);
+
+  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+
+  const [data, setData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    const name = e.target.name;
+
+    setData({
+      ...data,
+      [name]: value,
+    });
+  };
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    const { email, password } = data;
+
+    dispatch(login({ email, password }));
+    navigate("/panel/dashboard");
+
+   
+  };
+
+
+
 
 
   return (
@@ -12,7 +52,7 @@ const Login = () => {
       <div className="d-flex flex-column flex-lg-row flex-column-fluid">
         <div
           className="d-flex flex-column flex-lg-row-auto w-xl-600px positon-xl-relative"
-          style={{ backgroundColor: "#F2C98A", height: '100vh' }}
+          style={{ backgroundColor: "#F2C98A", height: "100vh" }}
         >
           <div className="d-flex flex-column position-xl-fixed top-0 bottom-0 w-xl-600px scroll-y">
             <div className="d-flex flex-row-fluid flex-column text-center p-10 pt-lg-20">
@@ -32,7 +72,8 @@ const Login = () => {
               </h1>
 
               <p className="fw-bold fs-2" style={{ color: "#986923" }}>
-                Naf Group is one of the most prestigious and experienced commercial and industrial conglomerates in Bangladesh today
+                Naf Group is one of the most prestigious and experienced
+                commercial and industrial conglomerates in Bangladesh today
               </p>
             </div>
 
@@ -67,6 +108,8 @@ const Login = () => {
                     className="form-control form-control-lg form-control-solid"
                     type="text"
                     autoComplete="off"
+                    name="email"
+                    onChange={handleChange}
                   />
                 </div>
 
@@ -76,10 +119,7 @@ const Login = () => {
                       Password
                     </label>
 
-                    <a
-                      href="../../demo1/dist/authentication/layouts/aside/password-reset.html"
-                      className="link-primary fs-6 fw-bolder"
-                    >
+                    <a href="!#" className="link-primary fs-6 fw-bolder">
                       Forgot Password ?
                     </a>
                   </div>
@@ -87,7 +127,9 @@ const Login = () => {
                   <input
                     className="form-control form-control-lg form-control-solid"
                     type="password"
+                    name="password"
                     autoComplete="off"
+                    onChange={handleChange}
                   />
                 </div>
 
@@ -96,6 +138,7 @@ const Login = () => {
                     type="submit"
                     id="kt_sign_in_submit"
                     className="btn btn-lg btn-primary w-100 mb-5"
+                    onClick={handleLogin}
                   >
                     <span className="indicator-label">Continue</span>
                     <span className="indicator-progress">

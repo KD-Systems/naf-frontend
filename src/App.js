@@ -17,6 +17,13 @@ import Contracts from "./pages/contracts/Index";
 import ShowContract from "./pages/contracts/Show";
 
 
+import WareHouse from "./pages/warehouses/Index"
+
+export const PrivateRoute = ({ children }) => {
+  const auth = JSON.parse(localStorage.getItem("user"));
+  return auth?.access_token ? children : <Navigate to="/" />;
+};
+
 function App() {
   return (
     <>
@@ -26,14 +33,28 @@ function App() {
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="employees" element={<Employee />} />
             {/* Designation start */}
-            <Route path="designations" element={<Designations />} />
-            <Route path="designations/:id" element={<ShowDesignation />} />
-             {/* Designation end */}
+            <Route
+              path="designations"
+              element={
+                <PrivateRoute>
+                  <Designations />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="designations/:id"
+              element={
+                <PrivateRoute>
+                  <ShowDesignation />
+                </PrivateRoute>
+              }
+            />
+            {/* Designation end */}
 
-             {/* Employee Start */}
-             <Route path="employees" element={<Employee />} />
-             <Route path="employees/:id" element={<ShowEmployee />} />
-             {/* Employee End */}
+            {/* Employee Start */}
+            <Route path="employees" element={<Employee />} />
+            <Route path="employees/:id" element={<ShowEmployee />} />
+            {/* Employee End */}
             <Route path="roles" element={<Role />} />
 
             <Route path="companies" element={<Companies />} />
@@ -42,6 +63,10 @@ function App() {
 
             <Route path="contracts" element={<Contracts />} />
             <Route path="contracts/:id" element={<ShowContract />} />
+
+            {/* WareHouse Start */}
+            <Route path="warehouses" element={<WareHouse />} />
+            {/* WareHouse End */}
 
             <Route path="profile" element={<Profile />} />
             <Route path="profile/settings" element={<AccountSettings />} />

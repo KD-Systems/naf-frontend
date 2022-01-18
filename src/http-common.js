@@ -4,13 +4,16 @@ import {
   toast
 } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 toast.configure();
 
+
+
 export default axios.create({
-  baseURL: "//naf-inventory.test/api",
+  baseURL: "//naf-inventory.test/api/",
   headers: {
     "Content-type": "application/json",
+    "accept":"application/json",
+    "Authorization": "Bearer "+JSON.parse(localStorage.getItem('user'))?.access_token
   },
   transformResponse: function (data) {
     let response = JSON.parse(data);

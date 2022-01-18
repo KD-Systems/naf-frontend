@@ -1,7 +1,18 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link ,useNavigate} from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
+import { logout } from "../../features/Auth";
 const InfoBar = () => {
+
+  const dispatch = useDispatch()
+  const navigate = useNavigate();
+
+  const handleLogout = ()=>{
+    dispatch(logout());
+    navigate("/logout")
+  }
+
   return (
     <div className="d-flex align-items-stretch flex-shrink-0">
       <div className="d-flex align-items-stretch flex-shrink-0">
@@ -773,7 +784,7 @@ const InfoBar = () => {
             </div>
 
             <div className="menu-item px-5">
-              <Link to="/login" className="menu-link px-5">
+              <Link to="/" className="menu-link px-5" onClick={handleLogout}>
                 Sign Out
               </Link>
             </div>

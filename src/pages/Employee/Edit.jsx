@@ -53,6 +53,7 @@ const EditEmployee = ({ open, onCloseModal, getEmployees, employeeId }) => {
   useEffect(() => {
     if (employeeId) {
       getEmployee();
+     
     }
   }, [open, employeeId]);
 
@@ -62,7 +63,7 @@ const EditEmployee = ({ open, onCloseModal, getEmployees, employeeId }) => {
 
   useEffect(() => {
     getDesignations();
-  }, []);
+  }, [open]);
 
   const updateEmployee = async () => {
     let formData = new FormData(document.getElementById("update-employee"));
