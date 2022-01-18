@@ -1,18 +1,22 @@
-import axios from "axios"
-
-const API_URL = "naf-inventory.test/api/login"
+import http from "../http-common";
 
 
-const login = (email,password)=>{
-    return axios.post(API_URL,{
-        email,
-        password
-    })
-    .then((res)=>{
-        if(res.data.access_token){
-            localStorage.setItem("user",JSON.stringify(res.data));
-        }
 
-        return res.data
-    })
+const login = async(email,password)=>{
+    const res = await http.post("/login", {email,password});
+    if (res.data.access_token){
+      localStorage.setItem("user",JSON.stringify(res.data));
+    }
+    return res.data;
 }
+
+const logout = () => {
+  localStorage.removeItem("user");
+};
+
+const authService = {
+  login,
+  logout,
+};
+
+export default authService;

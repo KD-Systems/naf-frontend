@@ -1,56 +1,48 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
+import WareHouseService from "../../services/WareHouseService";
 import Modal from "../../components/utils/Modal";
-import DesignationService from "../../services/DesignationService";
-const CreateDesignation = ({ open, onCloseModal,getDesignations }) => {
+const CreateWareHouse = ({ open, onCloseModal, getWareHouses }) => {
+  const [data, setData] = useState({
+    name: "",
+    designation: "",
+  });
 
-    
+  const createWareHouse = async (data) => {
+    await WareHouseService.create(data);
+    getWareHouses();
+  };
 
-    const createDesignation =async(data)=>{
-        await DesignationService.create(data);
-        getDesignations();
-      }
+  const handleChange = (e) => {
+    const value = e.target.value;
+    const name = e.target.name;
 
-    const [data,setData]=useState({
-        name:"", designation:""
-    })
+    setData({
+      ...data,
+      [name]: value,
+    });
+  };
 
+  const onSumbit = (e) => {
+    e.preventDefault();
+    createWareHouse(data);
 
-    const handleChange=(e)=>{
-        const value = e.target.value;
-        const name = e.target.name;
-
-        setData({
-            ...data,[name]:value
-        })
-    }
-
-
-
-    const onSumbit = (e)=>{
-        e.preventDefault();
-        createDesignation(data);
-        onCloseModal();
-       
-    }
-
-
-
-
+    onCloseModal();
+  };
   return (
     <div>
       <Modal
         open={open}
         onCloseModal={onCloseModal}
-        title={<>Create Designation</>}
+        title={<>Create Warehouse</>}
         body={
           <>
             <form>
               <div className="form-group">
-              <label className="required form-label">Name</label>
+                <label className="required form-label">Name</label>
                 <input
                   type="text"
                   className="form-control"
-                  placeholder="Enter Designation Name"
+                  placeholder="Enter  Name"
                   name="name"
                   id="name"
                   onChange={handleChange}
@@ -58,12 +50,12 @@ const CreateDesignation = ({ open, onCloseModal,getDesignations }) => {
               </div>
 
               <div className="form-group mt-5">
-              <label className="form-label">Description</label>
+                <label className="form-label">Description</label>
                 <textarea
                   rows="3"
                   type="text"
                   className="form-control"
-                  placeholder="Enter Designation Description"
+                  placeholder="Enter  Description"
                   name="description"
                   id="description"
                   onChange={handleChange}
@@ -93,4 +85,4 @@ const CreateDesignation = ({ open, onCloseModal,getDesignations }) => {
   );
 };
 
-export default CreateDesignation;
+export default CreateWareHouse;

@@ -37,7 +37,7 @@ const CreateEmployee = ({ open, onCloseModal, getEmployees }) => {
 
   useEffect(() => {
     getDesignations();
-  }, []);
+  }, [open]);
 
   const handleChange = (e) => {
     const value = e.target.value;

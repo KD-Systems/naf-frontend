@@ -9,12 +9,18 @@ import Employee from "./pages/Employee/Index";
 import Designations from "./pages/Designations/Index";
 import Role from "./pages/Role";
 
-
 import Companies from "./pages/companies/Index";
 import ShowCompany from "./pages/companies/Show";
 import ShowDesignation from "./pages/Designations/Show";
 import ShowEmployee from "./pages/Employee/Show";
 
+
+import WareHouse from "./pages/warehouses/Index"
+
+export const PrivateRoute = ({ children }) => {
+  const auth = JSON.parse(localStorage.getItem("user"));
+  return auth?.access_token ? children : <Navigate to="/" />;
+};
 
 function App() {
   return (
@@ -25,18 +31,36 @@ function App() {
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="employees" element={<Employee />} />
             {/* Designation start */}
-            <Route path="designations" element={<Designations />} />
-            <Route path="designations/:id" element={<ShowDesignation />} />
-             {/* Designation end */}
+            <Route
+              path="designations"
+              element={
+                <PrivateRoute>
+                  <Designations />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="designations/:id"
+              element={
+                <PrivateRoute>
+                  <ShowDesignation />
+                </PrivateRoute>
+              }
+            />
+            {/* Designation end */}
 
-             {/* Employee Start */}
-             <Route path="employees" element={<Employee />} />
-             <Route path="employees/:id" element={<ShowEmployee />} />
-             {/* Employee End */}
+            {/* Employee Start */}
+            <Route path="employees" element={<Employee />} />
+            <Route path="employees/:id" element={<ShowEmployee />} />
+            {/* Employee End */}
             <Route path="roles" element={<Role />} />
 
             <Route path="companies" element={<Companies />} />
             <Route path="companies/:id" element={<ShowCompany />} />
+
+            {/* WareHouse Start */}
+            <Route path="warehouses" element={<WareHouse />} />
+            {/* WareHouse End */}
 
             <Route path="profile" element={<Profile />} />
             <Route path="profile/settings" element={<AccountSettings />} />
