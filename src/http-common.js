@@ -18,20 +18,26 @@ export default axios.create({
     //Form validation messages
     let errors = response.errors;
     let hasToast = false;
+
+    //Clean all previous messages
+    let msg = document.getElementsByClassName('invalid-feedback');
+    for (let i = 0; i < msg.length; i++) reactDom.render('', msg[i])
+
+    //Specify the messages
     if (errors)
       for (let key in errors) {
-        let elem = document.getElementsByName(key);
-        let nextElem = elem[0].nextSibling;
-        if (nextElem && nextElem.getAttribute('class').includes("invalid-feedback")) {
-          reactDom.render(errors[key][0], elem[0].nextSibling);
+        let el = window.$('[for=' + key + ']');
+        if (el.length) {
+          reactDom.render(errors[key][0], el[0])
         } else {
           toast.error(errors[key][0]);
           hasToast = true;
         }
       }
 
+    //Skip the error message in toast if printed already
     if (!hasToast && response.message) toast.dark(response.message);
 
-    return JSON.parse(data);
+    return response;
   },
 });

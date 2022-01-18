@@ -2,13 +2,30 @@ import React, { useEffect, useState } from 'react'
 import Moment from 'react-moment';
 import { Link } from 'react-router-dom'
 import ContractService from "../../services/ContractService";
+import CreateContract from './Create';
+import EditContract from './Edit';
 
 const Contracts = () => {
   const [contracts, setContracts] = useState([])
+  const [openAddModal, setOpenAddModal] = useState(false)
+  const [openEditModal, setOpenEditModal] = useState(false)
+  const [contractId, setContractId] = useState(null)
 
   const getContracts = async () => {
     setContracts(await ContractService.getAll())
   }
+
+  const deleteContract = (contractId) => {
+    if (window.confirm("Are you sure want to delete?")) {
+      ContractService.remove(contractId)
+      getContracts()
+    }
+  }
+
+  const onCloseModal = () => {
+    setOpenAddModal(false);
+    setOpenEditModal(false);
+  };
 
   useEffect(() => {
     getContracts()
@@ -24,6 +41,54 @@ const Contracts = () => {
                 Contracts
               </span>
             </h3>
+
+            <div className="card-toolbar">
+              <button
+                type="button"
+                className="btn btn-light-primary"
+                onClick={() => {
+                  setOpenAddModal(true);
+                }}
+              >
+                <span className="svg-icon svg-icon-3">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                  >
+                    <rect
+                      opacity="0.3"
+                      x="2"
+                      y="2"
+                      width="20"
+                      height="20"
+                      rx="5"
+                      fill="black"
+                    ></rect>
+                    <rect
+                      x="10.8891"
+                      y="17.8033"
+                      width="12"
+                      height="2"
+                      rx="1"
+                      transform="rotate(-90 10.8891 17.8033)"
+                      fill="black"
+                    ></rect>
+                    <rect
+                      x="6.01041"
+                      y="10.9247"
+                      width="12"
+                      height="2"
+                      rx="1"
+                      fill="black"
+                    ></rect>
+                  </svg>
+                </span>
+                Add Contract
+              </button>
+            </div>
           </div>
 
           <div className="card-body py-3">
@@ -66,6 +131,12 @@ const Contracts = () => {
                         <Moment format='YYYY-MM-DD'>
                           {item.end_date}
                         </Moment>
+
+                        {item.has_expired ?
+                          <div className="badge badge-light-danger">
+                            Expired
+                          </div> : ''
+                        }
                       </td>
 
                       <td>
@@ -105,8 +176,11 @@ const Contracts = () => {
                             </svg>
                           </span>
                         </Link>
-                        <Link
-                          to="#"
+                        <button
+                          onClick={() => {
+                            setOpenEditModal(true);
+                            setContractId(item.id)
+                          }}
                           className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
                         >
                           <span className="svg-icon svg-icon-3">
@@ -128,9 +202,11 @@ const Contracts = () => {
                               />
                             </svg>
                           </span>
-                        </Link>
-                        <Link
-                          to="#"
+                        </button>
+                        <button
+                          onClick={() => {
+                            deleteContract(item.id)
+                          }}
                           className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
                         >
                           <span className="svg-icon svg-icon-3">
@@ -157,7 +233,7 @@ const Contracts = () => {
                               />
                             </svg>
                           </span>
-                        </Link>
+                        </button>
                       </td>
                     </tr>
                   ))}
@@ -165,6 +241,9 @@ const Contracts = () => {
               </table>
             </div>
           </div>
+
+          <CreateContract open={openAddModal} onCloseModal={onCloseModal} getContracts={getContracts} />
+          <EditContract open={openEditModal} contractId={contractId} onCloseModal={onCloseModal} getContracts={getContracts} />
         </div>
       </div>
     </div>

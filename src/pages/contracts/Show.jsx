@@ -55,6 +55,11 @@ const ShowContract = () => {
                         <Moment format='YYYY-MM-DD'>
                           {data.end_date}
                         </Moment>
+                        {data.has_expired ?
+                          <div className="badge badge-light-danger">
+                            Expired
+                          </div> : ''
+                        }
                       </span>
                     </div>
 
