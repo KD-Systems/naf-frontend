@@ -14,10 +14,12 @@ import ShowDesignation from "./pages/Designations/Show";
 import ShowEmployee from "./pages/Employee/Show";
 import ShowUser from "./pages/companies/sections/users/Show";
 import Contracts from "./pages/contracts/Index";
+import Machines from "./pages/machines/Index";
 import ShowContract from "./pages/contracts/Show";
 
 
 import WareHouse from "./pages/warehouses/Index"
+import ShowMachine from "./pages/machines/Show";
 
 export const PrivateRoute = ({ children }) => {
   const auth = JSON.parse(localStorage.getItem("user"));
@@ -67,6 +69,11 @@ function App() {
             {/* WareHouse Start */}
             <Route path="warehouses" element={<WareHouse />} />
             {/* WareHouse End */}
+
+            {/* Machine Start */}
+            <Route path="machines" element={<Machines />} />
+            <Route path="machines/:id" element={<ShowMachine />} />
+            {/* Machine End */}
 
             <Route path="profile" element={<Profile />} />
             <Route path="profile/settings" element={<AccountSettings />} />

@@ -221,6 +221,54 @@ const SideMenu = () => {
             <div className="menu-item">
               <div className="menu-content pt-8 pb-2">
                 <span className="menu-section text-muted text-uppercase fs-8 ls-1">
+                  Inventory
+                </span>
+              </div>
+            </div>
+
+            <div className="menu-item">
+              <NavLink
+                className={(navinfo) =>
+                  navinfo.isActive ? "menu-link active" : "menu-link"
+                }
+                to="/panel/warehouses"
+              >
+                <span className="menu-icon">
+                  <i className="fas fa-warehouse"></i>
+                </span>
+                <span className="menu-title">WareHouses</span>
+              </NavLink>
+            </div>
+
+            <div className="menu-item">
+              <NavLink
+                className={(navinfo) =>
+                  navinfo.isActive ? "menu-link active" : "menu-link"
+                }
+                to="/panel/machines"
+              >
+                <span className="menu-icon">
+                  <i className="fas fa-cogs"></i>
+                </span>
+                <span className="menu-title">Machines</span>
+              </NavLink>
+            </div>
+
+            <div
+              data-kt-menu-trigger="click"
+              className="menu-item menu-accordion"
+            >
+              <span className="menu-link">
+                <span className="menu-icon">
+                  <i className="fa fa-tools"></i>
+                </span>
+                <span className="menu-title">Parts</span>
+              </span>
+            </div>
+
+            <div className="menu-item">
+              <div className="menu-content pt-8 pb-2">
+                <span className="menu-section text-muted text-uppercase fs-8 ls-1">
                   Sales
                 </span>
               </div>
@@ -271,54 +319,6 @@ const SideMenu = () => {
                   <i className="fa fa-sticky-note"></i>
                 </span>
                 <span className="menu-title">Delivery Notes</span>
-              </span>
-            </div>
-
-            <div className="menu-item">
-              <div className="menu-content pt-8 pb-2">
-                <span className="menu-section text-muted text-uppercase fs-8 ls-1">
-                  Inventory
-                </span>
-              </div>
-            </div>
-
-    
-
-            <div className="menu-item">
-              <NavLink
-                className={(navinfo) =>
-                  navinfo.isActive ? "menu-link active" : "menu-link"
-                }
-                to="/panel/warehouses"
-              >
-                <span className="menu-icon">
-                  <i className="fas fa-warehouse"></i>
-                </span>
-                <span className="menu-title">WareHouses</span>
-              </NavLink>
-            </div>
-
-            <div
-              data-kt-menu-trigger="click"
-              className="menu-item menu-accordion"
-            >
-              <span className="menu-link">
-                <span className="menu-icon">
-                  <i className="fa fa-cogs"></i>
-                </span>
-                <span className="menu-title">Machines</span>
-              </span>
-            </div>
-
-            <div
-              data-kt-menu-trigger="click"
-              className="menu-item menu-accordion"
-            >
-              <span className="menu-link">
-                <span className="menu-icon">
-                  <i className="fa fa-tools"></i>
-                </span>
-                <span className="menu-title">Parts</span>
               </span>
             </div>
 

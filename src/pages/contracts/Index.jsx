@@ -6,6 +6,7 @@ import CreateContract from './Create';
 import EditContract from './Edit';
 
 const Contracts = () => {
+  const [loading, setLoading] = useState(true);
   const [contracts, setContracts] = useState([])
   const [openAddModal, setOpenAddModal] = useState(false)
   const [openEditModal, setOpenEditModal] = useState(false)
@@ -13,6 +14,7 @@ const Contracts = () => {
 
   const getContracts = async () => {
     setContracts(await ContractService.getAll())
+    setLoading(false)
   }
 
   const deleteContract = (contractId) => {
@@ -106,6 +108,16 @@ const Contracts = () => {
                 </thead>
 
                 <tbody>
+                  {
+                    loading ?
+                      <tr>
+                        <td>
+                          <i className="fas fa-cog fa-spin"></i> Loading...
+                        </td>
+                      </tr>
+                      : null
+                  }
+
                   {contracts?.map((item, index) => (
                     <tr key={index}>
                       <td>

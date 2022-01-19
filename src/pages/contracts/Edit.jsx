@@ -123,10 +123,10 @@ const EditContract = ({ open, onCloseModal, getContracts, contractId }) => {
                     defaultChecked={data.status}
                     defaultValue={data.status}
                     name="status"
-                    id="flexSwitchDefault"
+                    id="status"
                     onChange={handleChange}
                   />
-                  <label className="form-check-label" htmlFor="flexSwitchDefault">
+                  <label className="form-check-label" htmlFor="status">
                     Status {data.status ? "active" : "inactive"}
                   </label>
                 </div>
@@ -135,7 +135,7 @@ const EditContract = ({ open, onCloseModal, getContracts, contractId }) => {
               <button
                 type="reset"
                 className="btn btn-primary mr-2 mt-5"
-                style={{ marginRight: "1rem" }}handleSelect
+                style={{ marginRight: "1rem" }}
                 onClick={onSumbit}
               >
                 Update

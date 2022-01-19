@@ -2,17 +2,13 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <div className="footer py-4 d-flex flex-lg-column" id="kt_footer">
+    <div className="footer py-4 d-flex flex-lg-column" id="footer">
       <div className="container-fluid d-flex flex-column flex-md-row align-items-center justify-content-between">
         <div className="text-dark order-2 order-md-1">
           <span className="text-muted fw-bold me-1">2021©</span>
-          <a
-            href="!#"
-            target="_blank"
+          <span
             className="text-gray-800 text-hover-primary"
-          >
-            Naf Inventory
-          </a>
+          >NAF Inventory</span>
         </div>
         <ul className="menu menu-gray-600 menu-hover-primary fw-bold order-1">
           <li className="menu-item">

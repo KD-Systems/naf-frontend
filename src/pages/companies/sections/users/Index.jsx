@@ -113,12 +113,12 @@ const CompanyUsers = ({ active }) => {
                                                     </span>
                                                 </div>
                                                 <div className="d-flex justify-content-start flex-column">
-                                                    <a
-                                                        href="!#"
+                                                    <Link
+                                                        to={'/panel/companies/' + id + '/users/' + item.id}
                                                         className="text-dark fw-bolder text-hover-primary mb-1 fs-6"
                                                     >
                                                         {item.name}
-                                                    </a>
+                                                    </Link>
                                                 </div>
                                             </div>
                                         </td>
