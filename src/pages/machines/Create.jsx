@@ -7,8 +7,10 @@ const CreateMachine = ({ open, onCloseModal, getMachines }) => {
     name: "",
     designation: ""
   });
+  const [block, setBlock] = useState(false);
 
   const createMachine = async (data) => {
+    setBlock(true)
     await MachineService.create(data);
     getMachines();
     onCloseModal();
@@ -17,6 +19,7 @@ const CreateMachine = ({ open, onCloseModal, getMachines }) => {
   const handleChange = (e) => {
     const value = e.target.value;
     const name = e.target.name;
+    setBlock(false)
 
     setData({
       ...data,
@@ -63,7 +66,7 @@ const CreateMachine = ({ open, onCloseModal, getMachines }) => {
               </div>
 
               <button
-                type="reset"
+                disabled={block}
                 className="btn btn-primary mr-2 mt-5"
                 style={{ marginRight: "1rem" }}
                 onClick={() => {
@@ -73,7 +76,6 @@ const CreateMachine = ({ open, onCloseModal, getMachines }) => {
                 Create
               </button>
               <button
-                type="reset"
                 className="btn btn-secondary  mt-5 "
                 onClick={onCloseModal}
               >

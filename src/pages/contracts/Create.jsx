@@ -16,6 +16,7 @@ const CreateContract = ({ open, onCloseModal, getContracts }) => {
     end_date: '',
     notes: ''
   })
+  const [block, setBlock] = useState(false);
 
   const handleDateSelect = (value, name) => {
     setData({
@@ -26,6 +27,7 @@ const CreateContract = ({ open, onCloseModal, getContracts }) => {
   const handleChange = (e) => {
     const value = e.target.value;
     const name = e.target.name;
+    setBlock(false)
 
     setData({
       ...data, [name]: value
@@ -35,6 +37,7 @@ const CreateContract = ({ open, onCloseModal, getContracts }) => {
   const handleSelect = (option, conf) => {
     const value = option.value;
     const name = conf.name;
+    setBlock(false)
 
     setData({
       ...data, [name]: value
@@ -42,6 +45,7 @@ const CreateContract = ({ open, onCloseModal, getContracts }) => {
   }
 
   const addContract = async () => {
+    setBlock(true)
     await ContractService.create(data);
     getContracts();
     onCloseModal();
@@ -56,6 +60,7 @@ const CreateContract = ({ open, onCloseModal, getContracts }) => {
   useEffect(() => {
     if (open) //Prevent preload data while modal is hidden
       getCompanies();
+    setBlock(false)
   }, [open]);
 
   return (
@@ -112,7 +117,7 @@ const CreateContract = ({ open, onCloseModal, getContracts }) => {
               </div>
 
               <button
-                type="reset"
+                disabled={block}
                 className="btn btn-primary mr-2 mt-5"
                 style={{ marginRight: "1rem" }}
                 onClick={() => { addContract() }}
@@ -120,7 +125,6 @@ const CreateContract = ({ open, onCloseModal, getContracts }) => {
                 Submit
               </button>
               <button
-                type="reset"
                 className="btn btn-secondary  mt-5 "
                 onClick={onCloseModal}
               >

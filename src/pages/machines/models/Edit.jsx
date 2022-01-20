@@ -31,8 +31,8 @@ const EditMachineModel = ({ open, onCloseModal, onUpdated, machineId, modelId })
   useEffect(() => {
     if (open)
       getMachineModel();
-
     setBlock(false)
+
   }, [open, modelId]);
 
   return (

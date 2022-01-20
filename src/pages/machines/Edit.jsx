@@ -7,6 +7,7 @@ const EditMachine = ({ open, onCloseModal, getMachines, machineId }) => {
     name: "",
     designation: "",
   });
+  const [block, setBlock] = useState(false);
 
   const getMachine = async () => {
     setData(await MachineService.get(machineId));
@@ -15,6 +16,7 @@ const EditMachine = ({ open, onCloseModal, getMachines, machineId }) => {
   const handleChange = (e) => {
     const value = e.target.value;
     const name = e.target.name;
+    setBlock(false)
 
     setData({
       ...data,
@@ -23,6 +25,7 @@ const EditMachine = ({ open, onCloseModal, getMachines, machineId }) => {
   };
 
   const updateMachine = async () => {
+    setBlock(true)
     await MachineService.update(machineId, data);
     getMachines();
     onCloseModal();
@@ -30,6 +33,7 @@ const EditMachine = ({ open, onCloseModal, getMachines, machineId }) => {
 
   useEffect(() => {
     if (open) getMachine();
+    setBlock(false)
   }, [open, machineId]);
 
   return (
@@ -73,7 +77,7 @@ const EditMachine = ({ open, onCloseModal, getMachines, machineId }) => {
               </div>
 
               <button
-                type="reset"
+                disabled={block}
                 className="btn btn-primary mr-2 mt-5"
                 style={{ marginRight: "1rem" }}
                 onClick={() => {
@@ -83,7 +87,6 @@ const EditMachine = ({ open, onCloseModal, getMachines, machineId }) => {
                 Update
               </button>
               <button
-                type="reset"
                 className="btn btn-secondary  mt-5 "
                 onClick={onCloseModal}
               >
