@@ -93,7 +93,6 @@ const Machines = () => {
                   <thead>
                     <tr className="fw-bolder text-muted">
                       <th className="min-w-120px">Name</th>
-                      <th className="min-w-50px">MFG Number</th>
                       <th className="min-w-50px">Models</th>
                       <th className="min-w-100px text-end">Actions</th>
                     </tr>
@@ -119,7 +118,6 @@ const Machines = () => {
                           </Link>
                         </td>
 
-                        <td>{item.mfg_number}</td>
                         <td>1</td>
 
                         <td className="text-end">

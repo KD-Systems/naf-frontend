@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from "react";
-import Moment from "react-moment";
 import { useParams, useNavigate } from "react-router-dom";
-import MachineService from '../../services/MachineService';
+import MachineModelService from 'services/MachineModelService';
 
-const ShowMachine = () => {
-  let { id } = useParams();
+const ShowMachineModel = () => {
+  let { machineId, modelId } = useParams();
   const navigate = useNavigate();
   const [data, setData] = useState({});
 
   const getContract = async () => {
-    setData(await MachineService.get(id));
+    setData(await MachineModelService.get(machineId, modelId));
   };
 
   useEffect(() => {
-    if (id)
+    if (modelId)
       getContract();
-  }, [id]);
+  }, [modelId]);
   return (
     <>
       <div className="post d-flex flex-column-fluid" id="kt_post">
@@ -41,20 +40,20 @@ const ShowMachine = () => {
                   <div className="pb-5 fs-6">
                     <div className="fw-bolder mt-5">Name</div>
                     <div className="text-gray-600">
-                        {data.name}
+                      {data.name}
                     </div>
 
                     <div className="fw-bolder mt-5">MFG Number</div>
                     <div className="text-gray-600">
                       <span className="text-gray-600">
-                          {data.mfg_number}
+                        {data.mfg_number}
                       </span>
                     </div>
 
                     <div className="fw-bolder mt-5">Description</div>
                     <div className="text-gray-600">
                       <span className="text-gray-600">
-                          {data.description}
+                        {data.description}
                       </span>
                     </div>
 
@@ -344,4 +343,4 @@ const ShowMachine = () => {
   );
 };
 
-export default ShowMachine;
+export default ShowMachineModel;

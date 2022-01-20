@@ -1,28 +1,28 @@
 import http from "../http-common";
 
-const getAll = async () => {
-    const res = await http.get("/machines");
+const getAll = async (machineId) => {
+    const res = await http.get(`/machines/${machineId}/models`);
     
     return res.data;
 };
 
-const get = async (id) => {
-    const res = await http.get(`/machines/${id}`);
+const get = async (machineId, id) => {
+    const res = await http.get(`/machines/${machineId}/models/${id}`);
     return res.data;
 };
 
-const create = async (data) => {
-    const res = await http.post("/machines",data)
+const create = async (machineId, data) => {
+    const res = await http.post(`/machines/${machineId}/models`,data)
     return res.data;
 };
 
-const update = async (id, data) => {
-    const res = await http.put(`/machines/${id}`, data);
+const update = async (machineId, id, data) => {
+    const res = await http.put(`/machines/${machineId}/models/${id}`, data);
     return res.data;
 };
 
-const remove = async (id) => {
-    const res = await http.delete(`/machines/${id}`);
+const remove = async (machineId, id) => {
+    const res = await http.delete(`/machines/${machineId}/models/${id}`);
     return res.data;
 };
 

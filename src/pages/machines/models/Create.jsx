@@ -1,21 +1,27 @@
-import React, { useState } from "react";
-import MachineService from "../../services/MachineService";
-import Modal from "~/components/utils/Modal";
+import React, { useEffect, useState } from "react";
+import MachineModelService from "services/MachineModelService";
+import Modal from "components/utils/Modal";
 
-const CreateMachineModelModel = ({ open, onCloseModal, getMachineModels }) => {
+const CreateMachineModelModel = ({ open, onCloseModal, machineId, onCreated }) => {
   const [data, setData] = useState({
     name: "",
-    designation: "",
+    mfg_number: "",
+    space: "",
+    description: "",
   });
+  const [block, setBlock] = useState(false);
 
-  const createMachineModel = async (data) => {
-    await MachineService.create(data);
-    getMachineModels();
+  const createMachineModel = async (e) => {
+    setBlock(true)
+    await MachineModelService.create(machineId, data);
+    onCreated();
+    onCloseModal();
   };
 
   const handleChange = (e) => {
     const value = e.target.value;
     const name = e.target.name;
+    setBlock(false)
 
     setData({
       ...data,
@@ -23,12 +29,12 @@ const CreateMachineModelModel = ({ open, onCloseModal, getMachineModels }) => {
     });
   };
 
-  const onSumbit = (e) => {
-    e.preventDefault();
-    createMachineModel(data);
+  useEffect(() => {
+    if (machineId)
+      setBlock(false)
+  }, [machineId]);
 
-    onCloseModal();
-  };
+
   return (
     <div>
       <Modal
@@ -37,48 +43,79 @@ const CreateMachineModelModel = ({ open, onCloseModal, getMachineModels }) => {
         title={<>Add Machine Model</>}
         body={
           <>
-            <form>
-              <div className="form-group">
-                <label className="required form-label">Name</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Enter  Name"
-                  name="name"
-                  id="name"
-                  onChange={handleChange}
-                />
-              </div>
+            <div className="form-group">
+              <label className="required form-label">Name</label>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Enter Name"
+                name="name"
+                id="name"
+                onChange={handleChange}
+                value={data.name}
+              />
+              <div className="fv-plugins-message-container invalid-feedback" htmlFor="name"></div>
+            </div>
 
-              <div className="form-group mt-5">
-                <label className="form-label">Description</label>
-                <textarea
-                  rows="3"
-                  type="text"
-                  className="form-control"
-                  placeholder="Enter  Description"
-                  name="description"
-                  id="description"
-                  onChange={handleChange}
-                />
-              </div>
+            <div className="form-group mt-5">
+              <label className="form-label">MFG Number</label>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Enter MFG Number"
+                name="mfg_number"
+                id="mfg_number"
+                onChange={handleChange}
+                value={data.mfg_number}
+              />
+              <div className="fv-plugins-message-container invalid-feedback" htmlFor="mfg_number"></div>
+            </div>
 
-              <button
-                type="reset"
-                className="btn btn-primary mr-2 mt-5"
-                style={{ marginRight: "1rem" }}
-                onClick={onSumbit}
-              >
-                Create
-              </button>
-              <button
-                type="reset"
-                className="btn btn-secondary  mt-5 "
-                onClick={onCloseModal}
-              >
-                Cancel
-              </button>
-            </form>
+            <div className="form-group mt-5">
+              <label className="form-label">Space</label>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Enter Space"
+                name="space"
+                id="space"
+                onChange={handleChange}
+                value={data.space}
+              />
+              <div className="fv-plugins-message-container invalid-feedback" htmlFor="space"></div>
+            </div>
+
+            <div className="form-group mt-5">
+              <label className="form-label">Description</label>
+              <textarea
+                rows="3"
+                type="text"
+                className="form-control"
+                placeholder="Enter  Description"
+                name="description"
+                id="description"
+                onChange={handleChange}
+                value={data.description}
+              />
+              <div className="fv-plugins-message-container invalid-feedback" htmlFor="description"></div>
+            </div>
+
+            <button
+              disabled={block}
+              type="reset"
+              className="btn btn-primary mr-2 mt-5"
+              style={{ marginRight: "1rem" }}
+              onClick={createMachineModel}
+            >
+              Create
+            </button>
+            <button
+              type="reset"
+              className="btn btn-secondary  mt-5 "
+              onClick={onCloseModal}
+            >
+              Cancel
+            </button>
           </>
         }
       />

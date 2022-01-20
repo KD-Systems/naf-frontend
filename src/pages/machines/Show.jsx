@@ -9,12 +9,12 @@ const ShowMachine = () => {
   const navigate = useNavigate();
   const [data, setData] = useState({});
 
-  const getContract = async () => {
+  const getMachines = async () => {
     setData(await MachineService.get(id));
   };
 
   useEffect(() => {
-    if (id) getContract();
+    if (id) getMachines();
   }, [id]);
   return (
     <>
@@ -39,21 +39,9 @@ const ShowMachine = () => {
                     <div className="fw-bolder mt-5">Name</div>
                     <div className="text-gray-600">{data.name}</div>
 
-                    <div className="fw-bolder mt-5">MFG Number</div>
-                    <div className="text-gray-600">
-                      <span className="text-gray-600">{data.mfg_number}</span>
-                    </div>
-
                     <div className="fw-bolder mt-5">Description</div>
                     <div className="text-gray-600">
                       <span className="text-gray-600">{data.description}</span>
-                    </div>
-
-                    <div className="fw-bolder mt-5">Remarks</div>
-                    <div className="text-gray-600">
-                      <span className="text-gray-600 text-hover-primary">
-                        {data.remarks}
-                      </span>
                     </div>
                   </div>
                 </div>
@@ -64,9 +52,8 @@ const ShowMachine = () => {
               <ul className="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-bold mb-8">
                 <li className="nav-item">
                   <a
-                    className={`nav-link text-active-primary pb-4 ${
-                      tab == "models" ? "active" : ""
-                    }`}
+                    className={`nav-link text-active-primary pb-4 ${tab == "models" ? "active" : ""
+                      }`}
                     data-bs-toggle="tab"
                     href="#models"
                     onClick={() => setTab("models")}
@@ -76,9 +63,8 @@ const ShowMachine = () => {
                 </li>
                 <li className="nav-item">
                   <a
-                    className={`nav-link text-active-primary pb-4 ${
-                      tab == "activities" ? "active" : ""
-                    }`}
+                    className={`nav-link text-active-primary pb-4 ${tab == "activities" ? "active" : ""
+                      }`}
                     data-bs-toggle="tab"
                     href="#activities"
                     onClick={() => setTab("activities")}
@@ -89,12 +75,11 @@ const ShowMachine = () => {
               </ul>
 
               <div className="tab-content">
-                <MachineModels tab={tab} />
+                <MachineModels tab={tab} models={data.models} onChange={getMachines} />
 
                 <div
-                  className={`tab-pane fade ${
-                    tab == "activities" ? "active show" : ""
-                  }`}
+                  className={`tab-pane fade ${tab == "activities" ? "active show" : null
+                    }`}
                   id="activities"
                   role="tabpanel"
                 >

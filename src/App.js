@@ -1,25 +1,24 @@
 import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
-import NotFound from "./pages/NotFound";
-import Dashboard from "./pages/Dashboard";
-import AppLayout from "./pages/layouts/AppLayout";
-import Login from "./pages/auth/Login";
-import Profile from "./pages/auth/Profile";
-import AccountSettings from "./pages/auth/AccountSettings";
-import Employee from "./pages/Employee/Index";
-import Designations from "./pages/Designations/Index";
-import Role from "./pages/Role";
-import Companies from "./pages/companies/Index";
-import ShowCompany from "./pages/companies/Show";
-import ShowDesignation from "./pages/Designations/Show";
-import ShowEmployee from "./pages/Employee/Show";
-import ShowUser from "./pages/companies/sections/users/Show";
-import Contracts from "./pages/contracts/Index";
-import Machines from "./pages/machines/Index";
-import ShowContract from "./pages/contracts/Show";
-
-
-import WareHouse from "./pages/warehouses/Index"
-import ShowMachine from "./pages/machines/Show";
+import NotFound from "pages/NotFound";
+import Dashboard from "pages/Dashboard";
+import AppLayout from "pages/layouts/AppLayout";
+import Login from "pages/auth/Login";
+import Profile from "pages/auth/Profile";
+import AccountSettings from "pages/auth/AccountSettings";
+import Employee from "pages/Employee/Index";
+import Designations from "pages/Designations/Index";
+import Role from "pages/Role";
+import Companies from "pages/companies/Index";
+import ShowCompany from "pages/companies/Show";
+import ShowDesignation from "pages/Designations/Show";
+import ShowEmployee from "pages/Employee/Show";
+import ShowUser from "pages/companies/sections/users/Show";
+import Contracts from "pages/contracts/Index";
+import Machines from "pages/machines/Index";
+import ShowContract from "pages/contracts/Show";
+import WareHouse from "pages/warehouses/Index"
+import ShowMachine from "pages/machines/Show";
+import ShowMachineModel from "pages/machines/models/Show";
 
 export const PrivateRoute = ({ children }) => {
   const auth = JSON.parse(localStorage.getItem("user"));
@@ -73,6 +72,7 @@ function App() {
             {/* Machine Start */}
             <Route path="machines" element={<Machines />} />
             <Route path="machines/:id" element={<ShowMachine />} />
+            <Route path="machines/:machineId/models/:modelId" element={<ShowMachineModel />} />
             {/* Machine End */}
 
             <Route path="profile" element={<Profile />} />

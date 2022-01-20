@@ -5,10 +5,7 @@ import Modal from "../../components/utils/Modal";
 const CreateMachine = ({ open, onCloseModal, getMachines }) => {
   const [data, setData] = useState({
     name: "",
-    mfg_number: "",
-    space: "",
-    designation: "",
-    remarks: ""
+    designation: ""
   });
 
   const createMachine = async (data) => {
@@ -48,34 +45,6 @@ const CreateMachine = ({ open, onCloseModal, getMachines }) => {
                   value={data.name}
                 />
                 <div className="fv-plugins-message-container invalid-feedback" htmlFor="name"></div>
-              </div>
-
-              <div className="form-group mt-5">
-                <label className="form-label">MFG Number</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Enter MFG Number"
-                  name="mfg_number"
-                  id="mfg_number"
-                  onChange={handleChange}
-                  value={data.mfg_number}
-                />
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="mfg_number"></div>
-              </div>
-
-              <div className="form-group mt-5">
-                <label className="form-label">Space</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Enter Space"
-                  name="space"
-                  id="space"
-                  onChange={handleChange}
-                  value={data.space}
-                />
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="space"></div>
               </div>
 
               <div className="form-group mt-5">

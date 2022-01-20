@@ -5,10 +5,7 @@ import MachineService from "../../services/MachineService";
 const EditMachine = ({ open, onCloseModal, getMachines, machineId }) => {
   const [data, setData] = useState({
     name: "",
-    mfg_number: "",
-    space: "",
     designation: "",
-    remarks: "",
   });
 
   const getMachine = async () => {
@@ -63,40 +60,6 @@ const EditMachine = ({ open, onCloseModal, getMachines, machineId }) => {
               </div>
 
               <div className="form-group mt-5">
-                <label className="form-label">MFG Number</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Enter Machine MFG Number"
-                  name="mfg_number"
-                  id="mfg_number"
-                  onChange={handleChange}
-                  value={data.mfg_number ?? ''}
-                />
-                <div
-                  className="fv-plugins-message-container invalid-feedback"
-                  htmlFor="mfg_number"
-                ></div>
-              </div>
-
-              <div className="form-group mt-5">
-                <label className="form-label">Space</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Enter Machine Space"
-                  name="space"
-                  id="space"
-                  onChange={handleChange}
-                  value={data.space ?? ''}
-                />
-                <div
-                  className="fv-plugins-message-container invalid-feedback"
-                  htmlFor="space"
-                ></div>
-              </div>
-
-              <div className="form-group mt-5">
                 <textarea
                   rows="3"
                   type="text"
@@ -105,19 +68,6 @@ const EditMachine = ({ open, onCloseModal, getMachines, machineId }) => {
                   name="description"
                   id="description"
                   value={data.description ?? ''}
-                  onChange={handleChange}
-                />
-              </div>
-
-              <div className="form-group mt-5">
-                <textarea
-                  rows="3"
-                  type="text"
-                  className="form-control"
-                  placeholder="Enter Remarks"
-                  name="remarks"
-                  id="remarks"
-                  value={data.remarks ?? ''}
                   onChange={handleChange}
                 />
               </div>

@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import Confirmation from '../../../components/utils/Confirmation';
-import MachineModelService from "../../../services/MachineModelService";
-// import CreateMachineModel from "./Create";
+import { Link, useParams } from 'react-router-dom';
+import Confirmation from 'components/utils/Confirmation';
+import MachineModelService from "services/MachineModelService";
+import CreateMachineModel from "./Create";
+import EditMachineModel from "./Edit";
 
-const MachineModels = ({ tab }) => {
+const MachineModels = ({ tab, models, onChange }) => {
+  let { id } = useParams();
   const [loading, setLoading] = useState(true);
-  const [models, setModels] = useState([]);
   const [modelId, setModelId] = useState(null);
+  const [machineModels, setMachineModels] = useState([]);
 
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [open, setOpen] = useState(false);
@@ -18,19 +20,18 @@ const MachineModels = ({ tab }) => {
     setUpdateOpen(false);
   };
 
-  const getModels = () => {
-    setLoading(false);
-  }
-
   const deleteModel = async () => {
-    await MachineModelService.remove(modelId);
-    getModels();
+    await MachineModelService.remove(id, modelId);
+    onChange();
   };
 
   useEffect(() => {
-    if (tab == 'models')
-      getModels()
-  }, [tab]);
+    if (models)
+      setLoading(false)
+
+    setMachineModels(models)
+  }, [models]);
+
 
   return (
     <div
@@ -51,6 +52,7 @@ const MachineModels = ({ tab }) => {
           <div className="card-toolbar">
             <button
               className="btn btn-light-primary btn-md"
+              onClick={() => setOpen(true)}
             >
               <span className="svg-icon svg-icon-3">
                 <svg
@@ -115,11 +117,11 @@ const MachineModels = ({ tab }) => {
                   </tr>
                 ) : null}
 
-                {models?.map((item, index) => (
+                {machineModels?.map((item, index) => (
                   <tr key={index}>
                     <td>
                       <Link
-                        to={"/panel/machines/" + item.id}
+                        to={"/panel/machines/" + id + '/models/'+ item.id}
                         className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
                       >
                         {item.name}
@@ -131,7 +133,7 @@ const MachineModels = ({ tab }) => {
 
                     <td className="text-end">
                       <Link
-                        to={"/panel/machines/" + item.id}
+                        to={"/panel/machines/" + id + '/models/'+ item.id}
                         className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
                       >
                         <span className="svg-icon svg-icon-3">
@@ -155,7 +157,7 @@ const MachineModels = ({ tab }) => {
                         </span>
                       </Link>
 
-                      <button className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                      <button onClick={() => { setModelId(item.id); setUpdateOpen(true); }} className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                         <span className="svg-icon svg-icon-3">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -177,8 +179,8 @@ const MachineModels = ({ tab }) => {
                         </span>
                       </button>
 
-                      <Link
-                        to="#"
+                      <button
+                        onClick={() => { setModelId(item.id); setConfirmDelete(true) }}
                         className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
                       >
                         <span className="svg-icon svg-icon-3">
@@ -205,7 +207,7 @@ const MachineModels = ({ tab }) => {
                             />
                           </svg>
                         </span>
-                      </Link>
+                      </button>
                     </td>
                   </tr>
                 ))}
@@ -224,18 +226,20 @@ const MachineModels = ({ tab }) => {
         onCancel={() => setConfirmDelete(false)}
       />
 
-      {/* <CreateMachineModel
+      <CreateMachineModel
         open={open}
-        onCloseModal={onCloseModal}
-        getMachines={getModels}
+        machineId={id}
+        onCloseModal={() => onCloseModal()}
+        onCreated={() => onChange()}
       />
 
       <EditMachineModel
         open={updateOpen}
-        onCloseModal={onCloseModal}
-        getMachines={getModels}
-        machineId={modelId}
-      /> */}
+        onCloseModal={() => onCloseModal()}
+        onUpdated={() => onChange()}
+        machineId={id}
+        modelId={modelId}
+      />
     </div>
   );
 };
