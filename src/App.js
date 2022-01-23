@@ -16,7 +16,7 @@ import ShowUser from "pages/companies/sections/users/Show";
 import Contracts from "pages/contracts/Index";
 import Machines from "pages/machines/Index";
 import ShowContract from "pages/contracts/Show";
-import WareHouse from "pages/warehouses/Index"
+import WareHouse from "pages/warehouses/Index";
 import ShowMachine from "pages/machines/Show";
 import ShowMachineModel from "pages/machines/models/Show";
 
@@ -32,7 +32,7 @@ function App() {
         <Routes>
           <Route path="/panel/*" element={<AppLayout />}>
             <Route path="dashboard" element={<Dashboard />} />
-            <Route path="employees" element={<Employee />} />
+            {/* <Route path="employees" element={<Employee />} /> */}
             {/* Designation start */}
             <Route
               path="designations"
@@ -53,30 +53,128 @@ function App() {
             {/* Designation end */}
 
             {/* Employee Start */}
-            <Route path="employees" element={<Employee />} />
-            <Route path="employees/:id" element={<ShowEmployee />} />
+            <Route
+              path="employees"
+              element={
+                <PrivateRoute>
+                  <Employee />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="employees/:id"
+              element={
+                <PrivateRoute>
+                  <ShowEmployee />
+                </PrivateRoute>
+              }
+            />
             {/* Employee End */}
-            <Route path="roles" element={<Role />} />
+            <Route
+              path="roles"
+              element={
+                <PrivateRoute>
+                  <Role />
+                </PrivateRoute>
+              }
+            />
 
-            <Route path="companies" element={<Companies />} />
-            <Route path="companies/:id" element={<ShowCompany />} />
-            <Route path="companies/:companyId/users/:id" element={<ShowUser />} />
+            <Route
+              path="companies"
+              element={
+                <PrivateRoute>
+                  <Companies />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="companies/:id"
+              element={
+                <PrivateRoute>
+                  <ShowCompany />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="companies/:companyId/users/:id"
+              element={
+                <PrivateRoute>
+                  <ShowUser />
+                </PrivateRoute>
+              }
+            />
 
-            <Route path="contracts" element={<Contracts />} />
-            <Route path="contracts/:id" element={<ShowContract />} />
+            <Route
+              path="contracts"
+              element={
+                <PrivateRoute>
+                  <Contracts />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="contracts/:id"
+              element={
+                <PrivateRoute>
+                  <ShowContract />
+                </PrivateRoute>
+              }
+            />
 
             {/* WareHouse Start */}
-            <Route path="warehouses" element={<WareHouse />} />
+            <Route
+              path="warehouses"
+              element={
+                <PrivateRoute>
+                  <WareHouse />
+                </PrivateRoute>
+              }
+            />
             {/* WareHouse End */}
 
             {/* Machine Start */}
-            <Route path="machines" element={<Machines />} />
-            <Route path="machines/:id" element={<ShowMachine />} />
-            <Route path="machines/:machineId/models/:modelId" element={<ShowMachineModel />} />
+            <Route
+              path="machines"
+              element={
+                <PrivateRoute>
+                  <Machines />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="machines/:id"
+              element={
+                <PrivateRoute>
+                  <ShowMachine />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="machines/:machineId/models/:modelId"
+              element={
+                <PrivateRoute>
+                  <ShowMachineModel />
+                </PrivateRoute>
+              }
+            />
             {/* Machine End */}
 
-            <Route path="profile" element={<Profile />} />
-            <Route path="profile/settings" element={<AccountSettings />} />
+            <Route
+              path="profile"
+              element={
+                <PrivateRoute>
+                  <Profile />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="profile/settings"
+              element={
+                <PrivateRoute>
+                  <AccountSettings />
+                </PrivateRoute>
+              }
+            />
             <Route path="*" element={<NotFound />} />
           </Route>
 
