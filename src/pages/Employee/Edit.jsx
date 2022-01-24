@@ -7,13 +7,13 @@ import "./Employee.css"
 const EditEmployee = ({ open, onCloseModal, getEmployees, employeeId }) => {
   const [employee, setEmployee] = useState("");
   const [designations, setDesignations] = useState([]);
-  const [toogle,setToogle] = useState(false)
+  const [toogle, setToogle] = useState(false)
   const [data, setData] = useState({
     name: "",
     email: "",
     avatar: "",
     password: "",
-    status:false,
+    status: false,
     designation_id: null,
   });
 
@@ -38,7 +38,7 @@ const EditEmployee = ({ open, onCloseModal, getEmployees, employeeId }) => {
 
   const handleChange = (e) => {
 
-   const target = e.target;
+    const target = e.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = e.target.name;
 
@@ -53,7 +53,7 @@ const EditEmployee = ({ open, onCloseModal, getEmployees, employeeId }) => {
   useEffect(() => {
     if (employeeId) {
       getEmployee();
-     
+
     }
   }, [open, employeeId]);
 
@@ -116,7 +116,7 @@ const EditEmployee = ({ open, onCloseModal, getEmployees, employeeId }) => {
                     />
                   </label>
                 </div>
-                <div className="fv-plugins-message-container invalid-feedback"></div>
+                <div className="fv-plugins-message-container invalid-feedback" htmlFor="avatar"></div>
               </div>
               <div className="form-group">
                 <label className="required form-label">Name</label>
@@ -129,6 +129,7 @@ const EditEmployee = ({ open, onCloseModal, getEmployees, employeeId }) => {
                   value={data.name || ""}
                   onChange={handleChange}
                 />
+                <div className="fv-plugins-message-container invalid-feedback" htmlFor="name"></div>
               </div>
 
               <div className="form-group mt-5">
@@ -142,6 +143,7 @@ const EditEmployee = ({ open, onCloseModal, getEmployees, employeeId }) => {
                   value={data.email || ""}
                   onChange={handleChange}
                 />
+                <div className="fv-plugins-message-container invalid-feedback" htmlFor="email"></div>
               </div>
 
               <div className="form-group mt-5">
@@ -155,35 +157,31 @@ const EditEmployee = ({ open, onCloseModal, getEmployees, employeeId }) => {
                   value={data.password || ""}
                   onChange={handleChange}
                 />
+                <div className="fv-plugins-message-container invalid-feedback" htmlFor="password"></div>
               </div>
 
               <div className="form-group mt-5">
                 <label className="form-label">Designation</label>
-
-                <div className="col-lg-9 col-md-9 col-sm-12">
-                  <select
-                    className="form-control"
-                    name="designation_id"
-                    id="designation_id"
-                    onChange={handleChange}
-                  >
-                    <option value="">Select</option>
-                    {designations?.map((item, index) => (
-                      <option
-                        value={item?.id}
-                        selected={
-                          data?.designation?.id == item?.id ? "selected" : ""
-                        }
-                        key={index}
-                      >
-                        {item?.name}
-                      </option>
-                    ))}
-                  </select>
-                  <span className="form-text text-muted">
-                    Please select an option.
-                  </span>
-                </div>
+                <select
+                  className="form-control"
+                  name="designation_id"
+                  id="designation_id"
+                  onChange={handleChange}
+                >
+                  <option value="">Select</option>
+                  {designations?.map((item, index) => (
+                    <option
+                      value={item?.id}
+                      selected={
+                        data?.designation?.id == item?.id ? "selected" : ""
+                      }
+                      key={index}
+                    >
+                      {item?.name}
+                    </option>
+                  ))}
+                </select>
+                <div className="fv-plugins-message-container invalid-feedback" htmlFor="designation_id"></div>
               </div>
 
               <div className="form-group mt-5">
@@ -192,13 +190,13 @@ const EditEmployee = ({ open, onCloseModal, getEmployees, employeeId }) => {
                     className="form-check-input"
                     type="checkbox"
                     defaultChecked={data.status}
-                    defaultValue={data.status == true ? "true":"false"}
+                    defaultValue={data.status == true ? "true" : "false"}
                     name="status"
                     id="flexSwitchDefault"
                     onChange={handleChange}
                   />
                   <label className="form-check-label" htmlFor="flexSwitchDefault">
-                    Status {data.status?"active":"inactive"}
+                    Status {data.status ? "active" : "inactive"}
                   </label>
                 </div>
               </div>

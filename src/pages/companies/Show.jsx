@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import CompanyService from "../../services/CompanyService";
+import CompanyService from "services/CompanyService";
 import CompanyInfo from "./sections/Info";
-import CompanyUsers from "./sections/users/Index";
+import CompanyUsers from "./users/Index";
 
 const ShowCompany = () => {
 	const { id } = useParams();

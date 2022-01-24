@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import CompanyService from '../../../../services/CompanyService';
+import CompanyService from 'services/CompanyService';
 
 const ShowUser = () => {
   let { companyId, id } = useParams();

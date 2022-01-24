@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
-import CompanyService from '../../../../services/CompanyService';
+import CompanyService from 'services/CompanyService';
 import AddUser from './Create';
 import EditUser from './Edit';
 

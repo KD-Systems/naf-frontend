@@ -113,7 +113,7 @@ const CreateContract = ({ open, onCloseModal, getContracts }) => {
                   id="description"
                   onChange={handleChange}
                 />
-                <div className="fv-plugins-message-container invalid-feedback"></div>
+                <div className="fv-plugins-message-container invalid-feedback" htmlFor="description"></div>
               </div>
 
               <button

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Modal from "../../components/utils/Modal";
-import Tags from "../../components/utils/Tags";
-import CompanyService from "../../services/CompanyService";
+import Modal from "components/utils/Modal";
+import Tags from "components/utils/Tags";
+import CompanyService from "services/CompanyService";
 
 const EditCompany = ({ open, companyId, onCloseModal, onUpdate }) => {
     const [company, setCompany] = useState({
@@ -93,7 +93,7 @@ const EditCompany = ({ open, companyId, onCloseModal, onUpdate }) => {
                                         />
                                     </label>
                                 </div>
-                                <div className="fv-plugins-message-container invalid-feedback"></div>
+                                <div className="fv-plugins-message-container invalid-feedback" htmlFor="logo"></div>
                             </div>
 
                             <div className="mb-5 fv-row fv-plugins-icon-container">
@@ -107,7 +107,7 @@ const EditCompany = ({ open, companyId, onCloseModal, onUpdate }) => {
                                     value={company.name ?? ""}
                                     onChange={handleChange}
                                 />
-                                <div className="fv-plugins-message-container invalid-feedback"></div>
+                                <div className="fv-plugins-message-container invalid-feedback" htmlFor="name"></div>
                             </div>
 
                             <div className="mb-5 fv-row fv-plugins-icon-container">
@@ -121,7 +121,7 @@ const EditCompany = ({ open, companyId, onCloseModal, onUpdate }) => {
                                     value={company.company_group}
                                     onChange={handleChange}
                                 />
-                                <div className="fv-plugins-message-container invalid-feedback"></div>
+                                <div className="fv-plugins-message-container invalid-feedback" htmlFor="company_group"></div>
                             </div>
 
                             <div className="mb-5 fv-row fv-plugins-icon-container">
@@ -133,7 +133,7 @@ const EditCompany = ({ open, companyId, onCloseModal, onUpdate }) => {
                                     value={company.machine_types}
                                     onChange={handleChange}
                                 />
-                                <div className="fv-plugins-message-container invalid-feedback"></div>
+                                <div className="fv-plugins-message-container invalid-feedback" htmlFor="machine_types"></div>
                             </div>
 
                             <div className="mb-5 fv-row fv-plugins-icon-container">
@@ -148,7 +148,7 @@ const EditCompany = ({ open, companyId, onCloseModal, onUpdate }) => {
                                     value={company.description ?? ""}
                                     onChange={handleChange}
                                 />
-                                <div className="fv-plugins-message-container invalid-feedback"></div>
+                                <div className="fv-plugins-message-container invalid-feedback" htmlFor="description"></div>
                             </div>
 
                             <button

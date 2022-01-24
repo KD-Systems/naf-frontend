@@ -76,7 +76,7 @@ const CreateCompany = ({ open, onCloseModal, onCreate }) => {
                     />
                   </label>
                 </div>
-                <div className="fv-plugins-message-container invalid-feedback"></div>
+                <div className="fv-plugins-message-container invalid-feedback" htmlFor="logo"></div>
               </div>
 
               <div className="mb-5 fv-row fv-plugins-icon-container">
@@ -90,7 +90,7 @@ const CreateCompany = ({ open, onCloseModal, onCreate }) => {
                   value={data.name ?? ''}
                   onChange={handleChange}
                 />
-                <div className="fv-plugins-message-container invalid-feedback"></div>
+                <div className="fv-plugins-message-container invalid-feedback" htmlFor="name"></div>
               </div>
 
               <div className="mb-5 fv-row fv-plugins-icon-container">
@@ -104,7 +104,7 @@ const CreateCompany = ({ open, onCloseModal, onCreate }) => {
                   value={data.company_group ?? ''}
                   onChange={handleChange}
                 />
-                <div className="fv-plugins-message-container invalid-feedback"></div>
+                <div className="fv-plugins-message-container invalid-feedback" htmlFor="company_group"></div>
               </div>
 
               <div className="mb-5 fv-row fv-plugins-icon-container">
@@ -116,7 +116,7 @@ const CreateCompany = ({ open, onCloseModal, onCreate }) => {
                   value={data.machine_types ?? ''}
                   onChange={handleChange}
                 />
-                <div className="fv-plugins-message-container invalid-feedback"></div>
+                <div className="fv-plugins-message-container invalid-feedback" htmlFor="machine_types"></div>
               </div>
 
               <div className="mb-5 fv-row fv-plugins-icon-container">
@@ -131,7 +131,7 @@ const CreateCompany = ({ open, onCloseModal, onCreate }) => {
                   value={data.description ?? ''}
                   onChange={handleChange}
                 />
-                <div className="fv-plugins-message-container invalid-feedback"></div>
+                <div className="fv-plugins-message-container invalid-feedback" htmlFor="description"></div>
               </div>
 
               <button

@@ -10,13 +10,13 @@ const Employee = () => {
 
   const [employees, setEmployees] = useState([]);
   const [open, setOpen] = useState(false);
-  const [updateOpen,setUpdateOpen] = useState(false);
+  const [updateOpen, setUpdateOpen] = useState(false);
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
 
 
-  const onOpenUpdateModal = ()=> setUpdateOpen(true);
-  const onCloseUpdateModal = ()=>setUpdateOpen(false)
+  const onOpenUpdateModal = () => setUpdateOpen(true);
+  const onCloseUpdateModal = () => setUpdateOpen(false)
 
   const getEmployees = async () => {
     setEmployees(await EmployeeService.getAll());
@@ -134,22 +134,20 @@ const Employee = () => {
 
                       <td>
                         <div className="d-flex align-items-center">
-                          <Link to="#" className="symbol symbol-50px">
+                          <div className="symbol symbol-50px">
                             <span className="symbol-label">
-                              {" "}
                               <img
                                 src={item.avatar}
                                 className="h-75 align-self-end"
                                 alt=""
                               />
                             </span>
-                          </Link>
+                          </div>
 
                           <div className="ms-5">
                             <Link
-                              to="#"
+                              to={"/panel/employees/" + item.id}
                               className="text-gray-800 text-hover-primary fs-5 fw-bolder"
-                              data-kt-ecommerce-product-filter="product_name"
                             >
                               {item?.name}
                             </Link>
@@ -181,8 +179,7 @@ const Employee = () => {
 
                       <td className="text-end">
                         <Link
-                          //  to={"/panel/designations/" + item.id}
-                          to={"/panel/employees/"+item.id}
+                          to={"/panel/employees/" + item.id}
                           className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
                         >
                           <span className="svg-icon svg-icon-3">
@@ -205,8 +202,7 @@ const Employee = () => {
                             </svg>
                           </span>
                         </Link>
-                        <Link
-                          to="#"
+                        <button
                           className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
                           onClick={() => {
                             onOpenUpdateModal();
@@ -232,7 +228,7 @@ const Employee = () => {
                               />
                             </svg>
                           </span>
-                        </Link>
+                        </button>
                         <Link
                           to="#"
                           className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
@@ -265,7 +261,7 @@ const Employee = () => {
                         </Link>
                       </td>
 
-              
+
                     </tr>
                   ))}
                 </tbody>
@@ -285,10 +281,10 @@ const Employee = () => {
         open={updateOpen}
         onCloseModal={onCloseUpdateModal}
         getEmployees={getEmployees}
-        employeeId = {employeeId}
+        employeeId={employeeId}
       />
 
-      
+
     </div>
   );
 };
