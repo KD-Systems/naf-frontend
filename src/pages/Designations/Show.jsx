@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams ,useNavigate} from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import DesignationService from "../../services/DesignationService";
 
 import Moment from "react-moment";
@@ -30,7 +30,7 @@ const ShowDesignation = () => {
                     <button
                       className="btn btn-sm btn-dark "
                       style={{ marginRight: "0.75rem" }}
-                      onClick={()=> navigate(-1)}
+                      onClick={() => navigate(-1)}
                     >
                       <i className="fa fa-arrow-left"></i>Back
                     </button>
@@ -61,7 +61,7 @@ const ShowDesignation = () => {
                   <div className="col-8">
                     <span className="form-control-plaintext">
                       <span className="label label-inline label-danger label-bold">
-                        <Moment format="d MMMM YYYY">
+                        <Moment format="D MMMM YYYY">
                           {designation.created_at}
                         </Moment>
                       </span>
@@ -72,7 +72,7 @@ const ShowDesignation = () => {
                   <label className="col-4 col-form-label">Updated At:</label>
                   <div className="col-8">
                     <span className="form-control-plaintext font-weight-bolder">
-                      <Moment format="d MMMM YYYY">
+                      <Moment format="D MMMM YYYY">
                         {designation.updated_at}
                       </Moment>
                     </span>
@@ -108,15 +108,38 @@ const ShowDesignation = () => {
                         <thead>
                           <tr className="fw-bolder text-muted">
                             <th className="w-25px"></th>
-                            <th className="min-w-50px">Id</th>
-
-                            <th className="min-w-120px">Employee</th>
-                            <th className="min-w-120px">Members</th>
-                            <th className="min-w-100px text-end">Actions</th>
+                            <th className="min-w-50px">Avatar</th>
+                            <th className="min-w-120px">Name</th>
+                            <th className="min-w-120px">Email</th>
+                           
                           </tr>
                         </thead>
 
-                        <tbody></tbody>
+                        <tbody>
+                          {designation?.employees?.map((item, index) => (
+                            <tr key={index}>
+                              <td></td>
+                              <td>
+                                <span className="symbol-label">
+                                  {" "}
+                                  <img
+                                    src={item?.avatar}
+                                    className="align-self-end"
+                                    alt="asd"
+                                    height="20px"
+                                  />
+                                </span>
+                              </td>
+                              <td className=" fw-bolder  d-block mb-1 fs-6">
+                                {item?.name}
+                              </td>
+                              <td className="fw-bolder  ">
+                                {item?.email}
+                              </td>
+                              
+                            </tr>
+                          ))}
+                        </tbody>
                       </table>
                     </div>
                   </div>

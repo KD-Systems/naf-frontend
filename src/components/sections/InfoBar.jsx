@@ -8,6 +8,9 @@ const InfoBar = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate();
 
+  const { user } = useSelector((state) => state.auth);
+
+
   const handleLogout = ()=>{
     dispatch(logout());
     navigate("/logout")
@@ -742,7 +745,7 @@ const InfoBar = () => {
             data-kt-menu-attach="parent"
             data-kt-menu-placement="bottom-end"
           >
-            <span className="symbol-label" style={{ backgroundImage: "url(assets/media//stock/ecommerce/3.gif)" }}></span>
+            <span className="symbol-label" style={{ backgroundImage: `url(${user?.user.avatar})` }}></span>
           </div>
 
           <div
@@ -752,18 +755,18 @@ const InfoBar = () => {
             <div className="menu-item px-3">
               <div className="menu-content d-flex align-items-center px-3">
                 <div className="symbol symbol-50px me-5">
-                  <span className="symbol-label" style={{ backgroundImage: "url(assets/media//stock/ecommerce/3.gif)" }}></span>
+                  <span className="symbol-label" style={{ backgroundImage: `url(${user?.user.avatar})` }}></span>
                 </div>
 
                 <div className="d-flex flex-column">
                   <div className="fw-bolder d-flex align-items-center">
-                    Safil Nawaz Chowdhury
+                    {user?.user.name}
                   </div>
                   <a
                     href="!#"
                     className="fw-bold text-muted text-hover-primary fs-7"
                   >
-                    safil@nafgroup.com
+                     {user?.user.email}
                   </a>
                 </div>
               </div>

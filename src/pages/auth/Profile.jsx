@@ -1,7 +1,8 @@
 import React from "react";
 import TopCard from "../../components/profile/TopCard";
-
+import { useDispatch, useSelector } from "react-redux";
 const Profile = () => {
+    const { user } = useSelector((state) => state.auth);
     return (
         <div id="kt_content_container" className="container-xxl">
             <TopCard/>
@@ -16,7 +17,7 @@ const Profile = () => {
                     <div className="row mb-7">
                         <label className="col-lg-4 fw-bold text-muted">Full Name</label>
                         <div className="col-lg-8">
-                            <span className="fw-bolder fs-6 text-gray-800">Max Smith</span>
+                            <span className="fw-bolder fs-6 text-gray-800"> {user?.user?.name}</span>
                         </div>
                     </div>
                     <div className="row mb-7">

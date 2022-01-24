@@ -1,14 +1,19 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 
+import { useDispatch, useSelector } from "react-redux";
+
 const TopCard = () => {
+
+
+  const { user } = useSelector((state) => state.auth);
   return (
     <div className="card mb-5 mb-xl-10">
       <div className="card-body pt-9 pb-0">
         <div className="d-flex flex-wrap flex-sm-nowrap mb-3">
           <div className="me-7 mb-4">
             <div className="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
-              <span class="symbol-label" style={{ backgroundImage: "url(assets/media//stock/ecommerce/3.gif)" }}></span>
+              <span class="symbol-label" style={{ backgroundImage: `url(${user?.user.avatar})` }}></span>
               <div className="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-white h-20px w-20px"></div>
             </div>
           </div>
@@ -20,7 +25,7 @@ const TopCard = () => {
                     href="!#"
                     className="text-gray-900 text-hover-primary fs-2 fw-bolder me-1"
                   >
-                    Safil Nawaz Chowdhury
+                    {user?.user?.name}
                   </a>
                 </div>
                 <div className="d-flex flex-wrap fw-bold fs-6 mb-4 pe-2">
