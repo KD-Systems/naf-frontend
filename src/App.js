@@ -12,7 +12,7 @@ import Companies from "pages/companies/Index";
 import ShowCompany from "pages/companies/Show";
 import ShowDesignation from "pages/Designations/Show";
 import ShowEmployee from "pages/Employee/Show";
-import ShowUser from "pages/companies/sections/users/Show";
+import ShowUser from "pages/companies/users/Show";
 import Contracts from "pages/contracts/Index";
 import Machines from "pages/machines/Index";
 import ShowContract from "pages/contracts/Show";

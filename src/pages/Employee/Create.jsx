@@ -4,9 +4,9 @@ import EmployeeService from "../../services/EmployeeService";
 import DesignationService from "../../services/DesignationService";
 const CreateEmployee = ({ open, onCloseModal, getEmployees }) => {
   const [data, setData] = useState({
-    name:"",
-    email:"",
-    password:"",
+    name: "",
+    email: "",
+    password: "",
     designation_id: null,
   });
 
@@ -49,15 +49,6 @@ const CreateEmployee = ({ open, onCloseModal, getEmployees }) => {
     });
   };
 
-  const onSumbit = (e) => {
-    e.preventDefault();
-    createEmployee(data);
-
-    onCloseModal();
-  };
-
-  
-
   return (
     <div>
       <Modal
@@ -68,7 +59,7 @@ const CreateEmployee = ({ open, onCloseModal, getEmployees }) => {
           <>
             <form id="create-employee">
 
-            <div className="mb-10 fv-row fv-plugins-icon-container text-center">
+              <div className="mb-10 fv-row fv-plugins-icon-container text-center">
                 <div
                   className="mx-auto image-input image-input-outline image-input-changed"
                   data-kt-image-input="true"
@@ -92,11 +83,11 @@ const CreateEmployee = ({ open, onCloseModal, getEmployees }) => {
                       type="file"
                       name="avatar"
                       accept=".png, .jpg, .jpeg"
-                      onChange={(e) => {setImage(e)}}
+                      onChange={(e) => { setImage(e) }}
                     />
                   </label>
                 </div>
-                <div className="fv-plugins-message-container invalid-feedback"></div>
+                <div className="fv-plugins-message-container invalid-feedback" htmlFor="avatar"></div>
               </div>
               <div className="form-group">
                 <label className="required form-label">Name</label>
@@ -108,6 +99,7 @@ const CreateEmployee = ({ open, onCloseModal, getEmployees }) => {
                   id="name"
                   onChange={handleChange}
                 />
+                <div className="fv-plugins-message-container invalid-feedback" htmlFor="name"></div>
               </div>
 
               <div className="form-group mt-5">
@@ -120,6 +112,7 @@ const CreateEmployee = ({ open, onCloseModal, getEmployees }) => {
                   id="email"
                   onChange={handleChange}
                 />
+                <div className="fv-plugins-message-container invalid-feedback" htmlFor="email"></div>
               </div>
 
               <div className="form-group mt-5">
@@ -132,30 +125,25 @@ const CreateEmployee = ({ open, onCloseModal, getEmployees }) => {
                   id="password"
                   onChange={handleChange}
                 />
+                <div className="fv-plugins-message-container invalid-feedback" htmlFor="password"></div>
               </div>
 
               <div className="form-group mt-5">
                 <label className="required form-label">Designation</label>
-              
-                <div className="col-lg-9 col-md-9 col-sm-12">
-                  <select className="form-control" name="designation_id" id="designation_id" onChange={handleChange}>
-                    <option value="">Select</option>
-                    {designations?.map((item,index)=>(
-                        <option value={item?.id} key={index}>{item?.name}</option>
-                    ))}
-                   
-                  </select>
-                  <span className="form-text text-muted">
-                    Please select an option.
-                  </span>
-                </div>
+                <select className="form-control" name="designation_id" id="designation_id" onChange={handleChange}>
+                  <option value="">Select designation</option>
+                  {designations?.map((item, index) => (
+                    <option value={item?.id} key={index}>{item?.name}</option>
+                  ))}
+                </select>
+                <div className="fv-plugins-message-container invalid-feedback" htmlFor="designation_id"></div>
               </div>
 
               <button
                 type="reset"
                 className="btn btn-primary mr-2 mt-5"
                 style={{ marginRight: "1rem" }}
-                onClick={onSumbit}
+                onClick={createEmployee}
               >
                 Create
               </button>

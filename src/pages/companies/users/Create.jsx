@@ -1,19 +1,11 @@
-import React, { useEffect, useState } from "react";
-import Modal from "../../../../components/utils/Modal";
-import CompanyService from "../../../../services/CompanyService";
+import React, { useState } from "react";
+import Modal from "components/utils/Modal";
+import CompanyService from "services/CompanyService";
 
-const EditUser = ({ open, onCloseModal, onUpdate, companyId, userId }) => {
-  const [data, setData] = useState({
-    name: "",
-    email: "",
-    password: "",
-    phone: "",
-    avatar: "",
-  });
-
+const AddUser = ({ open, onCloseModal, onCreate, companyId }) => {
   // Set the selected image to preview
   const setImage = async (e) => {
-    let logoShow = document.getElementById("avatar");
+    let logoShow = document.getElementById("logo");
     let fr = new FileReader();
     fr.readAsDataURL(e.target.files[0]);
 
@@ -22,61 +14,52 @@ const EditUser = ({ open, onCloseModal, onUpdate, companyId, userId }) => {
     });
   };
 
-  //Get user data
-  const getUser = async () => {
-    setData(await CompanyService.getUser(companyId, userId));
-  };
-
   //Store data
-  const updateUser = async (e) => {
+  const storeUser = async (e) => {
     e.target.disabled = true
-    let formData = new FormData(document.getElementById("update-user"));
-    await CompanyService.updateUser(companyId, userId, formData);
-    onUpdate();
+    let formData = new FormData(document.getElementById("update-company"));
+    await CompanyService.addUser(companyId, formData);
+    onCreate();
     onCloseModal();
     e.target.disabled = false
   };
+
+  const [data, setData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    phone: "",
+  })
 
   const handleChange = (e) => {
     const value = e.target.value;
     const name = e.target.name;
 
     setData({
-      ...data,
-      [name]: value,
-    });
-  };
-
-  useEffect(() => {
-    if (userId) getUser();
-
-    //Load the plugins after rendering the page
-    setTimeout(() => {
-      window.$('[data-bs-toggle="popover"]').popover()
-      window.$('[data-bs-toggle="tooltip"]').tooltip()
-    }, 100);
-  }, [userId]);
+      ...data, [name]: value
+    })
+  }
 
   return (
     <div>
       <Modal
         open={open}
         onCloseModal={onCloseModal}
-        title={<>Edit User</>}
+        title={<>Add User</>}
         body={
           <>
-            <form id="update-user">
+            <form id="update-company">
               <div className="mb-10 fv-row fv-plugins-icon-container text-center">
                 <div
                   className="mx-auto image-input image-input-outline image-input-changed"
                   data-kt-image-input="true"
                 >
                   <div
-                    id="avatar"
+                    id="logo"
                     className="image-input-wrapper w-125px h-125px"
                     style={{
                       backgroundImage:
-                        "url(" + data.avatar ?? +"/assets/media/svg/files/blank-image.svg)",
+                        "url(/assets/media/svg/files/blank-image.svg)",
                     }}
                   ></div>
                   <label
@@ -90,14 +73,11 @@ const EditUser = ({ open, onCloseModal, onUpdate, companyId, userId }) => {
                       type="file"
                       name="avatar"
                       accept=".png, .jpg, .jpeg"
-                      onChange={(e) => {
-                        setImage(e);
-                        handleChange(e);
-                      }}
+                      onChange={(e) => { setImage(e); handleChange(e) }}
                     />
                   </label>
                 </div>
-                <div className="fv-plugins-message-container invalid-feedback"></div>
+                <div className="fv-plugins-message-container invalid-feedback" htmlFor="avatar"></div>
               </div>
 
               <div className="mb-10 fv-row fv-plugins-icon-container">
@@ -108,10 +88,10 @@ const EditUser = ({ open, onCloseModal, onUpdate, companyId, userId }) => {
                   placeholder="Enter Name"
                   name="name"
                   id="name"
-                  value={data.name ?? ""}
+                  value={data.name}
                   onChange={handleChange}
                 />
-                <div className="fv-plugins-message-container invalid-feedback"></div>
+                <div className="fv-plugins-message-container invalid-feedback" htmlFor="name"></div>
               </div>
 
               <div className="mb-10 fv-row fv-plugins-icon-container">
@@ -122,33 +102,24 @@ const EditUser = ({ open, onCloseModal, onUpdate, companyId, userId }) => {
                   placeholder="Enter Email"
                   name="email"
                   id="email"
-                  value={data.email ?? ""}
+                  value={data.email}
                   onChange={handleChange}
                 />
-                <div className="fv-plugins-message-container invalid-feedback"></div>
+                <div className="fv-plugins-message-container invalid-feedback" htmlFor="email"></div>
               </div>
 
               <div className="mb-10 fv-row fv-plugins-icon-container">
-                <label className="form-label">
-                  Password
-                  <i
-                    className="fas fa-exclamation-circle ms-2 fs-7"
-                    data-bs-toggle="popover"
-                    data-bs-trigger="hover"
-                    data-bs-html="true"
-                    data-bs-content="Keep the input box empty to unchanged the password."
-                  />
-                </label>
+                <label className="form-label required">Password</label>
                 <input
                   type="password"
                   className="form-control mb-2"
                   placeholder="Enter Password"
                   name="password"
                   id="password"
-                  value={data.password ?? ""}
+                  value={data.password}
                   onChange={handleChange}
                 />
-                <div className="fv-plugins-message-container invalid-feedback"></div>
+                <div className="fv-plugins-message-container invalid-feedback" htmlFor="password"></div>
               </div>
 
               <div className="mb-10 fv-row fv-plugins-icon-container">
@@ -159,17 +130,17 @@ const EditUser = ({ open, onCloseModal, onUpdate, companyId, userId }) => {
                   placeholder="Enter Phone"
                   name="phone"
                   id="phone"
-                  value={data.phone ?? ""}
+                  value={data.phone}
                   onChange={handleChange}
                 />
-                <div className="fv-plugins-message-container invalid-feedback"></div>
+                <div className="fv-plugins-message-container invalid-feedback" htmlFor="phone"></div>
               </div>
 
               <button
                 type="reset"
                 className="btn btn-primary mr-2 mt-5"
                 style={{ marginRight: "1rem" }}
-                onClick={updateUser}
+                onClick={storeUser}
               >
                 Submit
               </button>
@@ -188,4 +159,4 @@ const EditUser = ({ open, onCloseModal, onUpdate, companyId, userId }) => {
   );
 };
 
-export default EditUser;
+export default AddUser;

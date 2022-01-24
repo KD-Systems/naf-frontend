@@ -79,25 +79,25 @@ const EditContract = ({ open, onCloseModal, getContracts, contractId }) => {
               <div className="form-group mt-5">
                 <label className="form-label">Machine</label>
                 <Select options={companies} onChange={handleSelect} name="machine_id" />
-                <div className="fv-plugins-message-container invalid-feedback"></div>
+                <div className="fv-plugins-message-container invalid-feedback" htmlFor="machine_id"></div>
               </div>
 
               <div className="form-group mt-5">
                 <label className="form-label">Machine Model</label>
                 <Select options={companies} onChange={handleSelect} name="machine_model_id" />
-                <div className="fv-plugins-message-container invalid-feedback"></div>
+                <div className="fv-plugins-message-container invalid-feedback" htmlFor="machine_model_id"></div>
               </div>
 
               <div className="form-group mt-5">
                 <label className="form-label">Start Date</label>
                 <DatePicker className="form-control" selected={data.start_date} onChange={(date) => handleDateSelect(date, 'start_date')} />
-                <div className="fv-plugins-message-container invalid-feedback"></div>
+                <div className="fv-plugins-message-container invalid-feedback" htmlFor="start_date"></div>
               </div>
 
               <div className="form-group mt-5">
                 <label className="form-label">End Date</label>
                 <DatePicker className="form-control" selected={data.end_date} onChange={(date) => handleDateSelect(date, 'end_date')} />
-                <div className="fv-plugins-message-container invalid-feedback"></div>
+                <div className="fv-plugins-message-container invalid-feedback" htmlFor="end_date"></div>
               </div>
 
               <div className="form-group mt-5">
@@ -112,7 +112,7 @@ const EditContract = ({ open, onCloseModal, getContracts, contractId }) => {
                   onChange={handleChange}
                   defaultValue={data.notes}
                 />
-                <div className="fv-plugins-message-container invalid-feedback"></div>
+                <div className="fv-plugins-message-container invalid-feedback" htmlFor="notes"></div>
               </div>
 
               <div className="form-group mt-5">
@@ -129,6 +129,7 @@ const EditContract = ({ open, onCloseModal, getContracts, contractId }) => {
                   <label className="form-check-label" htmlFor="status">
                     Status {data.status ? "active" : "inactive"}
                   </label>
+                  <div className="fv-plugins-message-container invalid-feedback" htmlFor="status"></div>
                 </div>
               </div>
 

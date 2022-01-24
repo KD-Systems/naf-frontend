@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Moment from "react-moment";
 import { useParams, useNavigate } from "react-router-dom";
-import ContractService from '../../services/ContractService';
+import ContractService from 'services/ContractService';
 
 const ShowContract = () => {
   let { id } = useParams();

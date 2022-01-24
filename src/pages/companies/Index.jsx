@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import CompanyService from "../../services/CompanyService";
+import CompanyService from "services/CompanyService";
 import CreateCompany from "./Create";
 import EditCompany from "./Edit";
 
@@ -204,8 +204,7 @@ const Companies = () => {
                               </svg>
                             </span>
                           </Link>
-                          <Link
-                            to="#"
+                          <button
                             className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
                             onClick={() => {
                               setOpen(true);
@@ -231,7 +230,7 @@ const Companies = () => {
                                 />
                               </svg>
                             </span>
-                          </Link>
+                          </button>
                           <button
                             onClick={() => {
                               deleteCompany(item.id);
