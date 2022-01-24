@@ -125,6 +125,7 @@ const Index = () => {
                     {designations?.map((item, index) => (
                       <tr key={index}>
                         <td></td>
+                       
                         <td>
                           <Link
                             to="#"
@@ -147,7 +148,7 @@ const Index = () => {
                             to="#"
                             className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
                           >
-                            1
+                            {item.members}
                           </Link>
                         </td>
 

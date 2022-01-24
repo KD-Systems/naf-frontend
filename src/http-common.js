@@ -1,19 +1,20 @@
 import axios from "axios";
 import reactDom from "react-dom";
+import { useDispatch, useSelector } from "react-redux";
 import {
   toast
 } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 toast.configure();
 
-
+const token = JSON.parse(localStorage.getItem('user'))?.access_token
 
 export default axios.create({
   baseURL: "//naf-inventory.test/api/",
   headers: {
     "Content-type": "application/json",
     "accept":"application/json",
-    "Authorization": "Bearer "+JSON.parse(localStorage.getItem('user'))?.access_token
+    "Authorization": "Bearer "+token
   },
   transformResponse: function (data) {
     let response = JSON.parse(data);
