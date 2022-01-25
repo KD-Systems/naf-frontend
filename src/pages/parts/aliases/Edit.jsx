@@ -13,13 +13,7 @@ const EditPartAlias = ({ open, onCloseModal, onUpdated, aliasId }) => {
   const [defaultHeading, setDefaultHeading] = useState(null)
   const [machines, setMachines] = useState([])
   const [headings, setHeadings] = useState([])
-  const [data, setData] = useState({
-    machine_id: '',
-    part_heading_id: '',
-    name: '',
-    part_number: '',
-    description: ''
-  })
+  const [data, setData] = useState({})
   const [block, setBlock] = useState(false);
 
   const handleChange = (e) => {
@@ -59,32 +53,38 @@ const EditPartAlias = ({ open, onCloseModal, onUpdated, aliasId }) => {
 
   const getMachines = async () => {
     setBlock(false)
-    let data = await MachineService.getAll()
-    data = data.map(itm => ({ label: itm.name, value: itm.id })) //Parse the data as per the select requires
-    setMachines(data);
+    let dt = await MachineService.getAll()
+    dt = dt.map(itm => ({ label: itm.name, value: itm.id })) //Parse the data as per the select requires
+    setMachines(dt);
     setBlock(false)
   };
 
   const getHeadings = async (machineId) => {
     setBlock(false)
-    let data = await MachinePartHeadingService.getAll(machineId)
-    data = data.map(itm => ({ label: itm.name, value: itm.id })) //Parse the data as per the select requires
-    
-    if(!data.length)
-    setDefaultHeading(null)
-    setHeadings(data);
+    let dt = await MachinePartHeadingService.getAll(machineId)
+    dt = dt.map(itm => ({ label: itm.name, value: itm.id })) //Parse the data as per the select requires
+    setHeadings(dt);
+    if (!dt.length)
+      setData({
+        ...data, ...{ part_heading_id: null }
+      })
+
     setBlock(false)
   };
 
   useEffect(() => {
     if (open) {
-      getHeadings(data.machine_id);
       setDefaultHeading({ label: data.heading?.name, value: data.heading?.id })
       setDefaultMachine({ label: data.machine?.name, value: data.machine?.id })
       setData({
         ...data, ...{ machine_id: data.machine?.id, part_heading_id: data.heading?.id }
       })
     }
+  }, [data.machine]);
+
+  useEffect(() => {
+    if (data.machine_id && open)
+      getHeadings(data.machine_id);
   }, [data.machine_id]);
 
 

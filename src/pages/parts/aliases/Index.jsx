@@ -5,10 +5,11 @@ import PartAliasService from 'services/PartAliasService';
 import CreatePartAlias from './Create';
 import EditPartAlias from './Edit';
 
-const PartAliases = ({ tab, onChange, partId }) => {
+const PartAliases = ({ tab }) => {
   const [loading, setLoading] = useState(true);
   const [aliasId, setAliasId] = useState(null);
   const [aliases, setAliases] = useState([]);
+  const {id} = useParams()
 
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [open, setOpen] = useState(false);
@@ -21,20 +22,20 @@ const PartAliases = ({ tab, onChange, partId }) => {
 
   const getAliases = async () => {
     setLoading(true)
-    setAliases(await PartAliasService.getAll(partId));
+    setAliases(await PartAliasService.getAll(id));
     setLoading(false)
   };
 
   const deleteAlias = async () => {
-    await PartAliasService.remove(partId, aliasId);
+    await PartAliasService.remove(id, aliasId);
     getAliases()
   };
 
   useEffect(() => {
-    if (partId && tab == 'aliases')
+    if (tab == 'aliases')
       getAliases();
     setLoading(false)
-  }, [partId]);
+  }, [id]);
 
 
   return (
@@ -123,7 +124,7 @@ const PartAliases = ({ tab, onChange, partId }) => {
                   <tr key={index}>
                     <td>
                       <Link
-                        to={"/panel/parts/" +partId+ '/aliases/' + item.id}
+                        to={"/panel/parts/" +id+ '/aliases/' + item.id}
                         className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
                       >
                         {item.name}
@@ -149,7 +150,7 @@ const PartAliases = ({ tab, onChange, partId }) => {
 
                     <td className="text-end">
                       <Link
-                        to={"/panel/machines/" +partId+ '/models/' + item.id}
+                        to={"/panel/parts/" +id+ '/aliases/' + item.id}
                         className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
                       >
                         <span className="svg-icon svg-icon-3">
@@ -252,7 +253,7 @@ const PartAliases = ({ tab, onChange, partId }) => {
         open={updateOpen}
         onCloseModal={() => onCloseModal()}
         onUpdated={() => getAliases()}
-        partId={partId}
+        id={id}
         aliasId={aliasId}
       />
     </div>

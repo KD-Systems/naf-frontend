@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import MachineModelService from 'services/MachineModelService';
+import PartAliasService from "services/PartAliasService";
 
-const ShowMachineModel = () => {
-  let { machineId, modelId } = useParams();
+const ShowPartAlias = () => {
+  let { partId, aliasId } = useParams();
   const navigate = useNavigate();
   const [data, setData] = useState({});
 
-  const getContract = async () => {
-    setData(await MachineModelService.get(machineId, modelId));
+  const getAlias = async () => {
+    setData(await PartAliasService.get(partId, aliasId));
   };
 
   useEffect(() => {
-    if (modelId)
-      getContract();
-  }, [modelId]);
+    if (aliasId)
+      getAlias();
+  }, [aliasId]);
   return (
     <>
       <div className="post d-flex flex-column-fluid" id="kt_post">
@@ -43,10 +43,24 @@ const ShowMachineModel = () => {
                       {data.name}
                     </div>
 
-                    <div className="fw-bolder mt-5">MFG Number</div>
+                    <div className="fw-bolder mt-5">Machine Name</div>
                     <div className="text-gray-600">
                       <span className="text-gray-600">
-                        {data.mfg_number}
+                        {data.machine?.name}
+                      </span>
+                    </div>
+
+                    <div className="fw-bolder mt-5">Heading Name</div>
+                    <div className="text-gray-600">
+                      <span className="text-gray-600">
+                        {data.heading?.name}
+                      </span>
+                    </div>
+
+                    <div className="fw-bolder mt-5">Part Number</div>
+                    <div className="text-gray-600">
+                      <span className="text-gray-600">
+                        {data.part_number}
                       </span>
                     </div>
 
@@ -54,13 +68,6 @@ const ShowMachineModel = () => {
                     <div className="text-gray-600">
                       <span className="text-gray-600">
                         {data.description}
-                      </span>
-                    </div>
-
-                    <div className="fw-bolder mt-5">Remarks</div>
-                    <div className="text-gray-600">
-                      <span className="text-gray-600 text-hover-primary">
-                        {data.remarks}
                       </span>
                     </div>
 
@@ -343,4 +350,4 @@ const ShowMachineModel = () => {
   );
 };
 
-export default ShowMachineModel;
+export default ShowPartAlias;
