@@ -45,7 +45,7 @@ const MachineModels = ({ tab, models, onChange }) => {
           <h3 className="card-title align-items-start flex-column">
             <span className="fw-bolder mb-2 text-dark">Models</span>
             <span className="text-muted fw-bold fs-7">
-              890 Models
+              {/* 890 Models */}
             </span>
           </h3>
 
