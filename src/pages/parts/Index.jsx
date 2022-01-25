@@ -121,7 +121,7 @@ const Parts = () => {
                     <tr key={index}>
                       <td>
                         <Link
-                          to={`/panel/companies/${item?.id}`}
+                          to={`/panel/parts/${item?.id}`}
                           className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
                         >
                           {item?.name}
@@ -253,8 +253,8 @@ const Parts = () => {
             </div>
           </div>
 
-          <CreateContract open={openAddModal} onCloseModal={onCloseModal} getParts={getParts} />
-          <EditContract open={openEditModal} partId={partId} onCloseModal={onCloseModal} getParts={getParts} />
+          <CreateContract open={openAddModal} onCloseModal={onCloseModal} onCreated={getParts} />
+          <EditContract open={openEditModal} partId={partId} onCloseModal={onCloseModal} onUpdated={getParts} />
         </div>
       </div>
     </div>
