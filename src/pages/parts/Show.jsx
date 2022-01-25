@@ -115,7 +115,7 @@ const ShowPart = () => {
               </ul>
 
               <div className="tab-content" id="myTabContent">
-                <PartAliases tab={tab} partId={data.id} onChange={getPart} />
+                <PartAliases tab={tab} models={data.models} onChange={getPart} />
               </div>
             </div>
 

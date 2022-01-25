@@ -86,13 +86,13 @@ const CreatePartAlias = ({ open, onCloseModal, onCreated }) => {
           <>
             <form>
               <div className="form-group">
-                <label className="form-label">Machine</label>
+                <label className="required form-label">Machine</label>
                 <Select options={machines} onChange={handleSelect} name="machine_id" />
                 <div className="fv-plugins-message-container invalid-feedback" htmlFor="machine_id"></div>
               </div>
 
               <div className="form-group mt-5">
-                <label className="form-label">Part Heading</label>
+                <label className="required form-label">Part Heading</label>
                 <Select options={headings} onChange={handleSelect} name="part_heading_id" />
                 <div className="fv-plugins-message-container invalid-feedback" htmlFor="part_heading_id"></div>
               </div>
