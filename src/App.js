@@ -21,6 +21,7 @@ import ShowMachine from "pages/machines/Show";
 import ShowMachineModel from "pages/machines/models/Show";
 import Parts from "pages/parts/Index";
 import ShowPart from "pages/parts/Show";
+import ShowPartHeadings from "pages/machines/headings/Show";
 
 export const PrivateRoute = ({ children }) => {
   const auth = JSON.parse(localStorage.getItem("user"));
@@ -158,6 +159,15 @@ function App() {
               element={
                 <PrivateRoute>
                   <ShowMachineModel />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
+              path="machines/:machineId/part-headings/:headingId"
+              element={
+                <PrivateRoute>
+                  <ShowPartHeadings />
                 </PrivateRoute>
               }
             />
