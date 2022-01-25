@@ -94,7 +94,7 @@ const PartHeadings = ({ tab }) => {
                     ></rect>
                   </svg>
                 </span>
-                Add Headings
+                Add Heading
               </button>
             </div>
           </div>

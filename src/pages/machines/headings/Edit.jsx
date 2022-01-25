@@ -104,7 +104,7 @@ const EditHeadings = ({
                 name="remarks"
                 id="remarks"
                 onChange={handleChange}
-                value={data.remarks}
+                value={data.remarks ?? ""}
               />
               <div
                 className="fv-plugins-message-container invalid-feedback"
