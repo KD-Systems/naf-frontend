@@ -19,6 +19,7 @@ import ShowContract from "pages/contracts/Show";
 import WareHouse from "pages/warehouses/Index";
 import ShowMachine from "pages/machines/Show";
 import ShowMachineModel from "pages/machines/models/Show";
+import Parts from "pages/parts/Index";
 
 export const PrivateRoute = ({ children }) => {
   const auth = JSON.parse(localStorage.getItem("user"));
@@ -160,6 +161,25 @@ function App() {
               }
             />
             {/* Machine End */}
+
+            {/* Parts start */}
+            <Route
+              path="parts"
+              element={
+                <PrivateRoute>
+                  <Parts />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="parts/:id"
+              element={
+                <PrivateRoute>
+                  <ShowContract />
+                </PrivateRoute>
+              }
+            />
+            {/* Parts end */}
 
             <Route
               path="profile"
