@@ -4,8 +4,14 @@ import ContractService from "../../services/ContractService";
 import Select from 'react-select'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import MachineService from "services/MachineService";
+import MachineModelService from "services/MachineModelService";
 
-const EditContract = ({ open, onCloseModal, getContracts, contractId }) => {
+const EditContract = ({ open, onCloseModal, onUpdated, contractId }) => {
+  const [machines, setMachines] = useState([])
+  const [machineModels, setMachineModels] = useState([])
+  const [defaultMachine, setDefaultMachine] = useState(null)
+  const [defaultModel, setDefaultModel] = useState(null)
   const [data, setData] = useState({
     machine_id: '',
     machine_model_id: '',
@@ -13,12 +19,7 @@ const EditContract = ({ open, onCloseModal, getContracts, contractId }) => {
     end_date: '',
     notes: ''
   })
-  const [companies, setCompanies] = useState([
-    {
-      label: 'test',
-      value: 'test',
-    }
-  ])
+  const [block, setBlock] = useState(false);
 
   const handleChange = (e) => {
     const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
@@ -44,28 +45,59 @@ const EditContract = ({ open, onCloseModal, getContracts, contractId }) => {
     })
   }
 
-  const updateContract = async (data) => {
+  const updateContract = async () => {
     await ContractService.update(contractId, data);
-    getContracts();
-  }
-
-  const onSumbit = (e) => {
-    e.preventDefault();
-    updateContract(data);
+    onUpdated();
     onCloseModal();
   }
 
+  const getMachines = async () => {
+    setBlock(false)
+    let dt = await MachineService.getAll()
+    dt = dt.map(itm => ({ label: itm.name, value: itm.id })) //Parse the data as per the select requires
+    setMachines(dt);
+    setBlock(false)
+  };
+
+  const getMachineModels = async (machineId) => {
+    setBlock(false)
+    let dt = await MachineModelService.getAll(machineId)
+    dt = dt.map(itm => ({ label: itm.name, value: itm.id })) //Parse the data as per the select requires
+    setMachineModels(dt);
+    setData({
+      ...data, ...{ machine_model_id: null }
+    })
+    setBlock(false)
+  };
+
   const getContract = async () => {
     let dt = await ContractService.get(contractId);
-    dt = { ...dt, ['start_date']: new Date(Date.parse(dt.start_date)) } //Parse the date as per the date select requires
-    dt = { ...dt, ['end_date']: new Date(Date.parse(dt.end_date)) } //Parse the date as per the date select requires
+    dt = { ...dt, ...{ end_date: new Date(Date.parse(dt.end_date)), start_date: new Date(Date.parse(dt.start_date)) } } //Parse the date as per the date select requires
     setData(dt)
   };
 
   useEffect(() => {
-    if (open && contractId)
+    if (open) {
+      setDefaultModel({ label: data.machine_model?.name, value: data.machine_model?.id })
+      setDefaultMachine({ label: data.machine?.name, value: data.machine?.id })
+      setData({
+        ...data, ...{ machine_id: data.machine?.id, machine_model_id: data.machine_model?.id }
+      })
+    }
+  }, [data.machine]);
+
+  useEffect(() => {
+    if (data.machine_id && open)
+      getMachineModels(data.machine_id)
+  }, [contractId, data.machine_id]);
+
+  useEffect(() => {
+    if (contractId && open) {
+      getMachines();
       getContract();
-  }, [contractId]);
+    }
+    setBlock(false)
+  }, [open, contractId]);
 
   return (
     <div>
@@ -77,14 +109,14 @@ const EditContract = ({ open, onCloseModal, getContracts, contractId }) => {
           <>
             <form>
               <div className="form-group mt-5">
-                <label className="form-label">Machine</label>
-                <Select options={companies} onChange={handleSelect} name="machine_id" />
+                <label className="required form-label">Machine</label>
+                {defaultMachine && <Select options={machines} onChange={handleSelect} name="machine_id" defaultValue={defaultMachine} />}
                 <div className="fv-plugins-message-container invalid-feedback" htmlFor="machine_id"></div>
               </div>
 
               <div className="form-group mt-5">
-                <label className="form-label">Machine Model</label>
-                <Select options={companies} onChange={handleSelect} name="machine_model_id" />
+                <label className="required form-label">Machine Model</label>
+                {defaultModel && <Select options={machineModels} onChange={handleSelect} name="machine_model_id" defaultValue={defaultModel} />}
                 <div className="fv-plugins-message-container invalid-feedback" htmlFor="machine_model_id"></div>
               </div>
 
@@ -115,7 +147,7 @@ const EditContract = ({ open, onCloseModal, getContracts, contractId }) => {
                 <div className="fv-plugins-message-container invalid-feedback" htmlFor="notes"></div>
               </div>
 
-              <div className="form-group mt-5">
+              <div className="form-group mt-5 mb-2">
                 <div className="form-check form-switch form-check-custom form-check-solid">
                   <input
                     className="form-check-input"
@@ -127,9 +159,8 @@ const EditContract = ({ open, onCloseModal, getContracts, contractId }) => {
                     onChange={handleChange}
                   />
                   <label className="form-check-label" htmlFor="status">
-                    Status {data.status ? "active" : "inactive"}
+                    Status {data.status ? "Active" : "Inactive"}
                   </label>
-                  <div className="fv-plugins-message-container invalid-feedback" htmlFor="status"></div>
                 </div>
               </div>
 
@@ -137,7 +168,7 @@ const EditContract = ({ open, onCloseModal, getContracts, contractId }) => {
                 type="reset"
                 className="btn btn-primary mr-2 mt-5"
                 style={{ marginRight: "1rem" }}
-                onClick={onSumbit}
+                onClick={updateContract}
               >
                 Update
               </button>

@@ -22,11 +22,8 @@ import ShowMachineModel from "pages/machines/models/Show";
 import Parts from "pages/parts/Index";
 import ShowPart from "pages/parts/Show";
 import ShowPartHeadings from "pages/machines/headings/Show";
-<<<<<<< HEAD
 import Roles from "pages/roles/Index";
-=======
 import ShowPartAlias from "pages/parts/aliases/Show";
->>>>>>> 7442b33a99eb22157badd5cac018c297714ce3d5
 
 export const PrivateRoute = ({ children }) => {
   const auth = JSON.parse(localStorage.getItem("user"));

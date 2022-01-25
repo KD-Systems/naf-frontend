@@ -130,7 +130,12 @@ const Contracts = () => {
                       </td>
 
                       <td>
-                        {item.machine?.name}
+                        <Link
+                          to={`/panel/machines/${item.machine?.id}`}
+                          className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
+                        >
+                          {item.machine?.name}
+                        </Link>
                       </td>
 
                       <td>
@@ -254,8 +259,8 @@ const Contracts = () => {
             </div>
           </div>
 
-          <CreateContract open={openAddModal} onCloseModal={onCloseModal} getContracts={getContracts} />
-          <EditContract open={openEditModal} contractId={contractId} onCloseModal={onCloseModal} getContracts={getContracts} />
+          <CreateContract open={openAddModal} onCloseModal={onCloseModal} onCreated={getContracts} />
+          <EditContract open={openEditModal} contractId={contractId} onCloseModal={onCloseModal} onUpdated={getContracts} />
         </div>
       </div>
     </div>

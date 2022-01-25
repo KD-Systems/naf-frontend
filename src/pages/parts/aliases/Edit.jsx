@@ -64,10 +64,9 @@ const EditPartAlias = ({ open, onCloseModal, onUpdated, aliasId }) => {
     let dt = await MachinePartHeadingService.getAll(machineId)
     dt = dt.map(itm => ({ label: itm.name, value: itm.id })) //Parse the data as per the select requires
     setHeadings(dt);
-    if (!dt.length)
-      setData({
-        ...data, ...{ part_heading_id: null }
-      })
+    setData({
+      ...data, ...{ part_heading_id: null }
+    })
 
     setBlock(false)
   };

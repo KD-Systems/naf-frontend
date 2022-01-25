@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from "react";
-import Modal from "../../components/utils/Modal";
-import ContractService from "../../services/ContractService";
-import CompanyService from "../../services/CompanyService";
+import Modal from "components/utils/Modal";
+import ContractService from "services/ContractService";
+import CompanyService from "services/CompanyService";
 import Select from 'react-select'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import MachineService from "services/MachineService";
+import MachineModelService from "services/MachineModelService";
 
-const CreateContract = ({ open, onCloseModal, getContracts }) => {
+const CreateContract = ({ open, onCloseModal, onCreated }) => {
 
   const [companies, setCompanies] = useState([])
+  const [machines, setMachines] = useState([])
+  const [machineModels, setMachineModels] = useState([])
   const [data, setData] = useState({
-    achine_id: '',
+    company_id: '',
+    machine_id: '',
     machine_model_id: '',
     start_date: '',
     end_date: '',
@@ -47,7 +52,7 @@ const CreateContract = ({ open, onCloseModal, getContracts }) => {
   const addContract = async () => {
     setBlock(true)
     await ContractService.create(data);
-    getContracts();
+    onCreated();
     onCloseModal();
   }
 
@@ -57,9 +62,35 @@ const CreateContract = ({ open, onCloseModal, getContracts }) => {
     setCompanies(data);
   };
 
+  const getMachines = async () => {
+    setBlock(false)
+    let dt = await MachineService.getAll()
+    dt = dt.map(itm => ({ label: itm.name, value: itm.id })) //Parse the data as per the select requires
+    setMachines(dt);
+    setBlock(false)
+  };
+
+  const getMachineModels = async (machineId) => {
+    setBlock(false)
+    let dt = await MachineModelService.getAll(machineId)
+    dt = dt.map(itm => ({ label: itm.name, value: itm.id })) //Parse the data as per the select requires
+    setMachineModels(dt);
+    setData({
+      ...data, ...{ machine_model_id: null }
+    })
+    setBlock(false)
+  };
+
   useEffect(() => {
-    if (open) //Prevent preload data while modal is hidden
+    if (data.machine_id && open)
+      getMachineModels(data.machine_id)
+  }, [data.machine_id]);
+
+  useEffect(() => {
+    if (open) {
       getCompanies();
+      getMachines();
+    }
     setBlock(false)
   }, [open]);
 
@@ -73,31 +104,31 @@ const CreateContract = ({ open, onCloseModal, getContracts }) => {
           <>
             <form>
               <div className="form-group mt-5">
-                <label className="form-label">Company</label>
+                <label className="required form-label">Company</label>
                 <Select options={companies} onChange={handleSelect} name="company_id" />
                 <div className="fv-plugins-message-container invalid-feedback" htmlFor="company_id"></div>
               </div>
 
               <div className="form-group mt-5">
-                <label className="form-label">Machine</label>
-                <Select options={companies} onChange={handleSelect} name="machine_id" />
+                <label className="required form-label">Machine</label>
+                <Select options={machines} onChange={handleSelect} name="machine_id" />
                 <div className="fv-plugins-message-container invalid-feedback" htmlFor="machine_id"></div>
               </div>
 
               <div className="form-group mt-5">
-                <label className="form-label">Machine Model</label>
-                <Select options={companies} onChange={handleSelect} name="machine_model_id" />
+                <label className="required form-label">Machine Model</label>
+                <Select options={machineModels} onChange={handleSelect} name="machine_model_id" />
                 <div className="fv-plugins-message-container invalid-feedback" htmlFor="machine_model_id"></div>
               </div>
 
               <div className="form-group mt-5">
-                <label className="form-label">Start Date</label>
+                <label className="required form-label">Start Date</label>
                 <DatePicker className="form-control" selected={data.start_date} onChange={(date) => handleDateSelect(date, 'start_date')} />
                 <div className="fv-plugins-message-container invalid-feedback" htmlFor="start_date"></div>
               </div>
 
               <div className="form-group mt-5">
-                <label className="form-label">End Date</label>
+                <label className="required form-label">End Date</label>
                 <DatePicker className="form-control" selected={data.end_date} onChange={(date) => handleDateSelect(date, 'end_date')} />
                 <div className="fv-plugins-message-container invalid-feedback" htmlFor="end_date"></div>
               </div>
