@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link,useParams } from "react-router-dom";
 import MachinePartHeadingService from "services/MachinePartHeadingService";
 import Confirmation from "../../../components/utils/Confirmation";
+import CreateHeadings from "./Create";
+import EditHeadings from "./Edit";
 
 const PartHeadings = ({ tab }) => {
+
+  let { id } = useParams();
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
   const [updateOpen, setUpdateOpen] = useState(false);
-
+  const [confirmDelete, setConfirmDelete] = useState(false);
   const [headings, setHeadings] = useState([]);
   const [headingId, setHeadingId] = useState("");
 
@@ -22,13 +26,16 @@ const PartHeadings = ({ tab }) => {
   };
 
   const deleteHeadings = async () => {
-    await MachinePartHeadingService.remove(headingId);
+    await MachinePartHeadingService.remove(id,headingId);
     getHeadings();
   };
 
   useEffect(() => {
     getHeadings();
   }, []);
+
+
+
 
   return (
     <>
@@ -98,11 +105,12 @@ const PartHeadings = ({ tab }) => {
                   <tr className="fw-bolder text-muted">
                     <th className="min-w-120px">Name</th>
                     <th className="min-w-50px">Common Heading</th>
+                    <th className="min-w-50px">Parts</th>
                     <th className="min-w-100px text-end">Actions</th>
                   </tr>
                 </thead>
                 
-              {/* <tbody>
+              <tbody>
                 {loading ? (
                   <tr>
                     <td>
@@ -116,19 +124,20 @@ const PartHeadings = ({ tab }) => {
                   <tr key={index}>
                     <td>
                       <Link
-                        to={"/panel/machines/" + id + '/models/'+ item.id}
+                        to={"/panel/machines/" + id + '/part-headings/'+ item.id}
                         className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
                       >
                         {item.name}
                       </Link>
                     </td>
 
-                    <td>{item.mfg_number}</td>
+                    <td>{item.common_heading ? 'Yes' :'No'}</td>
                     <td>1</td>
 
                     <td className="text-end">
                       <Link
-                        to={"/panel/machines/" + id + '/models/'+ item.id}
+                        to={"/panel/machines/" + id + '/part-headings/'+ item.id}
+                       
                         className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
                       >
                         <span className="svg-icon svg-icon-3">
@@ -153,7 +162,7 @@ const PartHeadings = ({ tab }) => {
                       </Link>
 
                       <button 
-                    //   onClick={() => { setModelId(item.id); setUpdateOpen(true); }} 
+                      onClick={() => { setHeadingId(item.id); setUpdateOpen(true); }} 
                       className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                         <span className="svg-icon svg-icon-3">
                           <svg
@@ -177,7 +186,7 @@ const PartHeadings = ({ tab }) => {
                       </button>
 
                       <button
-                        // onClick={() => { setModelId(item.id); setConfirmDelete(true) }}
+                        onClick={() => { setHeadingId(item.id); setConfirmDelete(true) }}
                         className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
                       >
                         <span className="svg-icon svg-icon-3">
@@ -208,12 +217,37 @@ const PartHeadings = ({ tab }) => {
                     </td>
                   </tr>
                 ))}
-              </tbody> */}
+              </tbody>
               </table>
             </div>
           </div>
         </div>
       </div>
+
+      <Confirmation
+        open={confirmDelete}
+        onConfirm={() => {
+          setConfirmDelete(false);
+          deleteHeadings(headingId);
+        }}
+        onCancel={() => setConfirmDelete(false)}
+      />
+
+
+      <CreateHeadings
+        open={open}
+        machineId={id}
+        onCloseModal={() => onCloseModal()}
+        onCreated={() => getHeadings()}
+      />
+
+      <EditHeadings
+        open={updateOpen}
+        onCloseModal={() => onCloseModal()}
+        onUpdated={() => getHeadings()}
+        machineId={id}
+        headingId={headingId}
+      />
     </>
   );
 };
