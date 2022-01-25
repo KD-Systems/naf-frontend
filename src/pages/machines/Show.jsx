@@ -81,8 +81,6 @@ const ShowMachine = () => {
               <div className="tab-content">
                 <MachineModels tab={tab} models={data.models} onChange={getMachines} />
                 <PartHeadings tab={tab}/>
-
-              
               </div>
             </div>
           </div>

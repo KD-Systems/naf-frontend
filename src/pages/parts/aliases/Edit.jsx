@@ -3,16 +3,19 @@ import Modal from "components/utils/Modal";
 import MachineService from "services/MachineService";
 import Select from 'react-select'
 import "react-datepicker/dist/react-datepicker.css";
-import PartService from "services/PartService";
+import PartAliasService from "services/PartAliasService";
 import MachinePartHeadingService from "services/MachinePartHeadingService";
+import { useParams } from "react-router-dom";
 
-const CreatePart = ({ open, onCloseModal, onCreated }) => {
+const EditPartAlias = ({ open, onCloseModal, onUpdated, aliasId }) => {
+  let { id } = useParams();
+  const [defaultMachine, setDefaultMachine] = useState(null)
+  const [defaultHeading, setDefaultHeading] = useState(null)
   const [machines, setMachines] = useState([])
   const [headings, setHeadings] = useState([])
   const [data, setData] = useState({
     machine_id: '',
-    machine_model_id: '',
-    machine_heading_id: '',
+    part_heading_id: '',
     name: '',
     part_number: '',
     description: ''
@@ -39,10 +42,17 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
     })
   }
 
-  const addPart = async () => {
+  const getAlias = async () => {
     setBlock(true)
-    await PartService.create(data);
-    onCreated();
+    let res = await PartAliasService.get(id, aliasId)
+    setData(res);
+    setBlock(false)
+  }
+
+  const updatePartAlias = async () => {
+    setBlock(true)
+    await PartAliasService.update(id, aliasId, data);
+    onUpdated();
     onCloseModal();
     setBlock(false)
   }
@@ -59,18 +69,30 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
     setBlock(false)
     let data = await MachinePartHeadingService.getAll(machineId)
     data = data.map(itm => ({ label: itm.name, value: itm.id })) //Parse the data as per the select requires
+    
+    if(!data.length)
+    setDefaultHeading(null)
     setHeadings(data);
     setBlock(false)
   };
 
   useEffect(() => {
-    if (open)
+    if (open) {
       getHeadings(data.machine_id);
+      setDefaultHeading({ label: data.heading?.name, value: data.heading?.id })
+      setDefaultMachine({ label: data.machine?.name, value: data.machine?.id })
+      setData({
+        ...data, ...{ machine_id: data.machine?.id, part_heading_id: data.heading?.id }
+      })
+    }
   }, [data.machine_id]);
 
+
   useEffect(() => {
-    if (open) //Prevent preload data while modal is hidden
+    if (open) {
+      getAlias();
       getMachines();
+    }
     setBlock(false)
   }, [open]);
 
@@ -79,22 +101,22 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
       <Modal
         open={open}
         onCloseModal={onCloseModal}
-        title={<>Add Part</>}
+        title={<>Update Part Alias</>}
         body={
           <>
             <form>
               <div className="form-group">
                 <label className="form-label">Machine</label>
-                <Select options={machines} onChange={handleSelect} name="machine_id" />
+                {defaultMachine && <Select options={machines} onChange={handleSelect} name="machine_id" defaultValue={defaultMachine} />}
                 <div className="fv-plugins-message-container invalid-feedback" htmlFor="machine_id"></div>
               </div>
 
               <div className="form-group mt-5">
                 <label className="form-label">Part Heading</label>
-                <Select options={headings} onChange={handleSelect} name="part_heading_id" />
+                {defaultHeading && <Select options={headings} onChange={handleSelect} name="part_heading_id" defaultValue={defaultHeading} />}
                 <div className="fv-plugins-message-container invalid-feedback" htmlFor="part_heading_id"></div>
               </div>
-              
+
               <div className="form-group">
                 <label className="required form-label">Name</label>
                 <input
@@ -141,9 +163,9 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
                 disabled={block}
                 className="btn btn-primary mr-2 mt-5"
                 style={{ marginRight: "1rem" }}
-                onClick={() => { addPart() }}
+                onClick={() => { updatePartAlias() }}
               >
-                Submit
+                Update
               </button>
               <button
                 className="btn btn-secondary  mt-5 "
@@ -159,4 +181,4 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
   );
 };
 
-export default CreatePart;
+export default EditPartAlias;

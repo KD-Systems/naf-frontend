@@ -3,10 +3,12 @@ import Modal from "components/utils/Modal";
 import MachineService from "services/MachineService";
 import Select from 'react-select'
 import "react-datepicker/dist/react-datepicker.css";
-import PartService from "services/PartService";
+import PartAliasService from "services/PartAliasService";
 import MachinePartHeadingService from "services/MachinePartHeadingService";
+import { useParams } from "react-router-dom";
 
-const CreatePart = ({ open, onCloseModal, onCreated }) => {
+const CreatePartAlias = ({ open, onCloseModal, onCreated }) => {
+  let { id } = useParams();
   const [machines, setMachines] = useState([])
   const [headings, setHeadings] = useState([])
   const [data, setData] = useState({
@@ -39,9 +41,9 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
     })
   }
 
-  const addPart = async () => {
+  const createPartAlias = async () => {
     setBlock(true)
-    await PartService.create(data);
+    await PartAliasService.create(id, data);
     onCreated();
     onCloseModal();
     setBlock(false)
@@ -79,7 +81,7 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
       <Modal
         open={open}
         onCloseModal={onCloseModal}
-        title={<>Add Part</>}
+        title={<>Create Part Alias</>}
         body={
           <>
             <form>
@@ -141,7 +143,7 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
                 disabled={block}
                 className="btn btn-primary mr-2 mt-5"
                 style={{ marginRight: "1rem" }}
-                onClick={() => { addPart() }}
+                onClick={() => { createPartAlias() }}
               >
                 Submit
               </button>
@@ -159,4 +161,4 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
   );
 };
 
-export default CreatePart;
+export default CreatePartAlias;

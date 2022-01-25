@@ -1,3 +1,4 @@
+import Confirmation from 'components/utils/Confirmation';
 import React, { useEffect, useState } from 'react'
 import Moment from 'react-moment';
 import { Link } from 'react-router-dom'
@@ -7,21 +8,21 @@ import EditContract from './Edit';
 
 const Parts = () => {
   const [loading, setLoading] = useState(true);
+  const [confirmDelete, setConfirmDelete] = useState(false);
   const [parts, setParts] = useState([])
   const [openAddModal, setOpenAddModal] = useState(false)
   const [openEditModal, setOpenEditModal] = useState(false)
   const [partId, setPartId] = useState(null)
 
   const getParts = async () => {
+    setLoading(true)
     setParts(await PartService.getAll())
     setLoading(false)
   }
 
   const deletePart = (partId) => {
-    if (window.confirm("Are you sure want to delete?")) {
-      PartService.remove(partId)
-      getParts()
-    }
+    PartService.remove(partId)
+    getParts()
   }
 
   const onCloseModal = () => {
@@ -98,10 +99,10 @@ const Parts = () => {
               <table className="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
                 <thead>
                   <tr className="fw-bolder text-muted">
-                    <th className="min-w-140px">Common Name</th>
+                    <th className="min-w-160px">Common Name</th>
                     <th className="min-w-100px">Machine</th>
-                    <th className="min-w-60px">Heading</th>
-                    <th className="min-w-60px">Part Number</th>
+                    <th className="min-w-140px">Heading</th>
+                    <th className="min-w-100px">Part Number</th>
                     <th className="min-w-100px text-end">Actions</th>
                   </tr>
                 </thead>
@@ -129,37 +130,20 @@ const Parts = () => {
                       </td>
 
                       <td>
-                        {item.machine?.name}
-                      </td>
-
-                      <td>
-                        <Moment format='YYYY-MM-DD'>
-                          {item.start_date}
-                        </Moment>
-                      </td>
-
-                      <td>
-                        <Moment format='YYYY-MM-DD'>
-                          {item.end_date}
-                        </Moment>
-
-                        {item.has_expired ?
-                          <div className="badge badge-light-danger">
-                            Expired
-                          </div> : ''
-                        }
-                      </td>
-
-                      <td>
-                        <div
-                          className={
-                            item.status
-                              ? "badge badge-light-success"
-                              : "badge badge-light-danger"
-                          }
+                        <Link
+                          to={`/panel/machines/${item.machine?.id}`}
+                          className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
                         >
-                          {item.status ? "Active" : "Inactive"}
-                        </div>
+                          {item.machine?.name}
+                        </Link>
+                      </td>
+
+                      <td>
+                        {item.heading?.name}
+                      </td>
+
+                      <td>
+                        {item.part_number}
                       </td>
 
                       <td className="text-end">
@@ -216,7 +200,8 @@ const Parts = () => {
                         </button>
                         <button
                           onClick={() => {
-                            deletePart(item.id)
+                            setPartId(item.id)
+                            setConfirmDelete(true)
                           }}
                           className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
                         >
@@ -253,6 +238,14 @@ const Parts = () => {
             </div>
           </div>
 
+          <Confirmation
+            open={confirmDelete}
+            onConfirm={() => {
+              setConfirmDelete(false);
+              deletePart(partId);
+            }}
+            onCancel={() => setConfirmDelete(false)}
+          />
           <CreateContract open={openAddModal} onCloseModal={onCloseModal} onCreated={getParts} />
           <EditContract open={openEditModal} partId={partId} onCloseModal={onCloseModal} onUpdated={getParts} />
         </div>
