@@ -22,6 +22,7 @@ import ShowMachineModel from "pages/machines/models/Show";
 import Parts from "pages/parts/Index";
 import ShowPart from "pages/parts/Show";
 import ShowPartHeadings from "pages/machines/headings/Show";
+import Roles from "pages/roles/Index";
 
 export const PrivateRoute = ({ children }) => {
   const auth = JSON.parse(localStorage.getItem("user"));
@@ -79,7 +80,7 @@ function App() {
               path="roles"
               element={
                 <PrivateRoute>
-                  <Role />
+                  <Roles />
                 </PrivateRoute>
               }
             />

@@ -21,7 +21,7 @@ const PartHeadings = ({ tab }) => {
   };
 
   const getHeadings = async () => {
-    setHeadings(await MachinePartHeadingService.getAll());
+    setHeadings(await MachinePartHeadingService.getAll(id));
     setLoading(false);
   };
 
