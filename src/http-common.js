@@ -7,14 +7,11 @@ import {
 import "react-toastify/dist/ReactToastify.css";
 toast.configure();
 
-const token = JSON.parse(localStorage.getItem('user'))?.access_token
-
-export default axios.create({
+let Api = axios.create({
   baseURL: "//naf-inventory.test/api/",
   headers: {
     "Content-type": "application/json",
     "accept":"application/json",
-    "Authorization": "Bearer "+token
   },
   transformResponse: function (data) {
     let response = JSON.parse(data);
@@ -44,4 +41,26 @@ export default axios.create({
 
     return response;
   },
+
+  validateStatus: function (status) {
+    if (status == 401 ){
+      localStorage.removeItem('user')
+      window.location.href="/"
+    }
+
+    return status >= 200 && status < 300; // default
+  },
+
+
+
 });
+
+
+
+Api.interceptors.request.use((config) => {
+  config.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('user'))?.access_token}`
+  return config;
+});
+
+export default Api
+

@@ -1,7 +1,7 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import {  NavLink } from "react-router-dom";
 
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 
 const TopCard = () => {
 
@@ -13,7 +13,7 @@ const TopCard = () => {
         <div className="d-flex flex-wrap flex-sm-nowrap mb-3">
           <div className="me-7 mb-4">
             <div className="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
-              <span class="symbol-label" style={{ backgroundImage: `url(${user?.user.avatar})` }}></span>
+              <span className="symbol-label" style={{ backgroundImage: `url(${user?.user.avatar})` }}></span>
               <div className="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-white h-20px w-20px"></div>
             </div>
           </div>

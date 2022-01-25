@@ -1,113 +1,108 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import Confirmation from 'components/utils/Confirmation';
-import MachineModelService from "services/MachineModelService";
-import CreateMachineModel from "./Create";
-import EditMachineModel from "./Edit";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import MachinePartHeadingService from "services/MachinePartHeadingService";
+import Confirmation from "../../../components/utils/Confirmation";
 
-const MachineModels = ({ tab, models, onChange }) => {
-  let { id } = useParams();
+const PartHeadings = ({ tab }) => {
   const [loading, setLoading] = useState(true);
-  const [modelId, setModelId] = useState(null);
-  const [machineModels, setMachineModels] = useState([]);
-
-  const [confirmDelete, setConfirmDelete] = useState(false);
   const [open, setOpen] = useState(false);
   const [updateOpen, setUpdateOpen] = useState(false);
+
+  const [headings, setHeadings] = useState([]);
+  const [headingId, setHeadingId] = useState("");
 
   const onCloseModal = () => {
     setOpen(false);
     setUpdateOpen(false);
   };
 
-  const deleteModel = async () => {
-    await MachineModelService.remove(id, modelId);
-    onChange();
+  const getHeadings = async () => {
+    setHeadings(await MachinePartHeadingService.getAll());
+    setLoading(false);
+  };
+
+  const deleteHeadings = async () => {
+    await MachinePartHeadingService.remove(headingId);
+    getHeadings();
   };
 
   useEffect(() => {
-    if (models)
-      setLoading(false)
-
-    setMachineModels(models)
-  }, [models]);
-
+    getHeadings();
+  }, []);
 
   return (
-    <div
-      className={`tab-pane fade ${tab == "models" ? "active show" : ""
+    <>
+      {" "}
+      <div
+        className={`tab-pane fade ${
+          tab == "activities" ? "active show" : null
         }`}
-      id="models"
-      role="tabpanel"
-    >
-      <div className="card card-xl-stretch mb-xl-10">
-        <div className="card-header align-items-center border-0 mt-4">
-          <h3 className="card-title align-items-start flex-column">
-            <span className="fw-bolder mb-2 text-dark">Models</span>
-            <span className="text-muted fw-bold fs-7">
-              {/* 890 Models */}
-            </span>
-          </h3>
-
-          <div className="card-toolbar">
-            <button
-              className="btn btn-light-primary btn-md"
-              onClick={() => setOpen(true)}
-            >
-              <span className="svg-icon svg-icon-3">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                >
-                  <rect
-                    opacity="0.3"
-                    x="2"
-                    y="2"
-                    width="20"
-                    height="20"
-                    rx="5"
-                    fill="black"
-                  ></rect>
-                  <rect
-                    x="10.8891"
-                    y="17.8033"
-                    width="12"
-                    height="2"
-                    rx="1"
-                    transform="rotate(-90 10.8891 17.8033)"
-                    fill="black"
-                  ></rect>
-                  <rect
-                    x="6.01041"
-                    y="10.9247"
-                    width="12"
-                    height="2"
-                    rx="1"
-                    fill="black"
-                  ></rect>
-                </svg>
-              </span>
-              Add Model
-            </button>
+        id="activities"
+        role="tabpanel"
+      >
+        <div className="card card-xl-stretch mb-xl-10">
+          <div className="card-header align-items-center border-0 mt-4">
+            <h3 className="card-title align-items-start flex-column">
+              <span className="fw-bolder mb-2 text-dark">Part Headings</span>
+              {/* <span className="text-muted fw-bold fs-7">890,344 Sales</span> */}
+            </h3>
+            <div className="card-toolbar">
+              <button
+                className="btn btn-light-primary btn-md"
+                onClick={() => setOpen(true)}
+              >
+                <span className="svg-icon svg-icon-3">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                  >
+                    <rect
+                      opacity="0.3"
+                      x="2"
+                      y="2"
+                      width="20"
+                      height="20"
+                      rx="5"
+                      fill="black"
+                    ></rect>
+                    <rect
+                      x="10.8891"
+                      y="17.8033"
+                      width="12"
+                      height="2"
+                      rx="1"
+                      transform="rotate(-90 10.8891 17.8033)"
+                      fill="black"
+                    ></rect>
+                    <rect
+                      x="6.01041"
+                      y="10.9247"
+                      width="12"
+                      height="2"
+                      rx="1"
+                      fill="black"
+                    ></rect>
+                  </svg>
+                </span>
+                Add Headings
+              </button>
+            </div>
           </div>
-
-        </div>
-        <div className="card-body pt-5">
-          <div className="table-responsive">
-            <table className="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
-              <thead>
-                <tr className="fw-bolder text-muted">
-                  <th className="min-w-120px">Name</th>
-                  <th className="min-w-50px">MFG Number</th>
-                  <th className="min-w-50px">Models</th>
-                  <th className="min-w-100px text-end">Actions</th>
-                </tr>
-              </thead>
-
-              <tbody>
+          <div className="card-body pt-5">
+            <div className="table-responsive">
+              <table className="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
+                <thead>
+                  <tr className="fw-bolder text-muted">
+                    <th className="min-w-120px">Name</th>
+                    <th className="min-w-50px">Common Heading</th>
+                    <th className="min-w-100px text-end">Actions</th>
+                  </tr>
+                </thead>
+                
+              {/* <tbody>
                 {loading ? (
                   <tr>
                     <td>
@@ -117,7 +112,7 @@ const MachineModels = ({ tab, models, onChange }) => {
                   </tr>
                 ) : null}
 
-                {machineModels?.map((item, index) => (
+                {headings?.map((item, index) => (
                   <tr key={index}>
                     <td>
                       <Link
@@ -157,7 +152,9 @@ const MachineModels = ({ tab, models, onChange }) => {
                         </span>
                       </Link>
 
-                      <button onClick={() => { setModelId(item.id); setUpdateOpen(true); }} className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                      <button 
+                    //   onClick={() => { setModelId(item.id); setUpdateOpen(true); }} 
+                      className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                         <span className="svg-icon svg-icon-3">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -180,7 +177,7 @@ const MachineModels = ({ tab, models, onChange }) => {
                       </button>
 
                       <button
-                        onClick={() => { setModelId(item.id); setConfirmDelete(true) }}
+                        // onClick={() => { setModelId(item.id); setConfirmDelete(true) }}
                         className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
                       >
                         <span className="svg-icon svg-icon-3">
@@ -211,37 +208,14 @@ const MachineModels = ({ tab, models, onChange }) => {
                     </td>
                   </tr>
                 ))}
-              </tbody>
-            </table>
+              </tbody> */}
+              </table>
+            </div>
           </div>
         </div>
       </div>
-
-      <Confirmation
-        open={confirmDelete}
-        onConfirm={() => {
-          setConfirmDelete(false);
-          deleteModel(modelId);
-        }}
-        onCancel={() => setConfirmDelete(false)}
-      />
-
-      <CreateMachineModel
-        open={open}
-        machineId={id}
-        onCloseModal={() => onCloseModal()}
-        onCreated={() => onChange()}
-      />
-
-      <EditMachineModel
-        open={updateOpen}
-        onCloseModal={() => onCloseModal()}
-        onUpdated={() => onChange()}
-        machineId={id}
-        modelId={modelId}
-      />
-    </div>
+    </>
   );
 };
 
-export default MachineModels;
+export default PartHeadings;

@@ -26,13 +26,15 @@ export const PrivateRoute = ({ children }) => {
   return auth?.access_token ? children : <Navigate to="/" />;
 };
 
+
+
 function App() {
   return (
     <>
       <BrowserRouter>
         <Routes>
           <Route path="/panel/*" element={<AppLayout />}>
-            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
             {/* <Route path="employees" element={<Employee />} /> */}
             {/* Designation start */}
             <Route

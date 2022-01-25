@@ -32,13 +32,18 @@ const Login = () => {
     });
   };
 
-  const handleLogin = async (e) => {
+  const {user} = useSelector(state => state.auth)
+
+  useEffect(() => {
+    if(user != null){
+      navigate("/panel/dashboard");
+    }
+  }, [user])
+
+  const handleLogin = (e) => {
     e.preventDefault();
-
     const { email, password } = data;
-
-    dispatch(login({ email, password }));
-    navigate("/panel/dashboard");
+    dispatch(login({ email, password }))
 
    
   };
