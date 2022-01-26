@@ -144,12 +144,12 @@ const Companies = () => {
                               </span>
                             </div>
                             <div className="d-flex justify-content-start flex-column">
-                              <a
-                                href="!#"
+                              <Link
+                                 to={'/panel/companies/' + item.id}
                                 className="text-dark fw-bolder text-hover-primary mb-1 fs-6"
                               >
                                 {item.name}
-                              </a>
+                              </Link>
                               <span className="text-muted fw-bold text-muted d-block fs-7">
                                 {item.company_group ?? '--'}
                               </span>
