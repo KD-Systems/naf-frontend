@@ -1,6 +1,5 @@
 import axios from "axios";
 import reactDom from "react-dom";
-import { useDispatch, useSelector } from "react-redux";
 import {
   toast
 } from "react-toastify";
@@ -8,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 toast.configure();
 
 let Api = axios.create({
-  baseURL: "//naf-inventory.test/api/",
+  baseURL: `//naf-api.viserx.net/api/`,
   headers: {
     "Content-type": "application/json",
     "accept":"application/json",
