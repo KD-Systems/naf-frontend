@@ -8,7 +8,7 @@ import PartStocks from "./stocks/Index";
 const ShowPart = () => {
   let { id } = useParams();
   const navigate = useNavigate();
-  const [tab, setTab] = useState('aliases');
+  const [tab, setTab] = useState('stocks');
   const [data, setData] = useState({
     aliases: []
   });
