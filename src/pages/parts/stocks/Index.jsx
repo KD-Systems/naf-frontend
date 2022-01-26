@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Confirmation from 'components/utils/Confirmation';
-import PartAliasService from 'services/PartAliasService';
-import CreatePartAlias from './Create';
+import AddPartStock from './Create';
 import EditPartAlias from './Edit';
+import PartStockService from 'services/PartStockService';
 
 const PartStocks = ({ tab }) => {
   const [loading, setLoading] = useState(true);
-  const [aliasId, setAliasId] = useState(null);
-  const [aliases, setAliases] = useState([]);
+  const [stockId, setStockId] = useState(null);
+  const [stocks, setStocks] = useState([]);
   const { id } = useParams()
 
   const [confirmDelete, setConfirmDelete] = useState(false);
@@ -22,12 +22,12 @@ const PartStocks = ({ tab }) => {
 
   const getAliases = async () => {
     setLoading(true)
-    setAliases(await PartAliasService.getAll(id));
+    setStocks(await PartStockService.getAll(id));
     setLoading(false)
   };
 
-  const deleteAlias = async () => {
-    await PartAliasService.remove(id, aliasId);
+  const deleteStock = async () => {
+    await PartStockService.remove(id, stockId);
     getAliases()
   };
 
@@ -35,7 +35,7 @@ const PartStocks = ({ tab }) => {
     if (tab == 'stocks')
       getAliases();
     setLoading(false)
-  }, [id]);
+  }, [tab]);
 
 
   return (
@@ -121,37 +121,34 @@ const PartStocks = ({ tab }) => {
                   </tr>
                 ) : null}
 
-                {!loading && aliases?.map((item, index) => (
+                {!loading && stocks?.map((item, index) => (
                   <tr key={index}>
                     <td>
-                      <Link
-                        to={"/panel/parts/" + id + '/aliases/' + item.id}
+                      <div
                         className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
                       >
-                        {item.name}
-                      </Link>
+                        {item.warehouse.name}
+                      </div>
                     </td>
 
                     <td>
-                      <Link
-                        to={"/panel/machines/" + item.machine?.id}
-                        className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
-                      >
-                        {item.machine?.name}
-                      </Link>
+                      {item.unit}
                     </td>
 
                     <td>
-                      {item.heading?.name}
+                      {item.unit_value}
                     </td>
 
                     <td>
-                      {item.part_number}
+                      {item.yen_price}
+                    </td>
+
+                    <td>
+                      {item.selling_price}
                     </td>
 
                     <td className="text-end">
-                      <Link
-                        to={"/panel/parts/" + id + '/aliases/' + item.id}
+                      <button
                         className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
                       >
                         <span className="svg-icon svg-icon-3">
@@ -161,7 +158,7 @@ const PartStocks = ({ tab }) => {
                             height="24"
                             viewBox="0 0 24 24"
                             fill="none"
-                          >Part
+                          >
                             <path
                               d="M17.5 11H6.5C4 11 2 9 2 6.5C2 4 4 2 6.5 2H17.5C20 2 22 4 22 6.5C22 9 20 11 17.5 11ZM15 6.5C15 7.9 16.1 9 17.5 9C18.9 9 20 7.9 20 6.5C20 5.1 18.9 4 17.5 4C16.1 4 15 5.1 15 6.5Z"
                               fill="black"
@@ -173,9 +170,9 @@ const PartStocks = ({ tab }) => {
                             />
                           </svg>
                         </span>
-                      </Link>
+                      </button>
 
-                      <button onClick={() => { setAliasId(item.id); setUpdateOpen(true); }} className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                      <button onClick={() => { setStockId(item.id); setUpdateOpen(true); }} className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                         <span className="svg-icon svg-icon-3">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -198,7 +195,7 @@ const PartStocks = ({ tab }) => {
                       </button>
 
                       <button
-                        onClick={() => { setAliasId(item.id); setConfirmDelete(true) }}
+                        onClick={() => { setStockId(item.id); setConfirmDelete(true) }}
                         className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
                       >
                         <span className="svg-icon svg-icon-3">
@@ -239,12 +236,12 @@ const PartStocks = ({ tab }) => {
         open={confirmDelete}
         onConfirm={() => {
           setConfirmDelete(false);
-          deleteAlias();
+          deleteStock();
         }}
         onCancel={() => setConfirmDelete(false)}
       />
 
-      <CreatePartAlias
+      <AddPartStock
         open={open}
         onCloseModal={() => onCloseModal()}
         onCreated={() => getAliases()}
@@ -255,7 +252,7 @@ const PartStocks = ({ tab }) => {
         onCloseModal={() => onCloseModal()}
         onUpdated={() => getAliases()}
         id={id}
-        aliasId={aliasId}
+        stockId={stockId}
       />
     </div>
   );

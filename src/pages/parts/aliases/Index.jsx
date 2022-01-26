@@ -35,7 +35,7 @@ const PartAliases = ({ tab }) => {
     if (tab == 'aliases')
       getAliases();
     setLoading(false)
-  }, [id]);
+  }, [tab]);
 
 
   return (

@@ -1,16 +1,25 @@
 import React, { useEffect, useState } from "react";
 import Modal from "components/utils/Modal";
-import MachineService from "services/MachineService";
 import Select from 'react-select'
 import "react-datepicker/dist/react-datepicker.css";
-import PartAliasService from "services/PartAliasService";
-import MachinePartHeadingService from "services/MachinePartHeadingService";
+import PartStockService from "services/PartStockService";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import { useParams } from "react-router-dom";
+import WareHouseService from "services/WareHouseService";
 
-const CreatePartAlias = ({ open, onCloseModal, onCreated }) => {
+const AddPartStock = ({ open, onCloseModal, onCreated }) => {
   let { id } = useParams();
-  const [machines, setMachines] = useState([])
-  const [headings, setHeadings] = useState([])
+  const [warehouses, setWarehouses] = useState([])
+  const [units] = useState([
+    { label: 'Piece', value: 'piece' },
+    { label: 'Millimetre', value: 'millimetre' },
+    { label: 'Centimetre', value: 'centimetre' },
+    { label: 'Metre', value: 'metre' },
+    { label: 'Feet', value: 'feet' },
+    { label: 'Inch', value: 'inch' },
+    { label: 'Yard', value: 'yard' }
+  ])
   const [data, setData] = useState({
     machine_id: '',
     machine_model_id: '',
@@ -41,38 +50,31 @@ const CreatePartAlias = ({ open, onCloseModal, onCreated }) => {
     })
   }
 
+  const handleDateSelect = (value, name) => {
+    setData({
+      ...data, [name]: new Date(value)
+    })
+  }
+
   const createPartAlias = async () => {
     setBlock(true)
-    await PartAliasService.create(id, data);
+    await PartStockService.create(id, data);
     onCreated();
     onCloseModal();
     setBlock(false)
   }
 
-  const getMachines = async () => {
+  const getWarehouses = async () => {
     setBlock(false)
-    let data = await MachineService.getAll()
+    let data = await WareHouseService.getAll()
     data = data.map(itm => ({ label: itm.name, value: itm.id })) //Parse the data as per the select requires
-    setMachines(data);
+    setWarehouses(data);
     setBlock(false)
   };
-
-  const getHeadings = async (machineId) => {
-    setBlock(false)
-    let data = await MachinePartHeadingService.getAll(machineId)
-    data = data.map(itm => ({ label: itm.name, value: itm.id })) //Parse the data as per the select requires
-    setHeadings(data);
-    setBlock(false)
-  };
-
-  useEffect(() => {
-    if (open)
-      getHeadings(data.machine_id);
-  }, [data.machine_id]);
 
   useEffect(() => {
     if (open) //Prevent preload data while modal is hidden
-      getMachines();
+      getWarehouses();
     setBlock(false)
   }, [open]);
 
@@ -81,62 +83,118 @@ const CreatePartAlias = ({ open, onCloseModal, onCreated }) => {
       <Modal
         open={open}
         onCloseModal={onCloseModal}
-        title={<>Create Part Alias</>}
+        title={<>Add Part Stock</>}
         body={
           <>
             <form>
               <div className="form-group">
-                <label className="required form-label">Machine</label>
-                <Select options={machines} onChange={handleSelect} name="machine_id" />
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="machine_id"></div>
+                <label className="required form-label">Warehouse</label>
+                <Select options={warehouses} onChange={handleSelect} name="warehouse_id" />
+                <div className="fv-plugins-message-container invalid-feedback" htmlFor="warehouse_id"></div>
+              </div>
+
+              <div className="form-group mt-5 row">
+                <div className="col-md-6">
+                  <label className="required form-label">Units</label>
+                  <Select options={units} onChange={handleSelect} name="unit" />
+                  <div className="fv-plugins-message-container invalid-feedback" htmlFor="unit"></div>
+                </div>
+
+                <div className="col-md-6">
+                  <label className="form-label">Unit Value</label>
+                  <input
+                    type="number"
+                    className="form-control"
+                    placeholder="Enter Unit Value"
+                    name="unit_value"
+                    id="unit_value"
+                    onChange={handleChange}
+                    value={data.unit_value ?? ''}
+                    step="any"
+                  />
+                  <div className="fv-plugins-message-container invalid-feedback" htmlFor="unit_value"></div>
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label className="form-label">Yen Price</label>
+                <input
+                  type="number"
+                  className="form-control"
+                  placeholder="Enter Yen Price"
+                  name="yen_price"
+                  id="yen_price"
+                  onChange={handleChange}
+                  value={data.yen_price ?? ''}
+                  step="any"
+                />
+                <div className="fv-plugins-message-container invalid-feedback" htmlFor="yen_price"></div>
+              </div>
+
+              <div className="form-group">
+                <label className="form-label">Formula Price</label>
+                <input
+                  type="number"
+                  className="form-control"
+                  placeholder="Enter Formula Price"
+                  name="formula_price"
+                  id="formula_price"
+                  onChange={handleChange}
+                  value={data.formula_price ?? ''}
+                  step="any"
+                />
+                <div className="fv-plugins-message-container invalid-feedback" htmlFor="formula_price"></div>
+              </div>
+
+              <div className="form-group">
+                <label className="form-label">Selling Price</label>
+                <input
+                  type="number"
+                  className="form-control"
+                  placeholder="Enter Selling Price"
+                  name="selling_price"
+                  id="selling_price"
+                  onChange={handleChange}
+                  value={data.selling_price ?? ''}
+                  step="any"
+                />
+                <div className="fv-plugins-message-container invalid-feedback" htmlFor="selling_price"></div>
+              </div>
+
+              <div className="form-group mt-5 row">
+                <div className="col-md-6">
+                  <label className="form-label">Shipment Date</label>
+                  <DatePicker className="form-control" placeholderText="Shipment Date" selected={data.shipment_date} onChange={(date) => handleDateSelect(date, 'shipment_date')} />
+                  <div className="fv-plugins-message-container invalid-feedback" htmlFor="shipment_date"></div>
+                </div>
+
+                <div className="col-md-6">
+                  <label className="form-label">Shipment Invoice No.</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Enter Shipment Invoice No."
+                    name="shipment_invoice_no"
+                    id="shipment_invoice_no"
+                    onChange={handleChange}
+                    value={data.shipment_invoice_no ?? ''}
+                  />
+                  <div className="fv-plugins-message-container invalid-feedback" htmlFor="nashipment_invoice_nome"></div>
+                </div>
               </div>
 
               <div className="form-group mt-5">
-                <label className="required form-label">Part Heading</label>
-                <Select options={headings} onChange={handleSelect} name="part_heading_id" />
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="part_heading_id"></div>
-              </div>
-              
-              <div className="form-group">
-                <label className="required form-label">Name</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Enter Name"
-                  name="name"
-                  id="name"
-                  onChange={handleChange}
-                  value={data.name ?? ''}
-                />
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="name"></div>
-              </div>
-
-              <div className="form-group">
-                <label className="required form-label">Part Number</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Enter Part Number"
-                  name="part_number"
-                  id="part_number"
-                  onChange={handleChange}
-                  value={data.part_number ?? ''}
-                />
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="part_number"></div>
-              </div>
-
-              <div className="form-group mt-5">
-                <label className="form-label">Description</label>
+                <label className="form-label">Shipment Details</label>
                 <textarea
                   rows="3"
                   type="text"
                   className="form-control"
-                  placeholder="Enter Description"
-                  name="description"
-                  id="description"
+                  placeholder="Enter Shipment Details"
+                  name="shipment_details"
+                  id="shipment_details"
                   onChange={handleChange}
                 />
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="description"></div>
+                <div className="fv-plugins-message-container invalid-feedback" htmlFor="shipment_details"></div>
               </div>
 
               <button
@@ -161,4 +219,4 @@ const CreatePartAlias = ({ open, onCloseModal, onCreated }) => {
   );
 };
 
-export default CreatePartAlias;
+export default AddPartStock;
