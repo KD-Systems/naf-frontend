@@ -44,7 +44,7 @@ const Employee = () => {
           <div className="card card-flush">
             <div className="card-header align-items-center py-5 gap-2 gap-md-5">
               <div className="card-title">
-                <div className="d-flex align-items-center position-relative my-1">
+                {/* <div className="d-flex align-items-center position-relative my-1">
                   <span className="svg-icon svg-icon-1 position-absolute ms-4">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -76,7 +76,7 @@ const Employee = () => {
                     className="form-control form-control-solid w-250px ps-14"
                     placeholder="Search Employee"
                   />
-                </div>
+                </div> */}
               </div>
 
               <div className="card-toolbar flex-row-fluid justify-content-end gap-5">
@@ -99,7 +99,7 @@ const Employee = () => {
               >
                 <thead>
                   <tr className="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-                    <th className="w-10px pe-2">
+                    {/* <th className="w-10px pe-2">
                       <div className="form-check form-check-sm form-check-custom form-check-solid me-3">
                         <input
                           className="form-check-input"
@@ -109,7 +109,7 @@ const Employee = () => {
                           value="1"
                         />
                       </div>
-                    </th>
+                    </th> */}
                     <th className="min-w-100px">Name</th>
 
                     <th className="min-w-70px">Designation</th>
@@ -122,7 +122,7 @@ const Employee = () => {
                 <tbody className="fw-bold text-gray-600">
                   {employees.map((item, index) => (
                     <tr key={index}>
-                      <td>
+                      {/* <td>
                         <div className="form-check form-check-sm form-check-custom form-check-solid">
                           <input
                             className="form-check-input"
@@ -130,7 +130,7 @@ const Employee = () => {
                             value="1"
                           />
                         </div>
-                      </td>
+                      </td> */}
 
                       <td>
                         <div className="d-flex align-items-center">
@@ -162,7 +162,7 @@ const Employee = () => {
                       </td>
 
                       <td className="pe-0" data-order="32">
-                        <span className="fw-bolder ms-3">Administration</span>
+                        <span className="fw-bolder ms-3">{item?.role}</span>
                       </td>
 
                       <td className="pe-0" data-order="Scheduled">
