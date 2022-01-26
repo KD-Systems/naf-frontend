@@ -45,7 +45,7 @@ const ShowEmployee = () => {
 
                     <div className="mb-9">
                       <div className="badge badge-lg badge-light-primary d-inline">
-                        Administrator
+                        {employee?.role}
                       </div>
                     </div>
 

@@ -2,12 +2,15 @@ import React, { useState, useEffect } from "react";
 import Modal from "../../components/utils/Modal";
 import EmployeeService from "../../services/EmployeeService";
 import DesignationService from "../../services/DesignationService";
-import "./Employee.css"
+import RoleService from "../../services/RoleService";
+import Select from "react-select";
+import "./Employee.css";
 
 const EditEmployee = ({ open, onCloseModal, getEmployees, employeeId }) => {
   const [employee, setEmployee] = useState("");
   const [designations, setDesignations] = useState([]);
-  const [toogle, setToogle] = useState(false)
+  const [roles, setRoles] = useState([]);
+  const [defaultRole, setDefaultRole] = useState(null);
   const [data, setData] = useState({
     name: "",
     email: "",
@@ -15,8 +18,8 @@ const EditEmployee = ({ open, onCloseModal, getEmployees, employeeId }) => {
     password: "",
     status: false,
     designation_id: null,
+    role: "",
   });
-
 
   const getEmployee = async () => {
     setEmployee(await EmployeeService.get(employeeId));
@@ -24,6 +27,22 @@ const EditEmployee = ({ open, onCloseModal, getEmployees, employeeId }) => {
 
   const getDesignations = async () => {
     setDesignations(await DesignationService.getAll());
+  };
+
+  const getRoles = async () => {
+    let data = await RoleService.getAll();
+    data = data.map((itm) => ({ label: itm.name, value: itm.id })); //Parse the data as per the select requires
+    setRoles(data);
+  };
+
+  const handleSelect = (option, conf) => {
+    const value = option.value;
+    const name = conf.name;
+
+    setData({
+      ...data,
+      [name]: value,
+    });
   };
 
   const setImage = async (e) => {
@@ -37,9 +56,8 @@ const EditEmployee = ({ open, onCloseModal, getEmployees, employeeId }) => {
   };
 
   const handleChange = (e) => {
-
     const target = e.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const value = target.type === "checkbox" ? target.checked : target.value;
     const name = e.target.name;
 
     let tempdata = { ...data };
@@ -53,9 +71,12 @@ const EditEmployee = ({ open, onCloseModal, getEmployees, employeeId }) => {
   useEffect(() => {
     if (employeeId) {
       getEmployee();
-
     }
   }, [open, employeeId]);
+
+  useEffect(() => {
+    getRoles();
+  }, [open]);
 
   useEffect(() => {
     setData(employee);
@@ -64,6 +85,12 @@ const EditEmployee = ({ open, onCloseModal, getEmployees, employeeId }) => {
   useEffect(() => {
     getDesignations();
   }, [open]);
+
+  useEffect(() => {
+    if (open) {
+      setDefaultRole({ label: data.role, value: data.role_id });
+    }
+  }, [data.role]);
 
   const updateEmployee = async () => {
     let formData = new FormData(document.getElementById("update-employee"));
@@ -79,6 +106,7 @@ const EditEmployee = ({ open, onCloseModal, getEmployees, employeeId }) => {
     onCloseModal();
   };
 
+  console.log(defaultRole);
   return (
     <div>
       <Modal
@@ -116,7 +144,10 @@ const EditEmployee = ({ open, onCloseModal, getEmployees, employeeId }) => {
                     />
                   </label>
                 </div>
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="avatar"></div>
+                <div
+                  className="fv-plugins-message-container invalid-feedback"
+                  htmlFor="avatar"
+                ></div>
               </div>
               <div className="form-group">
                 <label className="required form-label">Name</label>
@@ -129,7 +160,10 @@ const EditEmployee = ({ open, onCloseModal, getEmployees, employeeId }) => {
                   value={data.name || ""}
                   onChange={handleChange}
                 />
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="name"></div>
+                <div
+                  className="fv-plugins-message-container invalid-feedback"
+                  htmlFor="name"
+                ></div>
               </div>
 
               <div className="form-group mt-5">
@@ -143,13 +177,16 @@ const EditEmployee = ({ open, onCloseModal, getEmployees, employeeId }) => {
                   value={data.email || ""}
                   onChange={handleChange}
                 />
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="email"></div>
+                <div
+                  className="fv-plugins-message-container invalid-feedback"
+                  htmlFor="email"
+                ></div>
               </div>
 
               <div className="form-group mt-5">
                 <label className="form-label">Password</label>
                 <input
-                  type="text"
+                  type="password"
                   className="form-control"
                   placeholder="Enter Password"
                   name="password"
@@ -157,7 +194,10 @@ const EditEmployee = ({ open, onCloseModal, getEmployees, employeeId }) => {
                   value={data.password || ""}
                   onChange={handleChange}
                 />
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="password"></div>
+                <div
+                  className="fv-plugins-message-container invalid-feedback"
+                  htmlFor="password"
+                ></div>
               </div>
 
               <div className="form-group mt-5">
@@ -181,7 +221,27 @@ const EditEmployee = ({ open, onCloseModal, getEmployees, employeeId }) => {
                     </option>
                   ))}
                 </select>
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="designation_id"></div>
+                <div
+                  className="fv-plugins-message-container invalid-feedback"
+                  htmlFor="designation_id"
+                ></div>
+              </div>
+
+              <div className="form-group">
+                <label className="required form-label">Role</label>
+                {defaultRole && (
+                  <Select
+                    options={roles}
+                    onChange={handleSelect}
+                    name="role"
+                    defaultValue={defaultRole}
+                  />
+                )}
+
+                <div
+                  className="fv-plugins-message-container invalid-feedback"
+                  htmlFor="role"
+                ></div>
               </div>
 
               <div className="form-group mt-5">
@@ -195,7 +255,10 @@ const EditEmployee = ({ open, onCloseModal, getEmployees, employeeId }) => {
                     id="flexSwitchDefault"
                     onChange={handleChange}
                   />
-                  <label className="form-check-label" htmlFor="flexSwitchDefault">
+                  <label
+                    className="form-check-label"
+                    htmlFor="flexSwitchDefault"
+                  >
                     Status {data.status ? "active" : "inactive"}
                   </label>
                 </div>
