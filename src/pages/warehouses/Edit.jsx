@@ -30,13 +30,11 @@ const EditWareHouse = ({ open, onCloseModal, getWareHouses, warehousId }) => {
     onCloseModal();
   };
 
-
   useEffect(() => {
     if (warehousId) {
-        getWareHouse();
+      getWareHouse();
     }
   }, [open, warehousId]);
-
 
   useEffect(() => {
     setData(warehouse);
@@ -66,10 +64,10 @@ const EditWareHouse = ({ open, onCloseModal, getWareHouses, warehousId }) => {
                 <input
                   type="text"
                   className="form-control"
-                  placeholder="Enter Designation Name"
+                  placeholder="Enter Name"
                   name="name"
                   id="name"
-                    value={data.name || ""}
+                  value={data.name || ""}
                   onChange={handleChange}
                 />
               </div>
@@ -79,10 +77,10 @@ const EditWareHouse = ({ open, onCloseModal, getWareHouses, warehousId }) => {
                   rows="3"
                   type="text"
                   className="form-control"
-                  placeholder="Enter Designation Description"
+                  placeholder="Enter Description"
                   name="description"
                   id="description"
-                    value={data.description || ""}
+                  value={data.description || ""}
                   onChange={handleChange}
                 />
               </div>
