@@ -106,7 +106,7 @@ const EditEmployee = ({ open, onCloseModal, getEmployees, employeeId }) => {
     onCloseModal();
   };
 
-  console.log(defaultRole);
+
   return (
     <div>
       <Modal

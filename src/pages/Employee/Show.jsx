@@ -95,12 +95,12 @@ const ShowEmployee = () => {
                       <div className="fw-bolder mt-5">Status</div>
                       <div
                         className={
-                          employee?.status == "active"
+                          employee?.status == 1
                             ? "badge badge-light-success"
                             : "badge badge-light-danger"
                         }
                       >
-                        {employee?.status == "active" ? "active" : "inactive"}
+                        {employee?.status == 1 ? "active" : "inactive"}
                       </div>
                     </div>
                   </div>
