@@ -1,8 +1,18 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
+import ProfileService from "services/ProfileService";
 import TopCard from "../../components/profile/TopCard";
-import { useDispatch, useSelector } from "react-redux";
+
 const Profile = () => {
-    const { user } = useSelector((state) => state.auth);
+    const [profile,setProfile] = useState([])
+
+    const getProfile = async () => {
+      setProfile(await ProfileService.getProfile());
+    };
+  
+  
+    useEffect(()=>{
+      getProfile()
+    },[])
     return (
         <div id="kt_content_container" className="container-xxl">
             <TopCard/>
@@ -17,13 +27,13 @@ const Profile = () => {
                     <div className="row mb-7">
                         <label className="col-lg-4 fw-bold text-muted">Full Name</label>
                         <div className="col-lg-8">
-                            <span className="fw-bolder fs-6 text-gray-800"> {user?.user?.name}</span>
+                            <span className="fw-bolder fs-6 text-gray-800"> {profile?.name}</span>
                         </div>
                     </div>
                     <div className="row mb-7">
                         <label className="col-lg-4 fw-bold text-muted">Designation</label>
                         <div className="col-lg-8 fv-row">
-                            <span className="fw-bold text-gray-800 fs-6">--</span>
+                            <span className="fw-bold text-gray-800 fs-6">{profile?.designation}</span>
                         </div>
                     </div>
                     <div className="row mb-7">

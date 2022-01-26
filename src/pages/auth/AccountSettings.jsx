@@ -5,7 +5,7 @@ import TopCard from "../../components/profile/TopCard";
 import { useDispatch, useSelector } from "react-redux";
 import ProfileService from "services/ProfileService";
 const AccountSettings = () => {
-  const { user } = useSelector((state) => state.auth);
+
 
   const [data, setData] = useState({
     current_password: "",
@@ -18,7 +18,21 @@ const AccountSettings = () => {
     name: "",
     email: "",
     avatar: "",
+    status:null,
+    designation:"",
+    role:""
   });
+
+  
+
+  const getProfile = async () => {
+    setProfileData(await ProfileService.getProfile());
+  };
+
+
+  useEffect(()=>{
+    getProfile()
+  },[])
 
 
   const setImage = async (e) => {
@@ -46,9 +60,6 @@ const AccountSettings = () => {
     setProfileData(tempdata);
   };
 
-  useEffect(() => {
-    setProfileData(user.user);
-  }, [user]);
 
 
   const handleChange = (e) => {
@@ -77,7 +88,8 @@ const AccountSettings = () => {
 
   const onSubmit = (e)=>{
     e.preventDefault();
-    changePassword(data)
+    changePassword(data);
+    getProfile();
   }
 
   const onProfileSumbit =(e)=>{
@@ -125,7 +137,7 @@ const AccountSettings = () => {
                     //     "url(/assets/media/svg/files/blank-image.svg)",
                     // }}
 
-                     style={{ backgroundImage: `url(${user?.user.avatar})` }}
+                     style={{ backgroundImage: `url(${profileData?.avatar})` }}
                   ></div>
             
                     <label

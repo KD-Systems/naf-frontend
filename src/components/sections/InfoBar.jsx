@@ -1,15 +1,24 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import { Link ,useNavigate} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { logout } from "../../features/Auth";
+import ProfileService from "services/ProfileService";
 const InfoBar = () => {
 
   const dispatch = useDispatch()
   const navigate = useNavigate();
 
-  const { user } = useSelector((state) => state.auth);
+  const [profile,setProfile] = useState([])
 
+  const getProfile = async () => {
+    setProfile(await ProfileService.getProfile());
+  };
+
+
+  useEffect(()=>{
+    getProfile()
+  },[])
 
   const handleLogout = ()=>{
     dispatch(logout());
@@ -745,7 +754,7 @@ const InfoBar = () => {
             data-kt-menu-attach="parent"
             data-kt-menu-placement="bottom-end"
           >
-            <span className="symbol-label" style={{ backgroundImage: `url(${user?.user.avatar})` }}></span>
+            <span className="symbol-label" style={{ backgroundImage: `url(${profile?.avatar})` }}></span>
           </div>
 
           <div
@@ -755,18 +764,18 @@ const InfoBar = () => {
             <div className="menu-item px-3">
               <div className="menu-content d-flex align-items-center px-3">
                 <div className="symbol symbol-50px me-5">
-                  <span className="symbol-label" style={{ backgroundImage: `url(${user?.user.avatar})` }}></span>
+                  <span className="symbol-label" style={{ backgroundImage: `url(${profile?.avatar})` }}></span>
                 </div>
 
                 <div className="d-flex flex-column">
                   <div className="fw-bolder d-flex align-items-center">
-                    {user?.user.name}
+                    {profile?.name}
                   </div>
                   <a
                     href="!#"
                     className="fw-bold text-muted text-hover-primary fs-7"
                   >
-                     {user?.user.email}
+                     {profile?.email}
                   </a>
                 </div>
               </div>
