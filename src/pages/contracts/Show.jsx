@@ -19,8 +19,8 @@ const ShowContract = () => {
   }, [id]);
   return (
     <>
-      <div className="post d-flex flex-column-fluid" id="kt_post">
-        <div id="kt_content_container" className="container-xxl">
+      <div className="post d-flex flex-column-fluid">
+        <div className="container-xxl">
           <div className="d-flex flex-column flex-lg-row">
             <div className="flex-column flex-lg-row-auto w-lg-250px w-xl-350px mb-10">
 

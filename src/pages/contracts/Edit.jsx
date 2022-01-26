@@ -107,79 +107,77 @@ const EditContract = ({ open, onCloseModal, onUpdated, contractId }) => {
         title={<>Edit Contract</>}
         body={
           <>
-            <form>
-              <div className="form-group mt-5">
-                <label className="required form-label">Machine</label>
-                {defaultMachine && <Select options={machines} onChange={handleSelect} name="machine_id" defaultValue={defaultMachine} />}
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="machine_id"></div>
-              </div>
+            <div className="form-group">
+              <label className="required form-label">Machine</label>
+              {defaultMachine && <Select options={machines} onChange={handleSelect} name="machine_id" defaultValue={defaultMachine} />}
+              <div className="fv-plugins-message-container invalid-feedback" htmlFor="machine_id"></div>
+            </div>
 
-              <div className="form-group mt-5">
-                <label className="required form-label">Machine Model</label>
-                {defaultModel && <Select options={machineModels} onChange={handleSelect} name="machine_model_id" defaultValue={defaultModel} />}
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="machine_model_id"></div>
-              </div>
+            <div className="form-group mt-5">
+              <label className="required form-label">Machine Model</label>
+              {defaultModel && <Select options={machineModels} onChange={handleSelect} name="machine_model_id" defaultValue={defaultModel} />}
+              <div className="fv-plugins-message-container invalid-feedback" htmlFor="machine_model_id"></div>
+            </div>
 
-              <div className="form-group mt-5">
-                <label className="form-label">Start Date</label>
-                <DatePicker className="form-control" selected={data.start_date} onChange={(date) => handleDateSelect(date, 'start_date')} />
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="start_date"></div>
-              </div>
+            <div className="form-group mt-5">
+              <label className="form-label">Start Date</label>
+              <DatePicker className="form-control" selected={data.start_date} onChange={(date) => handleDateSelect(date, 'start_date')} />
+              <div className="fv-plugins-message-container invalid-feedback" htmlFor="start_date"></div>
+            </div>
 
-              <div className="form-group mt-5">
-                <label className="form-label">End Date</label>
-                <DatePicker className="form-control" selected={data.end_date} onChange={(date) => handleDateSelect(date, 'end_date')} />
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="end_date"></div>
-              </div>
+            <div className="form-group mt-5">
+              <label className="form-label">End Date</label>
+              <DatePicker className="form-control" selected={data.end_date} onChange={(date) => handleDateSelect(date, 'end_date')} />
+              <div className="fv-plugins-message-container invalid-feedback" htmlFor="end_date"></div>
+            </div>
 
-              <div className="form-group mt-5">
-                <label className="form-label">Notes</label>
-                <textarea
-                  rows="3"
-                  type="text"
-                  className="form-control"
-                  placeholder="Enter Notes"
-                  name="notes"
-                  id="notes"
+            <div className="form-group mt-5">
+              <label className="form-label">Notes</label>
+              <textarea
+                rows="3"
+                type="text"
+                className="form-control"
+                placeholder="Enter Notes"
+                name="notes"
+                id="notes"
+                onChange={handleChange}
+                defaultValue={data.notes}
+              />
+              <div className="fv-plugins-message-container invalid-feedback" htmlFor="notes"></div>
+            </div>
+
+            <div className="form-group mt-5 mb-2">
+              <div className="form-check form-switch form-check-custom form-check-solid">
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  defaultChecked={data.status}
+                  defaultValue={data.status}
+                  name="status"
+                  id="status"
                   onChange={handleChange}
-                  defaultValue={data.notes}
                 />
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="notes"></div>
+                <label className="form-check-label" htmlFor="status">
+                  Status {data.status ? "Active" : "Inactive"}
+                </label>
               </div>
+            </div>
 
-              <div className="form-group mt-5 mb-2">
-                <div className="form-check form-switch form-check-custom form-check-solid">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    defaultChecked={data.status}
-                    defaultValue={data.status}
-                    name="status"
-                    id="status"
-                    onChange={handleChange}
-                  />
-                  <label className="form-check-label" htmlFor="status">
-                    Status {data.status ? "Active" : "Inactive"}
-                  </label>
-                </div>
-              </div>
-
-              <button
-                type="reset"
-                className="btn btn-primary mr-2 mt-5"
-                style={{ marginRight: "1rem" }}
-                onClick={updateContract}
-              >
-                Update
-              </button>
-              <button
-                type="reset"
-                className="btn btn-secondary  mt-5 "
-                onClick={onCloseModal}
-              >
-                Cancel
-              </button>
-            </form>
+            <button
+              type="reset"
+              className="btn btn-primary mr-2 mt-5"
+              style={{ marginRight: "1rem" }}
+              onClick={updateContract}
+            >
+              Update
+            </button>
+            <button
+              type="reset"
+              className="btn btn-secondary  mt-5 "
+              onClick={onCloseModal}
+            >
+              Cancel
+            </button>
           </>
         }
       />

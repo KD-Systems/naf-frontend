@@ -7,7 +7,8 @@ import "react-toastify/dist/ReactToastify.css";
 toast.configure();
 
 let Api = axios.create({
-  baseURL: `//naf-api.viserx.net/api/`,
+  // baseURL: `//naf-api.viserx.net/api/`,
+  baseURL: `//naf-inventory.test/api/`,
   headers: {
     "Content-type": "application/json",
     "accept":"application/json",
