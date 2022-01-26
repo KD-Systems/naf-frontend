@@ -34,8 +34,8 @@ const Contracts = () => {
   }, [])
 
   return (
-    <div className="post d-flex flex-column-fluid" id="kt_post">
-      <div id="kt_content_container" className="container-xxl">
+    <div className="post d-flex flex-column-fluid">
+      <div className="container-xxl">
         <div className="card mb-5 mb-xl-8">
           <div className="card-header border-0 pt-5">
             <h3 className="card-title align-items-start flex-column">

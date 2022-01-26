@@ -103,7 +103,7 @@ const CreateContract = ({ open, onCloseModal, onCreated }) => {
         body={
           <>
             <form>
-              <div className="form-group mt-5">
+              <div className="form-group">
                 <label className="required form-label">Company</label>
                 <Select options={companies} onChange={handleSelect} name="company_id" />
                 <div className="fv-plugins-message-container invalid-feedback" htmlFor="company_id"></div>

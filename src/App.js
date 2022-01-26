@@ -30,8 +30,6 @@ export const PrivateRoute = ({ children }) => {
   return auth?.access_token ? children : <Navigate to="/" />;
 };
 
-
-
 function App() {
   return (
     <>

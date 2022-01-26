@@ -103,76 +103,74 @@ const EditPartAlias = ({ open, onCloseModal, onUpdated, aliasId }) => {
         title={<>Update Part Alias</>}
         body={
           <>
-            <form>
-              <div className="form-group">
-                <label className="form-label">Machine</label>
-                {defaultMachine && <Select options={machines} onChange={handleSelect} name="machine_id" defaultValue={defaultMachine} />}
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="machine_id"></div>
-              </div>
+            <div className="form-group">
+              <label className="form-label">Machine</label>
+              {defaultMachine && <Select options={machines} onChange={handleSelect} name="machine_id" defaultValue={defaultMachine} />}
+              <div className="fv-plugins-message-container invalid-feedback" htmlFor="machine_id"></div>
+            </div>
 
-              <div className="form-group mt-5">
-                <label className="form-label">Part Heading</label>
-                {defaultHeading && <Select options={headings} onChange={handleSelect} name="part_heading_id" defaultValue={defaultHeading} />}
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="part_heading_id"></div>
-              </div>
+            <div className="form-group mt-5">
+              <label className="form-label">Part Heading</label>
+              {defaultHeading && <Select options={headings} onChange={handleSelect} name="part_heading_id" defaultValue={defaultHeading} />}
+              <div className="fv-plugins-message-container invalid-feedback" htmlFor="part_heading_id"></div>
+            </div>
 
-              <div className="form-group">
-                <label className="required form-label">Name</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Enter Name"
-                  name="name"
-                  id="name"
-                  onChange={handleChange}
-                  value={data.name ?? ''}
-                />
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="name"></div>
-              </div>
+            <div className="form-group">
+              <label className="required form-label">Name</label>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Enter Name"
+                name="name"
+                id="name"
+                onChange={handleChange}
+                value={data.name ?? ''}
+              />
+              <div className="fv-plugins-message-container invalid-feedback" htmlFor="name"></div>
+            </div>
 
-              <div className="form-group">
-                <label className="required form-label">Part Number</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Enter Part Number"
-                  name="part_number"
-                  id="part_number"
-                  onChange={handleChange}
-                  value={data.part_number ?? ''}
-                />
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="part_number"></div>
-              </div>
+            <div className="form-group">
+              <label className="required form-label">Part Number</label>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Enter Part Number"
+                name="part_number"
+                id="part_number"
+                onChange={handleChange}
+                value={data.part_number ?? ''}
+              />
+              <div className="fv-plugins-message-container invalid-feedback" htmlFor="part_number"></div>
+            </div>
 
-              <div className="form-group mt-5">
-                <label className="form-label">Description</label>
-                <textarea
-                  rows="3"
-                  type="text"
-                  className="form-control"
-                  placeholder="Enter Description"
-                  name="description"
-                  id="description"
-                  onChange={handleChange}
-                />
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="description"></div>
-              </div>
+            <div className="form-group mt-5">
+              <label className="form-label">Description</label>
+              <textarea
+                rows="3"
+                type="text"
+                className="form-control"
+                placeholder="Enter Description"
+                name="description"
+                id="description"
+                onChange={handleChange}
+              />
+              <div className="fv-plugins-message-container invalid-feedback" htmlFor="description"></div>
+            </div>
 
-              <button
-                disabled={block}
-                className="btn btn-primary mr-2 mt-5"
-                style={{ marginRight: "1rem" }}
-                onClick={() => { updatePartAlias() }}
-              >
-                Update
-              </button>
-              <button
-                className="btn btn-secondary  mt-5 "
-                onClick={onCloseModal}
-              >
-                Cancel
-              </button>
-            </form>
+            <button
+              disabled={block}
+              className="btn btn-primary mr-2 mt-5"
+              style={{ marginRight: "1rem" }}
+              onClick={() => { updatePartAlias() }}
+            >
+              Update
+            </button>
+            <button
+              className="btn btn-secondary  mt-5 "
+              onClick={onCloseModal}
+            >
+              Cancel
+            </button>
           </>
         }
       />
