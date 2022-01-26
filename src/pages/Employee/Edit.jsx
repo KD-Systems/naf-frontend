@@ -63,7 +63,7 @@ const EditEmployee = ({ open, onCloseModal, getEmployees, employeeId }) => {
     let tempdata = { ...data };
     tempdata[name] = value;
 
-    console.log(tempdata);
+    
 
     setData(tempdata);
   };
@@ -191,7 +191,7 @@ const EditEmployee = ({ open, onCloseModal, getEmployees, employeeId }) => {
                   placeholder="Enter Password"
                   name="password"
                   id="password"
-                  value={data.password || ""}
+                  // value={data.password || ""}
                   onChange={handleChange}
                 />
                 <div

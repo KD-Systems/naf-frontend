@@ -137,7 +137,7 @@ const Index = () => {
 
                         <td>
                           <Link
-                            to="/"
+                           to={"/panel/designations/" + item.id}
                             className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
                           >
                             {item.name}

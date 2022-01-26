@@ -112,7 +112,7 @@ const Roles = () => {
                             to="#"
                             className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
                           >
-                            2
+                             {item?.users_count}
                           </Link>
                         </td>
   
