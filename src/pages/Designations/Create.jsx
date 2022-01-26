@@ -33,7 +33,7 @@ const CreateDesignation = ({ open, onCloseModal, getDesignations }) => {
         title={<>Create Designation</>}
         body={
           <>
-            <form>
+            
               <div className="form-group">
                 <label className="required form-label">Name</label>
                 <input
@@ -74,7 +74,7 @@ const CreateDesignation = ({ open, onCloseModal, getDesignations }) => {
               >
                 Cancel
               </button>
-            </form>
+         
           </>
         }
       />

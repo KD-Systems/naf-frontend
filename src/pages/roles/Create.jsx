@@ -37,7 +37,7 @@ const CreateRole = ({ open, onCloseModal, onCreated }) => {
         title={<>Create role</>}
         body={
           <>
-            <form>
+           
               <div className="form-group">
                 <label className="required form-label">Name</label>
                 <input
@@ -65,7 +65,7 @@ const CreateRole = ({ open, onCloseModal, onCreated }) => {
               >
                 Cancel
               </button>
-            </form>
+    
           </>
         }
       />
