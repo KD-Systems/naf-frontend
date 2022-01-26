@@ -16,6 +16,7 @@ const CreateHeadings = ({ open, onCloseModal, machineId, onCreated }) => {
     await MachinePartHeadingService.create(machineId, data);
     onCreated();
     onCloseModal();
+    setBlock(false);
   };
   const handleChange = (e) => {
     const target = e.target;
@@ -105,7 +106,7 @@ const CreateHeadings = ({ open, onCloseModal, machineId, onCreated }) => {
                 id="common_heading"
                 onChange={handleChange}
              
-                defaultValue={data.common_heading == true ? "true" : "false"}
+                defaultValue={data.common_heading ? true : false}
               />
               {" "}
                <label className="form-check-label" htmlFor="common_heading">

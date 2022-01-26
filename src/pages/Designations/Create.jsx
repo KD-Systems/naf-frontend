@@ -1,40 +1,29 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import Modal from "../../components/utils/Modal";
 import DesignationService from "../../services/DesignationService";
-const CreateDesignation = ({ open, onCloseModal,getDesignations }) => {
+const CreateDesignation = ({ open, onCloseModal, getDesignations }) => {
 
-    
 
-    const createDesignation =async(data)=>{
-        await DesignationService.create(data);
-        getDesignations();
-      }
 
-    const [data,setData]=useState({
-        name:"", designation:""
+  const createDesignation = async () => {
+    await DesignationService.create(data);
+    getDesignations();
+    onCloseModal();
+  }
+
+  const [data, setData] = useState({
+    name: "", designation: ""
+  })
+
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    const name = e.target.name;
+
+    setData({
+      ...data, [name]: value
     })
-
-
-    const handleChange=(e)=>{
-        const value = e.target.value;
-        const name = e.target.name;
-
-        setData({
-            ...data,[name]:value
-        })
-    }
-
-
-
-    const onSumbit = (e)=>{
-        e.preventDefault();
-        createDesignation(data);
-        onCloseModal();
-       
-    }
-
-
-
+  }
 
   return (
     <div>
@@ -46,7 +35,7 @@ const CreateDesignation = ({ open, onCloseModal,getDesignations }) => {
           <>
             <form>
               <div className="form-group">
-              <label className="required form-label">Name</label>
+                <label className="required form-label">Name</label>
                 <input
                   type="text"
                   className="form-control"
@@ -58,7 +47,7 @@ const CreateDesignation = ({ open, onCloseModal,getDesignations }) => {
               </div>
 
               <div className="form-group mt-5">
-              <label className="form-label">Description</label>
+                <label className="form-label">Description</label>
                 <textarea
                   rows="3"
                   type="text"
@@ -74,7 +63,7 @@ const CreateDesignation = ({ open, onCloseModal,getDesignations }) => {
                 type="reset"
                 className="btn btn-primary mr-2 mt-5"
                 style={{ marginRight: "1rem" }}
-                onClick={onSumbit}
+                onClick={createDesignation}
               >
                 Create
               </button>

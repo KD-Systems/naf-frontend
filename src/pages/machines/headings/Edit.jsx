@@ -21,7 +21,7 @@ const EditHeadings = ({
   };
   const [block, setBlock] = useState(false);
   const handleChange = (e) => {
-    const value = e.target.value;
+    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
     const name = e.target.name;
     setBlock(false);
 
@@ -36,12 +36,13 @@ const EditHeadings = ({
     await MachinePartHeadingService.update(machineId, headingId, data);
     onUpdated();
     onCloseModal();
+    setBlock(false);
   };
 
 
   useEffect(() => {
     if (open)
-    getPartHeading();
+      getPartHeading();
     setBlock(false)
 
   }, [open, headingId]);
@@ -72,9 +73,9 @@ const EditHeadings = ({
               ></div>
             </div>
 
-           
 
-           
+
+
 
             <div className="form-group mt-5">
               <label className="form-label">Description</label>
@@ -95,7 +96,7 @@ const EditHeadings = ({
             </div>
 
             <div className="form-group mt-5">
-            <label className="form-label">Remarks</label>
+              <label className="form-label">Remarks</label>
               <textarea
                 rows="3"
                 type="text"
@@ -113,23 +114,23 @@ const EditHeadings = ({
             </div>
 
             <div className="form-group mt-5">
-            <div className="form-check form-switch form-check-custom form-check-solid">
-            <input
-                type="checkbox"
-                className="form-check-input"
-                placeholder="Enter Common Heading"
-                name="common_heading"
-                id="common_heading"
-                onChange={handleChange}
-                defaultChecked={data.common_heading}
-                defaultValue={data.common_heading == true ? "true" : "false"}
-              />
-              {" "}
-               <label className="form-check-label" htmlFor="common_heading">
-                  Common Heading 
+              <div className="form-check form-switch form-check-custom form-check-solid">
+                <input
+                  type="checkbox"
+                  className="form-check-input"
+                  placeholder="Enter Common Heading"
+                  name="common_heading"
+                  id="common_heading"
+                  onChange={handleChange}
+                  defaultChecked={data.common_heading}
+                  defaultValue={true}
+                />
+                {" "}
+                <label className="form-check-label" htmlFor="common_heading">
+                  Common Heading
                 </label>
-           
-            </div>
+
+              </div>
             </div>
 
             <button

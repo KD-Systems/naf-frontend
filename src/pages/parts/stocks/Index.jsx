@@ -5,11 +5,11 @@ import PartAliasService from 'services/PartAliasService';
 import CreatePartAlias from './Create';
 import EditPartAlias from './Edit';
 
-const PartAliases = ({ tab }) => {
+const PartStocks = ({ tab }) => {
   const [loading, setLoading] = useState(true);
   const [aliasId, setAliasId] = useState(null);
   const [aliases, setAliases] = useState([]);
-  const {id} = useParams()
+  const { id } = useParams()
 
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [open, setOpen] = useState(false);
@@ -32,7 +32,7 @@ const PartAliases = ({ tab }) => {
   };
 
   useEffect(() => {
-    if (tab == 'aliases')
+    if (tab == 'stocks')
       getAliases();
     setLoading(false)
   }, [id]);
@@ -40,7 +40,7 @@ const PartAliases = ({ tab }) => {
 
   return (
     <div
-      className={`tab-pane fade ${tab == "aliases" ? "active show" : ""
+      className={`tab-pane fade ${tab == "stocks" ? "active show" : ""
         }`}
       id="models"
       role="tabpanel"
@@ -48,7 +48,7 @@ const PartAliases = ({ tab }) => {
       <div className="card card-xl-stretch mb-xl-10">
         <div className="card-header align-items-center border-0 mt-4">
           <h3 className="card-title align-items-start flex-column">
-            <span className="fw-bolder mb-2 text-dark">Aliases</span>
+            <span className="fw-bolder mb-2 text-dark">Stocks</span>
           </h3>
 
           <div className="card-toolbar">
@@ -92,7 +92,7 @@ const PartAliases = ({ tab }) => {
                   ></rect>
                 </svg>
               </span>
-              Create Alias
+              Add New Stock
             </button>
           </div>
 
@@ -102,10 +102,11 @@ const PartAliases = ({ tab }) => {
             <table className="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
               <thead>
                 <tr className="fw-bolder text-muted">
-                  <th className="min-w-140px">Name</th>
-                  <th className="min-w-100px">Machine</th>
-                  <th className="min-w-120px">Part Heading</th>
-                  <th className="min-w-100px">Part Number</th>
+                  <th className="min-w-140px">Warehouse</th>
+                  <th className="min-w-100px">Unit</th>
+                  <th className="min-w-120px">Unit Value</th>
+                  <th className="min-w-120px">Yen Price</th>
+                  <th className="min-w-120px">Selling Price</th>
                   <th className="min-w-100px text-end">Actions</th>
                 </tr>
               </thead>
@@ -124,7 +125,7 @@ const PartAliases = ({ tab }) => {
                   <tr key={index}>
                     <td>
                       <Link
-                        to={"/panel/parts/" +id+ '/aliases/' + item.id}
+                        to={"/panel/parts/" + id + '/aliases/' + item.id}
                         className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
                       >
                         {item.name}
@@ -150,7 +151,7 @@ const PartAliases = ({ tab }) => {
 
                     <td className="text-end">
                       <Link
-                        to={"/panel/parts/" +id+ '/aliases/' + item.id}
+                        to={"/panel/parts/" + id + '/aliases/' + item.id}
                         className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
                       >
                         <span className="svg-icon svg-icon-3">
@@ -260,4 +261,4 @@ const PartAliases = ({ tab }) => {
   );
 };
 
-export default PartAliases;
+export default PartStocks;

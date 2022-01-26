@@ -3,6 +3,7 @@ import Moment from "react-moment";
 import { useParams, useNavigate } from "react-router-dom";
 import PartService from "services/PartService";
 import PartAliases from "./aliases/Index";
+import PartStocks from "./stocks/Index";
 
 const ShowPart = () => {
   let { id } = useParams();
@@ -17,14 +18,13 @@ const ShowPart = () => {
   };
 
   useEffect(() => {
-    if (id) {
+    if (id)
       getPart();
-    }
   }, [id]);
   return (
     <>
-      <div className="post d-flex flex-column-fluid" id="kt_post">
-        <div id="kt_content_container" className="container-xxl">
+      <div className="post d-flex flex-column-fluid">
+        <div className="container-xxl">
           <div className="d-flex flex-column flex-lg-row">
             <div className="flex-column flex-lg-row-auto w-lg-250px w-xl-350px mb-10">
 
@@ -92,13 +92,24 @@ const ShowPart = () => {
               <ul className="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-bold mb-8">
                 <li className="nav-item">
                   <a
+                    className={`nav-link text-active-primary pb-4 ${tab == "stocks" ? "active" : ""
+                      }`}
+                    data-bs-toggle="tab"
+                    href="#stocks"
+                    onClick={() => setTab("stocks")}
+                  >
+                    Stocks
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a
                     className={`nav-link text-active-primary pb-4 ${tab == "aliases" ? "active" : ""
                       }`}
                     data-bs-toggle="tab"
-                    href="#models"
-                    onClick={() => setTab("models")}
+                    href="#aliases"
+                    onClick={() => setTab("aliases")}
                   >
-                    Models
+                    Aliases
                   </a>
                 </li>
                 <li className="nav-item">
@@ -116,6 +127,7 @@ const ShowPart = () => {
 
               <div className="tab-content" id="myTabContent">
                 <PartAliases tab={tab} models={data.models} onChange={getPart} />
+                <PartStocks tab={tab} models={data.models} onChange={getPart} />
               </div>
             </div>
 
