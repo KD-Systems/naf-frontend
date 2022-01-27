@@ -120,14 +120,13 @@ const ShowCompany = () => {
                 </div>
               </div>
               {/* Tabs end from here */}
-            </div>
 
-			<div className="tab-pane fade" id="contracts" role="tab-panel">
+              <div className="tab-pane fade" id="machines" role="tab-panel">
                 <div className="d-flex flex-column gap-7 gap-lg-10">
                   <div className="card card-flush py-4">
                     <div className="card-header">
                       <div className="card-title">
-                        <h2>Contracts</h2>
+                        <h2>Machines</h2>
                       </div>
                     </div>
                     <div className="card-body pt-0">
@@ -136,9 +135,9 @@ const ShowCompany = () => {
                           <tr className="fw-bolder text-muted">
                             <th className="min-w-150px">Machine</th>
                             <th className="min-w-150px">Machine Model</th>
-                            <th className="min-w-150px">Start Date</th>
-                            <th className="min-w-150px">End Date</th>
-                            <th className="min-w-120px">Status</th>
+                            <th className="min-w-150px">Mfg Number</th>
+                            <th className="min-w-150px">Space</th>
+                           
                           </tr>
                         </thead>
 
@@ -149,22 +148,16 @@ const ShowCompany = () => {
                               <td>{item?.machine_model?.name}</td>
                               <td>
                                 {" "}
-                                <Moment format="YYYY-MM-DD">
-                                  {item.start_date}
-                                </Moment>
+                             
+                                  {item?.machine_model?.mfg_number}
+                              
                               </td>
                               <td>
-                                <Moment format="YYYY-MM-DD">
-                                  {item.end_date}
-                                </Moment>
+                            
+                                  {item?.machine_model?.space}
+                               
                               </td>
-                              <td className={
-                              item.status == 1
-                                ? "badge badge-light-success"
-                                : "badge badge-light-danger"
-                            }>
-                                {item?.status == 1 ? "Active" : "InActive"}
-                              </td>
+                    
                             </tr>
                           ))}
                         </tbody>
@@ -175,10 +168,15 @@ const ShowCompany = () => {
               </div>
               {/* Tabs end from here */}
             </div>
+
+
+            </div>
           </div>
+         
         </div>
       </div>
-    </div>
+  
+    
   );
 };
 
