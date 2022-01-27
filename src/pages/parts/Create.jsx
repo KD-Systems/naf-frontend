@@ -95,7 +95,7 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
         body={
           <>
             <form id="part-create">
-              <div className="mb-5 fv-row fv-plugins-icon-container text-center">
+              {/* <div className="mb-5 fv-row fv-plugins-icon-container text-center">
                 <div
                   className="mx-auto image-input image-input-outline image-input-changed"
                   data-kt-image-input="true"
@@ -117,14 +117,14 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
                     <i className="bi bi-pencil-fill fs-7"></i>
                     <input
                       type="file"
-                      name="avatar"
+                      name="image"
                       accept=".png, .jpg, .jpeg"
                       onChange={(e) => { setImage(e); handleChange(e) }}
                     />
                   </label>
                 </div>
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="avatar"></div>
-              </div>
+                <div className="fv-plugins-message-container invalid-feedback" htmlFor="image"></div>
+              </div> */}
 
               <div className="form-group">
                 <label className="required form-label">Machine</label>
