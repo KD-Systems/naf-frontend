@@ -35,7 +35,7 @@ const Companies = () => {
           <div className="card mb-5 mb-xl-8">
             <div className="card-header mt-6">
               <div className="card-title">
-                <div className="d-flex align-items-center position-relative my-1 me-5">
+                {/* <div className="d-flex align-items-center position-relative my-1 me-5">
                   <span className="svg-icon svg-icon-1 position-absolute ms-6">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -65,7 +65,7 @@ const Companies = () => {
                     className="form-control form-control-solid w-250px ps-15"
                     placeholder="Search Companies"
                   />
-                </div>
+                </div> */}
               </div>
               <div className="card-toolbar">
                 <button
