@@ -151,6 +151,8 @@ const EditCompany = ({ open, companyId, onCloseModal, onUpdate }) => {
                                 <div className="fv-plugins-message-container invalid-feedback" htmlFor="description"></div>
                             </div>
 
+                            
+
                             <button
                                 type="reset"
                                 className="btn btn-primary mr-2 mt-5"
