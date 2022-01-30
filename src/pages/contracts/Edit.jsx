@@ -72,19 +72,19 @@ const EditContract = ({ open, onCloseModal, onUpdated, contractId }) => {
 
   const getContract = async () => {
     let dt = await ContractService.get(contractId);
-    dt = { ...dt, ...{ end_date: new Date(Date.parse(dt.end_date)), start_date: new Date(Date.parse(dt.start_date)) } } //Parse the date as per the date select requires
+    dt = {
+      ...dt, ...{
+        end_date: new Date(Date.parse(dt.end_date)),
+        start_date: new Date(Date.parse(dt.start_date)),
+        machine_model_id: dt.machine_model?.id,
+        machine_id: dt.machine?.id
+      }
+    } //Parse the date as per the date select requires
     setData(dt)
-  };
 
-  useEffect(() => {
-    if (open) {
-      setDefaultModel({ label: data.machine_model?.name, value: data.machine_model?.id })
-      setDefaultMachine({ label: data.machine?.name, value: data.machine?.id })
-      setData({
-        ...data, ...{ machine_id: data.machine?.id, machine_model_id: data.machine_model?.id }
-      })
-    }
-  }, [data.machine]);
+    setDefaultModel({ label: dt.machine_model?.name, value: dt.machine_model?.id })
+    setDefaultMachine({ label: dt.machine?.name, value: dt.machine?.id })
+  };
 
   useEffect(() => {
     if (data.machine_id && open)
@@ -151,6 +151,23 @@ const EditContract = ({ open, onCloseModal, onUpdated, contractId }) => {
                 <input
                   className="form-check-input"
                   type="checkbox"
+                  defaultChecked={data.is_foc}
+                  defaultValue={data.is_foc}
+                  name="is_foc"
+                  id="is_foc"
+                  onChange={handleChange}
+                />
+                <label className="form-check-label" htmlFor="is_foc">
+                  Under FOC
+                </label>
+              </div>
+            </div>
+
+            <div className="form-group mt-5 mb-2">
+              <div className="form-check form-switch form-check-custom form-check-solid">
+                <input
+                  className="form-check-input"
+                  type="checkbox"
                   defaultChecked={data.status}
                   defaultValue={data.status}
                   name="status"
@@ -164,7 +181,7 @@ const EditContract = ({ open, onCloseModal, onUpdated, contractId }) => {
             </div>
 
             <button
-              type="reset"
+              disabled={block}
               className="btn btn-primary mr-2 mt-5"
               style={{ marginRight: "1rem" }}
               onClick={updateContract}

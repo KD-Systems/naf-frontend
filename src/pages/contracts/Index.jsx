@@ -102,6 +102,7 @@ const Contracts = () => {
                     <th className="min-w-100px">Machine</th>
                     <th className="min-w-60px">Start</th>
                     <th className="min-w-60px">End</th>
+                    <th className="min-w-60px">FOC</th>
                     <th className="min-w-60px">Status</th>
                     <th className="min-w-100px text-end">Actions</th>
                   </tr>
@@ -154,6 +155,18 @@ const Contracts = () => {
                             Expired
                           </div> : ''
                         }
+                      </td>
+
+                      <td>
+                        <div
+                          className={
+                            item.is_foc
+                              ? "badge badge-light-warning"
+                              : "badge badge-light-info"
+                          }
+                        >
+                          {item.is_foc ? "Yes" : "No"}
+                        </div>
                       </td>
 
                       <td>

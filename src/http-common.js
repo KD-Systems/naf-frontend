@@ -7,8 +7,8 @@ import "react-toastify/dist/ReactToastify.css";
 toast.configure();
 
 let Api = axios.create({
-  baseURL: `//naf-api.viserx.net/api/`,
-  // baseURL: `//naf-inventory.test/api/`,
+  // baseURL: `//naf-api.viserx.net/api/`,
+  baseURL: `//naf-inventory.test/api/`,
   headers: {
     "Content-type": "application/json",
     "accept":"application/json",
@@ -43,7 +43,7 @@ let Api = axios.create({
   },
 
   validateStatus: function (status) {
-    if (status == 401 ){
+    if (status === 401 ){
       localStorage.removeItem('user')
       window.location.href="/"
     }

@@ -74,6 +74,17 @@ const ShowContract = () => {
                       {data?.status ? "active" : "inactive"}
                     </div>
 
+                    <div className="fw-bolder mt-5">FOC</div>
+                    <div
+                      className={
+                        data?.is_foc
+                          ? "badge badge-light-warning"
+                          : "badge badge-light-info"
+                      }
+                    >
+                      {data?.is_foc ? "Yes" : "No"}
+                    </div>
+
                     <div className="fw-bolder mt-5">Notes</div>
                     <div className="text-gray-600">
                       <span className="text-gray-600 text-hover-primary">

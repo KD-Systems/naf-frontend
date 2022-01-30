@@ -30,7 +30,7 @@ const CreateContract = ({ open, onCloseModal, onCreated }) => {
   }
 
   const handleChange = (e) => {
-    const value = e.target.value;
+    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
     const name = e.target.name;
     setBlock(false)
 
@@ -145,6 +145,23 @@ const CreateContract = ({ open, onCloseModal, onCreated }) => {
                   onChange={handleChange}
                 />
                 <div className="fv-plugins-message-container invalid-feedback" htmlFor="description"></div>
+              </div>
+
+              <div className="form-group mt-5 mb-2">
+                <div className="form-check form-switch form-check-custom form-check-solid">
+                  <input
+                    className="form-check-input"
+                    type="checkbox"
+                    defaultChecked={data.is_foc}
+                    defaultValue={data.is_foc}
+                    name="is_foc"
+                    id="is_foc"
+                    onChange={handleChange}
+                  />
+                  <label className="form-check-label" htmlFor="is_foc">
+                    Under FOC
+                  </label>
+                </div>
               </div>
 
               <button
