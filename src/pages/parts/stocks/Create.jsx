@@ -182,20 +182,6 @@ const AddPartStock = ({ open, onCloseModal, onCreated }) => {
               </div>
             </div>
 
-            {/* <div className="form-group mt-5">
-              <label className="form-label">Shipment Details</label>
-              <textarea
-                rows="3"
-                type="text"
-                className="form-control"
-                placeholder="Enter Shipment Details"
-                name="shipment_details"
-                id="shipment_details"
-                onChange={handleChange}
-              />
-              <div className="fv-plugins-message-container invalid-feedback" htmlFor="shipment_details"></div>
-            </div> */}
-
             <button
               disabled={block}
               className="btn btn-primary mr-2 mt-5"
