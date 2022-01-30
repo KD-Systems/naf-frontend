@@ -45,7 +45,7 @@ const CompanyInfo = ({company}) => {
 
                     <div className="collapse show text-left">
                         <div className="py-5 fs-6">
-                            <div className="fw-bolder mt-5">Machine Types</div>
+                            <div className="fw-bolder mt-5">Factory Types</div>
                             <div className="text-gray-600">{company.machine_types}</div>
 
                             <div className="fw-bolder mt-5">Updated At</div>

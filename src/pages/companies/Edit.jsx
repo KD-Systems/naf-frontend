@@ -125,7 +125,7 @@ const EditCompany = ({ open, companyId, onCloseModal, onUpdate }) => {
                             </div>
 
                             <div className="mb-5 fv-row fv-plugins-icon-container">
-                                <label className="form-label">Machine Types</label>
+                                <label className="form-label">Factory Types</label>
                                 <Tags
                                     placeholder="Enter Machine Types"
                                     name="machine_types"

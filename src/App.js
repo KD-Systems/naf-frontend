@@ -24,6 +24,7 @@ import ShowPart from "pages/parts/Show";
 import ShowPartHeadings from "pages/machines/headings/Show";
 import Roles from "pages/roles/Index";
 import ShowPartAlias from "pages/parts/aliases/Show";
+import WareHouseShow from "pages/warehouses/Show";
 
 export const PrivateRoute = ({ children }) => {
   const auth = JSON.parse(localStorage.getItem("user"));
@@ -132,6 +133,14 @@ function App() {
               element={
                 <PrivateRoute>
                   <WareHouse />
+                </PrivateRoute>
+              }
+            />
+               <Route
+              path="warehouses/:id"
+              element={
+                <PrivateRoute>
+                  <WareHouseShow />
                 </PrivateRoute>
               }
             />

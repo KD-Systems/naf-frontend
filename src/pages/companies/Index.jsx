@@ -123,7 +123,7 @@ const Companies = () => {
                     <tr className="fw-bolder text-muted">
                       <th className="min-w-150px">Name</th>
                       <th className="min-w-120px">Group of Company</th>
-                      <th className="min-w-120px">Machine Types</th>
+                      <th className="min-w-120px">Factory Types</th>
                       <th className="min-w-50px">Contract Status</th>
                       <th className="min-w-100px text-center">Actions</th>
                     </tr>

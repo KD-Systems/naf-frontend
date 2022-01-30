@@ -40,7 +40,7 @@ const ShowContract = () => {
                   <div className="separator"></div>
 
                   <div className="pb-5 fs-6">
-                    <div className="fw-bolder mt-5">Start Date</div>
+                    <div className="fw-bolder mt-5">Contract Date</div>
                     <div className="text-gray-600">
                       <span className="text-gray-600 text-hover-primary">
                         <Moment format='YYYY-MM-DD'>
@@ -49,7 +49,7 @@ const ShowContract = () => {
                       </span>
                     </div>
 
-                    <div className="fw-bolder mt-5">End Date</div>
+                    <div className="fw-bolder mt-5">Expriation Date</div>
                     <div className="text-gray-600">
                       <span className="text-gray-600 text-hover-primary">
                         <Moment format='YYYY-MM-DD'>
