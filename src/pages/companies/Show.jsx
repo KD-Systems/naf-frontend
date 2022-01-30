@@ -143,7 +143,7 @@ const ShowCompany = () => {
 
                         <tbody>
                           {company?.contracts?.map((item, index) => (
-                            <tr key="index">
+                            <tr key={index}>
                               <td>{item?.machine?.name}</td>
                               <td>{item?.machine_model?.name}</td>
                               <td>

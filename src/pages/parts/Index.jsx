@@ -1,29 +1,29 @@
-import Confirmation from 'components/utils/Confirmation';
-import React, { useEffect, useState } from 'react'
-import Moment from 'react-moment';
-import { Link } from 'react-router-dom'
+import Confirmation from "components/utils/Confirmation";
+import React, { useEffect, useState } from "react";
+import Moment from "react-moment";
+import { Link } from "react-router-dom";
 import PartService from "services/PartService";
-import CreateContract from './Create';
-import EditContract from './Edit';
+import CreateContract from "./Create";
+import EditContract from "./Edit";
 
 const Parts = () => {
   const [loading, setLoading] = useState(true);
   const [confirmDelete, setConfirmDelete] = useState(false);
-  const [parts, setParts] = useState([])
-  const [openAddModal, setOpenAddModal] = useState(false)
-  const [openEditModal, setOpenEditModal] = useState(false)
-  const [partId, setPartId] = useState(null)
+  const [parts, setParts] = useState([]);
+  const [openAddModal, setOpenAddModal] = useState(false);
+  const [openEditModal, setOpenEditModal] = useState(false);
+  const [partId, setPartId] = useState(null);
 
   const getParts = async () => {
-    setLoading(true)
-    setParts(await PartService.getAll())
-    setLoading(false)
-  }
+    setLoading(true);
+    setParts(await PartService.getAll());
+    setLoading(false);
+  };
 
   const deletePart = (partId) => {
-    PartService.remove(partId)
-    getParts()
-  }
+    PartService.remove(partId);
+    getParts();
+  };
 
   const onCloseModal = () => {
     setOpenAddModal(false);
@@ -31,8 +31,8 @@ const Parts = () => {
   };
 
   useEffect(() => {
-    getParts()
-  }, [])
+    getParts();
+  }, []);
 
   return (
     <div className="post d-flex flex-column-fluid" id="kt_post">
@@ -40,9 +40,7 @@ const Parts = () => {
         <div className="card mb-5 mb-xl-8">
           <div className="card-header border-0 pt-5">
             <h3 className="card-title align-items-start flex-column">
-              <span className="card-label fw-bolder fs-3 mb-1">
-                Parts
-              </span>
+              <span className="card-label fw-bolder fs-3 mb-1">Parts</span>
             </h3>
 
             <div className="card-toolbar">
@@ -108,15 +106,13 @@ const Parts = () => {
                 </thead>
 
                 <tbody>
-                  {
-                    loading ?
-                      <tr>
-                        <td>
-                          <i className="fas fa-cog fa-spin"></i> Loading...
-                        </td>
-                      </tr>
-                      : null
-                  }
+                  {loading ? (
+                    <tr>
+                      <td>
+                        <i className="fas fa-cog fa-spin"></i> Loading...
+                      </td>
+                    </tr>
+                  ) : null}
 
                   {parts?.map((item, index) => (
                     <tr key={index}>
@@ -130,21 +126,20 @@ const Parts = () => {
                       </td>
 
                       <td>
-                        <Link
-                          to={`/panel/machines/${item.machine?.id}`}
-                          className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
-                        >
-                          {item.machine?.name}
-                        </Link>
+                        {item?.machines?.map((it, index) => (
+                          <Link
+                            to={`/panel/machines/${it?.id}`}
+                            className="text-dark fw-bolder text-hover-primary d-block mb-1"
+                            key={index}
+                          >
+                            {it?.name}
+                          </Link>
+                        ))}
                       </td>
 
-                      <td>
-                        {item.heading?.name}
-                      </td>
+                      <td>{item.heading?.name}</td>
 
-                      <td>
-                        {item.part_number}
-                      </td>
+                      <td>{item.part_number}</td>
 
                       <td className="text-end">
                         <Link
@@ -174,7 +169,7 @@ const Parts = () => {
                         <button
                           onClick={() => {
                             setOpenEditModal(true);
-                            setPartId(item.id)
+                            setPartId(item.id);
                           }}
                           className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
                         >
@@ -200,8 +195,8 @@ const Parts = () => {
                         </button>
                         <button
                           onClick={() => {
-                            setPartId(item.id)
-                            setConfirmDelete(true)
+                            setPartId(item.id);
+                            setConfirmDelete(true);
                           }}
                           className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
                         >
@@ -246,12 +241,21 @@ const Parts = () => {
             }}
             onCancel={() => setConfirmDelete(false)}
           />
-          <CreateContract open={openAddModal} onCloseModal={onCloseModal} onCreated={getParts} />
-          <EditContract open={openEditModal} partId={partId} onCloseModal={onCloseModal} onUpdated={getParts} />
+          <CreateContract
+            open={openAddModal}
+            onCloseModal={onCloseModal}
+            onCreated={getParts}
+          />
+          <EditContract
+            open={openEditModal}
+            partId={partId}
+            onCloseModal={onCloseModal}
+            onUpdated={getParts}
+          />
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Parts
+export default Parts;

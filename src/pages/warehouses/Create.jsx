@@ -36,7 +36,7 @@ const CreateWareHouse = ({ open, onCloseModal, getWareHouses }) => {
         title={<>Create Warehouse</>}
         body={
           <>
-            <form>
+         
               <div className="form-group">
                 <label className="required form-label">Name</label>
                 <input
@@ -77,7 +77,7 @@ const CreateWareHouse = ({ open, onCloseModal, getWareHouses }) => {
               >
                 Cancel
               </button>
-            </form>
+
           </>
         }
       />
