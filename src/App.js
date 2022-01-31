@@ -25,6 +25,7 @@ import ShowPartHeadings from "pages/machines/headings/Show";
 import Roles from "pages/roles/Index";
 import ShowPartAlias from "pages/parts/aliases/Show";
 import WareHouseShow from "pages/warehouses/Show";
+import ShowPermission from "pages/roles/Show";
 
 export const PrivateRoute = ({ children }) => {
   const auth = JSON.parse(localStorage.getItem("user"));
@@ -37,7 +38,14 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/panel/*" element={<AppLayout />}>
-            <Route path="dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+            <Route
+              path="dashboard"
+              element={
+                <PrivateRoute>
+                  <Dashboard />
+                </PrivateRoute>
+              }
+            />
             {/* <Route path="employees" element={<Employee />} /> */}
             {/* Designation start */}
             <Route
@@ -76,6 +84,7 @@ function App() {
               }
             />
             {/* Employee End */}
+            {/* Role Start */}
             <Route
               path="roles"
               element={
@@ -84,6 +93,17 @@ function App() {
                 </PrivateRoute>
               }
             />
+
+            <Route
+              path="roles/:id"
+              element={
+                <PrivateRoute>
+                  <ShowPermission />
+                </PrivateRoute>
+              }
+            />
+
+            {/* Role End */}
 
             <Route
               path="companies"
@@ -136,7 +156,7 @@ function App() {
                 </PrivateRoute>
               }
             />
-               <Route
+            <Route
               path="warehouses/:id"
               element={
                 <PrivateRoute>
