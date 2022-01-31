@@ -111,11 +111,13 @@ const ShowContract = () => {
                       </span>
                     </div>
 
-                    <div className="fw-bolder mt-5">Model</div>
+                    <div className="fw-bolder mt-5">Models</div>
                     <div className="text-gray-600">
-                      <span className="text-gray-600 text-hover-primary">
-                        {data.machineModel?.name ?? '--'}
-                      </span>
+                      {data.machine_model?.map((itm, i) => (
+                         <span key={i} className="text-gray-600 text-hover-primary d-block">
+                           {itm.name}
+                           </span>
+                        ))}
                     </div>
                   </div>
                 </div>

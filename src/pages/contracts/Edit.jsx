@@ -37,7 +37,11 @@ const EditContract = ({ open, onCloseModal, onUpdated, contractId }) => {
   }
 
   const handleSelect = (option, conf) => {
-    const value = option.value;
+    let value = option.value;
+    if (Array.isArray(option))
+      value = option.map((dt) => {
+        return dt.value;
+      });
     const name = conf.name;
 
     setData({
@@ -76,13 +80,17 @@ const EditContract = ({ open, onCloseModal, onUpdated, contractId }) => {
       ...dt, ...{
         end_date: new Date(Date.parse(dt.end_date)),
         start_date: new Date(Date.parse(dt.start_date)),
-        machine_model_id: dt.machine_model?.id,
+        machine_model_id: dt.machine_model?.map((d) => {
+          return d.value;
+        }),
         machine_id: dt.machine?.id
       }
     } //Parse the date as per the date select requires
     setData(dt)
 
-    setDefaultModel({ label: dt.machine_model?.name, value: dt.machine_model?.id })
+    setDefaultModel(dt.machine_model?.map((d) => {
+      return { label: d.name, value: d.id };
+    }))
     setDefaultMachine({ label: dt.machine?.name, value: dt.machine?.id })
   };
 
@@ -92,10 +100,12 @@ const EditContract = ({ open, onCloseModal, onUpdated, contractId }) => {
   }, [contractId, data.machine_id]);
 
   useEffect(() => {
-    if (contractId && open) {
-      getMachines();
-      getContract();
-    }
+    // if (contractId && open) {
+    //   getMachines();
+    //   getContract();
+    //   setDefaultModel(null)
+    //   setDefaultMachine(null)
+    // }
     setBlock(false)
   }, [open, contractId]);
 
@@ -107,17 +117,17 @@ const EditContract = ({ open, onCloseModal, onUpdated, contractId }) => {
         title={<>Edit Contract</>}
         body={
           <>
-            <div className="form-group">
+            {/* <div className="form-group">
               <label className="required form-label">Machine</label>
               {defaultMachine && <Select options={machines} onChange={handleSelect} name="machine_id" defaultValue={defaultMachine} />}
               <div className="fv-plugins-message-container invalid-feedback" htmlFor="machine_id"></div>
-            </div>
+            </div> */}
 
-            <div className="form-group mt-5">
+            {/* <div className="form-group mt-5">
               <label className="required form-label">Machine Model</label>
-              {defaultModel && <Select options={machineModels} onChange={handleSelect} name="machine_model_id" defaultValue={defaultModel} />}
+              {defaultModel && <Select isMulti options={machineModels} onChange={handleSelect} name="machine_model_id" defaultValue={defaultModel} />}
               <div className="fv-plugins-message-container invalid-feedback" htmlFor="machine_model_id"></div>
-            </div>
+            </div> */}
 
             <div className="form-group mt-5">
               <label className="form-label">Start Date</label>
