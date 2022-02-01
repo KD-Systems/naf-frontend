@@ -12,13 +12,7 @@ const EditContract = ({ open, onCloseModal, onUpdated, contractId }) => {
   const [machineModels, setMachineModels] = useState([])
   const [defaultMachine, setDefaultMachine] = useState(null)
   const [defaultModel, setDefaultModel] = useState(null)
-  const [data, setData] = useState({
-    machine_id: '',
-    machine_model_id: '',
-    start_date: '',
-    end_date: '',
-    notes: ''
-  })
+  const [data, setData] = useState({})
   const [block, setBlock] = useState(false);
 
   const handleChange = (e) => {
@@ -100,12 +94,19 @@ const EditContract = ({ open, onCloseModal, onUpdated, contractId }) => {
   }, [contractId, data.machine_id]);
 
   useEffect(() => {
-    // if (contractId && open) {
+    setData({
+      machine_id: '',
+      machine_model_id: '',
+      start_date: '',
+      end_date: '',
+      notes: ''
+    });
+    if (contractId && open) {
     //   getMachines();
-    //   getContract();
+      getContract();
     //   setDefaultModel(null)
     //   setDefaultMachine(null)
-    // }
+    }
     setBlock(false)
   }, [open, contractId]);
 
@@ -131,13 +132,13 @@ const EditContract = ({ open, onCloseModal, onUpdated, contractId }) => {
 
             <div className="form-group mt-5">
               <label className="form-label">Start Date</label>
-              <DatePicker className="form-control" selected={data.start_date} onChange={(date) => handleDateSelect(date, 'start_date')} />
+              <DatePicker defaultChecked={false} className="form-control" selected={data.start_date} onChange={(date) => handleDateSelect(date, 'start_date')} />
               <div className="fv-plugins-message-container invalid-feedback" htmlFor="start_date"></div>
             </div>
 
             <div className="form-group mt-5">
               <label className="form-label">End Date</label>
-              <DatePicker className="form-control" selected={data.end_date} onChange={(date) => handleDateSelect(date, 'end_date')} />
+              <DatePicker defaultChecked={false} className="form-control" selected={data.end_date} onChange={(date) => handleDateSelect(date, 'end_date')} />
               <div className="fv-plugins-message-container invalid-feedback" htmlFor="end_date"></div>
             </div>
 

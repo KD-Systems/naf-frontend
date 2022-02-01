@@ -128,6 +128,22 @@ const CreateContract = ({ open, onCloseModal, onCreated }) => {
                 <div className="fv-plugins-message-container invalid-feedback" htmlFor="machine_model_id"></div>
               </div>
 
+              {data.machine_model_id && data.machine_model_id?.map((itm, key) => (
+                <div key={key} className="form-group mt-5">
+                  <label className="form-label">MFG Number</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Enter MFG Number"
+                    name={`mfg_number[${itm}]`}
+                    id="mfg_number"
+                    onChange={handleChange}
+                    value={data.mfg_number}
+                  />
+                  <div className="fv-plugins-message-container invalid-feedback" htmlFor="mfg_number"></div>
+                </div>
+              ))}
+
               <div className="form-group mt-5">
                 <label className="required form-label">Start Date</label>
                 <DatePicker className="form-control" selected={data.start_date} onChange={(date) => handleDateSelect(date, 'start_date')} />
