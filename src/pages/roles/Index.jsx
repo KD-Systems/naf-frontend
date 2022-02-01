@@ -101,7 +101,7 @@ const Roles = () => {
                         <td></td>
                         <td>
                           <Link
-                            to="#"
+                              to={"/panel/roles/" +item.id}
                             className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
                           >
                            {item?.name}
