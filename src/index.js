@@ -9,7 +9,7 @@ import store from "./store"
 
 Object.defineProperty(String.prototype, 'capitalize', {
   value: function() {
-    return this.charAt(0).toUpperCase() + this.slice(1);
+    return this.replace(/\b\w/g, l => l.toUpperCase());
   },
   enumerable: false
 });
