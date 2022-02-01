@@ -26,12 +26,19 @@ const getPermission = async ()=>{
     return res.data;
 }
 
+
+const updatePermission = async(roleId, permissionId, attach)=>{
+        let res = await http.post(`/roles/${roleId}/permission-update`, {attach: attach, permission_id: permissionId});
+        return res.data;    
+}
+
 const RoleService = {
     getAll,
     get,
     create,
     remove,
-    getPermission
+    getPermission,
+    updatePermission
 };
 
 export default RoleService;
