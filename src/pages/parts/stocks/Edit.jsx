@@ -12,6 +12,7 @@ const EditPartStock = ({ open, onCloseModal, onUpdated, stockId }) => {
   let { id } = useParams();
   const [warehouses, setWarehouses] = useState([])
   const [defaultWarehouse, setDefaultWarehouse] = useState(null);
+  const [defaultUnit, setDefaultUnit] = useState(null);
   const [units] = useState([
     { label: 'Piece', value: 'piece' },
     { label: 'Millimetre', value: 'millimetre' },
@@ -61,6 +62,7 @@ const EditPartStock = ({ open, onCloseModal, onUpdated, stockId }) => {
     setBlock(true)
     let res = await PartStockService.get(id, stockId)
     setDefaultWarehouse({ label: res.warehouse?.name, value: res.warehouse?.id })
+    setDefaultUnit({label: res.unit.capitalize(), value: res.unit})
     setData(res);
     setData({
       ...res, ...{ warehouse_id: res.warehouse?.id }
@@ -68,9 +70,9 @@ const EditPartStock = ({ open, onCloseModal, onUpdated, stockId }) => {
     setBlock(false)
   }
 
-  const createPartAlias = async () => {
+  const updatePartStock = async () => {
     setBlock(true)
-    await PartStockService.create(id, data);
+    await PartStockService.update(id, stockId, data);
     onUpdated();
     onCloseModal();
     setBlock(false)
@@ -102,14 +104,14 @@ const EditPartStock = ({ open, onCloseModal, onUpdated, stockId }) => {
           <>
             <div className="form-group">
               <label className="required form-label">Warehouse</label>
-              <Select options={warehouses} onChange={handleSelect} name="warehouse_id" />
+              { defaultWarehouse && <Select options={warehouses} onChange={handleSelect} name="warehouse_id" defaultValue={defaultWarehouse} /> }
               <div className="fv-plugins-message-container invalid-feedback" htmlFor="warehouse_id"></div>
             </div>
 
             <div className="form-group mt-5 row">
               <div className="col-md-6">
                 <label className="required form-label">Units</label>
-                <Select options={units} onChange={handleSelect} name="unit" />
+                { defaultUnit && <Select options={units} onChange={handleSelect} name="unit" defaultValue={defaultUnit} /> }
                 <div className="fv-plugins-message-container invalid-feedback" htmlFor="unit"></div>
               </div>
 
@@ -200,7 +202,7 @@ const EditPartStock = ({ open, onCloseModal, onUpdated, stockId }) => {
               disabled={block}
               className="btn btn-primary mr-2 mt-5"
               style={{ marginRight: "1rem" }}
-              onClick={() => { createPartAlias() }}
+              onClick={() => { updatePartStock() }}
             >
               Submit
             </button>

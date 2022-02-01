@@ -100,7 +100,7 @@ const Contracts = () => {
                   <tr className="fw-bolder text-muted">
                     <th className="min-w-140px">Company</th>
                     <th className="min-w-100px">Machine</th>
-                    <th className="min-w-60px">Contract Date</th>
+                    <th className="min-w-60px">Machine Quantity</th>
                     <th className="min-w-60px">Expiration Date</th>
                     <th className="min-w-60px">FOC</th>
                     <th className="min-w-60px">Status</th>
@@ -140,9 +140,7 @@ const Contracts = () => {
                       </td>
 
                       <td>
-                        <Moment format='YYYY-MM-DD'>
-                          {item.start_date}
-                        </Moment>
+                          {item.machine_models.length}
                       </td>
 
                       <td>

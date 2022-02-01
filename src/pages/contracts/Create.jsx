@@ -27,6 +27,7 @@ const CreateContract = ({ open, onCloseModal, onCreated }) => {
     setData({
       ...data, [name]: new Date(value)
     })
+    setBlock(false)
   }
 
   const handleChange = (e) => {
@@ -40,11 +41,17 @@ const CreateContract = ({ open, onCloseModal, onCreated }) => {
   }
 
   const handleSelect = (option, conf) => {
-    const value = option.value;
+    let value = option.value;
+    if (Array.isArray(option))
+      value = option.map((dt) => {
+        return dt.value;
+      });
+
     const name = conf.name;
     setBlock(false)
 
     setData({
+      // eslint-disable-next-line no-undef
       ...data, [name]: value
     })
   }
@@ -117,9 +124,25 @@ const CreateContract = ({ open, onCloseModal, onCreated }) => {
 
               <div className="form-group mt-5">
                 <label className="required form-label">Machine Model</label>
-                <Select options={machineModels} onChange={handleSelect} name="machine_model_id" />
+                <Select isMulti options={machineModels} onChange={handleSelect} name="machine_model_id" />
                 <div className="fv-plugins-message-container invalid-feedback" htmlFor="machine_model_id"></div>
               </div>
+
+              {data.machine_model_id && data.machine_model_id?.map((itm, key) => (
+                <div key={key} className="form-group mt-5">
+                  <label className="form-label">MFG Number</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Enter MFG Number"
+                    name={`mfg_number[${itm}]`}
+                    id="mfg_number"
+                    onChange={handleChange}
+                    value={data.mfg_number}
+                  />
+                  <div className="fv-plugins-message-container invalid-feedback" htmlFor="mfg_number"></div>
+                </div>
+              ))}
 
               <div className="form-group mt-5">
                 <label className="required form-label">Start Date</label>
