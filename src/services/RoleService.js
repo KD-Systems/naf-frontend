@@ -21,11 +21,17 @@ const remove = async (id) => {
     return res.data;
 };
 
+const getPermission = async ()=>{
+    const res = await http.get(`/get-permission`);
+    return res.data;
+}
+
 const RoleService = {
     getAll,
     get,
     create,
-    remove
+    remove,
+    getPermission
 };
 
 export default RoleService;
