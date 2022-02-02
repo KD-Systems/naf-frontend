@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from "react";
+import React,{useState,useEffect,useRef} from "react";
 import { Link ,useNavigate} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -8,8 +8,11 @@ const InfoBar = () => {
 
   const dispatch = useDispatch()
   const navigate = useNavigate();
+  const ref = useRef();
 
   const [profile,setProfile] = useState([])
+
+  const [profileOpen,setProfileOpen] = useState(false)
 
   const getProfile = async () => {
     setProfile(await ProfileService.getProfile());
@@ -24,6 +27,25 @@ const InfoBar = () => {
     dispatch(logout());
     navigate("/logout")
   }
+
+
+  useEffect(()=>{
+    const clickIfClickedOutside = e =>{
+      if(profileOpen && ref.current && !ref.current.contains(e.target)){
+        setProfileOpen(false)
+      }
+    }
+
+    document.addEventListener("mousedown", clickIfClickedOutside)
+
+    return ()=>{
+      document.removeEventListener("mousedown", clickIfClickedOutside)
+    }
+  },[profileOpen])
+
+
+
+
 
   return (
     <div className="d-flex align-items-stretch flex-shrink-0">
@@ -747,24 +769,34 @@ const InfoBar = () => {
         <div
           className="d-flex align-items-center ms-1 ms-lg-3"
           id="kt_header_user_menu_toggle"
+          ref={ref}
+          onClick={()=> setProfileOpen(!profileOpen)}
         >
           <div
             className="cursor-pointer symbol symbol-30px symbol-md-40px"
             data-kt-menu-trigger="click"
             data-kt-menu-attach="parent"
             data-kt-menu-placement="bottom-end"
+           
           >
-            <span className="symbol-label" style={{ backgroundImage: `url(${profile?.avatar})` }}></span>
+            <span
+              className="symbol-label"
+              style={{ backgroundImage: `url(${profile?.avatar})` }}
+            ></span>
           </div>
-
-          <div
-            className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px"
-            data-kt-menu="true"
+      
+            <div
+            className={profileOpen?"menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px show":"menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px"}
+            
+            style={profileOpen?{zIndex: "105", position: "fixed", inset: "0px 0px auto auto", margin: "0px", transform: "translate(-30px, 65px)"}:{} }
           >
             <div className="menu-item px-3">
               <div className="menu-content d-flex align-items-center px-3">
                 <div className="symbol symbol-50px me-5">
-                  <span className="symbol-label" style={{ backgroundImage: `url(${profile?.avatar})` }}></span>
+                  <span
+                    className="symbol-label"
+                    style={{ backgroundImage: `url(${profile?.avatar})` }}
+                  ></span>
                 </div>
 
                 <div className="d-flex flex-column">
@@ -775,7 +807,7 @@ const InfoBar = () => {
                     href="!#"
                     className="fw-bold text-muted text-hover-primary fs-7"
                   >
-                     {profile?.email}
+                    {profile?.email}
                   </a>
                 </div>
               </div>
@@ -801,6 +833,9 @@ const InfoBar = () => {
               </Link>
             </div>
           </div>
+    
+
+
         </div>
       </div>
     </div>

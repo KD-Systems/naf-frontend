@@ -8,7 +8,7 @@ const ShowPermission = () => {
   const [role, setRole] = useState({});
   const [permissions, setPermissions] = useState([]);
   const [defaultPerms, setDefaultPerms] = useState(null);
-  const [permValues, setPermValues] = useState({});
+
 
   const getRole = async () => {
     setRole(await RoleService.get(id));
@@ -44,8 +44,17 @@ const ShowPermission = () => {
       <div className="post d-flex flex-column-fluid" id="kt_post">
         <div id="kt_content_container" className="container-xxl">
           <div className="card card-flush">
+            
             <div className="card-header pt-8">
+              
               <div className="card-title">
+              <button
+                className="btn btn-sm btn-dark mb-2"
+                style={{ marginRight: "0.75rem" }}
+                onClick={() => navigate(-1)}
+              >
+                <i className="fa fa-arrow-left"></i>Back
+              </button>
                 <h2>{role?.name}</h2>
                 {loading ? (
                 <span className="me-5">
@@ -106,31 +115,7 @@ const ShowPermission = () => {
                     </div>
                   </Fragment>
                 ))}
-                {/* <div className="row mt-12 ">
-                  <div className="col-md-9 offset-md-3">
-                    <button
-                      type="button"
-                      className="btn btn-light me-3"
-                      onClick={() => {
-                        navigate(-1);
-                      }}
-                    >
-                      Cancel
-                    </button>
-
-                    <button
-                      type="button"
-                      className="btn btn-primary"
-                      id="kt_file_manager_settings_submit"
-                    >
-                      <span className="indicator-label">Save</span>
-                      <span className="indicator-progress">
-                        Please wait...
-                        <span className="spinner-border spinner-border-sm align-middle ms-2"></span>
-                      </span>
-                    </button>
-                  </div>
-                </div> */}
+        
               </form>
             </div>
           </div>
