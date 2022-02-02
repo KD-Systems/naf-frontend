@@ -81,35 +81,38 @@ const ShowCompany = () => {
                         <thead>
                           <tr className="fw-bolder text-muted">
                             <th className="min-w-150px">Machine</th>
-                            <th className="min-w-150px">Machine Model</th>
-                            <th className="min-w-150px">Start Date</th>
-                            <th className="min-w-150px">End Date</th>
+                            <th className="min-w-150px">Machine Models</th>
+                            <th className="min-w-150px">Expiration Date</th>
                             <th className="min-w-120px">Status</th>
                           </tr>
                         </thead>
 
                         <tbody>
                           {company?.contracts?.map((item, index) => (
-                            <tr key="index">
+                            <tr key={index}>
                               <td>{item?.machine?.name}</td>
-                              <td>{item?.machine_model?.name}</td>
-                              <td>
-                                {" "}
-                                <Moment format="YYYY-MM-DD">
-                                  {item.start_date}
-                                </Moment>
-                              </td>
+                              <td>{item?.machine_models?.map((it) => it.name).join(', ')}</td>
                               <td>
                                 <Moment format="YYYY-MM-DD">
                                   {item.end_date}
                                 </Moment>
                               </td>
                               <td className={
-                              item.status == 1
-                                ? "badge badge-light-success"
-                                : "badge badge-light-danger"
-                            }>
-                                {item?.status == 1 ? "Active" : "InActive"}
+                                item.status === 1
+                                  ? "badge badge-light-success"
+                                  : "badge badge-light-danger"
+                              }>
+                                <div
+                                  className={
+                                    item.status === 1
+                                      ? "badge badge-light-success"
+                                      : "badge badge-light-danger"
+                                  }
+                                >
+                                  {item.status === 1
+                                    ? "Active"
+                                    : "Inactive"}
+                                </div>
                               </td>
                             </tr>
                           ))}
@@ -135,29 +138,19 @@ const ShowCompany = () => {
                           <tr className="fw-bolder text-muted">
                             <th className="min-w-150px">Machine</th>
                             <th className="min-w-150px">Machine Model</th>
-                            <th className="min-w-150px">Mfg Number</th>
                             <th className="min-w-150px">Space</th>
-                           
+
                           </tr>
                         </thead>
 
                         <tbody>
-                          {company?.contracts?.map((item, index) => (
+                          {company?.machines?.map((item, index) => (
                             <tr key={index}>
-                              <td>{item?.machine?.name}</td>
-                              <td>{item?.machine_model?.name}</td>
+                              <td>{item.machine?.name}</td>
+                              <td>{item.name}</td>
                               <td>
-                                {" "}
-                             
-                                  {item?.machine_model?.mfg_number}
-                              
+                                {item.space}
                               </td>
-                              <td>
-                            
-                                  {item?.machine_model?.space}
-                               
-                              </td>
-                    
                             </tr>
                           ))}
                         </tbody>
@@ -170,13 +163,13 @@ const ShowCompany = () => {
             </div>
 
 
-            </div>
           </div>
-         
         </div>
+
       </div>
-  
-    
+    </div>
+
+
   );
 };
 

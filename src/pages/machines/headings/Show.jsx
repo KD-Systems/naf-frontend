@@ -20,17 +20,18 @@ const ShowPartHeadings = () => {
         <div id="kt_content_container" className="container-xxl">
           <div className="d-flex flex-column flex-lg-row">
             <div className="flex-column flex-lg-row-auto w-lg-250px w-xl-350px mb-10">
-              <button
-                className="btn btn-sm btn-dark mb-2"
-                style={{ marginRight: "0.75rem" }}
-                onClick={() => navigate(-1)}
-              >
-                <i className="fa fa-arrow-left"></i>Back
-              </button>
-
               <div className="card mb-5 mb-xl-8">
                 <div className="card-body">
-                  <div className="d-flex flex-stack fs-4 mb-2">Details</div>
+                <h3 className="card-label">
+                    <button
+                      className="btn btn-sm btn-dark "
+                      style={{ marginRight: "0.75rem" }}
+                      onClick={() => navigate(-1)}
+                    >
+                      <i className="fa fa-arrow-left"></i> Back
+                    </button>
+                    Part Heading Details
+                  </h3>
                   <div className="separator"></div>
 
                   <div className="pb-5 fs-6">

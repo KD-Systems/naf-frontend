@@ -168,12 +168,12 @@ const Companies = () => {
                         <td>
                           <div
                             className={
-                              item.status == 1
+                              item.status === 1
                                 ? "badge badge-light-success"
                                 : "badge badge-light-danger"
                             }
                           >
-                            {item.status == 1
+                            {item.status === 1
                               ? "Active"
                               : "Inactive"}
                           </div>

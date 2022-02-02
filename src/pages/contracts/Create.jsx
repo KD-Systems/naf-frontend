@@ -7,6 +7,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import MachineService from "services/MachineService";
 import MachineModelService from "services/MachineModelService";
+import Moment from "react-moment";
+import moment from "moment";
 
 const CreateContract = ({ open, onCloseModal, onCreated }) => {
 
@@ -19,13 +21,15 @@ const CreateContract = ({ open, onCloseModal, onCreated }) => {
     machine_model_id: '',
     start_date: '',
     end_date: '',
+    start_date_format: '',
+    end_date_format: '',
     notes: ''
   })
   const [block, setBlock] = useState(false);
 
   const handleDateSelect = (value, name) => {
     setData({
-      ...data, [name]: new Date(value)
+      ...data, ...{[name]: new Date(value), [name+'_format']: moment(value).format("YYYY/MM/DD")}
     })
     setBlock(false)
   }
@@ -58,7 +62,8 @@ const CreateContract = ({ open, onCloseModal, onCreated }) => {
 
   const addContract = async () => {
     setBlock(true)
-    await ContractService.create(data);
+    let formData = new FormData(document.getElementById("create-contract"));
+    await ContractService.create(formData);
     onCreated();
     onCloseModal();
   }
@@ -109,7 +114,7 @@ const CreateContract = ({ open, onCloseModal, onCreated }) => {
         title={<>Add Contract</>}
         body={
           <>
-            <form>
+            <form id="create-contract">
               <div className="form-group">
                 <label className="required form-label">Company</label>
                 <Select options={companies} onChange={handleSelect} name="company_id" />
@@ -124,11 +129,11 @@ const CreateContract = ({ open, onCloseModal, onCreated }) => {
 
               <div className="form-group mt-5">
                 <label className="required form-label">Machine Model</label>
-                <Select isMulti options={machineModels} onChange={handleSelect} name="machine_model_id" />
+                <Select isMulti options={machineModels} onChange={handleSelect} name="machine_model_id[]" />
                 <div className="fv-plugins-message-container invalid-feedback" htmlFor="machine_model_id"></div>
               </div>
 
-              {data.machine_model_id && data.machine_model_id?.map((itm, key) => (
+              {data['machine_model_id[]'] && data['machine_model_id[]']?.map((itm, key) => (
                 <div key={key} className="form-group mt-5">
                   <label className="form-label">MFG Number</label>
                   <input
@@ -138,21 +143,23 @@ const CreateContract = ({ open, onCloseModal, onCreated }) => {
                     name={`mfg_number[${itm}]`}
                     id="mfg_number"
                     onChange={handleChange}
-                    value={data.mfg_number}
+                    value={data.mfg_number?.itm}
                   />
-                  <div className="fv-plugins-message-container invalid-feedback" htmlFor="mfg_number"></div>
+                  <div className="fv-plugins-message-container invalid-feedback" htmlFor={`mfg_number[${itm}]`}></div>
                 </div>
               ))}
 
               <div className="form-group mt-5">
                 <label className="required form-label">Start Date</label>
                 <DatePicker className="form-control" selected={data.start_date} onChange={(date) => handleDateSelect(date, 'start_date')} />
+                <input type='hidden' name="start_date" id="start_date" value={data.start_date_format}/>
                 <div className="fv-plugins-message-container invalid-feedback" htmlFor="start_date"></div>
               </div>
 
               <div className="form-group mt-5">
                 <label className="required form-label">End Date</label>
                 <DatePicker className="form-control" selected={data.end_date} onChange={(date) => handleDateSelect(date, 'end_date')} />
+                <input type='hidden' name="end_date" id="end_date" value={data.end_date_format} />
                 <div className="fv-plugins-message-container invalid-feedback" htmlFor="end_date"></div>
               </div>
 

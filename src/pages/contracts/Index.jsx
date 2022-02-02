@@ -1,3 +1,4 @@
+import Confirmation from 'components/utils/Confirmation';
 import React, { useEffect, useState } from 'react'
 import Moment from 'react-moment';
 import { Link } from 'react-router-dom'
@@ -11,17 +12,17 @@ const Contracts = () => {
   const [openAddModal, setOpenAddModal] = useState(false)
   const [openEditModal, setOpenEditModal] = useState(false)
   const [contractId, setContractId] = useState(null)
+  const [confirmDelete, setConfirmDelete] = useState(false);
 
   const getContracts = async () => {
+    setLoading(true)
     setContracts(await ContractService.getAll())
     setLoading(false)
   }
 
-  const deleteContract = (contractId) => {
-    if (window.confirm("Are you sure want to delete?")) {
-      ContractService.remove(contractId)
+  const deleteContract = async (contractId) => {
+      await ContractService.remove(contractId)
       getContracts()
-    }
   }
 
   const onCloseModal = () => {
@@ -140,7 +141,7 @@ const Contracts = () => {
                       </td>
 
                       <td>
-                          {item.machine_models.length}
+                        {item.machine_models.length}
                       </td>
 
                       <td>
@@ -233,7 +234,8 @@ const Contracts = () => {
                         </button>
                         <button
                           onClick={() => {
-                            deleteContract(item.id)
+                            setContractId(item.id)
+                            setConfirmDelete(true)
                           }}
                           className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
                         >
@@ -270,6 +272,14 @@ const Contracts = () => {
             </div>
           </div>
 
+          <Confirmation
+            open={confirmDelete}
+            onConfirm={() => {
+              setConfirmDelete(false);
+              deleteContract(contractId);
+            }}
+            onCancel={() => setConfirmDelete(false)}
+          />
           <CreateContract open={openAddModal} onCloseModal={onCloseModal} onCreated={getContracts} />
           <EditContract open={openEditModal} contractId={contractId} onCloseModal={onCloseModal} onUpdated={getContracts} />
         </div>

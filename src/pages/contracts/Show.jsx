@@ -25,20 +25,9 @@ const ShowContract = () => {
         <div className="container-xxl">
           <div className="d-flex flex-column flex-lg-row">
             <div className="flex-column flex-lg-row-auto w-lg-250px w-xl-350px mb-10">
-
-              <button
-                className="btn btn-sm btn-dark mb-2"
-                style={{ marginRight: "0.75rem" }}
-                onClick={() => navigate(-1)}
-              >
-                <i className="fa fa-arrow-left"></i>Back
-              </button>
-
               <div className="card mb-5 mb-xl-8">
                 <div className="card-body">
-                  <div className="d-flex flex-stack fs-4 mb-2">
-                    Details
-                  </div>
+                Contract
                   <div className="separator"></div>
 
                   <div className="pb-5 fs-6">
@@ -87,6 +76,13 @@ const ShowContract = () => {
                       {data?.is_foc ? "Yes" : "No"}
                     </div>
 
+                    <div className="fw-bolder mt-5">Root Machine Model</div>
+                    <div className="text-gray-600">
+                      <span className="text-gray-600 text-hover-primary">
+                        {data.machine?.name ?? '--'}
+                      </span>
+                    </div>
+
                     <div className="fw-bolder mt-5">Notes</div>
                     <div className="text-gray-600">
                       <span className="text-gray-600 text-hover-primary">
@@ -94,33 +90,6 @@ const ShowContract = () => {
                       </span>
                     </div>
 
-                  </div>
-                </div>
-              </div>
-
-              <div className="card mb-5 mb-xl-8">
-                <div className="card-body">
-                  <div className="d-flex flex-stack fs-4 mb-2">
-                    Machine Details
-                  </div>
-                  <div className="separator"></div>
-                  <div className="pb-5 fs-6">
-
-                    <div className="fw-bolder mt-5">Machine</div>
-                    <div className="text-gray-600">
-                      <span className="text-gray-600 text-hover-primary">
-                        {data.machine?.name ?? '--'}
-                      </span>
-                    </div>
-
-                    <div className="fw-bolder mt-5">Models</div>
-                    <div className="text-gray-600">
-                      {data.machine_model?.map((itm, i) => (
-                        <span key={i} className="text-gray-600 text-hover-primary d-block">
-                          {itm.name}
-                        </span>
-                      ))}
-                    </div>
                   </div>
                 </div>
               </div>
@@ -137,7 +106,7 @@ const ShowContract = () => {
                     href="#machines"
                     onClick={() => setTab("machines")}
                   >
-                    Machines
+                    Machine Models ({data.machine?.name ?? '--'})
                   </a>
                 </li>
               </ul>
