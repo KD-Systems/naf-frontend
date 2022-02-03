@@ -92,17 +92,13 @@ const EditEmployee = ({ open, onCloseModal, getEmployees, employeeId }) => {
     }
   }, [data.role]);
 
-  const updateEmployee = async () => {
+  const updateEmployee = async (e) => {
+    e.preventDefault();
     let formData = new FormData(document.getElementById("update-employee"));
 
     formData.append("_method", "PUT");
     await EmployeeService.update(employeeId, formData);
     getEmployees();
-    onCloseModal();
-  };
-  const onSumbit = (e) => {
-    e.preventDefault();
-    updateEmployee();
     onCloseModal();
   };
 
@@ -191,7 +187,6 @@ const EditEmployee = ({ open, onCloseModal, getEmployees, employeeId }) => {
                   placeholder="Enter Password"
                   name="password"
                   id="password"
-                  // value={data.password || ""}
                   onChange={handleChange}
                 />
                 <div
@@ -207,14 +202,12 @@ const EditEmployee = ({ open, onCloseModal, getEmployees, employeeId }) => {
                   name="designation_id"
                   id="designation_id"
                   onChange={handleChange}
+                  defaultValue={data.designation_id}
                 >
                   <option value="">Select</option>
                   {designations?.map((item, index) => (
                     <option
                       value={item?.id}
-                      selected={
-                        data?.designation?.id == item?.id ? "selected" : ""
-                      }
                       key={index}
                     >
                       {item?.name}
@@ -268,7 +261,7 @@ const EditEmployee = ({ open, onCloseModal, getEmployees, employeeId }) => {
                 type="reset"
                 className="btn btn-primary mr-2 mt-5"
                 style={{ marginRight: "1rem" }}
-                onClick={onSumbit}
+                onClick={updateEmployee}
               >
                 Update
               </button>

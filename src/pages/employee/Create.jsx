@@ -21,7 +21,8 @@ const CreateEmployee = ({ open, onCloseModal, getEmployees }) => {
     });
   };
 
-  const createEmployee = async () => {
+  const createEmployee = async (e) => {
+    e.preventDefault()
     let formData = new FormData(document.getElementById("create-employee"));
     await EmployeeService.create(formData);
     getEmployees();
@@ -84,6 +85,7 @@ const CreateEmployee = ({ open, onCloseModal, getEmployees }) => {
                       name="avatar"
                       accept=".png, .jpg, .jpeg"
                       onChange={(e) => { setImage(e) }}
+                      value={data.avatar ?? ''}
                     />
                   </label>
                 </div>
@@ -98,6 +100,7 @@ const CreateEmployee = ({ open, onCloseModal, getEmployees }) => {
                   name="name"
                   id="name"
                   onChange={handleChange}
+                  value={data.name ?? ''}
                 />
                 <div className="fv-plugins-message-container invalid-feedback" htmlFor="name"></div>
               </div>
@@ -111,6 +114,7 @@ const CreateEmployee = ({ open, onCloseModal, getEmployees }) => {
                   name="email"
                   id="email"
                   onChange={handleChange}
+                  value={data.email ?? ''}
                 />
                 <div className="fv-plugins-message-container invalid-feedback" htmlFor="email"></div>
               </div>
@@ -118,12 +122,13 @@ const CreateEmployee = ({ open, onCloseModal, getEmployees }) => {
               <div className="form-group mt-5">
                 <label className="required form-label">Password</label>
                 <input
-                  type="text"
+                  type="password"
                   className="form-control"
                   placeholder="Enter Password"
                   name="password"
                   id="password"
                   onChange={handleChange}
+                  value={data.password ?? ''}
                 />
                 <div className="fv-plugins-message-container invalid-feedback" htmlFor="password"></div>
               </div>
@@ -140,7 +145,6 @@ const CreateEmployee = ({ open, onCloseModal, getEmployees }) => {
               </div>
 
               <button
-                type="reset"
                 className="btn btn-primary mr-2 mt-5"
                 style={{ marginRight: "1rem" }}
                 onClick={createEmployee}

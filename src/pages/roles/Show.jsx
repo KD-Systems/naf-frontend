@@ -75,7 +75,7 @@ const ShowPermission = () => {
               ) : (
                 ""
               )} */}
-              <form className="form" id="kt_file_manager_settings">
+              <form className="form" id="role_permissions">
                 {permissions?.map((item, index) => (
                   <Fragment key={index}>
                     <div className="fv-row row mb-15">
