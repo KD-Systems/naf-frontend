@@ -1,6 +1,6 @@
 import Confirmation from "components/utils/Confirmation";
 import Table from "components/utils/Table";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import PartService from "services/PartService";
 import CreateContract from "./Create";
@@ -17,22 +17,36 @@ const Parts = () => {
   //Set the columns
   const columns = [
     {
-      name: 'Name',
+      name: 'Common Name',
       selector: row => row.name,
       sortable: true,
       field: 'name',
+      format: row => (
+        <Link
+          to={"/panel/parts/" + row.id}
+          className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
+        >
+          {row.name}
+        </Link>
+      )
     },
     {
-      name: 'Designation',
-      selector: row => row.designation,
+      name: 'Machine',
+      selector: row => row.machines?.map((itm) => itm.name)?.join(', '),
       sortable: true,
-      field: 'designation',
+      field: 'machine',
     },
     {
-      name: 'Role',
-      selector: row => row.role,
+      name: 'Heading',
+      selector: row => row.heading,
       sortable: true,
-      field: 'role',
+      field: 'heading',
+    },
+    {
+      name: 'Part Number',
+      selector: row => row.part_number,
+      sortable: true,
+      field: 'part_number',
     },
     {
       name: 'Status',
@@ -55,7 +69,7 @@ const Parts = () => {
       format: row => (
         <span className="text-end">
           <Link
-            to={"/panel/employees/" + row.id}
+            to={"/panel/parts/" + row.id}
             className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
           >
             <i className="fa fa-eye"></i>
@@ -81,9 +95,9 @@ const Parts = () => {
     },
   ];
 
-  const getParts = async () => {
+  const getParts = async (filters) => {
     setLoading(true);
-    setParts(await PartService.getAll());
+    setParts(await PartService.getAll(filters));
     setLoading(false);
   };
 
@@ -102,42 +116,40 @@ const Parts = () => {
   // }, []);
 
   return (
-    <div className="post d-flex flex-column-fluid" id="kt_post">
-      <div className="container-xxl">
-        <div className="post d-flex flex-column-fluid">
-          <div className="container-xxl">
-            <Table
-              name="Parts"
-              buttonName="Add Part"
-              onClickButton={setOpenAddModal(true)}
-              isLoading={loading} data={parts}
-              columns={columns}
-              onFilter={() => getParts}
-            />
-          </div>
+    <>
+      <div className="post d-flex flex-column-fluid">
+        <div className="container-xxl">
+          <Table
+            name="Parts"
+            buttonName="Add Part"
+            onClickButton={() => setOpenAddModal(true)}
+            isLoading={loading} data={parts}
+            columns={columns}
+            onFilter={getParts}
+          />
         </div>
-
-        <Confirmation
-          open={confirmDelete}
-          onConfirm={() => {
-            setConfirmDelete(false);
-            deletePart(partId);
-          }}
-          onCancel={() => setConfirmDelete(false)}
-        />
-        <CreateContract
-          open={openAddModal}
-          onCloseModal={onCloseModal}
-          onCreated={getParts}
-        />
-        <EditContract
-          open={openEditModal}
-          partId={partId}
-          onCloseModal={onCloseModal}
-          onUpdated={getParts}
-        />
       </div>
-    </div>
+
+      <Confirmation
+        open={confirmDelete}
+        onConfirm={() => {
+          setConfirmDelete(false);
+          deletePart(partId);
+        }}
+        onCancel={() => setConfirmDelete(false)}
+      />
+      <CreateContract
+        open={openAddModal}
+        onCloseModal={onCloseModal}
+        onCreated={getParts}
+      />
+      <EditContract
+        open={openEditModal}
+        partId={partId}
+        onCloseModal={onCloseModal}
+        onUpdated={getParts}
+      />
+    </>
   );
 };
 

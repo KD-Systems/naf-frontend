@@ -20,6 +20,14 @@ const Employee = () => {
       selector: row => row.name,
       sortable: true,
       field: 'name',
+      format: row => (
+        <Link
+          to={"/panel/employees/" + row.id}
+          className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
+        >
+          {row.name}
+        </Link>
+      )
     },
     {
       name: 'Designation',
@@ -71,7 +79,7 @@ const Employee = () => {
           <Link
             to="#"
             className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
-            onClick={() => setConfirmDelete(true)}
+            onClick={() => { setConfirmDelete(true); setEmployeeId(row.id) }}
           >
             <i className="fa fa-trash"></i>
           </Link>

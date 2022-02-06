@@ -85,6 +85,7 @@ function Table({ name, buttonName, title, data, columns, isLoading, onFilter, on
                     pagination
                     paginationServer
                     paginationTotalRows={data.meta?.total}
+                    currentPage={data.meta?.current_page}
                     onChangeRowsPerPage={handlePerRowsChange}
                     onChangePage={handlePageChange}
                     onSort={handleOrder}

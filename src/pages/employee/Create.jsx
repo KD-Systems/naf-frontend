@@ -14,6 +14,7 @@ const CreateEmployee = ({ open, onCloseModal, getEmployees }) => {
     role: null,
   });
   const [roles, setRoles] = useState([]);
+  const [defaultRole, setDefaultRole] = useState(null);
 
 
   const setImage = async (e) => {
@@ -69,6 +70,12 @@ const CreateEmployee = ({ open, onCloseModal, getEmployees }) => {
       [name]: value,
     });
   };
+
+  useEffect(() => {
+    if (open) {
+      setDefaultRole({ label: data.role, value: data.role_id });
+    }
+  }, [data.role]);
 
   return (
     <div>
@@ -170,7 +177,7 @@ const CreateEmployee = ({ open, onCloseModal, getEmployees }) => {
                     options={roles}
                     onChange={handleSelect}
                     name="role"
-                    value={data.role ?? ''}
+                    defaultValue={defaultRole}
                   />
 
                 <div
