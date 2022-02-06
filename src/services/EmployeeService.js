@@ -1,8 +1,10 @@
 import http from "../http-common";
 
 
-const getAll = async () => {
-  const res = await http.get("/employees");
+const getAll = async (params) => {
+  const res = await http.get("/employees", {
+    params: params
+  });
 
   return res.data;
 };

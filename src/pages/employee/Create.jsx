@@ -2,13 +2,18 @@ import React, { useState, useEffect } from "react";
 import Modal from "../../components/utils/Modal";
 import EmployeeService from "../../services/EmployeeService";
 import DesignationService from "../../services/DesignationService";
+import RoleService from "services/RoleService";
+import Select from "react-select";
+
 const CreateEmployee = ({ open, onCloseModal, getEmployees }) => {
   const [data, setData] = useState({
     name: "",
     email: "",
     password: "",
     designation_id: null,
+    role: null,
   });
+  const [roles, setRoles] = useState([]);
 
 
   const setImage = async (e) => {
@@ -21,7 +26,18 @@ const CreateEmployee = ({ open, onCloseModal, getEmployees }) => {
     });
   };
 
-  const createEmployee = async () => {
+  const handleSelect = (option, conf) => {
+    const value = option.value;
+    const name = conf.name;
+
+    setData({
+      ...data,
+      [name]: value,
+    });
+  };
+
+  const createEmployee = async (e) => {
+    e.preventDefault()
     let formData = new FormData(document.getElementById("create-employee"));
     await EmployeeService.create(formData);
     getEmployees();
@@ -29,14 +45,19 @@ const CreateEmployee = ({ open, onCloseModal, getEmployees }) => {
   };
   const [designations, setDesignations] = useState([]);
 
-
-
   const getDesignations = async () => {
     setDesignations(await DesignationService.getAll());
   };
 
+  const getRoles = async () => {
+    let data = await RoleService.getAll();
+    data = data.map((itm) => ({ label: itm.name, value: itm.id })); //Parse the data as per the select requires
+    setRoles(data);
+  };
+
   useEffect(() => {
     getDesignations();
+    getRoles();
   }, [open]);
 
   const handleChange = (e) => {
@@ -84,6 +105,7 @@ const CreateEmployee = ({ open, onCloseModal, getEmployees }) => {
                       name="avatar"
                       accept=".png, .jpg, .jpeg"
                       onChange={(e) => { setImage(e) }}
+                      value={data.avatar ?? ''}
                     />
                   </label>
                 </div>
@@ -98,6 +120,7 @@ const CreateEmployee = ({ open, onCloseModal, getEmployees }) => {
                   name="name"
                   id="name"
                   onChange={handleChange}
+                  value={data.name ?? ''}
                 />
                 <div className="fv-plugins-message-container invalid-feedback" htmlFor="name"></div>
               </div>
@@ -111,6 +134,7 @@ const CreateEmployee = ({ open, onCloseModal, getEmployees }) => {
                   name="email"
                   id="email"
                   onChange={handleChange}
+                  value={data.email ?? ''}
                 />
                 <div className="fv-plugins-message-container invalid-feedback" htmlFor="email"></div>
               </div>
@@ -118,12 +142,13 @@ const CreateEmployee = ({ open, onCloseModal, getEmployees }) => {
               <div className="form-group mt-5">
                 <label className="required form-label">Password</label>
                 <input
-                  type="text"
+                  type="password"
                   className="form-control"
                   placeholder="Enter Password"
                   name="password"
                   id="password"
                   onChange={handleChange}
+                  value={data.password ?? ''}
                 />
                 <div className="fv-plugins-message-container invalid-feedback" htmlFor="password"></div>
               </div>
@@ -139,8 +164,22 @@ const CreateEmployee = ({ open, onCloseModal, getEmployees }) => {
                 <div className="fv-plugins-message-container invalid-feedback" htmlFor="designation_id"></div>
               </div>
 
+              <div className="form-group">
+                <label className="required form-label">Role</label>
+                <Select
+                    options={roles}
+                    onChange={handleSelect}
+                    name="role"
+                    value={data.role ?? ''}
+                  />
+
+                <div
+                  className="fv-plugins-message-container invalid-feedback"
+                  htmlFor="role"
+                ></div>
+              </div>
+
               <button
-                type="reset"
                 className="btn btn-primary mr-2 mt-5"
                 style={{ marginRight: "1rem" }}
                 onClick={createEmployee}

@@ -59,7 +59,7 @@ const MachineModels = ({ tab, models }) => {
                       </Link>
                     </td>
 
-                    <td>{item.mfg_number}</td>
+                    <td>{item.pivot.mfg_number}</td>
                     <td>{item.space}</td>
                   </tr>
                 ))}
