@@ -2,7 +2,7 @@ import http from "../http-common";
 
 const getAll = async () => {
   const res = await http.get("/parts");
-  return res.data;
+  return res;
 };
 
 const get = async (id) => {

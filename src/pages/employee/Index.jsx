@@ -98,20 +98,16 @@ const Employee = () => {
 
   return (
     <>
-      <div
-        className="content d-flex flex-column flex-column-fluid"
-      >
-        <div className="post d-flex flex-column-fluid" id="kt_post">
-          <div className="container-xxl">
-            <Table
-              name="Employees"
-              buttonName="Add Employee"
-              onClickButton={onOpenModal}
-              isLoading={loading} data={employees}
-              columns={columns}
-              onFilter={getEmployees}
-            />
-          </div>
+      <div className="post d-flex flex-column-fluid">
+        <div className="container-xxl">
+          <Table
+            name="Employees"
+            buttonName="Add Employee"
+            onClickButton={onOpenModal}
+            isLoading={loading} data={employees}
+            columns={columns}
+            onFilter={getEmployees}
+          />
         </div>
       </div>
 

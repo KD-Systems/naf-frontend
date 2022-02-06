@@ -69,7 +69,6 @@ const EditEmployee = ({ open, onCloseModal, getEmployees, employeeId }) => {
   useEffect(() => {
     if (employeeId) {
       getEmployee();
-      setData()
     }
   }, [open, employeeId]);
 
@@ -242,7 +241,7 @@ const EditEmployee = ({ open, onCloseModal, getEmployees, employeeId }) => {
                     className="form-check-input"
                     type="checkbox"
                     defaultChecked={data.status}
-                    defaultValue={data.status == true ? "true" : "false"}
+                    defaultValue={data.status === true}
                     name="status"
                     id="flexSwitchDefault"
                     onChange={handleChange}
@@ -251,7 +250,7 @@ const EditEmployee = ({ open, onCloseModal, getEmployees, employeeId }) => {
                     className="form-check-label"
                     htmlFor="flexSwitchDefault"
                   >
-                    Status {data.status ? "active" : "inactive"}
+                    Status {data.status ? "Active" : "Inactive"}
                   </label>
                 </div>
               </div>
