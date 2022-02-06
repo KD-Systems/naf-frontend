@@ -2,13 +2,18 @@ import React, { useState, useEffect } from "react";
 import Modal from "../../components/utils/Modal";
 import EmployeeService from "../../services/EmployeeService";
 import DesignationService from "../../services/DesignationService";
+import RoleService from "services/RoleService";
+import Select from "react-select";
+
 const CreateEmployee = ({ open, onCloseModal, getEmployees }) => {
   const [data, setData] = useState({
     name: "",
     email: "",
     password: "",
     designation_id: null,
+    role: null,
   });
+  const [roles, setRoles] = useState([]);
 
 
   const setImage = async (e) => {
@@ -21,6 +26,16 @@ const CreateEmployee = ({ open, onCloseModal, getEmployees }) => {
     });
   };
 
+  const handleSelect = (option, conf) => {
+    const value = option.value;
+    const name = conf.name;
+
+    setData({
+      ...data,
+      [name]: value,
+    });
+  };
+
   const createEmployee = async (e) => {
     e.preventDefault()
     let formData = new FormData(document.getElementById("create-employee"));
@@ -30,14 +45,19 @@ const CreateEmployee = ({ open, onCloseModal, getEmployees }) => {
   };
   const [designations, setDesignations] = useState([]);
 
-
-
   const getDesignations = async () => {
     setDesignations(await DesignationService.getAll());
   };
 
+  const getRoles = async () => {
+    let data = await RoleService.getAll();
+    data = data.map((itm) => ({ label: itm.name, value: itm.id })); //Parse the data as per the select requires
+    setRoles(data);
+  };
+
   useEffect(() => {
     getDesignations();
+    getRoles();
   }, [open]);
 
   const handleChange = (e) => {
@@ -142,6 +162,21 @@ const CreateEmployee = ({ open, onCloseModal, getEmployees }) => {
                   ))}
                 </select>
                 <div className="fv-plugins-message-container invalid-feedback" htmlFor="designation_id"></div>
+              </div>
+
+              <div className="form-group">
+                <label className="required form-label">Role</label>
+                <Select
+                    options={roles}
+                    onChange={handleSelect}
+                    name="role"
+                    value={data.role ?? ''}
+                  />
+
+                <div
+                  className="fv-plugins-message-container invalid-feedback"
+                  htmlFor="role"
+                ></div>
               </div>
 
               <button

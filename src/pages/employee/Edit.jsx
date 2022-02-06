@@ -63,14 +63,13 @@ const EditEmployee = ({ open, onCloseModal, getEmployees, employeeId }) => {
     let tempdata = { ...data };
     tempdata[name] = value;
 
-    
-
     setData(tempdata);
   };
 
   useEffect(() => {
     if (employeeId) {
       getEmployee();
+      setData()
     }
   }, [open, employeeId]);
 
