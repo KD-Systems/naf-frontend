@@ -109,7 +109,7 @@ const Parts = () => {
             <Table
               name="Parts"
               buttonName="Add Part"
-              onClickButton={setOpenAddModal(true)}
+              onClickButton={()=>setOpenAddModal(true)}
               isLoading={loading} data={parts}
               columns={columns}
               onFilter={() => getParts}

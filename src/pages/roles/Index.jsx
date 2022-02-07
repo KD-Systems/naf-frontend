@@ -24,7 +24,7 @@ const Roles = () => {
     getRoles();
   };
 
-  console.log("🟪", user?.role);
+
 
   useEffect(() => {
     getRoles();
