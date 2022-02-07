@@ -1,31 +1,34 @@
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Confirmation from "../../components/utils/Confirmation";
 import RoleService from "services/RoleService";
 import CreateRole from "./Create";
+import { useSelector } from "react-redux";
 const Roles = () => {
-    const [open, setOpen] = useState(false);
-    const [roles, setRoles] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [roles, setRoles] = useState([]);
 
-    const [roleId, setRoleId] = useState("");
+  const [roleId, setRoleId] = useState("");
 
-    const onOpenModal = () => setOpen(true);
-    const onCloseModal = () => setOpen(false);
+  const onOpenModal = () => setOpen(true);
+  const onCloseModal = () => setOpen(false);
 
-    const [confirmDelete, setConfirmDelete] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const { user } = useSelector((state) => state?.auth);
+  const getRoles = async () => {
+    setRoles(await RoleService.getAll());
+  };
 
-    const getRoles = async () => {
-        setRoles(await RoleService.getAll());
-    };
+  const deletRoles = async (roleId) => {
+    await RoleService.remove(roleId);
+    getRoles();
+  };
 
-    const deletRoles = async (roleId) => {
-      await RoleService.remove(roleId);
-      getRoles();
-    };
+  console.log("🟪", user?.role);
 
-    useEffect(() => {
-      getRoles();
-    }, []);
+  useEffect(() => {
+    getRoles();
+  }, []);
   return (
     <>
       {" "}
@@ -90,21 +93,29 @@ const Roles = () => {
                       <th className="w-25px"></th>
                       <th className="min-w-140px">Name</th>
                       <th className="min-w-120px">Users</th>
-
-                      <th className="min-w-100px text-end">Actions</th>
+                      {user?.role === "Admin" ? (
+                        ""
+                      ) : (
+                        <th className="min-w-100px text-end">Actions</th>
+                      )}
+                      {/* <th className="min-w-100px text-end">Actions</th> */}
                     </tr>
                   </thead>
 
                   <tbody>
-                    {roles?.map((item,index)=>(
-                        <tr key={index}>
+                    {roles?.map((item, index) => (
+                      <tr key={index}>
                         <td></td>
                         <td>
                           <Link
-                              to={"/panel/roles/" +item.id}
+                            to={
+                              item.name !== "Admin"
+                                ? `/panel/roles/` + item.id
+                                : "#"
+                            }
                             className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
                           >
-                           {item?.name}
+                            {item?.name}
                           </Link>
                         </td>
                         <td>
@@ -112,39 +123,87 @@ const Roles = () => {
                             to="#"
                             className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
                           >
-                             {item?.users_count}
+                            {item?.users_count}
                           </Link>
                         </td>
-  
+
                         <td className="text-end">
-                        <Link
-                            to={"/panel/roles/" +item.id}
-                            className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-                          >
-                            <span className="svg-icon svg-icon-3">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                              >
-                                <path
-                                  d="M17.5 11H6.5C4 11 2 9 2 6.5C2 4 4 2 6.5 2H17.5C20 2 22 4 22 6.5C22 9 20 11 17.5 11ZM15 6.5C15 7.9 16.1 9 17.5 9C18.9 9 20 7.9 20 6.5C20 5.1 18.9 4 17.5 4C16.1 4 15 5.1 15 6.5Z"
-                                  fill="black"
-                                />
-                                <path
-                                  opacity="0.3"
-                                  d="M17.5 22H6.5C4 22 2 20 2 17.5C2 15 4 13 6.5 13H17.5C20 13 22 15 22 17.5C22 20 20 22 17.5 22ZM4 17.5C4 18.9 5.1 20 6.5 20C7.9 20 9 18.9 9 17.5C9 16.1 7.9 15 6.5 15C5.1 15 4 16.1 4 17.5Z"
-                                  fill="black"
-                                />
-                              </svg>
-                            </span>
-                          </Link>
-                          <Link
+                          {item?.name !== "Admin" ? (
+                            <Link
+                              to={
+                                item.name !== "Admin"
+                                  ? `/panel/roles/` + item.id
+                                  : "#"
+                              }
+                              className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+                            >
+                              <span className="svg-icon svg-icon-3">
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="24"
+                                  height="24"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                >
+                                  <path
+                                    d="M17.5 11H6.5C4 11 2 9 2 6.5C2 4 4 2 6.5 2H17.5C20 2 22 4 22 6.5C22 9 20 11 17.5 11ZM15 6.5C15 7.9 16.1 9 17.5 9C18.9 9 20 7.9 20 6.5C20 5.1 18.9 4 17.5 4C16.1 4 15 5.1 15 6.5Z"
+                                    fill="black"
+                                  />
+                                  <path
+                                    opacity="0.3"
+                                    d="M17.5 22H6.5C4 22 2 20 2 17.5C2 15 4 13 6.5 13H17.5C20 13 22 15 22 17.5C22 20 20 22 17.5 22ZM4 17.5C4 18.9 5.1 20 6.5 20C7.9 20 9 18.9 9 17.5C9 16.1 7.9 15 6.5 15C5.1 15 4 16.1 4 17.5Z"
+                                    fill="black"
+                                  />
+                                </svg>
+                              </span>
+                            </Link>
+                          ) : (
+                            ""
+                          )}
+                          {item?.name !== "Admin" ? (
+                            <Link
+                              to="#"
+                              className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
+                              onClick={() => {
+                                setRoleId(item.id);
+                                setConfirmDelete(true);
+                              }}
+                            >
+                              <span className="svg-icon svg-icon-3">
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="24"
+                                  height="24"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                >
+                                  <path
+                                    d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z"
+                                    fill="black"
+                                  />
+                                  <path
+                                    opacity="0.5"
+                                    d="M5 5C5 4.44772 5.44772 4 6 4H18C18.5523 4 19 4.44772 19 5V5C19 5.55228 18.5523 6 18 6H6C5.44772 6 5 5.55228 5 5V5Z"
+                                    fill="black"
+                                  />
+                                  <path
+                                    opacity="0.5"
+                                    d="M9 4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V4H9V4Z"
+                                    fill="black"
+                                  />
+                                </svg>
+                              </span>
+                            </Link>
+                          ) : (
+                            ""
+                          )}
+                          {/* <Link
                             to="#"
                             className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
-                            onClick={() => { setRoleId(item.id); setConfirmDelete(true) }}
+                            onClick={() => {
+                              setRoleId(item.id);
+                              setConfirmDelete(true);
+                            }}
                           >
                             <span className="svg-icon svg-icon-3">
                               <svg
@@ -170,12 +229,44 @@ const Roles = () => {
                                 />
                               </svg>
                             </span>
-                          </Link>
+                          </Link> */}
+
+                          {/* <Link
+                            to="#"
+                            className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
+                            onClick={() => {
+                              setRoleId(item.id);
+                              setConfirmDelete(true);
+                            }}
+                          >
+                            <span className="svg-icon svg-icon-3">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                              >
+                                <path
+                                  d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z"
+                                  fill="black"
+                                />
+                                <path
+                                  opacity="0.5"
+                                  d="M5 5C5 4.44772 5.44772 4 6 4H18C18.5523 4 19 4.44772 19 5V5C19 5.55228 18.5523 6 18 6H6C5.44772 6 5 5.55228 5 5V5Z"
+                                  fill="black"
+                                />
+                                <path
+                                  opacity="0.5"
+                                  d="M9 4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V4H9V4Z"
+                                  fill="black"
+                                />
+                              </svg>
+                            </span>
+                          </Link> */}
                         </td>
                       </tr>
                     ))}
-                  
-                   
                   </tbody>
                 </table>
               </div>
@@ -183,7 +274,6 @@ const Roles = () => {
           </div>
         </div>
       </div>
-
       <Confirmation
         open={confirmDelete}
         onConfirm={() => {
@@ -192,7 +282,6 @@ const Roles = () => {
         }}
         onCancel={() => setConfirmDelete(false)}
       />
-
       <CreateRole
         open={open}
         onCloseModal={onCloseModal}

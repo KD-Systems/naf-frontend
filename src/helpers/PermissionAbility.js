@@ -6,7 +6,6 @@ const PermissionAbility = ({ children, permission }) => {
   if (role ==='Admin') {
     return  children ;
   } else {
-    
     return  permissions?.includes(permission)? children : null;
   }
 };

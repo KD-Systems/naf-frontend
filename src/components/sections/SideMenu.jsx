@@ -158,19 +158,24 @@ const SideMenu = () => {
               </div>
             </PermissionAbility>
 
-            <div className="menu-item">
-              <NavLink
-                className={(navinfo) =>
-                  navinfo.isActive ? "menu-link active" : "menu-link"
-                }
-                to="/panel/designations"
-              >
-                <span className="menu-icon">
-                  <i className="fa fa-sitemap"></i>
-                </span>
-                <span className="menu-title">Designations</span>
-              </NavLink>
-            </div>
+            <PermissionAbility permission="designations_access">
+              <div className="menu-item">
+                <NavLink
+                  className={(navinfo) =>
+                    navinfo.isActive ? "menu-link active" : "menu-link"
+                  }
+                  to="/panel/designations"
+                >
+                  <span className="menu-icon">
+                    <i className="fa fa-sitemap"></i>
+                  </span>
+                  <span className="menu-title">Designations</span>
+                </NavLink>
+              </div>
+            </PermissionAbility>
+
+
+            <PermissionAbility permission="roles_access">
 
             <div className="menu-item">
               <NavLink
@@ -185,6 +190,7 @@ const SideMenu = () => {
                 <span className="menu-title">Roles</span>
               </NavLink>
             </div>
+            </PermissionAbility>
 
             <div className="menu-item">
               <div className="menu-content pt-8 pb-2">
@@ -193,7 +199,7 @@ const SideMenu = () => {
                 </span>
               </div>
             </div>
-
+            <PermissionAbility permission="companies_access">
             <div className="menu-item">
               <NavLink
                 className={(navinfo) =>
@@ -207,7 +213,8 @@ const SideMenu = () => {
                 <span className="menu-title">Companies</span>
               </NavLink>
             </div>
-
+            </PermissionAbility>
+            <PermissionAbility permission="contracts_access">
             <div className="menu-item">
               <NavLink
                 className={(navinfo) =>
@@ -221,6 +228,7 @@ const SideMenu = () => {
                 <span className="menu-title">Contracts</span>
               </NavLink>
             </div>
+            </PermissionAbility>
 
             <div className="menu-item">
               <div className="menu-content pt-8 pb-2">
@@ -229,7 +237,8 @@ const SideMenu = () => {
                 </span>
               </div>
             </div>
-
+            
+           <PermissionAbility permission="warehouses_access">  
             <div className="menu-item">
               <NavLink
                 className={(navinfo) =>
@@ -243,7 +252,8 @@ const SideMenu = () => {
                 <span className="menu-title">Warehouses</span>
               </NavLink>
             </div>
-
+            </PermissionAbility>   
+            <PermissionAbility permission="machines_access">  
             <div className="menu-item">
               <NavLink
                 className={(navinfo) =>
@@ -257,7 +267,9 @@ const SideMenu = () => {
                 <span className="menu-title">Machines</span>
               </NavLink>
             </div>
+            </PermissionAbility>   
 
+            <PermissionAbility permission="parts_access">  
             <div className="menu-item">
               <NavLink
                 className={(navinfo) =>
@@ -271,6 +283,7 @@ const SideMenu = () => {
                 <span className="menu-title">Parts</span>
               </NavLink>
             </div>
+            </PermissionAbility>   
 
             <div className="menu-item">
               <div className="menu-content pt-8 pb-2">
