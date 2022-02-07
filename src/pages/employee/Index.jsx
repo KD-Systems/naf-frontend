@@ -1,4 +1,5 @@
 import Confirmation from "components/utils/Confirmation";
+import PermissionAbility from "helpers/PermissionAbility";
 import Table from "components/utils/Table";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
@@ -16,79 +17,87 @@ const Employee = () => {
   //Set the columns
   const columns = [
     {
-      name: 'Name',
-      selector: row => row.name,
+      name: "Name",
+      selector: (row) => row.name,
       sortable: true,
-      field: 'name',
+      field: "name",
     },
     {
-      name: 'Designation',
-      selector: row => row.designation,
+      name: "Designation",
+      selector: (row) => row.designation,
       sortable: true,
-      field: 'designation',
+      field: "designation",
     },
     {
-      name: 'Role',
-      selector: row => row.role,
+      name: "Role",
+      selector: (row) => row.role,
       sortable: true,
-      field: 'role',
+      field: "role",
     },
     {
-      name: 'Status',
-      selector: row => row.status,
+      name: "Status",
+      selector: (row) => row.status,
       sortable: true,
-      field: 'status',
-      format: row => (<span
-        className={
-          row.status === 1
-            ? "badge badge-light-success"
-            : "badge badge-light-danger"
-        }
-      >
-        {row.status === 1 ? "active" : "inactive"}
-      </span>)
-    },
-    {
-      name: 'Action',
-      selector: row => row.status,
-      format: row => (
-        <span className="text-end">
-          <Link
-            to={"/panel/employees/" + row.id}
-            className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-          >
-            <i className="fa fa-eye"></i>
-          </Link>
-          <button
-            className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-            onClick={() => {
-              onOpenUpdateModal();
-              setEmployeeId(row.id);
-            }}
-          >
-            <i className="fa fa-pen"></i>
-          </button>
-          <Link
-            to="#"
-            className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
-            onClick={() => setConfirmDelete(true)}
-          >
-            <i className="fa fa-trash"></i>
-          </Link>
+      field: "status",
+      format: (row) => (
+        <span
+          className={
+            row.status === 1
+              ? "badge badge-light-success"
+              : "badge badge-light-danger"
+          }
+        >
+          {row.status === 1 ? "active" : "inactive"}
         </span>
-      )
+      ),
+    },
+    {
+      name: "Action",
+      selector: (row) => row.status,
+      format: (row) => (
+        <span className="text-end">
+          <PermissionAbility permission="employees_show">
+            <Link
+              to={"/panel/employees/" + row.id}
+              className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+            >
+              <i className="fa fa-eye"></i>
+            </Link>
+          </PermissionAbility>
+          <PermissionAbility permission="employees_edit">
+            <button
+              className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+              onClick={() => {
+                onOpenUpdateModal();
+                setEmployeeId(row.id);
+              }}
+            >
+              <i className="fa fa-pen"></i>
+            </button>
+          </PermissionAbility>
+          <PermissionAbility permission="employees_delete">
+            <Link
+              to="#"
+              className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
+              onClick={() => setConfirmDelete(true)}
+            >
+              <i className="fa fa-trash"></i>
+            </Link>
+          </PermissionAbility>
+        </span>
+      ),
     },
   ];
 
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
   const onOpenUpdateModal = () => setUpdateOpen(true);
-  const onCloseUpdateModal = () => setUpdateOpen(false)
+  const onCloseUpdateModal = () => setUpdateOpen(false);
 
   const getEmployees = async (params) => {
-    setLoading(true)
+    setLoading(true);
     setEmployees(await EmployeeService.getAll(params));
-    setLoading(false)
+    setLoading(false);
   };
 
   const deleteEmployee = async (id) => {
@@ -104,7 +113,8 @@ const Employee = () => {
             name="Employees"
             buttonName="Add Employee"
             onClickButton={onOpenModal}
-            isLoading={loading} data={employees}
+            isLoading={loading}
+            data={employees}
             columns={columns}
             onFilter={getEmployees}
           />

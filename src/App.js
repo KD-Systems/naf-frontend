@@ -27,17 +27,25 @@ import ShowPartAlias from "pages/parts/aliases/Show";
 import WareHouseShow from "pages/warehouses/Show";
 import ShowPermission from "pages/roles/Show";
 
+import { useDispatch } from "react-redux";
+
+
 export const PrivateRoute = ({ children }) => {
   const auth = JSON.parse(localStorage.getItem("user"));
   return auth?.access_token ? children : <Navigate to="/" />;
 };
 
+
 function App() {
+  const dispatch = useDispatch()
+
+
   return (
     <>
       <BrowserRouter>
         <Routes>
           <Route path="/panel/*" element={<AppLayout />}>
+            
             <Route
               path="dashboard"
               element={

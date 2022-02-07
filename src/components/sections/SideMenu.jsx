@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-
+import PermissionAbility from "helpers/PermissionAbility";
 const SideMenu = () => {
   return (
     <div
@@ -74,6 +74,7 @@ const SideMenu = () => {
                 </span>
               </div>
             </div>
+
             <div className="menu-item">
               <NavLink
                 className={(navinfo) =>
@@ -128,6 +129,8 @@ const SideMenu = () => {
                     </svg>
                   </span>
                 </span>
+                {/* <PermissionAbility permission="employees_access"><p>asd</p></PermissionAbility> */}
+
                 <span className="menu-title">Dashboard</span>
               </NavLink>
             </div>
@@ -139,20 +142,21 @@ const SideMenu = () => {
                 </span>
               </div>
             </div>
-
-            <div className="menu-item">
-              <NavLink
-                className={(navinfo) =>
-                  navinfo.isActive ? "menu-link active" : "menu-link"
-                }
-                to="/panel/employees"
-              >
-                <span className="menu-icon">
-                  <i className="fa fa-users"></i>
-                </span>
-                <span className="menu-title">Employees</span>
-              </NavLink>
-            </div>
+            <PermissionAbility permission="employees_access">
+              <div className="menu-item">
+                <NavLink
+                  className={(navinfo) =>
+                    navinfo.isActive ? "menu-link active" : "menu-link"
+                  }
+                  to="/panel/employees"
+                >
+                  <span className="menu-icon">
+                    <i className="fa fa-users"></i>
+                  </span>
+                  <span className="menu-title">Employees</span>
+                </NavLink>
+              </div>
+            </PermissionAbility>
 
             <div className="menu-item">
               <NavLink

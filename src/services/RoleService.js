@@ -28,8 +28,8 @@ const getPermission = async ()=>{
 
 
 const updatePermission = async(roleId, permissionId, attach)=>{
-        let res = await http.post(`/roles/${roleId}/permission-update`, {attach: attach, permission_id: permissionId});
-        return res.data;    
+    let res = await http.post(`/roles/${roleId}/permission-update`, {attach: attach, permission_id: permissionId});
+    return res.data;    
 }
 
 const RoleService = {

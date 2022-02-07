@@ -1,26 +1,26 @@
 import React,{useState,useEffect,useRef} from "react";
 import { Link ,useNavigate} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-
-import { logout } from "../../features/Auth";
+import { logout,getProfile } from "../../features/Auth";
 import ProfileService from "services/ProfileService";
+
 const InfoBar = () => {
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const ref = useRef();
+
+  const { user } = useSelector((state) => state.auth);
 
   const [profile,setProfile] = useState([])
 
   const [profileOpen,setProfileOpen] = useState(false)
 
-  const getProfile = async () => {
-    setProfile(await ProfileService.getProfile());
-  };
-
+// console.log("🔥",user);
 
   useEffect(()=>{
-    getProfile()
+    // getProfile()
+    dispatch(getProfile())
   },[])
 
   const handleLogout = ()=>{
@@ -781,7 +781,7 @@ const InfoBar = () => {
           >
             <span
               className="symbol-label"
-              style={{ backgroundImage: `url(${profile?.avatar})` }}
+              style={{ backgroundImage: `url(${user?.avatar})` }}
             ></span>
           </div>
       
@@ -795,19 +795,19 @@ const InfoBar = () => {
                 <div className="symbol symbol-50px me-5">
                   <span
                     className="symbol-label"
-                    style={{ backgroundImage: `url(${profile?.avatar})` }}
+                    style={{ backgroundImage: `url(${user?.avatar})` }}
                   ></span>
                 </div>
 
                 <div className="d-flex flex-column">
                   <div className="fw-bolder d-flex align-items-center">
-                    {profile?.name}
+                    {user?.name}
                   </div>
                   <a
                     href="!#"
                     className="fw-bold text-muted text-hover-primary fs-7"
                   >
-                    {profile?.email}
+                    {user?.email}
                   </a>
                 </div>
               </div>
