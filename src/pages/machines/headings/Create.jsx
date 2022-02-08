@@ -30,11 +30,18 @@ const CreateHeadings = ({ open, onCloseModal, machineId, onCreated }) => {
     });
   };
 
+  useEffect(() => {
+    setData({
+      name: "",
+      common_heading: false,
+      remarks: "",
+      description: "",
+    })
+  }, []);
   
 
   return (
-    <div>
-      {" "}
+    <>
       <Modal
         open={open}
         onCloseModal={onCloseModal}
@@ -58,7 +65,7 @@ const CreateHeadings = ({ open, onCloseModal, machineId, onCreated }) => {
               ></div>
             </div>
 
-       
+
 
             <div className="form-group mt-5">
               <label className="form-label">Description</label>
@@ -96,24 +103,24 @@ const CreateHeadings = ({ open, onCloseModal, machineId, onCreated }) => {
             </div>
 
             <div className="form-group mt-5">
-            <div className="form-check form-switch form-check-custom form-check-solid">
-             
-              <input
-                type="checkbox"
-                className="form-check-input"
-                placeholder="Enter Common Heading"
-                name="common_heading"
-                id="common_heading"
-                onChange={handleChange}
-             
-                defaultValue={data.common_heading ? true : false}
-              />
-              {" "}
-               <label className="form-check-label" htmlFor="common_heading">
+              <div className="form-check form-switch form-check-custom form-check-solid">
+
+                <input
+                  type="checkbox"
+                  className="form-check-input"
+                  placeholder="Enter Common Heading"
+                  name="common_heading"
+                  id="common_heading"
+                  onChange={handleChange}
+
+                  defaultValue={data.common_heading ? true : false}
+                />
+                {" "}
+                <label className="form-check-label" htmlFor="common_heading">
                   Common Heading
-                  </label>
-             
-            </div>
+                </label>
+
+              </div>
             </div>
 
             <button
@@ -135,7 +142,7 @@ const CreateHeadings = ({ open, onCloseModal, machineId, onCreated }) => {
           </>
         }
       />
-    </div>
+    </>
   );
 };
 

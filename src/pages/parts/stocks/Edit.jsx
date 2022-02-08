@@ -7,9 +7,12 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useParams } from "react-router-dom";
 import WareHouseService from "services/WareHouseService";
+import MachinePartHeadingService from "services/MachinePartHeadingService";
 
 const EditPartStock = ({ open, onCloseModal, onUpdated, stockId }) => {
   let { id } = useParams();
+  const [headings, setHeadings] = useState([])
+  const [defaultHeading, setDefaultHeading] = useState(null)
   const [warehouses, setWarehouses] = useState([])
   const [defaultWarehouse, setDefaultWarehouse] = useState(null);
   const [defaultUnit, setDefaultUnit] = useState(null);
@@ -62,11 +65,11 @@ const EditPartStock = ({ open, onCloseModal, onUpdated, stockId }) => {
     setBlock(true)
     let res = await PartStockService.get(id, stockId)
     setDefaultWarehouse({ label: res.warehouse?.name, value: res.warehouse?.id })
-    setDefaultUnit({label: res.unit.capitalize(), value: res.unit})
+    setDefaultHeading({ label: res.part_heading?.name, value: res.part_heading?.id })
+    setDefaultUnit({ label: res.unit.capitalize(), value: res.unit })
+    res.shipment_date = new Date(res.shipment_date);
+    res.warehouse_id = res.warehouse?.id;
     setData(res);
-    setData({
-      ...res, ...{ warehouse_id: res.warehouse?.id }
-    })
     setBlock(false)
   }
 
@@ -86,9 +89,23 @@ const EditPartStock = ({ open, onCloseModal, onUpdated, stockId }) => {
     setBlock(false)
   };
 
+  const getHeadings = async () => {
+    setBlock(false)
+    let dt = await MachinePartHeadingService.getAll()
+    dt = dt.map(itm => ({ label: itm.name, value: itm.id })) //Parse the data as per the select requires
+    setHeadings(dt);
+    setBlock(false)
+  };
+
+
   useEffect(() => {
     if (open) {//Prevent preload data while modal is hidden
+      setDefaultHeading(null)
+      setDefaultWarehouse(null)
+      setDefaultUnit(null)
+
       getWarehouses();
+      getHeadings();
       getStock();
     }
     setBlock(false)
@@ -104,14 +121,20 @@ const EditPartStock = ({ open, onCloseModal, onUpdated, stockId }) => {
           <>
             <div className="form-group">
               <label className="required form-label">Warehouse</label>
-              { defaultWarehouse && <Select options={warehouses} onChange={handleSelect} name="warehouse_id" defaultValue={defaultWarehouse} /> }
+              {defaultWarehouse ? <Select options={warehouses} onChange={handleSelect} name="warehouse_id" defaultValue={defaultWarehouse} /> : <p>Loading...</p>}
               <div className="fv-plugins-message-container invalid-feedback" htmlFor="warehouse_id"></div>
+            </div>
+
+            <div className="form-group">
+              <label className="required form-label">Part Heading</label>
+              {defaultHeading ? <Select options={headings} onChange={handleSelect} name="part_heading_id" defaultValue={defaultHeading} /> : <p>Loading...</p>}
+              <div className="fv-plugins-message-container invalid-feedback" htmlFor="part_heading_id"></div>
             </div>
 
             <div className="form-group mt-5 row">
               <div className="col-md-6">
                 <label className="required form-label">Units</label>
-                { defaultUnit && <Select options={units} onChange={handleSelect} name="unit" defaultValue={defaultUnit} /> }
+                {defaultUnit ? <Select options={units} onChange={handleSelect} name="unit" defaultValue={defaultUnit} />  : <p>Loading...</p>}
                 <div className="fv-plugins-message-container invalid-feedback" htmlFor="unit"></div>
               </div>
 

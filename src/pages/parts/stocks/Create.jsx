@@ -7,10 +7,13 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useParams } from "react-router-dom";
 import WareHouseService from "services/WareHouseService";
+import MachinePartHeadingService from "services/MachinePartHeadingService";
 
 const AddPartStock = ({ open, onCloseModal, onCreated }) => {
   let { id } = useParams();
   const [warehouses, setWarehouses] = useState([])
+  const [headings, setHeadings] = useState([])
+
   const [units] = useState([
     { label: 'Piece', value: 'piece' },
     { label: 'Millimetre', value: 'millimetre' },
@@ -56,7 +59,7 @@ const AddPartStock = ({ open, onCloseModal, onCreated }) => {
     })
   }
 
-  const createPartAlias = async () => {
+  const addStock = async () => {
     setBlock(true)
     await PartStockService.create(id, data);
     onCreated();
@@ -66,15 +69,25 @@ const AddPartStock = ({ open, onCloseModal, onCreated }) => {
 
   const getWarehouses = async () => {
     setBlock(false)
-    let data = await WareHouseService.getAll()
-    data = data.map(itm => ({ label: itm.name, value: itm.id })) //Parse the data as per the select requires
-    setWarehouses(data);
+    let dt = await WareHouseService.getAll()
+    dt = dt.map(itm => ({ label: itm.name, value: itm.id })) //Parse the data as per the select requires
+    setWarehouses(dt);
+    setBlock(false)
+  };
+
+  const getHeadings = async () => {
+    setBlock(false)
+    let dt = await MachinePartHeadingService.getAll()
+    dt = dt.map(itm => ({ label: itm.name, value: itm.id })) //Parse the data as per the select requires
+    setHeadings(dt);
     setBlock(false)
   };
 
   useEffect(() => {
-    if (open) //Prevent preload data while modal is hidden
+    if (open) { //Prevent preload data while modal is hidden
       getWarehouses();
+      getHeadings();
+    }
     setBlock(false)
   }, [open]);
 
@@ -90,6 +103,12 @@ const AddPartStock = ({ open, onCloseModal, onCreated }) => {
               <label className="required form-label">Warehouse</label>
               <Select options={warehouses} onChange={handleSelect} name="warehouse_id" />
               <div className="fv-plugins-message-container invalid-feedback" htmlFor="warehouse_id"></div>
+            </div>
+
+            <div className="form-group">
+              <label className="required form-label">Part Heading</label>
+              <Select options={headings} onChange={handleSelect} name="part_heading_id" />
+              <div className="fv-plugins-message-container invalid-feedback" htmlFor="part_heading_id"></div>
             </div>
 
             <div className="form-group mt-5 row">
@@ -186,7 +205,7 @@ const AddPartStock = ({ open, onCloseModal, onCreated }) => {
               disabled={block}
               className="btn btn-primary mr-2 mt-5"
               style={{ marginRight: "1rem" }}
-              onClick={() => { createPartAlias() }}
+              onClick={() => { addStock() }}
             >
               Submit
             </button>
