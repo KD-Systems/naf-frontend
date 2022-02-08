@@ -1,13 +1,13 @@
 import React,{useState,useEffect} from "react";
 import {  NavLink } from "react-router-dom";
-
+import { useDispatch, useSelector } from "react-redux";
 
 import ProfileService from "services/ProfileService";
 
 const TopCard = () => {
 
   const [profile,setProfile] = useState([])
-
+  const { user } = useSelector((state) => state.auth);
   const getProfile = async () => {
     setProfile(await ProfileService.getProfile());
   };
@@ -26,7 +26,7 @@ const TopCard = () => {
         <div className="d-flex flex-wrap flex-sm-nowrap mb-3">
           <div className="me-7 mb-4">
             <div className="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
-              <span className="symbol-label" style={{ backgroundImage: `url(${profile?.avatar})` }}></span>
+              <span className="symbol-label" style={{ backgroundImage: `url(${user?.avatar})` }}></span>
               <div className="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-white h-20px w-20px"></div>
             </div>
           </div>
@@ -38,7 +38,7 @@ const TopCard = () => {
                     href="!#"
                     className="text-gray-900 text-hover-primary fs-2 fw-bolder me-1"
                   >
-                    {profile?.name}
+                    {user?.name}
                   </a>
                 </div>
                 <div className="d-flex flex-wrap fw-bold fs-6 mb-4 pe-2">
@@ -65,7 +65,7 @@ const TopCard = () => {
                         />
                       </svg>
                     </span>
-                    {profile?.designation}
+                    {user?.designation}
                   </a>
 
                   <a
@@ -94,7 +94,7 @@ const TopCard = () => {
                         />
                       </svg>
                     </span>
-                    {profile?.role}
+                    {user?.role}
                   </a>
                 </div>
               </div>
