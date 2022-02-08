@@ -93,7 +93,6 @@ function Table({ name, buttonName, title, data, columns, isLoading, onFilter, on
         />
       </div>
     </div>
-      </div >
     );
 };
 

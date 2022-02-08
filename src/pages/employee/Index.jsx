@@ -64,7 +64,6 @@ const Employee = () => {
       selector: (row) => row.status,
       format: (row) => (
         <span className="text-end">
-<<<<<<< HEAD
           <Link
             to={"/panel/employees/" + row.id}
             className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
@@ -87,36 +86,6 @@ const Employee = () => {
           >
             <i className="fa fa-trash"></i>
           </Link>
-=======
-          <PermissionAbility permission="employees_show">
-            <Link
-              to={"/panel/employees/" + row.id}
-              className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-            >
-              <i className="fa fa-eye"></i>
-            </Link>
-          </PermissionAbility>
-          <PermissionAbility permission="employees_edit">
-            <button
-              className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-              onClick={() => {
-                onOpenUpdateModal();
-                setEmployeeId(row.id);
-              }}
-            >
-              <i className="fa fa-pen"></i>
-            </button>
-          </PermissionAbility>
-          <PermissionAbility permission="employees_delete">
-            <Link
-              to="#"
-              className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
-              onClick={() => setConfirmDelete(true)}
-            >
-              <i className="fa fa-trash"></i>
-            </Link>
-          </PermissionAbility>
->>>>>>> 9829b039e398c563ea76d943d39280c6020c8eb5
         </span>
       ),
     },
