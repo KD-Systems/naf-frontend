@@ -11,7 +11,7 @@ let Api = axios.create({
   baseURL: `//naf-inventory.test/api/`,
   headers: {
     "Content-type": "application/json",
-    "accept":"application/json",
+    "accept": "application/json",
   },
   transformResponse: function (data) {
     let response = JSON.parse(data);
@@ -37,15 +37,42 @@ let Api = axios.create({
       }
 
     //Skip the error message in toast if printed already
-    if (!hasToast && response.message) toast.dark(response.message);
+    if (!hasToast && response.message) {
+      switch (response.status) {
+        case 400:
+          toast.error(response.message);
+          break;
+
+        case 401:
+          toast.warning(response.message);
+          break;
+
+        case 422:
+          toast.warning(response.message);
+          break;
+
+        case 500:
+          toast.error(response.message);
+          break;
+
+        case 200:
+          toast.success(response.message);
+          break;
+
+        default:
+          if (errors.length)
+            toast.warning(response.message);
+          break;
+      }
+    }
 
     return response;
   },
 
   validateStatus: function (status) {
-    if (status === 401 ){
+    if (status === 401) {
       localStorage.removeItem('user')
-      window.location.href="/"
+      window.location.href = "/"
     }
 
     return status >= 200 && status < 300; // default
@@ -63,4 +90,3 @@ Api.interceptors.request.use((config) => {
 });
 
 export default Api
-

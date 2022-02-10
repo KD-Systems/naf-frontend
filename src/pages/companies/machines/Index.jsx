@@ -2,53 +2,50 @@ import Confirmation from 'components/utils/Confirmation';
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
 import CompanyService from 'services/CompanyService';
-import AddUser from './Create';
-import EditUser from './Edit';
+import AddMachine from './Create';
 
-const CompanyUsers = ({ active }) => {
+const CompanyMachines = ({ active }) => {
     const [confirmDelete, setConfirmDelete] = useState(false);
-    const [userId, setUserId] = useState(null);
-    const [users, setUsers] = useState([]);
-    const [openAddUser, setOpenAddUser] = useState(false);
-    const [openEditModal, setOpenEditModal] = useState(false);
+    const [machineId, setMachineId] = useState(null);
+    const [machines, setMachines] = useState([]);
+    const [openAddMachine, setOpenAddMachine] = useState(false);
     const { id } = useParams();
 
     const onCloseModal = () => {
-        setOpenAddUser(false);
-        setOpenEditModal(false);
+        setOpenAddMachine(false);
     };
 
-    const getUsers = async () => {
-        setUsers(await CompanyService.getUsers(id))
+    const getMachines = async () => {
+        setMachines(await CompanyService.getMachines(id))
     }
 
-    const deleteUser = async (userId) => {
-        if (window.confirm('Are you sure want to delete?'))
-            await CompanyService.deleteUser(id, userId)
+    const detachMachine = async (machineId) => {
+        await CompanyService.detachMachine(id, machineId)
+        getMachines()
     }
 
     useEffect(() => {
         if (active && id)
-            getUsers()
+            getMachines()
     }, [])
 
     return (
         <div
-            className="tab-pane fade active show"
-            id="users"
+            className={active === 'machine' ? "tab-pane fade active show" : "tab-pane fade"}
+            id="machines"
             role="tab-panel"
         >
             <div className="d-flex flex-column gacompanyIdgap-lg-10">
                 <div className="card card-flush py-4">
                     <div className="card-header">
                         <div className="card-title">
-                            <h2>Users</h2>
+                            <h2>Machines</h2>
                         </div>
                         <div className="card-toolbar">
                             <button
                                 type="button"
                                 className="btn btn-light-primary"
-                                onClick={() => { setOpenAddUser(true) }}
+                                onClick={() => { setOpenAddMachine(true) }}
                             >
                                 <span className="svg-icon svg-icon-3">
                                     <svg
@@ -86,7 +83,7 @@ const CompanyUsers = ({ active }) => {
                                         ></rect>
                                     </svg>
                                 </span>
-                                Add User
+                                Add Machine
                             </button>
                         </div>
                     </div>
@@ -94,65 +91,44 @@ const CompanyUsers = ({ active }) => {
                         <table className="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
                             <thead>
                                 <tr className="fw-bolder text-muted">
-                                    <th className="min-w-150px">Name</th>
-                                    <th className="min-w-120px">Status</th>
+                                    <th className="min-w-150px">Machine</th>
+                                    <th className="min-w-150px">Model</th>
+                                    <th className="min-w-120px">MFG Number</th>
                                     <th className="min-w-100px text-end">Actions</th>
                                 </tr>
                             </thead>
 
                             <tbody>
-                                {users?.map((item, index) => (
+                                {machines?.map((item, index) => (
                                     <tr key={index}>
                                         <td>
-                                            <div className="d-flex align-items-center">
-                                                <div className="symbol symbol-50px me-5">
-                                                    <span className="symbol-label bg-light">
-                                                        <img
-                                                            src={item.avatar}
-                                                            className="h-75 overflow-hidden"
-                                                            alt=""
-                                                        />
-                                                    </span>
-                                                </div>
-                                                <div className="d-flex justify-content-start flex-column">
-                                                    <Link
-                                                        to={'/panel/companies/' + id + '/users/' + item.id}
-                                                        className="text-dark fw-bolder text-hover-primary mb-1 fs-6"
-                                                    >
-                                                        {item.name}
-                                                    </Link>
-                                                </div>
-                                            </div>
+                                            <Link
+                                                to={'/panel/machines/' + item.machine.id}
+                                                className="text-dark fw-bolder text-hover-primary mb-1 fs-6"
+                                            >
+                                                {item.machine.name}
+                                            </Link>
                                         </td>
-                                        <td
-                                            dangerouslySetInnerHTML={{
-                                                __html: item.status
-                                                    ? '<span className="badge badge-light-success fs-7 fw-bold">Active</span>'
-                                                    : '<span className="badge badge-light-danger fs-7 fw-bold">Inactive</span>',
-                                            }}
-                                        ></td>
+                                        <td>
+                                            <Link
+                                                to={'/panel/machines/' + item.machine.id + '/models/' + item.machine_model.id}
+                                                className="text-dark fw-bolder text-hover-primary mb-1 fs-6"
+                                            >
+                                                {item.machine_model.name}
+                                            </Link>
+                                        </td>
+
+                                        <td>{item.mfg_number}</td>
 
                                         <td className="text-end">
-                                            <Link
-                                                to={'/panel/companies/' + id + '/users/' + item.id}
-                                                className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-                                            >
-                                                <i className='fa fa-eye'></i>
-                                            </Link>
-                                            <button
-                                                className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-                                                onClick={() => { setUserId(item.id); setOpenEditModal(true) }}
-                                            >
-                                                <i className='fa fa-pen'></i>
-                                            </button>
                                             <button
                                                 onClick={() => {
-                                                    setConfirmDelete(true)
-                                                    setUserId(item.id);
+                                                    setMachineId(item.id)
+                                                    setConfirmDelete(true);
                                                 }}
                                                 className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
                                             >
-                                                <i className='fa fa-trash'></i>
+                                                <i className='fa fa-unlink'></i>
                                             </button>
                                         </td>
                                     </tr>
@@ -163,31 +139,25 @@ const CompanyUsers = ({ active }) => {
                 </div>
             </div>
 
+            <AddMachine
+                open={openAddMachine}
+                onCloseModal={() => { onCloseModal() }}
+                onCreate={() => { getMachines(); }}
+                companyId={id}
+            />
+
             <Confirmation
+                message="Are you sure want to dettach the machine?"
+                confirmText="Yes, detach"
                 open={confirmDelete}
                 onConfirm={() => {
                     setConfirmDelete(false);
-                    deleteUser(userId);
+                    detachMachine(machineId);
                 }}
                 onCancel={() => setConfirmDelete(false)}
-            />
-
-            <AddUser
-                open={openAddUser}
-                onCloseModal={() => { onCloseModal() }}
-                onCreate={() => { getUsers(); }}
-                companyId={id}
-            />
-
-            <EditUser
-                open={openEditModal}
-                onCloseModal={() => { onCloseModal() }}
-                onUpdate={() => { getUsers() }}
-                companyId={id}
-                userId={userId}
             />
         </div>
     )
 }
 
-export default CompanyUsers
+export default CompanyMachines

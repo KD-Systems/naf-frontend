@@ -79,13 +79,12 @@ const Employee = () => {
           >
             <i className="fa fa-pen"></i>
           </button>
-          <Link
-            to="#"
+          <button
             className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
             onClick={() => { setConfirmDelete(true); setEmployeeId(row.id) }}
           >
             <i className="fa fa-trash"></i>
-          </Link>
+          </button>
         </span>
       ),
     },

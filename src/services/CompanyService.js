@@ -51,6 +51,21 @@ const deleteUser = async (companyId, userId) => {
   return res.data;
 };
 
+const getMachines = async (companyId) => {
+  let res = await http.get(`/companies/${companyId}/machines`);
+  return res.data;
+};
+
+const attachMachine = async (companyId, data) => {
+  let res = await http.post(`/companies/${companyId}/machines`, data);
+  return res.data;
+};
+
+const detachMachine = async (companyId, machineId) => {
+  let res = await http.delete(`/companies/${companyId}/machines/${machineId}`);
+  return res.data;
+};
+
 const CompanyService = {
   getAll,
   get,
@@ -61,7 +76,10 @@ const CompanyService = {
   addUser,
   getUser,
   updateUser,
-  deleteUser
+  deleteUser,
+  getMachines,
+  attachMachine,
+  detachMachine,
 };
 
 export default CompanyService;
