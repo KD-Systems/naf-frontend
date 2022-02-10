@@ -103,6 +103,7 @@ const PartStocks = ({ tab }) => {
               <thead>
                 <tr className="fw-bolder text-muted">
                   <th className="min-w-140px">Warehouse</th>
+                  <th className="min-w-120px">Part Heading</th>
                   <th className="min-w-100px">Unit</th>
                   <th className="min-w-120px">Unit Value</th>
                   <th className="min-w-120px">Yen Price</th>
@@ -128,6 +129,14 @@ const PartStocks = ({ tab }) => {
                         className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
                       >
                         {item.warehouse.name}
+                      </div>
+                    </td>
+
+                    <td>
+                      <div
+                        className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
+                      >
+                        {item.part_heading?.name}
                       </div>
                     </td>
 

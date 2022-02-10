@@ -4,6 +4,7 @@ import CompanyService from "services/CompanyService";
 import CompanyInfo from "./sections/Info";
 import CompanyUsers from "./users/Index";
 import Moment from "react-moment";
+import CompanyMachines from "./machines/Index";
 
 const ShowCompany = () => {
   const { id } = useParams();
@@ -124,41 +125,7 @@ const ShowCompany = () => {
               </div>
               {/* Tabs end from here */}
 
-              <div className="tab-pane fade" id="machines" role="tab-panel">
-                <div className="d-flex flex-column gap-7 gap-lg-10">
-                  <div className="card card-flush py-4">
-                    <div className="card-header">
-                      <div className="card-title">
-                        <h2>Machines</h2>
-                      </div>
-                    </div>
-                    <div className="card-body pt-0">
-                      <table className="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
-                        <thead>
-                          <tr className="fw-bolder text-muted">
-                            <th className="min-w-150px">Machine</th>
-                            <th className="min-w-150px">Machine Model</th>
-                            <th className="min-w-150px">Space</th>
-
-                          </tr>
-                        </thead>
-
-                        <tbody>
-                          {company?.machines?.map((item, index) => (
-                            <tr key={index}>
-                              <td>{item.machine?.name}</td>
-                              <td>{item.name}</td>
-                              <td>
-                                {item.space}
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <CompanyMachines active={active} companyId={company.id} />
               {/* Tabs end from here */}
             </div>
 

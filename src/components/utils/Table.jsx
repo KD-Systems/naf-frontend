@@ -8,8 +8,6 @@ function Table({ name, buttonName, title, data, columns, isLoading, onFilter, on
     rows: 10,
   });
 
-  console.log(callbackButtons);
-
   //Handle ordering
   const handleOrder = (col, direction) => {
     setFilters({
