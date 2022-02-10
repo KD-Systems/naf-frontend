@@ -28,17 +28,13 @@ import WareHouseShow from "pages/warehouses/Show";
 import ShowPermission from "pages/roles/Show";
 
 import { useDispatch } from "react-redux";
+import PermissionAbility from "helpers/PermissionAbility";
+import { PrivateRoute } from "helpers/PrivateRoute";
 
-
-export const PrivateRoute = ({ children }) => {
-  const auth = JSON.parse(localStorage.getItem("user"));
-  return auth?.access_token ? children : <Navigate to="/" />;
-};
 
 
 function App() {
   const dispatch = useDispatch()
-
 
   return (
     <>
@@ -56,11 +52,14 @@ function App() {
             />
             {/* <Route path="employees" element={<Employee />} /> */}
             {/* Designation start */}
+          
             <Route
               path="designations"
               element={
                 <PrivateRoute>
+                    <PermissionAbility permission="designations_access">
                   <Designations />
+                  </PermissionAbility>
                 </PrivateRoute>
               }
             />
@@ -72,6 +71,7 @@ function App() {
                 </PrivateRoute>
               }
             />
+    
             {/* Designation end */}
 
             {/* Employee Start */}

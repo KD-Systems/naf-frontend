@@ -94,7 +94,7 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
         title={<>Add Part</>}
         body={
           <>
-            <form id="part-create">
+            <form id="part-import">
               {/* <div className="mb-5 fv-row fv-plugins-icon-container text-center">
                 <div
                   className="mx-auto image-input image-input-outline image-input-changed"

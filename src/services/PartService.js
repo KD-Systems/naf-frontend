@@ -27,12 +27,21 @@ const remove = async (id) => {
   return res.data;
 };
 
+const importFile = async (data) => {
+  const res = await http.post("/parts-import", data)
+  return res.data;
+};
+
+
+
+
 const PartService = {
   getAll,
   get,
   create,
   update,
   remove,
+  importFile
 };
 
 export default PartService;

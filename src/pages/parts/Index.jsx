@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import PartService from "services/PartService";
 import CreateContract from "./Create";
 import EditContract from "./Edit";
+import ImportFile from "./ImportFile";
 
 const Parts = () => {
   const [loading, setLoading] = useState(true);
@@ -12,6 +13,7 @@ const Parts = () => {
   const [parts, setParts] = useState([]);
   const [openAddModal, setOpenAddModal] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
+  const [openImportModal, setOpenImportModal] = useState(false);
   const [partId, setPartId] = useState(null);
 
   //Set the columns
@@ -94,6 +96,7 @@ const Parts = () => {
   const onCloseModal = () => {
     setOpenAddModal(false);
     setOpenEditModal(false);
+    setOpenImportModal(false);
   };
 
   // useEffect(() => {
@@ -110,8 +113,8 @@ const Parts = () => {
             onClickButton={() => setOpenAddModal(true)}
             callbackButtons={[
               {
-                name: 'Test',
-                callback: () => {console.log('Hello');}
+                name: 'Import',
+                callback: () => {setOpenImportModal(true);console.log("hello");}
               }
             ]}
             isLoading={loading} data={parts}
@@ -139,6 +142,11 @@ const Parts = () => {
         partId={partId}
         onCloseModal={onCloseModal}
         onUpdated={getParts}
+      />
+      <ImportFile
+        open={openImportModal}
+        onCloseModal={onCloseModal}
+        onImported={getParts}
       />
     </>
   );

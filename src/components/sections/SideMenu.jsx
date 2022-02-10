@@ -1,11 +1,21 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import { NavLink } from "react-router-dom";
 import PermissionAbility from "helpers/PermissionAbility";
 const SideMenu = () => {
+  const [collapsed,setCollapsed]=useState(false)
+  useEffect(()=>{
+    let body = document.body;
+    if (collapsed) {
+      body.setAttribute("data-kt-aside-minimize","on")
+    }
+    else{
+      body.setAttribute("data-kt-aside-minimize","off")
+    }
+  },[collapsed])
   return (
     <div
       id="kt_aside"
-      className="aside aside-dark aside-hoverable"
+      className="aside aside-dark aside-hoverable "
       data-kt-drawer="true"
       data-kt-drawer-name="aside"
       data-kt-drawer-activate="{default: true, lg: false}"
@@ -15,7 +25,7 @@ const SideMenu = () => {
       data-kt-drawer-toggle="#kt_aside_mobile_toggle"
     >
       <div className="aside-logo flex-column-auto" id="kt_aside_logo">
-        <NavLink to="/login">
+        <NavLink to="/panel/dashboard">
           <img
             alt="Logo"
             src="/assets/media/logos/naf.png"
@@ -24,11 +34,12 @@ const SideMenu = () => {
         </NavLink>
         <div
           id="kt_aside_toggle"
-          className="btn btn-icon w-auto px-0 btn-active-color-primary aside-toggle"
+          className={collapsed?"btn btn-icon w-auto px-0 btn-active-color-primary aside-toggle active":"btn btn-icon w-auto px-0 btn-active-color-primary aside-toggle"}
           data-kt-toggle="true"
           data-kt-toggle-state="active"
           data-kt-toggle-target="body"
           data-kt-toggle-name="aside-minimize"
+          onClick={()=> setCollapsed(!collapsed)}
         >
           <span className="svg-icon svg-icon-1 rotate-180">
             <svg

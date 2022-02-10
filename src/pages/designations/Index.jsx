@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Modal from "../../components/utils/Modal";
 import DesignationService from "../../services/DesignationService";
 import CreateDesignation from "./Create";
-
+import PermissionAbility from "helpers/PermissionAbility";
 const Index = () => {
   const [designations, setDesignations] = useState([]);
   const [designationId, setDesignationId] = useState("");
@@ -86,27 +86,55 @@ const Index = () => {
                   Designations
                 </span>
               </h3>
-
-              <div className="card-toolbar">
-                <button
-                  
-                  className="btn btn-light-primary btn-md"
-                  onClick={() => {
-                    onOpenNewModal();
-                  }}
-                >
-                  <span className="svg-icon svg-icon-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                      <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5" fill="black"></rect>
-                      <rect x="10.8891" y="17.8033" width="12" height="2" rx="1" transform="rotate(-90 10.8891 17.8033)" fill="black"></rect>
-                      <rect x="6.01041" y="10.9247" width="12" height="2" rx="1" fill="black"></rect>
-                    </svg>
-                  </span>
-                  Add Designation
-                </button>
-              </div>
+              <PermissionAbility permission="designations_create">
+                <div className="card-toolbar">
+                  <button
+                    className="btn btn-light-primary btn-md"
+                    onClick={() => {
+                      onOpenNewModal();
+                    }}
+                  >
+                    <span className="svg-icon svg-icon-3">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                      >
+                        <rect
+                          opacity="0.3"
+                          x="2"
+                          y="2"
+                          width="20"
+                          height="20"
+                          rx="5"
+                          fill="black"
+                        ></rect>
+                        <rect
+                          x="10.8891"
+                          y="17.8033"
+                          width="12"
+                          height="2"
+                          rx="1"
+                          transform="rotate(-90 10.8891 17.8033)"
+                          fill="black"
+                        ></rect>
+                        <rect
+                          x="6.01041"
+                          y="10.9247"
+                          width="12"
+                          height="2"
+                          rx="1"
+                          fill="black"
+                        ></rect>
+                      </svg>
+                    </span>
+                    Add Designation
+                  </button>
+                </div>
+              </PermissionAbility>
             </div>
-
             <div className="card-body py-3">
               <div className="table-responsive">
                 <table className="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
@@ -125,7 +153,7 @@ const Index = () => {
                     {designations?.map((item, index) => (
                       <tr key={index}>
                         <td></td>
-                       
+
                         <td>
                           <Link
                             to="#"
@@ -137,7 +165,7 @@ const Index = () => {
 
                         <td>
                           <Link
-                           to={"/panel/designations/" + item.id}
+                            to={"/panel/designations/" + item.id}
                             className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
                           >
                             {item.name}
@@ -153,8 +181,9 @@ const Index = () => {
                         </td>
 
                         <td className="text-end">
+                        <PermissionAbility permission="designations_show">
                           <Link
-                           to={"/panel/designations/" + item.id}
+                            to={"/panel/designations/" + item.id}
                             className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
                           >
                             <span className="svg-icon svg-icon-3">
@@ -177,6 +206,8 @@ const Index = () => {
                               </svg>
                             </span>
                           </Link>
+                          </PermissionAbility>
+                          <PermissionAbility permission="designations_edit">
                           <Link
                             to="#"
                             className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
@@ -205,6 +236,8 @@ const Index = () => {
                               </svg>
                             </span>
                           </Link>
+                          </PermissionAbility>
+                          <PermissionAbility permission="designations_delete">
                           <Link
                             to="#"
                             className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
@@ -235,6 +268,7 @@ const Index = () => {
                               </svg>
                             </span>
                           </Link>
+                          </PermissionAbility>
                         </td>
                       </tr>
                     ))}
