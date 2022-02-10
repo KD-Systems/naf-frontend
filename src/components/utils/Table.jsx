@@ -8,11 +8,6 @@ function Table({ name, buttonName, title, data, columns, isLoading, onFilter, on
     rows: 10,
   });
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> a5328b478847c361aff80a397718342e08d3393b
   //Handle ordering
   const handleOrder = (col, direction) => {
     setFilters({
