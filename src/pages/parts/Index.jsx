@@ -108,6 +108,12 @@ const Parts = () => {
             name="Parts"
             buttonName="Add Part"
             onClickButton={() => setOpenAddModal(true)}
+            callbackButtons={[
+              {
+                name: 'Test',
+                callback: () => {console.log('Hello');}
+              }
+            ]}
             isLoading={loading} data={parts}
             columns={columns}
             onFilter={getParts}

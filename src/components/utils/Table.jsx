@@ -1,32 +1,33 @@
 import React, { useEffect, useState } from 'react';
 import DataTable from 'react-data-table-component';
-import { Link } from 'react-router-dom';
 import PermissionAbility from "helpers/PermissionAbility";
-function Table({ name, buttonName, title, data, columns, isLoading, onFilter, onClickButton }) {
+function Table({ name, buttonName, title, data, columns, isLoading, onFilter, onClickButton, callbackButtons }) {
   const [filters, setFilters] = useState({
     order: {},
     page: 1,
     rows: 10,
   });
 
+  console.log(callbackButtons);
+
   //Handle ordering
   const handleOrder = (col, direction) => {
     setFilters({
-      ...filters, ['order']: { column: col.field, direction: direction }
+      ...filters, order: { column: col.field, direction: direction }
     })
   }
 
   //Hadle pagination
   const handlePageChange = (num) => {
     setFilters({
-      ...filters, ['page']: num
+      ...filters, page: num
     })
   }
 
   //Handle rows per page
   const handlePerRowsChange = (num) => {
     setFilters({
-      ...filters, ['rows']: num
+      ...filters, rows: num
     })
   }
 
@@ -34,7 +35,7 @@ function Table({ name, buttonName, title, data, columns, isLoading, onFilter, on
   const onSearch = (e) => {
     if (e.key === 'Enter')
       setFilters({
-        ...filters, ['q']: e.target.value
+        ...filters, q: e.target.value
       })
   }
 
@@ -60,21 +61,36 @@ function Table({ name, buttonName, title, data, columns, isLoading, onFilter, on
             />
           </div>
         </div>
-        <PermissionAbility permission="employees_create">
-          {typeof onClickButton === "function" && (
-            <div className="card-toolbar flex-row-fluid justify-content-end gap-5">
-              <Link
-                to="#"
+
+        <div className="card-toolbar flex-row-fluid justify-content-end gap-5">
+          {callbackButtons?.map((itm, index) => (
+            typeof onClickButton === "function" && (
+              <button
+                key={index}
+                type='button'
+                className="btn btn-light-primary btn-md"
+                onClick={() => {
+                  if (typeof itm.callback === "function") itm.callback();
+                }}
+                dangerouslySetInnerHTML={{__html: itm.name}}
+              ></button>
+            )
+          ))}
+
+          <PermissionAbility permission="employees_create">
+            {typeof onClickButton === "function" && (
+              <button
+                type='button'
                 className="btn btn-light-primary btn-md"
                 onClick={() => {
                   if (typeof onClickButton === "function") onClickButton();
                 }}
               >
                 {buttonName}
-              </Link>
-            </div>
-          )}
-        </PermissionAbility>
+              </button>
+            )}
+          </PermissionAbility>
+        </div>
       </div>
 
       <div className="card-body pt-0">
@@ -93,7 +109,7 @@ function Table({ name, buttonName, title, data, columns, isLoading, onFilter, on
         />
       </div>
     </div>
-    );
+  );
 };
 
 export default Table;

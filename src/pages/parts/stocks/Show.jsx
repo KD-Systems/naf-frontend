@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import PartAliasService from "services/PartAliasService";
 
-const ShowPartAlias = () => {
-  let { partId, aliasId } = useParams();
+const ShowStock = () => {
+  let { partId, aliasId, stockId } = useParams();
   const navigate = useNavigate();
   const [data, setData] = useState({});
 
@@ -350,4 +350,4 @@ const ShowPartAlias = () => {
   );
 };
 
-export default ShowPartAlias;
+export default ShowStock;
