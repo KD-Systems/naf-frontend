@@ -27,7 +27,13 @@ const ShowContract = () => {
             <div className="flex-column flex-lg-row-auto w-lg-250px w-xl-350px mb-10">
               <div className="card mb-5 mb-xl-8">
                 <div className="card-body">
-                Contract
+                <button
+                      className="btn btn-sm btn-dark "
+                      style={{ marginRight: "0.75rem" }}
+                      onClick={() => navigate(-1)}
+                    >
+                      <i className="fa fa-arrow-left"></i>Back
+                    </button>
                   <div className="separator"></div>
 
                   <div className="pb-5 fs-6">
