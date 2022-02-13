@@ -3,8 +3,9 @@ import Modal from "components/utils/Modal";
 import Tags from "components/utils/Tags";
 import CompanyService from "services/CompanyService";
 
-const EditCompany = ({ open, companyId, onCloseModal, onUpdate }) => {
-    const [company, setCompany] = useState({
+const EditCompany = ({ open, companyId, onCloseModal, onUpdated }) => {
+  const [block, setBlock] = useState(true);
+  const [company, setCompany] = useState({
         logo: '',
         name: '',
         company_group: '',
@@ -25,12 +26,13 @@ const EditCompany = ({ open, companyId, onCloseModal, onUpdate }) => {
 
     const getCompany = async () => {
         setCompany(await CompanyService.get(companyId));
+        setBlock(false)
     };
 
     const updateCompany = async () => {
         let formData = new FormData(document.getElementById("update-company"));
         await CompanyService.update(companyId, formData);
-        onUpdate();
+        onUpdated();
         onCloseModal();
     };
 
@@ -44,9 +46,16 @@ const EditCompany = ({ open, companyId, onCloseModal, onUpdate }) => {
     }
 
     useEffect(() => {
-        if (companyId) {
+        setCompany({
+            logo: '',
+            name: '',
+            company_group: '',
+            machine_types: '',
+            description: '',
+        })
+        
+        if (companyId)
             getCompany();
-        }
     }, [companyId]);
 
     return (
@@ -151,7 +160,7 @@ const EditCompany = ({ open, companyId, onCloseModal, onUpdate }) => {
                                 <div className="fv-plugins-message-container invalid-feedback" htmlFor="description"></div>
                             </div>
 
-                            
+
 
                             <button
                                 type="reset"

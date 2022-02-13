@@ -30,32 +30,11 @@ const EditContract = ({ open, onCloseModal, onUpdated, contractId }) => {
         })
     }
 
-    const handleSelect = (option, conf) => {
-        let value = option.value;
-        if (Array.isArray(option))
-            value = option.map((dt) => {
-                return dt.value;
-            });
-        const name = conf.name;
-
-        setData({
-            ...data, [name]: value
-        })
-    }
-
     const updateContract = async () => {
         await ContractService.update(contractId, data);
         onUpdated();
         onCloseModal();
     }
-
-    const getMachines = async () => {
-        setBlock(false)
-        let dt = await MachineService.getAll()
-        dt = dt.map(itm => ({ label: itm.name, value: itm.id })) //Parse the data as per the select requires
-        setMachines(dt);
-        setBlock(false)
-    };
 
     const getMachineModels = async (machineId) => {
         setBlock(false)
@@ -94,13 +73,7 @@ const EditContract = ({ open, onCloseModal, onUpdated, contractId }) => {
     }, [contractId, data.machine_id]);
 
     useEffect(() => {
-        setData({
-            machine_id: '',
-            machine_model_id: '',
-            start_date: '',
-            end_date: '',
-            notes: ''
-        });
+        setData({});
         if (contractId && open) {
             //   getMachines();
             getContract();

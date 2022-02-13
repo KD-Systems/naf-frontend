@@ -154,6 +154,7 @@ const Roles = () => {
           </div>
         </div>
       </div>
+      
       <Confirmation
         open={confirmDelete}
         onConfirm={() => {
@@ -165,7 +166,7 @@ const Roles = () => {
       <CreateRole
         open={open}
         onCloseModal={onCloseModal}
-        onCreated={getRoles}
+        onCreated={() => getRoles}
       />
     </>
   );

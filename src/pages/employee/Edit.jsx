@@ -73,15 +73,14 @@ const EditEmployee = ({ open, onCloseModal, getEmployees, employeeId }) => {
   }, [open, employeeId]);
 
   useEffect(() => {
-    getRoles();
-  }, [open]);
-
-  useEffect(() => {
     setData(employee);
   }, [employee]);
 
   useEffect(() => {
-    getDesignations();
+    if (open) {
+      getDesignations();
+      getRoles();
+    }
   }, [open]);
 
   useEffect(() => {

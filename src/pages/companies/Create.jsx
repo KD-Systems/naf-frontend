@@ -3,7 +3,7 @@ import Modal from "../../components/utils/Modal";
 import Tags from "../../components/utils/Tags";
 import CompanyService from "../../services/CompanyService";
 
-const CreateCompany = ({ open, onCloseModal, onCreate }) => {
+const CreateCompany = ({ open, onCloseModal, onCreated }) => {
   const [data, setData] = useState({
     name: '',
     company_group: '',
@@ -35,7 +35,7 @@ const CreateCompany = ({ open, onCloseModal, onCreate }) => {
   const createCompany = async () => {
     let formData = new FormData(document.getElementById("create-company"));
     await CompanyService.create(formData);
-    onCreate();
+    onCreated();
     onCloseModal();
   };
 

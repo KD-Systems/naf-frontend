@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Moment from "react-moment";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import ContractService from 'services/ContractService';
 import MachineModels from "./machines/Index";
 
@@ -27,13 +27,14 @@ const ShowContract = () => {
             <div className="flex-column flex-lg-row-auto w-lg-250px w-xl-350px mb-10">
               <div className="card mb-5 mb-xl-8">
                 <div className="card-body">
-                <button
-                      className="btn btn-sm btn-dark "
-                      style={{ marginRight: "0.75rem" }}
-                      onClick={() => navigate(-1)}
-                    >
-                      <i className="fa fa-arrow-left"></i>Back
-                    </button>
+                  <button
+                    className="btn btn-sm btn-dark mb-2"
+                    style={{ marginRight: "0.75rem" }}
+                    onClick={() => navigate(-1)}
+                  >
+                    <i className="fa fa-arrow-left"></i>Back
+                  </button>
+
                   <div className="separator"></div>
 
                   <div className="pb-5 fs-6">
@@ -82,10 +83,15 @@ const ShowContract = () => {
                       {data?.is_foc ? "Yes" : "No"}
                     </div>
 
-                    <div className="fw-bolder mt-5">Root Machine Model</div>
+                    <div className="fw-bolder mt-5">Machines</div>
                     <div className="text-gray-600">
                       <span className="text-gray-600 text-hover-primary">
-                        {data.machine?.name ?? '--'}
+                        {data.machines?.map((dt) => (<Link
+                          to={`/panel/machines/${dt.id}`}
+                          className="text-gray-600 text-hover-primary fw-bolder d-block mb-1 fs-6"
+                        >
+                          {dt.name}
+                        </Link>))}
                       </span>
                     </div>
 
@@ -112,7 +118,7 @@ const ShowContract = () => {
                     href="#machines"
                     onClick={() => setTab("machines")}
                   >
-                    Machine Models ({data.machine?.name ?? '--'})
+                    Machine Models
                   </a>
                 </li>
               </ul>

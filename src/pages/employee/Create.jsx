@@ -57,8 +57,10 @@ const CreateEmployee = ({ open, onCloseModal, getEmployees }) => {
   };
 
   useEffect(() => {
-    getDesignations();
-    getRoles();
+    if (open) {
+      getDesignations();
+      getRoles();
+    }
   }, [open]);
 
   const handleChange = (e) => {
@@ -174,11 +176,11 @@ const CreateEmployee = ({ open, onCloseModal, getEmployees }) => {
               <div className="form-group">
                 <label className="required form-label">Role</label>
                 <Select
-                    options={roles}
-                    onChange={handleSelect}
-                    name="role"
-                    defaultValue={defaultRole}
-                  />
+                  options={roles}
+                  onChange={handleSelect}
+                  name="role"
+                  defaultValue={defaultRole}
+                />
 
                 <div
                   className="fv-plugins-message-container invalid-feedback"
