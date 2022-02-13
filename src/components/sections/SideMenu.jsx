@@ -357,7 +357,7 @@ const SideMenu = () => {
                 <div className="separator mx-1 my-2"></div>
               </div>
             </div>
-
+{/* 
             <div
               data-kt-menu-trigger="click"
               className="menu-item menu-accordion"
@@ -368,7 +368,22 @@ const SideMenu = () => {
                 </span>
                 <span className="menu-title">Settings</span>
               </span>
+            </div> */}
+
+            <div className="menu-item">
+              <NavLink
+                className={(navinfo) =>
+                  navinfo.isActive ? "menu-link active" : "menu-link"
+                }
+                to="/panel/settings"
+              >
+                <span className="menu-icon">
+                  <i className="fas fa-cog"></i>
+                </span>
+                <span className="menu-title">Settings</span>
+              </NavLink>
             </div>
+
           </div>
         </div>
       </div>
