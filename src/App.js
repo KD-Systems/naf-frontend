@@ -30,6 +30,7 @@ import ShowPermission from "pages/roles/Show";
 import { useDispatch } from "react-redux";
 import PermissionAbility from "helpers/PermissionAbility";
 import { PrivateRoute } from "helpers/PrivateRoute";
+import Settings from "pages/Settings/Index";
 
 
 
@@ -254,6 +255,19 @@ function App() {
                 </PrivateRoute>
               }
             />
+
+            {/* Settings Start */}
+
+            <Route
+              path="settings"
+              element={
+                <PrivateRoute>
+                  <Settings />
+                </PrivateRoute>
+              }
+            />
+
+            {/* Settings End */}
             <Route path="*" element={<NotFound />} />
           </Route>
 
