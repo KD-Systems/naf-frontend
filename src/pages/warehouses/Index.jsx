@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Modal from "../../components/utils/Modal";
 import WareHouseService from "../../services/WareHouseService";
 import CreateWareHouse from "./Create";
 import EditWareHouse from "./Edit";
@@ -96,10 +95,10 @@ const Index = () => {
                   <thead>
                     <tr className="fw-bolder text-muted">
                       <th className="w-25px"></th>
-                     
+
 
                       <th className="min-w-120px">Name</th>
-                      <th className="min-w-120px">parts</th>
+                      <th className="min-w-120px">Parts</th>
                       <th className="min-w-100px text-end">Actions</th>
                     </tr>
                   </thead>
@@ -108,51 +107,44 @@ const Index = () => {
                     {wareHouses?.map((item, index) => (
                       <tr key={index}>
                         <td></td>
-                      
+
 
                         <td>
                           <Link
-                           to={"/panel/warehouses/" +item.id}
+                            to={"/panel/warehouses/" + item.id}
                             className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
                           >
                             {item.name}
                           </Link>
                         </td>
-                        <td>
-                          <Link
-                            to="#"
-                            className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
-                          >
-                            1
-                          </Link>
-                        </td>
+
+                        <td>{item.parts_count}</td>
 
                         <td className="text-end">
-
-                        <Link
-                        to={"/panel/warehouses/" +item.id}
-                        className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-                      >
-                        <span className="svg-icon svg-icon-3">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                          >Part
-                            <path
-                              d="M17.5 11H6.5C4 11 2 9 2 6.5C2 4 4 2 6.5 2H17.5C20 2 22 4 22 6.5C22 9 20 11 17.5 11ZM15 6.5C15 7.9 16.1 9 17.5 9C18.9 9 20 7.9 20 6.5C20 5.1 18.9 4 17.5 4C16.1 4 15 5.1 15 6.5Z"
-                              fill="black"
-                            />
-                            <path
-                              opacity="0.3"
-                              d="M17.5 22H6.5C4 22 2 20 2 17.5C2 15 4 13 6.5 13H17.5C20 13 22 15 22 17.5C22 20 20 22 17.5 22ZM4 17.5C4 18.9 5.1 20 6.5 20C7.9 20 9 18.9 9 17.5C9 16.1 7.9 15 6.5 15C5.1 15 4 16.1 4 17.5Z"
-                              fill="black"
-                            />
-                          </svg>
-                        </span>
-                      </Link>
+                          <Link
+                            to={"/panel/warehouses/" + item.id}
+                            className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+                          >
+                            <span className="svg-icon svg-icon-3">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                              >Part
+                                <path
+                                  d="M17.5 11H6.5C4 11 2 9 2 6.5C2 4 4 2 6.5 2H17.5C20 2 22 4 22 6.5C22 9 20 11 17.5 11ZM15 6.5C15 7.9 16.1 9 17.5 9C18.9 9 20 7.9 20 6.5C20 5.1 18.9 4 17.5 4C16.1 4 15 5.1 15 6.5Z"
+                                  fill="black"
+                                />
+                                <path
+                                  opacity="0.3"
+                                  d="M17.5 22H6.5C4 22 2 20 2 17.5C2 15 4 13 6.5 13H17.5C20 13 22 15 22 17.5C22 20 20 22 17.5 22ZM4 17.5C4 18.9 5.1 20 6.5 20C7.9 20 9 18.9 9 17.5C9 16.1 7.9 15 6.5 15C5.1 15 4 16.1 4 17.5Z"
+                                  fill="black"
+                                />
+                              </svg>
+                            </span>
+                          </Link>
                           <Link
                             to="#"
                             className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
@@ -225,13 +217,13 @@ const Index = () => {
       <CreateWareHouse
         open={open}
         onCloseModal={onCloseModal}
-        getWareHouses={getWareHouses}
+        getWareHouses={() => getWareHouses}
       />
 
       <EditWareHouse
         open={updateOpen}
         onCloseModal={onCloseUpdateModal}
-        getWareHouses={getWareHouses}
+        getWareHouses={() => getWareHouses}
         warehousId={warehousId}
       />
     </>

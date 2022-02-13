@@ -11,19 +11,25 @@ const Tags = (props) => {
     };
     options = { ...options, ...props }
 
-    const handleChange = (e) => {
+    const handleChange = async (e) => {
         let dts = e.target.value;
+        if (!options.value)
+            await tagify()
+
         document.getElementById("tags_value").value = JSON.parse(dts)
             .map((dt) => dt.value)
             .join(",");
     };
 
+    const tagify = async () => {
+        const t = document.querySelector("#" + options.id);
+        t && new Tagify(t);
+    }
+
     useEffect(() => {
-        setTimeout(() => {
-            const t = document.querySelector("#" + options.id);
-            t && new Tagify(t);
-        }, 100);
-    }, []);
+        if (options.value)
+            tagify()
+    }, [options.value]);
 
     return (
         <>
@@ -33,7 +39,7 @@ const Tags = (props) => {
                 id={options.id}
                 defaultValue={props.value}
                 className="form-control mb-2"
-                onChange={(e) => {
+                onBlur={(e) => {
                     handleChange(e);
                 }}
             />

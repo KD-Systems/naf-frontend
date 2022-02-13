@@ -118,7 +118,7 @@ const Machines = () => {
                           </Link>
                         </td>
 
-                        <td>1</td>
+                        <td>{item.models_count}</td>
 
                         <td className="text-end">
                           <Link

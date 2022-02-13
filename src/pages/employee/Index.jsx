@@ -1,11 +1,11 @@
 import Confirmation from "components/utils/Confirmation";
-import PermissionAbility from "helpers/PermissionAbility";
 import Table from "components/utils/Table";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import EmployeeService from "../../services/EmployeeService";
 import CreateEmployee from "./Create";
 import Edrowployee from "./Edit";
+
 const Employee = () => {
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -117,7 +117,7 @@ const Employee = () => {
             isLoading={loading}
             data={employees}
             columns={columns}
-            onFilter={getEmployees}
+            onFilter={() => getEmployees}
           />
         </div>
       </div>
@@ -134,13 +134,13 @@ const Employee = () => {
       <CreateEmployee
         open={open}
         onCloseModal={onCloseModal}
-        getEmployees={getEmployees}
+        getEmployees={() => getEmployees}
       />
 
       <Edrowployee
         open={updateOpen}
         onCloseModal={onCloseUpdateModal}
-        getEmployees={getEmployees}
+        getEmployees={() => getEmployees}
         employeeId={employeeId}
       />
     </>

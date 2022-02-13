@@ -5,15 +5,11 @@ import CompanyService from "services/CompanyService";
 import Select from 'react-select'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import MachineService from "services/MachineService";
-import MachineModelService from "services/MachineModelService";
-import Moment from "react-moment";
 import moment from "moment";
 
 const CreateContract = ({ open, onCloseModal, onCreated }) => {
 
   const [companies, setCompanies] = useState([])
-  const [machines, setMachines] = useState([])
   const [machineModels, setMachineModels] = useState([])
   const [data, setData] = useState({
     company_id: '',
@@ -29,7 +25,7 @@ const CreateContract = ({ open, onCloseModal, onCreated }) => {
 
   const handleDateSelect = (value, name) => {
     setData({
-      ...data, ...{[name]: new Date(value), [name+'_format']: moment(value).format("YYYY/MM/DD")}
+      ...data, ...{ [name]: new Date(value), [name + '_format']: moment(value).format("YYYY/MM/DD") }
     })
     setBlock(false)
   }
@@ -69,23 +65,18 @@ const CreateContract = ({ open, onCloseModal, onCreated }) => {
   }
 
   const getCompanies = async () => {
-    let data = await CompanyService.getAll()
-    data = data.map(itm => ({ label: itm.name, value: itm.id })) //Parse the data as per the select requires
-    setCompanies(data);
+    let dt = await CompanyService.getAll({
+      rows: 'all'
+    })
+
+    dt = dt.map(itm => ({ label: itm.name, value: itm.id })) //Parse the data as per the select requires
+    setCompanies(dt);
   };
 
-  const getMachines = async () => {
+  const getMachineModels = async (companyId) => {
     setBlock(false)
-    let dt = await MachineService.getAll()
-    dt = dt.map(itm => ({ label: itm.name, value: itm.id })) //Parse the data as per the select requires
-    setMachines(dt);
-    setBlock(false)
-  };
-
-  const getMachineModels = async (machineId) => {
-    setBlock(false)
-    let dt = await MachineModelService.getAll(machineId)
-    dt = dt.map(itm => ({ label: itm.name, value: itm.id })) //Parse the data as per the select requires
+    let dt = await CompanyService.getMachines(companyId)
+    dt = dt.map(itm => ({ label: itm.machine_model?.name, value: itm.machine_model?.id })) //Parse the data as per the select requires
     setMachineModels(dt);
     setData({
       ...data, ...{ machine_model_id: null }
@@ -94,15 +85,14 @@ const CreateContract = ({ open, onCloseModal, onCreated }) => {
   };
 
   useEffect(() => {
-    if (data.machine_id && open)
-      getMachineModels(data.machine_id)
-  }, [data.machine_id]);
+    if (data.company_id && open)
+    getMachineModels(data.company_id);
+  }, [data.company_id]);
 
   useEffect(() => {
-    if (open) {
+    if (open)
       getCompanies();
-      getMachines();
-    }
+
     setBlock(false)
   }, [open]);
 
@@ -119,12 +109,6 @@ const CreateContract = ({ open, onCloseModal, onCreated }) => {
                 <label className="required form-label">Company</label>
                 <Select options={companies} onChange={handleSelect} name="company_id" />
                 <div className="fv-plugins-message-container invalid-feedback" htmlFor="company_id"></div>
-              </div>
-
-              <div className="form-group mt-5">
-                <label className="required form-label">Machine</label>
-                <Select options={machines} onChange={handleSelect} name="machine_id" />
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="machine_id"></div>
               </div>
 
               <div className="form-group mt-5">
@@ -152,7 +136,7 @@ const CreateContract = ({ open, onCloseModal, onCreated }) => {
               <div className="form-group mt-5">
                 <label className="required form-label">Start Date</label>
                 <DatePicker className="form-control" selected={data.start_date} onChange={(date) => handleDateSelect(date, 'start_date')} />
-                <input type='hidden' name="start_date" id="start_date" value={data.start_date_format}/>
+                <input type='hidden' name="start_date" id="start_date" value={data.start_date_format} />
                 <div className="fv-plugins-message-container invalid-feedback" htmlFor="start_date"></div>
               </div>
 
