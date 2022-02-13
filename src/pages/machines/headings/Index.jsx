@@ -132,7 +132,7 @@ const PartHeadings = ({ tab }) => {
                     </td>
 
                     <td>{item.common_heading ? 'Yes' :'No'}</td>
-                    <td>1</td>
+                    <td>{item.parts_count}</td>
 
                     <td className="text-end">
                       <Link
