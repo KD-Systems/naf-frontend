@@ -86,7 +86,6 @@ const Roles = () => {
                 <table className="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
                   <thead>
                     <tr className="fw-bolder text-muted">
-                      <th className="w-25px"></th>
                       <th className="min-w-140px">Name</th>
                       <th className="min-w-120px">Users</th>
                       {user?.role !== "Admin" && (
