@@ -15,7 +15,8 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
     machine_heading_id: '',
     name: '',
     part_number: '',
-    description: ''
+    description: '',
+    images:''
   })
   const [block, setBlock] = useState(false);
 
@@ -94,8 +95,8 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
         title={<>Add Part</>}
         body={
           <>
-            <form id="part-import">
-              {/* <div className="mb-5 fv-row fv-plugins-icon-container text-center">
+            <form id="part-create" encType="multipart/form-data">
+              <div className="mb-5 fv-row fv-plugins-icon-container text-center">
                 <div
                   className="mx-auto image-input image-input-outline image-input-changed"
                   data-kt-image-input="true"
@@ -117,14 +118,14 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
                     <i className="bi bi-pencil-fill fs-7"></i>
                     <input
                       type="file"
-                      name="image"
+                      name="images"
                       accept=".png, .jpg, .jpeg"
                       onChange={(e) => { setImage(e); handleChange(e) }}
                     />
                   </label>
                 </div>
                 <div className="fv-plugins-message-container invalid-feedback" htmlFor="image"></div>
-              </div> */}
+              </div>
 
               <div className="form-group">
                 <label className="required form-label">Machine</label>
