@@ -126,11 +126,7 @@ const PartStocks = ({ tab }) => {
                   <tr key={index}>
                     <td>
                       <Link
-<<<<<<< HEAD
                          to={"/panel/warehouses/" +  item?.warehouse?.id}
-=======
-                        to={"/panel/warehouses/" + item.warehouse.id}
->>>>>>> 0ce22ae4f4262e4007899209cb3e8a8716c6e51d
                         className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
                       >
                         {item.warehouse.name}
