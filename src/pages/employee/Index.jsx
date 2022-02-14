@@ -117,7 +117,7 @@ const Employee = () => {
             isLoading={loading}
             data={employees}
             columns={columns}
-            onFilter={() => getEmployees}
+            onFilter={getEmployees}
           />
         </div>
       </div>

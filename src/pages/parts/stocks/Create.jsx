@@ -106,7 +106,7 @@ const AddPartStock = ({ open, onCloseModal, onCreated }) => {
             </div>
 
             <div className="form-group">
-              <label className="required form-label">Part Heading</label>
+              <label className="required form-label">Box Heading</label>
               <Select options={headings} onChange={handleSelect} name="part_heading_id" />
               <div className="fv-plugins-message-container invalid-feedback" htmlFor="part_heading_id"></div>
             </div>
