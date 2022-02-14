@@ -141,11 +141,8 @@ const Index = () => {
                 <table className="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
                   <thead>
                     <tr className="fw-bolder text-muted">
-                      <th className="w-25px"></th>
-                      <th className="min-w-50px">Id</th>
-
-                      <th className="min-w-120px">Designation</th>
-                      <th className="min-w-120px">Members</th>
+                      <th className="min-w-150px">Designation</th>
+                      <th className="min-w-150px">Members</th>
                       <th className="min-w-100px text-end">Actions</th>
                     </tr>
                   </thead>
@@ -153,17 +150,6 @@ const Index = () => {
                   <tbody>
                     {designations?.map((item, index) => (
                       <tr key={index}>
-                        <td></td>
-
-                        <td>
-                          <Link
-                            to="#"
-                            className="text-dark fw-bolder text-hover-primary fs-6"
-                          >
-                            {item.id}
-                          </Link>
-                        </td>
-
                         <td>
                           <Link
                             to={"/panel/designations/" + item.id}
@@ -173,12 +159,7 @@ const Index = () => {
                           </Link>
                         </td>
                         <td>
-                          <Link
-                            to="#"
-                            className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
-                          >
-                            {item.members}
-                          </Link>
+                          {item.members}
                         </td>
 
                         <td className="text-end">

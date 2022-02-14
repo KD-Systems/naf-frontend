@@ -15,10 +15,13 @@ const Tags = (props) => {
         let dts = e.target.value;
         if (!options.value)
             await tagify()
-
-        document.getElementById("tags_value").value = JSON.parse(dts)
-            .map((dt) => dt.value)
-            .join(",");
+        try {
+            document.getElementById("tags_value").value = JSON.parse(dts)
+                .map((dt) => dt.value)
+                .join(",");
+        } catch (error) {
+            document.getElementById("tags_value").value = dts;
+        }
     };
 
     const tagify = async () => {

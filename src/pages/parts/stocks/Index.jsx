@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Confirmation from 'components/utils/Confirmation';
 import AddPartStock from './Create';
 import EditPartAlias from './Edit';
@@ -125,19 +125,21 @@ const PartStocks = ({ tab }) => {
                 {!loading && stocks?.map((item, index) => (
                   <tr key={index}>
                     <td>
-                      <div
+                      <Link
+                        to={"/panel/warehouses/" + item.warehouse.id}
                         className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
                       >
                         {item.warehouse.name}
-                      </div>
+                      </Link>
                     </td>
 
                     <td>
-                      <div
+                      <Link
+                        to={"/panel/machines/" + item.part_heading?.machine_id + "/part-headings/" + item.part_heading?.id}
                         className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
                       >
                         {item.part_heading?.name}
-                      </div>
+                      </Link>
                     </td>
 
                     <td>
