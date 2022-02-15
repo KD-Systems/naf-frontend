@@ -117,7 +117,7 @@ const Employee = () => {
             isLoading={loading}
             data={employees}
             columns={columns}
-            onFilter={() => getEmployees}
+            onFilter={getEmployees}
           />
         </div>
       </div>
@@ -134,13 +134,13 @@ const Employee = () => {
       <CreateEmployee
         open={open}
         onCloseModal={onCloseModal}
-        getEmployees={() => getEmployees}
+        getEmployees={getEmployees}
       />
 
       <Edrowployee
         open={updateOpen}
         onCloseModal={onCloseUpdateModal}
-        getEmployees={() => getEmployees}
+        getEmployees={getEmployees}
         employeeId={employeeId}
       />
     </>

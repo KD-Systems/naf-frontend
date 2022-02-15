@@ -58,19 +58,7 @@ const EditMachineModel = ({ open, onCloseModal, onUpdated, machineId, modelId })
               <div className="fv-plugins-message-container invalid-feedback" htmlFor="name"></div>
             </div>
 
-            <div className="form-group mt-5">
-              <label className="form-label">MFG Number</label>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Enter MFG Number"
-                name="mfg_number"
-                id="mfg_number"
-                onChange={handleChange}
-                value={data.mfg_number ?? ''}
-              />
-              <div className="fv-plugins-message-container invalid-feedback" htmlFor="mfg_number"></div>
-            </div>
+        
 
             <div className="form-group mt-5">
               <label className="form-label">Space</label>

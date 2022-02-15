@@ -104,7 +104,7 @@ const PartHeadings = ({ tab }) => {
                 <thead>
                   <tr className="fw-bolder text-muted">
                     <th className="min-w-120px">Name</th>
-                    <th className="min-w-50px">Common Heading</th>
+                   
                     <th className="min-w-50px">Parts</th>
                     <th className="min-w-100px text-end">Actions</th>
                   </tr>
@@ -131,7 +131,7 @@ const PartHeadings = ({ tab }) => {
                       </Link>
                     </td>
 
-                    <td>{item.common_heading ? 'Yes' :'No'}</td>
+                  
                     <td>{item.parts_count}</td>
 
                     <td className="text-end">

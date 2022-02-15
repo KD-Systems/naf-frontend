@@ -179,7 +179,7 @@ const CreateEmployee = ({ open, onCloseModal, getEmployees }) => {
                   options={roles}
                   onChange={handleSelect}
                   name="role"
-                  defaultValue={defaultRole}
+                  defaultValue={defaultRole ?? ""}
                 />
 
                 <div

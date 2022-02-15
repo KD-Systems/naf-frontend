@@ -41,13 +41,7 @@ const ShowMachineModel = () => {
                       {data.name}
                     </div>
 
-                    <div className="fw-bolder mt-5">MFG Number</div>
-                    <div className="text-gray-600">
-                      <span className="text-gray-600">
-                        {data.mfg_number}
-                      </span>
-                    </div>
-
+                   
                     <div className="fw-bolder mt-5">Description</div>
                     <div className="text-gray-600">
                       <span className="text-gray-600">

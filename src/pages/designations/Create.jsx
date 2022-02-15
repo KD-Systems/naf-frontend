@@ -11,6 +11,8 @@ const CreateDesignation = ({ open, onCloseModal, getDesignations }) => {
     onCloseModal();
   }
 
+
+
   const [data, setData] = useState({
     name: "", designation: ""
   })

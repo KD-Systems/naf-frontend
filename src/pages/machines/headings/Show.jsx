@@ -42,10 +42,7 @@ const ShowPartHeadings = () => {
                     <div className="fw-bolder mt-5">Name</div>
                     <div className="text-gray-600">{data?.name}</div>
 
-                    <div className="fw-bolder mt-5">Common Heading</div>
-                    <div className="text-gray-600">
-                      <span className="text-gray-600">{data.common_heading ? "Yes":"No"}</span>
-                    </div>
+             
 
                     <div className="fw-bolder mt-5">Description</div>
                     <div className="text-gray-600">

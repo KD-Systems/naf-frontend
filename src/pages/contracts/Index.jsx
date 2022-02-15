@@ -58,6 +58,23 @@ const Contracts = () => {
       )
     },
     {
+      name: 'Contract Type',
+      selector: row => row.is_foc,
+      sortable: true,
+      field: 'machines',
+      format: (row) => (
+        <span
+          className={
+            row.is_foc
+              ? "badge badge-light-warning"
+              : "badge badge-light-info"
+          }
+        >
+          {row.is_foc ? "FOC" : "PAID"}
+        </span>
+      ),
+    },
+    {
       name: "Contract Status",
       selector: (row) => row.status,
       sortable: true,

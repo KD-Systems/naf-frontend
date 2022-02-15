@@ -102,26 +102,7 @@ const CreateHeadings = ({ open, onCloseModal, machineId, onCreated }) => {
               ></div>
             </div>
 
-            <div className="form-group mt-5">
-              <div className="form-check form-switch form-check-custom form-check-solid">
-
-                <input
-                  type="checkbox"
-                  className="form-check-input"
-                  placeholder="Enter Common Heading"
-                  name="common_heading"
-                  id="common_heading"
-                  onChange={handleChange}
-
-                  defaultValue={data.common_heading ? true : false}
-                />
-                {" "}
-                <label className="form-check-label" htmlFor="common_heading">
-                  Common Heading
-                </label>
-
-              </div>
-            </div>
+    
 
             <button
               disabled={block}

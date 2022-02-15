@@ -53,8 +53,6 @@ const Index = () => {
 
   //delete Designation
   const deleteDesignation = async (id) => {
-    if (!window.confirm("Are you want to do it?")) return false;
-
     await DesignationService.remove(id);
     getDesignations();
     setOpen(false);
