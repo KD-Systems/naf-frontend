@@ -7,7 +7,6 @@ import Profile from "pages/auth/Profile";
 import AccountSettings from "pages/auth/AccountSettings";
 import Employee from "pages/employee/Index";
 import Designations from "pages/designations/Index";
-import Role from "pages/Role";
 import Companies from "pages/companies/Index";
 import ShowCompany from "pages/companies/Show";
 import ShowDesignation from "pages/designations/Show";
@@ -26,17 +25,11 @@ import Roles from "pages/roles/Index";
 import ShowPartAlias from "pages/parts/aliases/Show";
 import WareHouseShow from "pages/warehouses/Show";
 import ShowPermission from "pages/roles/Show";
-
-import { useDispatch } from "react-redux";
 import PermissionAbility from "helpers/PermissionAbility";
 import { PrivateRoute } from "helpers/PrivateRoute";
 import Settings from "pages/Settings/Index";
 
-
-
 function App() {
-  const dispatch = useDispatch()
-
   return (
     <>
       <BrowserRouter>
