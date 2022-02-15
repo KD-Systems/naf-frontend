@@ -24,12 +24,25 @@ const Parts = () => {
       sortable: true,
       field: 'name',
       format: row => (
-        <Link
-          to={"/panel/parts/" + row.id}
-          className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
-        >
-          {row.name}
-        </Link>
+        <div className="d-flex align-items-center">
+          <div className="symbol symbol-50px me-5">
+            <span className="symbol-label bg-light">
+              <img
+                src={row.image}
+                className="h-75 overflow-hidden"
+                alt={row.name}
+              />
+            </span>
+          </div>
+          <div className="d-flex justify-content-start flex-column">
+            <Link
+              to={'/panel/parts/' + row.id}
+              className="text-dark fw-bolder text-hover-primary"
+            >
+              {row.name}
+            </Link>
+          </div>
+        </div>
       )
     },
     {

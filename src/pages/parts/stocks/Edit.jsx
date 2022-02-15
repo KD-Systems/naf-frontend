@@ -126,7 +126,7 @@ const EditPartStock = ({ open, onCloseModal, onUpdated, stockId }) => {
             </div>
 
             <div className="form-group">
-              <label className="required form-label">Part Heading</label>
+              <label className="required form-label">Box Heading</label>
               {defaultHeading ? <Select options={headings} onChange={handleSelect} name="part_heading_id" defaultValue={defaultHeading} /> : <p>Loading...</p>}
               <div className="fv-plugins-message-container invalid-feedback" htmlFor="part_heading_id"></div>
             </div>

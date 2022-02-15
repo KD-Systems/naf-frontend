@@ -16,7 +16,7 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
     name: '',
     part_number: '',
     description: '',
-    images:''
+    image:''
   })
   const [block, setBlock] = useState(false);
 
@@ -118,7 +118,7 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
                     <i className="bi bi-pencil-fill fs-7"></i>
                     <input
                       type="file"
-                      name="images"
+                      name="image"
                       accept=".png, .jpg, .jpeg"
                       onChange={(e) => { setImage(e); handleChange(e) }}
                     />
