@@ -127,7 +127,7 @@ const Parts = () => {
             callbackButtons={[
               {
                 name: 'Import',
-                callback: () => {setOpenImportModal(true);console.log("hello");}
+                callback: () => {setOpenImportModal(true)}
               }
             ]}
             isLoading={loading} data={parts}

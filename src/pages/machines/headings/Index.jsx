@@ -103,10 +103,9 @@ const PartHeadings = ({ tab }) => {
               <table className="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
                 <thead>
                   <tr className="fw-bolder text-muted">
-                    <th className="min-w-120px">Name</th>
-                   
+                    <th className="">Name</th>
                     <th className="min-w-50px">Parts</th>
-                    <th className="min-w-100px text-end">Actions</th>
+                    <th className="min-w-150px text-end">Actions</th>
                   </tr>
                 </thead>
                 

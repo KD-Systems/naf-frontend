@@ -11,13 +11,14 @@ const EditEmployee = ({ open, onCloseModal, getEmployees, employeeId }) => {
   const [designations, setDesignations] = useState([]);
   const [roles, setRoles] = useState([]);
   const [defaultRole, setDefaultRole] = useState(null);
+  const [defaultDesignation, setDefaultDesignation] = useState(null);
   const [data, setData] = useState({
     name: "",
     email: "",
     avatar: "",
     password: "",
     status: false,
-    designation_id: null,
+    designation_id: "",
     role: "",
   });
 
@@ -26,7 +27,9 @@ const EditEmployee = ({ open, onCloseModal, getEmployees, employeeId }) => {
   };
 
   const getDesignations = async () => {
-    setDesignations(await DesignationService.getAll());
+    let data = await DesignationService.getAll();
+    data = data?.map((item) => ({ label: item.name, value: item.id }));
+    setDesignations(data);
   };
 
   const getRoles = async () => {
@@ -44,6 +47,8 @@ const EditEmployee = ({ open, onCloseModal, getEmployees, employeeId }) => {
       [name]: value,
     });
   };
+
+  
 
   const setImage = async (e) => {
     let logoShow = document.getElementById("avatar");
@@ -80,7 +85,9 @@ const EditEmployee = ({ open, onCloseModal, getEmployees, employeeId }) => {
     if (open) {
       getDesignations();
       getRoles();
+      setDefaultDesignation(null)
     }
+
   }, [open]);
 
   useEffect(() => {
@@ -88,6 +95,15 @@ const EditEmployee = ({ open, onCloseModal, getEmployees, employeeId }) => {
       setDefaultRole({ label: data.role, value: data.role_id });
     }
   }, [data.role]);
+
+  useEffect(() => {
+    if (open) {
+      setDefaultDesignation({
+        label: data?.designation?.name,
+        value: data?.designation?.id,
+      });
+    }
+  }, [data.designation]);
 
   const updateEmployee = async (e) => {
     e.preventDefault();
@@ -98,7 +114,6 @@ const EditEmployee = ({ open, onCloseModal, getEmployees, employeeId }) => {
     getEmployees();
     onCloseModal();
   };
-
 
   return (
     <div>
@@ -192,25 +207,19 @@ const EditEmployee = ({ open, onCloseModal, getEmployees, employeeId }) => {
                 ></div>
               </div>
 
-              <div className="form-group mt-5">
-                <label className="form-label">Designation</label>
-                <select
-                  className="form-control"
-                  name="designation_id"
-                  id="designation_id"
-                  onChange={handleChange}
-                  defaultValue={data.designation_id}
-                >
-                  <option value="">Select</option>
-                  {designations?.map((item, index) => (
-                    <option
-                      value={item?.id}
-                      key={index}
-                    >
-                      {item?.name}
-                    </option>
-                  ))}
-                </select>
+
+              <div className="form-group">
+                <label className="required form-label">Designation</label>
+                {defaultDesignation && (
+                  <Select
+                    options={designations}
+                    onChange={handleSelect}
+                    name="designation_id"
+                    defaultValue={defaultDesignation}
+                    // value={defaultDesignation}
+                  />
+                )}
+
                 <div
                   className="fv-plugins-message-container invalid-feedback"
                   htmlFor="designation_id"
