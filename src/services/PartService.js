@@ -18,7 +18,8 @@ const create = async (data) => {
 };
 
 const update = async (id, data) => {
-  const res = await http.put(`/parts/${id}`, data);
+  data.append("_method", "PUT");
+  const res = await http.post(`/parts/${id}`, data);
   return res.data;
 };
 
