@@ -35,10 +35,13 @@ const EditPart = ({ open, onCloseModal, partId, onUpdated }) => {
 
   const updatePart = async () => {
     setBlock(true);
-    await PartService.update(partId, data);
+    let formData = new FormData(document.getElementById("part-update"));
+    await PartService.update(partId,formData);
     onUpdated();
     onCloseModal();
   };
+
+
 
   const getPart = async () => {
     setBlock(true);
@@ -51,7 +54,7 @@ const EditPart = ({ open, onCloseModal, partId, onUpdated }) => {
     if (open) getPart();
   }, [open]);
 
-  console.log("Data",data);
+
 
   return (
     <div>
