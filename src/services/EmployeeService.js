@@ -25,7 +25,7 @@ const update = async (id, data) => {
 };
 
 const remove = async (id) => {
-  const res = await http.delete(`/users/${id}`);
+  const res = await http.delete(`/employees/${id}`);
   return res.data;
 };
 

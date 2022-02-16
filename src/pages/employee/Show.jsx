@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import EmployeeService from "../../services/EmployeeService";
-import Moment from "react-moment";
 import ShowContent from "./ShowContent";
+
 const ShowEmployee = () => {
   let { id } = useParams();
   const navigate = useNavigate();
@@ -24,17 +24,17 @@ const ShowEmployee = () => {
           <div className="d-flex flex-column flex-lg-row">
             <div className="flex-column flex-lg-row-auto w-lg-250px w-xl-350px mb-10">
               <div className="card mb-5 mb-xl-8">
-                  
+
                 <div className="card-body">
-                <button
-                      className="btn btn-sm btn-dark "
-                      style={{ marginRight: "0.75rem" }}
-                      onClick={()=> navigate(-1)}
-                    >
-                      <i className="fa fa-arrow-left"></i>Back
-                    </button>
+                  <button
+                    className="btn btn-sm btn-dark "
+                    style={{ marginRight: "0.75rem" }}
+                    onClick={() => navigate(-1)}
+                  >
+                    <i className="fa fa-arrow-left"></i>Back
+                  </button>
                   <div className="d-flex flex-center flex-column py-5">
-                      
+
                     <div className="symbol symbol-100px symbol-circle mb-7">
                       <img src={employee.avatar} alt={employee.id} />
                     </div>
@@ -49,22 +49,22 @@ const ShowEmployee = () => {
                       </div>
                     </div>
 
-      
 
-           
+
+
                   </div>
 
                   <div className="d-flex flex-stack fs-4 py-3">
                     <div
                       className="fw-bolder rotate collapsible"
-                      
+
                       href="#kt_user_view_details"
                       role="button"
                       aria-expanded="false"
                       aria-controls="kt_user_view_details"
                     >
                       Details
-                    
+
                     </div>
                     <span
                       data-bs-toggle="tooltip"

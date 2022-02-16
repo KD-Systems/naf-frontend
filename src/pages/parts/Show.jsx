@@ -1,3 +1,4 @@
+import { Activities } from "components/utils/Activities";
 import React, { useState, useEffect } from "react";
 import Moment from "react-moment";
 import { useParams, useNavigate } from "react-router-dom";
@@ -127,6 +128,7 @@ const ShowPart = () => {
               <div className="tab-content" id="myTabContent">
                 <PartAliases tab={tab} models={data.models} onChange={getPart} />
                 <PartStocks tab={tab} models={data.models} onChange={getPart} />
+                <Activities logName="parts" modelId={id} tab={tab} />
               </div>
             </div>
 
