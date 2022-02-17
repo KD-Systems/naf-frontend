@@ -1,8 +1,10 @@
 import Breadcrumbs from "../components/sections/Breadcrumbs";
 import Footer from "../components/sections/Footer";
 import SideMenu from "../components/sections/SideMenu";
-
+import { useSelector } from "react-redux";
 const AppLayout = () => {
+  const { user } = useSelector((state) => state.auth);
+  console.log("💥",user);
   return (
     <div
       className="header-fixed
@@ -17,6 +19,7 @@ const AppLayout = () => {
       }}
     >
       <Breadcrumbs />
+     
       <SideMenu />
       <Footer />
     </div>
