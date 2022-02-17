@@ -7,6 +7,13 @@ export const Activities = ({ logName, modelId, self, tab }) => {
 
     const [data, setData] = useState([])
 
+    const expandProperties = (e) => {
+        let prop = e.target;
+        let propId = prop.getAttribute('data-id');
+
+        document.getElementById(propId).classList.toggle('d-none');
+    }
+
     const getActivities = async () => {
         setData(await ActivityService.getAll({
             log_name: logName,
@@ -52,15 +59,24 @@ export const Activities = ({ logName, modelId, self, tab }) => {
                                 </div>
                                 <div className="timeline-content mb-12 mt-n2">
                                     <div className="overflow-auto pe-3">
-                                        <div className="fs-5 fw-bold mb-2">{item.message}</div>
+                                        <div className="fs-5 fw-bold mb-2" role="button" data-id={'properties-' + i} onClick={(e) => expandProperties(e)}>{item.message}</div>
+
+                                        <div className="overflow-auto pb-5 d-none" id={'properties-' + i}>
+                                            <div className="d-flex align-items-center border border-dashed border-gray-300 rounded min-w-700px p-7">
+                                                {
+                                                    console.log(item.properties.attributes)
+                                                }
+                                            </div>
+                                        </div>
+
                                         <div className="d-flex align-items-center mt-1 fs-6">
                                             <div className="symbol symbol-circle symbol-30px">
                                                 <img src={item.causer.avatar_url} alt={item.causer.name} />
                                             </div>
 
                                             <div className="text-muted me-2 fs-7 m-2">
-                                            <span className="text-black">
-                                                <Link to={'/panel/'+(item.causer.employee ? `employees/${item.causer.id}` : `${item.details.company_id}/company-users/${item.causer.id}`)}>{item.causer.name.capitalize()}</Link></span> {item.event} at <span className="text-black"><Moment format='D MMM  YYYY hh:mm a'>{item.created_at}</Moment></span>
+                                                <span className="text-black">
+                                                    <Link to={'/panel/' + (item.causer.employee ? `employees/${item.causer.id}` : `${item.details.company_id}/company-users/${item.causer.id}`)}>{item.causer.name.capitalize()}</Link></span> {item.event} at <span className="text-black"><Moment format='D MMM  YYYY hh:mm a'>{item.created_at}</Moment></span>
                                             </div>
                                         </div>
                                     </div>
