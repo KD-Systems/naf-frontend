@@ -1,8 +1,11 @@
 import React,{useState,useEffect} from "react";
 import { NavLink } from "react-router-dom";
 import PermissionAbility from "helpers/PermissionAbility";
+
 const SideMenu = () => {
   const [collapsed,setCollapsed]=useState(false)
+
+  
   useEffect(()=>{
     let body = document.body;
     if (collapsed) {
@@ -34,12 +37,16 @@ const SideMenu = () => {
         </NavLink>
         <div
           id="kt_aside_toggle"
-          className={collapsed?"btn btn-icon w-auto px-0 btn-active-color-primary aside-toggle active":"btn btn-icon w-auto px-0 btn-active-color-primary aside-toggle"}
+          className={
+            collapsed
+              ? "btn btn-icon w-auto px-0 btn-active-color-primary aside-toggle active"
+              : "btn btn-icon w-auto px-0 btn-active-color-primary aside-toggle"
+          }
           data-kt-toggle="true"
           data-kt-toggle-state="active"
           data-kt-toggle-target="body"
           data-kt-toggle-name="aside-minimize"
-          onClick={()=> setCollapsed(!collapsed)}
+          onClick={() => setCollapsed(!collapsed)}
         >
           <span className="svg-icon svg-icon-1 rotate-180">
             <svg
@@ -185,22 +192,20 @@ const SideMenu = () => {
               </div>
             </PermissionAbility>
 
-
             <PermissionAbility permission="roles_access">
-
-            <div className="menu-item">
-              <NavLink
-                className={(navinfo) =>
-                  navinfo.isActive ? "menu-link active" : "menu-link"
-                }
-                to="roles"
-              >
-                <span className="menu-icon">
-                  <i className="fa fa-user-shield"></i>
-                </span>
-                <span className="menu-title">Roles</span>
-              </NavLink>
-            </div>
+              <div className="menu-item">
+                <NavLink
+                  className={(navinfo) =>
+                    navinfo.isActive ? "menu-link active" : "menu-link"
+                  }
+                  to="roles"
+                >
+                  <span className="menu-icon">
+                    <i className="fa fa-user-shield"></i>
+                  </span>
+                  <span className="menu-title">Roles</span>
+                </NavLink>
+              </div>
             </PermissionAbility>
 
             <div className="menu-item">
@@ -210,35 +215,39 @@ const SideMenu = () => {
                 </span>
               </div>
             </div>
-            <PermissionAbility permission="companies_access">
-            <div className="menu-item">
-              <NavLink
-                className={(navinfo) =>
-                  navinfo.isActive ? "menu-link active" : "menu-link"
-                }
-                to="companies"
-              >
-                <span className="menu-icon">
-                  <i className="fa fa-building"></i>
-                </span>
-                <span className="menu-title">Companies</span>
-              </NavLink>
-            </div>
-            </PermissionAbility>
+           
+   
+              <PermissionAbility permission="companies_access">
+                <div className="menu-item">
+                  <NavLink
+                    className={(navinfo) =>
+                      navinfo.isActive ? "menu-link active" : "menu-link"
+                    }
+                    to="companies"
+                  >
+                    <span className="menu-icon">
+                      <i className="fa fa-building"></i>
+                    </span>
+                    <span className="menu-title">Companies</span>
+                  </NavLink>
+                </div>
+              </PermissionAbility>
+
+
             <PermissionAbility permission="contracts_access">
-            <div className="menu-item">
-              <NavLink
-                className={(navinfo) =>
-                  navinfo.isActive ? "menu-link active" : "menu-link"
-                }
-                to="contracts"
-              >
-                <span className="menu-icon">
-                  <i className="bi bi-sticky fs-3"></i>
-                </span>
-                <span className="menu-title">Contracts</span>
-              </NavLink>
-            </div>
+              <div className="menu-item">
+                <NavLink
+                  className={(navinfo) =>
+                    navinfo.isActive ? "menu-link active" : "menu-link"
+                  }
+                  to="contracts"
+                >
+                  <span className="menu-icon">
+                    <i className="bi bi-sticky fs-3"></i>
+                  </span>
+                  <span className="menu-title">Contracts</span>
+                </NavLink>
+              </div>
             </PermissionAbility>
 
             <div className="menu-item">
@@ -248,53 +257,53 @@ const SideMenu = () => {
                 </span>
               </div>
             </div>
-            
-           <PermissionAbility permission="warehouses_access">  
-            <div className="menu-item">
-              <NavLink
-                className={(navinfo) =>
-                  navinfo.isActive ? "menu-link active" : "menu-link"
-                }
-                to="/panel/warehouses"
-              >
-                <span className="menu-icon">
-                  <i className="fas fa-warehouse"></i>
-                </span>
-                <span className="menu-title">Warehouses</span>
-              </NavLink>
-            </div>
-            </PermissionAbility>   
-            <PermissionAbility permission="machines_access">  
-            <div className="menu-item">
-              <NavLink
-                className={(navinfo) =>
-                  navinfo.isActive ? "menu-link active" : "menu-link"
-                }
-                to="/panel/machines"
-              >
-                <span className="menu-icon">
-                  <i className="fas fa-cogs"></i>
-                </span>
-                <span className="menu-title">Machines</span>
-              </NavLink>
-            </div>
-            </PermissionAbility>   
 
-            <PermissionAbility permission="parts_access">  
-            <div className="menu-item">
-              <NavLink
-                className={(navinfo) =>
-                  navinfo.isActive ? "menu-link active" : "menu-link"
-                }
-                to="/panel/parts"
-              >
-                <span className="menu-icon">
-                  <i className="fas fa-tools"></i>
-                </span>
-                <span className="menu-title">Parts</span>
-              </NavLink>
-            </div>
-            </PermissionAbility>   
+            <PermissionAbility permission="warehouses_access">
+              <div className="menu-item">
+                <NavLink
+                  className={(navinfo) =>
+                    navinfo.isActive ? "menu-link active" : "menu-link"
+                  }
+                  to="/panel/warehouses"
+                >
+                  <span className="menu-icon">
+                    <i className="fas fa-warehouse"></i>
+                  </span>
+                  <span className="menu-title">Warehouses</span>
+                </NavLink>
+              </div>
+            </PermissionAbility>
+            <PermissionAbility permission="machines_access">
+              <div className="menu-item">
+                <NavLink
+                  className={(navinfo) =>
+                    navinfo.isActive ? "menu-link active" : "menu-link"
+                  }
+                  to="/panel/machines"
+                >
+                  <span className="menu-icon">
+                    <i className="fas fa-cogs"></i>
+                  </span>
+                  <span className="menu-title">Machines</span>
+                </NavLink>
+              </div>
+            </PermissionAbility>
+
+            <PermissionAbility permission="parts_access">
+              <div className="menu-item">
+                <NavLink
+                  className={(navinfo) =>
+                    navinfo.isActive ? "menu-link active" : "menu-link"
+                  }
+                  to="/panel/parts"
+                >
+                  <span className="menu-icon">
+                    <i className="fas fa-tools"></i>
+                  </span>
+                  <span className="menu-title">Parts</span>
+                </NavLink>
+              </div>
+            </PermissionAbility>
 
             <div className="menu-item">
               <div className="menu-content pt-8 pb-2">
@@ -357,7 +366,7 @@ const SideMenu = () => {
                 <div className="separator mx-1 my-2"></div>
               </div>
             </div>
-{/* 
+            {/* 
             <div
               data-kt-menu-trigger="click"
               className="menu-item menu-accordion"
@@ -383,7 +392,6 @@ const SideMenu = () => {
                 <span className="menu-title">Settings</span>
               </NavLink>
             </div>
-
           </div>
         </div>
       </div>
