@@ -42,9 +42,9 @@ const PartHeadings = ({ tab }) => {
       {" "}
       <div
         className={`tab-pane fade ${
-          tab == "activities" ? "active show" : null
+          tab == "headings" ? "active show" : null
         }`}
-        id="activities"
+        id="headings"
         role="tabpanel"
       >
         <div className="card card-xl-stretch mb-xl-10">
