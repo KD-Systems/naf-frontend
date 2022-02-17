@@ -1,3 +1,4 @@
+import { Activities } from "components/utils/Activities";
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import MachineService from "../../services/MachineService";
@@ -68,13 +69,24 @@ const ShowMachine = () => {
                 </li>
                 <li className="nav-item">
                   <a
+                    className={`nav-link text-active-primary pb-4 ${tab == "headings" ? "active" : ""
+                      }`}
+                    data-bs-toggle="tab"
+                    href="#headings"
+                    onClick={() => setTab("headings")}
+                  >
+                    Part Headings
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a
                     className={`nav-link text-active-primary pb-4 ${tab == "activities" ? "active" : ""
                       }`}
                     data-bs-toggle="tab"
                     href="#activities"
                     onClick={() => setTab("activities")}
                   >
-                    Part Headings
+                    Activities
                   </a>
                 </li>
               </ul>
@@ -82,6 +94,7 @@ const ShowMachine = () => {
               <div className="tab-content">
                 <MachineModels tab={tab} models={data.models} onChange={getMachines} />
                 <PartHeadings tab={tab}/>
+                <Activities logName="machines" modelId={id} tab={tab} />
               </div>
             </div>
           </div>
