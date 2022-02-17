@@ -6,7 +6,13 @@ import ActivityService from 'services/ActivityService'
 export const Activities = ({ logName, modelId, self, tab }) => {
 
     const [data, setData] = useState([])
-
+    const icons = {
+        created: 'plus',
+        updated: 'pen',
+        deleted: 'trash',
+        restored: 'restore'
+    }
+    
     const expandProperties = (e) => {
         let prop = e.target;
         let propId = prop.getAttribute('data-id');
@@ -22,21 +28,15 @@ export const Activities = ({ logName, modelId, self, tab }) => {
         }));
     }
 
-    const icons = {
-        created: 'plus',
-        updated: 'pen',
-        deleted: 'trash',
-        restored: 'restore'
-    }
 
     useEffect(() => {
-        if (tab == 'activities')
+        if (tab === 'activities')
             getActivities();
     }, [tab])
 
     return (
         <div
-            className={`tab-pane fade ${tab == "activities" ? "active show" : ""
+            className={`tab-pane fade ${tab === "activities" ? "active show" : ""
                 }`}
             id="models"
             role="tabpanel"
