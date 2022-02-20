@@ -28,6 +28,9 @@ import ShowPermission from "pages/roles/Show";
 import PermissionAbility from "helpers/PermissionAbility";
 import { PrivateRoute } from "helpers/PrivateRoute";
 import Settings from "pages/Settings/Index";
+import CompanyUserMachines from "pages/companyUser/Machines";
+import CompanyUserContracts from "pages/companyUser/Contracts";
+import Machine from "pages/companyUser/Machine";
 
 function App() {
   return (
@@ -148,6 +151,36 @@ function App() {
                 </PrivateRoute>
               }
             />
+
+
+            {/* Company User */}
+            <Route
+              path="companies/:id/user/machines"
+              element={
+                <PrivateRoute>
+                  <CompanyUserMachines />
+                </PrivateRoute>
+              }
+            />
+              <Route
+              path="companies/:id/user/contracts"
+              element={
+                <PrivateRoute>
+                  <CompanyUserContracts />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
+              path="companies/machines/:id"
+              element={
+                <PrivateRoute>
+                  <Machine />
+                </PrivateRoute>
+              }
+            />
+
+            {/* Company User End */}
 
             {/* WareHouse Start */}
             <Route

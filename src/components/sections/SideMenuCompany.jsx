@@ -1,5 +1,6 @@
-import PermissionAbility from 'helpers/PermissionAbility'
 import React,{useState,useEffect} from 'react'
+import PermissionAbility from 'helpers/PermissionAbility'
+import Moment from "react-moment";
 import { NavLink } from 'react-router-dom'
 import { useSelector } from "react-redux";
 const SideMenuCompany = () => {
@@ -160,7 +161,7 @@ const SideMenuCompany = () => {
                   className={(navinfo) =>
                     navinfo.isActive ? "menu-link active" : "menu-link"
                   }
-                  to={`companies/${user?.details?.company_id}`}
+                  to={`companies/${user?.details?.company_id}/user/machines`}
                 >
                   <span className="menu-icon">
                     <i className="fa fa-building"></i>
@@ -174,7 +175,7 @@ const SideMenuCompany = () => {
                 className={(navinfo) =>
                   navinfo.isActive ? "menu-link active" : "menu-link"
                 }
-                to="#"
+                to={`companies/${user?.details?.company_id}/user/contracts`}
               >
                 <span className="menu-icon">
                 <i className="bi bi-sticky fs-3"></i>

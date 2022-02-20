@@ -1,5 +1,5 @@
-import { Activities } from "components/utils/Activities";
 import React, { useState, useEffect } from "react";
+import { Activities } from "components/utils/Activities";
 import { useParams, useNavigate } from "react-router-dom";
 import MachineService from "../../services/MachineService";
 import PartHeadings from "./headings/Index";
