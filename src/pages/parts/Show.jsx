@@ -1,3 +1,5 @@
+import { Chart, registerables } from 'chart.js'
+
 import { Activities } from "components/utils/Activities";
 import React, { useState, useEffect } from "react";
 import Moment from "react-moment";
@@ -7,6 +9,8 @@ import PartAliases from "./aliases/Index";
 import PartStocks from "./stocks/Index";
 
 const ShowPart = () => {
+  Chart.register(...registerables)
+
   let { id } = useParams();
   const navigate = useNavigate();
   const [tab, setTab] = useState('stocks');
@@ -44,6 +48,36 @@ const ShowPart = () => {
                   <div className="separator"></div>
 
                   <div className="pb-5 fs-6">
+
+                    {/* <div className="card h-100">
+                      <div className="card-body p-9">
+                        <div className="fs-2hx fw-bolder">237</div>
+                        <div className="fs-4 fw-bold text-gray-400 mb-7">Current Projects</div>
+                        <div className="d-flex flex-wrap">
+                          <div className="d-flex flex-center h-100px w-100px me-9 mb-5">
+                            <canvas id="stock-stats"></canvas>
+                          </div>
+                          <div className="d-flex flex-column justify-content-center flex-row-fluid pe-11 mb-5">
+                            <div className="d-flex fs-6 fw-bold align-items-center mb-3">
+                              <div className="bullet bg-primary me-3"></div>
+                              <div className="text-gray-400">Active</div>
+                              <div className="ms-auto fw-bolder text-gray-700">30</div>
+                            </div>
+                            <div className="d-flex fs-6 fw-bold align-items-center mb-3">
+                              <div className="bullet bg-success me-3"></div>
+                              <div className="text-gray-400">Completed</div>
+                              <div className="ms-auto fw-bolder text-gray-700">45</div>
+                            </div>
+                            <div className="d-flex fs-6 fw-bold align-items-center">
+                              <div className="bullet bg-gray-300 me-3"></div>
+                              <div className="text-gray-400">Yet to start</div>
+                              <div className="ms-auto fw-bolder text-gray-700">25</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div> */}
+
 
                     <div className="fw-bolder mt-5">Common Name</div>
                     <div className="text-gray-600">
