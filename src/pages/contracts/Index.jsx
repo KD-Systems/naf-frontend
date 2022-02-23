@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import ContractService from "services/ContractService";
 import CreateContract from "./Create";
 import EditContract from "./Edit";
-
+import Moment from "react-moment";
 const Contracts = () => {
   const [loading, setLoading] = useState(true);
   const [confirmDelete, setConfirmDelete] = useState(false);
@@ -89,6 +89,24 @@ const Contracts = () => {
         >
           {row.status ? "active" : "inactive"}
         </span>
+      ),
+    },
+    {
+      name: "Expiration Date",
+      selector: (row) => row.end_date,
+      sortable: true,
+      field: "status",
+      format: (row) => (
+        <span className="text-gray-600 text-hover-primary">
+        <Moment format='YYYY-MM-DD'>
+          {row.end_date}
+        </Moment>
+        {row.has_expired ?
+          <div className="badge badge-light-danger">
+            Expired
+          </div> : ''
+        }
+      </span>
       ),
     },
     {
