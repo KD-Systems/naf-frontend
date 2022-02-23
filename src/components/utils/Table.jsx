@@ -63,16 +63,16 @@ function Table({ name, buttonName, title, data, columns, isLoading, onFilter, on
         <div className="card-toolbar flex-row-fluid justify-content-end gap-5">
           {callbackButtons?.map((itm, index) => (
             typeof onClickButton === "function" && (
-              <PermissionAbility permission={itm.permission}>
-              <button
-                key={index}
-                type='button'
-                className="btn btn-light-primary btn-md"
-                onClick={() => {
-                  if (typeof itm.callback === "function") itm.callback();
-                }}
-                dangerouslySetInnerHTML={{__html: itm.name}}
-              ></button>
+              <PermissionAbility key={index} permission={itm.permission}>
+                <button
+                  key={index}
+                  type='button'
+                  className="btn btn-light-primary btn-md"
+                  onClick={() => {
+                    if (typeof itm.callback === "function") itm.callback();
+                  }}
+                  dangerouslySetInnerHTML={{ __html: itm.name }}
+                ></button>
               </PermissionAbility>
             )
           ))}

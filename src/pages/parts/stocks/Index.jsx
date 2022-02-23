@@ -109,7 +109,7 @@ const PartStocks = ({ tab, part, onChange }) => {
                     </td>
 
                     <td>
-                      {item.unit.capitalize()}
+                      {item.unit?.capitalize()}
                     </td>
 
                     <td>

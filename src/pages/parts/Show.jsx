@@ -1,3 +1,5 @@
+// import { Chart, registerables } from 'chart.js'
+
 import { Activities } from "components/utils/Activities";
 import React, { useState, useEffect } from "react";
 import Moment from "react-moment";
@@ -7,6 +9,8 @@ import PartAliases from "./aliases/Index";
 import PartStocks from "./stocks/Index";
 
 const ShowPart = () => {
+  // Chart.register(...registerables)
+
   let { id } = useParams();
   const navigate = useNavigate();
   const [tab, setTab] = useState('stocks');
@@ -48,10 +52,13 @@ const ShowPart = () => {
                   <div className="fw-bolder mt-5">Barcode</div>
                   <div className="text-gray-600">
                       <span className="text-gray-600 text-hover-primary">
-                      <img src={`data:image/jpeg;base64,${data.barcode}`} alt="barcode"/>
+                      <img src={`data:image/jpeg;base64,${data?.barcode}`} alt="barcode"/>
 
                       </span>
                     </div>
+             
+
+
                     <div className="fw-bolder mt-5">Common Name</div>
                     <div className="text-gray-600">
                       <span className="text-gray-600 text-hover-primary">
