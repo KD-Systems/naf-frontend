@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import DataTable from 'react-data-table-component';
 import PermissionAbility from "helpers/PermissionAbility";
-function Table({ name, buttonName, title, data, columns, isLoading, onFilter, onClickButton, callbackButtons }) {
+function Table({ name, buttonName, title, data, columns, isLoading, onFilter, onClickButton, buttonPermission, callbackButtons }) {
   const [filters, setFilters] = useState({
     order: {},
     page: 1,
@@ -63,6 +63,7 @@ function Table({ name, buttonName, title, data, columns, isLoading, onFilter, on
         <div className="card-toolbar flex-row-fluid justify-content-end gap-5">
           {callbackButtons?.map((itm, index) => (
             typeof onClickButton === "function" && (
+              <PermissionAbility permission={itm.permission}>
               <button
                 key={index}
                 type='button'
@@ -72,10 +73,11 @@ function Table({ name, buttonName, title, data, columns, isLoading, onFilter, on
                 }}
                 dangerouslySetInnerHTML={{__html: itm.name}}
               ></button>
+              </PermissionAbility>
             )
           ))}
 
-          <PermissionAbility permission="employees_create">
+          <PermissionAbility permission={buttonPermission}>
             {typeof onClickButton === "function" && (
               <button
                 type='button'

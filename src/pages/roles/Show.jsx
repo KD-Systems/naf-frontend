@@ -44,37 +44,27 @@ const ShowPermission = () => {
       <div className="post d-flex flex-column-fluid" id="kt_post">
         <div id="kt_content_container" className="container-xxl">
           <div className="card card-flush">
-            
+
             <div className="card-header pt-8">
-              
+
               <div className="card-title">
-              <button
-                className="btn btn-sm btn-dark mb-2"
-                style={{ marginRight: "0.75rem" }}
-                onClick={() => navigate(-1)}
-              >
-                <i className="fa fa-arrow-left"></i>Back
-              </button>
+                <button
+                  className="btn btn-sm btn-dark mb-2"
+                  style={{ marginRight: "0.75rem" }}
+                  onClick={() => navigate(-1)}
+                >
+                  <i className="fa fa-arrow-left"></i>Back
+                </button>
                 <h2>{role?.name}</h2>
                 {loading ? (
-                <span className="me-5">
-                    <i className="fas fa-cog fa-spin" style={{marginLeft: '1rem'}}></i> Loading...
+                  <span className="me-5">
+                    <i className="fas fa-cog fa-spin" style={{ marginLeft: '1rem' }}></i> Loading...
                   </span>
                 ) : ''}
               </div>
             </div>
 
             <div className="card-body">
-              {/* {loading ? (
-                <>
-                  <div className="engage-toolbar position-fixed fw-bolder">
-                      <i className="fas fa-cog fa-spin"></i> Loading...
-                  </div>
-                  <div className="modal-backdrop fade show bg-dark"></div>
-                </>
-              ) : (
-                ""
-              )} */}
               <form className="form" id="role_permissions">
                 {permissions?.map((item, index) => (
                   <Fragment key={index}>
@@ -95,14 +85,14 @@ const ShowPermission = () => {
                                 className="form-check-input h-30px w-50px"
                                 name="permission_id"
                                 type="checkbox"
-                                id="permission_id"
+                                id={"permission_id_" + permission.id}
                                 onChange={(e) =>
                                   updatePermission(e, permission.id)
                                 }
                               />
                               <label
                                 className="form-check-label"
-                                htmlFor="permission_id"
+                                htmlFor={"permission_id_" + permission.id}
                               >
                                 {permission.name.replace("_", " ").capitalize()}
                               </label>
@@ -115,7 +105,7 @@ const ShowPermission = () => {
                     </div>
                   </Fragment>
                 ))}
-        
+
               </form>
             </div>
           </div>

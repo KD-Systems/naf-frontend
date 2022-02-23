@@ -28,6 +28,7 @@ import ShowPermission from "pages/roles/Show";
 import PermissionAbility from "helpers/PermissionAbility";
 import { PrivateRoute } from "helpers/PrivateRoute";
 import Settings from "pages/Settings/Index";
+import ShowStock from "pages/parts/stocks/Show";
 
 function App() {
   return (
@@ -227,6 +228,15 @@ function App() {
               element={
                 <PrivateRoute>
                   <ShowPartAlias />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
+              path="parts/:partId/stocks/:stockId"
+              element={
+                <PrivateRoute>
+                  <ShowStock />
                 </PrivateRoute>
               }
             />

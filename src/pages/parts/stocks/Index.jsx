@@ -5,7 +5,7 @@ import AddPartStock from './Create';
 import EditPartAlias from './Edit';
 import PartStockService from 'services/PartStockService';
 
-const PartStocks = ({ tab }) => {
+const PartStocks = ({ tab, part, onChange }) => {
   const [loading, setLoading] = useState(true);
   const [stockId, setStockId] = useState(null);
   const [stocks, setStocks] = useState([]);
@@ -20,7 +20,7 @@ const PartStocks = ({ tab }) => {
     setUpdateOpen(false);
   };
 
-  const getAliases = async () => {
+  const getStocks = async () => {
     setLoading(true)
     setStocks(await PartStockService.getAll(id));
     setLoading(false)
@@ -28,19 +28,20 @@ const PartStocks = ({ tab }) => {
 
   const deleteStock = async () => {
     await PartStockService.remove(id, stockId);
-    getAliases()
+    getStocks()
+    onChange()
   };
 
   useEffect(() => {
-    if (tab == 'stocks')
-      getAliases();
+    if (tab === 'stocks')
+      getStocks();
     setLoading(false)
   }, [tab]);
 
 
   return (
     <div
-      className={`tab-pane fade ${tab == "stocks" ? "active show" : ""
+      className={`tab-pane fade ${tab === "stocks" ? "active show" : ""
         }`}
       id="models"
       role="tabpanel"
@@ -48,7 +49,8 @@ const PartStocks = ({ tab }) => {
       <div className="card card-xl-stretch mb-xl-10">
         <div className="card-header align-items-center border-0 mt-4">
           <h3 className="card-title align-items-start flex-column">
-            <span className="fw-bolder mb-2 text-dark">Stocks</span>
+            <span className="fw-bolder mb-2 text-dark">Stock Histories</span>
+            <span className="text-muted fw-bold fs-7">Currently <span className='fw-bold fs-5 text-dark'>{part.unit === 'piece' ? parseFloat(part.unit_value).toFixed() : part.unit_value}</span> {part.unit?.pluralize()} in stock</span>
           </h3>
 
           <div className="card-toolbar">
@@ -56,42 +58,6 @@ const PartStocks = ({ tab }) => {
               className="btn btn-light-primary btn-md"
               onClick={() => setOpen(true)}
             >
-              <span className="svg-icon svg-icon-3">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                >
-                  <rect
-                    opacity="0.3"
-                    x="2"
-                    y="2"
-                    width="20"
-                    height="20"
-                    rx="5"
-                    fill="black"
-                  ></rect>
-                  <rect
-                    x="10.8891"
-                    y="17.8033"
-                    width="12"
-                    height="2"
-                    rx="1"
-                    transform="rotate(-90 10.8891 17.8033)"
-                    fill="black"
-                  ></rect>
-                  <rect
-                    x="6.01041"
-                    y="10.9247"
-                    width="12"
-                    height="2"
-                    rx="1"
-                    fill="black"
-                  ></rect>
-                </svg>
-              </span>
               Add New Stock
             </button>
           </div>
@@ -106,8 +72,8 @@ const PartStocks = ({ tab }) => {
                   <th className="min-w-120px">Part Heading</th>
                   <th className="min-w-100px">Unit</th>
                   <th className="min-w-120px">Unit Value</th>
-                  <th className="min-w-120px">Yen Price</th>
-                  <th className="min-w-120px">Selling Price</th>
+                  <th className="min-w-120px">Shipment Invoice</th>
+                  <th className="min-w-120px">Arrival Date</th>
                   <th className="min-w-100px text-end">Actions</th>
                 </tr>
               </thead>
@@ -143,22 +109,25 @@ const PartStocks = ({ tab }) => {
                     </td>
 
                     <td>
-                      {item.unit}
+                      {item.unit.capitalize()}
                     </td>
 
                     <td>
-                      {item.unit_value}
+                      {part.unit === 'piece' ? parseFloat(part.unit_value).toFixed() : part.unit_value}
                     </td>
 
                     <td>
-                      {item.yen_price}
+                      {item.shipment_invoice}
                     </td>
 
                     <td>
-                      {item.selling_price}
+                      {item.arrival_date}
                     </td>
 
                     <td className="text-end">
+                      <Link className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1' to={"/panel/parts/" + id + "/stocks/" + item.id}>
+                        <i className="fa fa-eye"></i>
+                      </Link>
                       <button onClick={() => { setStockId(item.id); setUpdateOpen(true); }} className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                         <i className="fa fa-pen"></i>
                       </button>
@@ -184,19 +153,19 @@ const PartStocks = ({ tab }) => {
           setConfirmDelete(false);
           deleteStock();
         }}
-        onCancel={() => setConfirmDelete(false)}
+        onCancel={() => { setConfirmDelete(false) }}
       />
 
       <AddPartStock
         open={open}
         onCloseModal={() => onCloseModal()}
-        onCreated={() => getAliases()}
+        onCreated={() => getStocks(), onChange()}
       />
 
       <EditPartAlias
         open={updateOpen}
         onCloseModal={() => onCloseModal()}
-        onUpdated={() => getAliases()}
+        onUpdated={() => getStocks(), onChange() }
         id={id}
         stockId={stockId}
       />

@@ -1,5 +1,6 @@
 import Confirmation from "components/utils/Confirmation";
 import Table from "components/utils/Table";
+import PermissionAbility from "helpers/PermissionAbility";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import PartService from "services/PartService";
@@ -66,30 +67,39 @@ const Parts = () => {
     {
       name: 'Action',
       selector: row => row.status,
+      maxWidth: '150px',
       format: row => (
         <span className="text-end">
-          <Link
-            to={"/panel/parts/" + row.id}
-            className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-          >
-            <i className="fa fa-eye"></i>
-          </Link>
-          <button
-            className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-            onClick={() => {
-              setPartId(row.id);
-              setOpenEditModal(true);
-            }}
-          >
-            <i className="fa fa-pen"></i>
-          </button>
-          <Link
-            to="#"
-            className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
-            onClick={() => setConfirmDelete(true)}
-          >
-            <i className="fa fa-trash"></i>
-          </Link>
+          <PermissionAbility permission="parts_show">
+            <Link
+              to={"/panel/parts/" + row.id}
+              className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+            >
+              <i className="fa fa-eye"></i>
+            </Link>
+          </PermissionAbility>
+
+          <PermissionAbility permission="parts_edit">
+            <button
+              className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+              onClick={() => {
+                setPartId(row.id);
+                setOpenEditModal(true);
+              }}
+            >
+              <i className="fa fa-pen"></i>
+            </button>
+          </PermissionAbility>
+
+          <PermissionAbility permission="parts_delete">
+            <Link
+              to="#"
+              className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
+              onClick={() => setConfirmDelete(true)}
+            >
+              <i className="fa fa-trash"></i>
+            </Link>
+          </PermissionAbility>
         </span>
       )
     },
@@ -112,10 +122,6 @@ const Parts = () => {
     setOpenImportModal(false);
   };
 
-  // useEffect(() => {
-  //   getParts();
-  // }, []);
-
   return (
     <>
       <div className="post d-flex flex-column-fluid">
@@ -124,10 +130,12 @@ const Parts = () => {
             name="Parts"
             buttonName="Add Part"
             onClickButton={() => setOpenAddModal(true)}
+            buttonPermission="parts_create"
             callbackButtons={[
               {
                 name: 'Import',
-                callback: () => {setOpenImportModal(true)}
+                callback: () => { setOpenImportModal(true) },
+                permission: null
               }
             ]}
             isLoading={loading} data={parts}

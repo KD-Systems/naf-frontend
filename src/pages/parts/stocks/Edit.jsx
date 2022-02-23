@@ -66,7 +66,7 @@ const EditPartStock = ({ open, onCloseModal, onUpdated, stockId }) => {
     let res = await PartStockService.get(id, stockId)
     setDefaultWarehouse({ label: res.warehouse?.name, value: res.warehouse?.id })
     setDefaultHeading({ label: res.part_heading?.name, value: res.part_heading?.id })
-    setDefaultUnit({ label: res.unit.capitalize(), value: res.unit })
+    setDefaultUnit({ label: res.unit?.capitalize(), value: res.unit })
     res.shipment_date = new Date(res.shipment_date);
     res.warehouse_id = res.warehouse?.id;
     setData(res);
@@ -131,27 +131,19 @@ const EditPartStock = ({ open, onCloseModal, onUpdated, stockId }) => {
               <div className="fv-plugins-message-container invalid-feedback" htmlFor="part_heading_id"></div>
             </div>
 
-            <div className="form-group mt-5 row">
-              <div className="col-md-6">
-                <label className="required form-label">Units</label>
-                {defaultUnit ? <Select options={units} onChange={handleSelect} name="unit" defaultValue={defaultUnit} />  : <p>Loading...</p>}
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="unit"></div>
-              </div>
-
-              <div className="col-md-6">
-                <label className="form-label">Unit Value</label>
-                <input
-                  type="number"
-                  className="form-control"
-                  placeholder="Enter Unit Value"
-                  name="unit_value"
-                  id="unit_value"
-                  onChange={handleChange}
-                  value={data.unit_value ?? ''}
-                  step="any"
-                />
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="unit_value"></div>
-              </div>
+            <div className="form-group">
+              <label className="form-label">Unit Value</label>
+              <input
+                type="number"
+                className="form-control"
+                placeholder="Enter Unit Value"
+                name="unit_value"
+                id="unit_value"
+                onChange={handleChange}
+                value={data.unit_value ?? ''}
+                step="any"
+              />
+              <div className="fv-plugins-message-container invalid-feedback" htmlFor="unit_value"></div>
             </div>
 
             <div className="form-group">
@@ -220,6 +212,20 @@ const EditPartStock = ({ open, onCloseModal, onUpdated, stockId }) => {
                 <div className="fv-plugins-message-container invalid-feedback" htmlFor="nashipment_invoice_nome"></div>
               </div>
             </div>
+
+            <div className="form-group mt-5">
+                <label className="form-label">Note</label>
+                <textarea
+                  rows="3"
+                  type="text"
+                  className="form-control"
+                  placeholder="Write the notes"
+                  name="note"
+                  id="note"
+                  onChange={handleChange}
+                />
+                <div className="fv-plugins-message-container invalid-feedback" htmlFor="note"></div>
+              </div>
 
             <button
               disabled={block}

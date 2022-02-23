@@ -52,13 +52,6 @@ const ShowPart = () => {
                       </span>
                     </div>
 
-                    <div className="fw-bolder mt-5">Common Part Number</div>
-                    <div className="text-gray-600">
-                      <span className="text-gray-600 text-hover-primary">
-                        {data.aliases[0]?.part_number}
-                      </span>
-                    </div>
-
                     <div className="fw-bolder mt-5">Description</div>
                     <div className="text-gray-600">
                       <span className="text-gray-600 text-hover-primary">
@@ -126,8 +119,8 @@ const ShowPart = () => {
               </ul>
 
               <div className="tab-content" id="myTabContent">
-                <PartAliases tab={tab} models={data.models} onChange={getPart} />
-                <PartStocks tab={tab} models={data.models} onChange={getPart} />
+                <PartAliases tab={tab} models={data.models} onChange={() => getPart} />
+                <PartStocks tab={tab} models={data.models} onChange={() => getPart} part={data} />
                 <Activities logName="parts" modelId={id} tab={tab} />
               </div>
             </div>

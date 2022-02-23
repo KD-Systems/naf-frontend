@@ -6,10 +6,18 @@ import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 
 import store from "./store"
+var plural = require('pluralize')
 
 Object.defineProperty(String.prototype, 'capitalize', {
   value: function() {
     return this.replace(/\b\w/g, l => l.toUpperCase());
+  },
+  enumerable: false
+});
+
+Object.defineProperty(String.prototype, 'pluralize', {
+  value: function() {
+    return plural(this);
   },
   enumerable: false
 });
