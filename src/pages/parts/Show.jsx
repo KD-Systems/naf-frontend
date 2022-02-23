@@ -45,6 +45,13 @@ const ShowPart = () => {
 
                   <div className="pb-5 fs-6">
 
+                  <div className="fw-bolder mt-5">Barcode</div>
+                  <div className="text-gray-600">
+                      <span className="text-gray-600 text-hover-primary">
+                      <img src={`data:image/jpeg;base64,${data.barcode}`} alt="barcode"/>
+
+                      </span>
+                    </div>
                     <div className="fw-bolder mt-5">Common Name</div>
                     <div className="text-gray-600">
                       <span className="text-gray-600 text-hover-primary">
