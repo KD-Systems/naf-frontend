@@ -3,7 +3,7 @@
 import { Activities } from "components/utils/Activities";
 import React, { useState, useEffect } from "react";
 import Moment from "react-moment";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate,Link } from "react-router-dom";
 import PartService from "services/PartService";
 import PartAliases from "./aliases/Index";
 import PartStocks from "./stocks/Index";
@@ -88,6 +88,15 @@ const ShowPart = () => {
                         </Moment>
                       </span>
                     </div>
+
+                    <Link
+                      to={`print`}
+                      className="btn btn-sm btn-success mt-2"
+                      style={{ marginRight: "0.75rem" }}
+                      
+                    >
+                      Print Part
+                    </Link>
 
                   </div>
                 </div>
