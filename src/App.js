@@ -32,7 +32,6 @@ import ShowStock from "pages/parts/stocks/Show";
 import CompanyUserMachines from "pages/companyUser/Machines";
 import CompanyUserContracts from "pages/companyUser/Contracts";
 import Machine from "pages/companyUser/Machine";
-import PrintPart from "pages/parts/Print";
 
 function App() {
   return (
@@ -312,13 +311,6 @@ function App() {
           <Route path="/login" element={<Login />} />
 
           <Route path="*" element={<NotFound />} />
-
-          <Route
-            path="panel/parts/:id/print"
-          element={
-            <PrintPart/>
-          }
-            />
         </Routes>
       </BrowserRouter>
     </>

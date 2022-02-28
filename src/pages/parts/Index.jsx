@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import PartService from "services/PartService";
 import CreateContract from "./Create";
-import EditContract from "./Edit";
+import EditPart from "./Edit";
 import ImportFile from "./ImportFile";
 
 const Parts = () => {
@@ -158,7 +158,7 @@ const Parts = () => {
         onCloseModal={onCloseModal}
         onCreated={getParts}
       />
-      <EditContract
+      <EditPart
         open={openEditModal}
         partId={partId}
         onCloseModal={onCloseModal}

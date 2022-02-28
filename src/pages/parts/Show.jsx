@@ -3,13 +3,15 @@
 import { Activities } from "components/utils/Activities";
 import React, { useState, useEffect } from "react";
 import Moment from "react-moment";
-import { useParams, useNavigate,Link } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import PartService from "services/PartService";
 import PartAliases from "./aliases/Index";
+import EditPart from "./Edit";
 import PartStocks from "./stocks/Index";
 
 const ShowPart = () => {
   // Chart.register(...registerables)
+  const [openEditModal, setOpenEditModal] = useState(false);
 
   let { id } = useParams();
   const navigate = useNavigate();
@@ -21,6 +23,17 @@ const ShowPart = () => {
   const getPart = async () => {
     setData(await PartService.get(id));
   };
+
+  function printBarcode() {
+    let content = document.getElementById("barcode").innerHTML;
+    let a = window.open('', '', 'height=500, width=500');
+    a.document.write('<html>');
+    a.document.write('<body>');
+    a.document.write(content);
+    a.document.write('</body></html>');
+    a.document.close();
+    a.print();
+  }
 
   useEffect(() => {
     if (id)
@@ -49,15 +62,12 @@ const ShowPart = () => {
 
                   <div className="pb-5 fs-6">
 
-                  <div className="fw-bolder mt-5">Barcode</div>
-                  <div className="text-gray-600">
-                      <span className="text-gray-600 text-hover-primary">
-                      <img src={`data:image/jpeg;base64,${data?.barcode}`} alt="barcode"/>
-
+                    <div className="fw-bolder mt-5">Barcode</div>
+                    <div className="text-gray-600">
+                      <span className="text-gray-600 text-hover-primary" id="barcode">
+                        {data.barcode && <img src={`data:image/jpeg;base64,${data?.barcode}`} alt="barcode" />}
                       </span>
                     </div>
-             
-
 
                     <div className="fw-bolder mt-5">Common Name</div>
                     <div className="text-gray-600">
@@ -89,14 +99,22 @@ const ShowPart = () => {
                       </span>
                     </div>
 
-                    <Link
-                      to={`print`}
-                      className="btn btn-sm btn-success mt-2"
-                      style={{ marginRight: "0.75rem" }}
-                      
+                    <div className="separator mt-5"></div>
+                    <button
+                      onClick={printBarcode}
+                      type="button"
+                      className="btn btn-dark btn-sm m-2"
                     >
-                      Print Part
-                    </Link>
+                      Print Barcode
+                    </button>
+
+                    <button
+                      onClick={() => setOpenEditModal(true)}
+                      type="button"
+                      className="btn btn-primary btn-sm m-2"
+                    >
+                      Edit
+                    </button>
 
                   </div>
                 </div>
@@ -151,6 +169,13 @@ const ShowPart = () => {
           </div>
         </div>
       </div>
+
+      <EditPart
+        open={openEditModal}
+        partId={id}
+        onCloseModal={() => setOpenEditModal(false)}
+        onUpdated={() => getPart}
+      />
     </>
   );
 };
