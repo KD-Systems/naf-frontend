@@ -23,6 +23,8 @@ const Parts = () => {
       name: 'Common Name',
       selector: row => row.name,
       sortable: true,
+      width: '35%',
+      wrap: true,
       field: 'name',
       format: row => (
         <div className="d-flex align-items-center">
@@ -48,6 +50,7 @@ const Parts = () => {
     },
     {
       name: 'Machine',
+      width: '10%',
       selector: row => row.machines?.map((itm) => itm.name)?.join(', '),
       sortable: true,
       field: 'machine',
