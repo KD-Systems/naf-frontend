@@ -113,7 +113,7 @@ const PartStocks = ({ tab, part, onChange }) => {
                     </td>
 
                     <td>
-                      {part.unit === 'piece' ? parseFloat(part.unit_value).toFixed() : part.unit_value}
+                      {part.unit === 'piece' ? parseFloat(item.unit_value).toFixed() : item.unit_value}
                     </td>
 
                     <td>

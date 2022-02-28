@@ -60,19 +60,27 @@ const ShowPart = () => {
 
                   <div className="separator"></div>
 
+                  <div className="text-center mt-5">
+                        <div className="image-input image-input-empty image-input-outline mb-3">
+                            <div
+                                className="image-input-wrapper w-150px h-150px"
+                                style={{
+                                    backgroundImage:
+                                        "url(" + data.image + ")",
+                                }}
+                            ></div>
+                        </div>
+                        <div className="fs-7">
+                            <h2>{data.aliases[0]?.name}</h2>
+                        </div>
+                    </div>
+
                   <div className="pb-5 fs-6">
 
                     <div className="fw-bolder mt-5">Barcode</div>
                     <div className="text-gray-600">
                       <span className="text-gray-600 text-hover-primary" id="barcode">
                         {data.barcode && <img src={`data:image/jpeg;base64,${data?.barcode}`} alt="barcode" />}
-                      </span>
-                    </div>
-
-                    <div className="fw-bolder mt-5">Common Name</div>
-                    <div className="text-gray-600">
-                      <span className="text-gray-600 text-hover-primary">
-                        {data.aliases[0]?.name}
                       </span>
                     </div>
 
@@ -174,7 +182,7 @@ const ShowPart = () => {
         open={openEditModal}
         partId={id}
         onCloseModal={() => setOpenEditModal(false)}
-        onUpdated={() => getPart}
+        onUpdated={getPart}
       />
     </>
   );

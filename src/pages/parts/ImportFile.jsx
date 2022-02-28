@@ -61,6 +61,7 @@ const ImportFile = ({ open, onCloseModal, onImported }) => {
                     Submit
                   </button>
                   <button
+                  type="button"
                     className="btn btn-secondary  mt-5 "
                     onClick={onCloseModal}
                   >
