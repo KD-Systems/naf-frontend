@@ -1,23 +1,38 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import Modal from "components/utils/Modal";
 import MachineService from "services/MachineService";
-import Select from 'react-select'
+import Select from "react-select";
 import "react-datepicker/dist/react-datepicker.css";
 import PartService from "services/PartService";
 import MachinePartHeadingService from "services/MachinePartHeadingService";
 
 const CreatePart = ({ open, onCloseModal, onCreated }) => {
-  const [machines, setMachines] = useState([])
-  const [headings, setHeadings] = useState([])
+  const [machines, setMachines] = useState([]);
+  const [headings, setHeadings] = useState([]);
+  
+  
+  const handlePartAdd = () => {
+    setInputField([...inputField, {}]);
+  };
+  
+  const handlePartRemove = (index) => {
+    const list = [...inputField];
+    list.splice(index, 1);
+    setInputField(list);
+  };
+
   const [data, setData] = useState({
     machine_id: '',
-    machine_model_id: '',
-    machine_heading_id: '',
-    name: '',
-    part_number: '',
-    description: '',
-    image:''
-  })
+    machine_model_id: "",
+    machine_heading_id: "",
+    name: "",
+    part_number: "",
+    description: "",
+    image: "",
+  });
+  
+  const [inputField, setInputField] = useState([{}]);
+  // console.log("💥",inputField);
   const [block, setBlock] = useState(false);
 
   // Set the selected image to preview
@@ -34,57 +49,73 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
   const handleChange = (e) => {
     const value = e.target.value;
     const name = e.target.name;
-    setBlock(false)
+    setBlock(false);
 
     setData({
-      ...data, [name]: value
-    })
-  }
+      ...data,
+      [name]: value,
+    });
+    // setInputField([...inputField,{data}]);s
+  };
 
   const handleSelect = (option, conf) => {
     const value = option.value;
     const name = conf.name;
-    setBlock(false)
+    setBlock(false);
 
     setData({
-      ...data, [name]: value
-    })
-  }
+      ...data,
+      [name]: value,
+    });
+
+
+
+  
+  };
+
+
+
+
+
+  
 
   const addPart = async () => {
-    setBlock(true)
+    setBlock(true);
     let formData = new FormData(document.getElementById("part-create"));
+    formData.append('aliases', inputField)
     await PartService.create(formData);
     onCreated();
     onCloseModal();
-    setBlock(false)
-  }
+    setBlock(false);
+  };
 
   const getMachines = async () => {
-    setBlock(false)
-    let data = await MachineService.getAll()
-    data = data.map(itm => ({ label: itm.name, value: itm.id })) //Parse the data as per the select requires
+    setBlock(false);
+    let data = await MachineService.getAll();
+    data = data.map((itm) => ({ label: itm.name, value: itm.id })); //Parse the data as per the select requires
     setMachines(data);
-    setBlock(false)
+    setBlock(false);
   };
 
   const getHeadings = async (machineId) => {
-    setBlock(false)
-    let data = await MachinePartHeadingService.getAll(machineId)
-    data = data.map(itm => ({ label: itm.name, value: itm.id })) //Parse the data as per the select requires
+    setBlock(false);
+    let data = await MachinePartHeadingService.getAll(machineId);
+    data = data.map((itm) => ({ label: itm.name, value: itm.id })); //Parse the data as per the select requires
     setHeadings(data);
-    setBlock(false)
+    setBlock(false);
   };
 
   useEffect(() => {
-    if (open)
-      getHeadings(data.machine_id);
+    if (open) getHeadings(data.machine_id);
   }, [data.machine_id]);
 
+
+
   useEffect(() => {
-    if (open) //Prevent preload data while modal is hidden
+    if (open)
+      //Prevent preload data while modal is hidden
       getMachines();
-    setBlock(false)
+    setBlock(false);
   }, [open]);
 
   return (
@@ -120,23 +151,17 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
                       type="file"
                       name="image"
                       accept=".png, .jpg, .jpeg"
-                      onChange={(e) => { setImage(e); handleChange(e) }}
+                      onChange={(e) => {
+                        setImage(e);
+                        handleChange(e);
+                      }}
                     />
                   </label>
                 </div>
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="image"></div>
-              </div>
-
-              <div className="form-group">
-                <label className="required form-label">Machine</label>
-                <Select options={machines} onChange={handleSelect} name="machine_id" />
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="machine_id"></div>
-              </div>
-
-              <div className="form-group mt-5">
-                <label className="required form-label">Part Heading</label>
-                <Select options={headings} onChange={handleSelect} name="part_heading_id" />
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="part_heading_id"></div>
+                <div
+                  className="fv-plugins-message-container invalid-feedback"
+                  htmlFor="image"
+                ></div>
               </div>
 
               <div className="form-group">
@@ -148,25 +173,110 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
                   name="name"
                   id="name"
                   onChange={handleChange}
-                  value={data.name ?? ''}
+                  // value={data.name ?? ""}
                 />
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="name"></div>
+                <div
+                  className="fv-plugins-message-container invalid-feedback"
+                  htmlFor="name"
+                ></div>
               </div>
 
               <div className="form-group">
-                <label className="required form-label">Part Number</label>
+                <label className="required form-label">Arm</label>
                 <input
                   type="text"
                   className="form-control"
-                  placeholder="Enter Part Number"
-                  name="part_number"
-                  id="part_number"
+                  placeholder="Enter Arm"
+                  name="arm"
+                  id="arm"
                   onChange={handleChange}
-                  value={data.part_number ?? ''}
+                  // value={data.name ?? ""}
                 />
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="part_number"></div>
+                <div
+                  className="fv-plugins-message-container invalid-feedback"
+                  htmlFor="name"
+                ></div>
               </div>
 
+              {inputField?.map((item, index) => (
+                <Fragment key={index}>
+                  <div className="form-group">
+                    <div className="row">
+                    <div className="col-sm-4">
+                      {" "}
+                      <label className="required form-label">Machine</label>
+                      <Select
+                        options={machines}
+                        onChange={handleSelect}
+                        name="machine_id"
+                       
+                      />
+                      <div
+                        className="fv-plugins-message-container invalid-feedback"
+                        htmlFor="machine_id"
+                      ></div>
+                    </div>
+
+                    <div className="col-sm-4">
+                      <label className="required form-label">
+                        Part Heading
+                      </label>
+                      <Select
+                        options={headings}
+                        onChange={handleSelect}
+                        name="part_heading_id"
+                      />
+                      <div
+                        className="fv-plugins-message-container invalid-feedback"
+                        htmlFor="part_heading_id[]"
+                      ></div>
+                    </div>
+
+                    <div className="col-sm-4">
+                    <label className="required form-label">Part Number</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Enter Part Number"
+                      name="part_number"
+                      id="part_number"
+                      onChange={handleChange}
+                      // value={data.part_number ?? ""}
+                    />
+                    <div
+                      className="fv-plugins-message-container invalid-feedback"
+                      htmlFor="part_number[]"
+                    ></div>
+                    </div>
+                    </div>
+                   
+                  </div>
+
+                  
+                
+                  <div>
+                    {inputField.length > 1 && (
+                      <button
+                        type="button"
+                        className="btn btn-danger mt-5 mb-5"
+                        onClick={() => handlePartRemove(index)}
+                      >
+                        -
+                      </button>
+                    )}
+                  </div>
+
+                  {inputField.length - 1 === index && (
+                    <button
+                      type="button"
+                      className="btn btn-primary mt-5"
+                      onClick={handlePartAdd}
+                    >
+                      +
+                    </button>
+                  )}
+                </Fragment>
+              ))}
               <div className="form-group mt-5">
                 <label className="form-label">Description</label>
                 <textarea
@@ -178,14 +288,45 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
                   id="description"
                   onChange={handleChange}
                 />
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="description"></div>
+                <div
+                  className="fv-plugins-message-container invalid-feedback"
+                  htmlFor="description"
+                ></div>
               </div>
+              {/* 
+              <div className="form-group">
+                <label className="required form-label">Machine</label>
+                <Select options={machines} onChange={handleSelect} name="machine_id" />
+                <div className="fv-plugins-message-container invalid-feedback" htmlFor="machine_id"></div>
+              </div>
+
+              <div className="form-group mt-5">
+                <label className="required form-label">Part Heading</label>
+                <Select options={headings} onChange={handleSelect} name="part_heading_id" />
+                <div className="fv-plugins-message-container invalid-feedback" htmlFor="part_heading_id"></div>
+              </div> */}
+
+              {/* <div className="form-group">
+                <label className="required form-label">Part Number</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Enter Part Number"
+                  name="part_number"
+                  id="part_number"
+                  onChange={handleChange}
+                  value={data.part_number ?? ''}
+                />
+                <div className="fv-plugins-message-container invalid-feedback" htmlFor="part_number"></div>
+              </div> */}
 
               <button
                 disabled={block}
                 className="btn btn-primary mr-2 mt-5"
                 style={{ marginRight: "1rem" }}
-                onClick={() => { addPart() }}
+                onClick={() => {
+                  addPart();
+                }}
               >
                 Submit
               </button>
