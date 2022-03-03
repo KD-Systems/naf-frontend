@@ -1,5 +1,6 @@
 import Confirmation from "components/utils/Confirmation";
 import Table from "components/utils/Table";
+import PermissionAbility from "helpers/PermissionAbility";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import CompanyService from "services/CompanyService";
@@ -74,12 +75,15 @@ const Companies = () => {
       selector: row => row.status,
       format: row => (
         <span className="text-end">
+          <PermissionAbility permission="companies_show">
           <Link
             to={"/panel/companies/" + row.id}
             className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
           >
             <i className="fa fa-eye"></i>
           </Link>
+          </PermissionAbility>
+          <PermissionAbility permission="companies_edit">
           <button
             className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
             onClick={() => {
@@ -89,6 +93,8 @@ const Companies = () => {
           >
             <i className="fa fa-pen"></i>
           </button>
+          </PermissionAbility>
+          <PermissionAbility permission="companies_delete">
           <Link
             to="#"
             className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
@@ -96,6 +102,7 @@ const Companies = () => {
           >
             <i className="fa fa-trash"></i>
           </Link>
+          </PermissionAbility>
         </span>
       )
     },

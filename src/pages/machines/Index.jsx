@@ -1,3 +1,4 @@
+import PermissionAbility from "helpers/PermissionAbility";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Confirmation from "../../components/utils/Confirmation";
@@ -85,13 +86,15 @@ const Machines = () => {
                         <td>{item.models_count}</td>
 
                         <td className="text-end">
+                          <PermissionAbility permission="machines_show">
                           <Link
                             to={"/panel/machines/" + item.id}
                             className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
                           >
                             <i className="fa fa-eye"></i>
                           </Link>
-
+                          </PermissionAbility>
+                          <PermissionAbility permission="machines_edit">
                           <button
                             className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
                             onClick={() => {
@@ -101,7 +104,8 @@ const Machines = () => {
                           >
                             <i className="fa fa-pen"></i>
                           </button>
-
+                          </PermissionAbility>
+                          <PermissionAbility permission="machines_delete">
                           <Link
                             to="#"
                             className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
@@ -112,6 +116,7 @@ const Machines = () => {
                           >
                             <i className="fa fa-trash"></i>
                           </Link>
+                          </PermissionAbility>
                         </td>
                       </tr>
                     ))}

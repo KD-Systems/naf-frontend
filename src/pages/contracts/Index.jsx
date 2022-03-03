@@ -6,6 +6,7 @@ import ContractService from "services/ContractService";
 import CreateContract from "./Create";
 import EditContract from "./Edit";
 import Moment from "react-moment";
+import PermissionAbility from "helpers/PermissionAbility";
 const Contracts = () => {
   const [loading, setLoading] = useState(true);
   const [confirmDelete, setConfirmDelete] = useState(false);
@@ -114,12 +115,15 @@ const Contracts = () => {
       selector: row => row.status,
       format: row => (
         <span className="text-end">
+           <PermissionAbility permission="companies_show">
           <Link
             to={"/panel/contracts/" + row.id}
             className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
           >
             <i className="fa fa-eye"></i>
           </Link>
+          </PermissionAbility>
+          <PermissionAbility permission="companies_edit">
           <button
             className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
             onClick={() => {
@@ -129,12 +133,15 @@ const Contracts = () => {
           >
             <i className="fa fa-pen"></i>
           </button>
+          </PermissionAbility>
+          <PermissionAbility permission="companies_delete">
           <button
             className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
             onClick={() => { setContractId(row.id); setConfirmDelete(true) }}
           >
             <i className="fa fa-trash"></i>
           </button>
+          </PermissionAbility>
         </span>
       )
     },
