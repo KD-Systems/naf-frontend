@@ -5,6 +5,7 @@ import CompanyInfo from "./sections/Info";
 import CompanyUsers from "./users/Index";
 import Moment from "react-moment";
 import CompanyMachines from "./machines/Index";
+import PermissionAbility from "helpers/PermissionAbility";
 
 const ShowCompany = () => {
   const { id } = useParams();
@@ -67,76 +68,79 @@ const ShowCompany = () => {
 
             <div className="tab-content">
               {/* Tabs start from here */}
-              <CompanyUsers active={active} companyId={company.id} />
-
-              <div className="tab-pane fade" id="contracts" role="tab-panel">
-                <div className="d-flex flex-column gap-7 gap-lg-10">
-                  <div className="card card-flush py-4">
-                    <div className="card-header">
-                      <div className="card-title">
-                        <h2>Contracts</h2>
+              <PermissionAbility permission="companies_users_access">
+                <CompanyUsers active={active} companyId={company.id} />
+              </PermissionAbility>
+              <PermissionAbility permission="companies_contracts_access">
+                <div className="tab-pane fade" id="contracts" role="tab-panel">
+                  <div className="d-flex flex-column gap-7 gap-lg-10">
+                    <div className="card card-flush py-4">
+                      <div className="card-header">
+                        <div className="card-title">
+                          <h2>Contracts</h2>
+                        </div>
                       </div>
-                    </div>
-                    <div className="card-body pt-0">
-                      <table className="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
-                        <thead>
-                          <tr className="fw-bolder text-muted">
-                            <th className="min-w-150px">Machine</th>
-                            <th className="min-w-150px">Machine Models</th>
-                            <th className="min-w-150px">Expiration Date</th>
-                            <th className="min-w-120px">Status</th>
-                          </tr>
-                        </thead>
+                      <div className="card-body pt-0">
+                        <table className="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
+                          <thead>
+                            <tr className="fw-bolder text-muted">
+                              <th className="min-w-150px">Machine</th>
+                              <th className="min-w-150px">Machine Models</th>
+                              <th className="min-w-150px">Expiration Date</th>
+                              <th className="min-w-120px">Status</th>
+                            </tr>
+                          </thead>
 
-                        <tbody>
-                          {company?.contracts?.map((item, index) => (
-                            <tr key={index}>
-                              <td>{item?.machine?.name}</td>
-                              <td>{item?.machine_models?.map((it) => it.name).join(', ')}</td>
-                              <td>
-                                <Moment format="YYYY-MM-DD">
-                                  {item.end_date}
-                                </Moment>
-                              </td>
-                              <td className={
-                                item.status === 1
-                                  ? "badge badge-light-success"
-                                  : "badge badge-light-danger"
-                              }>
-                                <div
+                          <tbody>
+                            {company?.contracts?.map((item, index) => (
+                              <tr key={index}>
+                                <td>{item?.machine?.name}</td>
+                                <td>
+                                  {item?.machine_models
+                                    ?.map((it) => it.name)
+                                    .join(", ")}
+                                </td>
+                                <td>
+                                  <Moment format="YYYY-MM-DD">
+                                    {item.end_date}
+                                  </Moment>
+                                </td>
+                                <td
                                   className={
                                     item.status === 1
                                       ? "badge badge-light-success"
                                       : "badge badge-light-danger"
                                   }
                                 >
-                                  {item.status === 1
-                                    ? "Active"
-                                    : "Inactive"}
-                                </div>
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
+                                  <div
+                                    className={
+                                      item.status === 1
+                                        ? "badge badge-light-success"
+                                        : "badge badge-light-danger"
+                                    }
+                                  >
+                                    {item.status === 1 ? "Active" : "Inactive"}
+                                  </div>
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              </PermissionAbility>
               {/* Tabs end from here */}
-
-              <CompanyMachines active={active} companyId={company.id} />
+              <PermissionAbility permission="companies_machines_access">
+                <CompanyMachines active={active} companyId={company.id} />
+              </PermissionAbility>
               {/* Tabs end from here */}
             </div>
-
-
           </div>
         </div>
-
       </div>
     </div>
-
-
   );
 };
 

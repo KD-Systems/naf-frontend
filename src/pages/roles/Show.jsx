@@ -94,7 +94,7 @@ const ShowPermission = () => {
                                 className="form-check-label"
                                 htmlFor={"permission_id_" + permission.id}
                               >
-                                {permission.name.replace("_", " ").capitalize()}
+                                {permission.name.replaceAll("_", " ").capitalize()}
                               </label>
                             </div>
                           ))}
