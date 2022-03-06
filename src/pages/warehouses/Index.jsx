@@ -1,3 +1,4 @@
+import PermissionAbility from "helpers/PermissionAbility";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import WareHouseService from "../../services/WareHouseService";
@@ -40,7 +41,7 @@ const Index = () => {
                   Warehouses
                 </span>
               </h3>
-
+              <PermissionAbility permission="warehouses_create">
               <div className="card-toolbar">
                 <button
                   className="btn btn-light-primary btn-md"
@@ -51,6 +52,7 @@ const Index = () => {
                   Add Warehouse
                 </button>
               </div>
+              </PermissionAbility>
             </div>
 
             <div className="card-body py-3">
@@ -85,12 +87,15 @@ const Index = () => {
                         <td>{item.parts_count}</td>
 
                         <td className="text-end">
+                          <PermissionAbility permission="warehouses_show">
                           <Link
                             to={"/panel/warehouses/" + item.id}
                             className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
                           >
                             <i className="fa fa-eye"></i>
                           </Link>
+                          </PermissionAbility>
+                          <PermissionAbility permission="warehouses_edit">
                           <Link
                             to="#"
                             className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
@@ -101,6 +106,8 @@ const Index = () => {
                           >
                             <i className="fa fa-pen"></i>
                           </Link>
+                          </PermissionAbility>
+                          <PermissionAbility permission="warehouses_delete">
                           <Link
                             to="#"
                             className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
@@ -108,6 +115,7 @@ const Index = () => {
                           >
                             <i className="fa fa-trash"></i>
                           </Link>
+                          </PermissionAbility>
                         </td>
                       </tr>
                     ))}

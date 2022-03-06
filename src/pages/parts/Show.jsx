@@ -1,6 +1,7 @@
 // import { Chart, registerables } from 'chart.js'
 
 import { Activities } from "components/utils/Activities";
+import PermissionAbility from "helpers/PermissionAbility";
 import React, { useState, useEffect } from "react";
 import Moment from "react-moment";
 import { useParams, useNavigate, Link } from "react-router-dom";
@@ -15,9 +16,9 @@ const ShowPart = () => {
 
   let { id } = useParams();
   const navigate = useNavigate();
-  const [tab, setTab] = useState('stocks');
+  const [tab, setTab] = useState("stocks");
   const [data, setData] = useState({
-    aliases: []
+    aliases: [],
   });
 
   const getPart = async () => {
@@ -26,18 +27,17 @@ const ShowPart = () => {
 
   function printBarcode() {
     let content = document.getElementById("barcode").innerHTML;
-    let a = window.open('', '', 'height=500, width=500');
-    a.document.write('<html>');
-    a.document.write('<body>');
+    let a = window.open("", "", "height=500, width=500");
+    a.document.write("<html>");
+    a.document.write("<body>");
     a.document.write(content);
-    a.document.write('</body></html>');
+    a.document.write("</body></html>");
     a.document.close();
     a.print();
   }
 
   useEffect(() => {
-    if (id)
-      getPart();
+    if (id) getPart();
   }, [id]);
   return (
     <>
@@ -61,33 +61,39 @@ const ShowPart = () => {
                   <div className="separator"></div>
 
                   <div className="text-center mt-5">
-                        <div className="image-input image-input-empty image-input-outline mb-3">
-                            <div
-                                className="image-input-wrapper w-150px h-150px"
-                                style={{
-                                    backgroundImage:
-                                        "url(" + data.image + ")",
-                                }}
-                            ></div>
-                        </div>
-                        <div className="fs-7">
-                            <h2>{data.aliases[0]?.name}</h2>
-                        </div>
+                    <div className="image-input image-input-empty image-input-outline mb-3">
+                      <div
+                        className="image-input-wrapper w-150px h-150px"
+                        style={{
+                          backgroundImage: "url(" + data.image + ")",
+                        }}
+                      ></div>
                     </div>
+                    <div className="fs-7">
+                      <h2>{data.aliases[0]?.name}</h2>
+                    </div>
+                  </div>
 
                   <div className="pb-5 fs-6">
-
                     <div className="fw-bolder mt-5">Barcode</div>
                     <div className="text-gray-600">
-                      <span className="text-gray-600 text-hover-primary" id="barcode">
-                        {data.barcode && <img src={`data:image/jpeg;base64,${data?.barcode}`} alt="barcode" />}
+                      <span
+                        className="text-gray-600 text-hover-primary"
+                        id="barcode"
+                      >
+                        {data.barcode && (
+                          <img
+                            src={`data:image/jpeg;base64,${data?.barcode}`}
+                            alt="barcode"
+                          />
+                        )}
                       </span>
                     </div>
 
                     <div className="fw-bolder mt-5">Description</div>
                     <div className="text-gray-600">
                       <span className="text-gray-600 text-hover-primary">
-                        {data.remarks}
+                        {data.descriptions}
                       </span>
                     </div>
 
@@ -101,9 +107,7 @@ const ShowPart = () => {
                     <div className="fw-bolder mt-5">Last Update</div>
                     <div className="text-gray-600">
                       <span className="text-gray-600 text-hover-primary">
-                        <Moment format='YYYY-MM-DD'>
-                          {data.updated_at}
-                        </Moment>
+                        <Moment format="YYYY-MM-DD">{data.updated_at}</Moment>
                       </span>
                     </div>
 
@@ -123,41 +127,46 @@ const ShowPart = () => {
                     >
                       Edit
                     </button>
-
                   </div>
                 </div>
               </div>
-
             </div>
 
             <div className="flex-lg-row-fluid ms-lg-15">
               <ul className="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-bold mb-8">
+                <PermissionAbility permission="parts_stocks_access">
+                  <li className="nav-item">
+                    <a
+                      className={`nav-link text-active-primary pb-4 ${
+                        tab == "stocks" ? "active" : ""
+                      }`}
+                      data-bs-toggle="tab"
+                      href="#stocks"
+                      onClick={() => setTab("stocks")}
+                    >
+                      Stocks
+                    </a>
+                  </li>
+                </PermissionAbility>
+                <PermissionAbility permission="parts_aliases_access">
+                  <li className="nav-item">
+                    <a
+                      className={`nav-link text-active-primary pb-4 ${
+                        tab == "aliases" ? "active" : ""
+                      }`}
+                      data-bs-toggle="tab"
+                      href="#aliases"
+                      onClick={() => setTab("aliases")}
+                    >
+                      Aliases
+                    </a>
+                  </li>
+                </PermissionAbility>
                 <li className="nav-item">
                   <a
-                    className={`nav-link text-active-primary pb-4 ${tab == "stocks" ? "active" : ""
-                      }`}
-                    data-bs-toggle="tab"
-                    href="#stocks"
-                    onClick={() => setTab("stocks")}
-                  >
-                    Stocks
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a
-                    className={`nav-link text-active-primary pb-4 ${tab == "aliases" ? "active" : ""
-                      }`}
-                    data-bs-toggle="tab"
-                    href="#aliases"
-                    onClick={() => setTab("aliases")}
-                  >
-                    Aliases
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a
-                    className={`nav-link text-active-primary pb-4 ${tab == "activities" ? "active" : ""
-                      }`}
+                    className={`nav-link text-active-primary pb-4 ${
+                      tab == "activities" ? "active" : ""
+                    }`}
                     data-bs-toggle="tab"
                     href="#activities"
                     onClick={() => setTab("activities")}
@@ -168,12 +177,24 @@ const ShowPart = () => {
               </ul>
 
               <div className="tab-content" id="myTabContent">
-                <PartAliases tab={tab} models={data.models} onChange={() => getPart} />
-                <PartStocks tab={tab} models={data.models} onChange={() => getPart} part={data} />
+                <PermissionAbility permission="parts_aliases_access">
+                  <PartAliases
+                    tab={tab}
+                    models={data.models}
+                    onChange={() => getPart}
+                  />
+                </PermissionAbility>
+                <PermissionAbility permission="parts_stocks_access">
+                  <PartStocks
+                    tab={tab}
+                    models={data.models}
+                    onChange={() => getPart}
+                    part={data}
+                  />
+                </PermissionAbility>
                 <Activities logName="parts" modelId={id} tab={tab} />
               </div>
             </div>
-
           </div>
         </div>
       </div>

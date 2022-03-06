@@ -175,7 +175,7 @@ const EditContract = ({ open, onCloseModal, onUpdated, contractId }) => {
                             Update
                         </button>
                         <button
-                            type="reset"
+                            type="button"
                             className="btn btn-secondary  mt-5 "
                             onClick={onCloseModal}
                         >

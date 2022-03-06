@@ -77,7 +77,7 @@ const Companies = () => {
         <span className="text-end">
           <PermissionAbility permission="companies_show">
           <Link
-            to={"/panel/parts/" + row.id}
+            to={"/panel/companies/" + row.id}
             className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
           >
             <i className="fa fa-eye"></i>

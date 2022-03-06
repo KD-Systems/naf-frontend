@@ -26,6 +26,7 @@ const SideMenu = () => {
       data-kt-drawer-width="{default:'200px', '300px': '250px'}"
       data-kt-drawer-direction="start"
       data-kt-drawer-toggle="#kt_aside_mobile_toggle"
+     
     >
       <div className="aside-logo flex-column-auto" id="kt_aside_logo">
         <NavLink to="/panel/dashboard">

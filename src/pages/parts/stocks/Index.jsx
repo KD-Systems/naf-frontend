@@ -4,6 +4,7 @@ import Confirmation from 'components/utils/Confirmation';
 import AddPartStock from './Create';
 import EditPartAlias from './Edit';
 import PartStockService from 'services/PartStockService';
+import Moment from "react-moment";
 
 const PartStocks = ({ tab, part, onChange }) => {
   const [loading, setLoading] = useState(true);
@@ -33,6 +34,7 @@ const PartStocks = ({ tab, part, onChange }) => {
   };
 
   useEffect(() => {
+    
     if (tab === 'stocks')
       getStocks();
     setLoading(false)
@@ -121,7 +123,7 @@ const PartStocks = ({ tab, part, onChange }) => {
                     </td>
 
                     <td>
-                      {item.arrival_date}
+                    <Moment format="DD MMM YYYY">{item.shipment_date}</Moment>
                     </td>
 
                     <td className="text-end">
@@ -159,13 +161,13 @@ const PartStocks = ({ tab, part, onChange }) => {
       <AddPartStock
         open={open}
         onCloseModal={() => onCloseModal()}
-        onCreated={() => getStocks(), onChange()}
+        onCreated={() => getStocks()}
       />
 
       <EditPartAlias
         open={updateOpen}
         onCloseModal={() => onCloseModal()}
-        onUpdated={() => getStocks(), onChange() }
+        onUpdated={() => getStocks() }
         id={id}
         stockId={stockId}
       />

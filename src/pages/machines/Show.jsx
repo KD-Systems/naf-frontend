@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import MachineService from "../../services/MachineService";
 import PartHeadings from "./headings/Index";
 import MachineModels from "./models/Index";
+import PermissionAbility from "helpers/PermissionAbility";
 
 const ShowMachine = () => {
   const [tab, setTab] = useState("models");
@@ -92,9 +93,15 @@ const ShowMachine = () => {
               </ul>
 
               <div className="tab-content">
+                <PermissionAbility permission="machines_model_part_headings_access">
                 <MachineModels tab={tab} models={data.models} onChange={getMachines} />
+                </PermissionAbility>
+                <PermissionAbility permission="machines_model_access">
                 <PartHeadings tab={tab}/>
+                </PermissionAbility>
+                <PermissionAbility permission="machines_part_headings_access">
                 <Activities logName="machines" modelId={id} tab={tab} />
+                </PermissionAbility>
               </div>
             </div>
           </div>

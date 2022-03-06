@@ -94,7 +94,9 @@ const ShowCompany = () => {
                           <tbody>
                             {company?.contracts?.map((item, index) => (
                               <tr key={index}>
-                                <td>{item?.machine?.name}</td>
+                                <td>{company?.machines?.map((item,index)=>(
+                                  item?.machine?.name
+                                ))}</td>
                                 <td>
                                   {item?.machine_models
                                     ?.map((it) => it.name)
