@@ -27,7 +27,16 @@ const Modal = (props) => {
     </span>
   );
 
-  let options = { ...{ open: false, title: 'Modal heading here', body: '', closeIcon: closeIcon }, ...props }
+  let options = { ...{ open: false, title: 'Modal heading here', body: '', closeIcon: closeIcon, size: 'sm' }, ...props }
+
+  let size = {
+    xs: 'w-350px',
+    sm: 'w-500px',
+    md: 'w-600px',
+    lg: 'w-700px',
+    xl: 'w-900px',
+    auto: 'w-auto',
+  }
 
   return (
     <div>
@@ -35,6 +44,7 @@ const Modal = (props) => {
         open={options?.open}
         onClose={options?.onCloseModal}
         closeIcon={options?.closeIcon}
+        classNames={{ modal: size[props.size] }}
       >
         <div className="card card-custom gutter-b">
           <div className="card-header">

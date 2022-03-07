@@ -101,7 +101,7 @@ const Parts = () => {
             <Link
               to="#"
               className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
-              onClick={() => setConfirmDelete(true)}
+              onClick={() => { setPartId(row.id); setConfirmDelete(true) }}
             >
               <i className="fa fa-trash"></i>
             </Link>
