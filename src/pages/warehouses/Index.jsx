@@ -130,7 +130,7 @@ const Index = () => {
       <CreateWareHouse
         open={open}
         onCloseModal={onCloseModal}
-        getWareHouses={() => getWareHouses}
+        getWareHouses={ getWareHouses}
       />
 
       <EditWareHouse
