@@ -6,3 +6,7 @@
 .menu-title{
     font-size: 16px;
 }
+
+.aside-fixed .aside{
+    overflow-y: scroll !important;
+}

@@ -165,7 +165,7 @@ const AddPartStock = ({ open, onCloseModal, onCreated }) => {
             <div className="form-group mt-5 row">
               <div className="col-md-6">
                 <label className="form-label">Arrival Date</label>
-                <DatePicker className="form-control" placeholderText="Shipment Date" selected={data.shipment_date} onChange={(date) => handleDateSelect(date, 'shipment_date')} />
+                <DatePicker className="form-control" name="shipment_date" placeholderText="Shipment Date" selected={data.shipment_date} onChange={(date) => handleDateSelect(date, 'shipment_date')} />
                 <div className="fv-plugins-message-container invalid-feedback" htmlFor="shipment_date"></div>
               </div>
 

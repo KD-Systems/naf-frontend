@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import WareHouseService from "services/WareHouseService";
 import PartService from "services/PartService";
 import Table from "components/utils/Table";
+import PermissionAbility from "helpers/PermissionAbility";
 
 const WareHouseShow = () => {
   const [loading, setLoading] = useState(true);
@@ -111,6 +112,7 @@ const WareHouseShow = () => {
           </div>
           <div className="col-xl-8">
             <div className="card card-custom gutter-b">
+              <PermissionAbility permission="warehouses_parts_access">
               <div className="card-header card-header-tabs-line">
                 <div className="card-toolbar">
                   {" "}
@@ -164,6 +166,7 @@ const WareHouseShow = () => {
                   </div>
                 </div>
               </div>
+              </PermissionAbility>
             </div>
           </div>
         </div>

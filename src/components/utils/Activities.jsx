@@ -63,9 +63,9 @@ export const Activities = ({ logName, modelId, self, tab }) => {
 
                                         <div className="overflow-auto pb-5 d-none" id={'properties-' + i}>
                                             <div className="d-flex align-items-center border border-dashed border-gray-300 rounded min-w-700px p-7">
-                                                {
+                                                {/* {
                                                     console.log(item.properties.attributes)
-                                                }
+                                                } */}
                                             </div>
                                         </div>
 
