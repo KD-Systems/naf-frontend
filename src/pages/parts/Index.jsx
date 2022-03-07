@@ -1,12 +1,13 @@
 import Confirmation from "components/utils/Confirmation";
 import Table from "components/utils/Table";
 import PermissionAbility from "helpers/PermissionAbility";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import PartService from "services/PartService";
 import CreateContract from "./Create";
 import EditPart from "./Edit";
 import ImportFile from "./ImportFile";
+import PartFilter from "./PartFilter";
 
 const Parts = () => {
   const [loading, setLoading] = useState(true);
@@ -16,6 +17,8 @@ const Parts = () => {
   const [openEditModal, setOpenEditModal] = useState(false);
   const [openImportModal, setOpenImportModal] = useState(false);
   const [partId, setPartId] = useState(null);
+  const [enableFilter, setEnableFilter] = useState(false);
+  const [filter, setFilter] = useState({})
 
   //Set the columns
   const columns = [
@@ -108,6 +111,15 @@ const Parts = () => {
     },
   ];
 
+  const filterData = (dt) => {
+    setFilter({
+      ...filter,
+      ...dt
+    })
+
+    setEnableFilter(false)
+  }
+
   const getParts = async (filters) => {
     setLoading(true);
     setParts(await PartService.getAll(filters));
@@ -125,6 +137,12 @@ const Parts = () => {
     setOpenImportModal(false);
   };
 
+  useEffect(() => {
+    if (filter.order) //Just to avoid double load
+      getParts(filter)
+  }, [filter])
+
+
   return (
     <>
       <div className="post d-flex flex-column-fluid">
@@ -136,6 +154,11 @@ const Parts = () => {
             buttonPermission="parts_create"
             callbackButtons={[
               {
+                name: 'Filter',
+                callback: () => { setEnableFilter(!enableFilter) },
+                permission: null
+              },
+              {
                 name: 'Import',
                 callback: () => { setOpenImportModal(true) },
                 permission: null
@@ -143,7 +166,7 @@ const Parts = () => {
             ]}
             isLoading={loading} data={parts}
             columns={columns}
-            onFilter={getParts}
+            onFilter={filterData}
           />
         </div>
       </div>
@@ -172,6 +195,8 @@ const Parts = () => {
         onCloseModal={onCloseModal}
         onImported={getParts}
       />
+
+      <PartFilter enable={enableFilter} onChange={(data) => {filterData(data)}} />
     </>
   );
 };
