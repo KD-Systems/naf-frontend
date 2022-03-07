@@ -25,7 +25,6 @@ const CreateWareHouse = ({ open, onCloseModal, getWareHouses }) => {
   const onSumbit = (e) => {
     e.preventDefault();
     createWareHouse(data);
-
     onCloseModal();
   };
   return (
