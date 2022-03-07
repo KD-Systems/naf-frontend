@@ -60,7 +60,7 @@ function Table({ name, buttonName, title, data, columns, isLoading, onFilter, on
           </div>
         </div>
 
-        <div className="card-toolbar flex-row-fluid justify-content-end gap-5">
+        <div className="card-toolbar flex-row-fluid justify-content-end gap-5">          
           {callbackButtons?.map((itm, index) => (
             typeof onClickButton === "function" && (
               <PermissionAbility key={index} permission={itm.permission}>
