@@ -15,7 +15,7 @@ const Requisitions = () => {
     payment_term:"",
     payment_partial_mode:"",
     partial_time:"",
-    next_payment:""
+    next_payment:"",
   });
   const [block, setBlock] = useState(false);
 
