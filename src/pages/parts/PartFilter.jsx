@@ -53,7 +53,7 @@ function PartFilter({ enable, onChange }) {
 
     const getMachines = async () => {
         let dt = await MachineService.getAll()
-        dt = dt.map((itm) => { return { label: itm.name, value: itm.id } });
+        dt = dt.data?.map((itm) => { return { label: itm.name, value: itm.id } });
         setMachines(dt)
     }
 

@@ -32,6 +32,7 @@ import ShowStock from "pages/parts/stocks/Show";
 import CompanyUserMachines from "pages/companyUser/Machines";
 import CompanyUserContracts from "pages/companyUser/Contracts";
 import Machine from "pages/companyUser/Machine";
+import Requisitions from "pages/requisitions/Index";
 
 function App() {
   return (
@@ -304,6 +305,18 @@ function App() {
             />
 
             {/* Settings End */}
+
+            {/* Requisitions Start */}
+            <Route
+              path="requisitions"
+              element={
+                <PrivateRoute>
+                  <Requisitions />
+                </PrivateRoute>
+              }
+            />
+
+            {/* Requisitions End */}
             <Route path="*" element={<NotFound />} />
           </Route>
 

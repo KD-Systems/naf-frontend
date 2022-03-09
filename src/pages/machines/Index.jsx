@@ -5,6 +5,7 @@ import Confirmation from "../../components/utils/Confirmation";
 import MachineService from "../../services/MachineService";
 import CreateMachine from "./Create";
 import EditMachine from "./Edit";
+import Table from "components/utils/Table";
 
 const Machines = () => {
   const [loading, setLoading] = useState(true);
@@ -29,13 +30,110 @@ const Machines = () => {
     getMachines();
   };
 
+
+  const columns = [
+    {
+      name: "Name",
+      width: "30%",
+      selector: (row) => row?.name,
+      sortable: true,
+      field: "name",
+      format: row => (
+        <div className="d-flex align-items-center">
+        
+          <div className="d-flex justify-content-start flex-column">
+            <Link
+              to={"/panel/machines/" + row.id}
+              className="text-dark fw-bolder text-hover-primary"
+            >
+              {row.name}
+            </Link>
+          </div>
+        </div>
+      )
+    },
+    {
+      name: "Models",
+      width: "50%",
+      selector: (row) =>
+      row?.models_count,
+      sortable: true,
+      field: "models",
+    },
+    {
+      name: "Action",
+      selector: (row) => row.status,
+      maxWidth: "150px",
+      format: (row) => (
+        <span className="text-end">
+          <PermissionAbility permission="machines_show">
+            <Link
+              to={"/panel/machines/" + row.id}
+              className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+            >
+              <i className="fa fa-eye"></i>
+            </Link>
+          </PermissionAbility>
+          <PermissionAbility permission="machines_edit">
+            <button
+              className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+              onClick={() => {
+                setUpdateOpen(true);
+                setMachineId(row.id);
+              }}
+            >
+              <i className="fa fa-pen"></i>
+            </button>
+          </PermissionAbility>
+
+          <PermissionAbility permission="machines_delete">
+            <Link
+              to="#"
+              className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
+              onClick={() => {
+                setMachineId(row.id);
+                setConfirmDelete(true);
+              }}
+            >
+              <i className="fa fa-trash"></i>
+            </Link>
+          </PermissionAbility>
+        </span>
+      ),
+    },
+  ];
+
   useEffect(() => {
     getMachines();
   }, []);
   return (
     <>
       <div className="post d-flex flex-column-fluid" id="kt_post">
-        <div id="kt_content_container" className="container-xxl">
+      <div className="container-xxl">
+      <Table
+            name="Machines"
+            buttonName="Add Machine"
+            onClickButton={() => setOpen(true)}
+            buttonPermission="parts_create"
+            
+            callbackButtons={[
+              // {
+              //   name: 'Filter',
+              //   // callback: () => { setEnableFilter(!enableFilter) },
+              //   permission: null
+              // },
+              // {
+              //   name: 'Import',
+              //   // callback: () => { setOpenImportModal(true) },
+              //   permission: null
+              // }
+            ]}
+            isLoading={loading} data={machines}
+            columns={columns}
+            
+            // onFilter={filterData}
+          />
+        {/* <div id="kt_content_container" className="container-xxl">
           <div className="card mb-5 mb-xl-8">
             <div className="card-header border-0 pt-5">
               <h3 className="card-title align-items-start flex-column">
@@ -125,6 +223,7 @@ const Machines = () => {
               </div>
             </div>
           </div>
+        </div> */}
         </div>
       </div>
 

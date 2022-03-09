@@ -5,6 +5,7 @@ import Select from "react-select";
 import "react-datepicker/dist/react-datepicker.css";
 import PartService from "services/PartService";
 import MachinePartHeadingService from "services/MachinePartHeadingService";
+import Tags from "components/utils/Tags";
 
 const CreatePart = ({ open, onCloseModal, onCreated }) => {
   const [machines, setMachines] = useState([]);
@@ -13,6 +14,13 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
   const handlePartAdd = () => {
     setInputField([...inputField, {}]);
   };
+
+  const [arm,setArm]=useState("")
+
+  const arms = [
+    {value:45,label:"45"},
+    {value:47,label:"47"}
+  ]
 
   const handlePartRemove = (index) => {
     const list = [...inputField];
@@ -34,6 +42,7 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
   const [inputField, setInputField] = useState([{}]);
 
   const [block, setBlock] = useState(false);
+  const [defaultArm, setDefaultArm] = useState(null);
 
   // Set the selected image to preview
   const setImage = async (e) => {
@@ -74,6 +83,18 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
     setInputField(list);
   };
 
+  const handleArm = (option, action) => {
+    const res = option.map((item) => item.value);
+    const name = action.name;
+
+    setArm(res);
+
+    setData({
+      ...data,
+      [name]: res,
+    });
+  };
+
   const addPart = async () => {
     setBlock(true);
     let temp1 = [];
@@ -101,6 +122,8 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
     onCloseModal();
     setBlock(false);
   };
+
+  console.log(data);
 
   const getMachines = async () => {
     setBlock(false);
@@ -131,6 +154,8 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
       getMachines();
     setBlock(false);
   }, [open]);
+
+
 
   return (
     <div>
@@ -189,8 +214,8 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
                     name="name"
                     id="name"
                     onChange={handleChange}
-                  // onChange={handlePartChange}
-                  // value={data.name ?? ""}
+                    // onChange={handlePartChange}
+                    // value={data.name ?? ""}
                   />
                   <div
                     className="fv-plugins-message-container invalid-feedback"
@@ -204,15 +229,14 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
                     name="arm"
                     id="arm"
                     onChange={handleChange}
+                    isMulti
                   >
                     <option>Select ARM</option>
                     <option value="45">45</option>
                     <option value="47">47</option>
                   </select>
-                  <div
-                    className="fv-plugins-message-container invalid-feedback"
-                    htmlFor="name"
-                  ></div>
+
+                
                 </div>
               </div>
 
@@ -266,8 +290,8 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
                           name="part_number"
                           id="part_number"
                           onChange={(e) => handlePartChange(e, index)}
-                        // onChange={handleChange}
-                        // value={data.part_number ?? ""}
+                          // onChange={handleChange}
+                          // value={data.part_number ?? ""}
                         />
                         <div
                           className="fv-plugins-message-container invalid-feedback"
@@ -276,14 +300,15 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
                       </div>
 
                       <div className="col-sm-1 mt-8">
-                        {index ? <button
-                          type="button"
-                          className="btn btn-danger float-right"
-                          onClick={() => handlePartRemove(index)}
-                        >
-                          <i className="fa fa-minus"></i>
-                        </button>
-                          :
+                        {index ? (
+                          <button
+                            type="button"
+                            className="btn btn-danger float-right"
+                            onClick={() => handlePartRemove(index)}
+                          >
+                            <i className="fa fa-minus"></i>
+                          </button>
+                        ) : (
                           <button
                             type="button"
                             className="btn btn-primary"
@@ -291,7 +316,7 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
                           >
                             <i className="fa fa-plus"></i>
                           </button>
-                        }
+                        )}
                       </div>
                     </div>
                   </div>

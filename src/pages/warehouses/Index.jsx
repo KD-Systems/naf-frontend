@@ -136,7 +136,7 @@ const Index = () => {
       <EditWareHouse
         open={updateOpen}
         onCloseModal={onCloseUpdateModal}
-        getWareHouses={() => getWareHouses}
+        getWareHouses={getWareHouses}
         warehousId={warehousId}
       />
     </>

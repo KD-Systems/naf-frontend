@@ -3,7 +3,7 @@ import http from "../http-common";
 const getAll = async () => {
     const res = await http.get("/machines");
     
-    return res.data;
+    return res;
 };
 
 const get = async (id) => {
