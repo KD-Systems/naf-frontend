@@ -5,7 +5,12 @@ import PermissionAbility from "helpers/PermissionAbility";
 const SideMenu = () => {
   const [collapsed,setCollapsed]=useState(false)
 
-  
+  const toggleMenu = () => {
+    setCollapsed(!collapsed);
+    // let menu = document.getElementById('kt_aside');
+    // menu?.classList.toggle('drawer-on');
+  }
+
   useEffect(()=>{
     let body = document.body;
     if (collapsed) {
@@ -47,7 +52,7 @@ const SideMenu = () => {
           data-kt-toggle-state="active"
           data-kt-toggle-target="body"
           data-kt-toggle-name="aside-minimize"
-          onClick={() => setCollapsed(!collapsed)}
+          onClick={() => toggleMenu()}
         >
           <span className="svg-icon svg-icon-1 rotate-180">
             <svg
@@ -271,6 +276,21 @@ const SideMenu = () => {
                     <i className="fas fa-warehouse"></i>
                   </span>
                   <span className="menu-title">Warehouses</span>
+                </NavLink>
+              </div>
+            </PermissionAbility>
+            <PermissionAbility permission="machines_access">
+              <div className="menu-item">
+                <NavLink
+                  className={(navinfo) =>
+                    navinfo.isActive ? "menu-link active" : "menu-link"
+                  }
+                  to="/panel/box-headings"
+                >
+                  <span className="menu-icon">
+                    <i className="fas fa-box"></i>
+                  </span>
+                  <span className="menu-title">Box Headings</span>
                 </NavLink>
               </div>
             </PermissionAbility>
