@@ -122,8 +122,6 @@ const Requisitions = () => {
     setParts(items);
   };
 
- 
-
   const getPartHeadings = async()=>{
     let res = await MachinePartHeadingService.getAll(data?.machine_id);
     console.log(res);

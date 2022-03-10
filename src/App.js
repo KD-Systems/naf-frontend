@@ -33,6 +33,8 @@ import CompanyUserMachines from "pages/companyUser/Machines";
 import CompanyUserContracts from "pages/companyUser/Contracts";
 import Machine from "pages/companyUser/Machine";
 import Requisitions from "pages/requisitions/Index";
+import BoxHeadings from "pages/box-headings/Index";
+import CreateBoxHeading from "pages/box-headings/Create";
 
 function App() {
   return (
@@ -202,6 +204,25 @@ function App() {
               }
             />
             {/* WareHouse End */}
+
+            {/* Box Heading Start */}
+            <Route
+              path="box-headings"
+              element={
+                <PrivateRoute>
+                  <BoxHeadings />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="box-headings/:id"
+              element={
+                <PrivateRoute>
+                  <CreateBoxHeading />
+                </PrivateRoute>
+              }
+            />
+            {/* Box Heading End */}
 
             {/* Machine Start */}
             <Route
