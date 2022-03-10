@@ -1,9 +1,12 @@
 import http from "../http-common";
 
-const getAll = async () => {
+const getAll = async (rawData) => {
     const res = await http.get("/machines");
-    
-    return res;
+
+    if (rawData)
+        return res;
+
+    return res.data;
 };
 
 const get = async (id) => {
@@ -12,7 +15,7 @@ const get = async (id) => {
 };
 
 const create = async (data) => {
-    const res = await http.post("/machines",data)
+    const res = await http.post("/machines", data)
     return res.data;
 };
 
@@ -32,6 +35,6 @@ const MachineService = {
     create,
     update,
     remove,
-  };
+};
 
 export default MachineService
