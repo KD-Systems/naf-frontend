@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
+import {Link} from "react-router-dom"
 import DatePicker from "react-datepicker";
 import CompanyService from "services/CompanyService";
 import moment from "moment";
@@ -8,8 +9,11 @@ import MachinePartHeadingService from "services/MachinePartHeadingService";
 const Requisitions = () => {
   const [companies, setCompanies] = useState([]);
   const [machineModels, setMachineModels] = useState([]);
-  const [filter, setFilter] = useState({});
-  const [partHeadings,setPartHeadings]=useState([])
+  const [filter, setFilter] = useState({
+    part_heading_id: null,
+  });
+  const [partHeadings, setPartHeadings] = useState([]);
+  const [searchData, setSearchData] = useState([]);
   const [data, setData] = useState({
     company_id: "",
     engineer_id: "",
@@ -29,6 +33,10 @@ const Requisitions = () => {
   });
   const [block, setBlock] = useState(false);
   const [parts, setParts] = useState([]);
+
+  const addPart = (id)=>{
+    console.log(id);
+  }
 
   const priorities = [
     { value: "low", label: "Low" },
@@ -96,10 +104,11 @@ const Requisitions = () => {
     setBlock(false);
 
     setData({
-      // eslint-disable-next-line no-undef
       ...data,
       [name]: value,
     });
+
+    
   };
 
   const handleDateSelect = (value, name) => {
@@ -115,6 +124,7 @@ const Requisitions = () => {
 
   const getParts = async () => {
     let res = await PartService.getAll(filter);
+    setSearchData(res.data)
     let items = res.data?.map((dt) => {
       return { label: dt.name, value: dt.id };
     });
@@ -122,33 +132,39 @@ const Requisitions = () => {
     setParts(items);
   };
 
-  const getPartHeadings = async()=>{
-    let res = await MachinePartHeadingService.getAll(data?.machine_id);
-    console.log(res);
-    let items = res?.map((dt) => {
-      return { label: dt.name, value: dt.id };
-    });
-    setPartHeadings(items)
-  }
+  const getPartHeadings = async () => {
+    if (data?.machine_id.length == 0) setPartHeadings([]);
 
-  const filterData = (e) => {
-    let dt = e.target.value;
-    setFilter({
-      q: dt,
-    });
+    if (data?.machine_id.length > 0) {
+      let res = await MachinePartHeadingService.getAll(data?.machine_id);
+
+      let items = res?.map((dt) => {
+        return { label: dt.name, value: dt.id };
+      });
+      setPartHeadings(items);
+    }
   };
 
-  useEffect(() => {
-    if (filter.length) getParts();
-  }, [filter]);
+  const filterData = (e) => {
+    let query = e.target.value;
+    setFilter({ ...filter, ["q"]: query,part_heading_id:data?.part_heading_id });
+    
+  };
+
+  const search = async (e) => {
+    e.keyCode === 13 && ( await getParts());
+    if (filter?.q == '') {
+      setSearchData([])
+    }
+  };
 
   useEffect(() => {
     if (data?.company_id) getMachineModels(data?.company_id);
   }, [data?.company_id]);
 
-  useEffect(()=>{
+  useEffect(() => {
     if (data?.machine_id) getPartHeadings(data?.machine_id);
-  },[data?.machine_id])
+  }, [data?.machine_id]);
 
   useEffect(() => {
     getCompanies();
@@ -271,6 +287,7 @@ const Requisitions = () => {
                         <div className="form-group">
                           <label className="required form-label">Machine</label>
                           <Select
+                            isMulti
                             options={machineModels}
                             onChange={handleSelect}
                             name="machine_id"
@@ -510,11 +527,11 @@ const Requisitions = () => {
                         <Select
                           options={partHeadings}
                           onChange={handleSelect}
-                          name="part_headings"
+                          name="part_heading_id"
                         />
                         <div
                           className="fv-plugins-message-container invalid-feedback"
-                          htmlFor="part_headings"
+                          htmlFor="part_heading_id"
                         ></div>
                       </div>
                     </div>
@@ -527,9 +544,15 @@ const Requisitions = () => {
                           className="form-control"
                           placeholder="Search"
                           name="search"
-                          value=""
-                          onChange={() => filterData}
+                          value={filter.q ?? ""}
+                          onChange={filterData}
+                          onKeyUp={search}
                         />
+                        <div>
+                          {searchData.length >0 ? searchData?.map((item,index)=>(
+                            <Link to={item?.id} style={{color:"black"}} key={index} onClick={()=>addPart(item)}><p>{item?.name}<span>({item.part_number})</span></p></Link>
+                          )):""}
+                        </div>
                       </div>
                     </div>
                   </div>

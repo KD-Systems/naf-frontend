@@ -1,6 +1,11 @@
 import http from "../http-common";
 
 const getAll = async (machineId) => {
+    if (machineId.length >1) {
+        let res = await http.get(`/machines/[${machineId}]/part-headings`);
+        return res.data;
+    }
+    
     const res = await http.get(`/machines/${machineId}/part-headings`);
     
     return res.data;
@@ -11,6 +16,11 @@ const get = async (machineId, id) => {
     return res.data;
 };
 
+
+const filtered = async (filter)=>{
+    const res = await http.get(`/machines/filtered/`,filter);
+    return res.data;
+}
 
 const create = async (machineId, data) => {
     const res = await http.post(`/machines/${machineId}/part-headings`,data)
@@ -34,6 +44,7 @@ const MachinePartHeadingService = {
     create,
     update,
     remove,
+    filtered
 };
 
 export default MachinePartHeadingService
