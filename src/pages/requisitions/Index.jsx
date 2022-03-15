@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
+import { Link } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import CompanyService from "services/CompanyService";
 import moment from "moment";
@@ -8,8 +9,14 @@ import MachinePartHeadingService from "services/MachinePartHeadingService";
 const Requisitions = () => {
   const [companies, setCompanies] = useState([]);
   const [machineModels, setMachineModels] = useState([]);
-  const [filter, setFilter] = useState({});
-  const [partHeadings,setPartHeadings]=useState([])
+  const [filter, setFilter] = useState({
+    part_heading_id: null,
+  });
+  const [partHeadings, setPartHeadings] = useState([]);
+  const [searchData, setSearchData] = useState([]);
+  const [list,setList] = useState([]); /* for adding part in requisition */
+  const [selectedPart,setSelectedPart] = useState(false) /* Check Part selected or not selected*/
+  const [totalAmount, setTotal] = useState(0);
   const [data, setData] = useState({
     company_id: "",
     engineer_id: "",
@@ -29,6 +36,10 @@ const Requisitions = () => {
   });
   const [block, setBlock] = useState(false);
   const [parts, setParts] = useState([]);
+
+
+
+
 
   const priorities = [
     { value: "low", label: "Low" },
@@ -60,6 +71,21 @@ const Requisitions = () => {
     { value: "months", label: "Months" },
     { value: "years", label: "Years" },
   ];
+
+  const addPart = (item) => {
+    item['quantity'] = 0;
+    const newList = list.concat(item)
+    setList(Array.from(new Set (newList))) /* add part in the List and remove duplicates from array */
+    setSelectedPart(true)
+    setFilter({...filter,q:""})
+    setSearchData("")
+  };
+
+
+  const removeItem = (id)=>{
+    const newList = list.filter((item=>item.id !==id))
+    setList(newList)
+  }
 
   const getCompanies = async () => {
     let dt = await CompanyService.getAll({
@@ -96,7 +122,6 @@ const Requisitions = () => {
     setBlock(false);
 
     setData({
-      // eslint-disable-next-line no-undef
       ...data,
       [name]: value,
     });
@@ -115,6 +140,7 @@ const Requisitions = () => {
 
   const getParts = async () => {
     let res = await PartService.getAll(filter);
+    setSearchData(res.data);
     let items = res.data?.map((dt) => {
       return { label: dt.name, value: dt.id };
     });
@@ -122,37 +148,78 @@ const Requisitions = () => {
     setParts(items);
   };
 
-  const getPartHeadings = async()=>{
-    let res = await MachinePartHeadingService.getAll(data?.machine_id);
-    console.log(res);
-    let items = res?.map((dt) => {
-      return { label: dt.name, value: dt.id };
-    });
-    setPartHeadings(items)
-  }
+  const getPartHeadings = async () => {
+    if (data?.machine_id.length == 0) setPartHeadings([]);
+
+    if (data?.machine_id.length > 0) {
+      let res = await MachinePartHeadingService.getAll(data?.machine_id);
+
+      let items = res?.map((dt) => {
+        return { label: dt.name, value: dt.id };
+      });
+      setPartHeadings(items);
+    }
+  };
 
   const filterData = (e) => {
-    let dt = e.target.value;
+    let query = e.target.value;
     setFilter({
-      q: dt,
+      ...filter,
+      ["q"]: query,
+      part_heading_id: data?.part_heading_id,
     });
   };
 
-  useEffect(() => {
-    if (filter.length) getParts();
-  }, [filter]);
+  const search = async (e) => {
+    e.keyCode === 13 && (await getParts());
+    if (filter?.q == "") {
+      setSearchData([]);
+    }
+  };
 
   useEffect(() => {
     if (data?.company_id) getMachineModels(data?.company_id);
   }, [data?.company_id]);
 
-  useEffect(()=>{
+  useEffect(() => {
     if (data?.machine_id) getPartHeadings(data?.machine_id);
-  },[data?.machine_id])
+  }, [data?.machine_id]);
+
+
+
 
   useEffect(() => {
     getCompanies();
   }, []);
+
+  useEffect(() => {
+    const sum = list.reduce(
+      (partialSum, a) => partialSum + a.selling_price * a.quantity,
+      0
+    );
+    setTotal(sum);
+  }, [list]);
+
+
+  const increment = (item)=>{
+    const tempList = [...list]
+    const tempItem = tempList.filter((val)=>val.id == item.id)
+    tempItem[0].quantity ++;
+
+    setList(tempList);
+  }
+
+  const decrement = (item)=>{
+    const tempList = [...list]
+    const tempItem = tempList.filter((val)=>val.id == item.id)
+    tempItem[0].quantity --;
+
+    setList(tempList);
+  }
+
+
+
+
   return (
     <>
       <div className="post d-flex flex-column-fluid" id="kt_post">
@@ -271,6 +338,7 @@ const Requisitions = () => {
                         <div className="form-group">
                           <label className="required form-label">Machine</label>
                           <Select
+                            isMulti
                             options={machineModels}
                             onChange={handleSelect}
                             name="machine_id"
@@ -510,11 +578,11 @@ const Requisitions = () => {
                         <Select
                           options={partHeadings}
                           onChange={handleSelect}
-                          name="part_headings"
+                          name="part_heading_id"
                         />
                         <div
                           className="fv-plugins-message-container invalid-feedback"
-                          htmlFor="part_headings"
+                          htmlFor="part_heading_id"
                         ></div>
                       </div>
                     </div>
@@ -527,9 +595,35 @@ const Requisitions = () => {
                           className="form-control"
                           placeholder="Search"
                           name="search"
-                          value=""
-                          onChange={() => filterData}
+                          value={filter.q || ""}
+                          defaultValue="Search..."
+                          onChange={filterData}
+                          onKeyUp={search}
                         />
+                        <div>
+                          {searchData.length > 0 ? (
+                            <div className="card border border-secondary ">
+                              <div className="card-body ">
+                                {searchData?.map((item, index) => (
+                                  <div key={index}>
+                                    <Link
+                                      to={item?.id}
+                                      style={{ color: "black" }}
+                                      onClick={() => addPart(item)}
+                                    >
+                                      <p>
+                                        {item?.name}
+                                        <span>({item.part_number})</span>
+                                      </p>
+                                    </Link>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          ) : (
+                            ""
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -537,6 +631,156 @@ const Requisitions = () => {
               </div>
             </div>
           </div>
+          {selectedPart && list.length > 0 ? (
+            <div className="d-flex flex-column flex-lg-row">
+              <div className="flex-lg-row-fluid mb-10 mb-lg-0 me-lg-7 me-xl-10">
+                <div className="card mb-5">
+                  <div className="card-body p-12">
+                    <div className="row">
+                      <div className="col-lg-12">
+                        <div className="table-responsive mb-10">
+                          <table
+                            className="table g-5 gs-0 mb-0 fw-bolder text-gray-700"
+                            data-kt-element="items"
+                          >
+                            <thead>
+                              <tr className="border-bottom fs-7 fw-bolder text-gray-700 text-uppercase">
+                                <th className="min-w-300px w-475px">Item</th>
+                                <th className="min-w-300px w-475px">
+                                  Part Number
+                                </th>
+                                <th className="min-w-100px w-250px">QTY</th>
+                                <th className="min-w-150px w-150px">Price</th>
+                                <th className="min-w-100px w-150px text-end">
+                                  Total
+                                </th>
+                                <th className="min-w-75px w-75px text-end">
+                                  Action
+                                </th>
+                              </tr>
+                            </thead>
+
+                            <tbody>
+                              {list?.map((item, index) => (
+                                <tr key={index}>
+                                  <td className="pe-7">{item?.name}</td>
+                                  <td>{item?.part_number}
+  
+                                  </td>
+
+                                  <td className="product-quantity">
+                                    <div className="input-group input-group-sm mb-3 mt-2">
+                                      <div className="input-group-prepend">
+                                        <span
+                                          className="input-group-text"
+                                          id="inputGroup-sizing-sm"
+                                     
+                                          onClick={() =>  {
+                                            if (item?.quantity >0) {
+                                              
+                                              decrement(item)
+                                            }
+                                        }}
+                                        >
+                                          <i className="fas fa-minus"></i>
+                                        </span>
+                                      </div>
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                        aria-label="Small"
+                                        aria-describedby="inputGroup-sizing-sm"
+                                        min="1"
+                                        value={item.quantity}
+                                        defaultValue={item.quantity}
+                                        name="quantity"
+                                        data-kt-element="quantity"
+                                      />
+
+                                      <div className="input-group-prepend">
+                                 
+                                        <span
+                                          className="input-group-text"
+                                          id="inputGroup-sizing-sm"
+                                          onClick={() =>  increment(item)}
+                                          style={{ cursor: "pointer" }}
+                                        >
+                                          <i className="fas fa-plus"></i>
+
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </td>
+                                  <td>{item?.selling_price} Tk.</td>
+                                  <td className="pt-8 text-end text-nowrap">
+                                    <span data-kt-element="total">{item.selling_price * item.quantity}</span>Tk.
+                                  </td>
+                                  <td className="pt-5 text-end">
+                                    <button
+                                      type="button"
+                                      className="btn btn-sm btn-icon btn-active-color-primary"
+                                      data-kt-element="remove-item"
+                                      onClick={() => removeItem(item?.id)}
+                                    >
+                                      <span className="svg-icon svg-icon-3">
+                                        <svg
+                                          xmlns="http://www.w3.org/2000/svg"
+                                          width="24"
+                                          height="24"
+                                          viewBox="0 0 24 24"
+                                          fill="none"
+                                        >
+                                          <path
+                                            d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z"
+                                            fill="black"
+                                          />
+                                          <path
+                                            opacity="0.5"
+                                            d="M5 5C5 4.44772 5.44772 4 6 4H18C18.5523 4 19 4.44772 19 5V5C19 5.55228 18.5523 6 18 6H6C5.44772 6 5 5.55228 5 5V5Z"
+                                            fill="black"
+                                          />
+                                          <path
+                                            opacity="0.5"
+                                            d="M9 4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V4H9V4Z"
+                                            fill="black"
+                                          />
+                                        </svg>
+                                      </span>
+                                    </button>
+                                  </td>
+                                </tr>
+                              ))}
+                            </tbody>
+
+                            <tfoot>
+                              <tr className="border-top border-top-dashed align-top fs-6 fw-bolder text-gray-700"></tr>
+                              <tr className="align-top fw-bolder text-gray-700">
+                                <th></th>
+                                <th colSpan="2" className="fs-4 ps-0">
+                                  Total
+                                </th>
+                                <th
+                                  colSpan="2"
+                                  className="text-end fs-4 text-nowrap"
+                                >
+                                 
+                                  <span data-kt-element="grand-total">
+                                    {totalAmount} Tk
+                                  </span>
+                                </th>
+                              </tr>
+                            </tfoot>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </>
