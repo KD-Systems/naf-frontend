@@ -34,7 +34,7 @@ import CompanyUserContracts from "pages/companyUser/Contracts";
 import Machine from "pages/companyUser/Machine";
 import Requisitions from "pages/requisitions/Index";
 import BoxHeadings from "pages/box-headings/Index";
-import CreateBoxHeading from "pages/box-headings/Create";
+import BoxHeadingShow from "pages/box-headings/Show";
 
 function App() {
   return (
@@ -215,10 +215,10 @@ function App() {
               }
             />
             <Route
-              path="box-headings/:id"
+              path="box-headings/:headingId"
               element={
                 <PrivateRoute>
-                  <CreateBoxHeading />
+                  <BoxHeadingShow />
                 </PrivateRoute>
               }
             />

@@ -39,10 +39,9 @@ const PartHeadings = ({ tab }) => {
 
   return (
     <>
-      {" "}
       <div
         className={`tab-pane fade ${
-          tab == "headings" ? "active show" : null
+          tab === "headings" ? "active show" : null
         }`}
         id="headings"
         role="tabpanel"
@@ -51,7 +50,6 @@ const PartHeadings = ({ tab }) => {
           <div className="card-header align-items-center border-0 mt-4">
             <h3 className="card-title align-items-start flex-column">
               <span className="fw-bolder mb-2 text-dark">Part Headings</span>
-              {/* <span className="text-muted fw-bold fs-7">890,344 Sales</span> */}
             </h3>
             <div className="card-toolbar">
               <button

@@ -1,172 +1,139 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import WareHouseService from "services/WareHouseService";
 import PartService from "services/PartService";
-import Table from "components/utils/Table";
-import PermissionAbility from "helpers/PermissionAbility";
+import BoxHeadingService from "services/BoxHeadingService";
 
-const WareHouseShow = () => {
+const BoxHeadingShow = () => {
   const [loading, setLoading] = useState(true);
   const [parts, setParts] = useState([]);
-  let { id } = useParams();
+  let { headingId } = useParams();
   const navigate = useNavigate();
-  const [warehouse, setWareHouse] = useState({});
+  const [boxHeading, setBoxHeading] = useState(null);
 
-  //Set the columns
-  const columns = [
-    {
-      name: 'Common Name',
-      selector: row => row.name,
-      sortable: true,
-      field: 'name',
-      format: row => (
-        <Link
-          to={"/panel/parts/" + row.id}
-          className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
-        >
-          {row.name}
-        </Link>
-      )
-    },
-    {
-      name: 'Machine',
-      selector: row => row.machines?.map((itm) => itm.name)?.join(', '),
-      sortable: true,
-      field: 'machine',
-    },
-    {
-      name: 'Heading',
-      selector: row => row.heading,
-      sortable: true,
-      field: 'heading',
-    },
-    {
-      name: 'Part Number',
-      selector: row => row.part_number,
-      sortable: true,
-      field: 'part_number',
-    }
-  ];
-
-
-  const getWareHouse = async () => {
-    setWareHouse(await WareHouseService.get(id));
+  const getBoxHeading = async () => {
+    setBoxHeading(await BoxHeadingService.get(headingId));
   };
 
-  const getParts = async (filters) => {
-    filters.warehouse_id = id;
+  const getParts = async () => {
     setLoading(true);
-    setParts(await PartService.getAll(filters));
+    setParts(await PartService.getAll({ 'all': true }));
     setLoading(false);
   };
 
   useEffect(() => {
-    if (id) {
-      getWareHouse();
+    if (boxHeading)
+      getParts()
+  }, [boxHeading])
+
+
+  useEffect(() => {
+    if (headingId) {
+      getBoxHeading();
     }
-  }, [id]);
+  }, [headingId]);
 
   return (
-    <div className="d-flex flex-column-fluid">
-      <div className="container">
-        <div className="row">
-          <div className="col-xl-4">
-            <div className="card card-custom">
-              <div className="card-header h-auto py-4">
-                <div className="card-title">
-                  <h3 className="card-label">
-                    <button
-                      className="btn btn-sm btn-dark "
-                      style={{ marginRight: "0.75rem" }}
-                      onClick={() => navigate(-1)}
-                    >
-                      <i className="fa fa-arrow-left"></i>Back
-                    </button>
-                    Details
-                  </h3>
-                </div>
-              </div>
+    <div className="post d-flex flex-column-fluid" id="kt_post">
+      <div id="kt_content_container" className="container-xxl">
+        <div className="d-flex flex-column flex-lg-row">
+          <div className="flex-column flex-lg-row-auto w-lg-250px w-xl-350px mb-10">
+            <div className="card mb-5 mb-xl-8">
+              <div className="card-body">
+                <h3 className="card-label">
+                  <button
+                    className="btn btn-sm btn-dark "
+                    style={{ marginRight: "0.75rem" }}
+                    onClick={() => navigate(-1)}
+                  >
+                    <i className="fa fa-arrow-left"></i> Back
+                  </button>
+                  Box Details
+                </h3>
+                <div className="separator"></div>
 
-              <div className="card-body py-4">
-                <div className="form-group row my-2">
-                  <label className="col-4 col-form-label">Name:</label>
-                  <div className="col-8">
-                    <span className="form-control-plaintext font-weight-bolder">
-                      {warehouse.name}
-                    </span>
+                <div className="pb-5 fs-6">
+                  <div className="fw-bolder mt-5">Name</div>
+                  <div className="text-gray-600">{boxHeading?.name}</div>
+
+
+
+                  <div className="fw-bolder mt-5">Description</div>
+                  <div className="text-gray-600">
+                    <span className="text-gray-600">{boxHeading?.description}</span>
                   </div>
-                </div>
 
-
-                <div className="form-group row my-2">
-                  <label className="col-4 col-form-label">Description:</label>
-                  <div className="col-8">
-                    <span className="form-control-plaintext font-weight-bolder">
-                      {warehouse.description}
+                  <div className="fw-bolder mt-5">Remarks</div>
+                  <div className="text-gray-600">
+                    <span className="text-gray-600 text-hover-primary">
+                      {boxHeading?.remarks}
                     </span>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div className="col-xl-8">
-            <div className="card card-custom gutter-b">
-              <PermissionAbility permission="warehouses_parts_access">
-              <div className="card-header card-header-tabs-line">
-                <div className="card-toolbar">
-                  {" "}
-                  <div className="card-title">
-                    <h3 className="card-label">Parts List</h3>
-                  </div>
-                </div>
-              </div>
 
-              <div className="card-body px-0">
+          <div className="flex-lg-row-fluid ms-lg-15">
+            <ul className="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-bold mb-8">
+              <li className="nav-item">
+                <a
+                  className="nav-link text-active-primary pb-4 active"
+                  data-bs-toggle="tab"
+                  href="#parts"
+                >
+                  Parts
+                </a>
+              </li>
+            </ul>
+
+            <div className="tab-content" id="myTabContent">
+              <div
+                className="tab-pane fade show active"
+                id="parts"
+                role="tabpanel"
+              >
                 <div className="card mb-5 mb-xl-8">
-                  <div className="card-body py-3">
-                    <Table
-                      name="Parts"
-                      isLoading={loading} data={parts}
-                      columns={columns}
-                      onFilter={getParts}
-                    />
-                    {/* <div className="table-responsive">
+                  <div className="card-body pt-5">
+                    <div className="table-responsive">
                       <table className="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
                         <thead>
                           <tr className="fw-bolder text-muted">
-                            <th className="min-w-120px">Name</th>
-                            <th className="min-w-180px">Machine</th>
+                            <th>Name</th>
+                            <th className="min-w-50px">Part Number</th>
+
                           </tr>
                         </thead>
 
                         <tbody>
-                          {warehouse?.parts?.map((item, index) => (
-                            <tr key={index}>
-                              <td className=" fw-bolder  d-block mb-1 fs-6">
-                                {item?.aliases[0]?.name}
-                              </td>
-
+                          {loading ? (
+                            <tr>
                               <td>
-                                {item?.aliases?.map((it, index) => (
-                                  <Link
-                                    to={`/panel/machines/${it?.machine?.id}`}
-                                    className="text-dark fw-bolder text-hover-primary d-block mb-1"
-                                    key={index}
-                                  >
-                                    {it?.machine?.name}
-                                  </Link>
-                                ))}
+                                <i className="fas fa-cog fa-spin"></i>{" "}
+                                Loading...
                               </td>
+                            </tr>
+                          ) : null}
+
+                          {parts?.map((item, index) => (
+                            <tr key={index}>
+                              <td>
+                                <Link
+                                  to={"/panel/parts/" + item.id}
+                                  className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
+                                >
+                                  {item.heading}
+                                </Link>
+                              </td>
+                              <td>{item.part_number}</td>
                             </tr>
                           ))}
                         </tbody>
                       </table>
-                    </div> */}
+                    </div>
                   </div>
                 </div>
               </div>
-              </PermissionAbility>
             </div>
           </div>
         </div>
@@ -175,4 +142,4 @@ const WareHouseShow = () => {
   );
 };
 
-export default WareHouseShow;
+export default BoxHeadingShow;

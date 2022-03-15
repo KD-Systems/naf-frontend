@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Modal from "components/utils/Modal";
-import WareHouseService from "services/WareHouseService";
+import BoxHeadingService from "services/BoxHeadingService";
 
-const EditBoxHeading = ({ open, onCloseModal, onChange, warehousId }) => {
-  const [warehouse, setWareHouse] = useState("");
+const EditBoxHeading = ({ open, onCloseModal, onChange, boxId }) => {
+  const [boxHeading, setBoxHeading] = useState("");
   const [data, setData] = useState({ name: "", description: "" });
 
-  const getWareHouse = async () => {
-    setWareHouse(await WareHouseService.get(warehousId));
+  const getBox = async () => {
+    setBoxHeading(await BoxHeadingService.get(boxId));
   };
 
   const handleChange = (e) => {
@@ -20,41 +20,41 @@ const EditBoxHeading = ({ open, onCloseModal, onChange, warehousId }) => {
     setData(tempdata);
   };
 
-  const updateWarehouse = async () => {
-    await WareHouseService.update(warehousId, data);
+  const updateBox = async () => {
+    await BoxHeadingService.update(boxId, data);
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
-    updateWarehouse();
+    updateBox();
     onChange();
     onCloseModal();
   };
 
   useEffect(() => {
-    if (warehousId) {
-      getWareHouse();
+    if (boxId) {
+      getBox();
     }
-  }, [open, warehousId]);
+  }, [open, boxId]);
 
   useEffect(() => {
-    setData(warehouse);
-  }, [warehouse]);
+    setData(boxHeading);
+  }, [boxHeading]);
 
   useEffect(() => {
     let tempdata = { ...data };
-    tempdata.name = warehouse.name;
-    tempdata.description = warehouse.description;
+    tempdata.name = boxHeading.name;
+    tempdata.description = boxHeading.description;
     setData(tempdata);
-  }, [warehouse]);
+  }, [boxHeading]);
 
   return (
     <div>
       <Modal
         open={open}
         onCloseModal={onCloseModal}
-        title={<>Edit Warehouse</>}
-        id={warehousId}
+        title={<>Edit Box Heading</>}
+        id={boxId}
         body={
           <>
             <form>

@@ -10,14 +10,14 @@ const CreateBoxHeading = ({ open, onCloseModal, onChange }) => {
     designation: "",
   });
   const [headings, setHeadings] = useState([])
-  const [defaultHeading, setDefaultHeading] = useState(null)
 
   const getHeadings = async () => {
-    setHeadings(await MachinePartHeadingService.getAll());
+    let res = await MachinePartHeadingService.getAll()
+    setHeadings(res.map((dt) => ({ label: dt.name, value: dt.id })));
   };
 
   const handleSelect = (option, conf) => {
-    const value = option.value;
+    const value = option.label;
     const name = conf.name;
 
     setData({
@@ -26,7 +26,7 @@ const CreateBoxHeading = ({ open, onCloseModal, onChange }) => {
     });
   };
 
-  const createWareHouse = async (data) => {
+  const createBox = async (data) => {
     await BoxHeadingService.create(data);
     onChange();
   };
@@ -41,9 +41,8 @@ const CreateBoxHeading = ({ open, onCloseModal, onChange }) => {
     });
   };
 
-  const onSumbit = (e) => {
-    e.preventDefault();
-    createWareHouse(data);
+  const onSumbit = async () => {
+    await createBox(data);
     onCloseModal();
   };
 
@@ -52,23 +51,20 @@ const CreateBoxHeading = ({ open, onCloseModal, onChange }) => {
       getHeadings()
   }, [open])
 
-
   return (
     <div>
       <Modal
         open={open}
         onCloseModal={onCloseModal}
-        title={<>Create Warehouse</>}
+        title={<>Add Box Heading</>}
         body={
           <>
-
             <div className="form-group">
               <label className="required form-label">Name</label>
               <Select
                 options={headings}
                 onChange={handleSelect}
-                name="role"
-                defaultValue={defaultHeading ?? ""}
+                name="name"
               />
             </div>
 
