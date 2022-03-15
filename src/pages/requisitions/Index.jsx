@@ -77,6 +77,8 @@ const Requisitions = () => {
     const newList = list.concat(item)
     setList(Array.from(new Set (newList))) /* add part in the List and remove duplicates from array */
     setSelectedPart(true)
+    setFilter({...filter,q:""})
+    setSearchData("")
   };
 
 
@@ -674,7 +676,10 @@ const Requisitions = () => {
                                           id="inputGroup-sizing-sm"
                                      
                                           onClick={() =>  {
-                                           decrement(item)
+                                            if (item?.quantity >0) {
+                                              
+                                              decrement(item)
+                                            }
                                         }}
                                         >
                                           <i className="fas fa-minus"></i>
