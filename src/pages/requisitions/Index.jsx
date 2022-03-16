@@ -6,12 +6,16 @@ import CompanyService from "services/CompanyService";
 import moment from "moment";
 import PartService from "services/PartService";
 import MachinePartHeadingService from "services/PartHeadingService";
+import RequisitionService from "services/RequisitionService";
+
 const Requisitions = () => {
   const [companies, setCompanies] = useState([]);
   const [machineModels, setMachineModels] = useState([]);
   const [filter, setFilter] = useState({
     part_heading_id: null,
   });
+
+  const [newPart,setNewPart]=useState([]);
   const [partHeadings, setPartHeadings] = useState([]);
   const [searchData, setSearchData] = useState([]);
   const [list, setList] = useState([]); /* for adding part in requisition */
@@ -34,12 +38,21 @@ const Requisitions = () => {
     reason_of_trouble: "",
     remarks: "",
   });
+
+
+
+  const handleChange = (index)=>{
+    console.log(index);
+    // setNewPart(index)
+  }
+
+  useEffect(()=>{
+    handleChange()
+  },[])
+
+  console.log("NEWPART",newPart);
   const [block, setBlock] = useState(false);
   const [parts, setParts] = useState([]);
-
-
-
-
 
   const priorities = [
     { value: "low", label: "Low" },
@@ -71,6 +84,11 @@ const Requisitions = () => {
     { value: "months", label: "Months" },
     { value: "years", label: "Years" },
   ];
+
+  const storeRequisition = async () => {
+    let res = await RequisitionService.create(data)
+    console.log(res);
+  }
 
   const addPart = (item) => {
     item['quantity'] = 0;
@@ -186,8 +204,6 @@ const Requisitions = () => {
   }, [data.machine_id]);
 
 
-
-
   useEffect(() => {
     getCompanies();
   }, []);
@@ -216,8 +232,6 @@ const Requisitions = () => {
 
     setList(tempList);
   }
-
-
 
 
   return (
@@ -271,12 +285,11 @@ const Requisitions = () => {
                         title="Enter invoice number"
                       >
                         <span className="fs-2x fw-bolder text-gray-800">
-                          Invoice #
+                          Requisition
                         </span>
                         <input
                           type="text"
                           className="form-control form-control-flush fw-bolder text-muted fs-3 w-125px"
-                          value="2021001"
                           placehoder="..."
                         />
                       </div>
@@ -596,7 +609,6 @@ const Requisitions = () => {
                           placeholder="Search"
                           name="search"
                           value={filter.q || ""}
-                          defaultValue="Search..."
                           onChange={filterData}
                           onKeyUp={search}
                         />
@@ -663,8 +675,8 @@ const Requisitions = () => {
                             <tbody>
                               {list?.map((item, index) => (
                                 <tr key={index}>
-                                  <td className="pe-7">{item?.name}</td>
-                                  <td>{item?.part_number}</td>
+                                  <td className="pe-7" onChange={()=>handleChange(index)} name="part_name">{item?.name}</td>
+                                  <td name="part_number">{item?.part_number}</td>
 
                                   <td className="product-quantity">
                                     <div className="input-group input-group-sm mb-3 ">
@@ -687,7 +699,7 @@ const Requisitions = () => {
                                         aria-label="Small"
                                         aria-describedby="inputGroup-sizing-sm"
                                         min="1"
-                                        value={item.quantity}
+                                        value={item.quantity ?? ''}
                                         defaultValue={item.quantity}
                                         name="quantity"
                                         data-kt-element="quantity"
@@ -766,7 +778,7 @@ const Requisitions = () => {
                                 </th>
                               </tr>
                               <div className="text-right">
-                                <button className="btn btn-success btn-lg pull-right">
+                                <button onClick={() => storeRequisition()} className="btn btn-success btn-lg pull-right">
                                   Submit
                                 </button>
                               </div>

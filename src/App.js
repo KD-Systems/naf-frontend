@@ -215,7 +215,7 @@ function App() {
               }
             />
             <Route
-              path="box-headings/:headingId"
+              path="box-headings/:boxId"
               element={
                 <PrivateRoute>
                   <BoxHeadingShow />

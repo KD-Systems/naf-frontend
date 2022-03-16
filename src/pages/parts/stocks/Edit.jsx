@@ -7,7 +7,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useParams } from "react-router-dom";
 import WareHouseService from "services/WareHouseService";
-import MachinePartHeadingService from "services/PartHeadingService";
+import BoxHeadingService from "services/BoxHeadingService";
 
 const EditPartStock = ({ open, onCloseModal, onUpdated, stockId }) => {
   let { id } = useParams();
@@ -15,24 +15,8 @@ const EditPartStock = ({ open, onCloseModal, onUpdated, stockId }) => {
   const [defaultHeading, setDefaultHeading] = useState(null)
   const [warehouses, setWarehouses] = useState([])
   const [defaultWarehouse, setDefaultWarehouse] = useState(null);
-  const [defaultUnit, setDefaultUnit] = useState(null);
-  const [units] = useState([
-    { label: 'Piece', value: 'piece' },
-    { label: 'Millimetre', value: 'millimetre' },
-    { label: 'Centimetre', value: 'centimetre' },
-    { label: 'Metre', value: 'metre' },
-    { label: 'Feet', value: 'feet' },
-    { label: 'Inch', value: 'inch' },
-    { label: 'Yard', value: 'yard' }
-  ])
-  const [data, setData] = useState({
-    machine_id: '',
-    machine_model_id: '',
-    machine_heading_id: '',
-    name: '',
-    part_number: '',
-    description: ''
-  })
+
+  const [data, setData] = useState({})
   const [block, setBlock] = useState(false);
 
   const handleChange = (e) => {
@@ -65,8 +49,7 @@ const EditPartStock = ({ open, onCloseModal, onUpdated, stockId }) => {
     setBlock(true)
     let res = await PartStockService.get(id, stockId)
     setDefaultWarehouse({ label: res.warehouse?.name, value: res.warehouse?.id })
-    setDefaultHeading({ label: res.part_heading?.name, value: res.part_heading?.id })
-    setDefaultUnit({ label: res.unit?.capitalize(), value: res.unit })
+    setDefaultHeading({ label: res.box?.name, value: res.box?.id })
     res.shipment_date = new Date(res.shipment_date);
     res.warehouse_id = res.warehouse?.id;
     setData(res);
@@ -89,9 +72,9 @@ const EditPartStock = ({ open, onCloseModal, onUpdated, stockId }) => {
     setBlock(false)
   };
 
-  const getHeadings = async () => {
+  const getBoxes = async () => {
     setBlock(false)
-    let dt = await MachinePartHeadingService.getAll()
+    let dt = await BoxHeadingService.getAll()
     dt = dt.map(itm => ({ label: itm.name, value: itm.id })) //Parse the data as per the select requires
     setHeadings(dt);
     setBlock(false)
@@ -102,10 +85,9 @@ const EditPartStock = ({ open, onCloseModal, onUpdated, stockId }) => {
     if (open) {//Prevent preload data while modal is hidden
       setDefaultHeading(null)
       setDefaultWarehouse(null)
-      setDefaultUnit(null)
 
       getWarehouses();
-      getHeadings();
+      getBoxes();
       getStock();
     }
     setBlock(false)
@@ -127,8 +109,8 @@ const EditPartStock = ({ open, onCloseModal, onUpdated, stockId }) => {
 
             <div className="form-group">
               <label className="required form-label">Box Heading</label>
-              {defaultHeading ? <Select options={headings} onChange={handleSelect} name="part_heading_id" defaultValue={defaultHeading} /> : <p>Loading...</p>}
-              <div className="fv-plugins-message-container invalid-feedback" htmlFor="part_heading_id"></div>
+              {defaultHeading ? <Select options={headings} onChange={handleSelect} name="box_heading_id" defaultValue={defaultHeading} /> : <p>Loading...</p>}
+              <div className="fv-plugins-message-container invalid-feedback" htmlFor="box_heading_id"></div>
             </div>
 
             <div className="form-group">
@@ -214,18 +196,18 @@ const EditPartStock = ({ open, onCloseModal, onUpdated, stockId }) => {
             </div>
 
             <div className="form-group mt-5">
-                <label className="form-label">Note</label>
-                <textarea
-                  rows="3"
-                  type="text"
-                  className="form-control"
-                  placeholder="Write the notes"
-                  name="note"
-                  id="note"
-                  onChange={handleChange}
-                />
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="note"></div>
-              </div>
+              <label className="form-label">Note</label>
+              <textarea
+                rows="3"
+                type="text"
+                className="form-control"
+                placeholder="Write the notes"
+                name="note"
+                id="note"
+                onChange={handleChange}
+              />
+              <div className="fv-plugins-message-container invalid-feedback" htmlFor="note"></div>
+            </div>
 
             <button
               disabled={block}

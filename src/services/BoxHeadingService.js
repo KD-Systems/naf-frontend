@@ -11,6 +11,12 @@ const get = async (id) => {
     return res.data;
 };
 
+const parts = async (id) => {
+    const res = await http.get(`/box-headings/${id}/parts`);
+    return res.data;
+};
+
+
 const create = async (data) => {
     const res = await http.post("/box-headings",data)
     return res.data;
@@ -29,6 +35,7 @@ const remove = async (id) => {
 const BoxHeadingService = {
     getAll,
     get,
+    parts,
     create,
     update,
     remove,

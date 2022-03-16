@@ -7,21 +7,14 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useParams } from "react-router-dom";
 import WareHouseService from "services/WareHouseService";
-import MachinePartHeadingService from "services/PartHeadingService";
+import BoxHeadingService from "services/BoxHeadingService";
 
 const AddPartStock = ({ open, onCloseModal, onCreated }) => {
   let { id } = useParams();
   const [warehouses, setWarehouses] = useState([])
   const [headings, setHeadings] = useState([])
 
-  const [data, setData] = useState({
-    machine_id: '',
-    machine_model_id: '',
-    machine_heading_id: '',
-    name: '',
-    part_number: '',
-    description: ''
-  })
+  const [data, setData] = useState({})
   const [block, setBlock] = useState(false);
 
   const handleChange = (e) => {
@@ -68,7 +61,7 @@ const AddPartStock = ({ open, onCloseModal, onCreated }) => {
 
   const getHeadings = async () => {
     setBlock(false)
-    let dt = await MachinePartHeadingService.getAll()
+    let dt = await BoxHeadingService.getAll()
     dt = dt.map(itm => ({ label: itm.name, value: itm.id })) //Parse the data as per the select requires
     setHeadings(dt);
     setBlock(false)
@@ -98,8 +91,8 @@ const AddPartStock = ({ open, onCloseModal, onCreated }) => {
 
             <div className="form-group">
               <label className="required form-label">Box Heading</label>
-              <Select options={headings} onChange={handleSelect} name="part_heading_id" />
-              <div className="fv-plugins-message-container invalid-feedback" htmlFor="part_heading_id"></div>
+              <Select options={headings} onChange={handleSelect} name="box_heading_id" />
+              <div className="fv-plugins-message-container invalid-feedback" htmlFor="box_heading_id"></div>
             </div>
 
             <div className="form-group">

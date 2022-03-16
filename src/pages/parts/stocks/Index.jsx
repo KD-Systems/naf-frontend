@@ -34,7 +34,7 @@ const PartStocks = ({ tab, part, onChange }) => {
   };
 
   useEffect(() => {
-    
+
     if (tab === 'stocks')
       getStocks();
     setLoading(false)
@@ -52,7 +52,7 @@ const PartStocks = ({ tab, part, onChange }) => {
         <div className="card-header align-items-center border-0 mt-4">
           <h3 className="card-title align-items-start flex-column">
             <span className="fw-bolder mb-2 text-dark">Stock Histories</span>
-            <span className="text-muted fw-bold fs-7">Currently <span className='fw-bold fs-5 text-dark'>{part.unit === 'piece' ? parseFloat(part.unit_value).toFixed() : part.unit_value}</span> {part.unit?.pluralize()} in stock</span>
+            <span className="text-muted fw-bold fs-7">Currently <span className='fw-bold fs-5 text-dark'>{part.unit === 'piece' ? parseFloat(part.unit_value).toFixed() + ' are' : part.unit_value}</span> {part.unit?.pluralize()} in stock</span>
           </h3>
 
           <div className="card-toolbar">
@@ -71,7 +71,7 @@ const PartStocks = ({ tab, part, onChange }) => {
               <thead>
                 <tr className="fw-bolder text-muted">
                   <th className="min-w-140px">Warehouse</th>
-                  <th className="min-w-120px">Part Heading</th>
+                  <th className="min-w-120px">Box Heading</th>
                   <th className="min-w-100px">Unit</th>
                   <th className="min-w-120px">Unit Value</th>
                   <th className="min-w-120px">Shipment Invoice</th>
@@ -103,10 +103,10 @@ const PartStocks = ({ tab, part, onChange }) => {
 
                     <td>
                       <Link
-                        to={"/panel/machines/" + item.part_heading?.machine_id + "/part-headings/" + item.part_heading?.id}
+                        to={"/panel/box-headings/" + item.box?.id}
                         className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
                       >
-                        {item.part_heading?.name}
+                        {item.box?.name}
                       </Link>
                     </td>
 
@@ -123,7 +123,7 @@ const PartStocks = ({ tab, part, onChange }) => {
                     </td>
 
                     <td>
-                    <Moment format="DD MMM YYYY">{item.shipment_date}</Moment>
+                      <Moment format="DD MMM YYYY">{item.shipment_date}</Moment>
                     </td>
 
                     <td className="text-end">
@@ -167,7 +167,7 @@ const PartStocks = ({ tab, part, onChange }) => {
       <EditPartAlias
         open={updateOpen}
         onCloseModal={() => onCloseModal()}
-        onUpdated={() => getStocks() }
+        onUpdated={() => getStocks()}
         id={id}
         stockId={stockId}
       />

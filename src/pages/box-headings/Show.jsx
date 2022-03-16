@@ -7,17 +7,17 @@ import BoxHeadingService from "services/BoxHeadingService";
 const BoxHeadingShow = () => {
   const [loading, setLoading] = useState(true);
   const [parts, setParts] = useState([]);
-  let { headingId } = useParams();
+  let { boxId } = useParams();
   const navigate = useNavigate();
   const [boxHeading, setBoxHeading] = useState(null);
 
   const getBoxHeading = async () => {
-    setBoxHeading(await BoxHeadingService.get(headingId));
+    setBoxHeading(await BoxHeadingService.get(boxId));
   };
 
   const getParts = async () => {
     setLoading(true);
-    setParts(await PartService.getAll({ 'all': true }));
+    setParts(await BoxHeadingService.parts(boxId));
     setLoading(false);
   };
 
@@ -28,10 +28,9 @@ const BoxHeadingShow = () => {
 
 
   useEffect(() => {
-    if (headingId) {
-      getBoxHeading();
-    }
-  }, [headingId]);
+    if (boxId)
+      getBoxHeading()
+  }, []);
 
   return (
     <div className="post d-flex flex-column-fluid" id="kt_post">
@@ -101,6 +100,7 @@ const BoxHeadingShow = () => {
                           <tr className="fw-bolder text-muted">
                             <th>Name</th>
                             <th className="min-w-50px">Part Number</th>
+                            <th className="min-w-100px">Machines</th>
 
                           </tr>
                         </thead>
@@ -118,14 +118,28 @@ const BoxHeadingShow = () => {
                           {parts?.map((item, index) => (
                             <tr key={index}>
                               <td>
-                                <Link
-                                  to={"/panel/parts/" + item.id}
-                                  className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
-                                >
-                                  {item.heading}
-                                </Link>
+                                <div className="d-flex align-items-center">
+                                  <div className="symbol symbol-50px me-5">
+                                    <span className="symbol-label bg-light">
+                                      <img
+                                        src={item.image}
+                                        className="h-75 overflow-hidden"
+                                        alt={item.name}
+                                      />
+                                    </span>
+                                  </div>
+                                  <div className="d-flex justify-content-start flex-column">
+                                    <Link
+                                      to={'/panel/parts/' + item.id}
+                                      className="text-dark fw-bolder text-hover-primary"
+                                    >
+                                      {item.name}
+                                    </Link>
+                                  </div>
+                                </div>
                               </td>
                               <td>{item.part_number}</td>
+                              <td>{item.machines}</td>
                             </tr>
                           ))}
                         </tbody>
