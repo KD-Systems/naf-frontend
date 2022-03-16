@@ -14,8 +14,8 @@ const Requisitions = () => {
   });
   const [partHeadings, setPartHeadings] = useState([]);
   const [searchData, setSearchData] = useState([]);
-  const [list,setList] = useState([]); /* for adding part in requisition */
-  const [selectedPart,setSelectedPart] = useState(false) /* Check Part selected or not selected*/
+  const [list, setList] = useState([]); /* for adding part in requisition */
+  const [selectedPart, setSelectedPart] = useState(false) /* Check Part selected or not selected*/
   const [totalAmount, setTotal] = useState(0);
   const [data, setData] = useState({
     company_id: "",
@@ -75,15 +75,15 @@ const Requisitions = () => {
   const addPart = (item) => {
     item['quantity'] = 0;
     const newList = list.concat(item)
-    setList(Array.from(new Set (newList))) /* add part in the List and remove duplicates from array */
+    setList(Array.from(new Set(newList))) /* add part in the List and remove duplicates from array */
     setSelectedPart(true)
-    setFilter({...filter,q:""})
+    setFilter({ ...filter, q: "" })
     setSearchData("")
   };
 
 
-  const removeItem = (id)=>{
-    const newList = list.filter((item=>item.id !==id))
+  const removeItem = (id) => {
+    const newList = list.filter((item => item.id !== id))
     setList(newList)
   }
 
@@ -149,7 +149,7 @@ const Requisitions = () => {
   };
 
   const getPartHeadings = async () => {
-    if (data?.machine_id.length == 0) setPartHeadings([]);
+    if (data?.machine_id.length === 0) setPartHeadings([]);
 
     if (data?.machine_id.length > 0) {
       let res = await MachinePartHeadingService.getAll(data?.machine_id);
@@ -165,25 +165,25 @@ const Requisitions = () => {
     let query = e.target.value;
     setFilter({
       ...filter,
-      ["q"]: query,
+      q: query,
       part_heading_id: data?.part_heading_id,
     });
   };
 
   const search = async (e) => {
     e.keyCode === 13 && (await getParts());
-    if (filter?.q == "") {
+    if (filter?.q === "") {
       setSearchData([]);
     }
   };
 
   useEffect(() => {
-    if (data?.company_id) getMachineModels(data?.company_id);
-  }, [data?.company_id]);
+    if (data.company_id) getMachineModels(data?.company_id);
+  }, [data.company_id]);
 
   useEffect(() => {
-    if (data?.machine_id) getPartHeadings(data?.machine_id);
-  }, [data?.machine_id]);
+    if (data.machine_id) getPartHeadings(data?.machine_id);
+  }, [data.machine_id]);
 
 
 
@@ -201,18 +201,18 @@ const Requisitions = () => {
   }, [list]);
 
 
-  const increment = (item)=>{
+  const increment = (item) => {
     const tempList = [...list]
-    const tempItem = tempList.filter((val)=>val.id == item.id)
-    tempItem[0].quantity ++;
+    const tempItem = tempList.filter((val) => val.id === item.id)
+    tempItem[0].quantity++;
 
     setList(tempList);
   }
 
-  const decrement = (item)=>{
+  const decrement = (item) => {
     const tempList = [...list]
-    const tempItem = tempList.filter((val)=>val.id == item.id)
-    tempItem[0].quantity --;
+    const tempItem = tempList.filter((val) => val.id === item.id)
+    tempItem[0].quantity--;
 
     setList(tempList);
   }
@@ -417,7 +417,7 @@ const Requisitions = () => {
                         </div>
                       </div>
 
-                      {data?.type != "claim_report" && data?.type != "" && (
+                      {data?.type !== "claim_report" && data?.type !== "" && (
                         <>
                           <div className="col-lg-6">
                             <div className="mb-5">
@@ -440,7 +440,7 @@ const Requisitions = () => {
                               />
                             </div>
                           </div>
-                          {data?.payment_term == "partial" && (
+                          {data?.payment_term === "partial" && (
                             <>
                               <div className="col-lg-4">
                                 <label htmlFor="payment_partial_mode">
@@ -665,7 +665,7 @@ const Requisitions = () => {
                                 <tr key={index}>
                                   <td className="pe-7">{item?.name}</td>
                                   <td>{item?.part_number}
-  
+
                                   </td>
 
                                   <td className="product-quantity">
@@ -674,13 +674,13 @@ const Requisitions = () => {
                                         <span
                                           className="input-group-text"
                                           id="inputGroup-sizing-sm"
-                                     
-                                          onClick={() =>  {
-                                            if (item?.quantity >0) {
-                                              
+
+                                          onClick={() => {
+                                            if (item?.quantity > 0) {
+
                                               decrement(item)
                                             }
-                                        }}
+                                          }}
                                         >
                                           <i className="fas fa-minus"></i>
                                         </span>
@@ -698,11 +698,11 @@ const Requisitions = () => {
                                       />
 
                                       <div className="input-group-prepend">
-                                 
+
                                         <span
                                           className="input-group-text"
                                           id="inputGroup-sizing-sm"
-                                          onClick={() =>  increment(item)}
+                                          onClick={() => increment(item)}
                                           style={{ cursor: "pointer" }}
                                         >
                                           <i className="fas fa-plus"></i>
@@ -763,7 +763,7 @@ const Requisitions = () => {
                                   colSpan="2"
                                   className="text-end fs-4 text-nowrap"
                                 >
-                                 
+
                                   <span data-kt-element="grand-total">
                                     {totalAmount} Tk
                                   </span>
