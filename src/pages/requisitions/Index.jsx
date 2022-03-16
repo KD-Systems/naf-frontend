@@ -345,7 +345,7 @@ const Requisitions = () => {
                           />
                           <div
                             className="fv-plugins-message-container invalid-feedback"
-                            htmlFor="company_id"
+                            htmlFor="machine_id"
                           ></div>
                         </div>
                       </div>
@@ -402,7 +402,7 @@ const Requisitions = () => {
                       </div>
 
                       <div className="col-lg-4">
-                        <label htmlFor="types" className="form-label">
+                        <label htmlFor="type" className="form-label">
                           Types
                         </label>
                         <div className="mb-5">
@@ -424,7 +424,7 @@ const Requisitions = () => {
                               <label className="required form-label">
                                 Payment mode
                               </label>
-                              <Select options={payments} name="payments" />
+                              <Select options={payments} name="payment_mode" />
                             </div>
                           </div>
 
@@ -664,21 +664,17 @@ const Requisitions = () => {
                               {list?.map((item, index) => (
                                 <tr key={index}>
                                   <td className="pe-7">{item?.name}</td>
-                                  <td>{item?.part_number}
-
-                                  </td>
+                                  <td>{item?.part_number}</td>
 
                                   <td className="product-quantity">
-                                    <div className="input-group input-group-sm mb-3 mt-2">
+                                    <div className="input-group input-group-sm mb-3 ">
                                       <div className="input-group-prepend">
                                         <span
                                           className="input-group-text"
                                           id="inputGroup-sizing-sm"
-
                                           onClick={() => {
                                             if (item?.quantity > 0) {
-
-                                              decrement(item)
+                                              decrement(item);
                                             }
                                           }}
                                         >
@@ -698,7 +694,6 @@ const Requisitions = () => {
                                       />
 
                                       <div className="input-group-prepend">
-
                                         <span
                                           className="input-group-text"
                                           id="inputGroup-sizing-sm"
@@ -706,14 +701,16 @@ const Requisitions = () => {
                                           style={{ cursor: "pointer" }}
                                         >
                                           <i className="fas fa-plus"></i>
-
                                         </span>
                                       </div>
                                     </div>
                                   </td>
                                   <td>{item?.selling_price} Tk.</td>
                                   <td className="pt-8 text-end text-nowrap">
-                                    <span data-kt-element="total">{item.selling_price * item.quantity}</span>Tk.
+                                    <span data-kt-element="total">
+                                      {item.selling_price * item.quantity}
+                                    </span>
+                                    Tk.
                                   </td>
                                   <td className="pt-5 text-end">
                                     <button
@@ -763,12 +760,16 @@ const Requisitions = () => {
                                   colSpan="2"
                                   className="text-end fs-4 text-nowrap"
                                 >
-
                                   <span data-kt-element="grand-total">
                                     {totalAmount} Tk
                                   </span>
                                 </th>
                               </tr>
+                              <div className="text-right">
+                                <button className="btn btn-success btn-lg pull-right">
+                                  Submit
+                                </button>
+                              </div>
                             </tfoot>
                           </table>
                         </div>
