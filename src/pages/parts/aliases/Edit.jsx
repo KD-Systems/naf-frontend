@@ -4,7 +4,7 @@ import MachineService from "services/MachineService";
 import Select from 'react-select'
 import "react-datepicker/dist/react-datepicker.css";
 import PartAliasService from "services/PartAliasService";
-import MachinePartHeadingService from "services/MachinePartHeadingService";
+import MachinePartHeadingService from "services/PartHeadingService";
 import { useParams } from "react-router-dom";
 
 const EditPartAlias = ({ open, onCloseModal, onUpdated, aliasId }) => {

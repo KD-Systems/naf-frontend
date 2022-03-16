@@ -5,7 +5,7 @@ import DatePicker from "react-datepicker";
 import CompanyService from "services/CompanyService";
 import moment from "moment";
 import PartService from "services/PartService";
-import MachinePartHeadingService from "services/MachinePartHeadingService";
+import MachinePartHeadingService from "services/PartHeadingService";
 const Requisitions = () => {
   const [companies, setCompanies] = useState([]);
   const [machineModels, setMachineModels] = useState([]);

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Modal from "../../components/utils/Modal";
 import BoxHeadingService from "services/BoxHeadingService";
 import Select from "react-select";
-import MachinePartHeadingService from "services/MachinePartHeadingService";
+import MachinePartHeadingService from "services/PartHeadingService";
 
 const CreateBoxHeading = ({ open, onCloseModal, onChange }) => {
   const [data, setData] = useState({

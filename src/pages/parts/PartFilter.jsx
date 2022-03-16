@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Select from "react-select";
 import MachineService from "services/MachineService";
-import MachinePartHeadingService from "services/MachinePartHeadingService";
+import MachinePartHeadingService from "services/PartHeadingService";
 
 function PartFilter({ enable, onChange }) {
     const [data, setData] = useState({

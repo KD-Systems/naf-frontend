@@ -4,7 +4,7 @@ import MachineService from "services/MachineService";
 import Select from "react-select";
 import "react-datepicker/dist/react-datepicker.css";
 import PartService from "services/PartService";
-import MachinePartHeadingService from "services/MachinePartHeadingService";
+import MachinePartHeadingService from "services/PartHeadingService";
 import Tags from "components/utils/Tags";
 
 const CreatePart = ({ open, onCloseModal, onCreated }) => {

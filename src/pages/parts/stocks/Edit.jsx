@@ -7,7 +7,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useParams } from "react-router-dom";
 import WareHouseService from "services/WareHouseService";
-import MachinePartHeadingService from "services/MachinePartHeadingService";
+import MachinePartHeadingService from "services/PartHeadingService";
 
 const EditPartStock = ({ open, onCloseModal, onUpdated, stockId }) => {
   let { id } = useParams();

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link,useParams } from "react-router-dom";
-import MachinePartHeadingService from "services/MachinePartHeadingService";
+import MachinePartHeadingService from "services/PartHeadingService";
 import Confirmation from "../../../components/utils/Confirmation";
 import CreateHeadings from "./Create";
 import EditHeadings from "./Edit";

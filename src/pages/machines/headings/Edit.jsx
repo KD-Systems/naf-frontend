@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Modal from "components/utils/Modal";
-import MachinePartHeadingService from "services/MachinePartHeadingService";
+import MachinePartHeadingService from "services/PartHeadingService";
 const EditHeadings = ({
   open,
   onCloseModal,

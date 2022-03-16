@@ -1,11 +1,6 @@
 import http from "../http-common";
 
 const getAll = async (machineId) => {
-    if (machineId.length >1) {
-        let res = await http.get(`/machines/[${machineId}]/part-headings`);
-        return res.data;
-    }
-    
     const res = await http.get(`/machines/${machineId}/part-headings`);
     
     return res.data;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import MachinePartHeadingService from "services/MachinePartHeadingService";
+import MachinePartHeadingService from "services/PartHeadingService";
 import Modal from "components/utils/Modal";
 
 const CreateHeadings = ({ open, onCloseModal, machineId, onCreated }) => {

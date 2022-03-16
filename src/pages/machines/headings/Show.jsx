@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate,Link } from "react-router-dom";
-import MachinePartHeadingService from "services/MachinePartHeadingService";
+import MachinePartHeadingService from "services/PartHeadingService";
 const ShowPartHeadings = () => {
   let { machineId, headingId } = useParams();
   const navigate = useNavigate();
