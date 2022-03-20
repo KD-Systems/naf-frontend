@@ -15,7 +15,7 @@ const Requisitions = () => {
     part_heading_id: null,
   });
 
-  const [newPart,setNewPart]=useState([]);
+  const [newPart,setNewPart]=useState({});
   const [partHeadings, setPartHeadings] = useState([]);
   const [searchData, setSearchData] = useState([]);
   const [list, setList] = useState([]); /* for adding part in requisition */
@@ -37,20 +37,14 @@ const Requisitions = () => {
     solutions: "",
     reason_of_trouble: "",
     remarks: "",
+    partItems:""
   });
 
 
 
-  const handleChange = (index)=>{
-    console.log(index);
-    // setNewPart(index)
-  }
 
-  useEffect(()=>{
-    handleChange()
-  },[])
 
-  console.log("NEWPART",newPart);
+
   const [block, setBlock] = useState(false);
   const [parts, setParts] = useState([]);
 
@@ -85,10 +79,26 @@ const Requisitions = () => {
     { value: "years", label: "Years" },
   ];
 
+
+
+  const setPartItem = (items) => {
+    let arr = [];
+
+    arr.push(...items);
+    setData({...data,partItems:arr})
+    setNewPart(arr);
+  };
+ 
+ 
   const storeRequisition = async () => {
-    let res = await RequisitionService.create(data)
+    setData((prevState) => ({
+      ...prevState,
+      partItems: newPart,
+    }));
+    let res = await RequisitionService.create(data);
     console.log(res);
-  }
+  };
+
 
   const addPart = (item) => {
     item['quantity'] = 0;
@@ -144,6 +154,11 @@ const Requisitions = () => {
       [name]: value,
     });
   };
+
+  const handleChange = (e)=>{
+    const {name} = e.target
+    setData({...data,[name]:e.target.value})
+  }
 
   const handleDateSelect = (value, name) => {
     setData({
@@ -232,6 +247,8 @@ const Requisitions = () => {
 
     setList(tempList);
   }
+
+
 
 
   return (
@@ -382,7 +399,7 @@ const Requisitions = () => {
                       <div className="col-lg-4">
                         <label className="required form-label">Priority</label>
                         <div className="mb-5">
-                          <Select options={priorities} name="priority" />
+                          <Select options={priorities} name="priority" onChange={handleSelect} />
                         </div>
                       </div>
 
@@ -437,7 +454,7 @@ const Requisitions = () => {
                               <label className="required form-label">
                                 Payment mode
                               </label>
-                              <Select options={payments} name="payment_mode" />
+                              <Select options={payments} name="payment_mode" onChange={handleSelect}/>
                             </div>
                           </div>
 
@@ -477,6 +494,7 @@ const Requisitions = () => {
                                     className="form-control form-control-solid "
                                     name="partial_time"
                                     placeholder="Partial Time"
+                
                                   />
                                 </div>
                               </div>
@@ -519,6 +537,7 @@ const Requisitions = () => {
                             className="form-control form-control-solid mb-2"
                             name="ref_number"
                             placeholder="ref_number"
+                            onChange={handleChange}
                           />
                         </div>
                       </div>
@@ -532,6 +551,7 @@ const Requisitions = () => {
                             name="machine_problems"
                             data-kt-element="input"
                             placeholder="Type a message"
+                            onChange={handleChange}
                           ></textarea>
                         </div>
                       </div>
@@ -544,6 +564,7 @@ const Requisitions = () => {
                             name="solutions"
                             data-kt-element="input"
                             placeholder="Type a message"
+                            onChange={handleChange}
                           ></textarea>
                         </div>
                       </div>
@@ -556,6 +577,7 @@ const Requisitions = () => {
                             name="reason_of_trouble"
                             data-kt-element="input"
                             placeholder="Type a message"
+                            onChange={handleChange}
                           ></textarea>
                         </div>
                       </div>
@@ -569,6 +591,7 @@ const Requisitions = () => {
                           className="form-control form-control-solid"
                           rows="3"
                           placeholder="Thanks for your business"
+                          onChange={handleChange}
                         ></textarea>
                       </div>
                     </div>
@@ -675,7 +698,7 @@ const Requisitions = () => {
                             <tbody>
                               {list?.map((item, index) => (
                                 <tr key={index}>
-                                  <td className="pe-7" onChange={()=>handleChange(index)} name="part_name">{item?.name}</td>
+                                  <td className="pe-7"  name="part_name">{item?.name}</td>
                                   <td name="part_number">{item?.part_number}</td>
 
                                   <td className="product-quantity">
@@ -778,7 +801,7 @@ const Requisitions = () => {
                                 </th>
                               </tr>
                               <div className="text-right">
-                                <button onClick={() => storeRequisition()} className="btn btn-success btn-lg pull-right">
+                                <button onClick={() => {storeRequisition();setPartItem(list)}} className="btn btn-success btn-lg pull-right">
                                   Submit
                                 </button>
                               </div>
