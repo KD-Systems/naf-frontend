@@ -15,12 +15,12 @@ const Requisitions = () => {
     part_heading_id: null,
   });
 
-  const [newPart,setNewPart]=useState({});
   const [partHeadings, setPartHeadings] = useState([]);
   const [searchData, setSearchData] = useState([]);
   const [list, setList] = useState([]); /* for adding part in requisition */
   const [selectedPart, setSelectedPart] = useState(false) /* Check Part selected or not selected*/
-  const [totalAmount, setTotal] = useState(0);
+  const [totalAmount, setTotal] = useState(0); //total amount
+  const [engineers,setEngineers]=useState([])
   const [data, setData] = useState({
     company_id: "",
     engineer_id: "",
@@ -37,10 +37,9 @@ const Requisitions = () => {
     solutions: "",
     reason_of_trouble: "",
     remarks: "",
-    partItems:""
+    partItems: list,
+    total: totalAmount
   });
-
-
 
 
 
@@ -81,22 +80,12 @@ const Requisitions = () => {
 
 
 
-  const setPartItem = (items) => {
-    let arr = [];
 
-    arr.push(...items);
-    setData({...data,partItems:arr})
-    setNewPart(arr);
-  };
  
  
   const storeRequisition = async () => {
-    setData((prevState) => ({
-      ...prevState,
-      partItems: newPart,
-    }));
+
     let res = await RequisitionService.create(data);
-    console.log(res);
   };
 
 
@@ -124,6 +113,13 @@ const Requisitions = () => {
     setCompanies(dt);
   };
 
+  const getEngineers = async () =>{
+    let dt = await RequisitionService.getEngineers();
+    dt = dt.map((itm)=>({label:itm?.name,value:itm?.id}));
+    setEngineers(dt);
+
+  }
+
   const getMachineModels = async (companyId) => {
     setBlock(false);
     let dt = await CompanyService.getMachines(companyId);
@@ -138,6 +134,8 @@ const Requisitions = () => {
     });
     setBlock(false);
   };
+
+
 
   const handleSelect = (option, conf) => {
     let value = option.value;
@@ -185,7 +183,7 @@ const Requisitions = () => {
     if (data?.machine_id.length === 0) setPartHeadings([]);
 
     if (data?.machine_id.length > 0) {
-      let res = await MachinePartHeadingService.getAll(data?.machine_id);
+      let res = await MachinePartHeadingService.getAll(null, {machine_ids: data?.machine_id});
 
       let items = res?.map((dt) => {
         return { label: dt.name, value: dt.id };
@@ -211,6 +209,10 @@ const Requisitions = () => {
   };
 
   useEffect(() => {
+    setData({...data, partItems: list,total:totalAmount})  //add partItems and total amount in data
+  }, [list,totalAmount])
+
+  useEffect(() => {
     if (data.company_id) getMachineModels(data?.company_id);
   }, [data.company_id]);
 
@@ -221,6 +223,11 @@ const Requisitions = () => {
 
   useEffect(() => {
     getCompanies();
+  }, []);
+
+
+  useEffect(() => {
+    getEngineers();
   }, []);
 
   useEffect(() => {
@@ -385,13 +392,13 @@ const Requisitions = () => {
 
                         <div className="mb-5">
                           <Select
-                            options={companies}
+                            options={engineers}
                             onChange={handleSelect}
-                            name="company_id"
+                            name="engineer_id"
                           />
                           <div
                             className="fv-plugins-message-container invalid-feedback"
-                            htmlFor="company_id"
+                            htmlFor="engineer_id"
                           ></div>
                         </div>
                       </div>
@@ -399,7 +406,11 @@ const Requisitions = () => {
                       <div className="col-lg-4">
                         <label className="required form-label">Priority</label>
                         <div className="mb-5">
-                          <Select options={priorities} name="priority" onChange={handleSelect} />
+                          <Select
+                            options={priorities}
+                            name="priority"
+                            onChange={handleSelect}
+                          />
                         </div>
                       </div>
 
@@ -425,7 +436,7 @@ const Requisitions = () => {
                             />
                             <div
                               className="fv-plugins-message-container invalid-feedback"
-                              htmlFor="start_date"
+                              htmlFor="expected_delivery"
                             ></div>
                           </div>
                         </div>
@@ -454,7 +465,15 @@ const Requisitions = () => {
                               <label className="required form-label">
                                 Payment mode
                               </label>
-                              <Select options={payments} name="payment_mode" onChange={handleSelect}/>
+                              <Select
+                                options={payments}
+                                name="payment_mode"
+                                onChange={handleSelect}
+                              />
+                              <div
+                                className="fv-plugins-message-container invalid-feedback"
+                                htmlFor="payment_mode"
+                              ></div>
                             </div>
                           </div>
 
@@ -468,6 +487,10 @@ const Requisitions = () => {
                                 name="payment_term"
                                 onChange={handleSelect}
                               />
+                              <div
+                                className="fv-plugins-message-container invalid-feedback"
+                                htmlFor="payment_term"
+                              ></div>
                             </div>
                           </div>
                           {data?.payment_term === "partial" && (
@@ -481,7 +504,12 @@ const Requisitions = () => {
                                     options={payment_partial_mode}
                                     name="payment_partial_mode"
                                   />
+                                   
                                 </div>
+                                <div
+                                className="fv-plugins-message-container invalid-feedback"
+                                htmlFor="payment_partial_mode"
+                              ></div>
                               </div>
 
                               <div className="col-lg-4">
@@ -494,8 +522,12 @@ const Requisitions = () => {
                                     className="form-control form-control-solid "
                                     name="partial_time"
                                     placeholder="Partial Time"
-                
+                                    onChange={handleChange}
                                   />
+                                  <div
+                                className="fv-plugins-message-container invalid-feedback"
+                                htmlFor="partial_time"
+                              ></div>
                                 </div>
                               </div>
 
@@ -518,7 +550,7 @@ const Requisitions = () => {
                                   />
                                   <div
                                     className="fv-plugins-message-container invalid-feedback"
-                                    htmlFor="start_date"
+                                    htmlFor="next_payment"
                                   ></div>
                                 </div>
                               </div>
@@ -698,8 +730,12 @@ const Requisitions = () => {
                             <tbody>
                               {list?.map((item, index) => (
                                 <tr key={index}>
-                                  <td className="pe-7"  name="part_name">{item?.name}</td>
-                                  <td name="part_number">{item?.part_number}</td>
+                                  <td className="pe-7" name="part_name">
+                                    {item?.name}
+                                  </td>
+                                  <td name="part_number">
+                                    {item?.part_number}
+                                  </td>
 
                                   <td className="product-quantity">
                                     <div className="input-group input-group-sm mb-3 ">
@@ -722,7 +758,7 @@ const Requisitions = () => {
                                         aria-label="Small"
                                         aria-describedby="inputGroup-sizing-sm"
                                         min="1"
-                                        value={item.quantity ?? ''}
+                                        value={item.quantity ?? ""}
                                         defaultValue={item.quantity}
                                         name="quantity"
                                         data-kt-element="quantity"
@@ -801,7 +837,12 @@ const Requisitions = () => {
                                 </th>
                               </tr>
                               <div className="text-right">
-                                <button onClick={() => {storeRequisition();setPartItem(list)}} className="btn btn-success btn-lg pull-right">
+                                <button
+                                  onClick={() => {
+                                    storeRequisition();
+                                  }}
+                                  className="btn btn-success btn-lg pull-right"
+                                >
                                   Submit
                                 </button>
                               </div>

@@ -10,6 +10,11 @@ const get = async (id) => {
   return res.data;
 };
 
+const getEngineers = async (id) =>{
+  const res = await http.get('/engineers');
+  return res.data;
+}
+
 const create = async (data) => {
   const res = await http.post(`/requisitions`, data)
   return res.data;
@@ -28,6 +33,7 @@ const remove = async (id) => {
 const RequisitionService = {
   getAll,
   get,
+  getEngineers,
   create,
   update,
   remove,
