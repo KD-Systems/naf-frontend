@@ -1,38 +1,32 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import TopCard from "../../components/profile/TopCard";
+import TopCard from "components/profile/TopCard";
 
-import { useDispatch, useSelector } from "react-redux";
 import ProfileService from "services/ProfileService";
 const AccountSettings = () => {
-
-
   const [data, setData] = useState({
     current_password: "",
     password: "",
     password_confirmation: "",
   });
 
-
   const [profileData, setProfileData] = useState({
     name: "",
     email: "",
     avatar: "",
-    status:null,
-    designation:"",
-    role:""
+    status: null,
+    designation: "",
+    role: ""
   });
 
-  
-
   const getProfile = async () => {
-    setProfileData(await ProfileService.getProfile());
+    let data = JSON.parse(localStorage.getItem('user'));
+    setProfileData(data.user)
   };
 
-
-  useEffect(()=>{
+  useEffect(() => {
     getProfile()
-  },[])
+  }, [])
 
 
   const setImage = async (e) => {
@@ -45,7 +39,6 @@ const AccountSettings = () => {
     });
   };
 
-
   const handleProfileChange = (e) => {
 
     const target = e.target;
@@ -55,7 +48,7 @@ const AccountSettings = () => {
     let tempdata = { ...profileData };
     tempdata[name] = value;
 
-  
+
 
     setProfileData(tempdata);
   };
@@ -74,9 +67,9 @@ const AccountSettings = () => {
   };
 
   const changePassword = async (data) => {
-  
+
     await ProfileService.changePassword(data);
-  
+
   };
 
   const updateProfile = async () => {
@@ -86,13 +79,13 @@ const AccountSettings = () => {
 
   };
 
-  const onSubmit = (e)=>{
+  const onSubmit = (e) => {
     e.preventDefault();
     changePassword(data);
     getProfile();
   }
 
-  const onProfileSumbit =(e)=>{
+  const onProfileSumbit = (e) => {
     e.preventDefault();
     updateProfile();
   }
@@ -105,7 +98,7 @@ const AccountSettings = () => {
         <div
           className="card-header border-0 cursor-pointer"
           role="button"
-        
+
         >
           <div className="card-title m-0">
             <h3 className="fw-bolder m-0">Profile Details</h3>
@@ -116,7 +109,7 @@ const AccountSettings = () => {
           <form
             id="update-profile"
             className="form fv-plugins-bootstrap5 fv-plugins-framework"
-          
+
           >
             <div className="card-body border-top p-9">
               <div className="row mb-6">
@@ -127,34 +120,34 @@ const AccountSettings = () => {
                   <div
                     className="image-input image-input-outline"
                     data-kt-image-input="true"
-                    // style={{ backgroundImage: `url(${user?.user.avatar})` }}
+                  // style={{ backgroundImage: `url(${user?.user.avatar})` }}
                   >
                     <div
-                    id="avatar"
-                    className="image-input-wrapper w-125px h-125px"
-                    // style={{
-                    //   backgroundImage:
-                    //     "url(/assets/media/svg/files/blank-image.svg)",
-                    // }}
+                      id="avatar"
+                      className="image-input-wrapper w-125px h-125px"
+                      // style={{
+                      //   backgroundImage:
+                      //     "url(/assets/media/svg/files/blank-image.svg)",
+                      // }}
 
-                     style={{ backgroundImage: `url(${profileData?.avatar})` }}
-                  ></div>
-            
+                      style={{ backgroundImage: `url(${profileData?.avatar})` }}
+                    ></div>
+
                     <label
-                    className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                    data-kt-image-input-action="change"
-                    data-bs-toggle="tooltip"
-                    data-bs-original-title="Change avatar"
-                  >
-                    <i className="bi bi-pencil-fill fs-7"></i>
-                    <input
-                      type="file"
-                      name="avatar"
-                      accept=".png, .jpg, .jpeg"
-                      onChange={setImage}
-                    />
-                     <input type="hidden" name="avatar_remove" />
-                  </label>
+                      className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                      data-kt-image-input-action="change"
+                      data-bs-toggle="tooltip"
+                      data-bs-original-title="Change avatar"
+                    >
+                      <i className="bi bi-pencil-fill fs-7"></i>
+                      <input
+                        type="file"
+                        name="avatar"
+                        accept=".png, .jpg, .jpeg"
+                        onChange={setImage}
+                      />
+                      <input type="hidden" name="avatar_remove" />
+                    </label>
 
                     <span
                       className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
@@ -265,7 +258,7 @@ const AccountSettings = () => {
         <div
           className="card-header border-0 cursor-pointer"
           role="button"
-         
+
         >
           <div className="card-title m-0">
             <h3 className="fw-bolder m-0">Password Change</h3>
@@ -274,9 +267,9 @@ const AccountSettings = () => {
 
         <div id="kt_account_settings_profile_details" className="collapse show">
           <form
-          
+
             className="form fv-plugins-bootstrap5 fv-plugins-framework"
-           
+
           >
             <div className="card-body border-top p-9">
               <div className="row mb-6">
@@ -313,7 +306,7 @@ const AccountSettings = () => {
                         className="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                         placeholder="password"
                         onChange={handleChange}
-                        value={data.password|| ""}
+                        value={data.password || ""}
                       />
                       <div className="fv-plugins-message-container invalid-feedback"></div>
                     </div>
@@ -348,10 +341,10 @@ const AccountSettings = () => {
                 Discard
               </Link>
               <button
-              
+
                 type="submit"
                 className="btn btn-primary"
-             
+
                 onClick={onSubmit}
               >
                 Update
