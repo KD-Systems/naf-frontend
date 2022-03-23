@@ -35,6 +35,8 @@ import Machine from "pages/companyUser/Machine";
 import Requisitions from "pages/requisitions/Index";
 import BoxHeadings from "pages/box-headings/Index";
 import BoxHeadingShow from "pages/box-headings/Show";
+import RequisitionList from "pages/requisitions/List";
+import ShowRequisition from "pages/requisitions/Show";
 
 function App() {
   return (
@@ -329,13 +331,32 @@ function App() {
 
             {/* Requisitions Start */}
             <Route
-              path="requisitions"
+              path="requisitions/create"
               element={
                 <PrivateRoute>
                   <Requisitions />
                 </PrivateRoute>
               }
             />
+
+            <Route
+              path="requisitions"
+              element={
+                <PrivateRoute>
+                  <RequisitionList />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
+              path="requisitions/:id"
+              element={
+                <PrivateRoute>
+                  <ShowRequisition />
+                </PrivateRoute>
+              }
+            />
+
 
             {/* Requisitions End */}
             <Route path="*" element={<NotFound />} />

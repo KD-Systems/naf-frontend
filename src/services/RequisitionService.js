@@ -1,8 +1,8 @@
 import http from "../http-common";
 
-const getAll = async (id) => {
-  const res = await http.get(`/requisitions/${id}`);
-  return res.data;
+const getAll = async () => {
+  const res = await http.get(`/requisitions`);
+  return res;
 };
 
 const get = async (id) => {
@@ -14,6 +14,8 @@ const getEngineers = async (id) =>{
   const res = await http.get('/engineers');
   return res.data;
 }
+
+
 
 const create = async (data) => {
   const res = await http.post(`/requisitions`, data)
@@ -34,6 +36,7 @@ const RequisitionService = {
   getAll,
   get,
   getEngineers,
+
   create,
   update,
   remove,

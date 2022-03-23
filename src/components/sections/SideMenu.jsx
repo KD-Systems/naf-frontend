@@ -333,7 +333,7 @@ const SideMenu = () => {
                 </span>
               </div>
             </div>
-
+            
             <div className="menu-item">
                 <NavLink
                   className={(navinfo) =>
@@ -347,6 +347,8 @@ const SideMenu = () => {
                   <span className="menu-title">Requisitions</span>
                 </NavLink>
               </div>
+  
+
 
             {/* <div
               data-kt-menu-trigger="click"
