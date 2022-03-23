@@ -1,7 +1,9 @@
 import http from "../http-common";
 
-const getAll = async (machineId) => {
-    const res = await http.get(`/machines/${machineId}/part-headings`);
+const getAll = async (machineId, data) => {
+    const res = await http.get(`/machines/${machineId}/part-headings`, {
+        params: data
+    });
     
     return res.data;
 };
