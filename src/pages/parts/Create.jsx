@@ -108,22 +108,17 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
     });
 
     let formData = new FormData();
-    // formData.append('aliases', inputField)
     formData.append("image", data.image);
     formData.append("name", data.name);
     formData.append("arm", data.arm);
     formData.append("description", data.descriptions);
     formData.append("parts", JSON.stringify(temp1));
-    // formData.append('part_heading_id', temp2)
-    // formData.append('part_number', temp3)
 
     await PartService.create(formData);
     onCreated();
     onCloseModal();
     setBlock(false);
   };
-
-  console.log(data);
 
   const getMachines = async () => {
     setBlock(false);
@@ -142,20 +137,17 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
   };
 
   useEffect(() => {
-    // if (open) getHeadings(data.machine_id);
     if (open) {
       inputField.map((item, index) => getHeadings(item?.machine_id));
     }
   }, [data.machine_id, inputField]);
 
   useEffect(() => {
+    //Prevent preload data while modal is hidden
     if (open)
-      //Prevent preload data while modal is hidden
       getMachines();
     setBlock(false);
   }, [open]);
-
-
 
   return (
     <div>
@@ -214,8 +206,6 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
                     name="name"
                     id="name"
                     onChange={handleChange}
-                    // onChange={handlePartChange}
-                    // value={data.name ?? ""}
                   />
                   <div
                     className="fv-plugins-message-container invalid-feedback"
@@ -249,7 +239,6 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
                         <label className="required form-label">Machine</label>
                         <Select
                           options={machines}
-                          // onChange={handleSelect}
                           onChange={(option, action) =>
                             handleSelect(option, action, index)
                           }
@@ -267,7 +256,6 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
                         </label>
                         <Select
                           options={headings}
-                          // onChange={handleSelect}
                           onChange={(option, action) =>
                             handleSelect(option, action, index)
                           }
@@ -290,8 +278,6 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
                           name="part_number"
                           id="part_number"
                           onChange={(e) => handlePartChange(e, index)}
-                          // onChange={handleChange}
-                          // value={data.part_number ?? ""}
                         />
                         <div
                           className="fv-plugins-message-container invalid-feedback"
@@ -350,6 +336,7 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
               </div>
 
               <button
+                type="button"
                 disabled={block}
                 className="btn btn-primary mr-2 mt-5"
                 style={{ marginRight: "1rem" }}
@@ -360,6 +347,7 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
                 Submit
               </button>
               <button
+              type="button"
                 className="btn btn-secondary  mt-5 "
                 onClick={onCloseModal}
               >

@@ -7,7 +7,8 @@ import MachinePartHeadingService from "services/PartHeadingService";
 const CreateBoxHeading = ({ open, onCloseModal, onChange }) => {
   const [data, setData] = useState({
     name: "",
-    designation: "",
+    description: "",
+    extended: "",
   });
   const [headings, setHeadings] = useState([])
 
@@ -15,6 +16,10 @@ const CreateBoxHeading = ({ open, onCloseModal, onChange }) => {
     let res = await MachinePartHeadingService.getAll()
     setHeadings(res.map((dt) => ({ label: dt.name, value: dt.id })));
   };
+
+  const handleCheck = (e) => {
+    setData({ ...data, extended: e.target.checked })
+  }
 
   const handleSelect = (option, conf) => {
     const value = option.label;
@@ -28,6 +33,11 @@ const CreateBoxHeading = ({ open, onCloseModal, onChange }) => {
 
   const createBox = async (data) => {
     await BoxHeadingService.create(data);
+    setData({
+      name: "",
+      description: "",
+      extended: "",
+    })
     onChange();
   };
 
@@ -66,6 +76,25 @@ const CreateBoxHeading = ({ open, onCloseModal, onChange }) => {
                 onChange={handleSelect}
                 name="name"
               />
+            </div>
+
+            <div className="form-group mt-5">
+              <div className="form-check form-switch form-check-custom form-check-solid me-10">
+                <input
+                  checked={data.extended}
+                  className="form-check-input h-30px w-50px"
+                  name="extended"
+                  type="checkbox"
+                  id="extended"
+                  onChange={handleCheck}
+                />
+                <label
+                  className="form-check-label"
+                  htmlFor="extended"
+                >
+                  Extended Box
+                </label>
+              </div>
             </div>
 
             <div className="form-group mt-5">

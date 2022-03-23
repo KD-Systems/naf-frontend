@@ -60,13 +60,13 @@ const EditBoxHeading = ({ open, onCloseModal, onChange, boxId }) => {
             <form>
               <div className="form-group">
                 <input
+                  disabled
                   type="text"
                   className="form-control"
                   placeholder="Enter Name"
                   name="name"
                   id="name"
                   value={data.name || ""}
-                  onChange={handleChange}
                 />
               </div>
 

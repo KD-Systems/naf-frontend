@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import PartService from "services/PartService";
 import BoxHeadingService from "services/BoxHeadingService";
 
 const BoxHeadingShow = () => {
@@ -60,13 +59,6 @@ const BoxHeadingShow = () => {
                   <div className="fw-bolder mt-5">Description</div>
                   <div className="text-gray-600">
                     <span className="text-gray-600">{boxHeading?.description}</span>
-                  </div>
-
-                  <div className="fw-bolder mt-5">Remarks</div>
-                  <div className="text-gray-600">
-                    <span className="text-gray-600 text-hover-primary">
-                      {boxHeading?.remarks}
-                    </span>
                   </div>
                 </div>
               </div>
