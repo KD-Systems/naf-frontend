@@ -125,7 +125,7 @@ const Requisitions = () => {
     let dt = await CompanyService.getMachines(companyId);
     dt = dt.map((itm) => ({
       label: itm.machine_model?.name,
-      value: itm.machine_model?.id,
+      value: itm.id,
     })); //Parse the data as per the select requires
     setMachineModels(dt);
     setData({

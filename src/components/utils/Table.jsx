@@ -78,7 +78,6 @@ function Table({ name, buttonName, title, data, columns, isLoading, onFilter, on
           ))}
 
           <PermissionAbility permission={buttonPermission}>
-            {typeof onClickButton === "function" && (
               <button
                 type='button'
                 className="btn btn-light-primary btn-md"
@@ -88,7 +87,6 @@ function Table({ name, buttonName, title, data, columns, isLoading, onFilter, on
               >
                 {buttonName}
               </button>
-            )}
           </PermissionAbility>
         </div>
       </div>
