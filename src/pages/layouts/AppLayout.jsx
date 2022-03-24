@@ -19,7 +19,7 @@ export default function AppLayout() {
       {user?.details!==null ? <SideMenuCompany/> : <SideMenu />}
       
       <div
-        className="wrapper d-flex flex-column flex-row-fluid"
+        className="wrapper d-flex flex-column flex-row-fluid "
         id="wrapper"
       >
         <NavBar />
