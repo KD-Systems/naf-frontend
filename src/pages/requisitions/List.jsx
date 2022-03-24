@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Confirmation from "components/utils/Confirmation";
 import Table from "components/utils/Table";
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import RequisitionService from "services/RequisitionService";
 const RequisitionList = () => {
   const [loading, setLoading] = useState(false);
@@ -14,17 +14,12 @@ const RequisitionList = () => {
       sortable: true,
       field: "name",
       format: (row) => (
-        <div className="d-flex align-items-center">
-         
-          <div className="d-flex justify-content-start flex-column">
-            <Link
-              to={"/panel/employees/" + row.id}
-              className="text-dark fw-bolder text-hover-primary"
-            >
-              {row?.company?.name}
-            </Link>
-          </div>
-        </div>
+        <Link
+          to={'/panel/companies/' + row?.company?.id}
+          className="text-dark fw-bolder text-hover-primary"
+        >
+          {row?.company?.name}
+        </Link>
       ),
     },
     {
@@ -39,10 +34,11 @@ const RequisitionList = () => {
       sortable: true,
       field: "role",
     },
-   
+
     {
       name: "Action",
       selector: (row) => row.status,
+      maxWidth: "150px",
       format: (row) => (
         <span className="text-end">
           <Link
@@ -51,7 +47,6 @@ const RequisitionList = () => {
           >
             <i className="fa fa-eye"></i>
           </Link>
-     
         </span>
       ),
     },
@@ -63,12 +58,12 @@ const RequisitionList = () => {
     setLoading(false);
   };
 
-  let navigate = useNavigate()
+  let navigate = useNavigate();
 
-  const routeChange = ()=>{
-      let path = `create`;
-      navigate(path)
-  }
+  const routeChange = () => {
+    let path = `create`;
+    navigate(path);
+  };
   return (
     <div className="post d-flex flex-column-fluid">
       <div className="container-xxl">
