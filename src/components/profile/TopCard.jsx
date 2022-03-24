@@ -1,24 +1,7 @@
-import React,{useState,useEffect} from "react";
-import {  NavLink } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { NavLink } from "react-router-dom";
 
-import ProfileService from "services/ProfileService";
-
-const TopCard = () => {
-
-  const [profile,setProfile] = useState([])
-  const { user } = useSelector((state) => state.auth);
-  const getProfile = async () => {
-    setProfile(await ProfileService.getProfile());
-  };
-
-
-  useEffect(()=>{
-    getProfile()
-  },[])
-
-
-
+const TopCard = ({ user }) => {
 
   return (
     <div className="card mb-5 mb-xl-10">

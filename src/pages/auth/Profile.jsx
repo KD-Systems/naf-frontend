@@ -1,21 +1,21 @@
-import React,{useState,useEffect} from "react";
-import ProfileService from "services/ProfileService";
-import TopCard from "../../components/profile/TopCard";
+import React, { useState, useEffect } from "react";
+import TopCard from "components/profile/TopCard";
 
 const Profile = () => {
-    const [profile,setProfile] = useState([])
+    const [profile, setProfile] = useState([])
 
     const getProfile = async () => {
-      setProfile(await ProfileService.getProfile());
+        let data = JSON.parse(localStorage.getItem('user'));
+        setProfile(data.user)
     };
-  
-  
-    useEffect(()=>{
-      getProfile()
-    },[])
+
+    useEffect(() => {
+        getProfile()
+    }, [])
+
     return (
-        <div id="kt_content_container" className="container-xxl">
-            <TopCard/>
+        <div className="container-xxl">
+            <TopCard user={profile} />
 
             <div className="card mb-5 mb-xl-10" id="kt_profile_details_view">
                 <div className="card-header cursor-pointer">

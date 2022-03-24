@@ -1,47 +1,37 @@
-import React,{useState,useEffect,useRef} from "react";
-import { Link ,useNavigate} from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { logout,getProfile } from "../../features/Auth";
-import ProfileService from "services/ProfileService";
+import React, { useState, useEffect, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { logout } from "features/Auth";
+import { useDispatch } from "react-redux";
 
 const InfoBar = () => {
-
   const dispatch = useDispatch();
+
   const navigate = useNavigate();
+  const [profileOpen, setProfileOpen] = useState(false)
   const ref = useRef();
 
-  const { user } = useSelector((state) => state.auth);
+  let data = JSON.parse(localStorage.getItem('user'));
+  let user = data.user;
 
-  const [profile,setProfile] = useState([])
-
-  const [profileOpen,setProfileOpen] = useState(false)
-
-// console.log("🔥",user);
-
-  useEffect(()=>{
-    // getProfile()
-    dispatch(getProfile())
-  },[])
-
-  const handleLogout = ()=>{
+  const handleLogout = () => {
     dispatch(logout());
-    navigate("/logout")
+    navigate("/logout");
   }
 
 
-  useEffect(()=>{
-    const clickIfClickedOutside = e =>{
-      if(profileOpen && ref.current && !ref.current.contains(e.target)){
+  useEffect(() => {
+    const clickIfClickedOutside = e => {
+      if (profileOpen && ref.current && !ref.current.contains(e.target)) {
         setProfileOpen(false)
       }
     }
 
     document.addEventListener("mousedown", clickIfClickedOutside)
 
-    return ()=>{
+    return () => {
       document.removeEventListener("mousedown", clickIfClickedOutside)
     }
-  },[profileOpen])
+  }, [profileOpen])
 
 
 
@@ -770,25 +760,25 @@ const InfoBar = () => {
           className="d-flex align-items-center ms-1 ms-lg-3"
           id="kt_header_user_menu_toggle"
           ref={ref}
-          onClick={()=> setProfileOpen(!profileOpen)}
+          onClick={() => setProfileOpen(!profileOpen)}
         >
           <div
             className="cursor-pointer symbol symbol-30px symbol-md-40px"
             data-kt-menu-trigger="click"
             data-kt-menu-attach="parent"
             data-kt-menu-placement="bottom-end"
-           
+
           >
             <span
               className="symbol-label"
               style={{ backgroundImage: `url(${user?.avatar})` }}
             ></span>
           </div>
-      
-            <div
-            className={profileOpen?"menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px show":"menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px"}
-            
-            style={profileOpen?{zIndex: "105", position: "fixed", inset: "0px 0px auto auto", margin: "0px", transform: "translate(-30px, 65px)"}:{} }
+
+          <div
+            className={profileOpen ? "menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px show" : "menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px"}
+
+            style={profileOpen ? { zIndex: "105", position: "fixed", inset: "0px 0px auto auto", margin: "0px", transform: "translate(-30px, 65px)" } : {}}
           >
             <div className="menu-item px-3">
               <div className="menu-content d-flex align-items-center px-3">
@@ -833,7 +823,7 @@ const InfoBar = () => {
               </Link>
             </div>
           </div>
-    
+
 
 
         </div>
