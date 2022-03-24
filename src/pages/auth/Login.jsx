@@ -1,21 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-
-import { login } from "../../features/Auth";
-
-import AuthService from "../../services/AuthService";
+import { login } from "features/Auth";
 
 const Login = () => {
+  const { user } = useSelector(state => state.auth)
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   //Replace the classes of body for the page
   let body = document.getElementsByTagName("body");
   body[0].setAttribute("class", "bg-body");
-
-  const { isLoggedIn } = useSelector((state) => state.auth);
-
-  const navigate = useNavigate();
-
-  const dispatch = useDispatch();
 
   const [data, setData] = useState({
     email: "",
@@ -32,25 +27,16 @@ const Login = () => {
     });
   };
 
-  const {user} = useSelector(state => state.auth)
-
   useEffect(() => {
-    if(user != null){
+    if (user != null)
       navigate("/panel/dashboard");
-    }
   }, [user])
 
   const handleLogin = (e) => {
     e.preventDefault();
     const { email, password } = data;
     dispatch(login({ email, password }))
-
-   
   };
-
-
-
-
 
   return (
     <div className="d-flex flex-column flex-root">

@@ -401,18 +401,6 @@ const SideMenuCompany = () => {
               <div className="separator mx-1 my-2"></div>
             </div>
           </div>
-          {/* 
-          <div
-            data-kt-menu-trigger="click"
-            className="menu-item menu-accordion"
-          >
-            <span className="menu-link">
-              <span className="menu-icon">
-                <i className="fa fa-cog"></i>
-              </span>
-              <span className="menu-title">Settings</span>
-            </span>
-          </div> */}
 
           <div className="menu-item">
             <NavLink

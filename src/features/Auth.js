@@ -1,59 +1,45 @@
-
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import {
+  createSlice,
+  createAsyncThunk
+} from "@reduxjs/toolkit";
 import ProfileService from "services/ProfileService";
-import AuthService from "../services/AuthService";
-// const user = JSON.parse(localStorage.getItem("user"));
+import AuthService from "services/AuthService";
 
-
-
-// const getProfile = async () => {
-//   setProfile(await ProfileService.getProfile());
-// };
-
-
-
-
-
-export const getProfile = createAsyncThunk("auth/getProfile",async(thunkAPI)=>{
+export const getProfile = createAsyncThunk("auth/getProfile", async (thunkAPI) => {
   try {
     const data = await ProfileService.getProfile();
-    return { user: data };
+    return {
+      user: data
+    };
   } catch (error) {
     return thunkAPI.rejectWithValue();
   }
 })
 
-
 export const login = createAsyncThunk(
   "auth/login",
-  async({email,password},thunkAPI)=>{ 
-    try{
-      const data = await AuthService.login(email,password);
-      return { user: data };
-      
-    }
-    catch(error){
+  async ({
+    email,
+    password
+  }, thunkAPI) => {
+    try {
+      const data = await AuthService.login(email, password);
+      return {
+        user: data
+      };
+    } catch (error) {
       return thunkAPI.rejectWithValue();
     }
   }
-
 )
 
 export const logout = createAsyncThunk("auth/logout", async () => {
   await AuthService.logout();
 });
 
-
-
-
-
-// const initialState = user
-//   ? { isLoggedIn: true, user }
-//   : { isLoggedIn: false, user: null };
-
 const initialState = {
-  isLoggedIn:false,
-  user:null
+  isLoggedIn: false,
+  user: null
 }
 
 const authSlice = createSlice({
@@ -80,5 +66,7 @@ const authSlice = createSlice({
 });
 
 
-const { reducer } = authSlice;
+const {
+  reducer
+} = authSlice;
 export default reducer;

@@ -1,25 +1,19 @@
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import PermissionAbility from "helpers/PermissionAbility";
 
 const SideMenu = () => {
-  const [collapsed,setCollapsed]=useState(false)
+  const [collapsed, setCollapsed] = useState(false)
 
-  const toggleMenu = () => {
-    setCollapsed(!collapsed);
-    // let menu = document.getElementById('kt_aside');
-    // menu?.classList.toggle('drawer-on');
-  }
-
-  useEffect(()=>{
+  useEffect(() => {
     let body = document.body;
     if (collapsed) {
-      body.setAttribute("data-kt-aside-minimize","on")
+      body.setAttribute("data-kt-aside-minimize", "on")
     }
-    else{
-      body.setAttribute("data-kt-aside-minimize","off")
+    else {
+      body.setAttribute("data-kt-aside-minimize", "off")
     }
-  },[collapsed])
+  }, [collapsed])
   return (
     <div
       id="kt_aside"
@@ -31,7 +25,7 @@ const SideMenu = () => {
       data-kt-drawer-width="{default:'200px', '300px': '250px'}"
       data-kt-drawer-direction="start"
       data-kt-drawer-toggle="#kt_aside_mobile_toggle"
-     
+
     >
       <div className="aside-logo flex-column-auto" id="kt_aside_logo">
         <NavLink to="/panel/dashboard">
@@ -52,7 +46,7 @@ const SideMenu = () => {
           data-kt-toggle-state="active"
           data-kt-toggle-target="body"
           data-kt-toggle-name="aside-minimize"
-          onClick={() => toggleMenu()}
+          onClick={() => setCollapsed(!collapsed)}
         >
           <span className="svg-icon svg-icon-1 rotate-180">
             <svg
@@ -153,8 +147,6 @@ const SideMenu = () => {
                     </svg>
                   </span>
                 </span>
-                {/* <PermissionAbility permission="employees_access"><p>asd</p></PermissionAbility> */}
-
                 <span className="menu-title">Dashboard</span>
               </NavLink>
             </div>
@@ -221,23 +213,23 @@ const SideMenu = () => {
                 </span>
               </div>
             </div>
-           
-   
-              <PermissionAbility permission="companies_access">
-                <div className="menu-item">
-                  <NavLink
-                    className={(navinfo) =>
-                      navinfo.isActive ? "menu-link active" : "menu-link"
-                    }
-                    to="companies"
-                  >
-                    <span className="menu-icon">
-                      <i className="fa fa-building"></i>
-                    </span>
-                    <span className="menu-title">Companies</span>
-                  </NavLink>
-                </div>
-              </PermissionAbility>
+
+
+            <PermissionAbility permission="companies_access">
+              <div className="menu-item">
+                <NavLink
+                  className={(navinfo) =>
+                    navinfo.isActive ? "menu-link active" : "menu-link"
+                  }
+                  to="companies"
+                >
+                  <span className="menu-icon">
+                    <i className="fa fa-building"></i>
+                  </span>
+                  <span className="menu-title">Companies</span>
+                </NavLink>
+              </div>
+            </PermissionAbility>
 
 
             <PermissionAbility permission="contracts_access">
@@ -333,21 +325,21 @@ const SideMenu = () => {
                 </span>
               </div>
             </div>
-            
+
             <div className="menu-item">
-                <NavLink
-                  className={(navinfo) =>
-                    navinfo.isActive ? "menu-link active" : "menu-link"
-                  }
-                  to="requisitions"
-                >
-                  <span className="menu-icon">
-                    <i className="fas fa-tools"></i>
-                  </span>
-                  <span className="menu-title">Requisitions</span>
-                </NavLink>
-              </div>
-  
+              <NavLink
+                className={(navinfo) =>
+                  navinfo.isActive ? "menu-link active" : "menu-link"
+                }
+                to="requisitions"
+              >
+                <span className="menu-icon">
+                  <i className="fas fa-tools"></i>
+                </span>
+                <span className="menu-title">Requisitions</span>
+              </NavLink>
+            </div>
+
 
 
             {/* <div
@@ -403,18 +395,6 @@ const SideMenu = () => {
                 <div className="separator mx-1 my-2"></div>
               </div>
             </div>
-            {/* 
-            <div
-              data-kt-menu-trigger="click"
-              className="menu-item menu-accordion"
-            >
-              <span className="menu-link">
-                <span className="menu-icon">
-                  <i className="fa fa-cog"></i>
-                </span>
-                <span className="menu-title">Settings</span>
-              </span>
-            </div> */}
 
             <div className="menu-item">
               <NavLink
