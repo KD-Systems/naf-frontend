@@ -162,7 +162,6 @@ const ShowRequisition = () => {
                       <table className="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
                         <thead>
                           <tr className="fw-bolder text-muted">
-                            <th className="w-25px"></th>
                             <th className="min-w-50px">Part Name</th>
                             <th className="min-w-120px">Part Number</th>
                             <th className="min-w-120px">Quantity</th>
@@ -174,17 +173,15 @@ const ShowRequisition = () => {
                         <tbody>
                           {requisition?.part_items?.map((item, index) => (
                             <tr key={index}>
-                              <td></td>
                               <td className="">
                                 <span>{item?.part?.aliases[0].name}</span>
                               </td>
-
-                              <td className=" fw-bolder  d-block mb-1 fs-6">
+                              <td className=" fw-bolder mb-1 fs-6">
                               <span>{item?.part?.aliases[0].part_number}</span>
                               </td>
-                              <td className=" fw-bolder  d-block mb-1 fs-6"><span>{item?.quantity}</span></td>
-                              <td className=" fw-bolder  d-block mb-1 fs-6"><span>{item?.unit_value}</span></td>
-                              <td className=" fw-bolder  d-block mb-1 fs-6"><span>{item?.total_value} Tk.</span></td>
+                              <td className=" fw-bolder mb-1 fs-6"><span>{item?.quantity}</span></td>
+                              <td className=" fw-bolder mb-1 fs-6"><span>{item?.unit_value}</span></td>
+                              <td className=" fw-bolder mb-1 fs-6"><span>{item?.total_value} Tk.</span></td>
                             
                             </tr>
                           ))}
