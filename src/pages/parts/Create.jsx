@@ -214,7 +214,7 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
                 </div>
 
                 <div className="col-4">
-                  <label className="required form-label">ARM</label>
+                  <label className="form-label">ARM</label>
                   <select className="form-control"
                     name="arm"
                     id="arm"

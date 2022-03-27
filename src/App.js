@@ -32,10 +32,10 @@ import ShowStock from "pages/parts/stocks/Show";
 import CompanyUserMachines from "pages/companyUser/Machines";
 import CompanyUserContracts from "pages/companyUser/Contracts";
 import Machine from "pages/companyUser/Machine";
-import Requisitions from "pages/requisitions/Index";
+import RequisitionCreate from "pages/requisitions/Create";
 import BoxHeadings from "pages/box-headings/Index";
 import BoxHeadingShow from "pages/box-headings/Show";
-import RequisitionList from "pages/requisitions/List";
+import Requisitions from "pages/requisitions/Index";
 import ShowRequisition from "pages/requisitions/Show";
 
 function App() {
@@ -334,7 +334,7 @@ function App() {
               path="requisitions/create"
               element={
                 <PrivateRoute>
-                  <Requisitions />
+                  <RequisitionCreate />
                 </PrivateRoute>
               }
             />
@@ -343,7 +343,7 @@ function App() {
               path="requisitions"
               element={
                 <PrivateRoute>
-                  <RequisitionList />
+                  <Requisitions />
                 </PrivateRoute>
               }
             />

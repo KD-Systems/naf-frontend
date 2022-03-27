@@ -49,7 +49,7 @@ const AddUser = ({ open, onCloseModal, onCreate, companyId }) => {
         body={
           <>
             <form id="update-company">
-              <div className="mb-10 fv-row fv-plugins-icon-container text-center">
+              <div className="mb-5 fv-row fv-plugins-icon-container text-center">
                 <div
                   className="mx-auto image-input image-input-outline image-input-changed"
                   data-kt-image-input="true"
@@ -80,11 +80,11 @@ const AddUser = ({ open, onCloseModal, onCreate, companyId }) => {
                 <div className="fv-plugins-message-container invalid-feedback" htmlFor="avatar"></div>
               </div>
 
-              <div className="mb-10 fv-row fv-plugins-icon-container">
+              <div className="mb-5 fv-row fv-plugins-icon-container">
                 <label className="required form-label">Name</label>
                 <input
                   type="text"
-                  className="form-control mb-2"
+                  className="form-control"
                   placeholder="Enter Name"
                   name="name"
                   id="name"
@@ -94,11 +94,11 @@ const AddUser = ({ open, onCloseModal, onCreate, companyId }) => {
                 <div className="fv-plugins-message-container invalid-feedback" htmlFor="name"></div>
               </div>
 
-              <div className="mb-10 fv-row fv-plugins-icon-container">
+              <div className="mb-5 fv-row fv-plugins-icon-container">
                 <label className="form-label required">Email</label>
                 <input
                   type="email"
-                  className="form-control mb-2"
+                  className="form-control"
                   placeholder="Enter Email"
                   name="email"
                   id="email"
@@ -108,11 +108,11 @@ const AddUser = ({ open, onCloseModal, onCreate, companyId }) => {
                 <div className="fv-plugins-message-container invalid-feedback" htmlFor="email"></div>
               </div>
 
-              <div className="mb-10 fv-row fv-plugins-icon-container">
+              <div className="mb-5 fv-row fv-plugins-icon-container">
                 <label className="form-label required">Password</label>
                 <input
                   type="password"
-                  className="form-control mb-2"
+                  className="form-control"
                   placeholder="Enter Password"
                   name="password"
                   id="password"
@@ -122,11 +122,11 @@ const AddUser = ({ open, onCloseModal, onCreate, companyId }) => {
                 <div className="fv-plugins-message-container invalid-feedback" htmlFor="password"></div>
               </div>
 
-              <div className="mb-10 fv-row fv-plugins-icon-container">
+              <div className="mb-5 fv-row fv-plugins-icon-container">
                 <label className="form-label">Phone</label>
                 <input
                   type="text"
-                  className="form-control mb-2"
+                  className="form-control"
                   placeholder="Enter Phone"
                   name="phone"
                   id="phone"

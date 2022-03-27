@@ -14,7 +14,7 @@ const CreateContract = ({ open, onCloseModal, onCreated }) => {
   const [data, setData] = useState({
     company_id: '',
     machine_id: '',
-    machine_model_id: '',
+    company_machine_id: '',
     start_date: '',
     end_date: '',
     start_date_format: '',
@@ -76,17 +76,17 @@ const CreateContract = ({ open, onCloseModal, onCreated }) => {
   const getMachineModels = async (companyId) => {
     setBlock(false)
     let dt = await CompanyService.getMachines(companyId)
-    dt = dt.map(itm => ({ label: itm.machine_model?.name, value: itm.machine_model?.id })) //Parse the data as per the select requires
+    dt = dt.map(itm => ({ label: (itm.machine_model?.name + ' (MFG-' + itm.mfg_number + ')'), value: itm.id })) //Parse the data as per the select requires
     setMachineModels(dt);
     setData({
-      ...data, ...{ machine_model_id: null }
+      ...data, ...{ company_machine_id: null }
     })
     setBlock(false)
   };
 
   useEffect(() => {
     if (data.company_id && open)
-    getMachineModels(data.company_id);
+      getMachineModels(data.company_id);
   }, [data.company_id]);
 
   useEffect(() => {
@@ -113,25 +113,9 @@ const CreateContract = ({ open, onCloseModal, onCreated }) => {
 
               <div className="form-group mt-5">
                 <label className="required form-label">Machine Model</label>
-                <Select isMulti options={machineModels} onChange={handleSelect} name="machine_model_id[]" />
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="machine_model_id"></div>
+                <Select isMulti options={machineModels} onChange={handleSelect} name="company_machine_id[]" />
+                <div className="fv-plugins-message-container invalid-feedback" htmlFor="company_machine_id"></div>
               </div>
-
-              {data['machine_model_id[]'] && data['machine_model_id[]']?.map((itm, key) => (
-                <div key={key} className="form-group mt-5">
-                  <label className="form-label">MFG Number</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Enter MFG Number"
-                    name={`mfg_number[${itm}]`}
-                    id="mfg_number"
-                    onChange={handleChange}
-                    value={data.mfg_number?.itm}
-                  />
-                  <div className="fv-plugins-message-container invalid-feedback" htmlFor={`mfg_number[${itm}]`}></div>
-                </div>
-              ))}
 
               <div className="form-group mt-5">
                 <label className="required form-label">Start Date</label>
@@ -179,6 +163,7 @@ const CreateContract = ({ open, onCloseModal, onCreated }) => {
               </div>
 
               <button
+                type="button"
                 disabled={block}
                 className="btn btn-primary mr-2 mt-5"
                 style={{ marginRight: "1rem" }}
@@ -187,6 +172,7 @@ const CreateContract = ({ open, onCloseModal, onCreated }) => {
                 Submit
               </button>
               <button
+                type="button"
                 className="btn btn-secondary  mt-5 "
                 onClick={onCloseModal}
               >
