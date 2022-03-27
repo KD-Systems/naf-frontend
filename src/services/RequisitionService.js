@@ -10,12 +10,22 @@ const get = async (id) => {
   return res.data;
 };
 
-const getEngineers = async (id) =>{
-  const res = await http.get('/engineers');
+const items = async (id) => {
+  const res = await http.get(`/requisitions/${id}/part-items`);
+  return res.data;
+};
+
+const engineers = async () =>{
+  const res = await http.get('/requisitions/engineers');
   return res.data;
 }
 
-
+const partHeadings = async (data) =>{
+  const res = await http.get('/requisitions/part-headings', {
+    params: data
+  });
+  return res.data;
+}
 
 const create = async (data) => {
   const res = await http.post(`/requisitions`, data)
@@ -35,8 +45,9 @@ const remove = async (id) => {
 const RequisitionService = {
   getAll,
   get,
-  getEngineers,
-
+  engineers,
+  partHeadings,
+  items,
   create,
   update,
   remove,

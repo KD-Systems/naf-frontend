@@ -1,30 +1,33 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import Moment from "react-moment";
 import RequisitionService from "../../services/RequisitionService";
 const ShowRequisition = () => {
   let { id } = useParams();
   const navigate = useNavigate();
   const [requisition, setRequisition] = useState({});
-  const [partItems, setPartItems] = useState([]);
+
   const getRequisition = async () => {
-    setRequisition(await RequisitionService.get(id));
+    let res = await RequisitionService.get(id);
+    setRequisition(res);
   };
 
+  // const getItems = () => {
+  //   let res = RequisitionService.items(id)
+  //   setPartItems(res)
+  // }
 
   useEffect(() => {
-    if (id) {
-      getRequisition();
-     
-    }
+    if (id)
+      getRequisition()
   }, [id]);
   return (
     <div className="d-flex flex-column-fluid">
       <div className="container">
         <div className="row">
-          <div className="col-xl-4">
+          <div className="col-xl-3">
             <div className="card card-custom">
-              <div className="card-header h-auto py-4">
+              <div className="card-header">
                 <div className="card-title">
                   <h3 className="card-label">
                     <button
@@ -40,117 +43,60 @@ const ShowRequisition = () => {
               </div>
 
               <div className="card-body py-4">
-                <div className="form-group row my-2">
-                  <label className="col-4 col-form-label">Company:</label>
-                  <div className="col-8">
-                    <span className="form-control-plaintext font-weight-bolder">
-                      {requisition?.company?.name}
-                    </span>
-                  </div>
-                </div>
-                <div className="form-group row my-2">
-                  <label className="col-4 col-form-label">Machine:</label>
-                  <div className="col-8">
-                    <span className="form-control-plaintext font-weight-bolder">
-                      {requisition?.machines?.map((item, index) => (
-                        <span key={index}>{item?.machine_model?.name}</span>
-                      ))}
-                    </span>
-                  </div>
-                </div>
-                <div className="form-group row my-2">
-                  <label className="col-4 col-form-label">Engineer:</label>
-                  <div className="col-8">
-                    <span className="form-control-plaintext font-weight-bolder">
-                      {requisition?.engineer?.name}
-                    </span>
-                  </div>
-                </div>
-                <div className="form-group row my-2">
-                  <label className="col-4 col-form-label">
-                    Expected Delivery:
-                  </label>
-                  <div className="col-8">
-                    <span className="form-control-plaintext">
-                      <span className="label label-inline label-danger label-bold">
-                        <Moment format="D MMMM YYYY">
-                          {requisition?.expected_delivery}
-                        </Moment>
-                      </span>
-                    </span>
-                  </div>
-                </div>
-                <div className="form-group row my-2">
-                  <label className="col-4 col-form-label">Priority:</label>
-                  <div className="col-8">
-                    <span className="form-control-plaintext font-weight-bolder">
-                      {requisition?.priority}
-                    </span>
-                  </div>
+                <div className="fw-bolder mt-5">Company</div>
+                <div className="text-gray-600">{requisition?.company?.name}</div>
+
+                <div className="fw-bolder mt-5">Machines</div>
+                <div className="text-gray-600">
+                  {requisition?.machines?.map((item, index) => (
+                    <span key={index}>{item?.machine_model?.name}</span>
+                  ))}
                 </div>
 
-                <div className="form-group row my-2">
-                  <label className="col-4 col-form-label">Type:</label>
-                  <div className="col-8">
-                    <span className="form-control-plaintext font-weight-bolder">
-                      {requisition?.type?.replaceAll("_", " ").capitalize()}
-                    </span>
-                  </div>
+                <div className="fw-bolder mt-5">Engineer</div>
+                <div className="text-gray-600">{requisition?.engineer?.name ?? '--'}</div>
+
+                <div className="fw-bolder mt-5">Expected Delivery</div>
+                <div className="text-gray-600">
+                  <Moment format="D MMMM YYYY">
+                    {requisition?.expected_delivery}
+                  </Moment>
                 </div>
-                <div className="form-group row my-2">
-                  <label className="col-4 col-form-label">Updated At:</label>
-                  <div className="col-8">
-                    <span className="form-control-plaintext font-weight-bolder">
-                      <Moment format="D MMMM YYYY">
-                        {requisition?.updated_at}
-                      </Moment>
-                    </span>
-                  </div>
+
+                <div className="fw-bolder mt-5">Priority</div>
+                <div className="text-gray-600">{requisition?.priority?.capitalize()}</div>
+
+                <div className="fw-bolder mt-5">Type</div>
+                <div className="text-gray-600">{requisition?.type?.replaceAll('_', ' ')?.capitalize()}</div>
+
+                <div className="fw-bolder mt-5">Updated At</div>
+                <div className="text-gray-600">
+                  <Moment format="D MMMM YYYY">
+                    {requisition?.updated_at}
+                  </Moment>
                 </div>
-                <div className="form-group row my-2">
-                  <label className="col-4 col-form-label">Ref Number:</label>
-                  <div className="col-8">
-                    <span className="form-control-plaintext font-weight-bolder">
-                      {requisition?.ref_number}
-                    </span>
-                  </div>
-                </div>
-                <div className="form-group row my-2">
-                  <label className="col-4 col-form-label">
-                    Reason Of Trouble:
-                  </label>
-                  <div className="col-8">
-                    <span className="form-control-plaintext font-weight-bolder">
-                      {requisition?.reason_of_trouble}
-                    </span>
-                  </div>
-                </div>
-                <div className="form-group row my-2">
-                  <label className="col-4 col-form-label">Solutions:</label>
-                  <div className="col-8">
-                    <span className="form-control-plaintext font-weight-bolder">
-                      {requisition?.solutions}
-                    </span>
-                  </div>
-                </div>
-                <div className="form-group row my-2">
-                  <label className="col-4 col-form-label">Remarks:</label>
-                  <div className="col-8">
-                    <span className="form-control-plaintext font-weight-bolder">
-                      {requisition?.remarks}
-                    </span>
-                  </div>
-                </div>
+
+                <div className="fw-bolder mt-5">Ref Number</div>
+                <div className="text-gray-600">{requisition?.ref_number ?? '--'}</div>
+
+                <div className="fw-bolder mt-5">Reason Of Trouble</div>
+                <div className="text-gray-600">{requisition?.reason_of_trouble ?? '--'}</div>
+
+                <div className="fw-bolder mt-5">Solutions</div>
+                <div className="text-gray-600">{requisition?.solutions ?? '--'}</div>
+
+                <div className="fw-bolder mt-5">Remarks</div>
+                <div className="text-gray-600">{requisition?.remarks ?? '--'}</div>
               </div>
             </div>
           </div>
-          <div className="col-xl-8">
+
+          <div className="col-xl-9">
             <div className="card card-custom gutter-b">
               <div className="card-header card-header-tabs-line">
                 <div className="card-toolbar">
-                  {" "}
                   <div className="card-title">
-                    <h3 className="card-label">Part Item List</h3>
+                    <h3 className="card-label">Part Items</h3>
                   </div>
                 </div>
               </div>
@@ -165,8 +111,6 @@ const ShowRequisition = () => {
                             <th className="min-w-50px">Part Name</th>
                             <th className="min-w-120px">Part Number</th>
                             <th className="min-w-120px">Quantity</th>
-                            <th className="min-w-120px">Unit Value</th>
-                            <th className="min-w-120px">Total Value</th>
                           </tr>
                         </thead>
 
@@ -174,15 +118,18 @@ const ShowRequisition = () => {
                           {requisition?.part_items?.map((item, index) => (
                             <tr key={index}>
                               <td className="">
-                                <span>{item?.part?.aliases[0].name}</span>
+                                <Link
+                                  to={'/panel/parts/' + item?.part?.id}
+                                  className="text-dark fw-bolder text-hover-primary"
+                                >
+                                  {item?.part?.aliases[0].name}
+                                </Link>
                               </td>
                               <td className=" fw-bolder mb-1 fs-6">
-                              <span>{item?.part?.aliases[0].part_number}</span>
+                                <span>{item?.part?.aliases[0].part_number}</span>
                               </td>
                               <td className=" fw-bolder mb-1 fs-6"><span>{item?.quantity}</span></td>
-                              <td className=" fw-bolder mb-1 fs-6"><span>{item?.unit_value}</span></td>
-                              <td className=" fw-bolder mb-1 fs-6"><span>{item?.total_value} Tk.</span></td>
-                            
+
                             </tr>
                           ))}
                           {/* {requisition?.part_items?.map((item,index)=>(
