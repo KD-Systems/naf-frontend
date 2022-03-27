@@ -18,9 +18,10 @@ const Requisitions = () => {
   const [partHeadings, setPartHeadings] = useState([]);
   const [searchData, setSearchData] = useState([]);
   const [list, setList] = useState([]); /* for adding part in requisition */
-  const [selectedPart, setSelectedPart] = useState(false) /* Check Part selected or not selected*/
+  const [selectedPart, setSelectedPart] =
+    useState(false); /* Check Part selected or not selected*/
   const [totalAmount, setTotal] = useState(0); //total amount
-  const [engineers,setEngineers]=useState([])
+  const [engineers, setEngineers] = useState([]);
   const [data, setData] = useState({
     company_id: "",
     engineer_id: "",
@@ -38,11 +39,8 @@ const Requisitions = () => {
     reason_of_trouble: "",
     remarks: "",
     partItems: list,
-    total: totalAmount
+    total: totalAmount,
   });
-
-
-
 
   const [block, setBlock] = useState(false);
   const [parts, setParts] = useState([]);
@@ -78,31 +76,25 @@ const Requisitions = () => {
     { value: "years", label: "Years" },
   ];
 
-
-
-
- 
- 
   const storeRequisition = async () => {
-
     let res = await RequisitionService.create(data);
   };
 
-
   const addPart = (item) => {
-    item['quantity'] = 0;
-    const newList = list.concat(item)
-    setList(Array.from(new Set(newList))) /* add part in the List and remove duplicates from array */
-    setSelectedPart(true)
-    setFilter({ ...filter, q: "" })
-    setSearchData("")
+    item["quantity"] = 0;
+    const newList = list.concat(item);
+    setList(
+      Array.from(new Set(newList))
+    ); /* add part in the List and remove duplicates from array */
+    setSelectedPart(true);
+    setFilter({ ...filter, q: "" });
+    setSearchData("");
   };
 
-
   const removeItem = (id) => {
-    const newList = list.filter((item => item.id !== id))
-    setList(newList)
-  }
+    const newList = list.filter((item) => item.id !== id);
+    setList(newList);
+  };
 
   const getCompanies = async () => {
     let dt = await CompanyService.getAll({
@@ -113,12 +105,11 @@ const Requisitions = () => {
     setCompanies(dt);
   };
 
-  const getEngineers = async () =>{
+  const getEngineers = async () => {
     let dt = await RequisitionService.getEngineers();
-    dt = dt.map((itm)=>({label:itm?.name,value:itm?.id}));
+    dt = dt.map((itm) => ({ label: itm?.name, value: itm?.id }));
     setEngineers(dt);
-
-  }
+  };
 
   const getMachineModels = async (companyId) => {
     setBlock(false);
@@ -134,8 +125,6 @@ const Requisitions = () => {
     });
     setBlock(false);
   };
-
-
 
   const handleSelect = (option, conf) => {
     let value = option.value;
@@ -153,10 +142,10 @@ const Requisitions = () => {
     });
   };
 
-  const handleChange = (e)=>{
-    const {name} = e.target
-    setData({...data,[name]:e.target.value})
-  }
+  const handleChange = (e) => {
+    const { name } = e.target;
+    setData({ ...data, [name]: e.target.value });
+  };
 
   const handleDateSelect = (value, name) => {
     setData({
@@ -183,7 +172,9 @@ const Requisitions = () => {
     if (data?.machine_id.length === 0) setPartHeadings([]);
 
     if (data?.machine_id.length > 0) {
-      let res = await MachinePartHeadingService.getAll(null, {machine_ids: data?.machine_id});
+      let res = await MachinePartHeadingService.getAll(null, {
+        machine_ids: data?.machine_id,
+      });
 
       let items = res?.map((dt) => {
         return { label: dt.name, value: dt.id };
@@ -209,8 +200,8 @@ const Requisitions = () => {
   };
 
   useEffect(() => {
-    setData({...data, partItems: list,total:totalAmount})  //add partItems and total amount in data
-  }, [list,totalAmount])
+    setData({ ...data, partItems: list, total: totalAmount }); //add partItems and total amount in data
+  }, [list, totalAmount]);
 
   useEffect(() => {
     if (data.company_id) getMachineModels(data?.company_id);
@@ -220,11 +211,9 @@ const Requisitions = () => {
     if (data.machine_id) getPartHeadings(data?.machine_id);
   }, [data.machine_id]);
 
-
   useEffect(() => {
     getCompanies();
   }, []);
-
 
   useEffect(() => {
     getEngineers();
@@ -238,25 +227,21 @@ const Requisitions = () => {
     setTotal(sum);
   }, [list]);
 
-
   const increment = (item) => {
-    const tempList = [...list]
-    const tempItem = tempList.filter((val) => val.id === item.id)
+    const tempList = [...list];
+    const tempItem = tempList.filter((val) => val.id === item.id);
     tempItem[0].quantity++;
 
     setList(tempList);
-  }
+  };
 
   const decrement = (item) => {
-    const tempList = [...list]
-    const tempItem = tempList.filter((val) => val.id === item.id)
+    const tempList = [...list];
+    const tempItem = tempList.filter((val) => val.id === item.id);
     tempItem[0].quantity--;
 
     setList(tempList);
-  }
-
-
-
+  };
 
   return (
     <>
@@ -273,34 +258,7 @@ const Requisitions = () => {
                         data-bs-toggle="tooltip"
                         data-bs-trigger="hover"
                         title="Specify invoice date"
-                      >
-                        <div className="fs-6 fw-bolder text-gray-700 text-nowrap">
-                          Date:
-                        </div>
-
-                        <div className="position-relative d-flex align-items-center w-150px">
-                          <input
-                            className="form-control form-control-transparent fw-bolder pe-5"
-                            placeholder="Select date"
-                            name="invoice_date"
-                          />
-
-                          <span className="svg-icon svg-icon-2 position-absolute ms-4 end-0">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                            >
-                              <path
-                                d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
-                                fill="black"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </div>
+                      ></div>
 
                       <div
                         className="d-flex flex-center flex-equal fw-row text-nowrap order-1 order-xxl-2 me-4"
@@ -323,34 +281,7 @@ const Requisitions = () => {
                         data-bs-toggle="tooltip"
                         data-bs-trigger="hover"
                         title="Specify invoice due date"
-                      >
-                        <div className="fs-6 fw-bolder text-gray-700 text-nowrap">
-                          Due Date:
-                        </div>
-
-                        <div className="position-relative d-flex align-items-center w-150px">
-                          <input
-                            className="form-control form-control-transparent fw-bolder pe-5"
-                            placeholder="Select date"
-                            name="invoice_due_date"
-                          />
-
-                          <span className="svg-icon svg-icon-2 position-absolute end-0 ms-4">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                            >
-                              <path
-                                d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
-                                fill="black"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </div>
+                      ></div>
                     </div>
 
                     <div className="separator separator-dashed my-10"></div>
@@ -504,12 +435,11 @@ const Requisitions = () => {
                                     options={payment_partial_mode}
                                     name="payment_partial_mode"
                                   />
-                                   
                                 </div>
                                 <div
-                                className="fv-plugins-message-container invalid-feedback"
-                                htmlFor="payment_partial_mode"
-                              ></div>
+                                  className="fv-plugins-message-container invalid-feedback"
+                                  htmlFor="payment_partial_mode"
+                                ></div>
                               </div>
 
                               <div className="col-lg-4">
@@ -525,9 +455,9 @@ const Requisitions = () => {
                                     onChange={handleChange}
                                   />
                                   <div
-                                className="fv-plugins-message-container invalid-feedback"
-                                htmlFor="partial_time"
-                              ></div>
+                                    className="fv-plugins-message-container invalid-feedback"
+                                    htmlFor="partial_time"
+                                  ></div>
                                 </div>
                               </div>
 
