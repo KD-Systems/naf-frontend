@@ -57,9 +57,9 @@ const Requisitions = () => {
     },
   ];
 
-  const getRequisitions = async () => {
+  const getRequisitions = async (filters) => {
     setLoading(true);
-    setRequisitions(await RequisitionService.getAll());
+    setRequisitions(await RequisitionService.getAll(filters));
     setLoading(false);
   };
 

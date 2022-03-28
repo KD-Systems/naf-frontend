@@ -12,11 +12,6 @@ const ShowRequisition = () => {
     setRequisition(res);
   };
 
-  // const getItems = () => {
-  //   let res = RequisitionService.items(id)
-  //   setPartItems(res)
-  // }
-
   useEffect(() => {
     if (id)
       getRequisition()
@@ -88,6 +83,19 @@ const ShowRequisition = () => {
                 <div className="fw-bolder mt-5">Remarks</div>
                 <div className="text-gray-600">{requisition?.remarks ?? '--'}</div>
               </div>
+              <div className="card-header">
+                <div className="card-title">
+                  <h3 className="card-label">
+                    <button
+                      className="btn btn-sm btn-dark "
+                      style={{ marginRight: "0.75rem" }}
+                      onClick={() => navigate('print')}
+                    >
+                      Print
+                    </button>
+                  </h3>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -132,15 +140,7 @@ const ShowRequisition = () => {
 
                             </tr>
                           ))}
-                          {/* {requisition?.part_items?.map((item,index)=>(
-                          <tr>
-                          <span key="index">{item?.part?.aliases?.map((it,index)=>(
-                              <>  <td>{it?.name}</td>
-                              <td>{it?.part_number}</td></>
-                            
-                          ))}</span>
-                          </tr>
-                      ))} */}
+                 
                         </tbody>
                       </table>
                     </div>

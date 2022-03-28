@@ -125,9 +125,8 @@ const AddMachine = ({ open, onCloseModal, onCreate, companyId }) => {
                 type="text"
                 className="form-control"
                 placeholder="Enter Notes"
-                name="description"
-                id="description"
-                value={data.notes ?? ""}
+                name="notes"
+                id="notes"
                 onChange={handleChange}
               />
               <div className="fv-plugins-message-container invalid-feedback" htmlFor="description"></div>

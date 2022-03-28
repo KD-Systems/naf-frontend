@@ -1,10 +1,9 @@
 import http from "../http-common";
 
-const getAll = async (rawData) => {
-    const res = await http.get("/machines");
-
-    if (rawData)
-        return res;
+const getAll = async (data) => {
+    const res = await http.get("/machines", {
+        params: data
+    });
 
     return res.data;
 };

@@ -20,8 +20,9 @@ const Machines = () => {
     setUpdateOpen(false);
   };
 
-  const getMachines = async () => {
-    setMachines(await MachineService.getAll(true));
+  const getMachines = async (filters) => {
+    setLoading(true);
+    setMachines(await MachineService.getAll(filters));
     setLoading(false);
   };
 
@@ -116,22 +117,22 @@ const Machines = () => {
             onClickButton={() => setOpen(true)}
             buttonPermission="parts_create"
             
-            callbackButtons={[
-              // {
-              //   name: 'Filter',
-              //   // callback: () => { setEnableFilter(!enableFilter) },
-              //   permission: null
-              // },
-              // {
-              //   name: 'Import',
-              //   // callback: () => { setOpenImportModal(true) },
-              //   permission: null
-              // }
-            ]}
+            // callbackButtons={[
+            //   // {
+            //   //   name: 'Filter',
+            //   //   // callback: () => { setEnableFilter(!enableFilter) },
+            //   //   permission: null
+            //   // },
+            //   // {
+            //   //   name: 'Import',
+            //   //   // callback: () => { setOpenImportModal(true) },
+            //   //   permission: null
+            //   // }
+            // ]}
             isLoading={loading} data={machines}
             columns={columns}
             
-            // onFilter={filterData}
+            onFilter={getMachines}
           />
        
         </div>

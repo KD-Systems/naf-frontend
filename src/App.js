@@ -37,6 +37,7 @@ import BoxHeadings from "pages/box-headings/Index";
 import BoxHeadingShow from "pages/box-headings/Show";
 import Requisitions from "pages/requisitions/Index";
 import ShowRequisition from "pages/requisitions/Show";
+import PrintRequisition from "pages/requisitions/Print";
 
 function App() {
   return (
@@ -353,6 +354,15 @@ function App() {
               element={
                 <PrivateRoute>
                   <ShowRequisition />
+                </PrivateRoute>
+              }
+            />
+            {/* Print Requisition */}
+            <Route
+              path="requisitions/:id/print"
+              element={
+                <PrivateRoute>
+                  <PrintRequisition />
                 </PrivateRoute>
               }
             />
