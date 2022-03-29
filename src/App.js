@@ -38,6 +38,7 @@ import BoxHeadingShow from "pages/box-headings/Show";
 import Requisitions from "pages/requisitions/Index";
 import ShowRequisition from "pages/requisitions/Show";
 import PrintRequisition from "pages/requisitions/Print";
+import Quotations from "pages/quotations/Index";
 
 function App() {
   return (
@@ -369,6 +370,19 @@ function App() {
 
 
             {/* Requisitions End */}
+
+            {/* Quotation Start */}
+
+            <Route
+              path="quotations"
+              element={
+                <PrivateRoute>
+                  <Quotations />
+                </PrivateRoute>
+              }
+            />
+
+            {/* Quotation End */}
             <Route path="*" element={<NotFound />} />
           </Route>
 

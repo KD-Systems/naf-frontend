@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Modal from "../../components/utils/Modal";
 import Tags from "../../components/utils/Tags";
 import CompanyService from "../../services/CompanyService";
@@ -91,6 +91,20 @@ const CreateCompany = ({ open, onCloseModal, onCreated }) => {
                   onChange={handleChange}
                 />
                 <div className="fv-plugins-message-container invalid-feedback" htmlFor="name"></div>
+              </div>
+              
+              <div className="mb-5 fv-row fv-plugins-icon-container">
+                <label className="form-label">Address</label>
+                <input
+                  type="text"
+                  className="form-control mb-2"
+                  placeholder="Enter Company Address"
+                  name="address"
+                  id="address"
+                  value={data.address ?? ''}
+                  onChange={handleChange}
+                />
+                <div className="fv-plugins-message-container invalid-feedback" htmlFor="address"></div>
               </div>
 
               <div className="mb-5 fv-row fv-plugins-icon-container">

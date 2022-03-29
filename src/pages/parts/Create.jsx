@@ -123,7 +123,8 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
   const getMachines = async () => {
     setBlock(false);
     let data = await MachineService.getAll();
-    data = data.map((itm) => ({ label: itm.name, value: itm.id })); //Parse the data as per the select requires
+    
+    data = data?.data?.map((itm) => ({ label: itm.name, value: itm.id })); //Parse the data as per the select requires
     setMachines(data);
     setBlock(false);
   };
@@ -135,7 +136,6 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
     setHeadings(data);
     setBlock(false);
   };
-
   useEffect(() => {
     if (open) {
       inputField.map((item, index) => getHeadings(item?.machine_id));

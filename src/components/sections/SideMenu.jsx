@@ -340,21 +340,23 @@ const SideMenu = () => {
               </NavLink>
             </div>
 
-
-
-            {/* <div
-              data-kt-menu-trigger="click"
-              className="menu-item menu-accordion"
-            >
-              <span className="menu-link">
+            
+            <div className="menu-item">
+              <NavLink
+                className={(navinfo) =>
+                  navinfo.isActive ? "menu-link active" : "menu-link"
+                }
+                to="quotations"
+              >
                 <span className="menu-icon">
-                  <i className="fab fa-wpforms"></i>
+                <i className="fas fa-money-bill"></i>
                 </span>
-                <span className="menu-title">Requisitions</span>
-              </span>
-            </div> */}
+                <span className="menu-title">Quotations</span>
+              </NavLink>
+            </div>
 
-            <div
+   
+            {/* <div
               data-kt-menu-trigger="click"
               className="menu-item menu-accordion"
             >
@@ -364,7 +366,7 @@ const SideMenu = () => {
                 </span>
                 <span className="menu-title">Quotations</span>
               </span>
-            </div>
+            </div> */}
 
             <div
               data-kt-menu-trigger="click"

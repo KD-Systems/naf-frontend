@@ -126,6 +126,20 @@ const EditCompany = ({ open, companyId, onCloseModal, onUpdated }) => {
               </div>
 
               <div className="mb-5 fv-row fv-plugins-icon-container">
+                <label className="form-label">Address</label>
+                <input
+                  type="text"
+                  className="form-control mb-2"
+                  placeholder="Enter Company Address"
+                  name="address"
+                  id="address"
+                  value={company.address ?? ''}
+                  onChange={handleChange}
+                />
+                <div className="fv-plugins-message-container invalid-feedback" htmlFor="address"></div>
+              </div>
+
+              <div className="mb-5 fv-row fv-plugins-icon-container">
                 <label className="form-label">Group of Company</label>
                 <input
                   type="text"

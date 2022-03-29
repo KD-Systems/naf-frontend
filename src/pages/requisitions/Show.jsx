@@ -16,6 +16,8 @@ const ShowRequisition = () => {
     if (id)
       getRequisition()
   }, [id]);
+
+
   return (
     <div className="d-flex flex-column-fluid">
       <div className="container">
