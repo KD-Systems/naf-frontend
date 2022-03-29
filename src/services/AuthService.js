@@ -5,7 +5,6 @@ import http from "../http-common";
 const login = async(email,password)=>{
     const res = await http.post("/login", {email,password});
     if (res.data.access_token){
-      console.log(res.data);
       localStorage.setItem("user",JSON.stringify(res.data));
     }
     return res.data;

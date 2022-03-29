@@ -1,8 +1,86 @@
-import React from 'react'
-
+import React,{useState} from 'react'
+import Table from "components/utils/Table";
+import { Link,useNavigate } from "react-router-dom";
+import RequisitionService from "services/RequisitionService";
 const Quotations = () => {
+  const [loading, setLoading] = useState(false);
+  const [quotations, setQuotations] = useState([]);
+
+  const columns = [
+    {
+      name: "Company",
+      selector: (row) => row?.company?.name,
+      sortable: true,
+      field: "name",
+      format: (row) => (
+        <div className="d-flex align-items-center">
+         
+          <div className="d-flex justify-content-start flex-column">
+            <Link
+              to={"/panel/employees/" + row.id}
+              className="text-dark fw-bolder text-hover-primary"
+            >
+              {row?.company?.name}
+            </Link>
+          </div>
+        </div>
+      ),
+    },
+    {
+      name: "Expected Delivery",
+      selector: (row) => row?.expected_delivery,
+      sortable: true,
+      field: "expected_delivery",
+    },
+    {
+      name: "Priority",
+      selector: (row) => row.priority,
+      sortable: true,
+      field: "role",
+    },
+   
+    {
+      name: "Action",
+      selector: (row) => row.status,
+      format: (row) => (
+        <span className="text-end">
+          <Link
+            to={"/panel/requisitions/" + row.id}
+            className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+          >
+            <i className="fa fa-eye"></i>
+          </Link>
+     
+        </span>
+      ),
+    },
+  ];
+
+  const getQuotations = async (filters) => {
+    setLoading(true);
+    setQuotations(await RequisitionService.getAll(filters));
+    setLoading(false);
+  };
+  let navigate = useNavigate()
+
+  const routeChange = ()=>{
+      let path = `create`;
+      navigate(path)
+  }
   return (
-    <div>Quotations</div>
+    <div className="post d-flex flex-column-fluid">
+      <div className="container-xxl">
+        <Table
+          name="Quotations"
+          buttonName="Add Quotation"
+          onClickButton={routeChange}
+          isLoading={loading}
+          data={quotations}
+          columns={columns}
+          onFilter={getQuotations}
+        />
+      </div>
+    </div>
   )
 }
 
