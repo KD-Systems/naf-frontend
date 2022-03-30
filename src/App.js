@@ -39,6 +39,7 @@ import Requisitions from "pages/requisitions/Index";
 import ShowRequisition from "pages/requisitions/Show";
 import PrintRequisition from "pages/requisitions/Print";
 import Quotations from "pages/quotations/Index";
+import CreateQuotation from "pages/quotations/Create";
 
 function App() {
   return (
@@ -378,6 +379,15 @@ function App() {
               element={
                 <PrivateRoute>
                   <Quotations />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
+              path="quotations/:requisitionId/create"
+              element={
+                <PrivateRoute>
+                  <CreateQuotation />
                 </PrivateRoute>
               }
             />

@@ -657,7 +657,7 @@ const RequisitionCreate = () => {
                                   </td>
 
                                   <td className="product-quantity">
-                                    <div className="input-group input-group-sm">
+                                    <div className="input-group input-group-sm ">
                                       <div className="input-group-prepend">
                                         <span
                                           className="input-group-text"

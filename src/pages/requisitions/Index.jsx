@@ -18,7 +18,7 @@ const Requisitions = () => {
          
           <div className="d-flex justify-content-start flex-column">
             <Link
-              to={"/panel/employees/" + row.id}
+              to={"/panel/companies/" + row?.company?.id}
               className="text-dark fw-bolder text-hover-primary"
             >
               {row?.company?.name}
