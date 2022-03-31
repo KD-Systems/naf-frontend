@@ -7,51 +7,65 @@ const CreateQuotation = () => {
   const navigate = useNavigate();
   const [requisition, setRequisition] = useState({});
   const [list, setList] = useState([]); /* for adding part in quotation */
-
+  const [machineId,setMachineId] = useState("")
   const [data,setData]=useState({
-      selling_price:0,
-      formula_price:0,
-      yen_price:0,
+      requisition_id:"",
+      company_id:"",
+      machine_id:"",
+
   });
+
+
 
   
 
   const getRequisition = async () => {
     let res = await RequisitionService.get(requisitionId);
     setRequisition(res);
+   
   };
 
-  const handleChange = (e) => {
+
+  const handleChange = (e,item) => {
     const { name } = e.target
-    setData({ ...data, [name]: e.target.value });
-    list[0].part['selling_price'] = data?.selling_price
-    // console.log(list[0].part['selling_price'])
-    
+    const templist = [...list];
+    const tempItem = templist?.filter((val)=>val?.id === item?.id)
+    const tempItemPart = tempItem[0]?.part
+    tempItemPart[name]= parseInt(e.target.value)
+    setList(templist)
   }
-console.log(list);
+
 
   const increment = (item) => {
-    const tempList = requisition.part_items;
+    const tempList = [...list];
     const tempItem = tempList?.filter((val) => val?.id === item?.id);
     ++tempItem[0].quantity;
-    setList(tempItem);
+    setList(tempList);
   };
 
   const decrement = (item) => {
-    const tempList = requisition.part_items;
+    const tempList = [...list];
     const tempItem = tempList.filter((val) => val.id === item.id);
     --tempItem[0].quantity;
-    setList(tempItem);
+    setList(tempList);
   };
 
 
   useEffect(() => {
     if (requisitionId) getRequisition();
+    
   }, [requisitionId]);
 
   useEffect(() => {
     setList(requisition?.part_items);
+    setMachineId(requisition?.machines?.map((item)=>item.id))
+    setData({...data,requisition_id:requisition?.id,company_id:requisition?.company_id,machine_id:requisition?.machines?.[0]?.['id']})
   }, [requisitionId, requisition]);
+
+
+
+
+console.log(data);
 
   return (
     <div className="post d-flex flex-column-fluid" id="content">
@@ -197,9 +211,6 @@ console.log(list);
                               </td>
                               <td>{item?.part?.aliases[0].name}</td>
                               <td>{item?.part?.aliases[0].part_number}</td>
-                              {/* <td>{item?.part?.yen_price} Tk.</td> */}
-                              {/* <td>{item?.part?.formula_price}TK.</td> */}
-                              {/* <td>{item?.part?.selling_price}TK.</td> */}
                               <td>
                                 <input
                                   type="number"
@@ -208,8 +219,8 @@ console.log(list);
                                   aria-describedby="inputGroup-sizing-sm"
                                   name="yen_price"
                                   placeholder="0TK"
-                                  value={data?.yen_price}
-                                  onChange={handleChange}
+                                  value={item?.part?.yen_price??""}
+                                  onChange={(e)=>handleChange(e,item)}
                                 />
                               </td>
                               <td>
@@ -220,8 +231,8 @@ console.log(list);
                                   aria-describedby="inputGroup-sizing-sm"
                                   name="formula_price"
                                   placeholder="0TK"
-                                  value={data?.formula_price}
-                                  onChange={handleChange}
+                                  value={item?.part?.formula_price??""}
+                                  onChange={(e)=>handleChange(e,item)}
                                 />
                               </td>
 
@@ -233,8 +244,8 @@ console.log(list);
                                   aria-describedby="inputGroup-sizing-sm"
                                   name="selling_price"
                                   placeholder="0TK"
-                                  value={data?.selling_price}
-                                  onChange={handleChange}
+                                  value={item?.part?.selling_price ?? ""}
+                                  onChange={(e)=>handleChange(e,item)}
                                 />
                               </td>
 
@@ -260,7 +271,7 @@ console.log(list);
                                     aria-describedby="inputGroup-sizing-sm"
                                     min="1"
                                     value={item?.quantity ?? ""}
-                                    defaultValue={item?.quantity}
+                                    // defaultValue={item?.quantity ?? ""}
                                     name="quantity"
                                   />
 
