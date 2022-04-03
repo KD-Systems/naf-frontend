@@ -66,7 +66,7 @@ const CreateQuotation = () => {
   useEffect(() => {
     setList(requisition?.part_items);
     setMachineId(requisition?.machines?.map((item)=>item.id))
-    setData({...data,requisition_id:requisition?.id,company_id:requisition?.company_id,machine_id:requisition?.machines?.[0]?.['id']})
+    setData({...data,requisition_id:requisition?.id,company_id:requisition?.company_id,machine_id:requisition?.machines?.map((item,index)=>item?.machine_model_id)}) //need to fix this
   }, [requisitionId, requisition]);
 
   useEffect(() => {
@@ -74,7 +74,7 @@ const CreateQuotation = () => {
   }, [list])
 
 
-console.log(requisition);
+console.log(data);
 
 
   return (
