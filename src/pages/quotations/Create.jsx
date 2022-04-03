@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import Moment from "react-moment";
 import RequisitionService from "../../services/RequisitionService";
+import QuotationService from "services/QuotationService";
 const CreateQuotation = () => {
   let { requisitionId } = useParams();
   const navigate = useNavigate();
@@ -12,13 +13,11 @@ const CreateQuotation = () => {
       requisition_id:"",
       company_id:"",
       machine_id:"",
+      part_items:list
 
   });
 
-
-
-  
-
+  const [block, setBlock] = useState(false);
   const getRequisition = async () => {
     let res = await RequisitionService.get(requisitionId);
     setRequisition(res);
@@ -50,6 +49,14 @@ const CreateQuotation = () => {
     setList(tempList);
   };
 
+  // store quotation
+  const storeQuotation = async()=>{
+    setBlock(true)
+    await QuotationService.create(data);
+    setBlock(false)
+    // navigate("/panel/quotations");
+  }
+
 
   useEffect(() => {
     if (requisitionId) getRequisition();
@@ -62,10 +69,13 @@ const CreateQuotation = () => {
     setData({...data,requisition_id:requisition?.id,company_id:requisition?.company_id,machine_id:requisition?.machines?.[0]?.['id']})
   }, [requisitionId, requisition]);
 
+  useEffect(() => {
+    setData({ ...data, part_items: list })  //add part_items and total amount in data
+  }, [list])
 
 
+console.log(requisition);
 
-console.log(data);
 
   return (
     <div className="post d-flex flex-column-fluid" id="content">
@@ -213,6 +223,7 @@ console.log(data);
                               <td>{item?.part?.aliases[0].part_number}</td>
                               <td>
                                 <input
+                                  disabled
                                   type="number"
                                   className="form-control"
                                   aria-label="Small"
@@ -225,6 +236,7 @@ console.log(data);
                               </td>
                               <td>
                                 <input
+                                  disabled
                                   type="number"
                                   className="form-control"
                                   aria-label="Small"
@@ -291,7 +303,9 @@ console.log(data);
                         </tbody>
                       </table>
                       <div className="separator separator-dashed"></div>
-                      <button className="btn btn-primary mt-5">Submit</button>
+                      <button className="btn btn-primary mt-5"  onClick={() => {
+                          storeQuotation();
+                        }}>Submit</button>
                     </div>
                   </div>
                 </div>
