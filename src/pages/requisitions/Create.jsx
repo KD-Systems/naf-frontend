@@ -81,9 +81,9 @@ const RequisitionCreate = () => {
     setBlock(true)
     await RequisitionService.create(data);
     setBlock(false)
-    // navigate("/panel/requisitions");
+    navigate("/panel/requisitions");
   };
-console.log("🌍️",data);
+
   const addPart = (item) => {
     item['quantity'] = 0;
     const newList = list.concat(item)
