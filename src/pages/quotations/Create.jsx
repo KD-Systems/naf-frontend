@@ -54,27 +54,30 @@ const CreateQuotation = () => {
     setBlock(true)
     await QuotationService.create(data);
     setBlock(false)
-    // navigate("/panel/quotations");
+    navigate("/panel/quotations");
+  }
+// Remove Quotation
+  const removeItem = (id) => {
+    const newList = list.filter((item => item.id !== id))
+    setList(newList)
   }
 
-
   useEffect(() => {
-    if (requisitionId) getRequisition();
-    
+    if (requisitionId) getRequisition();                                         
   }, [requisitionId]);
 
   useEffect(() => {
     setList(requisition?.part_items);
     setMachineId(requisition?.machines?.map((item)=>item.id))
     setData({...data,requisition_id:requisition?.id,company_id:requisition?.company_id,machine_id:requisition?.machines?.map((item,index)=>item?.machine_model_id)}) //need to fix this
-  }, [requisitionId, requisition]);
+  }, [requisitionId, requisition]); 
 
   useEffect(() => {
     setData({ ...data, part_items: list })  //add part_items and total amount in data
   }, [list])
 
 
-console.log(data);
+console.log(list);
 
 
   return (
@@ -298,6 +301,16 @@ console.log(data);
                                   </div>
                                 </div>
                               </td>
+                              <td className="text-end">
+                                    <button
+                                      type="button"
+                                      className="btn btn-sm btn-icon btn-danger"
+                                      data-kt-element="remove-item"
+                                      onClick={() => removeItem(item?.id)}
+                                    >
+                                      <i className="fa fa-trash"></i>
+                                    </button>
+                                  </td>
                             </tr>
                           ))}
                         </tbody>

@@ -1,7 +1,7 @@
 import React,{useState} from 'react'
 import Table from "components/utils/Table";
 import { Link,useNavigate } from "react-router-dom";
-import RequisitionService from "services/RequisitionService";
+import QuotationService from 'services/QuotationService';
 const Quotations = () => {
   const [loading, setLoading] = useState(false);
   const [quotations, setQuotations] = useState([]);
@@ -17,7 +17,7 @@ const Quotations = () => {
          
           <div className="d-flex justify-content-start flex-column">
             <Link
-              to={"/panel/employees/" + row.id}
+              to={"/panel/companies/" + row?.company?.id}
               className="text-dark fw-bolder text-hover-primary"
             >
               {row?.company?.name}
@@ -27,14 +27,24 @@ const Quotations = () => {
       ),
     },
     {
-      name: "Expected Delivery",
-      selector: (row) => row?.expected_delivery,
+      name: "Part Quantity",
+      selector: (row) => row?.part_items?.map((item)=>item?.quantity),
+      format: (row) => (
+        <div className='mt-2'>
+          {row?.part_items?.map((item)=> (<p>{item?.quantity}</p>))}
+        </div>
+      ),
       sortable: true,
       field: "expected_delivery",
     },
     {
-      name: "Priority",
-      selector: (row) => row.priority,
+      name: "Total",
+      selector: (row) => row?.part_items?.map((item)=>item?.total_value),
+      format: (row) => (
+        <div className='mt-2'>
+          {row?.part_items?.map((item)=> (<p>{item?.total_value} Tk.</p>))}
+        </div>
+      ),
       sortable: true,
       field: "role",
     },
@@ -45,7 +55,7 @@ const Quotations = () => {
       format: (row) => (
         <span className="text-end">
           <Link
-            to={"/panel/requisitions/" + row.id}
+            to={"/panel/quotations/" + row.id}
             className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
           >
             <i className="fa fa-eye"></i>
@@ -58,7 +68,7 @@ const Quotations = () => {
 
   const getQuotations = async (filters) => {
     setLoading(true);
-    setQuotations(await RequisitionService.getAll(filters));
+    setQuotations(await QuotationService.getAll(filters));
     setLoading(false);
   };
   let navigate = useNavigate()
@@ -72,8 +82,6 @@ const Quotations = () => {
       <div className="container-xxl">
         <Table
           name="Quotations"
-          buttonName="Add Quotation"
-          onClickButton={routeChange}
           isLoading={loading}
           data={quotations}
           columns={columns}

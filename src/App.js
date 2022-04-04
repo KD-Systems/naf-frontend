@@ -40,6 +40,7 @@ import ShowRequisition from "pages/requisitions/Show";
 import PrintRequisition from "pages/requisitions/Print";
 import Quotations from "pages/quotations/Index";
 import CreateQuotation from "pages/quotations/Create";
+import ShowQuotation from "pages/quotations/Show";
 
 function App() {
   return (
@@ -381,6 +382,15 @@ function App() {
                   <Quotations />
                 </PrivateRoute>
               }
+            />
+
+            <Route
+            path="quotations/:id"
+            element = {
+              <PrivateRoute>
+                <ShowQuotation/>
+              </PrivateRoute>
+            }
             />
 
             <Route
