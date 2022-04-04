@@ -141,6 +141,8 @@ const ShowQuotation = () => {
                           <th className="min-w-50px">Part Name</th>
                           <th className="min-w-120px">Part Number</th>
                           <th className="min-w-120px">Quantity</th>
+                          <th className="min-w-120px">Unit Value</th>
+                          <th className="min-w-120px">Total Value</th>
                         </tr>
                       </thead>
 
@@ -159,6 +161,8 @@ const ShowQuotation = () => {
                               <span>{item?.part?.aliases[0].part_number}</span>
                             </td>
                             <td className=" fw-bolder mb-1 fs-6"><span>{item?.quantity}</span></td>
+                            <td className=" fw-bolder mb-1 fs-6"><span>{item?.unit_value} Tk.</span></td>
+                            <td className=" fw-bolder mb-1 fs-6"><span>{item?.total_value} Tk.</span></td>
 
                           </tr>
                         ))}
