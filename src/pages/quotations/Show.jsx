@@ -2,15 +2,24 @@ import React, { useState, useEffect }  from 'react'
 import { useParams, useNavigate, Link } from "react-router-dom";
 import Moment from "react-moment";
 import QuotationService from 'services/QuotationService';
+import InvoiceService from 'services/InvoiceService';
 const ShowQuotation = () => {
     let { id } = useParams();
     const navigate = useNavigate();
     const [quotation, setQuotation] = useState({});
+    const [block,setBlock]=useState(false);
 
     const getQuotation = async () => {
         let res = await QuotationService.get(id);
         setQuotation(res);
     };
+
+    const storeInvoice = async()=>{
+      setBlock(true)
+    await InvoiceService.create(quotation);
+    setBlock(false)
+    // navigate("/panel/quotations");
+    }
 
   useEffect(() => {
     if (id)
@@ -112,6 +121,9 @@ const ShowQuotation = () => {
                     className="btn btn-sm btn-dark "
                     style={{ marginRight: "0.1rem" }}
                     // onClick={() => navigate(`/panel/quotations/${requisition?.id}/create`)}
+                    onClick={() => {
+                      storeInvoice();
+                    }}
                   >
                      Generate Invoice
                   </button>

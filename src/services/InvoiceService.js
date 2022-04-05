@@ -1,34 +1,34 @@
 import http from "../http-common";
 
 const getAll = async (data) => {
-  const res = await http.get(`/quotations`, {
+  const res = await http.get(`/invoices`, {
     params: data
 });
   return res.data;
 };
 
 const get = async (id) => {
-  const res = await http.get(`/quotations/${id}`);
+  const res = await http.get(`/invoices/${id}`);
   return res.data;
 };
 
 
 const create = async (data) => {
-  const res = await http.post(`/quotations`, data)
+  const res = await http.post(`/invoices`, data)
   return res.data;
 };
 
 const update = async (id, data) => {
-  const res = await http.put(`/quotations/${id}`, data);
+  const res = await http.put(`/invoices/${id}`, data);
   return res.data;
 };
 
 const remove = async (id) => {
-  const res = await http.delete(`/quotations/${id}`);
+  const res = await http.delete(`/invoices/${id}`);
   return res.data;
 };
 
-const QuotationService = {
+const InvoiceService = {
   getAll,
   get,
   create,
@@ -36,4 +36,4 @@ const QuotationService = {
   remove,
 };
 
-export default QuotationService;
+export default InvoiceService;

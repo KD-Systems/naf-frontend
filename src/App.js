@@ -41,6 +41,7 @@ import PrintRequisition from "pages/requisitions/Print";
 import Quotations from "pages/quotations/Index";
 import CreateQuotation from "pages/quotations/Create";
 import ShowQuotation from "pages/quotations/Show";
+import Invoices from "pages/invoices/Index";
 
 function App() {
   return (
@@ -403,6 +404,20 @@ function App() {
             />
 
             {/* Quotation End */}
+
+
+            {/* Invoice Start */}
+
+            <Route 
+            path="invoices"
+            element={
+              <PrivateRoute>
+                <Invoices/>
+              </PrivateRoute>
+            }
+            />
+
+            {/* Invoice End */}
             <Route path="*" element={<NotFound />} />
           </Route>
 

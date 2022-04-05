@@ -77,7 +77,7 @@ const CreateQuotation = () => {
   }, [list])
 
 
-console.log(list);
+
 
 
   return (
