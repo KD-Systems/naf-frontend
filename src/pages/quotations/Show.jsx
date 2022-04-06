@@ -18,7 +18,7 @@ const ShowQuotation = () => {
     setBlock(true);
     await InvoiceService.create(quotation);
     setBlock(false);
-    // navigate("/panel/quotations");
+    navigate("/panel/invoices");
   };
 
   useEffect(() => {

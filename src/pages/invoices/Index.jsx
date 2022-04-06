@@ -8,6 +8,12 @@ const Invoices = () => {
     const [invoices, setInvoices] = useState([]);
 
     const columns = [
+      {
+        name: "Id",
+        selector: (row) => row?.id,
+        sortable: true,
+        field: "id",
+      },
         {
           name: "Company",
           selector: (row) => row?.company?.name,
