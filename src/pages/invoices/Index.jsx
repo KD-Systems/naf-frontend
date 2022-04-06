@@ -56,7 +56,7 @@ const Invoices = () => {
           format: (row) => (
             <span className="text-end">
               <Link
-                to={"/panel/quotations/" + row.id}
+                to={"/panel/invoices/" + row.id+"/print"}
                 className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
               >
                 <i className="fa fa-eye"></i>
