@@ -42,6 +42,7 @@ import Quotations from "pages/quotations/Index";
 import CreateQuotation from "pages/quotations/Create";
 import ShowQuotation from "pages/quotations/Show";
 import Invoices from "pages/invoices/Index";
+import PrintInvoice from "pages/invoices/Print";
 
 function App() {
   return (
@@ -415,6 +416,15 @@ function App() {
                 <Invoices/>
               </PrivateRoute>
             }
+            />
+
+          <Route
+              path="invoices/:id/print"
+              element={
+                <PrivateRoute>
+                  <PrintInvoice />
+                </PrivateRoute>
+              }
             />
 
             {/* Invoice End */}

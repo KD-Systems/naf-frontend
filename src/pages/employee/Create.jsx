@@ -179,6 +179,7 @@ const CreateEmployee = ({ open, onCloseModal, getEmployees }) => {
                   options={roles}
                   onChange={handleSelect}
                   name="role"
+                  maxMenuHeight={250} 
                   defaultValue={defaultRole ?? ""}
                 />
 

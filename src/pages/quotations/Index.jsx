@@ -8,6 +8,18 @@ const Quotations = () => {
 
   const columns = [
     {
+      name: "Id",
+      selector: (row) => row?.id,
+      sortable: true,
+      field: "id",
+    },
+    {
+      name: "PQ Number",
+      selector: (row) => row?.pq_number,
+      sortable: true,
+      field: "id",
+    },
+    {
       name: "Company",
       selector: (row) => row?.company?.name,
       sortable: true,
