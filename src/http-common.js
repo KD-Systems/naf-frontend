@@ -9,7 +9,7 @@ toast.configure();
 let Api = axios.create({
   // baseURL: `//naf-api.viserx.net/api/`,
   // baseURL: `//api.naf-inventory.test/api/`,
-  baseURL: `//naf-inventory.test/api/`,
+  baseURL: `//naf-inventory-back.test/api/`,
   headers: {
     "Content-type": "application/json",
     "accept": "application/json",
