@@ -267,6 +267,7 @@ const RequisitionCreate = () => {
                           placeholder="Ref Number"
                           onChange={handleChange}
                         />
+                          <div className="fv-plugins-message-container invalid-feedback" htmlFor="ref_number"></div>
                       </div>
 
                       <div
@@ -297,6 +298,7 @@ const RequisitionCreate = () => {
                             onChange={handleSelect}
                             name="company_id"
                           />
+                        
                           <div
                             className="fv-plugins-message-container invalid-feedback"
                             htmlFor="company_id"
@@ -321,7 +323,7 @@ const RequisitionCreate = () => {
                       </div>
 
                       <div className="col-lg-4">
-                        <label className="required form-label">Engineer</label>
+                        <label className="form-label">Engineer</label>
 
                         <div className="mb-5">
                           <Select
@@ -344,6 +346,10 @@ const RequisitionCreate = () => {
                             name="priority"
                             onChange={handleSelect}
                           />
+                                <div
+                            className="fv-plugins-message-container invalid-feedback"
+                            htmlFor="priority"
+                          ></div>
                         </div>
                       </div>
 
@@ -386,7 +392,12 @@ const RequisitionCreate = () => {
                               name="type"
                               onChange={handleSelect}
                             />
+                       
                           </div>
+                          <div
+                            className="fv-plugins-message-container invalid-feedback"
+                            htmlFor="type"
+                          ></div>
                         </div>
                       </div>
 
