@@ -8,13 +8,15 @@ const PrintInvoice = () => {
   const [invoice, setInvoice] = useState({});
   const [total, setTotal] = useState(0);
 
+
   const getInvoice = async () => {
     let res = await InvoiceService.get(id);
     setInvoice(res);
-    // let content = document.getElementById("content").innerHTML;
-    // document.body.innerHTML = content;
-    // window.print();
+    let content = document.getElementById("content").innerHTML;
+    document.body.innerHTML = content;
+    window.print();
   };
+
 
   useEffect(() => {
     if (id) getInvoice();
@@ -27,6 +29,7 @@ const PrintInvoice = () => {
             <div className="mw-lg-950px mx-auto w-100">
               <div className="mb-19">
                 <table>
+                  <tbody>
                   <tr>
                     <td>
                       <div className="">
@@ -69,11 +72,13 @@ const PrintInvoice = () => {
                       </div>
                     </td>
                   </tr>
+                  </tbody>
                 </table>
               </div>
 
               <div className="">
                 <table width="100%">
+                  <tbody>
                   <tr>
                     <td>
                       <h6>
@@ -103,6 +108,7 @@ const PrintInvoice = () => {
                       </h6>
                     </td>
                   </tr>
+                  </tbody>
                 </table>
 
                 <div className="mt-5">
@@ -168,7 +174,9 @@ const PrintInvoice = () => {
                         </table>
                       </div>
                       <div className="fs-5 text-dark fw-boldest pe-lg-6 text-end">
-                        TOTAL
+                        TOTAL:  {
+                          invoice?.part_items?.reduce((sum,partItem) => sum + parseFloat(partItem.total_value),0)
+                        } TK.
                       </div>
                     </div>
                   </div>
