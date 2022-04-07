@@ -2,15 +2,22 @@ import React,{useState} from 'react'
 import Table from "components/utils/Table";
 import { Link,useNavigate } from "react-router-dom";
 import InvoiceService from 'services/InvoiceService';
+import DeliverNoteService from 'services/DeliverNoteService';
 
 const Invoices = () => {
     const [loading, setLoading] = useState(false);
     const [invoices, setInvoices] = useState([]);
-
+    const [block, setBlock] = useState(false);
+    const storeDeliveryNotes = async(data)=>{
+      setBlock(true);
+      await DeliverNoteService.create(data);
+      setBlock(false);
+      console.log("working");
+    }
     const columns = [
       {
         name: "Id",
-        selector: (row) => row?.id,
+        selector: (row) => row?.invoice_number,
         sortable: true,
         field: "id",
       },
@@ -38,7 +45,7 @@ const Invoices = () => {
           selector: (row) => row?.part_items?.map((item)=>item?.quantity),
           format: (row) => (
             <div className='mt-2'>
-              {row?.part_items?.map((item)=> (<p>{item?.quantity}</p>))}
+              {row?.part_items?.map((item,index)=> (<p key={index}>{item?.quantity}</p>))}
             </div>
           ),
           sortable: true,
@@ -49,7 +56,7 @@ const Invoices = () => {
           selector: (row) => row?.part_items?.map((item)=>item?.total_value),
           format: (row) => (
             <div className='mt-2'>
-              {row?.part_items?.map((item)=> (<p>{item?.total_value} Tk.</p>))}
+              {row?.part_items?.map((item,index)=> (<p key={index}>{item?.total_value} Tk.</p>))}
             </div>
           ),
           sortable: true,
@@ -60,6 +67,7 @@ const Invoices = () => {
           name: "Action",
           selector: (row) => row.status,
           format: (row) => (
+            <>
             <span className="text-end">
               <Link
                 to={"/panel/invoices/" + row.id+"/print"}
@@ -69,6 +77,19 @@ const Invoices = () => {
               </Link>
          
             </span>
+            <span className="text-end">
+              <div
+                   onClick={() => {
+                    storeDeliveryNotes(row.id);
+                  }}
+                className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+              >
+                <i className="fa fa-plus"></i>
+              </div>
+         
+            </span>
+            </>
+            
           ),
         },
       ];
