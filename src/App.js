@@ -43,6 +43,7 @@ import CreateQuotation from "pages/quotations/Create";
 import ShowQuotation from "pages/quotations/Show";
 import Invoices from "pages/invoices/Index";
 import PrintInvoice from "pages/invoices/Print";
+import DeliveryNotes from "pages/delivery-notes/Index";
 
 function App() {
   return (
@@ -426,8 +427,18 @@ function App() {
                 </PrivateRoute>
               }
             />
-
             {/* Invoice End */}
+
+            {/* Delivery Notes Start */}
+            <Route 
+            path="delivery-notes"
+            element={
+              <PrivateRoute>
+                <DeliveryNotes/>
+              </PrivateRoute>
+            }
+            />
+            {/* Delivery Notes End; */}
             <Route path="*" element={<NotFound />} />
           </Route>
 

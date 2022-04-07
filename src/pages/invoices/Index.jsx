@@ -12,7 +12,7 @@ const Invoices = () => {
       setBlock(true);
       await DeliverNoteService.create(data);
       setBlock(false);
-      console.log("working");
+     
     }
     const columns = [
       {
