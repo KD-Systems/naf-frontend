@@ -80,7 +80,7 @@ const Invoices = () => {
             <span className="text-end">
               <div
                    onClick={() => {
-                    storeDeliveryNotes(row.id);
+                    storeDeliveryNotes(row);
                   }}
                 className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
               >
