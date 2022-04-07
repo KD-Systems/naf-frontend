@@ -49,7 +49,6 @@ const EditEmployee = ({ open, onCloseModal, getEmployees, employeeId }) => {
   };
 
   
-
   const setImage = async (e) => {
     let logoShow = document.getElementById("avatar");
     let fr = new FileReader();

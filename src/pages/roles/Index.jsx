@@ -21,8 +21,6 @@ const Roles = () => {
     getRoles();
   };
 
-
-
   useEffect(() => {
     getRoles();
   }, []);
