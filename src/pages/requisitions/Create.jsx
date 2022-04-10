@@ -382,7 +382,7 @@ const RequisitionCreate = () => {
                       </div>
 
                       <div className="col-lg-4">
-                        <label htmlFor="type" className="form-label">
+                        <label htmlFor="type" className="required form-label">
                           Type
                         </label>
                         <div className="mb-5">

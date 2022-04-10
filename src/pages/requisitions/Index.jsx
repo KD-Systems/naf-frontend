@@ -10,7 +10,7 @@ const Requisitions = () => {
   const columns = [
     {
       name: "Id",
-      selector: (row) => row?.id,
+      selector: (row) => row?.rq_number,
       sortable: true,
       field: "id",
     },

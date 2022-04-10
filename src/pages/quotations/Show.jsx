@@ -48,8 +48,8 @@ const ShowQuotation = () => {
               <div className="card-body py-4">
 
 
-                <div className="fw-bolder mt-5">ID</div>
-                <div className="text-gray-600">{quotation?.id}</div>
+                <div className="fw-bolder mt-5">PQ Number</div>
+                <div className="text-gray-600">{quotation?.pq_number}</div>
 
                 <div className="fw-bolder mt-5">Company</div>
                 <div className="text-gray-600">{quotation?.company?.name}</div>
@@ -71,10 +71,7 @@ const ShowQuotation = () => {
                   </Moment>
                 </div>
 
-                <div className="fw-bolder mt-5">PQ Number</div>
-                <div className="text-gray-600">
-                  {quotation?.pq_number}
-                </div>
+          
 
                 <div className="fw-bolder mt-5">Priority</div>
                 <div className="text-gray-600">

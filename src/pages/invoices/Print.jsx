@@ -27,7 +27,7 @@ const PrintInvoice = () => {
         <div className="card">
           <div className="card-body py-20">
             <div className="mw-lg-950px mx-auto w-100">
-              <div className="mb-19">
+              <div className="mb-4">
                 <table>
                   <tbody>
                   <tr>
@@ -76,6 +76,18 @@ const PrintInvoice = () => {
                 </table>
               </div>
 
+              <div className="mb-10">
+                <table width="100%">
+                  <tbody>
+                    <tr>
+                      <td className="text-left" ></td>
+                      <td className="text-center" ><h3>INVOICE</h3><p className="text-muted">#{invoice?.invoice_number}</p></td>
+                      <td className="text-end" ></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
               <div className="">
                 <table width="100%">
                   <tbody>
@@ -99,10 +111,10 @@ const PrintInvoice = () => {
 
                     <td style={{ marginLeft: "120px" }}>
                       <h6>
-                        <strong>Date: </strong>
+                        <strong>Invoice Date: </strong>
                         <span className="text-muted">
                           <Moment format="D MMMM YYYY">
-                            {/* {requisition?.created_at} */}
+                            {invoice?.invoice_date}
                           </Moment>
                         </span>
                       </h6>
@@ -174,9 +186,13 @@ const PrintInvoice = () => {
                         </table>
                       </div>
                       <div className="fs-5 text-dark fw-boldest pe-lg-6 text-end">
-                        TOTAL:  {
+                        
+                        TOTAL:  
+                        <span className="text-muted">   {
                           invoice?.part_items?.reduce((sum,partItem) => sum + parseFloat(partItem.total_value),0)
-                        } TK.
+                        } TK.</span>
+                     
+                        
                       </div>
                     </div>
                   </div>

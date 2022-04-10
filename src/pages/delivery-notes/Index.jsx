@@ -58,7 +58,7 @@ const DeliveryNotes = () => {
               <>
               <span className="text-end">
                 <Link
-                  to={"/panel/invoices/" + row.id+"/print"}
+                  to={"/panel/delivery-notes/" + row.id+"/print"}
                   className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
                 >
                   <i className="fa fa-eye"></i>
@@ -77,7 +77,8 @@ const DeliveryNotes = () => {
       <div className="post d-flex flex-column-fluid">
       <div className="container-xxl">
         <Table
-          name="Quotations"
+          name="Delivery Notes"
+          buttonName="Add Delivery Note"
           isLoading={loading}
           data={deliveryNotes}
           columns={columns}
