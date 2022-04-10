@@ -2,10 +2,21 @@ import React,{useState} from 'react'
 import Table from "components/utils/Table";
 import { Link,useNavigate } from "react-router-dom";
 import DeliverNoteService from 'services/DeliverNoteService';
+import CreateDeliveryNote from "./Create";
 const DeliveryNotes = () => {
+  
     const [loading, setLoading] = useState(false);
     const [block, setBlock] = useState(false);
     const [deliveryNotes, setDeliveryNotes] = useState([]);
+
+
+  const [open, setOpen] = useState(false);
+
+  const onOpenModal = () => setOpen(true);
+  const onCloseModal = () => setOpen(false);
+
+
+
     const getDeliverNotes = async (filters) => {
         setLoading(true);
         setDeliveryNotes(await DeliverNoteService.getAll(filters));
@@ -60,8 +71,9 @@ const DeliveryNotes = () => {
                 <Link
                   to={"/panel/delivery-notes/" + row.id+"/print"}
                   className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+                  target="_blank"
                 >
-                  <i className="fa fa-eye"></i>
+                  <i className="fa fa-print"></i>
                 </Link>
            
               </span>
@@ -74,11 +86,13 @@ const DeliveryNotes = () => {
 
 
   return (
+    <>
       <div className="post d-flex flex-column-fluid">
       <div className="container-xxl">
         <Table
           name="Delivery Notes"
           buttonName="Add Delivery Note"
+          onClickButton={onOpenModal}
           isLoading={loading}
           data={deliveryNotes}
           columns={columns}
@@ -86,6 +100,12 @@ const DeliveryNotes = () => {
         />
       </div>
     </div>
+    <CreateDeliveryNote
+        open={open}
+        onCloseModal={onCloseModal}
+        getDeliverNotes = {getDeliverNotes}
+      />
+    </>
   )
 }
 

@@ -2,9 +2,15 @@ import React,{useState} from 'react'
 import Table from "components/utils/Table";
 import { Link,useNavigate } from "react-router-dom";
 import QuotationService from 'services/QuotationService';
+import CreateModal from "./CreateModal";
 const Quotations = () => {
   const [loading, setLoading] = useState(false);
   const [quotations, setQuotations] = useState([]);
+
+  const [open, setOpen] = useState(false);
+
+  const onOpenModal = () => setOpen(true);
+  const onCloseModal = () => setOpen(false);
 
   const columns = [
     {
@@ -38,7 +44,7 @@ const Quotations = () => {
       selector: (row) => row?.part_items?.map((item)=>item?.quantity),
       format: (row) => (
         <div className='mt-2'>
-          {row?.part_items?.map((item)=> (<p>{item?.quantity}</p>))}
+          {row?.part_items?.map((item,index)=> (<p key={index}>{item?.quantity}</p>))}
         </div>
       ),
       sortable: true,
@@ -49,7 +55,7 @@ const Quotations = () => {
       selector: (row) => row?.part_items?.map((item)=>item?.total_value),
       format: (row) => (
         <div className='mt-2'>
-          {row?.part_items?.map((item)=> (<p>{item?.total_value} Tk.</p>))}
+          {row?.part_items?.map((item,index)=> (<p key={index}>{item?.total_value} Tk.</p>))}
         </div>
       ),
       sortable: true,
@@ -85,11 +91,13 @@ const Quotations = () => {
       navigate(path)
   }
   return (
+    <>
     <div className="post d-flex flex-column-fluid">
       <div className="container-xxl">
         <Table
           name="Quotations"
           buttonName="Add Quotation"
+          onClickButton={onOpenModal}
           isLoading={loading}
           data={quotations}
           columns={columns}
@@ -97,6 +105,14 @@ const Quotations = () => {
         />
       </div>
     </div>
+
+    <CreateModal
+        open={open}
+        onCloseModal={onCloseModal}
+        getQuotations = {getQuotations}
+      />
+</>
+    
   )
 }
 
