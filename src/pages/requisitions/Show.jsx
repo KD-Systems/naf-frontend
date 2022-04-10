@@ -42,6 +42,10 @@ const ShowRequisition = () => {
               <div className="card-body py-4">
                 <div className="fw-bolder mt-5">Company</div>
                 <div className="text-gray-600">{requisition?.company?.name}</div>
+                
+                <div className="fw-bolder mt-5">RQ Number</div>
+              
+                <div className="text-gray-600">{requisition?.rq_number}</div>
 
                 <div className="fw-bolder mt-5">Machines</div>
                 <div className="text-gray-600">

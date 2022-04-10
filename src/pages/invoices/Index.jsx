@@ -107,6 +107,7 @@ const Invoices = () => {
       <div className="container-xxl">
         <Table
           name="Quotations"
+          buttonName="Add Invoice"
           isLoading={loading}
           data={invoices}
           columns={columns}

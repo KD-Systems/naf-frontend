@@ -44,6 +44,7 @@ import ShowQuotation from "pages/quotations/Show";
 import Invoices from "pages/invoices/Index";
 import PrintInvoice from "pages/invoices/Print";
 import DeliveryNotes from "pages/delivery-notes/Index";
+import PrintDeliveryNotes from "pages/delivery-notes/Print";
 
 function App() {
   return (
@@ -435,6 +436,15 @@ function App() {
             element={
               <PrivateRoute>
                 <DeliveryNotes/>
+              </PrivateRoute>
+            }
+            />
+
+            <Route 
+            path="delivery-notes/:id/print"
+            element={
+              <PrivateRoute>
+                <PrintDeliveryNotes/>
               </PrivateRoute>
             }
             />
