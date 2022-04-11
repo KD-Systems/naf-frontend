@@ -95,7 +95,7 @@ const ShowRequisition = () => {
                     <button
                       className="btn btn-sm btn-dark "
                       style={{ marginRight: "0.75rem" }}
-                      onClick={() => navigate('print')}
+                      onClick={() => navigate('print')} 
                     >
                       Print
                     </button>

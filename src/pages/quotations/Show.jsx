@@ -114,20 +114,11 @@ const ShowQuotation = () => {
               </div>
               <div className="card-header">
                 <div className="card-title">
-                  <h3 className="card-label">
-                    <button
-                      className="btn btn-sm btn-dark "
-                      style={{ marginRight: "0.75rem" }}
-                      onClick={() => navigate("print")}
-                    >
-                      Print
-                    </button>
-                  </h3>
+
                   <h3 className="card-label">
                     <button
                       className="btn btn-sm btn-dark "
                       style={{ marginRight: "0.1rem" }}
-                      // onClick={() => navigate(`/panel/quotations/${requisition?.id}/create`)}
                       onClick={() => {
                         storeInvoice();
                       }}
