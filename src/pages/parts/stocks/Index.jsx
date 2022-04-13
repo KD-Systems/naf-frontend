@@ -161,7 +161,7 @@ const PartStocks = ({ tab, part, onChange }) => {
       <AddPartStock
         open={open}
         onCloseModal={() => onCloseModal()}
-        onCreated={() => getStocks()}
+        onCreated={getStocks}
       />
 
       <EditPartAlias

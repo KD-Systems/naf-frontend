@@ -55,12 +55,12 @@ const MachineModels = ({ tab, models }) => {
                         to={"/panel/machines/" + item.machine_id + '/models/' + item.id}
                         className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
                       >
-                        {item.name}
+                        {item?.model.name}
                       </Link>
                     </td>
 
-                    <td>{item.pivot.mfg_number}</td>
-                    <td>{item.space}</td>
+                    <td className='text-dark fw-bolder d-block mb-1 fs-6'>{item?.mfg_number}</td>
+                    <td className='text-dark fw-bolder '>{item?.model?.space ?? '--'}</td>
                   </tr>
                 ))}
               </tbody>

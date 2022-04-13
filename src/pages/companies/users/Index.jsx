@@ -124,14 +124,9 @@ const CompanyUsers = ({ active }) => {
                                                 </div>
                                             </div>
                                         </td>
-                                        <td
-                                            dangerouslySetInnerHTML={{
-                                                __html: item.status
-                                                    ? '<span className="badge badge-light-success fs-7 fw-bold">Active</span>'
-                                                    : '<span className="badge badge-light-danger fs-7 fw-bold">Inactive</span>',
-                                            }}
-                                        ></td>
+                                
 
+                                        
                                         <td className="text-end">
                                             <Link
                                                 to={'/panel/companies/' + id + '/users/' + item.id}

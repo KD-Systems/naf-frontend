@@ -96,7 +96,7 @@ const AddPartStock = ({ open, onCloseModal, onCreated }) => {
             </div>
 
             <div className="form-group">
-              <label className="form-label">Unit Value</label>
+              <label className="form-label">Unit</label>
               <input
                 type="number"
                 className="form-control"

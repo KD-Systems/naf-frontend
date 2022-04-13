@@ -39,12 +39,18 @@ export const logout = createAsyncThunk("auth/logout", async () => {
 
 const initialState = {
   isLoggedIn: false,
-  user: null
+  user: null,
+  data: null
 }
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
+  reducers:{
+    savingData: (state, action)=>{
+      state.user = action.payload
+    }
+  },
   extraReducers: {
     [login.fulfilled]: (state, action) => {
       state.isLoggedIn = true;
@@ -66,7 +72,8 @@ const authSlice = createSlice({
 });
 
 
-const {
-  reducer
-} = authSlice;
+const {reducer} = authSlice;
+
+export const {savingData} = authSlice.actions
+
 export default reducer;

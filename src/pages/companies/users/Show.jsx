@@ -67,12 +67,12 @@ const ShowUser = () => {
                       <div className="fw-bolder mt-5">Status</div>
                       <div
                         className={
-                          data?.status === "active"
+                          data?.status === 1
                             ? "badge badge-light-success"
                             : "badge badge-light-danger"
                         }
                       >
-                        {data?.status === "active" ? "active" : "inactive"}
+                        {data?.status === 1 ? "active" : "inactive"}
                       </div>
                     </div>
                   </div>
