@@ -63,12 +63,12 @@ const Employee = () => {
       format: (row) => (
         <span
           className={
-            row.status === 1
+            row.status == 1
               ? "badge badge-light-success"
               : "badge badge-light-danger"
           }
         >
-          {row.status === 1 ? "active" : "inactive"}
+          {row.status == 1 ? "active" : "inactive"}
         </span>
       ),
     },

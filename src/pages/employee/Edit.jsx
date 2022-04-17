@@ -249,7 +249,7 @@ const EditEmployee = ({ open, onCloseModal, getEmployees, employeeId }) => {
                     className="form-check-input"
                     type="checkbox"
                     defaultChecked={data.status}
-                    defaultValue={data.status === true}
+                    defaultValue={data.status == true}
                     name="status"
                     id="flexSwitchDefault"
                     onChange={handleChange}

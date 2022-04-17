@@ -66,12 +66,12 @@ const Contracts = () => {
       format: (row) => (
         <span
           className={
-            row.is_foc
+            row.is_foc == 0
               ? "badge badge-light-warning"
               : "badge badge-light-info"
           }
         >
-          {row.is_foc ? "FOC" : "PAID"}
+          {row.is_foc == 0 ? "FOC" : "PAID"}
         </span>
       ),
     },
