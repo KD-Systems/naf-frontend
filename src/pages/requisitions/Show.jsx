@@ -92,13 +92,14 @@ const ShowRequisition = () => {
               <div className="card-header">
                 <div className="card-title">
                   <h3 className="card-label">
-                    <button
+                    <Link
                       className="btn btn-sm btn-dark "
+                      to={"/panel/requisitions/" + requisition.id + "/print"}
                       style={{ marginRight: "0.75rem" }}
-                      onClick={() => navigate('print')} 
+                      target="_blank"
                     >
                       Print
-                    </button>
+                    </Link>
                   </h3>
                   <h3 className="card-label">
                     <button
