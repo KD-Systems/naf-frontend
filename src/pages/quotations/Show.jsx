@@ -26,7 +26,7 @@ const ShowQuotation = () => {
     await InvoiceService.create(quotation);
     setBlock(false);
     navigate("/panel/invoices");
-  };
+  };  //Generating Invoice
 
 
   const lockedPartItems = async()=>{
@@ -295,7 +295,6 @@ const ShowQuotation = () => {
                       </table>
                       <button
                         className="btn btn-sm btn-dark float-end fs-6 mt-5"
-                        style={{ marginRight: "6rem" }}
                         onClick={lockedPartItems}
                       >
                         Locked
