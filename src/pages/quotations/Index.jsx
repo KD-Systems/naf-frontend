@@ -40,6 +40,13 @@ const Quotations = () => {
       ),
     },
     {
+      name: "Requisition Type",
+      selector: (row) => row?.requisition?.type?.replaceAll("_", " ")?.capitalize(),
+      sortable: true,
+      field: "id",
+    },
+    
+    {
       name: "Part Quantity",
       selector: (row) => row?.part_items?.map((item)=>item?.quantity),
       format: (row) => (
@@ -55,7 +62,12 @@ const Quotations = () => {
       selector: (row) => row?.part_items?.map((item)=>item?.total_value),
       format: (row) => (
         <div className='mt-2'>
-          {row?.part_items?.map((item,index)=> (<p key={index}>{item?.total_value} Tk.</p>))}
+          {row?.part_items?.map((item,index)=> 
+          (
+          <p key={index}>
+            {row?.requisition?.type!='claim_report' ? item?.total_value : 0} Tk.
+            </p>
+          ))}
         </div>
       ),
       sortable: true,
@@ -90,6 +102,8 @@ const Quotations = () => {
       let path = `create`;
       navigate(path)
   }
+
+
   return (
     <>
     <div className="post d-flex flex-column-fluid">

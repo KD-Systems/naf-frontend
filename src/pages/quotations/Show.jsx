@@ -52,7 +52,10 @@ const ShowQuotation = () => {
     const templist = [...list];
     const tempItem = templist?.filter((val) => val?.id === item?.id);
     tempItem[0][name] = parseInt(e.target.value);
-    tempItem[0].total_value = tempItem[0][name] * tempItem[0].quantity
+    if(!quotation?.requisition?.type != 'claim_report'){
+      tempItem[0].total_value = tempItem[0][name] * tempItem[0].quantity
+    }
+    tempItem[0].total_value = 0;
     setList(templist);
   };
 
@@ -60,7 +63,10 @@ const ShowQuotation = () => {
     const tempList = [...list];
     const tempItem = tempList?.filter((val) => val?.id === item?.id);
     ++tempItem[0].quantity;
-    tempItem[0].total_value = tempItem[0].quantity * parseInt(tempItem[0].unit_value)
+    if (!quotation?.requisition?.type != 'claim_report') {
+      tempItem[0].total_value = tempItem[0].quantity * parseInt(tempItem[0].unit_value)
+    }
+    tempItem[0].total_value = 0;
     setList(tempList);
   };
 
@@ -68,7 +74,10 @@ const ShowQuotation = () => {
     const tempList = [...list];
     const tempItem = tempList.filter((val) => val.id === item.id);
     --tempItem[0].quantity;
-    tempItem[0].total_value = tempItem[0].quantity * parseInt(tempItem[0].unit_value)
+    if (!quotation?.requisition?.type != 'claim_report') {
+      tempItem[0].total_value = tempItem[0].quantity * parseInt(tempItem[0].unit_value)
+    }
+    tempItem[0].total_value = 0;
     setList(tempList);
   };
 
@@ -278,7 +287,7 @@ const ShowQuotation = () => {
                               </td>
                               
                               <td className=" fw-bolder mb-1 fs-6">
-                                <span>{item?.quantity * item?.unit_value} Tk.</span>
+                                <span>{quotation?.requisition?.type != 'claim_report'?item?.quantity * item?.unit_value:0} Tk.</span>
                               </td>
                             </tr>
                           ))}

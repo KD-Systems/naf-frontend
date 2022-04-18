@@ -29,7 +29,7 @@ const remove = async (id) => {
 };
 
 const locked = async (data)=>{
-  const res =await http.post('/quotations/locked',data);
+  const res =await http.put('/quotations/locked',data);
   return res?.data;
 }
 
