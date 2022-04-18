@@ -60,6 +60,7 @@ const ShowQuotation = () => {
     setBlock(true);
     await QuotationService.update(id,data);
     setBlock(false);
+    navigate("/panel/quotations");
   }
 
   const increment = (item) => {
