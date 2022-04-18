@@ -49,10 +49,12 @@ const ShowQuotation = () => {
     const templist = [...list];
     const tempItem = templist?.filter((val) => val?.id === item?.id);
     tempItem[0][name] = parseInt(e.target.value);
-    if (!quotation?.requisition?.type != "claim_report") {
+    if (quotation?.requisition?.type != "claim_report") {
       tempItem[0].total_value = tempItem[0][name] * tempItem[0].quantity;
     }
-    tempItem[0].total_value = 0;
+    else{
+      tempItem[0].total_value = 0;
+    }
     setList(templist);
   };
   // * Update Quotation Part Items
@@ -64,16 +66,18 @@ const ShowQuotation = () => {
     navigate("/panel/quotations");
   }
 
-  
+
   const increment = (item) => {
     const tempList = [...list];
     const tempItem = tempList?.filter((val) => val?.id === item?.id);
     ++tempItem[0].quantity;
-    if (!quotation?.requisition?.type != "claim_report") {
+    if (quotation?.requisition?.type != "claim_report") {
       tempItem[0].total_value =
         tempItem[0].quantity * parseInt(tempItem[0].unit_value);
     }
-    tempItem[0].total_value = 0;
+    else{
+      tempItem[0].total_value = 0;
+    }
     setList(tempList);
   };
 
@@ -81,13 +85,17 @@ const ShowQuotation = () => {
     const tempList = [...list];
     const tempItem = tempList.filter((val) => val.id === item.id);
     --tempItem[0].quantity;
-    if (!quotation?.requisition?.type != "claim_report") {
+    if (quotation?.requisition?.type != "claim_report") {
       tempItem[0].total_value =
         tempItem[0].quantity * parseInt(tempItem[0].unit_value);
     }
-    tempItem[0].total_value = 0;
+    else{
+
+      tempItem[0].total_value = 0;
+    }
     setList(tempList);
   };
+
 
   useEffect(() => {
     setList(quotation?.part_items); //add part items into List

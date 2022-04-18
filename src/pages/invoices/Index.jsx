@@ -77,6 +77,15 @@ const Invoices = () => {
       selector: (row) => row.status,
       format: (row) => (
         <>
+        <span className="text-end">
+          <Link
+            to={"/panel/invoices/" + row.id}
+            className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+          >
+            <i className="fa fa-eye"></i>
+          </Link>
+     
+        </span>
           <span className="text-end">
             <Link
               to={"/panel/invoices/" + row.id + "/print"}
