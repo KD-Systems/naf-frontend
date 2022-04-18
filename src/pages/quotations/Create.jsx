@@ -8,32 +8,28 @@ const CreateQuotation = () => {
   const navigate = useNavigate();
   const [requisition, setRequisition] = useState({});
   const [list, setList] = useState([]); /* for adding part in quotation */
-  const [machineId,setMachineId] = useState("")
-  const [data,setData]=useState({
-      requisition_id:"",
-      company_id:"",
-      machine_id:"",
-      part_items:list
-
+  const [machineId, setMachineId] = useState("");
+  const [data, setData] = useState({
+    requisition_id: "",
+    company_id: "",
+    machine_id: "",
+    part_items: list,
   });
 
   const [block, setBlock] = useState(false);
   const getRequisition = async () => {
     let res = await RequisitionService.get(requisitionId);
     setRequisition(res);
-   
   };
 
-
-  const handleChange = (e,item) => {
-    const { name } = e.target
+  const handleChange = (e, item) => {
+    const { name } = e.target;
     const templist = [...list];
-    const tempItem = templist?.filter((val)=>val?.id === item?.id)
-    const tempItemPart = tempItem[0]?.part
-    tempItemPart[name]= parseInt(e.target.value)
-    setList(templist)
-  }
-
+    const tempItem = templist?.filter((val) => val?.id === item?.id);
+    const tempItemPart = tempItem[0]?.part;
+    tempItemPart[name] = parseInt(e.target.value);
+    setList(templist);
+  };
 
   const increment = (item) => {
     const tempList = [...list];
@@ -50,35 +46,38 @@ const CreateQuotation = () => {
   };
 
   // store quotation
-  const storeQuotation = async()=>{
-    setBlock(true)
+  const storeQuotation = async () => {
+    setBlock(true);
     await QuotationService.create(data);
-    setBlock(false)
+    setBlock(false);
     navigate("/panel/quotations");
-  }
-// Remove Quotation
+  };
+  // Remove Quotation
   const removeItem = (id) => {
-    const newList = list.filter((item => item.id !== id))
-    setList(newList)
-  }
+    const newList = list.filter((item) => item.id !== id);
+    setList(newList);
+  };
 
   useEffect(() => {
-    if (requisitionId) getRequisition();                                         
+    if (requisitionId) getRequisition();
   }, [requisitionId]);
 
   useEffect(() => {
-    setList(requisition?.part_items);
-    setMachineId(requisition?.machines?.map((item)=>item.id))
-    setData({...data,requisition_id:requisition?.id,company_id:requisition?.company_id,machine_id:requisition?.machines?.map((item,index)=>item?.machine_model_id)}) //need to fix this
-  }, [requisitionId, requisition]); 
+    setList(requisition?.part_items); //Add to List into Requisition Part Items
+    setMachineId(requisition?.machines?.map((item) => item.id));
+    setData({
+      ...data,
+      requisition_id: requisition?.id,
+      company_id: requisition?.company_id,
+      machine_id: requisition?.machines?.map(
+        (item, index) => item?.machine_model_id
+      ),
+    }); //need to fix this
+  }, [requisitionId, requisition]);
 
   useEffect(() => {
-    setData({ ...data, part_items: list })  //add part_items and total amount in data
-  }, [list])
-
-
-
-
+    setData({ ...data, part_items: list }); //add part_items and total amount in data
+  }, [list]);
 
   return (
     <div className="post d-flex flex-column-fluid" id="content">
@@ -233,8 +232,8 @@ const CreateQuotation = () => {
                                   aria-describedby="inputGroup-sizing-sm"
                                   name="yen_price"
                                   placeholder="0TK"
-                                  value={item?.part?.yen_price??""}
-                                  onChange={(e)=>handleChange(e,item)}
+                                  value={item?.part?.yen_price ?? ""}
+                                  onChange={(e) => handleChange(e, item)}
                                 />
                               </td>
                               <td>
@@ -246,8 +245,8 @@ const CreateQuotation = () => {
                                   aria-describedby="inputGroup-sizing-sm"
                                   name="formula_price"
                                   placeholder="0TK"
-                                  value={item?.part?.formula_price??""}
-                                  onChange={(e)=>handleChange(e,item)}
+                                  value={item?.part?.formula_price ?? ""}
+                                  onChange={(e) => handleChange(e, item)}
                                 />
                               </td>
 
@@ -260,7 +259,7 @@ const CreateQuotation = () => {
                                   name="selling_price"
                                   placeholder="0TK"
                                   value={item?.part?.selling_price ?? ""}
-                                  onChange={(e)=>handleChange(e,item)}
+                                  onChange={(e) => handleChange(e, item)}
                                 />
                               </td>
 
@@ -302,23 +301,28 @@ const CreateQuotation = () => {
                                 </div>
                               </td>
                               <td className="text-end">
-                                    <button
-                                      type="button"
-                                      className="btn btn-sm btn-icon btn-danger"
-                                      data-kt-element="remove-item"
-                                      onClick={() => removeItem(item?.id)}
-                                    >
-                                      <i className="fa fa-trash"></i>
-                                    </button>
-                                  </td>
+                                <button
+                                  type="button"
+                                  className="btn btn-sm btn-icon btn-danger"
+                                  data-kt-element="remove-item"
+                                  onClick={() => removeItem(item?.id)}
+                                >
+                                  <i className="fa fa-trash"></i>
+                                </button>
+                              </td>
                             </tr>
                           ))}
                         </tbody>
                       </table>
                       <div className="separator separator-dashed"></div>
-                      <button className="btn btn-primary mt-5"  onClick={() => {
+                      <button
+                        className="btn btn-primary mt-5"
+                        onClick={() => {
                           storeQuotation();
-                        }}>Submit</button>
+                        }}
+                      >
+                        Submit
+                      </button>
                     </div>
                   </div>
                 </div>

@@ -8,6 +8,13 @@ const ShowQuotation = () => {
   const navigate = useNavigate();
   const [quotation, setQuotation] = useState({});
   const [block, setBlock] = useState(false);
+  const [locked,setLocked]=useState(false)
+  const [list,setList] = useState([])
+
+  const [data,setData]=useState({
+    quotation_id:parseInt(id),
+    part_items:list
+});
 
   const getQuotation = async () => {
     let res = await QuotationService.get(id);
@@ -21,9 +28,59 @@ const ShowQuotation = () => {
     navigate("/panel/invoices");
   };
 
+
+  const lockedPartItems = async()=>{
+    setBlock(true);
+    await QuotationService.locked(data);
+    setBlock(false);
+    setLocked(true)
+  }
+
   useEffect(() => {
     if (id) getQuotation();
   }, [id]);
+
+  useEffect(() => {
+    setData({ ...data, part_items: list }); //add part_items and total amount in data
+  }, [list]);
+
+  console.log("Data",data);
+
+
+  const handleChange = (e, item) => {
+    const { name } = e.target;
+    const templist = [...list];
+    const tempItem = templist?.filter((val) => val?.id === item?.id);
+    tempItem[0][name] = parseInt(e.target.value);
+    tempItem[0].total_value = tempItem[0][name] * tempItem[0].quantity
+    setList(templist);
+  };
+
+  const increment = (item) => {
+    const tempList = [...list];
+    const tempItem = tempList?.filter((val) => val?.id === item?.id);
+    ++tempItem[0].quantity;
+    tempItem[0].total_value = tempItem[0].quantity * parseInt(tempItem[0].unit_value)
+    setList(tempList);
+  };
+
+  const decrement = (item) => {
+    const tempList = [...list];
+    const tempItem = tempList.filter((val) => val.id === item.id);
+    --tempItem[0].quantity;
+    tempItem[0].total_value = tempItem[0].quantity * parseInt(tempItem[0].unit_value)
+    setList(tempList);
+  };
+
+  useEffect(()=>{
+    setList(quotation?.part_items)
+    if (quotation?.locked_at != null) {
+      setLocked(true)
+    }
+  },[quotation])
+
+  console.log("Quotation", quotation);
+
   return (
     <div className="d-flex flex-column-fluid">
       <div className="container">
@@ -46,8 +103,6 @@ const ShowQuotation = () => {
               </div>
 
               <div className="card-body py-4">
-
-
                 <div className="fw-bolder mt-5">PQ Number</div>
                 <div className="text-gray-600">{quotation?.pq_number}</div>
 
@@ -70,8 +125,6 @@ const ShowQuotation = () => {
                     {quotation?.requisition?.expected_delivery}
                   </Moment>
                 </div>
-
-          
 
                 <div className="fw-bolder mt-5">Priority</div>
                 <div className="text-gray-600">
@@ -114,7 +167,6 @@ const ShowQuotation = () => {
               </div>
               <div className="card-header">
                 <div className="card-title">
-
                   <h3 className="card-label">
                     <button
                       className="btn btn-sm btn-dark "
@@ -151,8 +203,8 @@ const ShowQuotation = () => {
                             <th className="min-w-50px">Part Name</th>
                             <th className="min-w-120px">Part Number</th>
                             <th className="min-w-120px">Quantity</th>
-                            <th className="min-w-120px">Unit Value</th>
-                            <th className="min-w-120px">Total Value</th>
+                            <th className="min-w-120px">Unit </th>
+                            <th className="min-w-120px">Total </th>
                           </tr>
                         </thead>
 
@@ -172,19 +224,73 @@ const ShowQuotation = () => {
                                   {item?.part?.aliases[0].part_number}
                                 </span>
                               </td>
-                              <td className=" fw-bolder mb-1 fs-6">
+                              {/* <td className=" fw-bolder mb-1 fs-6">
                                 <span>{item?.quantity}</span>
+                              </td> */}
+
+                              <td>
+                                <div className="input-group input-group-sm">
+                                  <div className="input-group-prepend">
+                                    <span
+                                      className="input-group-text"
+                                      id="inputGroup-sizing-sm"
+                                      onClick={() => {
+                                        if (item?.quantity > 0) {
+                                          decrement(item);
+                                        }
+                                      }}
+                                    >
+                                      <i className="fas fa-minus"></i>
+                                    </span>
+                                  </div>
+                                  <input
+                                    type="text"
+                                    className="form-control"
+                                    aria-label="Small"
+                                    aria-describedby="inputGroup-sizing-sm"
+                                    min="1"
+                                    value={item?.quantity ?? ""}
+                                    name="quantity"
+                                  />
+
+                                  <div className="input-group-prepend">
+                                    <span
+                                      className="input-group-text"
+                                      onClick={() => increment(item)}
+                                      style={{ cursor: "pointer" }}
+                                    >
+                                      <i className="fas fa-plus"></i>
+                                    </span>
+                                  </div>
+                                </div>
                               </td>
                               <td className=" fw-bolder mb-1 fs-6">
-                                <span>{item?.unit_value} Tk.</span>
+                                <input
+                                  type="number"
+                                  className="form-control"
+                                  aria-label="Small"
+                                  aria-describedby="inputGroup-sizing-sm"
+                                  name="unit_value"
+                                  placeholder="0TK"
+                                  value={item?.unit_value ?? ""}
+                                  onChange={(e) => handleChange(e, item)}
+                                />
                               </td>
+                              
                               <td className=" fw-bolder mb-1 fs-6">
-                                <span>{item?.total_value} Tk.</span>
+                                <span>{item?.quantity * item?.unit_value} Tk.</span>
                               </td>
                             </tr>
                           ))}
                         </tbody>
                       </table>
+                      <button
+                        className="btn btn-sm btn-dark float-end fs-6 mt-5"
+                        style={{ marginRight: "6rem" }}
+                        onClick={lockedPartItems}
+                      >
+                        Locked
+                      </button>
                     </div>
                   </div>
                 </div>
