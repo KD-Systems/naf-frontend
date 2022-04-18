@@ -8,13 +8,13 @@ const ShowQuotation = () => {
   const navigate = useNavigate();
   const [quotation, setQuotation] = useState({});
   const [block, setBlock] = useState(false);
-  const [locked,setLocked]=useState(false)
-  const [list,setList] = useState([])
+  const [locked, setLocked] = useState(false);
+  const [list, setList] = useState([]);
 
-  const [data,setData]=useState({
-    quotation_id:parseInt(id),
-    part_items:list
-});
+  const [data, setData] = useState({
+    quotation_id: parseInt(id),
+    part_items: list,
+  });
 
   const getQuotation = async () => {
     let res = await QuotationService.get(id);
@@ -26,15 +26,14 @@ const ShowQuotation = () => {
     await InvoiceService.create(quotation);
     setBlock(false);
     navigate("/panel/invoices");
-  };  //Generating Invoice
+  }; //Generating Invoice
 
-
-  const lockedPartItems = async()=>{
+  const lockedPartItems = async () => {
     setBlock(true);
     await QuotationService.locked(data);
     setBlock(false);
-    setLocked(true)
-  }
+    setLocked(true);
+  };
 
   useEffect(() => {
     if (id) getQuotation();
@@ -44,16 +43,15 @@ const ShowQuotation = () => {
     setData({ ...data, part_items: list }); //add part_items and total amount in data
   }, [list]);
 
-  console.log("Data",data);
-
+  console.log("Data", data);
 
   const handleChange = (e, item) => {
     const { name } = e.target;
     const templist = [...list];
     const tempItem = templist?.filter((val) => val?.id === item?.id);
     tempItem[0][name] = parseInt(e.target.value);
-    if(!quotation?.requisition?.type != 'claim_report'){
-      tempItem[0].total_value = tempItem[0][name] * tempItem[0].quantity
+    if (!quotation?.requisition?.type != "claim_report") {
+      tempItem[0].total_value = tempItem[0][name] * tempItem[0].quantity;
     }
     tempItem[0].total_value = 0;
     setList(templist);
@@ -63,8 +61,9 @@ const ShowQuotation = () => {
     const tempList = [...list];
     const tempItem = tempList?.filter((val) => val?.id === item?.id);
     ++tempItem[0].quantity;
-    if (!quotation?.requisition?.type != 'claim_report') {
-      tempItem[0].total_value = tempItem[0].quantity * parseInt(tempItem[0].unit_value)
+    if (!quotation?.requisition?.type != "claim_report") {
+      tempItem[0].total_value =
+        tempItem[0].quantity * parseInt(tempItem[0].unit_value);
     }
     tempItem[0].total_value = 0;
     setList(tempList);
@@ -74,21 +73,23 @@ const ShowQuotation = () => {
     const tempList = [...list];
     const tempItem = tempList.filter((val) => val.id === item.id);
     --tempItem[0].quantity;
-    if (!quotation?.requisition?.type != 'claim_report') {
-      tempItem[0].total_value = tempItem[0].quantity * parseInt(tempItem[0].unit_value)
+    if (!quotation?.requisition?.type != "claim_report") {
+      tempItem[0].total_value =
+        tempItem[0].quantity * parseInt(tempItem[0].unit_value);
     }
     tempItem[0].total_value = 0;
     setList(tempList);
   };
 
-  useEffect(()=>{
-    setList(quotation?.part_items)
+  useEffect(() => {
+    setList(quotation?.part_items); //add part items into List
     if (quotation?.locked_at != null) {
-      setLocked(true)
+      setLocked(true); //check locked at is null or not
     }
-  },[quotation])
+  }, [quotation]);
 
   console.log("Quotation", quotation);
+  console.log("Locked", locked);
 
   return (
     <div className="d-flex flex-column-fluid">
@@ -253,6 +254,7 @@ const ShowQuotation = () => {
                                     </span>
                                   </div>
                                   <input
+                                    disabled={locked ? true : false}
                                     type="text"
                                     className="form-control"
                                     aria-label="Small"
@@ -275,6 +277,7 @@ const ShowQuotation = () => {
                               </td>
                               <td className=" fw-bolder mb-1 fs-6">
                                 <input
+                                  disabled={locked ? true : false}
                                   type="number"
                                   className="form-control"
                                   aria-label="Small"
@@ -285,9 +288,15 @@ const ShowQuotation = () => {
                                   onChange={(e) => handleChange(e, item)}
                                 />
                               </td>
-                              
+
                               <td className=" fw-bolder mb-1 fs-6">
-                                <span>{quotation?.requisition?.type != 'claim_report'?item?.quantity * item?.unit_value:0} Tk.</span>
+                                <span>
+                                  {quotation?.requisition?.type !=
+                                  "claim_report"
+                                    ? item?.quantity * item?.unit_value
+                                    : 0}{" "}
+                                  Tk.
+                                </span>
                               </td>
                             </tr>
                           ))}
