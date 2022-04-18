@@ -52,7 +52,9 @@ const ShowQuotation = () => {
     if (quotation?.requisition?.type != "claim_report") {
       tempItem[0].total_value = tempItem[0][name] * tempItem[0].quantity;
     }
-    tempItem[0].total_value = 0;
+    else{
+      tempItem[0].total_value = 0;
+    }
     setList(templist);
   };
   // * Update Quotation Part Items
@@ -73,7 +75,9 @@ const ShowQuotation = () => {
       tempItem[0].total_value =
         tempItem[0].quantity * parseInt(tempItem[0].unit_value);
     }
-    tempItem[0].total_value = 0;
+    else{
+      tempItem[0].total_value = 0;
+    }
     setList(tempList);
   };
 
@@ -85,9 +89,13 @@ const ShowQuotation = () => {
       tempItem[0].total_value =
         tempItem[0].quantity * parseInt(tempItem[0].unit_value);
     }
-    tempItem[0].total_value = 0;
+    else{
+
+      tempItem[0].total_value = 0;
+    }
     setList(tempList);
   };
+
 
   useEffect(() => {
     setList(quotation?.part_items); //add part items into List
