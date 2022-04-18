@@ -12,6 +12,8 @@ const ShowInvoice = () => {
     setInvoice(res);
   };
 
+  console.log("🐒",invoice);
+
   useEffect(() => {
     if (id) getInvoice();
   }, [id]);
@@ -19,7 +21,7 @@ const ShowInvoice = () => {
   <div className="container">
     <div className="row">
       <div className="col-xl-3">
-        {/* <div className="card card-custom">
+        <div className="card card-custom">
           <div className="card-header">
             <div className="card-title">
               <h3 className="card-label">
@@ -36,67 +38,72 @@ const ShowInvoice = () => {
           </div>
 
           <div className="card-body py-4">
-            <div className="fw-bolder mt-5">PQ Number</div>
-            <div className="text-gray-600">{quotation?.pq_number}</div>
+            <div className="fw-bolder mt-5">Invoice Number</div>
+            <div className="text-gray-600">
+                {invoice?.invoice_number}
+                </div>
 
             <div className="fw-bolder mt-5">Company</div>
-            <div className="text-gray-600">{quotation?.company?.name}</div>
-
-            <div className="fw-bolder mt-5">Machines</div>
             <div className="text-gray-600">
-              {quotation?.requisition?.machines?.map((item, index) => (
-                <span key={index}>
-                  {item?.machine_model?.name}
-                  {"\n"}
-                </span>
-              ))}
-            </div>
+                {invoice?.company?.name}
+                </div>
 
-            <div className="fw-bolder mt-5">Expected Delivery</div>
+
+
+            <div className="fw-bolder mt-5">Invoice Date</div>
             <div className="text-gray-600">
               <Moment format="D MMMM YYYY">
-                {quotation?.requisition?.expected_delivery}
+              {invoice?.invoice_date}
               </Moment>
             </div>
 
+            <div className="fw-bolder mt-5">Payment Mode</div>
+            <div className="text-gray-600">
+            {invoice?.payment_mode ?? "--"}
+                </div>
+
+
+            <div className="fw-bolder mt-5">Payment Term</div>
+            <div className="text-gray-600">
+            {invoice?.payment_term ?? "--"}
+                </div>
+
+                <div className="fw-bolder mt-5">Payment Partial Mode</div>
+            <div className="text-gray-600">
+            {invoice?.payment_partial_mode ?? "--"}
+                </div>
+                <div className="fw-bolder mt-5">Next Payment </div>
+            <div className="text-gray-600">
+            {invoice?.next_payment ?? "--"}
+                </div>
+
+                <div className="fw-bolder mt-5">Last Payment </div>
+            <div className="text-gray-600">
+                {invoice?.last_payment ?? "--"}
+                </div>
+                
+
+
             <div className="fw-bolder mt-5">Priority</div>
             <div className="text-gray-600">
-              {quotation?.requisition?.priority?.capitalize()}
+              {invoice?.requisition?.priority?.capitalize()}
             </div>
 
-            <div className="fw-bolder mt-5">Type</div>
+            <div className="fw-bolder mt-5">Requisition Type</div>
             <div className="text-gray-600">
-              {quotation?.requisition?.type
+              {invoice?.requisition?.type
                 ?.replaceAll("_", " ")
                 ?.capitalize()}
             </div>
 
-            <div className="fw-bolder mt-5">Updated At</div>
+    
+
+            <div className="fw-bolder mt-5">Requisition Ref Number</div>
             <div className="text-gray-600">
-              <Moment format="D MMMM YYYY">
-                {quotation?.requisition?.updated_at ?? "--"}
-              </Moment>
+              {invoice?.requisition?.ref_number ?? "--"}
             </div>
 
-            <div className="fw-bolder mt-5">Ref Number</div>
-            <div className="text-gray-600">
-              {quotation?.requisition?.ref_number ?? "--"}
-            </div>
-
-            <div className="fw-bolder mt-5">Reason Of Trouble</div>
-            <div className="text-gray-600">
-              {quotation?.requisition?.reason_of_trouble ?? "--"}
-            </div>
-
-            <div className="fw-bolder mt-5">Solutions</div>
-            <div className="text-gray-600">
-              {quotation?.requisition?.solutions ?? "--"}
-            </div>
-
-            <div className="fw-bolder mt-5">Remarks</div>
-            <div className="text-gray-600">
-              {quotation?.requisition?.remarks ?? "--"}
-            </div>
+       
           </div>
           <div className="card-header">
             <div className="card-title">
@@ -104,24 +111,17 @@ const ShowInvoice = () => {
                 <button
                   className="btn btn-sm btn-dark "
                   style={{ marginRight: "0.1rem" }}
-                  onClick={() => {
-                    storeInvoice();
-                  }}
+                //   onClick={() => {
+                //     storeInvoice();
+                //   }}
                 >
                   Generate Invoice
                 </button>
               </h3>
-              <h3>
-                <button
-                  className="btn btn-sm btn-dark float-end fs-6 "
-                  onClick={lockedPartItems}
-                >
-                  Locked
-                </button>
-              </h3>
+             
             </div>
           </div>
-        </div> */}
+        </div>
       </div>
 
       <div className="col-xl-9">

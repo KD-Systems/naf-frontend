@@ -90,7 +90,6 @@ const ShowQuotation = () => {
         tempItem[0].quantity * parseInt(tempItem[0].unit_value);
     }
     else{
-
       tempItem[0].total_value = 0;
     }
     setList(tempList);
@@ -201,14 +200,22 @@ const ShowQuotation = () => {
                       Generate Invoice
                     </button>
                   </h3>
-                  <h3>
+                  {!locked ?  <h3>
                     <button
                       className="btn btn-sm btn-dark float-end fs-6 "
                       onClick={lockedPartItems}
                     >
+                      Lock
+                    </button>
+                  </h3>: <h3>
+                    <button
+                      className="btn btn-sm btn-danger float-end fs-6 "
+                      onClick={lockedPartItems}
+                    >
                       Locked
                     </button>
-                  </h3>
+                  </h3>}
+                 
                 </div>
               </div>
             </div>
@@ -323,12 +330,13 @@ const ShowQuotation = () => {
                           ))}
                         </tbody>
                       </table>
-                      <button
+                      {!locked ?  <button
                         className="btn btn-sm btn-dark float-end fs-6 mt-5"
                         onClick={handleUpdate}
                       >
                         Update
-                      </button>
+                      </button>:""}
+                     
                     </div>
                   </div>
                 </div>
