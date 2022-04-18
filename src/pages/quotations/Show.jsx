@@ -21,12 +21,13 @@ const ShowQuotation = () => {
     setQuotation(res);
   };
 
+  //* Generating Invoice
   const storeInvoice = async () => {
     setBlock(true);
     await InvoiceService.create(quotation);
     setBlock(false);
     navigate("/panel/invoices");
-  }; //Generating Invoice
+  }; 
 
   const lockedPartItems = async () => {
     setBlock(true);
@@ -63,6 +64,7 @@ const ShowQuotation = () => {
     navigate("/panel/quotations");
   }
 
+  
   const increment = (item) => {
     const tempList = [...list];
     const tempItem = tempList?.filter((val) => val?.id === item?.id);
