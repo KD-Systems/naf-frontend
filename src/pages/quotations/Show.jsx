@@ -43,8 +43,6 @@ const ShowQuotation = () => {
     setData({ ...data, part_items: list }); //add part_items and total amount in data
   }, [list]);
 
-  console.log("Data", data);
-
   const handleChange = (e, item) => {
     const { name } = e.target;
     const templist = [...list];
@@ -56,6 +54,13 @@ const ShowQuotation = () => {
     tempItem[0].total_value = 0;
     setList(templist);
   };
+  // * Update Quotation Part Items
+
+  const handleUpdate =async()=>{
+    setBlock(true);
+    await QuotationService.update(id,data);
+    setBlock(false);
+  }
 
   const increment = (item) => {
     const tempList = [...list];
@@ -87,9 +92,6 @@ const ShowQuotation = () => {
       setLocked(true); //check locked at is null or not
     }
   }, [quotation]);
-
-  console.log("Quotation", quotation);
-  console.log("Locked", locked);
 
   return (
     <div className="d-flex flex-column-fluid">
@@ -186,6 +188,14 @@ const ShowQuotation = () => {
                       }}
                     >
                       Generate Invoice
+                    </button>
+                  </h3>
+                  <h3>
+                    <button
+                      className="btn btn-sm btn-dark float-end fs-6 "
+                      onClick={lockedPartItems}
+                    >
+                      Locked
                     </button>
                   </h3>
                 </div>
@@ -304,9 +314,9 @@ const ShowQuotation = () => {
                       </table>
                       <button
                         className="btn btn-sm btn-dark float-end fs-6 mt-5"
-                        onClick={lockedPartItems}
+                        onClick={handleUpdate}
                       >
-                        Locked
+                        Update
                       </button>
                     </div>
                   </div>
