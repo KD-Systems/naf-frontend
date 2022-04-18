@@ -28,12 +28,18 @@ const remove = async (id) => {
   return res.data;
 };
 
+const locked = async (data)=>{
+  const res =await http.post('/quotations/locked',data);
+  return res?.data;
+}
+
 const QuotationService = {
   getAll,
   get,
   create,
   update,
   remove,
+  locked
 };
 
 export default QuotationService;
