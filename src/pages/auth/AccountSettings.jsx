@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import TopCard from "components/profile/TopCard";
+import { useDispatch, useSelector } from "react-redux";
+import {savingData} from "../../features/Auth"
+
 
 import ProfileService from "services/ProfileService";
 const AccountSettings = () => {
+
+  const dispatch = useDispatch();
+  
   const [data, setData] = useState({
     current_password: "",
     password: "",
@@ -19,13 +25,18 @@ const AccountSettings = () => {
     role: ""
   });
 
+  const getUserProfile = async () => {
+    setProfileData(await ProfileService.getProfile());
+  };
+
   const getProfile = async () => {
     let data = JSON.parse(localStorage.getItem('user'));
     setProfileData(data.user)
   };
 
   useEffect(() => {
-    getProfile()
+    getUserProfile();
+
   }, [])
 
 
@@ -76,8 +87,11 @@ const AccountSettings = () => {
     let formData = new FormData(document.getElementById("update-profile"));
 
     await ProfileService.updateProfile(formData);
+    getUserProfile()
+
 
   };
+  
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -88,6 +102,8 @@ const AccountSettings = () => {
   const onProfileSumbit = (e) => {
     e.preventDefault();
     updateProfile();
+    getUserProfile();
+    dispatch(savingData(profileData))
   }
 
   return (
@@ -188,6 +204,7 @@ const AccountSettings = () => {
                         className="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                         placeholder="Name"
                         value={profileData.name || ""}
+                   
                         onChange={handleProfileChange}
                       />
                       <div className="fv-plugins-message-container invalid-feedback"></div>
@@ -207,6 +224,7 @@ const AccountSettings = () => {
                     className="form-control form-control-lg form-control-solid"
                     placeholder="email"
                     value={profileData.email || ""}
+               
                     onChange={handleProfileChange}
                   />
                   <div className="fv-plugins-message-container invalid-feedback"></div>
@@ -295,7 +313,7 @@ const AccountSettings = () => {
 
               <div className="row mb-6">
                 <label className="col-lg-4 col-form-label required fw-bold fs-6">
-                  Password
+                  New Password
                 </label>
                 <div className="col-lg-8">
                   <div className="row">

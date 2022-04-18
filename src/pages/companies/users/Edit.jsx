@@ -9,6 +9,7 @@ const EditUser = ({ open, onCloseModal, onUpdate, companyId, userId }) => {
     password: "",
     phone: "",
     avatar: "",
+    status: false
   });
 
   // Set the selected image to preview
@@ -38,13 +39,14 @@ const EditUser = ({ open, onCloseModal, onUpdate, companyId, userId }) => {
   };
 
   const handleChange = (e) => {
-    const value = e.target.value;
+    const target = e.target;
+    const value = target.type === "checkbox" ? target.checked : target.value;
     const name = e.target.name;
 
-    setData({
-      ...data,
-      [name]: value,
-    });
+    let tempdata = { ...data };
+    tempdata[name] = value;
+
+    setData(tempdata);
   };
 
   useEffect(() => {
@@ -56,6 +58,8 @@ const EditUser = ({ open, onCloseModal, onUpdate, companyId, userId }) => {
       window.$('[data-bs-toggle="tooltip"]').tooltip()
     }, 100);
   }, [userId]);
+
+console.log(data);
 
   return (
     <div>
@@ -76,7 +80,8 @@ const EditUser = ({ open, onCloseModal, onUpdate, companyId, userId }) => {
                     className="image-input-wrapper w-125px h-125px"
                     style={{
                       backgroundImage:
-                        "url(" + data.avatar ?? +"/assets/media/svg/files/blank-image.svg)",
+                        "url(" + data.avatar ??
+                        +"/assets/media/svg/files/blank-image.svg)",
                     }}
                   ></div>
                   <label
@@ -97,7 +102,10 @@ const EditUser = ({ open, onCloseModal, onUpdate, companyId, userId }) => {
                     />
                   </label>
                 </div>
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="avatar"></div>
+                <div
+                  className="fv-plugins-message-container invalid-feedback"
+                  htmlFor="avatar"
+                ></div>
               </div>
 
               <div className="mb-10 fv-row fv-plugins-icon-container">
@@ -111,7 +119,10 @@ const EditUser = ({ open, onCloseModal, onUpdate, companyId, userId }) => {
                   value={data.name ?? ""}
                   onChange={handleChange}
                 />
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="name"></div>
+                <div
+                  className="fv-plugins-message-container invalid-feedback"
+                  htmlFor="name"
+                ></div>
               </div>
 
               <div className="mb-10 fv-row fv-plugins-icon-container">
@@ -125,7 +136,10 @@ const EditUser = ({ open, onCloseModal, onUpdate, companyId, userId }) => {
                   value={data.email ?? ""}
                   onChange={handleChange}
                 />
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="email"></div>
+                <div
+                  className="fv-plugins-message-container invalid-feedback"
+                  htmlFor="email"
+                ></div>
               </div>
 
               <div className="mb-10 fv-row fv-plugins-icon-container">
@@ -148,7 +162,10 @@ const EditUser = ({ open, onCloseModal, onUpdate, companyId, userId }) => {
                   value={data.password ?? ""}
                   onChange={handleChange}
                 />
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="password"></div>
+                <div
+                  className="fv-plugins-message-container invalid-feedback"
+                  htmlFor="password"
+                ></div>
               </div>
 
               <div className="mb-10 fv-row fv-plugins-icon-container">
@@ -162,7 +179,31 @@ const EditUser = ({ open, onCloseModal, onUpdate, companyId, userId }) => {
                   value={data.phone ?? ""}
                   onChange={handleChange}
                 />
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="phone"></div>
+                <div
+                  className="fv-plugins-message-container invalid-feedback"
+                  htmlFor="phone"
+                ></div>
+              </div>
+
+              {/* status */}
+              <div className="form-group mt-5">
+                <div className="form-check form-switch form-check-custom form-check-solid">
+                  <input
+                    className="form-check-input"
+                    type="checkbox"
+                    defaultChecked={data.status}
+                    defaultValue={data.status === true}
+                    name="status"
+                    id="status"
+                    onChange={handleChange}
+                  />
+                  <label
+                    className="form-check-label"
+                    htmlFor="flexSwitchDefault"
+                  >
+                    Status {data.status ? "Active" : "Inactive"}
+                  </label>
+                </div>
               </div>
 
               <button

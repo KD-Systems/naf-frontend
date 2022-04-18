@@ -94,14 +94,15 @@ const ShowCompany = () => {
                           <tbody>
                             {company?.contracts?.map((item, index) => (
                               <tr key={index}>
-                                <td>{company?.machines?.map((item,index)=>(
-                                  item?.machine?.name
-                                ))}</td>
                                 <td>
-                                  {item?.machine_models
-                                    ?.map((it) => it.name)
-                                    .join(", ")}
+                                  {item?.machine_models?.map((it)=>(
+                                    it?.model?.machine?.name
+                                  )) }
                                 </td>
+                                <td>{item?.machine_models?.map((it)=>(
+                                  it?.model?.name
+                                ))}</td>
+                           
                                 <td>
                                   <Moment format="YYYY-MM-DD">
                                     {item.end_date}
@@ -109,19 +110,19 @@ const ShowCompany = () => {
                                 </td>
                                 <td
                                   className={
-                                    item.status === 1
+                                    item.status
                                       ? "badge badge-light-success"
                                       : "badge badge-light-danger"
                                   }
                                 >
                                   <div
                                     className={
-                                      item.status === 1
+                                      item.status
                                         ? "badge badge-light-success"
                                         : "badge badge-light-danger"
                                     }
                                   >
-                                    {item.status === 1 ? "Active" : "Inactive"}
+                                    {item.status ? "Active" : "Inactive"}
                                   </div>
                                 </td>
                               </tr>

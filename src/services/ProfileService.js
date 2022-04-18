@@ -8,12 +8,15 @@ const getProfile = async()=>{
 }
 
 const changePassword = async (data) => {
-  return http.post("/password-update", data);
+  const res = http.post("/password-update", data);
+
+  return res.data;
 };
 
 const updateProfile = async (data) => {
-    return http.post("/profile-update", data);
-  };
+    const res = await http.post("/profile-update", data);
+    return res.data;
+};
 
 const ProfileService = {
   getProfile,

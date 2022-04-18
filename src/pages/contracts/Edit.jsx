@@ -135,8 +135,8 @@ const EditContract = ({ open, onCloseModal, onUpdated, contractId }) => {
                                 <input
                                     className="form-check-input"
                                     type="checkbox"
-                                    defaultChecked={data.is_foc}
-                                    defaultValue={data.is_foc}
+                                    defaultChecked={parseInt(data.is_foc)}
+                                    defaultValue={parseInt(data.is_foc)}
                                     name="is_foc"
                                     id="is_foc"
                                     onChange={handleChange}

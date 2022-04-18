@@ -86,12 +86,12 @@ const ShowContract = () => {
                     <div className="fw-bolder mt-5">Machines</div>
                     <div className="text-gray-600">
                       <span className="text-gray-600 text-hover-primary">
-                        {data.machines?.map((dt,index) => (<Link
+                        {data.machine_models?.map((dt,index) => (<Link
                         key={index}
-                          to={`/panel/machines/${dt.id}`}
+                          to={`/panel/machines/${dt.model.machine_id}/models/${dt.model.id}`}
                           className="text-gray-600 text-hover-primary fw-bolder d-block mb-1 fs-6"
                         >
-                          {dt.name}
+                          {dt?.model?.name}
                         </Link>))}
                       </span>
                     </div>

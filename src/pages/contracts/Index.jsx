@@ -46,15 +46,15 @@ const Contracts = () => {
     },
     {
       name: 'Machines',
-      selector: row => row.machines,
+      selector: row => row.machine_models,
       sortable: true,
-      field: 'machines',
+      field: 'machine_models',
       format: row => (
-        row.machines.map((dt) => (<Link
-            to={`/panel/machines/${dt.id}`}
+        row.machine_models.map((dt) => (<Link
+            to={`/panel/machines/${dt.model.machine_id}/models/${dt.model.id}`}
             className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
           >
-            {dt.name}
+            {dt.model.name}
           </Link>))
       )
     },
@@ -66,12 +66,12 @@ const Contracts = () => {
       format: (row) => (
         <span
           className={
-            row.is_foc
+            parseInt(row.is_foc)
               ? "badge badge-light-warning"
               : "badge badge-light-info"
           }
         >
-          {row.is_foc ? "FOC" : "PAID"}
+          {parseInt(row.is_foc)? "FOC" : "PAID"}
         </span>
       ),
     },
