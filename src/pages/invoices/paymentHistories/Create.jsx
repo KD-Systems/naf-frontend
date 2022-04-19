@@ -11,7 +11,7 @@ const CreateInvoicePayment = ({ open, onCloseModal, invoice }) => {
     amount: null,
   });
 
-  const [invoices,setInvoices]=useState([])
+
 
   const [block, setBlock] = useState(false);
 
@@ -20,10 +20,8 @@ const CreateInvoicePayment = ({ open, onCloseModal, invoice }) => {
     setData({ ...data, [name]: e.target.value });
   };
 
-  const getInvoices = async (filters) => {
-   
-    setInvoices(await InvoiceService.getAll(filters));
-    
+  const getPaymentHistories = async (filters) => {
+    await InvoiceService.getPaymentHistories(filters);
   };
 
   const handleDateSelect = (value, name) => {
@@ -46,7 +44,7 @@ const CreateInvoicePayment = ({ open, onCloseModal, invoice }) => {
     await InvoiceService.addPayment(data);
     setBlock(false);
     onCloseModal();
-    getInvoices();
+    getPaymentHistories();
   };
 
   return (
