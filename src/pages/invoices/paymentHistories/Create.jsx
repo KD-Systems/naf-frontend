@@ -8,7 +8,7 @@ const CreateInvoicePayment = ({ open, onCloseModal, invoice }) => {
     invoice_id: invoice?.id,
     payment_mode: invoice?.payment_mode,
     payment_date: "",
-    amount: 0,
+    amount: null,
   });
 
   const [block, setBlock] = useState(false);
@@ -23,7 +23,7 @@ const CreateInvoicePayment = ({ open, onCloseModal, invoice }) => {
       ...data,
       ...{
         [name]: new Date(value),
-        [name + "_format"]: moment(value).format("YYYY/MM/DD"),
+        [name + "_format"]: moment(value).format("YYYY-MM-DD"),
       },
     });
     setBlock(false);
@@ -35,6 +35,7 @@ const CreateInvoicePayment = ({ open, onCloseModal, invoice }) => {
     setBlock(false);
   };
 
+  console.log("💥",data);
   return (
     <div>
       <Modal
