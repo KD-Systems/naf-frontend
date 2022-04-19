@@ -9,9 +9,10 @@ const CreateInvoicePayment = ({ open, onCloseModal, invoice }) => {
     payment_mode: "",
     payment_date: "",
     amount: null,
+    remarks:""
   });
 
-  const [invoices,setInvoices]=useState([])
+
 
   const [block, setBlock] = useState(false);
 
@@ -20,10 +21,8 @@ const CreateInvoicePayment = ({ open, onCloseModal, invoice }) => {
     setData({ ...data, [name]: e.target.value });
   };
 
-  const getInvoices = async (filters) => {
-   
-    setInvoices(await InvoiceService.getAll(filters));
-    
+  const getPaymentHistories = async (filters) => {
+    await InvoiceService.getPaymentHistories(filters);
   };
 
   const handleDateSelect = (value, name) => {
@@ -46,7 +45,7 @@ const CreateInvoicePayment = ({ open, onCloseModal, invoice }) => {
     await InvoiceService.addPayment(data);
     setBlock(false);
     onCloseModal();
-    getInvoices();
+    getPaymentHistories();
   };
 
   return (
@@ -107,6 +106,23 @@ const CreateInvoicePayment = ({ open, onCloseModal, invoice }) => {
                 <div
                   className="fv-plugins-message-container invalid-feedback"
                   htmlFor="amount"
+                ></div>
+              </div>
+
+              <div className="mb-5 fv-row fv-plugins-icon-container">
+                <label className="form-label">Remarks</label>
+                <textarea
+                  type="text"
+                  className="form-control"
+                  placeholder="Enter Amount"
+                  name="remarks"
+                  id="remarks"
+                  value={data.remarks}
+                  onChange={handleChange}
+                />
+                <div
+                  className="fv-plugins-message-container invalid-feedback"
+                  htmlFor="remarks"
                 ></div>
               </div>
 
