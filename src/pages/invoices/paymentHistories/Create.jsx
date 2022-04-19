@@ -5,8 +5,8 @@ import moment from "moment";
 import InvoiceService from "services/InvoiceService";
 const CreateInvoicePayment = ({ open, onCloseModal, invoice }) => {
   const [data, setData] = useState({
-    invoice_id: invoice?.id,
-    payment_mode: invoice?.payment_mode,
+    invoice_id: "",
+    payment_mode: "",
     payment_date: "",
     amount: null,
   });
@@ -37,6 +37,10 @@ const CreateInvoicePayment = ({ open, onCloseModal, invoice }) => {
     setBlock(false);
   };
 
+  useEffect(()=>{
+    setData({ ...data, invoice_id: invoice?.id,payment_mode:invoice?.payment_mode });
+  },[open])
+
   const addPayment = async () => {
     setBlock(true);
     await InvoiceService.addPayment(data);
@@ -55,6 +59,15 @@ const CreateInvoicePayment = ({ open, onCloseModal, invoice }) => {
           <>
             <form id="create-payment">
               <div>
+              <input
+                  type="hidden"
+                  className="form-control"
+                  placeholder="Enter invoice Id"
+                  name="invoice_id"
+                  id="invoice_id"
+                  value={invoice?.id}
+                  onChange={handleChange}
+                />
                 <label className="required form-label">Payment Date</label>
                 <div className="mb-5">
                   <div className="form-group ">
