@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Modal from "components/utils/Modal";
 import DatePicker from "react-datepicker";
 import moment from "moment";
+import InvoiceService from "services/InvoiceService";
 const CreateInvoicePayment = ({ open, onCloseModal, invoice }) => {
   const [data, setData] = useState({
     invoice_id: invoice?.id,
@@ -13,9 +14,9 @@ const CreateInvoicePayment = ({ open, onCloseModal, invoice }) => {
   const [block, setBlock] = useState(false);
 
   const handleChange = (e) => {
-    const { name } = e.target
-    setData({ ...data, [name]: e.target.value })
-  }
+    const { name } = e.target;
+    setData({ ...data, [name]: e.target.value });
+  };
 
   const handleDateSelect = (value, name) => {
     setData({
@@ -28,13 +29,11 @@ const CreateInvoicePayment = ({ open, onCloseModal, invoice }) => {
     setBlock(false);
   };
 
-
-  const addPayment = ()=>{
-      console.log(data)
-  }
-
-  console.log(invoice);
-
+  const addPayment = async () => {
+    setBlock(true);
+    await InvoiceService.addPayment(data);
+    setBlock(false);
+  };
 
   return (
     <div>
@@ -45,7 +44,7 @@ const CreateInvoicePayment = ({ open, onCloseModal, invoice }) => {
         body={
           <>
             <form id="create-payment">
-              <div >
+              <div>
                 <label className="required form-label">Payment Date</label>
                 <div className="mb-5">
                   <div className="form-group ">
@@ -53,9 +52,9 @@ const CreateInvoicePayment = ({ open, onCloseModal, invoice }) => {
                       className="form-control"
                       name="payment_date"
                       selected={data.payment_date}
-                        onChange={(date) =>
-                          handleDateSelect(date, "payment_date")
-                        }
+                      onChange={(date) =>
+                        handleDateSelect(date, "payment_date")
+                      }
                     />
                     <input
                       type="hidden"
