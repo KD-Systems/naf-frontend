@@ -28,12 +28,32 @@ const remove = async (id) => {
   return res.data;
 };
 
+const addPayment = async (data)=>{
+  const res = await http.post(`/payment-histories`, data)
+  return res.data;
+}
+
+const getPaymentHistories = async (data) => {
+  const res = await http.get(`/payment-histories`, {
+    params: data
+});
+  return res.data;
+};
+
+const getPaymentHistory = async (id) => {
+  const res = await http.get(`/payment-histories/${id}`);
+  return res.data;
+};
+
 const InvoiceService = {
   getAll,
   get,
   create,
   update,
   remove,
+  getPaymentHistories,
+  getPaymentHistory,
+  addPayment
 };
 
 export default InvoiceService;

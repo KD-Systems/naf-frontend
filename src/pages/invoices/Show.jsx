@@ -2,250 +2,273 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import Moment from "react-moment";
 import InvoiceService from "services/InvoiceService";
+import InvoicePartItems from "./partiItems/Index";
+import InvoiceCreatePayment from "./paymentHistories/Create";
 const ShowInvoice = () => {
   let { id } = useParams();
   const navigate = useNavigate();
   const [invoice, setInvoice] = useState({});
   const [block, setBlock] = useState(false);
+  const [active, setActive] = useState("part_items"); // * tab active or not
+
+  const [open, setOpen] = useState(false); //* open modal
   const getInvoice = async () => {
     let res = await InvoiceService.get(id);
     setInvoice(res);
   };
 
-  console.log("🐒",invoice);
+  const onCloseModal = () => {
+    setOpen(false);
+    // setOpenEditModal(false);
+  };
 
   useEffect(() => {
     if (id) getInvoice();
   }, [id]);
-  return  <div className="d-flex flex-column-fluid">
-  <div className="container">
-    <div className="row">
-      <div className="col-xl-3">
-        <div className="card card-custom">
-          <div className="card-header">
-            <div className="card-title">
-              <h3 className="card-label">
-                <button
-                  className="btn btn-sm btn-dark "
-                  style={{ marginRight: "0.75rem" }}
-                  onClick={() => navigate(-1)}
-                >
-                  <i className="fa fa-arrow-left"></i>Back
-                </button>
-                Details
-              </h3>
-            </div>
-          </div>
-
-          <div className="card-body py-4">
-            <div className="fw-bolder mt-5">Invoice Number</div>
-            <div className="text-gray-600">
-                {invoice?.invoice_number}
+  return (
+    <>
+      <div className="d-flex flex-column-fluid">
+        <div className="container">
+          <div className="row">
+            <div className="col-xl-3">
+              <div className="card card-custom">
+                <div className="card-header">
+                  <div className="card-title">
+                    <h3 className="card-label">
+                      <button
+                        className="btn btn-sm btn-dark "
+                        style={{ marginRight: "0.75rem" }}
+                        onClick={() => navigate(-1)}
+                      >
+                        <i className="fa fa-arrow-left"></i>Back
+                      </button>
+                      Details
+                    </h3>
+                  </div>
                 </div>
 
-            <div className="fw-bolder mt-5">Company</div>
-            <div className="text-gray-600">
-                {invoice?.company?.name}
+                <div className="card-body py-4">
+                  <div className="fw-bolder mt-5">Invoice Number</div>
+                  <div className="text-gray-600">{invoice?.invoice_number}</div>
+
+                  <div className="fw-bolder mt-5">Company</div>
+                  <div className="text-gray-600">{invoice?.company?.name}</div>
+
+                  <div className="fw-bolder mt-5">Invoice Date</div>
+                  <div className="text-gray-600">
+                    <Moment format="D MMMM YYYY">
+                      {invoice?.invoice_date}
+                    </Moment>
+                  </div>
+
+                  <div className="fw-bolder mt-5">Payment Mode</div>
+                  <div className="text-gray-600">
+                    {invoice?.payment_mode ?? "--"}
+                  </div>
+
+                  <div className="fw-bolder mt-5">Payment Term</div>
+                  <div className="text-gray-600">
+                    {invoice?.payment_term ?? "--"}
+                  </div>
+
+                  <div className="fw-bolder mt-5">Payment Partial Mode</div>
+                  <div className="text-gray-600">
+                    {invoice?.payment_partial_mode ?? "--"}
+                  </div>
+                  <div className="fw-bolder mt-5">Next Payment </div>
+                  <div className="text-gray-600">
+                    {invoice?.next_payment ?? "--"}
+                  </div>
+
+                  <div className="fw-bolder mt-5">Last Payment </div>
+                  <div className="text-gray-600">
+                    {invoice?.last_payment ?? "--"}
+                  </div>
+
+                  <div className="fw-bolder mt-5">Priority</div>
+                  <div className="text-gray-600">
+                    {invoice?.requisition?.priority?.capitalize()}
+                  </div>
+
+                  <div className="fw-bolder mt-5">Requisition Type</div>
+                  <div className="text-gray-600">
+                    {invoice?.requisition?.type
+                      ?.replaceAll("_", " ")
+                      ?.capitalize()}
+                  </div>
+
+                  <div className="fw-bolder mt-5">Requisition Ref Number</div>
+                  <div className="text-gray-600">
+                    {invoice?.requisition?.ref_number ?? "--"}
+                  </div>
                 </div>
-
-
-
-            <div className="fw-bolder mt-5">Invoice Date</div>
-            <div className="text-gray-600">
-              <Moment format="D MMMM YYYY">
-              {invoice?.invoice_date}
-              </Moment>
-            </div>
-
-            <div className="fw-bolder mt-5">Payment Mode</div>
-            <div className="text-gray-600">
-            {invoice?.payment_mode ?? "--"}
-                </div>
-
-
-            <div className="fw-bolder mt-5">Payment Term</div>
-            <div className="text-gray-600">
-            {invoice?.payment_term ?? "--"}
-                </div>
-
-                <div className="fw-bolder mt-5">Payment Partial Mode</div>
-            <div className="text-gray-600">
-            {invoice?.payment_partial_mode ?? "--"}
-                </div>
-                <div className="fw-bolder mt-5">Next Payment </div>
-            <div className="text-gray-600">
-            {invoice?.next_payment ?? "--"}
-                </div>
-
-                <div className="fw-bolder mt-5">Last Payment </div>
-            <div className="text-gray-600">
-                {invoice?.last_payment ?? "--"}
-                </div>
-                
-
-
-            <div className="fw-bolder mt-5">Priority</div>
-            <div className="text-gray-600">
-              {invoice?.requisition?.priority?.capitalize()}
-            </div>
-
-            <div className="fw-bolder mt-5">Requisition Type</div>
-            <div className="text-gray-600">
-              {invoice?.requisition?.type
-                ?.replaceAll("_", " ")
-                ?.capitalize()}
-            </div>
-
-    
-
-            <div className="fw-bolder mt-5">Requisition Ref Number</div>
-            <div className="text-gray-600">
-              {invoice?.requisition?.ref_number ?? "--"}
-            </div>
-
-       
-          </div>
-          <div className="card-header">
-            <div className="card-title">
-              <h3 className="card-label">
-                <button
-                  className="btn btn-sm btn-dark "
-                  style={{ marginRight: "0.1rem" }}
-                //   onClick={() => {
-                //     storeInvoice();
-                //   }}
-                >
-                  Generate Invoice
-                </button>
-              </h3>
-             
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="col-xl-9">
-        <div className="card card-custom gutter-b">
-          <div className="card-header card-header-tabs-line">
-            <div className="card-toolbar">
-              <div className="card-title">
-                <h3 className="card-label">Part Items</h3>
               </div>
             </div>
-          </div>
 
-          <div className="card-body px-0">
-            <div className="card mb-5 mb-xl-8">
-              <div className="card-body py-3">
-                <div className="table-responsive">
-                  <table className="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
-                    <thead>
-                      <tr className="fw-bolder text-muted">
-                        <th className="min-w-50px">Part Name</th>
-                        <th className="min-w-120px">Part Number</th>
-                        <th className="min-w-120px">Quantity</th>
-                        <th className="min-w-120px">Unit </th>
-                        <th className="min-w-120px">Total </th>
-                      </tr>
-                    </thead>
+            <div className="col-xl-9">
+              <div className="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
+                <ul className="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-bold mb-n2">
+                  <li className="nav-item">
+                    <a
+                      className="nav-link text-active-primary pb-4 active"
+                      data-bs-toggle="tab"
+                      href="#part_items"
+                      onClick={() => {
+                        setActive("part_items");
+                      }}
+                    >
+                      Part Items
+                    </a>
+                  </li>
+                  {invoice?.requisition?.type !== "claim_report" ? (
+                    <li className="nav-item">
+                      <a
+                        className="nav-link text-active-primary pb-4"
+                        data-bs-toggle="tab"
+                        href="#payment_histories"
+                        onClick={() => {
+                          setActive("payment_histories");
+                        }}
+                      >
+                        Payment Histories
+                      </a>
+                    </li>
+                  ) : (
+                    ""
+                  )}
+                </ul>
 
-                    <tbody>
-                      {/* {quotation?.part_items?.map((item, index) => (
-                        <tr key={index}>
-                          <td className="">
-                            <Link
-                              to={"/panel/parts/" + item?.part?.id}
-                              className="text-dark fw-bolder text-hover-primary"
-                            >
-                              {item?.part?.aliases[0].name}
-                            </Link>
-                          </td>
-                          <td className=" fw-bolder mb-1 fs-6">
-                            <span>
-                              {item?.part?.aliases[0].part_number}
-                            </span>
-                          </td>
-                    
+                <div className="tab-content">
+                  {/* Tabs start from here */}
 
-                          <td>
-                            <div className="input-group input-group-sm">
-                              <div className="input-group-prepend">
-                                <span
-                                  className="input-group-text"
-                                  id="inputGroup-sizing-sm"
-                                  onClick={() => {
-                                    if (item?.quantity > 0) {
-                                      decrement(item);
-                                    }
-                                  }}
-                                >
-                                  <i className="fas fa-minus"></i>
-                                </span>
-                              </div>
-                              <input
-                                disabled={locked ? true : false}
-                                type="text"
-                                className="form-control"
-                                aria-label="Small"
-                                aria-describedby="inputGroup-sizing-sm"
-                                min="1"
-                                value={item?.quantity ?? ""}
-                                name="quantity"
-                              />
+                  {/* <CompanyUsers active={active} companyId={company.id} /> */}
+                  <InvoicePartItems active={active} invoice={invoice} />
 
-                              <div className="input-group-prepend">
-                                <span
-                                  className="input-group-text"
-                                  onClick={() => increment(item)}
-                                  style={{ cursor: "pointer" }}
-                                >
-                                  <i className="fas fa-plus"></i>
-                                </span>
-                              </div>
-                            </div>
-                          </td>
-                          <td className=" fw-bolder mb-1 fs-6">
-                            <input
-                              disabled={locked ? true : false}
-                              type="number"
-                              className="form-control"
-                              aria-label="Small"
-                              aria-describedby="inputGroup-sizing-sm"
-                              name="unit_value"
-                              placeholder="0TK"
-                              value={item?.unit_value ?? ""}
-                              onChange={(e) => handleChange(e, item)}
-                            />
-                          </td>
-
-                          <td className=" fw-bolder mb-1 fs-6">
-                            <span>
-                              {quotation?.requisition?.type !=
-                              "claim_report"
-                                ? item?.quantity * item?.unit_value
-                                : 0}{" "}
-                              Tk.
-                            </span>
-                          </td>
-                        </tr>
-                      ))} */}
-                    </tbody>
-                  </table>
-                  <button
-                    className="btn btn-sm btn-dark float-end fs-6 mt-5"
-                    // onClick={handleUpdate}
+                  <div
+                    className="tab-pane fade"
+                    id="payment_histories"
+                    role="tab-panel"
                   >
-                    Update
-                  </button>
+                    <div className="d-flex flex-column gap-7 gap-lg-10">
+                      <div className="card card-flush py-4">
+                        <div className="card-header">
+                          <div className="card-title">
+                            <h2>Payment Histories</h2>
+                          </div>
+                          <div className="card-toolbar">
+                            <button
+                              type="button"
+                              className="btn btn-light-primary"
+                              onClick={() => {
+                                setOpen(true);
+                              }}
+                            >
+                              <span className="svg-icon svg-icon-3">
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="24"
+                                  height="24"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                >
+                                  <rect
+                                    opacity="0.3"
+                                    x="2"
+                                    y="2"
+                                    width="20"
+                                    height="20"
+                                    rx="5"
+                                    fill="black"
+                                  ></rect>
+                                  <rect
+                                    x="10.8891"
+                                    y="17.8033"
+                                    width="12"
+                                    height="2"
+                                    rx="1"
+                                    transform="rotate(-90 10.8891 17.8033)"
+                                    fill="black"
+                                  ></rect>
+                                  <rect
+                                    x="6.01041"
+                                    y="10.9247"
+                                    width="12"
+                                    height="2"
+                                    rx="1"
+                                    fill="black"
+                                  ></rect>
+                                </svg>
+                              </span>
+                              Add Payment
+                            </button>
+                          </div>
+                        </div>
+                        <div className="card-body pt-0">
+                          <table className="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
+                            <thead>
+                              <tr className="fw-bolder text-muted">
+                                <th className="min-w-80px">Invoice Id</th>
+                                <th className="min-w-120px">payment Mode</th>
+                                <th className="min-w-120px">Payment Date</th>
+                                <th className="min-w-120px">Amount</th>
+                                <th className="min-w-150x">Action</th>
+                              </tr>
+                            </thead>
+
+                            <tbody>
+                              {/* {company?.contracts?.map((item, index) => (
+                              <tr key={index}>
+                                <td>
+                                  {item?.machine_models?.map((it)=>(
+                                    it?.model?.machine?.name
+                                  )) }
+                                </td>
+                                <td>{item?.machine_models?.map((it)=>(
+                                  it?.model?.name
+                                ))}</td>
+                           
+                                <td>
+                                  <Moment format="YYYY-MM-DD">
+                                    {item.end_date}
+                                  </Moment>
+                                </td>
+                                <td
+                                  className={
+                                    item.status
+                                      ? "badge badge-light-success"
+                                      : "badge badge-light-danger"
+                                  }
+                                >
+                                  <div
+                                    className={
+                                      item.status
+                                        ? "badge badge-light-success"
+                                        : "badge badge-light-danger"
+                                    }
+                                  >
+                                    {item.status ? "Active" : "Inactive"}
+                                  </div>
+                                </td>
+                              </tr>
+                            ))} */}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</div>;
+
+      <InvoiceCreatePayment open={open} onCloseModal={onCloseModal} invoice={invoice} />
+
+
+    </>
+  );
 };
 
 export default ShowInvoice;
