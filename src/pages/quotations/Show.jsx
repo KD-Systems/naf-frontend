@@ -269,7 +269,8 @@ const ShowQuotation = () => {
                               <td>
                                 <div className="input-group input-group-sm">
                                   <div className="input-group-prepend">
-                                    <span
+                                    <button
+                                    disabled={locked ? true : false}
                                       className="input-group-text"
                                       id="inputGroup-sizing-sm"
                                       onClick={() => {
@@ -279,7 +280,7 @@ const ShowQuotation = () => {
                                       }}
                                     >
                                       <i className="fas fa-minus"></i>
-                                    </span>
+                                    </button>
                                   </div>
                                   <input
                                     disabled={locked ? true : false}
@@ -293,13 +294,14 @@ const ShowQuotation = () => {
                                   />
 
                                   <div className="input-group-prepend">
-                                    <span
+                                    <button
                                       className="input-group-text"
                                       onClick={() => increment(item)}
                                       style={{ cursor: "pointer" }}
+                                      disabled={locked ? true : false}
                                     >
                                       <i className="fas fa-plus"></i>
-                                    </span>
+                                    </button>
                                   </div>
                                 </div>
                               </td>

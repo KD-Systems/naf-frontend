@@ -48,10 +48,10 @@ const Quotations = () => {
     
     {
       name: "Part Quantity",
-      selector: (row) => row?.part_items?.map((item)=>item?.quantity),
+      selector: (row) => row?.part_items?.reduce((partialSum,a)=>partialSum + a.quantity ,0),
       format: (row) => (
         <div className='mt-2'>
-          {row?.part_items?.map((item,index)=> (<p key={index}>{item?.quantity}</p>))}
+          {row?.part_items?.reduce((partialSum,a)=>partialSum + a.quantity ,0)}
         </div>
       ),
       sortable: true,
@@ -59,15 +59,10 @@ const Quotations = () => {
     },
     {
       name: "Total",
-      selector: (row) => row?.part_items?.map((item)=>item?.total_value),
+      selector: (row) => row?.part_items?.reduce((partialSum,a)=>partialSum + a.total_value ,0),
       format: (row) => (
         <div className='mt-2'>
-          {row?.part_items?.map((item,index)=> 
-          (
-          <p key={index}>
-            {row?.requisition?.type!='claim_report' ? item?.total_value : 0} Tk.
-            </p>
-          ))}
+         {row?.part_items?.reduce((partialSum,a)=>partialSum + parseInt(a.total_value) ,0)} Tk.
         </div>
       ),
       sortable: true,

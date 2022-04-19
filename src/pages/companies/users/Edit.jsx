@@ -59,7 +59,7 @@ const EditUser = ({ open, onCloseModal, onUpdate, companyId, userId }) => {
     }, 100);
   }, [userId]);
 
-console.log(data);
+
 
   return (
     <div>

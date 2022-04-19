@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Table from "components/utils/Table";
 import { Link, useNavigate } from "react-router-dom";
 import InvoiceService from "services/InvoiceService";
@@ -8,7 +8,7 @@ const Invoices = () => {
   const [loading, setLoading] = useState(false);
   const [invoices, setInvoices] = useState([]);
   const [block, setBlock] = useState(false);
-
+  const [totalQuantity,setTotalQuantity] = useState(0)
 
   const [open, setOpen] = useState(false);
 
@@ -20,6 +20,9 @@ const Invoices = () => {
     await DeliverNoteService.create(data);
     setBlock(false);
   };
+
+console.log(invoices);
+
   const columns = [
     {
       name: "Id",
@@ -46,13 +49,17 @@ const Invoices = () => {
       ),
     },
     {
+      name: "Requisition Type",
+      selector: (row) => row?.requisition?.type?.replaceAll("_", " ")?.capitalize(),
+      sortable: true,
+      field: "id",
+    },
+    {
       name: "Part Quantity",
-      selector: (row) => row?.part_items?.map((item) => item?.quantity),
+      selector: (row) => row?.part_items?.reduce((partialSum,a)=>partialSum + a.quantity ,0),
       format: (row) => (
         <div className="mt-2">
-          {row?.part_items?.map((item, index) => (
-            <p key={index}>{item?.quantity}</p>
-          ))}
+          {row?.part_items?.reduce((partialSum,a)=>partialSum + a.quantity ,0)}
         </div>
       ),
       sortable: true,
@@ -60,12 +67,10 @@ const Invoices = () => {
     },
     {
       name: "Total",
-      selector: (row) => row?.part_items?.map((item) => item?.total_value),
+      selector: (row) => row?.part_items?.reduce((partialSum,a)=>partialSum + a.total_value ,0),
       format: (row) => (
         <div className="mt-2">
-          {row?.part_items?.map((item, index) => (
-            <p key={index}>{item?.total_value} Tk.</p>
-          ))}
+         {row?.part_items?.reduce((partialSum,a)=>partialSum + parseInt(a.total_value) ,0)} Tk.
         </div>
       ),
       sortable: true,
