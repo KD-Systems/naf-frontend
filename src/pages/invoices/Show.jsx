@@ -21,7 +21,7 @@ const ShowInvoice = () => {
     setOpen(false);
     // setOpenEditModal(false);
   };
-
+ console.log(invoice);
   useEffect(() => {
     if (id) getInvoice();
   }, [id]);
@@ -50,6 +50,18 @@ const ShowInvoice = () => {
                 <div className="card-body py-4">
                   <div className="fw-bolder mt-5">Invoice Number</div>
                   <div className="text-gray-600">{invoice?.invoice_number}</div>
+
+                  <div className="fw-bolder mt-5">Invoice Status</div>
+                  <div className="text-gray-600">
+                    {
+                      invoice?.part_items?.map(
+                        (it,index)=>
+                        <span key={index}>
+                          {it?.total_value}
+                        </span>
+                      )
+                    }
+                  </div>
 
                   <div className="fw-bolder mt-5">Company</div>
                   <div className="text-gray-600">{invoice?.company?.name}</div>
