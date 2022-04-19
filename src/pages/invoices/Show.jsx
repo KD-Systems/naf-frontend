@@ -8,6 +8,7 @@ const ShowInvoice = () => {
   let { id } = useParams();
   const navigate = useNavigate();
   const [invoice, setInvoice] = useState({});
+  const [paymentHistories, setPaymentHistories] = useState([]);
   const [block, setBlock] = useState(false);
   const [active, setActive] = useState("part_items"); // * tab active or not
 
@@ -17,13 +18,18 @@ const ShowInvoice = () => {
     setInvoice(res);
   };
 
+  const getPaymentHistories = async () => {
+    let res = await InvoiceService.getPaymentHistories(id);
+    setPaymentHistories(res.data);
+  };
   const onCloseModal = () => {
     setOpen(false);
     // setOpenEditModal(false);
   };
- console.log(invoice);
+  console.log(paymentHistories);
   useEffect(() => {
     if (id) getInvoice();
+    getPaymentHistories();
   }, [id]);
   return (
     <>
@@ -53,14 +59,9 @@ const ShowInvoice = () => {
 
                   <div className="fw-bolder mt-5">Invoice Status</div>
                   <div className="text-gray-600">
-                    {
-                      invoice?.part_items?.map(
-                        (it,index)=>
-                        <span key={index}>
-                          {it?.total_value}
-                        </span>
-                      )
-                    }
+                    {invoice?.part_items?.map((it, index) => (
+                      <span key={index}>{it?.total_value}</span>
+                    ))}
                   </div>
 
                   <div className="fw-bolder mt-5">Company</div>
@@ -228,41 +229,32 @@ const ShowInvoice = () => {
                             </thead>
 
                             <tbody>
-                              {/* {company?.contracts?.map((item, index) => (
-                              <tr key={index}>
-                                <td>
-                                  {item?.machine_models?.map((it)=>(
-                                    it?.model?.machine?.name
-                                  )) }
-                                </td>
-                                <td>{item?.machine_models?.map((it)=>(
-                                  it?.model?.name
-                                ))}</td>
-                           
-                                <td>
-                                  <Moment format="YYYY-MM-DD">
-                                    {item.end_date}
-                                  </Moment>
-                                </td>
-                                <td
-                                  className={
-                                    item.status
-                                      ? "badge badge-light-success"
-                                      : "badge badge-light-danger"
-                                  }
-                                >
-                                  <div
-                                    className={
-                                      item.status
-                                        ? "badge badge-light-success"
-                                        : "badge badge-light-danger"
-                                    }
-                                  >
-                                    {item.status ? "Active" : "Inactive"}
-                                  </div>
-                                </td>
-                              </tr>
-                            ))} */}
+                              {paymentHistories?.map((item, index) => (
+                                <tr key={index}>
+                                  <td>{item?.invoice?.invoice_number}</td>
+                                  <td>{item.payment_mode}</td>
+
+                                  <td>
+                                    <Moment format="YYYY-MM-DD">
+                                      {item.payment_date}
+                                    </Moment>
+                                  </td>
+                                  <td>{item?.amount}Tk.</td>
+
+                                  <td>
+                                    <span className="text-end">
+                                      <Link
+                                        to={
+                                          `/panel/invoices/`+item?.invoice?.id+`/payment-histories/` + item.id
+                                        }
+                                        className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+                                      >
+                                        <i className="fa fa-eye"></i>
+                                      </Link>
+                                    </span>
+                                  </td>
+                                </tr>
+                              ))}
                             </tbody>
                           </table>
                         </div>
@@ -276,9 +268,11 @@ const ShowInvoice = () => {
         </div>
       </div>
 
-      <InvoiceCreatePayment open={open} onCloseModal={onCloseModal} invoice={invoice} />
-
-
+      <InvoiceCreatePayment
+        open={open}
+        onCloseModal={onCloseModal}
+        invoice={invoice}
+      />
     </>
   );
 };

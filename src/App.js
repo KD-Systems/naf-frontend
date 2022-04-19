@@ -46,6 +46,7 @@ import PrintInvoice from "pages/invoices/Print";
 import DeliveryNotes from "pages/delivery-notes/Index";
 import PrintDeliveryNotes from "pages/delivery-notes/Print";
 import ShowInvoice from "pages/invoices/Show";
+import ShowPaymentHistories from "pages/invoices/paymentHistories/Show";
 
 function App() {
   return (
@@ -438,6 +439,17 @@ function App() {
                 </PrivateRoute>
               }
             />
+
+            <Route
+              path="invoices/:id/payment-histories/:paymentId"
+              element={
+                <PrivateRoute>
+                  <ShowPaymentHistories />
+                </PrivateRoute>
+              }
+            />
+
+
             {/* Invoice End */}
 
             {/* Delivery Notes Start */}
