@@ -60,7 +60,17 @@ const ShowInvoice = () => {
                   <div className="fw-bolder mt-5">Invoice Status</div>
                   <div className="text-gray-600">
                     {invoice?.part_items?.map((it, index) => (
-                      <span key={index}>{it?.total_value}</span>
+                      <span key={index}>
+                        {
+                          paymentHistories.map((pt)=>pt.amount)==0 ?"unpaid":
+                        it?.total_value == paymentHistories.map((pt)=>pt.amount) ?"paid"
+                        :
+                        it?.total_value > paymentHistories.map((pt)=>pt.amount)?"partial Paid"
+                        :
+                        ""
+                        }
+                        {}
+                        </span>
                     ))}
                   </div>
 
