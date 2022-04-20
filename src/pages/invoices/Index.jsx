@@ -21,7 +21,7 @@ const Invoices = () => {
     setBlock(false);
   };
 
-console.log(invoices);
+
 
   const columns = [
     {

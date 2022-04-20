@@ -43,6 +43,8 @@ const RequisitionCreate = () => {
     total: totalAmount
   });
 
+  const [partHeading, setPartHeading] = useState(null)
+
   const [block, setBlock] = useState(false);
   const [parts, setParts] = useState([]);
 
@@ -120,6 +122,7 @@ const RequisitionCreate = () => {
       label: itm.machine_model?.name,
       value: itm.id,
     })); //Parse the data as per the select requires
+
     setMachineModels(dt);
     setData({
       ...data,
@@ -129,6 +132,8 @@ const RequisitionCreate = () => {
   };
 
   const handleSelect = (option, conf) => {
+    console.log(option)
+    setPartHeading(option)
     let value = option.value;
     if (Array.isArray(option))
       value = option.map((dt) => {
@@ -564,13 +569,15 @@ const RequisitionCreate = () => {
                   <div className="row">
                     <div className="col-lg-4">
                       <div className="form-group">
-                        <label className="required form-label">
+                        <label className="form-label">
                           Part Heading
                         </label>
                         <Select
+                          isClearable
                           options={partHeadings}
                           onChange={handleSelect}
                           name="part_heading_id"
+                          value={partHeading}
                         />
                         <div
                           className="fv-plugins-message-container invalid-feedback"
