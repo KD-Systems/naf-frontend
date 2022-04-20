@@ -79,7 +79,7 @@ console.log(invoices);
 
     {
       name: "Action",
-      selector: (row) => row.status,
+      selector: (row) => row.status, 
       format: (row) => (
         <>
         <span className="text-end">

@@ -67,6 +67,17 @@ const DeliveryNotes = () => {
             selector: (row) => row.status,
             format: (row) => (
               <>
+              {/* to show delivery note */}
+              <span className="text-end">
+                <Link
+                  to={"/panel/delivery-notes/" + row.id+"/show"}
+                  className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+                >
+                  <i className="fa fa-eye"></i>
+                </Link>
+          
+              </span>
+
               <span className="text-end">
                 <Link
                   to={"/panel/delivery-notes/" + row.id+"/print"}
@@ -78,6 +89,7 @@ const DeliveryNotes = () => {
                 </Link>
            
               </span>
+
         
               </>
               
