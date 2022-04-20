@@ -26,7 +26,7 @@ const ShowInvoice = () => {
     setOpen(false);
     // setOpenEditModal(false);
   };
-  console.log("invoice", invoice);
+
   useEffect(() => {
     if (id) getInvoice();
     getPaymentHistories();

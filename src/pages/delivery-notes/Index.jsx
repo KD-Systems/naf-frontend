@@ -67,6 +67,7 @@ const DeliveryNotes = () => {
             selector: (row) => row.status,
             format: (row) => (
               <>
+              
               <span className="text-end">
                 <Link
                   to={"/panel/delivery-notes/" + row.id+"/print"}
