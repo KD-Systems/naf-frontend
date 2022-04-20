@@ -26,7 +26,7 @@ const ShowInvoice = () => {
     setOpen(false);
     // setOpenEditModal(false);
   };
-  console.log(paymentHistories);
+  console.log("invoice", invoice);
   useEffect(() => {
     if (id) getInvoice();
     getPaymentHistories();
@@ -56,23 +56,39 @@ const ShowInvoice = () => {
                 <div className="card-body py-4">
                   <div className="fw-bolder mt-5">Invoice Number</div>
                   <div className="text-gray-600">{invoice?.invoice_number}</div>
-
                   <div className="fw-bolder mt-5">Invoice Status</div>
-                  <div className="text-gray-600">
-                    {invoice?.part_items?.map((it, index) => (
-                      <span key={index}>
-                        {
-                          paymentHistories.map((pt)=>pt.amount)==0 ?"unpaid":
-                        it?.total_value == paymentHistories.map((pt)=>pt.amount) ?"paid"
-                        :
-                        it?.total_value > paymentHistories.map((pt)=>pt.amount)?"partial Paid"
-                        :
-                        ""
-                        }
-                        {}
-                        </span>
-                    ))}
-                  </div>
+                  {invoice?.requisition?.type !== "claim_report" ? (
+                    <>
+                      <div className="text-gray-600">
+                        {invoice?.part_items?.reduce(
+                          (partialSum, a) =>
+                            partialSum + parseInt(a.total_value),
+                          0
+                        ) == paymentHistories?.map((pt) => pt?.amount) ? (
+                          <span className="badge badge-light-success">
+                            Paid
+                          </span>
+                        ) : invoice?.part_items?.reduce(
+                            (partialSum, a) =>
+                              partialSum + parseInt(a.total_value),
+                            0
+                          ) > paymentHistories?.map((pt) => pt?.amount) ? (
+                          <span className="badge badge-light-warning">
+                            Partial Paid
+                          </span>
+                        ) : paymentHistories.map((pt) => pt.amount) == 0 ? (
+                          ""
+                        ) : (
+                          <span className="badge badge-light-danger">
+                            {" "}
+                            UnPaid
+                          </span>
+                        )}
+                      </div>
+                    </>
+                  ) : (
+                    "--"
+                  )}
 
                   <div className="fw-bolder mt-5">Company</div>
                   <div className="text-gray-600">{invoice?.company?.name}</div>
@@ -164,7 +180,6 @@ const ShowInvoice = () => {
                 <div className="tab-content">
                   {/* Tabs start from here */}
 
-                  {/* <CompanyUsers active={active} companyId={company.id} /> */}
                   <InvoicePartItems active={active} invoice={invoice} />
 
                   <div
@@ -255,7 +270,10 @@ const ShowInvoice = () => {
                                     <span className="text-end">
                                       <Link
                                         to={
-                                          `/panel/invoices/`+item?.invoice?.id+`/payment-histories/` + item.id
+                                          `/panel/invoices/` +
+                                          item?.invoice?.id +
+                                          `/payment-histories/` +
+                                          item.id
                                         }
                                         className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
                                       >

@@ -50,7 +50,7 @@ const ShowRequisition = () => {
                 <div className="fw-bolder mt-5">Machines</div>
                 <div className="text-gray-600">
                   {requisition?.machines?.map((item, index) => (
-                    <span key={index}>{item?.machine_model?.name}</span>
+                    <span key={index} className="badge badge-light-info ">{(item?.model?.name)}{" "}</span>
                   ))}
                 </div>
 

@@ -120,6 +120,7 @@ const RequisitionCreate = () => {
       label: itm.machine_model?.name,
       value: itm.id,
     })); //Parse the data as per the select requires
+    console.log(dt);
     setMachineModels(dt);
     setData({
       ...data,
