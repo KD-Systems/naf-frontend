@@ -83,12 +83,13 @@ const RequisitionCreate = () => {
     setBlock(true)
     await RequisitionService.create(data);
     setBlock(false)
-    navigate("/panel/requisitions");
+    // navigate("/panel/requisitions");
   };
 
   const addPart = (item) => {
     item['quantity'] = 0;
     const newList = list.concat(item)
+    console.log(item);
     setList(Array.from(new Set(newList))) /* add part in the List and remove duplicates from array */
     setSelectedPart(true)
     setFilter({ ...filter, q: "" })

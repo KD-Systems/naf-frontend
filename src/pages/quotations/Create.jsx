@@ -9,6 +9,7 @@ const CreateQuotation = () => {
   const [requisition, setRequisition] = useState({});
   const [list, setList] = useState([]); /* for adding part in quotation */
   const [machineId, setMachineId] = useState("");
+  const [itemData, setItemData] = useState([]);
   const [data, setData] = useState({
     requisition_id: "",
     company_id: "",
@@ -27,9 +28,36 @@ const CreateQuotation = () => {
     const templist = [...list];
     const tempItem = templist?.filter((val) => val?.id === item?.id);
     const tempItemPart = tempItem[0]?.part;
+
+    // console.log(tempPartStock);
     tempItemPart[name] = parseInt(e.target.value);
     setList(templist);
   };
+
+  const handleNewChange = (e, item) => {
+    const tempData = [...itemData];
+    const tempItem = tempData?.map((val) => {
+      if (val?.id == item?.id) val["unit_value"] = e.target.value;
+
+      return val;
+    });
+
+    setItemData(tempItem);
+
+    const tempList = [...list];
+    const tempNewItem = tempList?.filter((val) => val.id == item?.id);
+    const tempNewItemPart = tempNewItem[0];
+
+    const itemDataPart = itemData?.filter(
+      (it) => it?.id == tempNewItemPart?.id
+    );
+
+    tempNewItemPart["unit_value"] = itemDataPart[0]["unit_value"];
+
+    setList(tempList);
+  };
+
+  console.log(list);
 
   const increment = (item) => {
     const tempList = [...list];
@@ -64,6 +92,15 @@ const CreateQuotation = () => {
 
   useEffect(() => {
     setList(requisition?.part_items); //Add to List into Requisition Part Items
+    setItemData(
+      requisition?.part_items?.map((dt) => {
+        return {
+          unit_value:
+            dt?.part?.stocks[dt?.part?.stocks.length - 1].selling_price,
+          id: dt.id,
+        };
+      })
+    );
     setMachineId(requisition?.machines?.map((item) => item.id));
     setData({
       ...data,
@@ -179,7 +216,7 @@ const CreateQuotation = () => {
                     <strong>Machine Model: </strong>
                     <span className="text-muted">
                       {requisition?.machines?.map((item, index) => (
-                        <span key={index}>{item?.machine_model?.name}</span>
+                        <span key={index}>{item?.model?.name}</span>
                       ))}
                     </span>
                   </h6>
@@ -213,7 +250,7 @@ const CreateQuotation = () => {
                           </tr>
                         </thead>
                         <tbody>
-                          {list?.map((item, index,list) => (
+                          {list?.map((item, index) => (
                             <tr
                               className="fw-bolder text-gray-700 fs-5 text-end"
                               key={index}
@@ -232,7 +269,11 @@ const CreateQuotation = () => {
                                   aria-describedby="inputGroup-sizing-sm"
                                   name="yen_price"
                                   placeholder="0TK"
-                                  value={item?.part?.stocks[item?.part?.stocks.length-1].yen_price ?? ""}
+                                  value={
+                                    item?.part?.stocks[
+                                      item?.part?.stocks.length - 1
+                                    ].yen_price ?? ""
+                                  }
                                   onChange={(e) => handleChange(e, item)}
                                 />
                               </td>
@@ -245,7 +286,11 @@ const CreateQuotation = () => {
                                   aria-describedby="inputGroup-sizing-sm"
                                   name="formula_price"
                                   placeholder="0TK"
-                                  value={item?.part?.stocks[item?.part?.stocks.length-1].formula_price ?? ""}
+                                  value={
+                                    item?.part?.stocks[
+                                      item?.part?.stocks.length - 1
+                                    ].formula_price ?? ""
+                                  }
                                   onChange={(e) => handleChange(e, item)}
                                 />
                               </td>
@@ -258,8 +303,12 @@ const CreateQuotation = () => {
                                   aria-describedby="inputGroup-sizing-sm"
                                   name="selling_price"
                                   placeholder="0TK"
-                                  value={item?.part?.stocks[item?.part?.stocks.length-1].selling_price ?? ""}
-                                  onChange={(e) => handleChange(e, item)}
+                                  value={
+                                    itemData?.find((x) => x.id === item.id)
+                                      ?.unit_value ?? ""
+                                  }
+                                  // onChange={(e) => handleChange(e, item)}
+                                  onChange={(e) => handleNewChange(e, item)}
                                 />
                               </td>
 
