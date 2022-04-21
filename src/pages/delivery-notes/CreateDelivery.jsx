@@ -1,84 +1,22 @@
-import React, { useState, useEffect } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import React,{useState,useEffect} from 'react'
+import {useParams, useNavigate, Link} from "react-router-dom"
 import Moment from "react-moment";
-import RequisitionService from "../../services/RequisitionService";
-import QuotationService from "services/QuotationService";
-const CreateQuotation = () => {
-  let { requisitionId } = useParams();
-  const navigate = useNavigate();
-  const [requisition, setRequisition] = useState({});
-  const [list, setList] = useState([]); /* for adding part in quotation */
-  const [machineId, setMachineId] = useState("");
-  const [data, setData] = useState({
-    requisition_id: "",
-    company_id: "",
-    machine_id: "",
-    part_items: list,
-  });
+import InvoiceService from 'services/InvoiceService';
 
-  const [block, setBlock] = useState(false);
-  const getRequisition = async () => {
-    let res = await RequisitionService.get(requisitionId);
-    setRequisition(res);
-  };
+const CreateDelivery = () => {
+    let { invoiceId } = useParams();
 
-  const handleChange = (e, item) => {
-    const { name } = e.target;
-    const templist = [...list];
-    const tempItem = templist?.filter((val) => val?.id === item?.id);
-    const tempItemPart = tempItem[0]?.part;
-    tempItemPart[name] = parseInt(e.target.value);
-    setList(templist);
-  };
+    const [invoice, setInvoice] = useState({});
 
-  const increment = (item) => {
-    const tempList = [...list];
-    const tempItem = tempList?.filter((val) => val?.id === item?.id);
-    ++tempItem[0].quantity;
-    setList(tempList);
-  };
+    const getInvoice = async () => {
+        let res = await InvoiceService.get(invoiceId);
+        setInvoice(res);
+    };
 
-  const decrement = (item) => {
-    const tempList = [...list];
-    const tempItem = tempList.filter((val) => val.id === item.id);
-    --tempItem[0].quantity;
-    setList(tempList);
-  };
-
-  // store quotation
-  const storeQuotation = async () => {
-    setBlock(true);
-    await QuotationService.create(data);
-    setBlock(false);
-    navigate("/panel/quotations");
-  };
-  // Remove Quotation
-  const removeItem = (id) => {
-    const newList = list.filter((item) => item.id !== id);
-    setList(newList);
-  };
-
-  useEffect(() => {
-    if (requisitionId) getRequisition();
-  }, [requisitionId]);
-
-  useEffect(() => {
-    setList(requisition?.part_items); //Add to List into Requisition Part Items
-    setMachineId(requisition?.machines?.map((item) => item.id));
-    setData({
-      ...data,
-      requisition_id: requisition?.id,
-      company_id: requisition?.company_id,
-      machine_id: requisition?.machines?.map(
-        (item, index) => item?.machine_model_id
-      ),
-    }); //need to fix this
-  }, [requisitionId, requisition]);
-
-  useEffect(() => {
-    setData({ ...data, part_items: list }); //add part_items and total amount in data
-  }, [list]);
-
+    useEffect(()=>{   
+        getInvoice();
+    },[invoiceId])
+    
   return (
     <div className="post d-flex flex-column-fluid" id="content">
       <div className="container-xxl">
@@ -124,7 +62,7 @@ const CreateQuotation = () => {
                 </div>
                 <div className="col-sm-12 mt-5">
                   <div className="text-sm-center">
-                    <h1 className="text-uppercase">Quotation</h1>
+                    <h1 className="text-uppercase">DELIVERY NOTE</h1>
                   </div>
                 </div>
               </div>
@@ -136,14 +74,14 @@ const CreateQuotation = () => {
                       <h6>
                         <strong>Company Name:</strong>
                         <span className="text-muted">
-                          {requisition?.company?.name}
+                          {" "}{invoice?.company?.name}
                         </span>
                       </h6>
 
                       <h6>
                         <strong>Group of Company: </strong>
                         <span className="text-muted">
-                          {requisition?.company?.company_group}
+                          {invoice?.company?.company_group}
                         </span>
                       </h6>
                     </td>
@@ -154,22 +92,11 @@ const CreateQuotation = () => {
                         <strong>Date: </strong>
                         <span className="text-muted">
                           <Moment format="D MMMM YYYY">
-                            {requisition?.created_at}
+                            {invoice?.invoice_date}
                           </Moment>
                         </span>
                       </h6>
-                      <h6>
-                        <strong>Engineer Name: </strong>
-                        <span className="text-muted">
-                          {requisition?.engineer?.name}
-                        </span>
-                      </h6>
-                      <h6>
-                        <strong>Email: </strong>
-                        <span className="text-muted">
-                          {requisition?.engineer?.email}
-                        </span>
-                      </h6>
+                  
                     </td>
                   </tr>
                 </table>
@@ -178,9 +105,9 @@ const CreateQuotation = () => {
                   <h6>
                     <strong>Machine Model: </strong>
                     <span className="text-muted">
-                      {requisition?.machines?.map((item, index) => (
-                        <span key={index}>{item?.machine_model?.name}</span>
-                      ))}
+                      {invoice?.requisition?.machines?.map((item, index) => (
+                        <span key={index} className="badge badge-secondary">{item?.model?.name}</span>
+                      ))}{" "}
                     </span>
                   </h6>
                 </div>
@@ -191,29 +118,21 @@ const CreateQuotation = () => {
                       <table className="table">
                         <thead>
                           <tr className="fs-6 fw-bolder text-dark text-uppercase">
-                            <th className="min-w-75px pb-9">SL.No</th>
+                            <th className="min-w-25px pb-9">SL.No</th>
                             <th className="min-w-70px pb-9 text-end">
                               Parts Name
                             </th>
                             <th className="min-w-80px pb-9 text-end">
                               Parts Number
                             </th>
-                            <th className="min-w-80px pb-9 text-end">
-                              Yen Price
-                            </th>
-                            <th className="min-w-80px pb-9 text-end">
-                              Formula Price
-                            </th>
-                            <th className="min-w-80px pb-9 text-end">
-                              Selling Price
-                            </th>
+                    
                             <th className="min-w-100px pe-lg-6 pb-9 text-end">
                               Quantity
                             </th>
                           </tr>
                         </thead>
                         <tbody>
-                          {list?.map((item, index,list) => (
+                          {/* {list?.map((item, index) => (
                             <tr
                               className="fw-bolder text-gray-700 fs-5 text-end"
                               key={index}
@@ -232,7 +151,7 @@ const CreateQuotation = () => {
                                   aria-describedby="inputGroup-sizing-sm"
                                   name="yen_price"
                                   placeholder="0TK"
-                                  value={item?.part?.stocks[item?.part?.stocks.length-1].yen_price ?? ""}
+                                  value={item?.part?.yen_price ?? ""}
                                   onChange={(e) => handleChange(e, item)}
                                 />
                               </td>
@@ -245,7 +164,7 @@ const CreateQuotation = () => {
                                   aria-describedby="inputGroup-sizing-sm"
                                   name="formula_price"
                                   placeholder="0TK"
-                                  value={item?.part?.stocks[item?.part?.stocks.length-1].formula_price ?? ""}
+                                  value={item?.part?.formula_price ?? ""}
                                   onChange={(e) => handleChange(e, item)}
                                 />
                               </td>
@@ -258,7 +177,7 @@ const CreateQuotation = () => {
                                   aria-describedby="inputGroup-sizing-sm"
                                   name="selling_price"
                                   placeholder="0TK"
-                                  value={item?.part?.stocks[item?.part?.stocks.length-1].selling_price ?? ""}
+                                  value={item?.part?.selling_price ?? ""}
                                   onChange={(e) => handleChange(e, item)}
                                 />
                               </td>
@@ -311,15 +230,26 @@ const CreateQuotation = () => {
                                 </button>
                               </td>
                             </tr>
-                          ))}
+                          ))} */}
                         </tbody>
                       </table>
                       <div className="separator separator-dashed"></div>
+                     
+                          <button
+                        className="btn btn-dark mt-5"
+                        // onClick={() => {
+                        //   storeQuotation();
+                        // }}
+                      >
+                        Cancel
+                      </button>
+                          
                       <button
                         className="btn btn-primary mt-5"
-                        onClick={() => {
-                          storeQuotation();
-                        }}
+                        // onClick={() => {
+                        //   storeQuotation();
+                        // }}
+                        style={{marginLeft:"0.9rem"}}
                       >
                         Submit
                       </button>
@@ -332,7 +262,7 @@ const CreateQuotation = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default CreateQuotation;
+export default CreateDelivery

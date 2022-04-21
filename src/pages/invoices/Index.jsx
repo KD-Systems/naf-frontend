@@ -102,9 +102,11 @@ const Invoices = () => {
           </span>
           <span className="text-end">
             <div
-              onClick={() => {
-                storeDeliveryNotes(row);
-              }}
+              // onClick={() => {
+              //   storeDeliveryNotes(row);
+              // }}
+
+              onClick={() => navigate(`/panel/delivery-notes/${row?.id}/create`)}
               className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
               data-toggle="tooltip"
               title="Add Delivery Note"

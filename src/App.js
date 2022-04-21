@@ -48,6 +48,8 @@ import ShowDeliveryNotes from "pages/delivery-notes/Show";
 import PrintDeliveryNotes from "pages/delivery-notes/Print";
 import ShowInvoice from "pages/invoices/Show";
 import ShowPaymentHistories from "pages/invoices/paymentHistories/Show";
+import CreateDeliveryNote from "pages/delivery-notes/Create";
+import CreateDelivery from "pages/delivery-notes/CreateDelivery";
 
 function App() {
   return (
@@ -479,6 +481,15 @@ function App() {
                 <ShowDeliveryNotes/>
               </PrivateRoute>
             }
+            />
+
+            <Route
+              path="delivery-notes/:invoiceId/create"
+              element={
+                <PrivateRoute>
+                  <CreateDelivery />
+                </PrivateRoute>
+              }
             />
             {/* Delivery Notes End; */}
             <Route path="*" element={<NotFound />} />
