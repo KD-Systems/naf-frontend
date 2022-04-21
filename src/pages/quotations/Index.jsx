@@ -62,7 +62,10 @@ const Quotations = () => {
       selector: (row) => row?.part_items?.reduce((partialSum,a)=>partialSum + a.total_value ,0),
       format: (row) => (
         <div className='mt-2'>
-         {row?.part_items?.reduce((partialSum,a)=>partialSum + parseInt(a.total_value) ,0)} Tk.
+          {row?.requisition?.type != 'claim_report' ? (
+            row?.part_items?.reduce((partialSum,a)=>partialSum + parseInt(a.total_value) ,0) 
+          ):0} Tk.
+         
         </div>
       ),
       sortable: true,
