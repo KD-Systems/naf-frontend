@@ -46,6 +46,14 @@ const getPaymentHistory = async (id) => {
   return res.data;
 };
 
+
+const searchPart = async (data)=>{
+  const res = await http.get(`/invoices-part-search`, {
+    params: data
+});
+  return res.data;
+}
+
 const InvoiceService = {
   getAll,
   get,
@@ -54,7 +62,8 @@ const InvoiceService = {
   remove,
   getPaymentHistories,
   getPaymentHistory,
-  addPayment
+  addPayment,
+  searchPart
 };
 
 export default InvoiceService;

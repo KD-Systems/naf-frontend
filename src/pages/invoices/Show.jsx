@@ -64,7 +64,7 @@ const ShowInvoice = () => {
                           (partialSum, a) =>
                             partialSum + parseInt(a.total_value),
                           0
-                        ) == paymentHistories?.map((pt) => pt?.amount) ? (
+                        ) == paymentHistories?.reduce((partialSum,a) => partialSum + parseInt(a.amount),0) ? (
                           <span className="badge badge-light-success">
                             Paid
                           </span>
@@ -72,16 +72,19 @@ const ShowInvoice = () => {
                             (partialSum, a) =>
                               partialSum + parseInt(a.total_value),
                             0
-                          ) > paymentHistories?.map((pt) => pt?.amount) ? (
+                          ) > paymentHistories?.reduce((partialSum,a) => partialSum + parseInt(a.amount),0) ? (
                           <span className="badge badge-light-warning">
                             Partial Paid
                           </span>
-                        ) : paymentHistories.map((pt) => pt.amount) == 0 ? (
-                          ""
-                        ) : (
+                        ) : paymentHistories?.reduce((partialSum,a) => partialSum + parseInt(a.amount),0) == 0 ? (
                           <span className="badge badge-light-danger">
                             {" "}
                             UnPaid
+                          </span>
+                        ) : (
+                          <span className="badge badge-light-danger">
+                            {" "}
+                            
                           </span>
                         )}
                       </div>

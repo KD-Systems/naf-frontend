@@ -2,21 +2,156 @@ import React,{useState,useEffect} from 'react'
 import {useParams, useNavigate, Link} from "react-router-dom"
 import Moment from "react-moment";
 import InvoiceService from 'services/InvoiceService';
-
+import PartService from 'services/PartService';
+import DeliverNoteService from 'services/DeliverNoteService';
 const CreateDelivery = () => {
-    let { invoiceId } = useParams();
+  let { invoiceId } = useParams();
 
-    const [invoice, setInvoice] = useState({});
+  const navigate = useNavigate();
+  const [block, setBlock] = useState(false);
+  const [filter, setFilter] = useState({});
 
-    const getInvoice = async () => {
-        let res = await InvoiceService.get(invoiceId);
-        setInvoice(res);
-    };
+  const [list, setList] = useState([]);
+  const [selectedPart, setSelectedPart] =
+    useState(false); /* Check Part selected or not selected*/
+  const [searchData, setSearchData] = useState({});
 
-    useEffect(()=>{   
-        getInvoice();
-    },[invoiceId])
+
+  const [invoice, setInvoice] = useState({});
+  const [parts, setParts] = useState([]);
+
+  const [data, setData] = useState({
+    invoice:invoice,
+    part_items:list
+  });
+
+  const getParts = async () => {
+    let res = await PartService.getAll(filter);
+    setSearchData(res.data);
+    let items = res.data?.map((dt) => {
+      return { label: dt.name, value: dt.id };
+    });
+
+    setParts(items);
+  };
+
+  const getInvoice = async () => {
+    let res = await InvoiceService.get(invoiceId);
+    setInvoice(res);
+  };
+
+  const filterData = (e) => {
+    let query = e.target.value;
+    setFilter({
+      ...filter,
+      q: query,
+    });
+  };
+
+  // * Add Part
+
+  const addPart = (item) => {
+    //* quantity Set
+    const res = invoice?.part_items?.forEach((it) => {
+      if (it.part_id == item.id) {
+        item["quantity"] = it.quantity;
+        item['message']=true
+        item['match']=true
+        
+      } else {
+        item["quantity"] = 0;
+        item['message']=false
+        item['match']=false
+       
+      }
+    });
+
+
+    //* Remove Duplicates
+    let found = list.filter((val) => val.id == item.id);
+    if (!found?.length > 0) {
+      const newList = list.concat(item);
+      setList([...new Set(newList)]);
+      /* add part in the List and remove duplicates from array */
+      setSelectedPart(true);
+      setFilter({ ...filter, q: "" });
+      setSearchData("");
+    }
+  };
+
+
+
+  // * Remove Item
+
+  const removeItem = (id) => {
+    const newList = list.filter((item) => item.id !== id);
+    setList(newList);
+  };
+  // * Increment
+  const increment = (item) => {
+  
+    const tempList = [...list];
+    const tempItem = tempList.filter((val) => val.id === item.id);
     
+    tempItem[0].quantity++;
+    invoice?.part_items?.forEach((it) => {
+      if (it.quantity == item.quantity) {
+        item['match'] = true
+      } else {
+        item['match'] = false
+      }
+    });
+
+    setList(tempList);
+  };
+  // *Decrement
+  const decrement = (item) => {
+    const tempList = [...list];
+    const tempItem = tempList.filter((val) => val.id === item.id);
+    tempItem[0].quantity--;
+    invoice?.part_items?.forEach((it) => {
+      if (it.quantity == item.quantity) {
+         item['match'] = true
+      } else {
+        item['match'] = false
+      }
+    });
+
+
+    setList(tempList);
+  };
+
+const storeDeliveryNote = async()=>{
+
+  if (invoiceId) {
+    setBlock(true);
+    await DeliverNoteService.create(data);
+    setBlock(false);
+    // navigate("/panel/delivery-notes");
+   
+  }
+}
+
+
+  const search = async (e) => {
+    e.keyCode === 13 && (await getParts());
+    if (filter?.q === "") setSearchData([]);
+  };
+  console.log(invoice);
+  console.log(list);
+  useEffect(() => {
+    // console.log(searchData);
+    setData({
+      invoice:invoice,
+      part_items:list
+    })
+    getInvoice();
+  }, [invoiceId,list]);
+
+//   useEffect(()=>{
+// setList(invoice?.part_items)
+//   },[invoiceId])
+
   return (
     <div className="post d-flex flex-column-fluid" id="content">
       <div className="container-xxl">
@@ -74,7 +209,8 @@ const CreateDelivery = () => {
                       <h6>
                         <strong>Company Name:</strong>
                         <span className="text-muted">
-                          {" "}{invoice?.company?.name}
+                          {" "}
+                          {invoice?.company?.name}
                         </span>
                       </h6>
 
@@ -96,7 +232,6 @@ const CreateDelivery = () => {
                           </Moment>
                         </span>
                       </h6>
-                  
                     </td>
                   </tr>
                 </table>
@@ -106,10 +241,54 @@ const CreateDelivery = () => {
                     <strong>Machine Model: </strong>
                     <span className="text-muted">
                       {invoice?.requisition?.machines?.map((item, index) => (
-                        <span key={index} className="badge badge-secondary">{item?.model?.name}</span>
+                        <span key={index} className="badge badge-secondary">
+                          {item?.model?.name}
+                        </span>
                       ))}{" "}
                     </span>
                   </h6>
+                </div>
+
+                <div className="col-lg-6">
+                  <div className="form-group mt-2">
+                    <label htmlFor=""></label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Search"
+                      name="search"
+                      value={filter.q || ""}
+                      onChange={filterData}
+                      onKeyUp={search}
+                    />
+                    <div>
+                      {searchData.length > 0 ? (
+                        <div className="card border border-secondary ">
+                          <div className="card-body ">
+                            {searchData?.map((item, index) => (
+                              <>
+                                <div key={index}>
+                                  <Link
+                                    to={item?.id}
+                                    style={{ color: "black" }}
+                                    onClick={() => addPart(item)}
+                                  >
+                                    <p>
+                                      {item?.name}
+                                      <span>({item.part_number})</span>
+                                    </p>
+                                  </Link>
+                                </div>
+                                <hr />
+                              </>
+                            ))}
+                          </div>
+                        </div>
+                      ) : (
+                        ""
+                      )}
+                    </div>
+                  </div>
                 </div>
 
                 <div className="d-flex justify-content-between flex-column flex-md-row">
@@ -125,14 +304,14 @@ const CreateDelivery = () => {
                             <th className="min-w-80px pb-9 text-end">
                               Parts Number
                             </th>
-                    
+
                             <th className="min-w-100px pe-lg-6 pb-9 text-end">
                               Quantity
                             </th>
                           </tr>
                         </thead>
                         <tbody>
-                          {/* {list?.map((item, index) => (
+                          {list?.map((item, index) => (
                             <tr
                               className="fw-bolder text-gray-700 fs-5 text-end"
                               key={index}
@@ -140,48 +319,8 @@ const CreateDelivery = () => {
                               <td className="d-flex align-items-center pb-10">
                                 {index + 1}
                               </td>
-                              <td>{item?.part?.aliases[0].name}</td>
-                              <td>{item?.part?.aliases[0].part_number}</td>
-                              <td>
-                                <input
-                                  disabled
-                                  type="number"
-                                  className="form-control"
-                                  aria-label="Small"
-                                  aria-describedby="inputGroup-sizing-sm"
-                                  name="yen_price"
-                                  placeholder="0TK"
-                                  value={item?.part?.yen_price ?? ""}
-                                  onChange={(e) => handleChange(e, item)}
-                                />
-                              </td>
-                              <td>
-                                <input
-                                  disabled
-                                  type="number"
-                                  className="form-control"
-                                  aria-label="Small"
-                                  aria-describedby="inputGroup-sizing-sm"
-                                  name="formula_price"
-                                  placeholder="0TK"
-                                  value={item?.part?.formula_price ?? ""}
-                                  onChange={(e) => handleChange(e, item)}
-                                />
-                              </td>
-
-                              <td>
-                                <input
-                                  type="number"
-                                  className="form-control"
-                                  aria-label="Small"
-                                  aria-describedby="inputGroup-sizing-sm"
-                                  name="selling_price"
-                                  placeholder="0TK"
-                                  value={item?.part?.selling_price ?? ""}
-                                  onChange={(e) => handleChange(e, item)}
-                                />
-                              </td>
-
+                              <td>{item?.name}</td>
+                              <td>{item?.part_number}</td>
                               <td className="product-quantity">
                                 <div className="input-group input-group-sm">
                                   <div className="input-group-prepend">
@@ -204,7 +343,7 @@ const CreateDelivery = () => {
                                     aria-describedby="inputGroup-sizing-sm"
                                     min="1"
                                     value={item?.quantity ?? ""}
-                                    // defaultValue={item?.quantity ?? ""}
+                                    defaultValue={item?.quantity ?? ""}
                                     name="quantity"
                                   />
 
@@ -218,6 +357,17 @@ const CreateDelivery = () => {
                                     </span>
                                   </div>
                                 </div>
+                                {item?.message ? (
+                                  <span className="badge badge-success"></span>
+                                ) : (
+                                  <span className="badge badge-danger">
+                                    not In Invoice
+                                  </span>
+                                )}
+                               {
+                                 item?.message?item?.match?"":<span className='badge badge-info'>Quantity is not matched</span>:""
+                               }
+                               
                               </td>
                               <td className="text-end">
                                 <button
@@ -230,26 +380,26 @@ const CreateDelivery = () => {
                                 </button>
                               </td>
                             </tr>
-                          ))} */}
+                          ))}
                         </tbody>
                       </table>
                       <div className="separator separator-dashed"></div>
-                     
-                          <button
+
+                      <button
                         className="btn btn-dark mt-5"
-                        // onClick={() => {
-                        //   storeQuotation();
-                        // }}
+                        onClick={() => {
+                          navigate(-1);
+                        }}
                       >
                         Cancel
                       </button>
-                          
+
                       <button
                         className="btn btn-primary mt-5"
-                        // onClick={() => {
-                        //   storeQuotation();
-                        // }}
-                        style={{marginLeft:"0.9rem"}}
+                        onClick={() => {
+                          storeDeliveryNote();
+                        }}
+                        style={{ marginLeft: "0.9rem" }}
                       >
                         Submit
                       </button>
@@ -262,7 +412,7 @@ const CreateDelivery = () => {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default CreateDelivery
