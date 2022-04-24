@@ -55,13 +55,13 @@ const CreateDelivery = () => {
     const res = invoice?.part_items?.forEach((it) => {
       if (it.part_id == item.id) {
         item["quantity"] = it.quantity;
-        item['message']=true
-        item['match']=true
+        item['invoice_exists']=true
+        item['quantity_match']=true
         
       } else {
         item["quantity"] = 0;
-        item['message']=false
-        item['match']=false
+        item['invoice_exists']=false
+        item['quantity_match']=false
        
       }
     });
@@ -96,9 +96,9 @@ const CreateDelivery = () => {
     tempItem[0].quantity++;
     invoice?.part_items?.forEach((it) => {
       if (it.quantity == item.quantity) {
-        item['match'] = true
+        item['quantity_match'] = true
       } else {
-        item['match'] = false
+        item['quantity_match'] = false
       }
     });
 
@@ -111,9 +111,9 @@ const CreateDelivery = () => {
     tempItem[0].quantity--;
     invoice?.part_items?.forEach((it) => {
       if (it.quantity == item.quantity) {
-         item['match'] = true
+         item['quantity_match'] = true
       } else {
-        item['match'] = false
+        item['quantity_match'] = false
       }
     });
 
@@ -357,7 +357,7 @@ const storeDeliveryNote = async()=>{
                                     </span>
                                   </div>
                                 </div>
-                                {item?.message ? (
+                                {item?.invoice_exists ? (
                                   <span className="badge badge-success"></span>
                                 ) : (
                                   <span className="badge badge-danger">
@@ -365,7 +365,7 @@ const storeDeliveryNote = async()=>{
                                   </span>
                                 )}
                                {
-                                 item?.message?item?.match?"":<span className='badge badge-info'>Quantity is not matched</span>:""
+                                 item?.invoice_exists?item?.quantity_match?"":<span className='badge badge-info'>Quantity is not matched</span>:""
                                }
                                
                               </td>
