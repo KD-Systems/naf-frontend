@@ -61,7 +61,7 @@ const CreateDelivery = () => {
       } else {
         item["quantity"] = 0;
         item['invoice_exists']=false
-        item['quantity_match']=false
+        item['quantity_match']=true
        
       }
     });
@@ -95,11 +95,13 @@ const CreateDelivery = () => {
     
     tempItem[0].quantity++;
     invoice?.part_items?.forEach((it) => {
+     if (it?.part_id == item?.id) {
       if (it.quantity == item.quantity) {
         item['quantity_match'] = true
       } else {
         item['quantity_match'] = false
       }
+     }
     });
 
     setList(tempList);
@@ -110,11 +112,13 @@ const CreateDelivery = () => {
     const tempItem = tempList.filter((val) => val.id === item.id);
     tempItem[0].quantity--;
     invoice?.part_items?.forEach((it) => {
-      if (it.quantity == item.quantity) {
-         item['quantity_match'] = true
-      } else {
-        item['quantity_match'] = false
-      }
+      if (it?.part_id == item?.id) {
+        if (it.quantity == item.quantity) {
+          item['quantity_match'] = true
+        } else {
+          item['quantity_match'] = false
+        }
+       }
     });
 
 
