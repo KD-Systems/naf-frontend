@@ -131,7 +131,7 @@ const storeDeliveryNote = async()=>{
     setBlock(true);
     await DeliverNoteService.create(data);
     setBlock(false);
-    // navigate("/panel/delivery-notes");
+    navigate("/panel/delivery-notes");
    
   }
 }
@@ -141,8 +141,8 @@ const storeDeliveryNote = async()=>{
     e.keyCode === 13 && (await getParts());
     if (filter?.q === "") setSearchData([]);
   };
-  console.log(invoice);
-  console.log(list);
+  // console.log(invoice);
+  // console.log(list);
   useEffect(() => {
     // console.log(searchData);
     setData({
