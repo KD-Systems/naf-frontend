@@ -11,10 +11,16 @@ const PrintDeliveryNotes = () => {
   const getDeliveryNotes = async () => {
     let res = await DeliverNoteService.get(id);
     setDeliveryNote(res);
+<<<<<<< HEAD
     
     let content = document.getElementById("content").innerHTML;
     document.body.innerHTML = content;
     window.print();
+=======
+    // let content = document.getElementById("content").innerHTML;
+    // document.body.innerHTML = content;
+    // window.print();
+>>>>>>> a6c5315f9745d650bd96a18d9342e92b0ce840de
   };
   useEffect(() => {
     if (id) getDeliveryNotes();
