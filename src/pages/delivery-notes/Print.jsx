@@ -11,16 +11,10 @@ const PrintDeliveryNotes = () => {
   const getDeliveryNotes = async () => {
     let res = await DeliverNoteService.get(id);
     setDeliveryNote(res);
-<<<<<<< HEAD
     
     let content = document.getElementById("content").innerHTML;
     document.body.innerHTML = content;
     window.print();
-=======
-    // let content = document.getElementById("content").innerHTML;
-    // document.body.innerHTML = content;
-    // window.print();
->>>>>>> a6c5315f9745d650bd96a18d9342e92b0ce840de
   };
   useEffect(() => {
     if (id) getDeliveryNotes();
@@ -140,7 +134,7 @@ const PrintDeliveryNotes = () => {
             <div className="mt-5">
               <h6>
                 <strong>Machine Model: </strong>
-                <span className="text-muted">
+                <span className="text-muted">git
                   {invoice?.requisition?.machines?.map((item, index) => (
                     <span key={index}>{item?.machine_model?.name} </span>
                   ))}
