@@ -11,6 +11,7 @@ const PrintDeliveryNotes = () => {
   const getDeliveryNotes = async () => {
     let res = await DeliverNoteService.get(id);
     setDeliveryNote(res);
+    
     let content = document.getElementById("content").innerHTML;
     document.body.innerHTML = content;
     window.print();
@@ -159,10 +160,7 @@ const PrintDeliveryNotes = () => {
                                 Quantity
                               </th>
                               <th className="min-w-100px pe-lg-6 pb-9 text-end">
-                                Unit Price
-                              </th>
-                              <th className="min-w-100px pe-lg-6 pb-9 text-end">
-                                Total Price
+                                Remarks
                               </th>
                             </tr>
                           </thead>
@@ -178,21 +176,25 @@ const PrintDeliveryNotes = () => {
                                 </td>
                                 <td>{item?.part?.aliases[0].name}</td>
                                 <td>{item?.part?.aliases[0].part_number}</td>
+                                {/* <td>{item?.part?.aliases?.forEach(function(alias) {
+                                  alias.part_number;
+                                })}
+                                </td> */}
                                 <td className="fs-5 text-dark fw-boldest pe-lg-6">
                                   {item?.quantity}
                                 </td>
                                 <td className="fs-5 text-dark fw-boldest pe-lg-6">
-                                  {item?.unit_value}
+                                  {item?.remarks}
                                 </td>
-                                <td className="fs-5 text-dark fw-boldest pe-lg-6">
+                                {/* <td className="fs-5 text-dark fw-boldest pe-lg-6">
                                   {item?.total_value}
-                                </td>
+                                </td> */}
                               </tr>
                             ))}
                           </tbody>
                         </table>
                       </div>
-                      <div className="fs-5 text-dark fw-boldest pe-lg-6 text-end">
+                      {/* <div className="fs-5 text-dark fw-boldest pe-lg-6 text-end">
                         TOTAL:{" "}
                         <span className="text-muted">
                           {deliveryNote?.part_items?.reduce(
@@ -202,7 +204,7 @@ const PrintDeliveryNotes = () => {
                           )} TK.
                         </span>
                        
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>
