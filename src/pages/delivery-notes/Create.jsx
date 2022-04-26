@@ -1,5 +1,5 @@
 import React, { useState, useEffect }  from 'react'
-import { useNavigate } from "react-router-dom";
+import { useNavigate , Link} from "react-router-dom";
 import Modal from "../../components/utils/Modal";
 import InvoiceService from "../../services/InvoiceService";
 import Select from "react-select";
@@ -9,6 +9,8 @@ const CreateDeliveryNote = ({ open, onCloseModal, getDeliverNotes }) => {
     const [invoices, setInvoices] = useState([]);
     const [invoice, setInvoice] = useState({}); //get invoice details
     const [invoiceId, setInvoiceId] = useState("");
+    const [filter, setFilter] = useState({});
+    const [searchData, setSearchData] = useState({});
 
     const navigate = useNavigate();
 
@@ -18,6 +20,7 @@ const CreateDeliveryNote = ({ open, onCloseModal, getDeliverNotes }) => {
           setInvoice(res);
         }
       };
+
 
       const getInvoices = async () => {
         let data = await InvoiceService.getAll();
@@ -31,6 +34,15 @@ const CreateDeliveryNote = ({ open, onCloseModal, getDeliverNotes }) => {
       const handleSelect = (option, conf) => {
         const value = option.value;
         setInvoiceId(value);
+      };
+
+      //new add
+      const filterData = (e) => {
+        let query = e.target.value;
+        setFilter({
+          ...filter,
+          q: query,
+        });
       };
 
       const createDeliveryNote = async (e) => {
@@ -68,7 +80,52 @@ const CreateDeliveryNote = ({ open, onCloseModal, getDeliverNotes }) => {
             <form id="create-employee">
               <div className="form-group mt-5">
                 <label className="required form-label">Invoice</label>
-                <Select
+
+                {/* new add */}
+                <div className="col-lg-12">
+                  <div className="form-group">
+                    <label htmlFor=""></label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Search"
+                      name="search"
+                      value={filter.q || ""}
+                      onChange={filterData}
+                      // onKeyUp={search}
+                    />
+                    <div>
+                      {searchData.length > 0 ? (
+                        <div className="card border border-secondary ">
+                          <div className="card-body ">
+                            {searchData?.map((item, index) => (
+                              <>
+                                <div key={index}>
+                                  <Link
+                                    to={item?.id}
+                                    style={{ color: "black" }}
+                                    // onClick={() => addPart(item)}
+                                  >
+                                    <p>
+                                      {item?.name}
+                                      <span>({item.part_number})</span>
+                                    </p>
+                                  </Link>
+                                </div>
+                                <hr />
+                              </>
+                            ))}
+                          </div>
+                        </div>
+                      ) : (
+                        ""
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+
+                {/* <Select
                   options={invoices}
                   onChange={handleSelect}
                   name="invoice_id"
@@ -83,7 +140,9 @@ const CreateDeliveryNote = ({ open, onCloseModal, getDeliverNotes }) => {
                 <div
                   className="fv-plugins-message-container invalid-feedback"
                   htmlFor="requisition"
-                ></div>
+                ></div> */}
+
+
               </div>
 
               <button
@@ -97,7 +156,7 @@ const CreateDeliveryNote = ({ open, onCloseModal, getDeliverNotes }) => {
                 type="reset"
                 className="btn btn-secondary  mt-5 "
                 onClick={onCloseModal}
-              >
+              > 
                 Cancel
               </button>
             </form>
