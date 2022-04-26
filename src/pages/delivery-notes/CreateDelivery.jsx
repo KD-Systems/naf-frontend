@@ -12,8 +12,7 @@ const CreateDelivery = () => {
   const [filter, setFilter] = useState({});
 
   const [list, setList] = useState([]);
-  const [selectedPart, setSelectedPart] =
-    useState(false); /* Check Part selected or not selected*/
+  const [selectedPart, setSelectedPart] = useState(false); /* Check Part selected or not selected*/
   const [searchData, setSearchData] = useState({});
 
 
@@ -141,10 +140,9 @@ const storeDeliveryNote = async()=>{
     e.keyCode === 13 && (await getParts());
     if (filter?.q === "") setSearchData([]);
   };
-  // console.log(invoice);
-  // console.log(list);
+
   useEffect(() => {
-    // console.log(searchData);
+
     setData({
       invoice:invoice,
       part_items:list
@@ -152,9 +150,6 @@ const storeDeliveryNote = async()=>{
     getInvoice();
   }, [invoiceId,list]);
 
-//   useEffect(()=>{
-// setList(invoice?.part_items)
-//   },[invoiceId])
 
   return (
     <div className="post d-flex flex-column-fluid" id="content">

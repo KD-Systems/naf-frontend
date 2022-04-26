@@ -140,6 +140,49 @@ const EditCompany = ({ open, companyId, onCloseModal, onUpdated }) => {
               </div>
 
               <div className="mb-5 fv-row fv-plugins-icon-container">
+                <label className="form-label">Tel</label>
+                <input
+                  type="text"
+                  className="form-control mb-2"
+                  placeholder="Enter phone number"
+                  name="tel"
+                  id="tel"
+                  value={company.tel ?? ''}
+                  onChange={handleChange}
+                />
+                <div className="fv-plugins-message-container invalid-feedback" htmlFor="tel"></div>
+              </div>
+
+              <div className="mb-5 fv-row fv-plugins-icon-container">
+                <label className="form-label">Email</label>
+                <input
+                  type="text"
+                  className="form-control mb-2"
+                  placeholder="Enter Company Email"
+                  name="email"
+                  id="email"
+                  value={company.email ?? ''}
+                  onChange={handleChange}
+                />
+                <div className="fv-plugins-message-container invalid-feedback" htmlFor="email"></div>
+              </div>
+
+     
+              <div className="mb-5 fv-row fv-plugins-icon-container">
+                <label className="form-label">Web</label>
+                <input
+                  type="text"
+                  className="form-control mb-2"
+                  placeholder="Enter Company Web"
+                  name="web"
+                  id="web"
+                  value={company.web ?? ''}
+                  onChange={handleChange}
+                />
+                <div className="fv-plugins-message-container invalid-feedback" htmlFor="web"></div>
+              </div>
+
+              <div className="mb-5 fv-row fv-plugins-icon-container">
                 <label className="form-label">Group of Company</label>
                 <input
                   type="text"

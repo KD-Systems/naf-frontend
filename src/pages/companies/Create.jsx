@@ -9,6 +9,9 @@ const CreateCompany = ({ open, onCloseModal, onCreated }) => {
     company_group: '',
     machine_types: '',
     description: '',
+    tel:"",
+    web:"",
+    email:""
   });
 
   // Set the selected image to preview
@@ -105,6 +108,49 @@ const CreateCompany = ({ open, onCloseModal, onCreated }) => {
                   onChange={handleChange}
                 />
                 <div className="fv-plugins-message-container invalid-feedback" htmlFor="address"></div>
+              </div>
+
+              <div className="mb-5 fv-row fv-plugins-icon-container">
+                <label className="form-label">Tel</label>
+                <input
+                  type="text"
+                  className="form-control mb-2"
+                  placeholder="Enter phone number"
+                  name="tel"
+                  id="tel"
+                  value={data.tel ?? ''}
+                  onChange={handleChange}
+                />
+                <div className="fv-plugins-message-container invalid-feedback" htmlFor="tel"></div>
+              </div>
+
+
+              <div className="mb-5 fv-row fv-plugins-icon-container">
+                <label className="form-label">Email</label>
+                <input
+                  type="text"
+                  className="form-control mb-2"
+                  placeholder="Enter Company Email"
+                  name="email"
+                  id="email"
+                  value={data.email ?? ''}
+                  onChange={handleChange}
+                />
+                <div className="fv-plugins-message-container invalid-feedback" htmlFor="email"></div>
+              </div>
+
+              <div className="mb-5 fv-row fv-plugins-icon-container">
+                <label className="form-label">Web</label>
+                <input
+                  type="text"
+                  className="form-control mb-2"
+                  placeholder="Enter Company Web"
+                  name="web"
+                  id="web"
+                  value={data.web ?? ''}
+                  onChange={handleChange}
+                />
+                <div className="fv-plugins-message-container invalid-feedback" htmlFor="web"></div>
               </div>
 
               <div className="mb-5 fv-row fv-plugins-icon-container">
