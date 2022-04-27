@@ -129,7 +129,7 @@ const storeDeliveryNote = async()=>{
     setBlock(true);
     await DeliverNoteService.create(data);
     setBlock(false);
-    // navigate("/panel/delivery-notes");
+    navigate("/panel/delivery-notes");
    
   }
 }
