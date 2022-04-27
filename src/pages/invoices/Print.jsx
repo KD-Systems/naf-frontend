@@ -12,9 +12,9 @@ const PrintInvoice = () => {
   const getInvoice = async () => {
     let res = await InvoiceService.get(id);
     setInvoice(res);
-    // let content = document.getElementById("content").innerHTML;
-    // document.body.innerHTML = content;
-    // window.print();
+    let content = document.getElementById("content").innerHTML;
+    document.body.innerHTML = content;
+    window.print();
   };
 
 
@@ -54,7 +54,7 @@ const PrintInvoice = () => {
                           </small>
                           <br />
                           <small>
-                            Tel:44564,Fax:sddsf,Email:asd@gmail.com,Web:example.com
+                            Tel:{invoice?.company?.tel},Fax:sddsf,Email:{invoice?.company?.email},Web:{invoice?.company?.web}
                           </small>
                         </p>
                       </div>
