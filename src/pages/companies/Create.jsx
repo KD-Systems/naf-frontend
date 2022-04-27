@@ -42,6 +42,8 @@ const CreateCompany = ({ open, onCloseModal, onCreated }) => {
     onCloseModal();
   };
 
+
+
   return (
     <div>
       <Modal

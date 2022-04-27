@@ -42,14 +42,14 @@ const PrintRequisition = () => {
                         className="text-sm-center fw-bold fs-4 text-muted "
                         style={{ textAlign: "center", marginLeft: "2rem" }}
                       >
-                        <h1>Naf Overseas(PVT.) Ltd.</h1>
+                        <h1>{requisition?.company?.name}</h1>
                         <p className="text-sm">
                           <small>
-                            Head Office:Naya paltan,Dhaka,Bangladesh
+                             {requisition?.company?.address}
                           </small>
                           <br />
                           <small>
-                            Tel:44564,Fax:sddsf,Email:asd@gmail.com,Web:example.com
+                            Tel:{requisition?.company?.tel},Email:{requisition?.company?.email},Web:{requisition?.company?.web}
                           </small>
                         </p>
                       </div>

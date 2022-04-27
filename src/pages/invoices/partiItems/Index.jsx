@@ -56,8 +56,8 @@ const InvoicePartItems = ({active,invoice}) => {
 
                           <td className=" fw-bolder mb-1 fs-6">
                             <span>
-                              {parseInt(item.total_value)}
-                              Tk.
+                              {invoice?.requisition?.type != 'claim_report'?parseInt(item.total_value):0} TK.
+                              
                             </span>
                           </td>
                         </tr>

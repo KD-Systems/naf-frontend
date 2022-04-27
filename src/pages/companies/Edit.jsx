@@ -53,10 +53,16 @@ const EditCompany = ({ open, companyId, onCloseModal, onUpdated }) => {
       company_group: "",
       machine_types: "",
       description: "",
+      address:"",
+      tel:"",
+      email:"",
+      web:""
     });
 
     if (companyId) getCompany();
   }, [companyId]);
+
+
 
   return (
     <div>

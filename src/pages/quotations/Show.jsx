@@ -38,7 +38,7 @@ const ShowQuotation = () => {
 
   useEffect(() => {
     if (id) getQuotation();
-  }, [id]);
+  }, [id,locked]);
 
   useEffect(() => {
     setData({ ...data, part_items: list }); //add part_items and total amount in data
