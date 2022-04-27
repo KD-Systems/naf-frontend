@@ -45,14 +45,14 @@ const PrintDeliveryNotes = () => {
                           className="text-sm-center fw-bold fs-4 text-muted "
                           style={{ textAlign: "center", marginLeft: "2rem" }}
                         >
-                          <h1>Naf Overseas(PVT.) Ltd.</h1>
+                          <h1>{deliveryNote?.company?.name}</h1>
                           <p className="text-sm">
                             <small>
-                              Head Office:Naya paltan,Dhaka,Bangladesh
+                            {deliveryNote?.company?.address}
                             </small>
                             <br />
                             <small>
-                              Tel:44564,Fax:sddsf,Email:asd@gmail.com,Web:example.com
+                              Tel:{deliveryNote?.company?.tel},Email:{deliveryNote?.company?.email},Web:{deliveryNote?.company?.web}
                             </small>
                           </p>
                         </div>
@@ -64,7 +64,7 @@ const PrintDeliveryNotes = () => {
                             <img
                               alt="Logo"
                               src="/assets/media/logos/tajima.png"
-                              style={{ width: "5rem", marginLeft: "2rem" }}
+                              style={{ width: "5rem", marginLeft: "2rem" }} 
                             />
                           </Link>
                         </div>
