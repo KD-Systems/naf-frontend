@@ -66,7 +66,6 @@ const CreateDelivery = () => {
       }
     });
 
-
     //* Remove Duplicates
     let found = list.filter((val) => val.id == item.id);
     if (!found?.length > 0) {

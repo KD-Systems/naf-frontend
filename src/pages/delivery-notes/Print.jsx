@@ -12,9 +12,9 @@ const PrintDeliveryNotes = () => {
     let res = await DeliverNoteService.get(id);
     setDeliveryNote(res);
     
-    let content = document.getElementById("content").innerHTML;
-    document.body.innerHTML = content;
-    window.print();
+    // let content = document.getElementById("content").innerHTML;
+    // document.body.innerHTML = content;
+    // window.print();
   };
   useEffect(() => {
     if (id) getDeliveryNotes();
