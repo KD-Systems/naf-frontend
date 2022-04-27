@@ -1,7 +1,7 @@
 import Confirmation from "components/utils/Confirmation";
 import Table from "components/utils/Table";
 import PermissionAbility from "helpers/PermissionAbility";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Link } from "react-router-dom";
 import CompanyService from "services/CompanyService";
 import CreateCompany from "./Create";
@@ -14,6 +14,7 @@ const Companies = () => {
   const [openAddModal, setOpenAddModal] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
   const [companyId, setcompanyId] = useState(null);
+
 
   //Set the columns
   const columns = [
@@ -77,7 +78,7 @@ const Companies = () => {
         <span className="text-end">
           <PermissionAbility permission="companies_show">
           <Link
-            to={"/panel/companies/" + row.id}
+            to={"/panel/companies/" + row?.id}
             className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
           >
             <i className="fa fa-eye"></i>
@@ -87,7 +88,7 @@ const Companies = () => {
           <button
             className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
             onClick={() => {
-              setcompanyId(row.id);
+              setcompanyId(row?.id);
               setOpenEditModal(true);
             }}
           >
@@ -98,7 +99,7 @@ const Companies = () => {
           <Link
             to="#"
             className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
-            onClick={() => setConfirmDelete(true)}
+            onClick={() => {setcompanyId(row?.id);setConfirmDelete(true)}}
           >
             <i className="fa fa-trash"></i>
           </Link>
@@ -114,8 +115,9 @@ const Companies = () => {
     setLoading(false);
   };
 
-  const deletePart = (companyId) => {
-    CompanyService.remove(companyId);
+  const deletePart = async(companyId) => {
+   
+    await CompanyService.remove(companyId);
     getCompanies();
   };
 
@@ -124,9 +126,9 @@ const Companies = () => {
     setOpenEditModal(false);
   };
 
-  // useEffect(() => {
-  //   getCompanies();
-  // }, []);
+  useEffect(() => {
+    getCompanies();
+  }, []);
 
   return (
     <>
