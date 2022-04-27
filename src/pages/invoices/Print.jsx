@@ -12,9 +12,9 @@ const PrintInvoice = () => {
   const getInvoice = async () => {
     let res = await InvoiceService.get(id);
     setInvoice(res);
-    let content = document.getElementById("content").innerHTML;
-    document.body.innerHTML = content;
-    window.print();
+    // let content = document.getElementById("content").innerHTML;
+    // document.body.innerHTML = content;
+    // window.print();
   };
 
 
@@ -47,10 +47,10 @@ const PrintInvoice = () => {
                         className="text-sm-center fw-bold fs-4 text-muted "
                         style={{ textAlign: "center", marginLeft: "2rem" }}
                       >
-                        <h1>Naf Overseas(PVT.) Ltd.</h1>
+                        <h1>{invoice?.company?.name}</h1>
                         <p className="text-sm">
                           <small>
-                            Head Office:Naya paltan,Dhaka,Bangladesh
+                          {invoice?.company?.address}
                           </small>
                           <br />
                           <small>
