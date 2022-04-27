@@ -54,7 +54,7 @@ const PrintInvoice = () => {
                           </small>
                           <br />
                           <small>
-                            Tel:{invoice?.company?.tel},Fax:sddsf,Email:{invoice?.company?.email},Web:{invoice?.company?.web}
+                            Tel:{invoice?.company?.tel},Email:{invoice?.company?.email},Web:{invoice?.company?.web}
                           </small>
                         </p>
                       </div>
