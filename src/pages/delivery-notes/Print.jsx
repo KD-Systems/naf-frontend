@@ -176,35 +176,20 @@ const PrintDeliveryNotes = () => {
                                 </td>
                                 <td>{item?.part?.aliases[0].name}</td>
                                 <td>{item?.part?.aliases[0].part_number}</td>
-                                {/* <td>{item?.part?.aliases?.forEach(function(alias) {
-                                  alias.part_number;
-                                })}
-                                </td> */}
+                              
                                 <td className="fs-5 text-dark fw-boldest pe-lg-6">
                                   {item?.quantity}
                                 </td>
-                                <td className="fs-5 text-dark fw-boldest pe-lg-6">
+                                <td className="fs-5 pe-lg-6">
                                   {item?.remarks}
                                 </td>
-                                {/* <td className="fs-5 text-dark fw-boldest pe-lg-6">
-                                  {item?.total_value}
-                                </td> */}
+                   
                               </tr>
                             ))}
                           </tbody>
                         </table>
                       </div>
-                      {/* <div className="fs-5 text-dark fw-boldest pe-lg-6 text-end">
-                        TOTAL:{" "}
-                        <span className="text-muted">
-                          {deliveryNote?.part_items?.reduce(
-                            (sum, partItem) =>
-                              sum + parseFloat(partItem.total_value),
-                            0
-                          )} TK.
-                        </span>
-                       
-                      </div> */}
+                
                     </div>
                   </div>
                 </div>

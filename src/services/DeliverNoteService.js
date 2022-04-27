@@ -20,11 +20,11 @@ const create = async (data) => {
 
 
 
+
 const DeliverNoteService = {
   getAll,
   get,
   create,
-
 };
 
 export default DeliverNoteService;

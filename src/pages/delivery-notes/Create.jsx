@@ -21,20 +21,18 @@ const CreateDeliveryNote = ({ open, onCloseModal, getDeliverNotes }) => {
         }
       };
 
+    const InvoiceSearch = async()=>{
+      // console.log(filter);
+        let res = await InvoiceService.getAll(filter);
+        setSearchData(res.data);
+    }
 
-      const getInvoices = async () => {
-        let data = await InvoiceService.getAll();
-        data = data?.data?.map((itm) => ({
-          label: itm?.invoice_number,
-          value: itm?.id,
-        })); //Parse the data as per the select requires
-        setInvoices(data);
-      };
+    const addInvoice = (item)=>{
+      setInvoiceId(item?.id)
+      setSearchData([]);
+    }
 
-      const handleSelect = (option, conf) => {
-        const value = option.value;
-        setInvoiceId(value);
-      };
+  
 
       //new add
       const filterData = (e) => {
@@ -45,23 +43,16 @@ const CreateDeliveryNote = ({ open, onCloseModal, getDeliverNotes }) => {
         });
       };
 
-      const createDeliveryNote = async (e) => {
-        e.preventDefault();
-        if (invoiceId) {
-          setBlock(true);
-          await DeliverNoteService.create(invoice);
-          setBlock(false);
-          navigate("/panel/delivery-notes");
-          getDeliverNotes()
-        }
-        onCloseModal();
-      };
 
 
 
+      const search = async (e) => {
+          e.keyCode === 13 && (await InvoiceSearch());
+          if (filter?.q === "") setSearchData([]);
+        };
   useEffect(() => {
     if (open) {
-        getInvoices();
+       
     }
   }, [open]);
 
@@ -77,7 +68,7 @@ const CreateDeliveryNote = ({ open, onCloseModal, getDeliverNotes }) => {
         title={<>Create Delivery Note</>}
         body={
           <>
-            <form id="create-employee">
+            <div>
               <div className="form-group mt-5">
                 <label className="required form-label">Invoice</label>
 
@@ -92,7 +83,7 @@ const CreateDeliveryNote = ({ open, onCloseModal, getDeliverNotes }) => {
                       name="search"
                       value={filter.q || ""}
                       onChange={filterData}
-                      // onKeyUp={search}
+                      onKeyUp={search}
                     />
                     <div>
                       {searchData.length > 0 ? (
@@ -104,11 +95,10 @@ const CreateDeliveryNote = ({ open, onCloseModal, getDeliverNotes }) => {
                                   <Link
                                     to={item?.id}
                                     style={{ color: "black" }}
-                                    // onClick={() => addPart(item)}
+                                    onClick={() => addInvoice(item)}
                                   >
                                     <p>
-                                      {item?.name}
-                                      <span>({item.part_number})</span>
+                                      {item?.invoice_number}
                                     </p>
                                   </Link>
                                 </div>
@@ -125,22 +115,6 @@ const CreateDeliveryNote = ({ open, onCloseModal, getDeliverNotes }) => {
                 </div>
 
 
-                {/* <Select
-                  options={invoices}
-                  onChange={handleSelect}
-                  name="invoice_id"
-                  maxMenuHeight={250}
-
-                />
-
-                <div
-                  className="fv-plugins-message-container invalid-feedback"
-                  htmlFor="requisition"
-                ></div>
-                <div
-                  className="fv-plugins-message-container invalid-feedback"
-                  htmlFor="requisition"
-                ></div> */}
 
 
               </div>
@@ -148,7 +122,7 @@ const CreateDeliveryNote = ({ open, onCloseModal, getDeliverNotes }) => {
               <button
                 className="btn btn-primary mr-2 mt-5"
                 style={{ marginRight: "1rem" }}
-                onClick={createDeliveryNote}
+                onClick={() => navigate(`/panel/delivery-notes/${invoiceId}/create`)}
               >
                 Create
               </button>
@@ -159,7 +133,7 @@ const CreateDeliveryNote = ({ open, onCloseModal, getDeliverNotes }) => {
               > 
                 Cancel
               </button>
-            </form>
+            </div>
           </>
         }
       />

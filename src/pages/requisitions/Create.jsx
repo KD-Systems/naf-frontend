@@ -83,7 +83,7 @@ const RequisitionCreate = () => {
     setBlock(true)
     await RequisitionService.create(data);
     setBlock(false)
-    // navigate("/panel/requisitions");
+    navigate("/panel/requisitions");
   };
 
   const addPart = (item) => {

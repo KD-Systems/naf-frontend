@@ -43,6 +43,7 @@ const AccountSettings = () => {
   const setImage = async (e) => {
     let logoShow = document.getElementById("avatar");
     let fr = new FileReader();
+    // console.log(e.target.files[0]);
     fr.readAsDataURL(e.target.files[0]);
 
     fr.addEventListener("load", function () {
@@ -84,7 +85,9 @@ const AccountSettings = () => {
   };
 
   const updateProfile = async () => {
+
     let formData = new FormData(document.getElementById("update-profile"));
+    console.log(formData);
 
     await ProfileService.updateProfile(formData);
     getUserProfile()
