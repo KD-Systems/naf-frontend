@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import Moment from "react-moment";
 import QuotationService from "services/QuotationService";
 import InvoiceService from "services/InvoiceService";
+import { Activities } from "components/utils/Activities";
 const ShowQuotation = () => {
   let { id } = useParams();
   const navigate = useNavigate();
@@ -10,6 +11,7 @@ const ShowQuotation = () => {
   const [block, setBlock] = useState(false);
   const [locked, setLocked] = useState(false);
   const [list, setList] = useState([]);
+  const [tab, setTab] = useState("quotations");
 
   const [data, setData] = useState({
     quotation_id: parseInt(id),
@@ -27,7 +29,7 @@ const ShowQuotation = () => {
     await InvoiceService.create(quotation);
     setBlock(false);
     navigate("/panel/invoices");
-  }; 
+  };
 
   const lockedPartItems = async () => {
     setBlock(true);
@@ -38,7 +40,7 @@ const ShowQuotation = () => {
 
   useEffect(() => {
     if (id) getQuotation();
-  }, [id,locked]);
+  }, [id, locked]);
 
   useEffect(() => {
     setData({ ...data, part_items: list }); //add part_items and total amount in data
@@ -51,21 +53,19 @@ const ShowQuotation = () => {
     tempItem[0][name] = parseInt(e.target.value);
     if (quotation?.requisition?.type != "claim_report") {
       tempItem[0].total_value = tempItem[0][name] * tempItem[0].quantity;
-    }
-    else{
+    } else {
       tempItem[0].total_value = 0;
     }
     setList(templist);
   };
   // * Update Quotation Part Items
 
-  const handleUpdate =async()=>{
+  const handleUpdate = async () => {
     setBlock(true);
-    await QuotationService.update(id,data);
+    await QuotationService.update(id, data);
     setBlock(false);
     navigate("/panel/quotations");
-  }
-
+  };
 
   const increment = (item) => {
     const tempList = [...list];
@@ -74,8 +74,7 @@ const ShowQuotation = () => {
     if (quotation?.requisition?.type != "claim_report") {
       tempItem[0].total_value =
         tempItem[0].quantity * parseInt(tempItem[0].unit_value);
-    }
-    else{
+    } else {
       tempItem[0].total_value = 0;
     }
     setList(tempList);
@@ -88,13 +87,11 @@ const ShowQuotation = () => {
     if (quotation?.requisition?.type != "claim_report") {
       tempItem[0].total_value =
         tempItem[0].quantity * parseInt(tempItem[0].unit_value);
-    }
-    else{
+    } else {
       tempItem[0].total_value = 0;
     }
     setList(tempList);
   };
-
 
   useEffect(() => {
     setList(quotation?.part_items); //add part items into List
@@ -200,149 +197,188 @@ const ShowQuotation = () => {
                       Generate Invoice
                     </button>
                   </h3>
-                  {!locked ?  <h3>
-                    <button
-                      className="btn btn-sm btn-dark float-end fs-6 "
-                      onClick={lockedPartItems}
-                    >
-                      Lock
-                    </button>
-                  </h3>: <h3>
-                    <button
-                      className="btn btn-sm btn-danger float-end fs-6 "
-                      onClick={lockedPartItems}
-                    >
-                      Locked
-                    </button>
-                  </h3>}
-                 
+                  {!locked ? (
+                    <h3>
+                      <button
+                        className="btn btn-sm btn-dark float-end fs-6 "
+                        onClick={lockedPartItems}
+                      >
+                        Lock
+                      </button>
+                    </h3>
+                  ) : (
+                    <h3>
+                      <button
+                        className="btn btn-sm btn-danger float-end fs-6 "
+                        onClick={lockedPartItems}
+                      >
+                        Locked
+                      </button>
+                    </h3>
+                  )}
                 </div>
               </div>
             </div>
           </div>
 
           <div className="col-xl-9">
-            <div className="card card-custom gutter-b">
-              <div className="card-header card-header-tabs-line">
-                <div className="card-toolbar">
-                  <div className="card-title">
-                    <h3 className="card-label">Part Items</h3>
-                  </div>
-                </div>
-              </div>
+            <div className="flex-lg-row-fluid ms-lg-15">
+              <ul className="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-bold mb-8">
+                <li className="nav-item">
+                  <a
+                    className={`nav-link text-active-primary pb-4 ${
+                      tab == "quotations" ? "active" : ""
+                    }`}
+                    data-bs-toggle="tab"
+                    href="#quotations"
+                    onClick={() => setTab("quotations")}
+                  >
+                    Part Items
+                  </a>
+                </li>
 
-              <div className="card-body px-0">
-                <div className="card mb-5 mb-xl-8">
-                  <div className="card-body py-3">
-                    <div className="table-responsive">
-                      <table className="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
-                        <thead>
-                          <tr className="fw-bolder text-muted">
-                            <th className="min-w-50px">Part Name</th>
-                            <th className="min-w-120px">Part Number</th>
-                            <th className="min-w-120px">Quantity</th>
-                            <th className="min-w-120px">Unit </th>
-                            <th className="min-w-120px">Total </th>
-                          </tr>
-                        </thead>
+                <li className="nav-item">
+                  <a
+                    className={`nav-link text-active-primary pb-4 ${
+                      tab == "activities" ? "active" : ""
+                    }`}
+                    data-bs-toggle="tab"
+                    href="#activities"
+                    onClick={() => setTab("activities")}
+                  >
+                    Activities
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div className="tab-content">
+              <div
+                className={`tab-pane fade ${
+                  tab == "quotations" ? "active show" : ""
+                }`}
+                id="quotations"
+                role="tabpanel"
+              >
+                <div className="card card-custom gutter-b">
+                  
 
-                        <tbody>
-                          {quotation?.part_items?.map((item, index) => (
-                            <tr key={index}>
-                              <td className="">
-                                <Link
-                                  to={"/panel/parts/" + item?.part?.id}
-                                  className="text-dark fw-bolder text-hover-primary"
-                                >
-                                  {item?.part?.aliases[0].name}
-                                </Link>
-                              </td>
-                              <td className=" fw-bolder mb-1 fs-6">
-                                <span>
-                                  {item?.part?.aliases[0].part_number}
-                                </span>
-                              </td>
-                              {/* <td className=" fw-bolder mb-1 fs-6">
-                                <span>{item?.quantity}</span>
-                              </td> */}
+                  <div className="card-body px-0">
+                    <div className="card mb-5 mb-xl-8">
+                      <div className="card-body py-3">
+                        <div className="table-responsive">
+                          <table className="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
+                            <thead>
+                              <tr className="fw-bolder text-muted">
+                                <th className="min-w-50px">Part Name</th>
+                                <th className="min-w-120px">Part Number</th>
+                                <th className="min-w-120px">Quantity</th>
+                                <th className="min-w-120px">Unit </th>
+                                <th className="min-w-120px">Total </th>
+                              </tr>
+                            </thead>
 
-                              <td>
-                                <div className="input-group input-group-sm">
-                                  <div className="input-group-prepend">
-                                    <button
-                                    disabled={locked ? true : false}
-                                      className="input-group-text"
-                                      id="inputGroup-sizing-sm"
-                                      onClick={() => {
-                                        if (item?.quantity > 0) {
-                                          decrement(item);
-                                        }
-                                      }}
+                            <tbody>
+                              {quotation?.part_items?.map((item, index) => (
+                                <tr key={index}>
+                                  <td className="">
+                                    <Link
+                                      to={"/panel/parts/" + item?.part?.id}
+                                      className="text-dark fw-bolder text-hover-primary"
                                     >
-                                      <i className="fas fa-minus"></i>
-                                    </button>
-                                  </div>
-                                  <input
-                                    disabled={locked ? true : false}
-                                    type="text"
-                                    className="form-control"
-                                    aria-label="Small"
-                                    aria-describedby="inputGroup-sizing-sm"
-                                    min="1"
-                                    value={item?.quantity ?? ""}
-                                    name="quantity"
-                                  />
+                                      {item?.part?.aliases[0].name}
+                                    </Link>
+                                  </td>
+                                  <td className=" fw-bolder mb-1 fs-6">
+                                    <span>
+                                      {item?.part?.aliases[0].part_number}
+                                    </span>
+                                  </td>
 
-                                  <div className="input-group-prepend">
-                                    <button
-                                      className="input-group-text"
-                                      onClick={() => increment(item)}
-                                      style={{ cursor: "pointer" }}
+                                  <td>
+                                    <div className="input-group input-group-sm">
+                                      <div className="input-group-prepend">
+                                        <button
+                                          disabled={locked ? true : false}
+                                          className="input-group-text"
+                                          id="inputGroup-sizing-sm"
+                                          onClick={() => {
+                                            if (item?.quantity > 0) {
+                                              decrement(item);
+                                            }
+                                          }}
+                                        >
+                                          <i className="fas fa-minus"></i>
+                                        </button>
+                                      </div>
+                                      <input
+                                        disabled={locked ? true : false}
+                                        type="text"
+                                        className="form-control"
+                                        aria-label="Small"
+                                        aria-describedby="inputGroup-sizing-sm"
+                                        min="1"
+                                        value={item?.quantity ?? ""}
+                                        name="quantity"
+                                      />
+
+                                      <div className="input-group-prepend">
+                                        <button
+                                          className="input-group-text"
+                                          onClick={() => increment(item)}
+                                          style={{ cursor: "pointer" }}
+                                          disabled={locked ? true : false}
+                                        >
+                                          <i className="fas fa-plus"></i>
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </td>
+                                  <td className=" fw-bolder mb-1 fs-6">
+                                    <input
                                       disabled={locked ? true : false}
-                                    >
-                                      <i className="fas fa-plus"></i>
-                                    </button>
-                                  </div>
-                                </div>
-                              </td>
-                              <td className=" fw-bolder mb-1 fs-6">
-                                <input
-                                  disabled={locked ? true : false}
-                                  type="number"
-                                  className="form-control"
-                                  aria-label="Small"
-                                  aria-describedby="inputGroup-sizing-sm"
-                                  name="unit_value"
-                                  placeholder="0TK"
-                                  value={item?.unit_value ?? ""}
-                                  onChange={(e) => handleChange(e, item)}
-                                />
-                              </td>
+                                      type="number"
+                                      className="form-control"
+                                      aria-label="Small"
+                                      aria-describedby="inputGroup-sizing-sm"
+                                      name="unit_value"
+                                      placeholder="0TK"
+                                      value={item?.unit_value ?? ""}
+                                      
+                                      onChange={(e) => handleChange(e, item)}
+                                    />
+                                  </td>
 
-                              <td className=" fw-bolder mb-1 fs-6">
-                                <span>
-                                  {quotation?.requisition?.type !=
-                                  "claim_report"
-                                    ? item?.quantity * item?.unit_value
-                                    : 0}{" "}
-                                  Tk.
-                                </span>
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                      {!locked ?  <button
-                        className="btn btn-sm btn-dark float-end fs-6 mt-5"
-                        onClick={handleUpdate}
-                      >
-                        Update
-                      </button>:""}
-                     
+                                  <td className=" fw-bolder mb-1 fs-6">
+                                    <span>
+                                      {quotation?.requisition?.type !=
+                                      "claim_report"
+                                        ? item?.quantity * item?.unit_value
+                                        : 0}{" "}
+                                      Tk.
+                                    </span>
+                                  </td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                          {!locked ? (
+                            <button
+                              className="btn btn-sm btn-dark float-end fs-6 mt-5"
+                              onClick={handleUpdate}
+                            >
+                              Update
+                            </button>
+                          ) : (
+                            ""
+                          )}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
+
+              <Activities logName="quotations" modelId={id} tab={tab} />
             </div>
           </div>
         </div>

@@ -227,6 +227,7 @@ const CreateQuotation = () => {
                     <div className="table-responsive ">
                       <table className="table">
                         <thead>
+                          <tbody>
                           <tr className="fs-6 fw-bolder text-dark text-uppercase">
                             <th className="min-w-75px pb-9">SL.No</th>
                             <th className="min-w-70px pb-9 text-end">
@@ -247,7 +248,9 @@ const CreateQuotation = () => {
                             <th className="min-w-100px pe-lg-6 pb-9 text-end">
                               Quantity
                             </th>
+                            
                           </tr>
+                          </tbody>
                         </thead>
                         <tbody>
                           {list?.map((item, index) => (

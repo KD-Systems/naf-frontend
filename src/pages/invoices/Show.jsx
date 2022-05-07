@@ -4,6 +4,7 @@ import Moment from "react-moment";
 import InvoiceService from "services/InvoiceService";
 import InvoicePartItems from "./partiItems/Index";
 import InvoiceCreatePayment from "./paymentHistories/Create";
+import { Activities } from "components/utils/Activities";
 const ShowInvoice = () => {
   let { id } = useParams();
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ const ShowInvoice = () => {
   const [paymentHistories, setPaymentHistories] = useState([]);
   const [block, setBlock] = useState(false);
   const [active, setActive] = useState("part_items"); // * tab active or not
-
+  const [tab, setTab] = useState("part_items");
   const [open, setOpen] = useState(false); //* open modal
   const getInvoice = async () => {
     let res = await InvoiceService.get(id);
@@ -64,7 +65,11 @@ const ShowInvoice = () => {
                           (partialSum, a) =>
                             partialSum + parseInt(a.total_value),
                           0
-                        ) == paymentHistories?.reduce((partialSum,a) => partialSum + parseInt(a.amount),0) ? (
+                        ) ==
+                        paymentHistories?.reduce(
+                          (partialSum, a) => partialSum + parseInt(a.amount),
+                          0
+                        ) ? (
                           <span className="badge badge-light-success">
                             Paid
                           </span>
@@ -72,20 +77,24 @@ const ShowInvoice = () => {
                             (partialSum, a) =>
                               partialSum + parseInt(a.total_value),
                             0
-                          ) > paymentHistories?.reduce((partialSum,a) => partialSum + parseInt(a.amount),0) ? (
+                          ) >
+                          paymentHistories?.reduce(
+                            (partialSum, a) => partialSum + parseInt(a.amount),
+                            0
+                          ) ? (
                           <span className="badge badge-light-warning">
                             Partial Paid
                           </span>
-                        ) : paymentHistories?.reduce((partialSum,a) => partialSum + parseInt(a.amount),0) == 0 ? (
+                        ) : paymentHistories?.reduce(
+                            (partialSum, a) => partialSum + parseInt(a.amount),
+                            0
+                          ) == 0 ? (
                           <span className="badge badge-light-danger">
                             {" "}
                             UnPaid
                           </span>
                         ) : (
-                          <span className="badge badge-light-danger">
-                            {" "}
-                            
-                          </span>
+                          <span className="badge badge-light-danger"> </span>
                         )}
                       </div>
                     </>
@@ -157,6 +166,7 @@ const ShowInvoice = () => {
                       href="#part_items"
                       onClick={() => {
                         setActive("part_items");
+                        setTab("part_items");
                       }}
                     >
                       Part Items
@@ -178,15 +188,34 @@ const ShowInvoice = () => {
                   ) : (
                     ""
                   )}
+
+                  <li className="nav-item">
+                    <a
+                      className={`nav-link text-active-primary pb-4 ${
+                        tab == "activities" ? "active" : ""
+                      }`}
+                      data-bs-toggle="tab"
+                      href="#activities"
+                      onClick={() => setTab("activities")}
+                    >
+                      Activities
+                    </a>
+                  </li>
                 </ul>
 
                 <div className="tab-content">
                   {/* Tabs start from here */}
 
-                  <InvoicePartItems active={active} invoice={invoice} />
-
+                  <InvoicePartItems
+                    active={active}
+                    invoice={invoice}
+                    tab={tab}
+                  />
+                  <Activities logName="invoices" modelId={id} tab={tab} />
                   <div
-                    className="tab-pane fade"
+                    className={`tab-pane fade ${
+                      tab == "payment_histories" ? "active show" : ""
+                    }`}
                     id="payment_histories"
                     role="tab-panel"
                   >

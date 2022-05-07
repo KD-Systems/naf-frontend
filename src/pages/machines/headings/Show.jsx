@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate,Link } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import MachinePartHeadingService from "services/PartHeadingService";
 const ShowPartHeadings = () => {
   let { machineId, headingId } = useParams();
   const navigate = useNavigate();
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(true);
-  const [parts,setParts] = useState([])
+  const [parts, setParts] = useState([]);
   const getHeading = async () => {
     setData(await MachinePartHeadingService.get(machineId, headingId));
     setLoading(false);
@@ -16,7 +16,7 @@ const ShowPartHeadings = () => {
     if (headingId) getHeading();
   }, [headingId]);
 
-  console.log("data",data);
+  console.log("data", data);
   return (
     <>
       {" "}
@@ -26,7 +26,7 @@ const ShowPartHeadings = () => {
             <div className="flex-column flex-lg-row-auto w-lg-250px w-xl-350px mb-10">
               <div className="card mb-5 mb-xl-8">
                 <div className="card-body">
-                <h3 className="card-label">
+                  <h3 className="card-label">
                     <button
                       className="btn btn-sm btn-dark "
                       style={{ marginRight: "0.75rem" }}
@@ -41,8 +41,6 @@ const ShowPartHeadings = () => {
                   <div className="pb-5 fs-6">
                     <div className="fw-bolder mt-5">Name</div>
                     <div className="text-gray-600">{data?.name}</div>
-
-             
 
                     <div className="fw-bolder mt-5">Description</div>
                     <div className="text-gray-600">
@@ -79,52 +77,50 @@ const ShowPartHeadings = () => {
                   id="models"
                   role="tabpanel"
                 >
+                  <div className="card mb-5 mb-xl-8">
+                    <div className="card-body pt-5">
+                      <div className="table-responsive">
+                        <table className="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
+                          <thead>
+                            <tr className="fw-bolder text-muted">
+                              <th>Name</th>
+                              <th className="min-w-50px">Part Number</th>
+                            </tr>
+                          </thead>
 
-<div className="card mb-5 mb-xl-8">
-<div className="card-body pt-5">
-            <div className="table-responsive">
-              <table className="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
-                <thead>
-                  <tr className="fw-bolder text-muted">
-                    <th>Name</th>
-                    <th className="min-w-50px">Part Number</th>
-                    
-                  </tr>
-                </thead>
-                
-              <tbody>
-                {loading ? (
-                  <tr>
-                    <td>
-                      <i className="fas fa-cog fa-spin"></i>{" "}
-                      Loading...
-                    </td>
-                  </tr>
-                ) : null}
+                          <tbody>
+                            {loading ? (
+                              <tr>
+                                <td>
+                                  <i className="fas fa-cog fa-spin"></i>{" "}
+                                  Loading...
+                                </td>
+                              </tr>
+                            ) : null}
 
-                {data?.parts?.map((item, index) => (
-                  <tr key={index}>
-                    <td>
-                      <Link
-                        to={"/panel/parts/" +  item.id}
-                        className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
-                      >
-                        {item?.aliases[0]?.name}
-                      </Link>
-                    </td>
-                    <td>{item?.aliases[0]?.part_number}</td>
-                  </tr>
-                ))}
-              </tbody>
-              </table>
-            </div>
-          </div>
+                            {data?.parts?.map((item, index) => (
+                              <tr key={index}>
+                                <td>
+                                  <Link
+                                    to={"/panel/parts/" + item.id}
+                                    className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
+                                  >
+                                    {item?.aliases[0]?.name}
+                                  </Link>
+                                </td>
+                                <td>{item?.aliases[0]?.part_number}</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
       </div>
     </>
   );
