@@ -1,9 +1,13 @@
-import React ,{ useEffect, useState }  from 'react'
+import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-const InvoicePartItems = ({active,invoice}) => {
+const InvoicePartItems = ({ tab, active, invoice }) => {
   const { id } = useParams();
   return (
-    <div className="tab-pane fade active show" id="part_items" role="tab-panel">
+    <div
+      className={`tab-pane fade ${tab == "part_items" ? "active show" : ""}`}
+      id="part_items"
+      role="tabpanel"
+    >
       <div className="d-flex flex-column gacompanyIdgap-lg-10">
         <div className="card card-custom gutter-b">
           <div className="card-header card-header-tabs-line">
@@ -41,43 +45,36 @@ const InvoicePartItems = ({active,invoice}) => {
                             </Link>
                           </td>
                           <td className=" fw-bolder mb-1 fs-6">
-                            <span>
-                              {item?.part?.aliases[0].part_number}
-                            </span>
+                            <span>{item?.part?.aliases[0].part_number}</span>
                           </td>
-                    
 
                           <td>
                             <span>{item.quantity}</span>
                           </td>
                           <td className=" fw-bolder mb-1 fs-6">
-                           <span>{item?.unit_value}</span>
+                            <span>{item?.unit_value}</span>
                           </td>
 
                           <td className=" fw-bolder mb-1 fs-6">
                             <span>
-                              {invoice?.requisition?.type != 'claim_report'?parseInt(item.total_value):0} TK.
-                              
+                              {invoice?.requisition?.type != "claim_report"
+                                ? parseInt(item.total_value)
+                                : 0}{" "}
+                              TK.
                             </span>
                           </td>
                         </tr>
                       ))}
                     </tbody>
                   </table>
-       
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-
-  
-
-     
     </div>
-    
-  )
-}
+  );
+};
 
-export default InvoicePartItems
+export default InvoicePartItems;

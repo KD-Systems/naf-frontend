@@ -12,9 +12,13 @@ const ShowDeliveryNotes = () => {
   const getDeliveryNotes = async () => {
     let res = await DeliverNoteService.get(id);
     setDeliveryNote(res);
-    let content = document.getElementById("content").innerHTML; 
-    document.body.innerHTML = content;
-    window.print();
+    if(document.getElementById("content") != null){
+      let content = document.getElementById("content").innerHTML;
+      document.body.innerHTML = content;
+      window.print();
+  }
+    
+
   };
   useEffect(() => {
     if (id) getDeliveryNotes();
@@ -203,11 +207,7 @@ const ShowDeliveryNotes = () => {
         </div>
       </div>
 
-      {/* <InvoiceCreatePayment
-        open={open}
-        onCloseModal={onCloseModal}
-        invoice={invoice}
-      /> */}
+ 
     </>
   );
 };

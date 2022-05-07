@@ -141,7 +141,7 @@ const ShowRequisition = () => {
                 <li className="nav-item">
                   <a
                     className={`nav-link text-active-primary pb-4 ${
-                      tab == "models" ? "active" : ""
+                      tab == "requisitions" ? "active" : ""
                     }`}
                     data-bs-toggle="tab"
                     href="#requisitions"
@@ -166,51 +166,50 @@ const ShowRequisition = () => {
               </ul>
 
               <div className="tab-content">
-                <div className="card card-custom gutter-b">
-                  <div className="card-header card-header-tabs-line">
-                    <div className="card-toolbar">
-                      <div className="card-title">
-                        <h3 className="card-label">Part Items</h3>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="card-body px-0">
-                    <div className="card mb-5 mb-xl-8">
-                      <div className="card-body py-3">
-                        <div className="table-responsive">
-                          <table className="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
-                            <thead>
-                              <tr className="fw-bolder text-muted">
-                                <th className="min-w-50px">Part Name</th>
-                                <th className="min-w-120px">Part Number</th>
-                                <th className="min-w-120px">Quantity</th>
-                              </tr>
-                            </thead>
-
-                            <tbody>
-                              {requisition?.part_items?.map((item, index) => (
-                                <tr key={index}>
-                                  <td className="">
-                                    <Link
-                                      to={"/panel/parts/" + item?.part?.id}
-                                      className="text-dark fw-bolder text-hover-primary"
-                                    >
-                                      {item?.part?.aliases[0].name}
-                                    </Link>
-                                  </td>
-                                  <td className=" fw-bolder mb-1 fs-6">
-                                    <span>
-                                      {item?.part?.aliases[0].part_number}
-                                    </span>
-                                  </td>
-                                  <td className=" fw-bolder mb-1 fs-6">
-                                    <span>{item?.quantity}</span>
-                                  </td>
+                <div
+                   className={`tab-pane fade ${tab == "requisitions" ? "active show" : ""
+                  }`}
+                  id="requisitions"
+                  role="tabpanel"
+                >
+                  <div className="card card-custom gutter-b">
+                    <div className="card-body px-0">
+                      <div className="card mb-5 mb-xl-8">
+                        <div className="card-body py-3">
+                          <div className="table-responsive">
+                            <table className="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
+                              <thead>
+                                <tr className="fw-bolder text-muted">
+                                  <th className="min-w-50px">Part Name</th>
+                                  <th className="min-w-120px">Part Number</th>
+                                  <th className="min-w-120px">Quantity</th>
                                 </tr>
-                              ))}
-                            </tbody>
-                          </table>
+                              </thead>
+
+                              <tbody>
+                                {requisition?.part_items?.map((item, index) => (
+                                  <tr key={index}>
+                                    <td className="">
+                                      <Link
+                                        to={"/panel/parts/" + item?.part?.id}
+                                        className="text-dark fw-bolder text-hover-primary"
+                                      >
+                                        {item?.part?.aliases[0].name}
+                                      </Link>
+                                    </td>
+                                    <td className=" fw-bolder mb-1 fs-6">
+                                      <span>
+                                        {item?.part?.aliases[0].part_number}
+                                      </span>
+                                    </td>
+                                    <td className=" fw-bolder mb-1 fs-6">
+                                      <span>{item?.quantity}</span>
+                                    </td>
+                                  </tr>
+                                ))}
+                              </tbody>
+                            </table>
+                          </div>
                         </div>
                       </div>
                     </div>
