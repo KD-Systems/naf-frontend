@@ -17,7 +17,7 @@ const Invoices = () => {
 
   const storeDeliveryNotes = async (data) => {
     setBlock(true);
-    await DeliverNoteService.create(data);
+    await DeliverNoteService.create(data); 
     setBlock(false);
   };
 

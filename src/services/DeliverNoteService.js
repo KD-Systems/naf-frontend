@@ -14,7 +14,7 @@ const get = async (id) => {
 
 
 const create = async (data) => {
-  const res = await http.post(`/delivery-notes`, data)
+  const res = await http.post(`/delivery-notes`, data) 
   return res.data;
 };
 
