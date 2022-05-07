@@ -76,9 +76,9 @@ const CreateQuotation = () => {
   // store quotation
   const storeQuotation = async () => {
     setBlock(true);
-    await QuotationService.create(data);
+    let res = await QuotationService.create(data);
     setBlock(false);
-    navigate("/panel/quotations");
+    navigate(`/panel/quotations/${res?.data?.id}`);
   };
   // Remove Quotation
   const removeItem = (id) => {

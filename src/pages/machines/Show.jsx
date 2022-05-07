@@ -103,6 +103,7 @@ const ShowMachine = () => {
                 <Activities logName="machines" modelId={id} tab={tab} />
                 </PermissionAbility>
               </div>
+              
             </div>
           </div>
         </div>
