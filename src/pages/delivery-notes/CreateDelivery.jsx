@@ -127,9 +127,9 @@ const storeDeliveryNote = async()=>{
 
   if (invoiceId) {
     setBlock(true);
-    await DeliverNoteService.create(data);
+    let res = await DeliverNoteService.create(data);
     setBlock(false);
-    navigate("/panel/delivery-notes");
+    navigate(`/panel/delivery-notes/${res.data?.id}/show`);
    
   }
 }

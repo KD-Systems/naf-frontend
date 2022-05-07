@@ -26,10 +26,10 @@ const ShowQuotation = () => {
   //* Generating Invoice
   const storeInvoice = async () => {
     setBlock(true);
-    await InvoiceService.create(quotation);
+    let res = await InvoiceService.create(quotation);
     setBlock(false);
-    navigate("/panel/invoices");
-  };
+    navigate(`/panel/invoices/${res.data?.id}`);
+  }; 
 
   const lockedPartItems = async () => {
     setBlock(true);

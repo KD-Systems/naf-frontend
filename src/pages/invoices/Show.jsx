@@ -19,6 +19,7 @@ const ShowInvoice = () => {
     setInvoice(res);
   };
 
+
   const getPaymentHistories = async () => {
     let res = await InvoiceService.getPaymentHistories(id);
     setPaymentHistories(res.data);
@@ -152,6 +153,31 @@ const ShowInvoice = () => {
                   <div className="text-gray-600">
                     {invoice?.requisition?.ref_number ?? "--"}
                   </div>
+                </div>
+                  <div className="card-header">
+                  <div className="card-title">
+                  <h3 className="card-label">
+                    <Link
+                      className="btn btn-sm btn-dark "
+                      to={"/panel/invoices/" + invoice.id + "/print"}
+                      style={{ marginRight: "0.75rem" }}
+                      target="_blank"
+                    >
+                      Print
+                    </Link>
+                  </h3>
+                    <h3 className="card-label">
+                    <button
+                      className="btn btn-sm btn-dark "
+                      style={{ marginRight: "0.1rem" }}
+                      onClick={() => navigate(`/panel/delivery-notes/${invoice?.id}/create`)}
+                    >
+                       Generate Delivery Note
+                    </button>
+                    </h3>
+                    
+                  
+                  </div> 
                 </div>
               </div>
             </div>
@@ -321,6 +347,7 @@ const ShowInvoice = () => {
                       </div>
                     </div>
                   </div>
+                  
                 </div>
               </div>
             </div>
