@@ -12,7 +12,7 @@ const ShowDeliveryNotes = () => {
   const getDeliveryNotes = async () => {
     let res = await DeliverNoteService.get(id);
     setDeliveryNote(res);
-    let content = document.getElementById("content").innerHTML;
+    let content = document.getElementById("content").innerHTML; 
     document.body.innerHTML = content;
     window.print();
   };
@@ -82,6 +82,22 @@ const ShowDeliveryNotes = () => {
 
                   
                 </div>
+
+                <div className="card-header">
+                <div className="card-title">
+                  <h3 className="card-label">
+                    <Link
+                      className="btn btn-sm btn-dark "
+                      to={"/panel/delivery-notes/" + deliveryNote.id + "/print"}
+                      style={{ marginRight: "0.75rem" }}
+                      target="_blank"
+                    >
+                      Print
+                    </Link>
+                  </h3>
+                </div>
+              </div>
+
               </div>
             </div> 
             {/* div ends here */}

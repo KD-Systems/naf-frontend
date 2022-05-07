@@ -73,7 +73,7 @@ const DeliveryNotes = () => {
               className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
               target="_blank"
             >
-              <i className="fa fa-print"></i>
+              <i className="fa fa-print"></i> 
             </Link>
           </span>
         </>
