@@ -86,6 +86,7 @@ const Requisitions = () => {
           data={requisitions}
           columns={columns}
           onFilter={getRequisitions}
+          buttonPermission="requisitions_create"
         />
       </div>
     </div>

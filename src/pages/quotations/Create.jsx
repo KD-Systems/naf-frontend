@@ -57,7 +57,7 @@ const CreateQuotation = () => {
     setList(tempList);
   };
 
-  console.log(list);
+
 
   const increment = (item) => {
     const tempList = [...list];
@@ -226,8 +226,9 @@ const CreateQuotation = () => {
                   <div className="flex-grow-1 pt-8 mb-13">
                     <div className="table-responsive ">
                       <table className="table">
+                        
                         <thead>
-                          <tbody>
+                        
                           <tr className="fs-6 fw-bolder text-dark text-uppercase">
                             <th className="min-w-75px pb-9">SL.No</th>
                             <th className="min-w-70px pb-9 text-end">
@@ -250,7 +251,7 @@ const CreateQuotation = () => {
                             </th>
                             
                           </tr>
-                          </tbody>
+                        
                         </thead>
                         <tbody>
                           {list?.map((item, index) => (
@@ -261,8 +262,8 @@ const CreateQuotation = () => {
                               <td className="d-flex align-items-center pb-10">
                                 {index + 1}
                               </td>
-                              <td>{item?.part?.aliases[0].name}</td>
-                              <td>{item?.part?.aliases[0].part_number}</td>
+                              <td>{item?.part?.aliases[0]?.name}</td>
+                              <td>{item?.part?.aliases[0]?.part_number}</td>
                               <td>
                                 <input
                                   disabled
@@ -289,6 +290,7 @@ const CreateQuotation = () => {
                                   aria-describedby="inputGroup-sizing-sm"
                                   name="formula_price"
                                   placeholder="0TK"
+                                 
                                   value={
                                     item?.part?.stocks[
                                       item?.part?.stocks.length - 1

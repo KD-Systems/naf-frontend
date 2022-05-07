@@ -326,6 +326,8 @@ const SideMenu = () => {
               </div>
             </div>
 
+
+            <PermissionAbility permission="requisitions_access">
             <div className="menu-item">
               <NavLink
                 className={(navinfo) =>
@@ -339,6 +341,7 @@ const SideMenu = () => {
                 <span className="menu-title">Requisitions</span>
               </NavLink>
             </div>
+            </PermissionAbility>
 
             
             <div className="menu-item">
