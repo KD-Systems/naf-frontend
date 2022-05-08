@@ -405,7 +405,6 @@ const SideMenu = () => {
               </span>
             </div> */}
 
-            {/* For Reports */}
 
              <div className="menu-item">
               <div className="menu-content">
@@ -413,6 +412,8 @@ const SideMenu = () => {
               </div>
             </div>
 
+            {/* For Reports */}
+            
             {/*<div className="menu-item">
               <div className="menu-content pt-8 pb-2">
                 <span className="menu-section text-muted text-uppercase fs-8 ls-1">
