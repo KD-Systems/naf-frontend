@@ -1,4 +1,4 @@
-const PermissionAbility = ({
+const   PermissionAbility = ({
   children,
   permission
 }) => {

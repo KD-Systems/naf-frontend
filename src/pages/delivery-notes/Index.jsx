@@ -3,6 +3,7 @@ import Table from "components/utils/Table";
 import { Link, useNavigate } from "react-router-dom";
 import DeliverNoteService from "services/DeliverNoteService";
 import CreateDeliveryNote from "./Create";
+import PermissionAbility from "helpers/PermissionAbility";
 const DeliveryNotes = () => {
   const [loading, setLoading] = useState(false);
   const [block, setBlock] = useState(false);
@@ -58,12 +59,14 @@ const DeliveryNotes = () => {
         <>
           {/* to show delivery note */}
           <span className="text-end">
-            <Link
+          <PermissionAbility permission="deliverynotes_show">
+          <Link
               to={"/panel/delivery-notes/" + row.id + "/show"}
               className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
             >
               <i className="fa fa-eye"></i>
             </Link>
+          </PermissionAbility>
           </span>
 
           <span className="text-end">
@@ -93,6 +96,7 @@ const DeliveryNotes = () => {
             data={deliveryNotes}
             columns={columns}
             onFilter={getDeliverNotes}
+            buttonPermission="deliverynotes_create"
           />
         </div>
       </div>

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Table from "components/utils/Table";
 import { Link,useNavigate } from "react-router-dom";
 import RequisitionService from "services/RequisitionService";
+import PermissionAbility from "helpers/PermissionAbility";
 
 const Requisitions = () => {
   const [loading, setLoading] = useState(false);
@@ -51,13 +52,14 @@ const Requisitions = () => {
       selector: (row) => row.status,
       format: (row) => (
         <span className="text-end">
+          <PermissionAbility permission="requisitions_show">
           <Link
             to={"/panel/requisitions/" + row.id}
             className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
           >
             <i className="fa fa-eye"></i>
           </Link>
-     
+          </PermissionAbility>     
         </span>
       ),
     },

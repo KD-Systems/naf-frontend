@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import InvoiceService from "services/InvoiceService";
 import DeliverNoteService from "services/DeliverNoteService";
 import CreateInvoice from "./Create";
+import PermissionAbility from "helpers/PermissionAbility";
 const Invoices = () => {
   const [loading, setLoading] = useState(false);
   const [invoices, setInvoices] = useState([]);
@@ -85,12 +86,14 @@ const Invoices = () => {
       format: (row) => (
         <>
         <span className="text-end">
-          <Link
+        <PermissionAbility permission="invoices_show">
+        <Link
             to={"/panel/invoices/" + row.id}
             className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
           >
             <i className="fa fa-eye"></i>
           </Link>
+        </PermissionAbility>
      
         </span>
           <span className="text-end">
@@ -123,7 +126,7 @@ const Invoices = () => {
 
   const getInvoices = async (filters) => {
     setLoading(true);
-    setInvoices(await InvoiceService.getAll(filters));
+    setInvoices(await InvoiceService.getAll(filters)); 
     setLoading(false);
   };
 
@@ -140,6 +143,7 @@ const Invoices = () => {
           data={invoices}
           columns={columns}
           onFilter={getInvoices}
+          buttonPermission="invoices_create"
         />
       </div>
     </div>

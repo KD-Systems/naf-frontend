@@ -343,7 +343,7 @@ const SideMenu = () => {
             </div>
             </PermissionAbility>
 
-            
+            <PermissionAbility permission="quotations_access">
             <div className="menu-item">
               <NavLink
                 className={(navinfo) =>
@@ -357,8 +357,9 @@ const SideMenu = () => {
                 <span className="menu-title">Quotations</span>
               </NavLink>
             </div>
-
-   
+            </PermissionAbility>
+            
+            <PermissionAbility permission="invoices_access">
             <div className="menu-item">
               <NavLink
                 className={(navinfo) =>
@@ -372,7 +373,9 @@ const SideMenu = () => {
                 <span className="menu-title">Invoices</span>
               </NavLink>
             </div>
-
+            </PermissionAbility>
+          
+            <PermissionAbility permission="deliverynotes_access">
             <div className="menu-item">
               <NavLink
                 className={(navinfo) =>
@@ -386,8 +389,9 @@ const SideMenu = () => {
                 <span className="menu-title">Delivery Notes</span>
               </NavLink>
             </div>
+            </PermissionAbility>
 
-      
+            
 
             {/* <div
               data-kt-menu-trigger="click"
@@ -401,11 +405,42 @@ const SideMenu = () => {
               </span>
             </div> */}
 
-            <div className="menu-item">
+            {/* For Reports */}
+
+             <div className="menu-item">
               <div className="menu-content">
                 <div className="separator mx-1 my-2"></div>
               </div>
             </div>
+
+            {/*<div className="menu-item">
+              <div className="menu-content pt-8 pb-2">
+                <span className="menu-section text-muted text-uppercase fs-8 ls-1">
+                  Reports
+                </span>
+              </div>
+            </div>
+
+
+            <div className="menu-item">
+              <NavLink
+                className={(navinfo) =>
+                  navinfo.isActive ? "menu-link active" : "menu-link"
+                }
+                to="reports"
+              >
+                <span className="menu-icon">
+                <i className="fa fa-sticky-note"></i>
+                </span>
+                <span className="menu-title">Report List</span>
+              </NavLink>
+            </div>
+
+            <div className="menu-item">
+              <div className="menu-content">
+                <div className="separator mx-1 my-2"></div>
+              </div>
+            </div> */}
 
             <div className="menu-item">
               <NavLink
