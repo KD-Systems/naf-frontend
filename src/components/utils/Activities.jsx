@@ -20,14 +20,37 @@ export const Activities = ({ logName, modelId, self, tab }) => {
   };
 
   const getActivities = async () => {
+    let res = await ActivityService.getAll({
+      log_name: logName,
+      model_id: modelId,
+      self: self,
+    });
+
     setData(
-      await ActivityService.getAll({
-        log_name: logName,
-        model_id: modelId,
-        self: self,
+      res.map((dt) => {
+        dt["properties"]["attributes"] = parseAttributes(
+          dt.properties?.attributes
+        );
+        dt["properties"]["old"] = parseAttributes(dt.properties?.old);
+        return dt;
       })
     );
   };
+
+  const parseAttributes = (att) => {
+    if (!att) return [];
+
+    let keys = Object.keys(att);
+
+    
+
+    return keys.map((key) => {
+      return {
+        [key]: att[key],
+      };
+    });
+  };
+
 
   useEffect(() => {
     if (tab === "activities") getActivities();
@@ -71,6 +94,24 @@ export const Activities = ({ logName, modelId, self, tab }) => {
                       id={"properties-" + i}
                     >
                       <div className="d-flex align-items-center border border-dashed border-gray-300 rounded min-w-700px p-7">
+                        <div className="row">
+                          {item.event !== "created" && (
+                            <div className="col-md-12 text-end">
+                              {item.properties?.attributes.map((dt, index) => {
+                                return (
+                                  Object.keys(dt)[0] +
+                                  ": " +
+                                  Object.values(dt)[0]
+                                );
+                              })}
+                            </div>
+                          )}
+                          {item.event === "created" && (
+                            <div className="col-md-12 text-end">
+                              Nothing changed
+                            </div>
+                          )}
+                        </div>
                       </div>
                     </div>
 
@@ -108,46 +149,30 @@ export const Activities = ({ logName, modelId, self, tab }) => {
               </div>
             ))}
 
-            {
-              data.length === 0 && (
-                <div className="timeline-item">
-                  <div className="timeline-line w-40px"></div>
-                  <div className="timeline-icon symbol symbol-circle symbol-40px">
-                    <div className="symbol-label bg-light">
-                      <i className="fa fa-genderless"></i>
-                    </div>
+            {data.length === 0 && (
+              <div className="timeline-item">
+                <div className="timeline-line w-40px"></div>
+                <div className="timeline-icon symbol symbol-circle symbol-40px">
+                  <div className="symbol-label bg-light">
+                    <i className="fa fa-genderless"></i>
                   </div>
-                  <div className="timeline-content mb-12 mt-n2">
-                    <div className="overflow-auto pe-3">
-                      <div className="fs-5 fw-bold mb-2">No activities!</div>
-                      <div className="d-flex align-items-center mt-1 fs-6">
-                        <div className="symbol symbol-circle symbol-30px">
-                          <i className="fa fa-log"></i>
-                        </div>
+                </div>
+                <div className="timeline-content mb-12 mt-n2">
+                  <div className="overflow-auto pe-3">
+                    <div className="fs-5 fw-bold mb-2">No activities!</div>
+                    <div className="d-flex align-items-center mt-1 fs-6">
+                      <div className="symbol symbol-circle symbol-30px">
+                        <i className="fa fa-log"></i>
+                      </div>
 
-                        <div className="text-muted me-2 fs-7 m-2">
-                          Action at <span className="text-black">--:--</span>
-                        </div>
+                      <div className="text-muted me-2 fs-7 m-2">
+                        Action at <span className="text-black">--:--</span>
                       </div>
                     </div>
                   </div>
                 </div>
-              )
-
-              // <div className="timeline-item">
-              //     <div className="timeline-label text-gray-800 fs-6">
-              //         --:--
-              //     </div>
-              //     <div className="timeline-badge">
-              //         <i className="fa fa-genderless text-success fs-1"></i>
-              //     </div>
-              //     <div className="timeline-content d-flex">
-              //         <span className="text-gray-800 ps-3">
-              //             No activities!
-              //         </span>
-              //     </div>
-              // </div>
-            }
+              </div>
+            )}
           </div>
         </div>
       </div>
