@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import Moment from "react-moment";
 import RequisitionService from "../../services/RequisitionService";
 import { Activities } from "components/utils/Activities";
+import PermissionAbility from "helpers/PermissionAbility";
 const ShowRequisition = () => {
   let { id } = useParams();
   const navigate = useNavigate();
@@ -110,15 +111,19 @@ const ShowRequisition = () => {
               <div className="card-header">
                 <div className="card-title">
                   <h3 className="card-label">
-                    <Link
+                  <PermissionAbility permission="requisitions_print">
+                  <Link
                       className="btn btn-sm btn-dark "
-                      to={"/panel/requisitions/" + requisition.id + "/print"}
+                      to={"/panel/requisitions/" + requisition.id + "/print"}  
                       style={{ marginRight: "0.75rem" }}
                       target="_blank"
                     >
                       Print
                     </Link>
+                  </PermissionAbility>
                   </h3>
+
+                  <PermissionAbility permission="requisitions_generate_quotation">
                   <h3 className="card-label">
                     <button
                       className="btn btn-sm btn-dark "
@@ -130,6 +135,8 @@ const ShowRequisition = () => {
                       Generate Quotation
                     </button>
                   </h3>
+                  </PermissionAbility>
+                  
                 </div>
               </div>
             </div>

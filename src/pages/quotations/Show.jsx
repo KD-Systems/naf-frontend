@@ -4,6 +4,7 @@ import Moment from "react-moment";
 import QuotationService from "services/QuotationService";
 import InvoiceService from "services/InvoiceService";
 import { Activities } from "components/utils/Activities";
+import PermissionAbility from "helpers/PermissionAbility";
 const ShowQuotation = () => {
   let { id } = useParams();
   const navigate = useNavigate();
@@ -187,7 +188,8 @@ const ShowQuotation = () => {
               <div className="card-header">
                 <div className="card-title">
                   <h3 className="card-label">
-                    <button
+                  <PermissionAbility permission="quotations_generate_invoice">
+                  <button
                       className="btn btn-sm btn-dark "
                       style={{ marginRight: "0.1rem" }}
                       onClick={() => {
@@ -196,7 +198,10 @@ const ShowQuotation = () => {
                     >
                       Generate Invoice
                     </button>
+                  </PermissionAbility>
                   </h3>
+
+                  <PermissionAbility permission="quotations_lock">
                   {!locked ? (
                     <h3>
                       <button
@@ -216,6 +221,8 @@ const ShowQuotation = () => {
                       </button>
                     </h3>
                   )}
+                  </PermissionAbility>
+                  
                 </div>
               </div>
             </div>
@@ -361,6 +368,7 @@ const ShowQuotation = () => {
                               ))}
                             </tbody>
                           </table>
+                          <PermissionAbility permission="quotations_partItems_update">
                           {!locked ? (
                             <button
                               className="btn btn-sm btn-dark float-end fs-6 mt-5"
@@ -371,6 +379,8 @@ const ShowQuotation = () => {
                           ) : (
                             ""
                           )}
+                          </PermissionAbility>
+                          
                         </div>
                       </div>
                     </div>

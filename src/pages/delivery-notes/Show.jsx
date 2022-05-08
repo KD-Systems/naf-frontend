@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import Moment from "react-moment";
 import DeliverNoteService from "services/DeliverNoteService";
 import { Activities } from "components/utils/Activities";
+import PermissionAbility from "helpers/PermissionAbility";
 const ShowDeliveryNotes = () => {
   let { id } = useParams();
   const navigate = useNavigate();
@@ -87,6 +88,7 @@ const ShowDeliveryNotes = () => {
 
                 <div className="card-header">
                 <div className="card-title">
+                <PermissionAbility permission="deliverynotes_print">
                   <h3 className="card-label">
                     <Link
                       className="btn btn-sm btn-dark "
@@ -97,6 +99,7 @@ const ShowDeliveryNotes = () => {
                       Print
                     </Link>
                   </h3>
+                  </PermissionAbility>
                 </div>
               </div>
 

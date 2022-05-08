@@ -5,6 +5,7 @@ import InvoiceService from "services/InvoiceService";
 import InvoicePartItems from "./partiItems/Index";
 import InvoiceCreatePayment from "./paymentHistories/Create";
 import { Activities } from "components/utils/Activities";
+import PermissionAbility from "helpers/PermissionAbility";
 const ShowInvoice = () => {
   let { id } = useParams();
   const navigate = useNavigate();
@@ -156,6 +157,7 @@ const ShowInvoice = () => {
                 </div>
                   <div className="card-header">
                   <div className="card-title">
+                  <PermissionAbility permission="invoices_print">
                   <h3 className="card-label">
                     <Link
                       className="btn btn-sm btn-dark "
@@ -166,7 +168,10 @@ const ShowInvoice = () => {
                       Print
                     </Link>
                   </h3>
-                    <h3 className="card-label">
+                  </PermissionAbility>
+                  
+                  <PermissionAbility permission="invoices_generate_delivery_note">
+                  <h3 className="card-label">
                     <button
                       className="btn btn-sm btn-dark "
                       style={{ marginRight: "0.1rem" }}
@@ -175,6 +180,8 @@ const ShowInvoice = () => {
                        Generate Delivery Note
                     </button>
                     </h3>
+                  </PermissionAbility>
+                    
                     
                   
                   </div> 
@@ -252,7 +259,8 @@ const ShowInvoice = () => {
                             <h2>Payment Histories</h2>
                           </div>
                           <div className="card-toolbar">
-                            <button
+                          <PermissionAbility permission="invoices_payment"> 
+                          <button
                               type="button"
                               className="btn btn-light-primary"
                               onClick={() => {
@@ -297,6 +305,8 @@ const ShowInvoice = () => {
                               </span>
                               Add Payment
                             </button>
+                          </PermissionAbility>
+                            
                           </div>
                         </div>
                         <div className="card-body pt-0">
