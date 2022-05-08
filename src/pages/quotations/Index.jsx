@@ -3,6 +3,8 @@ import Table from "components/utils/Table";
 import { Link,useNavigate } from "react-router-dom";
 import QuotationService from 'services/QuotationService';
 import CreateModal from "./CreateModal";
+import PermissionAbility from "helpers/PermissionAbility";
+
 const Quotations = () => {
   const [loading, setLoading] = useState(false);
   const [quotations, setQuotations] = useState([]);
@@ -77,13 +79,14 @@ const Quotations = () => {
       selector: (row) => row.status,
       format: (row) => (
         <span className="text-end">
+          <PermissionAbility permission="quotations_show">
           <Link
             to={"/panel/quotations/" + row.id}
             className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
           >
             <i className="fa fa-eye"></i>
           </Link>
-     
+          </PermissionAbility>     
         </span>
       ),
     },
@@ -104,6 +107,7 @@ const Quotations = () => {
 
   return (
     <>
+    
     <div className="post d-flex flex-column-fluid">
       <div className="container-xxl">
         <Table
@@ -114,9 +118,12 @@ const Quotations = () => {
           data={quotations}
           columns={columns}
           onFilter={getQuotations}
+          buttonPermission="quotations_create"
         />
       </div>
     </div>
+    
+    
 
     <CreateModal
         open={open}
