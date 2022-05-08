@@ -97,16 +97,20 @@ const Invoices = () => {
      
         </span>
           <span className="text-end">
-            <Link
+          <PermissionAbility permission="invoices_print">
+          <Link
               to={"/panel/invoices/" + row.id + "/print"}
               className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
               target="_blank"
             >
               <i className="fa fa-print"></i>
             </Link>
+          </PermissionAbility>
+            
           </span>
           <span className="text-end">
-            <div
+          <PermissionAbility permission="invoices_generate_delivery_note">
+          <div
               // onClick={() => {
               //   storeDeliveryNotes(row);
               // }}
@@ -118,6 +122,8 @@ const Invoices = () => {
             >
               <i className="fa fa-plus"></i>
             </div>
+          </PermissionAbility>
+           
           </span>
         </>
       ),
