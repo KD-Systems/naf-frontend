@@ -414,7 +414,7 @@ const SideMenu = () => {
 
             {/* For Reports */}
             
-            {/*<div className="menu-item">
+            <div className="menu-item">
               <div className="menu-content pt-8 pb-2">
                 <span className="menu-section text-muted text-uppercase fs-8 ls-1">
                   Reports
@@ -433,7 +433,7 @@ const SideMenu = () => {
                 <span className="menu-icon">
                 <i className="fa fa-sticky-note"></i>
                 </span>
-                <span className="menu-title">Report List</span>
+                <span className="menu-title">Yearly Report List</span>
               </NavLink>
             </div>
 
@@ -441,7 +441,7 @@ const SideMenu = () => {
               <div className="menu-content">
                 <div className="separator mx-1 my-2"></div>
               </div>
-            </div> */}
+            </div>
 
             <div className="menu-item">
               <NavLink

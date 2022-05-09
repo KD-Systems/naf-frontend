@@ -50,7 +50,7 @@ import ShowInvoice from "pages/invoices/Show";
 import ShowPaymentHistories from "pages/invoices/paymentHistories/Show";
 import CreateDeliveryNote from "pages/delivery-notes/Create";
 import CreateDelivery from "pages/delivery-notes/CreateDelivery";
-import Reports from "pages/reports/report";
+import Reports from "pages/reports/Index";
 
 function App() {
   return (
@@ -494,14 +494,14 @@ function App() {
             />
 
             {/* Report Start */}
-            {/* <Route 
+            <Route 
             path="reports"
             element={
               <PrivateRoute>
                 <Reports/>
               </PrivateRoute>
             }
-            /> */}
+            />
 
             {/* Delivery Notes End; */}
             <Route path="*" element={<NotFound />} />
