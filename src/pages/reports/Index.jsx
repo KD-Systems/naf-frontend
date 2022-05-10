@@ -28,14 +28,14 @@ const Reports = () => {
     },
     {
       name: "Company",
-      selector: (row) => row?.invoice?.company?.name,
+      selector: (row) => row?.company_name,
       sortable: true,
       field: "name",
       format: (row) => (
         <div className="d-flex align-items-center">
           <div className="d-flex justify-content-start flex-column">
             <div className="text-dark fw-bolder text-hover-primary">
-              {row?.invoice?.company?.name}
+              {row?.company_name}
             </div>
           </div>
         </div>
@@ -43,14 +43,15 @@ const Reports = () => {
     },
     {
       name: "Part Name",
-      selector: (row) => row?.part_items?.map((item)=>item?.part?.aliases[0]?.name),
+      selector: (row) => row?.part_name,
       sortable: true,
       field: "name",
       format: (row) => (
         <div className="d-flex align-items-center">
           <div className="d-flex justify-content-start flex-column">
             <div className="text-dark fw-bolder text-hover-primary">
-           { row?.part_items?.map((item)=>item?.part?.aliases[0]?.name)}
+           {/* { row?.part_items?.map((item)=>item?.part?.aliases[0]?.name)} */}
+           {row?.part_name}
             </div>
           </div>
         </div>
@@ -58,18 +59,18 @@ const Reports = () => {
     },
     {
       name: "Part Number",
-      selector: (row) => row?.part_items?.map((item)=>item?.part?.aliases[0]?.part_number),
+      selector: (row) => row?.part_number,
       format: (row) => (
-        <div className="mt-2">{row?.part_items?.map((item)=>item?.part?.aliases[0]?.part_number)}</div>
+        <div className="mt-2">{row?.part_number}</div>
       ),
       sortable: true,
       field: "part_number",
     },
     {
       name: "Quantity",
-      selector: (row) => row?.part_items?.map((item)=>item?.quantity),
+      selector: (row) => row?.quantity,
       format: (row) => (
-        <div className="mt-2">{row?.part_items?.map((item)=>item?.quantity)}</div>
+        <div className="mt-2">{row?.quantity}</div>
       ),
       sortable: true,
       field: "quantity",
