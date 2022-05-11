@@ -8,15 +8,8 @@ const getAll = async (filters) => {
     return res.data;
 };
 
-const reportExcel = async()=>{
-  const res = await http.get("/monthly/sales");
-  
-  return res.data;
-}
-
 const ReportService = {
-    getAll,
-    reportExcel
+    getAll 
 };
   
 export default ReportService;

@@ -102,10 +102,6 @@ const Reports = () => {
     if (filter.order) //Just to avoid double load
     getReports(filter);
   }, [filter]);
-
-  useEffect(() =>{
-     ReportService.reportExcel();
-  },[]);
   return (
     <>
       <div className="post d-flex flex-column-fluid">
