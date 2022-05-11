@@ -18,6 +18,10 @@ const Reports = () => {
     setLoading(false);
   };
 
+  useEffect(()=>{
+    ReportService.salesExport()
+  },[])
+
 
   const columns = [
     {
@@ -50,7 +54,6 @@ const Reports = () => {
         <div className="d-flex align-items-center">
           <div className="d-flex justify-content-start flex-column">
             <div className="text-dark fw-bolder text-hover-primary">
-           {/* { row?.part_items?.map((item)=>item?.part?.aliases[0]?.name)} */}
            {row?.part_name}
             </div>
           </div>
@@ -87,6 +90,7 @@ const Reports = () => {
     },
 
   ];
+
 
 
   const filterData = (dt) => {

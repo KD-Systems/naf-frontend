@@ -8,8 +8,16 @@ const getAll = async (filters) => {
     return res.data;
 };
 
+const salesExport = async (filter)=>{
+  const res = await http.get("/report/sales/export", {
+    params: filter
+  });
+  return res.data;
+}
+
 const ReportService = {
-    getAll 
+    getAll ,
+    salesExport
 };
   
 export default ReportService;
