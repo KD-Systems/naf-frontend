@@ -24,27 +24,7 @@ const Reports = () => {
 
 
   const columns = [
-    {
-      name: "Id",
-      selector: (row) => row?.id,
-      sortable: true,
-      field: "id",
-    },
-    {
-      name: "Company",
-      selector: (row) => row?.company_name,
-      sortable: true,
-      field: "name",
-      format: (row) => (
-        <div className="d-flex align-items-center">
-          <div className="d-flex justify-content-start flex-column">
-            <div className="text-dark fw-bolder text-hover-primary">
-              {row?.company_name}
-            </div>
-          </div>
-        </div>
-      ),
-    },
+
     {
       name: "Part Name",
       selector: (row) => row?.part_name,
@@ -60,6 +40,8 @@ const Reports = () => {
         </div>
       ),
     },
+
+     
     {
       name: "Part Number",
       selector: (row) => row?.part_number,
@@ -69,6 +51,23 @@ const Reports = () => {
       sortable: true,
       field: "part_number",
     },
+  
+    {
+      name: "Company",
+      selector: (row) => row?.company_name,
+      sortable: true,
+      field: "name",
+      format: (row) => (
+        <div className="d-flex align-items-center">
+          <div className="d-flex justify-content-start flex-column">
+            <div className="text-dark fw-bolder text-hover-primary">
+              {row?.company_name}
+            </div>
+          </div>
+        </div>
+      ),
+    },
+
     {
       name: "Quantity",
       selector: (row) => row?.quantity,
@@ -107,9 +106,7 @@ const Reports = () => {
     getReports(filter);
   }, [filter]);
 
-  useEffect(() =>{
-     ReportService.reportExcel();
-  },[]);
+
   return (
     <>
       <div className="post d-flex flex-column-fluid">
