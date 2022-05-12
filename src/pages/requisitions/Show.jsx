@@ -124,22 +124,22 @@ const ShowRequisition = () => {
                   </h3>
                   {
                     requisition?.part_items?.map((item,index)=>(
-                      item?.part?.stocks[item?.part?.stocks.length - 1]?.selling_price
-                    ))
+                      item?.part?.stocks[item?.part?.stocks.length - 1]?.unit_value > 0
+                    )) ?           <PermissionAbility permission="requisitions_generate_quotation">
+                    <h3 className="card-label">
+                      <button
+                        className="btn btn-sm btn-dark "
+                        style={{ marginRight: "0.1rem" }}
+                        onClick={() =>
+                          navigate(`/panel/quotations/${requisition?.id}/create`)
+                        }
+                      >
+                        Generate Quotation
+                      </button>
+                    </h3>
+                    </PermissionAbility>:"out of stock"
                   }
-                  <PermissionAbility permission="requisitions_generate_quotation">
-                  <h3 className="card-label">
-                    <button
-                      className="btn btn-sm btn-dark "
-                      style={{ marginRight: "0.1rem" }}
-                      onClick={() =>
-                        navigate(`/panel/quotations/${requisition?.id}/create`)
-                      }
-                    >
-                      Generate Quotation
-                    </button>
-                  </h3>
-                  </PermissionAbility>
+        
                   
                 </div>
               </div>
