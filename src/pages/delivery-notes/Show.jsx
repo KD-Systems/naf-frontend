@@ -4,6 +4,7 @@ import Moment from "react-moment";
 import DeliverNoteService from "services/DeliverNoteService";
 import { Activities } from "components/utils/Activities";
 import PermissionAbility from "helpers/PermissionAbility";
+import Barcode from "react-barcode";
 const ShowDeliveryNotes = () => {
   let { id } = useParams();
   const navigate = useNavigate();
@@ -49,6 +50,16 @@ const ShowDeliveryNotes = () => {
                 <div className="card-body py-4">
                   <div className="fw-bolder mt-5">Delivery Note Number</div>
                   <div className="text-gray-600">{deliveryNote?.dn_number}</div>
+
+                  <div className="fw-bolder mt-5">Barcode Number</div>
+                  <div className="text-gray-600">
+                  <Barcode 
+                    value={deliveryNote?.dn_number}
+                    height= "50"
+                    format= "CODE128"
+                    className="w-100"
+                    />
+                  </div>
 
                   <div className="fw-bolder mt-5">Invoice Number</div>
                   <div className="text-gray-600">

@@ -8,11 +8,9 @@ const getAll = async (filters) => {
     return res.data;
 };
 
-const salesExport = async (filter)=>{
-  const res = await http.get("/report/sales/export", {
-    params: filter
-  });
-  return res.data;
+const salesExport = async ()=>{
+  const res = await http.get("/report/sales/export");
+  return res.data.url;
 }
 
 const ReportService = {
