@@ -96,7 +96,7 @@ const CreateQuotation = () => {
       requisition?.part_items?.map((dt) => {
         return {
           unit_value:
-            dt?.part?.stocks[dt?.part?.stocks.length - 1].selling_price,
+            dt?.part?.stocks[dt?.part?.stocks.length - 1]?.selling_price,
           id: dt.id,
         };
       })
