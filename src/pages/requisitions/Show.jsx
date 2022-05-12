@@ -124,10 +124,9 @@ const ShowRequisition = () => {
                   </h3>
                   {
                     requisition?.part_items?.map((item,index)=>(
-                      item?.part?.stocks[item?.part?.stocks.length - 1]?.selling_price
-                    ))
-                  }
-                  <PermissionAbility permission="requisitions_generate_quotation">
+                      item?.part?.stocks[item?.part?.stocks.length - 1]?.unit_value
+                    )) > 0 ? 
+                    <PermissionAbility permission="requisitions_generate_quotation">
                   <h3 className="card-label">
                     <button
                       className="btn btn-sm btn-dark "
@@ -140,6 +139,10 @@ const ShowRequisition = () => {
                     </button>
                   </h3>
                   </PermissionAbility>
+                  :
+                   <span className="badge badge-danger" style={{fontSize:"16px"}}>stock out</span> 
+                  }
+                  
                   
                 </div>
               </div>
