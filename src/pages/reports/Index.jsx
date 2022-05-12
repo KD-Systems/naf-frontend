@@ -20,12 +20,34 @@ const Reports = () => {
 
 
   const columns = [
+
     {
-      name: "Id",
-      selector: (row) => row?.id,
+      name: "Part Name",
+      selector: (row) => row?.part_name,
       sortable: true,
-      field: "id",
+      field: "name",
+      format: (row) => (
+        <div className="d-flex align-items-center">
+          <div className="d-flex justify-content-start flex-column">
+            <div className="text-dark fw-bolder text-hover-primary">
+           {row?.part_name}
+            </div>
+          </div>
+        </div>
+      ),
     },
+
+     
+    {
+      name: "Part Number",
+      selector: (row) => row?.part_number,
+      format: (row) => (
+        <div className="mt-2">{row?.part_number}</div>
+      ),
+      sortable: true,
+      field: "part_number",
+    },
+  
     {
       name: "Company",
       selector: (row) => row?.company_name,
@@ -41,31 +63,7 @@ const Reports = () => {
         </div>
       ),
     },
-    {
-      name: "Part Name",
-      selector: (row) => row?.part_name,
-      sortable: true,
-      field: "name",
-      format: (row) => (
-        <div className="d-flex align-items-center">
-          <div className="d-flex justify-content-start flex-column">
-            <div className="text-dark fw-bolder text-hover-primary">
-           {/* { row?.part_items?.map((item)=>item?.part?.aliases[0]?.name)} */}
-           {row?.part_name}
-            </div>
-          </div>
-        </div>
-      ),
-    },
-    {
-      name: "Part Number",
-      selector: (row) => row?.part_number,
-      format: (row) => (
-        <div className="mt-2">{row?.part_number}</div>
-      ),
-      sortable: true,
-      field: "part_number",
-    },
+
     {
       name: "Quantity",
       selector: (row) => row?.quantity,
@@ -89,6 +87,7 @@ const Reports = () => {
   ];
 
 
+
   const filterData = (dt) => {
     setFilter({
       ...filter,
@@ -102,6 +101,8 @@ const Reports = () => {
     if (filter.order) //Just to avoid double load
     getReports(filter);
   }, [filter]);
+
+
   return (
     <>
       <div className="post d-flex flex-column-fluid">

@@ -1,6 +1,47 @@
-import React from "react";
-
+import React, { useState,useEffect } from "react";
+import BarChart from "./BarChart";
+import {Chart as chartJS} from 'chart.js/auto';
+import ReportService from "services/ReportService";
 const Dashboard = () => {
+  const[sales, setSales] = useState([]);
+  const[labels,setLabels] = useState([]);
+  const[values,setValues] = useState([]);
+  const[totals,setTotals] = useState([]);
+
+  const getData = async () => {
+    let res = await ReportService.monthlySales();
+    var key = Object.keys(res?.monthly);
+    var value = Object.values(res?.monthly);
+    var total = (res?.total);
+    // console.log(total);
+    setSales(res);
+    if (key) {
+      setLabels(key)
+    }
+    if(value){
+      setValues(value)
+    }
+    if(total){
+      setTotals(total)
+    }
+  };
+  
+   const data = {
+    labels,
+    datasets: [
+      {
+        label: "Monthly Sales",
+        data: values.map((v)=>v),
+        backgroundColor: "rgba(255, 99, 132, 0.5)"
+      },
+    
+    ]
+  };
+  
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <div id="kt_content_container" className="container-xxl">
       <div className="row gy-5 g-xl-8">
@@ -273,16 +314,20 @@ const Dashboard = () => {
                     Sales
                   </span>
                   <span className="text-gray-400 fw-bold">
-                    Oct 8 - Oct 26 21
+                    
                   </span>
                 </div>
-                <div className="fw-bolder fs-3 text-primary">৳1,53,000</div>
+                <div className="fw-bolder fs-3 text-primary">Total Quantity : {totals}</div>
+                
               </div>
-              <div
-                className="mixed-widget-10-chart"
+
+              <div><BarChart className="mixed-widget-10-chart"
                 data-kt-color="primary"
-                style={{ height: "175px" }}
-              ></div>
+                style={{ height: "175px" }} chartData={data} /></div>
+
+              
+
+
             </div>
           </div>
           <div className="card card-xl-stretch-50 mb-5 mb-xl-8">
