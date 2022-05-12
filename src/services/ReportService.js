@@ -13,9 +13,16 @@ const salesExport = async ()=>{
   return res.data.url;
 }
 
+
+const monthlySales = async ()=>{
+  const res = await http.get("/report/monthly/sales");
+  return res.data;
+}
+
 const ReportService = {
     getAll ,
-    salesExport
+    salesExport,
+    monthlySales
 };
   
 export default ReportService;

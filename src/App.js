@@ -58,7 +58,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/panel/*" element={<AppLayout />}>
+          <Route path="/panel/*" element={<AppLayout />}> 
             
             <Route
               path="dashboard"
