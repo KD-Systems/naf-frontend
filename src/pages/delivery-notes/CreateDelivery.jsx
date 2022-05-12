@@ -23,6 +23,7 @@ const CreateDelivery = () => {
     invoice:invoice,
     part_items:list
   });
+  // console.log(data);
 
   const getParts = async () => {
     let res = await PartService.getAll(filter);
