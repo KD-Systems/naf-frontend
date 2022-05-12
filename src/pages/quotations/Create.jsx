@@ -57,8 +57,6 @@ const CreateQuotation = () => {
     setList(tempList);
   };
 
-
-
   const increment = (item) => {
     const tempList = [...list];
     const tempItem = tempList?.filter((val) => val?.id === item?.id);
@@ -226,9 +224,7 @@ const CreateQuotation = () => {
                   <div className="flex-grow-1 pt-8 mb-13">
                     <div className="table-responsive ">
                       <table className="table">
-                        
                         <thead>
-                        
                           <tr className="fs-6 fw-bolder text-dark text-uppercase">
                             <th className="min-w-75px pb-9">SL.No</th>
                             <th className="min-w-70px pb-9 text-end">
@@ -249,9 +245,7 @@ const CreateQuotation = () => {
                             <th className="min-w-100px pe-lg-6 pb-9 text-end">
                               Quantity
                             </th>
-                            
                           </tr>
-                        
                         </thead>
                         <tbody>
                           {list?.map((item, index) => (
@@ -276,7 +270,7 @@ const CreateQuotation = () => {
                                   value={
                                     item?.part?.stocks[
                                       item?.part?.stocks.length - 1
-                                    ].yen_price ?? ""
+                                    ]?.yen_price ?? ""
                                   }
                                   onChange={(e) => handleChange(e, item)}
                                 />
@@ -290,11 +284,10 @@ const CreateQuotation = () => {
                                   aria-describedby="inputGroup-sizing-sm"
                                   name="formula_price"
                                   placeholder="0TK"
-                                 
                                   value={
                                     item?.part?.stocks[
                                       item?.part?.stocks.length - 1
-                                    ].formula_price ?? ""
+                                    ]?.formula_price ?? ""
                                   }
                                   onChange={(e) => handleChange(e, item)}
                                 />
@@ -316,7 +309,7 @@ const CreateQuotation = () => {
                                   onChange={(e) => handleNewChange(e, item)}
                                 />
                               </td>
-
+                          
                               <td className="product-quantity">
                                 <div className="input-group input-group-sm">
                                   <div className="input-group-prepend">
