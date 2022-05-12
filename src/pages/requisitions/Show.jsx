@@ -122,7 +122,11 @@ const ShowRequisition = () => {
                     </Link>
                   </PermissionAbility>
                   </h3>
-
+                  {
+                    requisition?.part_items?.map((item,index)=>(
+                      item?.part?.stocks[item?.part?.stocks.length - 1]?.selling_price
+                    ))
+                  }
                   <PermissionAbility permission="requisitions_generate_quotation">
                   <h3 className="card-label">
                     <button
@@ -212,6 +216,7 @@ const ShowRequisition = () => {
                                     <td className=" fw-bolder mb-1 fs-6">
                                       <span>{item?.quantity}</span>
                                     </td>
+                                   
                                   </tr>
                                 ))}
                               </tbody>
