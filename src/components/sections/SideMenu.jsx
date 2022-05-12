@@ -3,17 +3,16 @@ import { NavLink } from "react-router-dom";
 import PermissionAbility from "helpers/PermissionAbility";
 
 const SideMenu = () => {
-  const [collapsed, setCollapsed] = useState(false)
+  const [collapsed, setCollapsed] = useState(false);
 
   useEffect(() => {
     let body = document.body;
     if (collapsed) {
-      body.setAttribute("data-kt-aside-minimize", "on")
+      body.setAttribute("data-kt-aside-minimize", "on");
+    } else {
+      body.setAttribute("data-kt-aside-minimize", "off");
     }
-    else {
-      body.setAttribute("data-kt-aside-minimize", "off")
-    }
-  }, [collapsed])
+  }, [collapsed]);
   return (
     <div
       id="kt_aside"
@@ -25,7 +24,6 @@ const SideMenu = () => {
       data-kt-drawer-width="{default:'200px', '300px': '250px'}"
       data-kt-drawer-direction="start"
       data-kt-drawer-toggle="#kt_aside_mobile_toggle"
-
     >
       <div className="aside-logo flex-column-auto" id="kt_aside_logo">
         <NavLink to="/panel/dashboard">
@@ -214,7 +212,6 @@ const SideMenu = () => {
               </div>
             </div>
 
-
             <PermissionAbility permission="companies_access">
               <div className="menu-item">
                 <NavLink
@@ -230,7 +227,6 @@ const SideMenu = () => {
                 </NavLink>
               </div>
             </PermissionAbility>
-
 
             <PermissionAbility permission="contracts_access">
               <div className="menu-item">
@@ -326,72 +322,83 @@ const SideMenu = () => {
               </div>
             </div>
 
-
             <PermissionAbility permission="requisitions_access">
-            <div className="menu-item">
-              <NavLink
-                className={(navinfo) =>
-                  navinfo.isActive ? "menu-link active" : "menu-link"
-                }
-                to="requisitions"
-              >
-                <span className="menu-icon">
-                  <i className="fas fa-tools"></i>
-                </span>
-                <span className="menu-title">Requisitions</span>
-              </NavLink>
-            </div>
+              <div className="menu-item">
+                <NavLink
+                  className={(navinfo) =>
+                    navinfo.isActive ? "menu-link active" : "menu-link"
+                  }
+                  to="requisitions"
+                >
+                  <span className="menu-icon">
+                    <i className="fas fa-tools"></i>
+                  </span>
+                  <span className="menu-title">Requisitions</span>
+                </NavLink>
+              </div>
             </PermissionAbility>
 
             <PermissionAbility permission="quotations_access">
-            <div className="menu-item">
-              <NavLink
-                className={(navinfo) =>
-                  navinfo.isActive ? "menu-link active" : "menu-link"
-                }
-                to="quotations"
-              >
-                <span className="menu-icon">
-                <i className="fas fa-money-bill"></i>
-                </span>
-                <span className="menu-title">Quotations</span>
-              </NavLink>
-            </div>
-            </PermissionAbility>
-            
-            <PermissionAbility permission="invoices_access">
-            <div className="menu-item">
-              <NavLink
-                className={(navinfo) =>
-                  navinfo.isActive ? "menu-link active" : "menu-link"
-                }
-                to="invoices"
-              >
-                <span className="menu-icon">
-                <i className="fa fa-credit-card"></i>
-                </span>
-                <span className="menu-title">Invoices</span>
-              </NavLink>
-            </div>
-            </PermissionAbility>
-          
-            <PermissionAbility permission="deliverynotes_access">
-            <div className="menu-item">
-              <NavLink
-                className={(navinfo) =>
-                  navinfo.isActive ? "menu-link active" : "menu-link"
-                }
-                to="delivery-notes"
-              >
-                <span className="menu-icon">
-                <i className="fa fa-sticky-note"></i>
-                </span>
-                <span className="menu-title">Delivery Notes</span>
-              </NavLink>
-            </div>
+              <div className="menu-item">
+                <NavLink
+                  className={(navinfo) =>
+                    navinfo.isActive ? "menu-link active" : "menu-link"
+                  }
+                  to="quotations"
+                >
+                  <span className="menu-icon">
+                    <i className="fas fa-money-bill"></i>
+                  </span>
+                  <span className="menu-title">Quotations</span>
+                </NavLink>
+              </div>
             </PermissionAbility>
 
-            
+            <PermissionAbility permission="invoices_access">
+              <div className="menu-item">
+                <NavLink
+                  className={(navinfo) =>
+                    navinfo.isActive ? "menu-link active" : "menu-link"
+                  }
+                  to="invoices"
+                >
+                  <span className="menu-icon">
+                    <i className="fa fa-credit-card"></i>
+                  </span>
+                  <span className="menu-title">Invoices</span>
+                </NavLink>
+              </div>
+            </PermissionAbility>
+
+            <PermissionAbility permission="deliverynotes_access">
+              <div className="menu-item">
+                <NavLink
+                  className={(navinfo) =>
+                    navinfo.isActive ? "menu-link active" : "menu-link"
+                  }
+                  to="delivery-notes"
+                >
+                  <span className="menu-icon">
+                    <i className="fa fa-sticky-note"></i>
+                  </span>
+                  <span className="menu-title">Delivery Notes</span>
+                </NavLink>
+              </div>
+            </PermissionAbility>
+
+            <div className="menu-item">
+                <NavLink
+                  className={(navinfo) =>
+                    navinfo.isActive ? "menu-link active" : "menu-link"
+                  }
+                  to="gate-passes"
+                >
+                  <span className="menu-icon">
+                    <i className="fa fa-truck"></i>
+                  </span>
+                  <span className="menu-title">Gate Passes</span>
+                </NavLink>
+              </div>
 
             {/* <div
               data-kt-menu-trigger="click"
@@ -405,15 +412,14 @@ const SideMenu = () => {
               </span>
             </div> */}
 
-
-             <div className="menu-item">
+            <div className="menu-item">
               <div className="menu-content">
                 <div className="separator mx-1 my-2"></div>
               </div>
             </div>
 
             {/* For Reports */}
-            
+
             <div className="menu-item">
               <div className="menu-content pt-8 pb-2">
                 <span className="menu-section text-muted text-uppercase fs-8 ls-1">
@@ -421,7 +427,6 @@ const SideMenu = () => {
                 </span>
               </div>
             </div>
-
 
             <div className="menu-item">
               <NavLink
@@ -431,7 +436,7 @@ const SideMenu = () => {
                 to="reports"
               >
                 <span className="menu-icon">
-                <i className="fa fa-sticky-note"></i>
+                  <i className="fa fa-sticky-note"></i>
                 </span>
                 <span className="menu-title">Yearly Report List</span>
               </NavLink>

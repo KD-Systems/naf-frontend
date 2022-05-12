@@ -51,6 +51,7 @@ import ShowPaymentHistories from "pages/invoices/paymentHistories/Show";
 import CreateDeliveryNote from "pages/delivery-notes/Create";
 import CreateDelivery from "pages/delivery-notes/CreateDelivery";
 import Reports from "pages/reports/Index";
+import GatePass from "pages/gate-passes/Index";
 
 function App() {
   return (
@@ -492,6 +493,8 @@ function App() {
                 </PrivateRoute>
               }
             />
+        
+            {/* Delivery Notes End; */}
 
             {/* Report Start */}
             <Route 
@@ -502,8 +505,18 @@ function App() {
               </PrivateRoute>
             }
             />
+            {/* Report End */}
 
-            {/* Delivery Notes End; */}
+            {/* Gate pass Start */}
+            <Route 
+            path="gate-passes"
+            element={
+              <PrivateRoute>
+                <GatePass/>
+              </PrivateRoute>
+            }
+            />
+            {/* Gate pass End */}
             <Route path="*" element={<NotFound />} />
           </Route>
 

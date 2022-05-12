@@ -18,7 +18,6 @@ const Reports = () => {
     setLoading(false);
   };
 
-
   const columns = [
 
     {
@@ -37,7 +36,6 @@ const Reports = () => {
       ),
     },
 
-     
     {
       name: "Part Number",
       selector: (row) => row?.part_number,
@@ -97,6 +95,14 @@ const Reports = () => {
     setEnableFilter(false)
   }
 
+  const exportSales = async()=>{
+    setLoading(true);
+    let data = await ReportService.salesExport();
+    window.location.href = data;
+    setLoading(false);
+
+  }
+
   useEffect(() => {
     if (filter.order) //Just to avoid double load
     getReports(filter);
@@ -113,6 +119,14 @@ const Reports = () => {
             data={reports}
             buttonName='Filter'
             onClickButton={() => { setEnableFilter(!enableFilter) }}
+            callbackButtons={[
+              {
+                name: 'Export',
+                callback: () => { exportSales() },
+                permission: null
+                
+              },
+            ]}
             columns={columns}
             onFilter={filterData}
           />
