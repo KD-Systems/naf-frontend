@@ -34,6 +34,7 @@ const CreateDelivery = () => {
 
     setParts(items);
   };
+  
 
   const getInvoice = async () => {
     let res = await InvoiceService.get(invoiceId);
@@ -42,6 +43,7 @@ const CreateDelivery = () => {
 
   const filterData = (e) => {
     let query = e.target.value;
+    
     setFilter({
       ...filter,
       q: query,
