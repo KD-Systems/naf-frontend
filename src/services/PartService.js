@@ -6,6 +6,12 @@ const getAll = async (filters) => {
   });
   return res.data;
 };
+const getGatePassPart = async (filters) => {
+  const res = await http.get("/gate-pass-parts", {
+    params: filters
+  });
+  return res.data;
+};
 
 const get = async (id) => {
   const res = await http.get(`/parts/${id}`);
@@ -42,7 +48,8 @@ const PartService = {
   create,
   update,
   remove,
-  importFile
+  importFile,
+  getGatePassPart
 };
 
 export default PartService;

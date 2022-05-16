@@ -2,7 +2,21 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import PartService from "services/PartService";
 import GatePassService from "services/GatePassService";
+import Modal from "react-modal";
+
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+  },
+};
+
 const GatePass = () => {
+  const [isModal, setIsModal] = useState(false);
   const [bgcolor, setBgcolor] = useState("bg-danger");
   const [loading, setLoading] = useState(false);
 
@@ -12,9 +26,10 @@ const GatePass = () => {
   const [partFilter, setPartFilter] = useState({});
   const [partSearchData, setPartSearchData] = useState({});
   const [selectedPart, setSelectedPart] = useState({});
-  const classNamevalue = "fw-bolder text-gray-700 fs-5 text-end";
+  const classNamevalue = "fw-bolder text-gray-700 fs-5 text-center m-10";
   const [color, setColor] = useState([]);
 
+  // Start DN Search
   const filterData = (e) => {
     let query = e.target.value;
     setFilter({
@@ -22,22 +37,19 @@ const GatePass = () => {
       q: query,
     });
   };
-
   const getDeliveryParts = async () => {
     let res = await GatePassService.getAll(filter);
     setSearchData(res.data);
     setLoading(true);
-    // let items = res.data?.map((dt) => {
-    //   return { label: dt.dn_number };
-    // });
-    // setParts(items);
   };
 
   const DeliveryNoteSearch = async (e) => {
     e.keyCode === 13 && (await getDeliveryParts());
     if (filter?.q === "") setSearchData([]);
   };
+  // End DN Search
 
+  // Start Part Search
   const PartfilterData = (e) => {
     let query = e.target.value;
     setPartFilter({
@@ -48,9 +60,9 @@ const GatePass = () => {
 
   const getParts = async () => {
     let res = await PartService.getAll(partFilter);
-    // console.log(res.data);
-    let part = res.data.length ? res.data[0] : {};  //taking part in variable
-    // setPartSearchData(res.data);
+    // let res = await PartService.getGatePassPart(partFilter);
+    let part = res.data.length ? res.data[0] : {}; //taking part in variable
+    // let part = res?.[0]; //taking part in variable
     let item = searchData?.part_items?.find(
       (dt) => dt?.part?.unique_id == part?.unique_id
     ); // finding specific part in delivery note part
@@ -58,20 +70,26 @@ const GatePass = () => {
       (dt) => dt?.part?.unique_id == part?.unique_id
     ); // taking index of part
 
-    //console.log(selectedPart);
     setColor({ ...color, [index]: "bg-success" });
-
     // if (item) setSelectedPart(item.part);
-    if (item) setSelectedPart(res.data);
-
-    if (!item) alert("Not found in the delivery note");
+    if (item) {
+      setSelectedPart(res.data);
+    }
+    if (!item) 
+    window.Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Not Found in Delivery Note'
+    });
   };
   // console.log(parts);
-
   const partSearch = async (e) => {
-    e.keyCode === 13 && (await getParts());
-    if (filter?.q === "") setSelectedPart([]);
+    if (e.key == "Enter") {
+      e.keyCode === 13 && (await getParts());
+      if (filter?.q === "") setSelectedPart([]);
+    }
   };
+  // End Part Search
 
   // const addPart = (item) => {
   //   var carry = [...color];
@@ -219,38 +237,54 @@ const GatePass = () => {
                                 onKeyUp={partSearch}
                               />
                               <div>
+                                
                                 {selectedPart.length > 0 ? (
                                   <div className="card border border-secondary ">
                                     <div className="card-body ">
-                                      {selectedPart?.map((item, index) => (
-                                        <>
-                                          <div key={index}>
-                                            <Link
-                                              to={item?.id}
-                                              style={{ color: "black" }}
-                                              // onClick={() => addPart(item)}
-                                            >
-                                              <p>
-                                                
-                                                <span>
-                                                  <img
-                                                    src={item.image}
-                                                    style={{
-                                                      height: "150px",
-                                                      width: "150px",
-                                                    }}
-                                                  />
-                                                </span>
-                                                <span>
-                                                  ({item.part_number})
-                                                </span>
-                                                <span>({item.name})</span>
-                                              </p>
-                                            </Link>
+                                    {selectedPart?.map((item, index) => (
+                                  <>
+                                    <div key={index}>
+                                      <div class="row">
+                                        <div class="col-md-6 p-1">
+                                          <img
+                                            src={item.image}
+                                            style={{
+                                              height: "150px",
+                                              width: "150px",
+                                            }}
+                                          />
+                                        </div>
+                                        <div class="col-md-6 align-self-center">
+                                          <div class="row">
+                                            <div class="col" style={{ width: 300 }}>
+                                              <h5>Unique ID :</h5><br/>
+                                              <h5>Name :</h5><br/>
+                                              <h5>Part Number :</h5><br/>
+                                            </div>
+                                            <div class="col">
+                                              <h3>{item.unique_id}</h3><br/>
+                                              <h3>{item.name}</h3><br/>
+                                              <h3>{item.part_number}</h3><br/>
+                                            </div>
                                           </div>
-                                          <hr />
-                                        </>
-                                      ))}
+                                        </div>
+                                      </div>
+                                    {/* <p>
+                                        <span>
+                                          <img
+                                            src={item.image}
+                                            style={{
+                                              height: "150px",
+                                              width: "150px",
+                                            }}
+                                          />
+                                        </span>
+                                        <span>({item.part_number})</span>
+                                        <span>({item.part_number})</span>
+                                      </p> */}
+                                    </div>
+                                  </>
+                                ))}
                                     </div>
                                   </div>
                                 ) : (
@@ -263,20 +297,21 @@ const GatePass = () => {
                             <table className="table">
                               <thead>
                                 <tr className="fs-6 fw-bolder text-dark text-uppercase">
-                                  <th className="min-w-70px pb-9 text-end">
+                                  <th className="min-w-70px pb-9 text-center">
                                     Parts Name
                                   </th>
-                                  <th className="min-w-80px pb-9 text-end">
+                                  <th className="min-w-80px pb-9 text-center">
                                     Parts Number
                                   </th>
 
-                                  <th className="min-w-100px pe-lg-6 pb-9 text-end">
+                                  <th className="min-w-100px pe-lg-6 pb-9 text-center">
                                     Quantity
                                   </th>
                                 </tr>
                               </thead>
                               <tbody>
                                 {searchData?.part_items?.map((item, index) => (
+                                  <>
                                   <tr
                                     className={
                                       classNamevalue + " " + color[index]
@@ -289,6 +324,8 @@ const GatePass = () => {
                                     </td>
                                     <td>{item?.quantity}</td>
                                   </tr>
+                                  <div className="pt-1"></div>
+                                  </>
                                 ))}
                               </tbody>
                             </table>
@@ -296,7 +333,7 @@ const GatePass = () => {
                         </div>
                       )}
 
-                      <div className="separator separator-dashed"></div>
+                      
                     </div>
                   </div>
                 </div>
@@ -305,6 +342,7 @@ const GatePass = () => {
           </div>
         </div>
       </div>
+      
     </div>
   );
 };

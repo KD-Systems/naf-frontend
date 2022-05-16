@@ -125,7 +125,8 @@ const ShowRequisition = () => {
                   {
                     requisition?.part_items?.map((item,index)=>(
                       item?.part?.stocks[item?.part?.stocks.length - 1]?.unit_value
-                    )) > 0 ? 
+                    ) > 0 )                    
+                    ? 
                     <PermissionAbility permission="requisitions_generate_quotation">
                   <h3 className="card-label">
                     <button

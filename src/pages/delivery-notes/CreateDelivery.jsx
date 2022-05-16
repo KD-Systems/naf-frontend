@@ -54,9 +54,12 @@ const CreateDelivery = () => {
 
   const addPart = (item) => {
     //* quantity Set
-    const res = invoice?.part_items?.forEach((it) => {
-      if (it.part_id == item.id) {
-        item["quantity"] = it.quantity;
+    const res = invoice?.part_items?.find((it) => 
+    it.part_id === item.id
+    );
+
+    if (res?.part_id == item.id) {
+        item["quantity"] = res.quantity;
         item['invoice_exists']=true
         item['quantity_match']=true
         
@@ -66,7 +69,7 @@ const CreateDelivery = () => {
         item['quantity_match']=true
        
       }
-    });
+    // console.log(res);
 
     //* Remove Duplicates
     let found = list.filter((val) => val.id == item.id);
