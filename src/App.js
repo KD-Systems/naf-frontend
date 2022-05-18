@@ -52,6 +52,7 @@ import CreateDeliveryNote from "pages/delivery-notes/Create";
 import CreateDelivery from "pages/delivery-notes/CreateDelivery";
 import Reports from "pages/reports/Index";
 import GatePass from "pages/gate-passes/Index";
+import PartStockReport from "pages/reports/PartStockReport";
 
 function App() {
   return (
@@ -502,6 +503,15 @@ function App() {
             element={
               <PrivateRoute>
                 <Reports/>
+              </PrivateRoute>
+            }
+            />
+
+            <Route 
+            path="part-stock-report"
+            element={
+              <PrivateRoute>
+                <PartStockReport/>
               </PrivateRoute>
             }
             />

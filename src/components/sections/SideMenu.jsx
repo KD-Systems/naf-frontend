@@ -438,7 +438,21 @@ const SideMenu = () => {
                 <span className="menu-icon">
                   <i className="fa fa-sticky-note"></i>
                 </span>
-                <span className="menu-title">Yearly Report List</span>
+                <span className="menu-title">Sales Report</span> 
+              </NavLink>
+            </div>
+
+            <div className="menu-item">
+              <NavLink
+                className={(navinfo) =>
+                  navinfo.isActive ? "menu-link active" : "menu-link"
+                }
+                to="part-stock-report"
+              >
+                <span className="menu-icon">
+                  <i className="fa fa-sticky-note"></i>
+                </span>
+                <span className="menu-title">Stock Report</span>
               </NavLink>
             </div>
 

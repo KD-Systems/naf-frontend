@@ -19,10 +19,18 @@ const monthlySales = async ()=>{
   return res.data;
 }
 
+const stockHistory = async (filters)=>{
+  const res = await http.get("/stock-histories", {
+    params: filters
+  });
+  return res.data;
+}
+
 const ReportService = {
     getAll ,
     salesExport,
-    monthlySales
+    monthlySales,
+    stockHistory
 };
   
 export default ReportService;
