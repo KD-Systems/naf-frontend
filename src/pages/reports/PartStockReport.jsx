@@ -65,7 +65,7 @@ const PartStockReport = () => {
         <div className="d-flex align-items-center">
           <div className="d-flex justify-content-start flex-column">
             <div className="text-dark fw-bolder text-hover-primary">
-              {row?.current_unit_value}
+              {row?.current_unit_value > row?.prev_unit_value ? <span style={{color:"green"}}>+ {row?.current_unit_value}</span> : <span style={{color:"red"}}>- {row?.current_unit_value}</span>}
             </div>
           </div>
         </div>
@@ -73,10 +73,10 @@ const PartStockReport = () => {
     },
 
     {
-      name: "Type",
+      name: "Unit",
       selector: (row) => row?.type,
       format: (row) => (
-        <div className="mt-2">{row?.type == "addition" ? <i className="fa fa-arrow-up" style={{color:"green",fontSize:"20px"}}></i>:<i className="fa fa-arrow-down" style={{color:"red",fontSize:"20px"}}></i>}</div>
+        <div className="mt-2">{row?.type == "addition" ? <i className="fa fa-sort-up" style={{color:"green",fontSize:"20px"}}></i>:<i className="fa fa-sort-down" style={{color:"red",fontSize:"20px"}}></i>}</div>
       ),
       sortable: true,
       field: "type",
@@ -89,6 +89,14 @@ const PartStockReport = () => {
       ...dt
     })
     setEnableFilter(false)
+  }
+
+  const exportSales = async()=>{
+    setLoading(true);
+    let data = await ReportService.salesExport();
+    window.location.href = data;
+    setLoading(false);
+
   }
 
   useEffect(() => {
@@ -106,14 +114,14 @@ const PartStockReport = () => {
             data={stockHistory}
             // buttonName='Filter'
             // onClickButton={() => { setEnableFilter(!enableFilter) }}
-            // callbackButtons={[
-            //   {
-            //     name: 'Export',
-            //     callback: () => { exportSales() },
-            //     permission: null
+            callbackButtons={[
+              {
+                name: 'Export',
+                callback: () => { exportSales() },
+                permission: null
                 
-            //   },
-            // ]}
+              },
+            ]}
             columns={columns}
             onFilter={filterData}
           />
