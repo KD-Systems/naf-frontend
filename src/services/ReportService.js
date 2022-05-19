@@ -13,6 +13,11 @@ const salesExport = async ()=>{
   return res.data.url;
 }
 
+const stockExport = async ()=>{
+  const res = await http.get("/report/stock/export");
+  return res.data.url;
+}
+
 
 const monthlySales = async ()=>{
   const res = await http.get("/report/monthly/sales");
@@ -30,7 +35,8 @@ const ReportService = {
     getAll ,
     salesExport,
     monthlySales,
-    stockHistory
+    stockHistory,
+    stockExport
 };
   
 export default ReportService;

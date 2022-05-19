@@ -47,25 +47,55 @@ const PartStockReport = () => {
     },
 
     {
+      name: "Box",
+      selector: (row) => row?.box_heading_name,
+      format: (row) => (
+        <Link
+              to={"/panel/box-headings/" + row?.box_heading_id}
+              className="text-dark text-hover-primary mt-2"
+            >
+              {row?.box_heading_name}
+            </Link>
+      ),
+      sortable: true,
+      field: "box_heading_name",
+    },
+
+    {
+      name: "WareHouse",
+      selector: (row) => row?.warehouse_name,
+      format: (row) => (
+        <Link
+              to={"/panel/warehouses/" + row?.warehouse_id}
+              className="text-dark text-hover-primary mt-2"
+            >
+              {row?.warehouse_name}
+            </Link>
+      ),
+      sortable: true,
+      field: "warehouse_name",
+    },
+
+    {
       name: "Previous Unit Value",
       selector: (row) => row?.prev_unit_value,
       format: (row) => (
-        <div className="mt-2">{row?.prev_unit_value}</div>
+        <div className="mt-2">{Math.round(row?.prev_unit_value)}</div>
       ),
       sortable: true,
       field: "prev_unit_value",
     },
   
     {
-      name: "Current Unit Value",
+      name: "Changed Unit Value",
       selector: (row) => row?.current_unit_value,
       sortable: true,
       field: "name",
       format: (row) => (
         <div className="d-flex align-items-center">
           <div className="d-flex justify-content-start flex-column">
-            <div className="text-dark fw-bolder text-hover-primary">
-              {row?.current_unit_value > row?.prev_unit_value ? <span style={{color:"green"}}>+ {row?.current_unit_value}</span> : <span style={{color:"red"}}>- {row?.current_unit_value}</span>}
+            <div className="text-dark text-hover-primary">
+              {row?.current_unit_value > row?.prev_unit_value ? <span style={{color:"green"}}>+ {row?.current_unit_value}</span> : <span style={{color:"red"}}>- {row?.prev_unit_value-row?.current_unit_value}</span>}
             </div>
           </div>
         </div>
@@ -93,7 +123,7 @@ const PartStockReport = () => {
 
   const exportSales = async()=>{
     setLoading(true);
-    let data = await ReportService.salesExport();
+    let data = await ReportService.stockExport();
     window.location.href = data;
     setLoading(false);
 
@@ -113,7 +143,7 @@ const PartStockReport = () => {
             isLoading={loading}
             data={stockHistory}
             // buttonName='Filter'
-            // onClickButton={() => { setEnableFilter(!enableFilter) }}
+            onClickButton={() => { setEnableFilter(!enableFilter) }}
             callbackButtons={[
               {
                 name: 'Export',

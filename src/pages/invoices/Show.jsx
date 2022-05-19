@@ -234,7 +234,24 @@ const ShowInvoice = () => {
                       Activities
                     </a>
                   </li>
+
+                  
+                {/* <li className="nav-item">
+                  <a
+                    className={`nav-link text-active-primary pb-4 ${
+                      tab == "delivery_notes" ? "active" : ""
+                    }`}
+                    data-bs-toggle="tab"
+                    href="#delivery_notes"
+                    onClick={() => setTab("delivery_notes")}
+                  >
+                    Delivery Notes
+                  </a>
+                </li> */}
+
+                
                 </ul>
+
 
                 <div className="tab-content">
                   {/* Tabs start from here */}

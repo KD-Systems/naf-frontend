@@ -202,11 +202,11 @@ const EditPartStock = ({ open, onCloseModal, onUpdated, stockId }) => {
                 type="text"
                 className="form-control"
                 placeholder="Write the notes"
-                name="note"
-                id="note"
+                name="notes"
+                id="notes"
                 onChange={handleChange}
               />
-              <div className="fv-plugins-message-container invalid-feedback" htmlFor="note"></div>
+              <div className="fv-plugins-message-container invalid-feedback" htmlFor="notes"></div>
             </div>
 
             <button
