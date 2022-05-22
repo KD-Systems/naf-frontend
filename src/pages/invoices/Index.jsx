@@ -60,7 +60,7 @@ const Invoices = () => {
       selector: (row) => row?.part_items?.reduce((partialSum,a)=>partialSum + a.quantity ,0),
       format: (row) => (
         <div className="mt-2">
-          {row?.part_items?.reduce((partialSum,a)=>partialSum + a.quantity ,0)}
+          {row?.part_items?.reduce((partialSum,a)=>partialSum + a.quantity ,0)} 
         </div>
       ),
       sortable: true,

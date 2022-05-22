@@ -385,7 +385,8 @@ const SideMenu = () => {
                 </NavLink>
               </div>
             </PermissionAbility>
-
+            
+            <PermissionAbility permission="gate_pass_access">
             <div className="menu-item">
                 <NavLink
                   className={(navinfo) =>
@@ -399,18 +400,8 @@ const SideMenu = () => {
                   <span className="menu-title">Gate Passes</span>
                 </NavLink>
               </div>
-
-            {/* <div
-              data-kt-menu-trigger="click"
-              className="menu-item menu-accordion"
-            >
-              <span className="menu-link">
-                <span className="menu-icon">
-                  <i className="fa fa-sticky-note"></i>
-                </span>
-                <span className="menu-title">Delivery Notes</span>
-              </span>
-            </div> */}
+            </PermissionAbility>
+            
 
             <div className="menu-item">
               <div className="menu-content">
@@ -428,6 +419,7 @@ const SideMenu = () => {
               </div>
             </div>
 
+            <PermissionAbility permission="sales_report_access">
             <div className="menu-item">
               <NavLink
                 className={(navinfo) =>
@@ -441,7 +433,9 @@ const SideMenu = () => {
                 <span className="menu-title">Sales Report</span> 
               </NavLink>
             </div>
-
+            </PermissionAbility>
+            
+            <PermissionAbility permission="stock_report_access">
             <div className="menu-item">
               <NavLink
                 className={(navinfo) =>
@@ -455,6 +449,8 @@ const SideMenu = () => {
                 <span className="menu-title">Stock Report</span>
               </NavLink>
             </div>
+            </PermissionAbility>
+            
 
             <div className="menu-item">
               <div className="menu-content">
