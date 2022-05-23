@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Scrollbars } from 'react-custom-scrollbars';
 import Moment from "react-moment";
 import { Link } from "react-router-dom";
 import ActivityService from "services/ActivityService";
@@ -68,6 +69,7 @@ export const Activities = ({ logName, modelId, self, tab }) => {
             <span className="fw-bolder mb-2 text-dark">Activities</span>
           </h3>
         </div>
+        <Scrollbars style={{ width: 800, height: 400 }}>
         <div className="card-body pt-5">
           <div className="timeline">
             {data.map((item, i) => (
@@ -175,6 +177,8 @@ export const Activities = ({ logName, modelId, self, tab }) => {
             )}
           </div>
         </div>
+        </Scrollbars>
+        
       </div>
     </div>
   );

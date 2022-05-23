@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Activities } from "components/utils/Activities";
 import { useParams } from "react-router-dom";
 import CompanyService from "services/CompanyService";
 import CompanyInfo from "./sections/Info";
@@ -62,6 +63,18 @@ const ShowCompany = () => {
                   }}
                 >
                   Machines
+                </a>
+              </li>
+              <li className="nav-item">
+                <a
+                  className="nav-link text-active-primary pb-4"
+                  data-bs-toggle="tab"
+                  href="#activities"
+                  onClick={() => {
+                    setActive("activities");
+                  }}
+                >
+                  Activities
                 </a>
               </li>
             </ul>
@@ -139,6 +152,16 @@ const ShowCompany = () => {
                 <CompanyMachines active={active} companyId={company.id} />
               </PermissionAbility>
               {/* Tabs end from here */}
+              <div
+                className="tab-pane fade show active"
+                id="activities"
+                role="tabpanel"
+              >
+                <div className="card card-xl-stretch mb-xl-10">
+                    <Activities logName="companies" modelId={id} tab={active}/>
+                  </div>
+              </div>
+
             </div>
           </div>
         </div>

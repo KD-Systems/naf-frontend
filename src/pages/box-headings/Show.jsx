@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Activities } from "components/utils/Activities";
 import { useParams, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import BoxHeadingService from "services/BoxHeadingService";
@@ -6,9 +7,10 @@ import BoxHeadingService from "services/BoxHeadingService";
 const BoxHeadingShow = () => {
   const [loading, setLoading] = useState(true);
   const [parts, setParts] = useState([]);
+  const [tab, setTab] = useState("parts");
   let { boxId } = useParams();
   const navigate = useNavigate();
-  const [boxHeading, setBoxHeading] = useState(null);
+  const [boxHeading, setBoxHeading] = useState(null); 
 
   const getBoxHeading = async () => {
     setBoxHeading(await BoxHeadingService.get(boxId));
@@ -69,13 +71,28 @@ const BoxHeadingShow = () => {
             <ul className="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-bold mb-8">
               <li className="nav-item">
                 <a
-                  className="nav-link text-active-primary pb-4 active"
+                  className={`nav-link text-active-primary pb-4 ${
+                    tab == "parts" ? "active" : ""
+                  }`}
                   data-bs-toggle="tab"
                   href="#parts"
+                  onClick={() => setTab("parts")}
                 >
                   Parts
                 </a>
               </li>
+              <li className="nav-item">
+                  <a
+                    className={`nav-link text-active-primary pb-4 ${
+                      tab == "activities" ? "active" : ""
+                    }`}
+                    data-bs-toggle="tab"
+                    href="#activities"
+                    onClick={() => setTab("activities")}
+                  >
+                    Activities
+                  </a>
+                </li>
             </ul>
 
             <div className="tab-content" id="myTabContent">
@@ -130,7 +147,7 @@ const BoxHeadingShow = () => {
                                   </div>
                                 </div>
                               </td>
-                              <td>{item.part_number}</td>
+                              <td>{item.part_number}</td> 
                               <td>{item.machines}</td>
                             </tr>
                           ))}
@@ -140,6 +157,17 @@ const BoxHeadingShow = () => {
                   </div>
                 </div>
               </div>
+              {/* end parts */}
+              <div
+                className="tab-pane fade show active"
+                id="activities"
+                role="tabpanel"
+              >
+                <div className="card card-xl-stretch mb-xl-10">
+                    <Activities logName="boxheading" modelId={boxId} tab={tab}/>
+                  </div>
+              </div>
+              {/* end activities */}
             </div>
           </div>
         </div>

@@ -236,7 +236,7 @@ const ShowInvoice = () => {
                   </li>
 
                   
-                <li className="nav-item">
+                {/* <li className="nav-item">
                   <a
                     className={`nav-link text-active-primary pb-4 ${
                       tab == "delivery_notes" ? "active" : ""
@@ -247,7 +247,7 @@ const ShowInvoice = () => {
                   >
                     Delivery Notes
                   </a>
-                </li>
+                </li> */}
 
                 
                 </ul>

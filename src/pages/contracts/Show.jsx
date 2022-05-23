@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Activities } from "components/utils/Activities";
 import Moment from "react-moment";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import ContractService from 'services/ContractService';
@@ -122,11 +123,28 @@ const ShowContract = () => {
                     Machine Models
                   </a>
                 </li>
+                <li className="nav-item">
+                  <a
+                    className={`nav-link text-active-primary pb-4 ${tab === "activities" ? "active" : ""
+                      }`}
+                    data-bs-toggle="tab"
+                    href="#activities"
+                    onClick={() => setTab("activities")}
+                  >
+                    Activities
+                  </a>
+                </li>
+
               </ul>
 
               <div className="tab-content" id="machines">
                 <div className="tab-content">
                   <MachineModels tab={tab} models={data.machine_models} />
+                </div>
+              </div>
+              <div className="tab-content" id="machines">
+                <div className="tab-content">
+                <Activities logName="contracts" modelId={id} tab={tab}/>
                 </div>
               </div>
             </div>

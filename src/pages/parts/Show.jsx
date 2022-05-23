@@ -24,6 +24,7 @@ const ShowPart = () => {
   const getPart = async () => {
     setData(await PartService.get(id));
   };
+  // console.log(data);
 
   function printBarcode() {
     let content = document.getElementById("barcode").innerHTML;
@@ -93,7 +94,7 @@ const ShowPart = () => {
                     <div className="fw-bolder mt-5">Description</div>
                     <div className="text-gray-600">
                       <span className="text-gray-600 text-hover-primary">
-                        {data.descriptions}
+                        {data.description}
                       </span>
                     </div>
 

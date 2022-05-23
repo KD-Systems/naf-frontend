@@ -32,7 +32,7 @@ const stockHistory = async (filters)=>{
 }
 
 const ReportService = {
-    getAll ,
+    getAll,
     salesExport,
     monthlySales,
     stockHistory,
