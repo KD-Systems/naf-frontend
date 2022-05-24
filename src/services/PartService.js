@@ -16,6 +16,7 @@ const getGatePassPart = async (filters) => {
 const get = async (id) => {
   const res = await http.get(`/parts/${id}`);
   return res.data;
+  
 };
 
 const create = async (data) => {

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PermissionAbility from "helpers/PermissionAbility";
 import { Link, useParams } from 'react-router-dom';
 import Confirmation from 'components/utils/Confirmation';
 import AddPartStock from './Create';
@@ -56,12 +57,14 @@ const PartStocks = ({ tab, part, onChange }) => {
           </h3>
 
           <div className="card-toolbar">
+          <PermissionAbility permission="parts_stocks_add">
             <button
               className="btn btn-light-primary btn-md"
               onClick={() => setOpen(true)}
             >
               Add New Stock
             </button>
+            </PermissionAbility>
           </div>
 
         </div>
@@ -127,19 +130,27 @@ const PartStocks = ({ tab, part, onChange }) => {
                     </td>
 
                     <td className="text-end">
+                    <PermissionAbility permission="parts_stocks_show">
                       <Link className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1' to={"/panel/parts/" + id + "/stocks/" + item.id}>
                         <i className="fa fa-eye"></i>
                       </Link>
+                      </PermissionAbility>
+
+                      <PermissionAbility permission="parts_stocks_edit">
                       <button onClick={() => { setStockId(item.id); setUpdateOpen(true); }} className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                         <i className="fa fa-pen"></i>
                       </button>
-
+                      </PermissionAbility>
+                      
+                      <PermissionAbility permission="parts_stocks_delete">
                       <button
                         onClick={() => { setStockId(item.id); setConfirmDelete(true) }}
                         className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
                       >
                         <i className="fa fa-trash"></i>
                       </button>
+                      </PermissionAbility>
+                      
                     </td>
                   </tr>
                 ))}

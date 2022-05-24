@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import PermissionAbility from "helpers/PermissionAbility";
 import Confirmation from 'components/utils/Confirmation';
 import PartAliasService from 'services/PartAliasService';
 import CreatePartAlias from './Create';
@@ -52,12 +53,14 @@ const PartAliases = ({ tab }) => {
           </h3>
 
           <div className="card-toolbar">
+          <PermissionAbility permission="parts_aliases_add">
             <button
               className="btn btn-light-primary btn-md"
               onClick={() => setOpen(true)}
             >
               Create Alias
             </button>
+            </PermissionAbility>
           </div>
 
         </div>
@@ -113,23 +116,30 @@ const PartAliases = ({ tab }) => {
                     </td>
 
                     <td className="text-end">
+                      <PermissionAbility permission="parts_aliases_show">
                       <Link
                         to={"/panel/parts/" +id+ '/aliases/' + item.id}
                         className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
                       >
                         <i className="fa fa-eye"></i>
                       </Link>
+                      </PermissionAbility>
 
+                      <PermissionAbility permission="parts_aliases_edit">
                       <button onClick={() => { setAliasId(item.id); setUpdateOpen(true); }} className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                         <i className="fa fa-pen"></i>
                       </button>
-
+                      </PermissionAbility>
+                      
+                      <PermissionAbility permission="parts_aliases_delete">
                       <button
                         onClick={() => { setAliasId(item.id); setConfirmDelete(true) }}
                         className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
                       >
                         <i className="fa fa-trash"></i>
                       </button>
+                      </PermissionAbility>
+                      
                     </td>
                   </tr>
                 ))}
