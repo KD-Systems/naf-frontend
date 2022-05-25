@@ -115,7 +115,7 @@ const Contracts = () => {
       selector: row => row.status,
       format: row => (
         <span className="text-end">
-           <PermissionAbility permission="companies_show">
+           <PermissionAbility permission="contracts_show">
           <Link
             to={"/panel/contracts/" + row.id}
             className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
@@ -123,7 +123,7 @@ const Contracts = () => {
             <i className="fa fa-eye"></i>
           </Link>
           </PermissionAbility>
-          <PermissionAbility permission="companies_edit">
+          <PermissionAbility permission="contracts_edit">
           <button
             className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
             onClick={() => {
@@ -134,7 +134,7 @@ const Contracts = () => {
             <i className="fa fa-pen"></i>
           </button>
           </PermissionAbility>
-          <PermissionAbility permission="companies_delete">
+          <PermissionAbility permission="contracts_delete">
           <button
             className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
             onClick={() => { setContractId(row.id); setConfirmDelete(true) }}
@@ -170,6 +170,7 @@ const Contracts = () => {
   return (
     <>
       <div className="post d-flex flex-column-fluid">
+      <PermissionAbility permission="contracts_create">
         <div className="container-xxl">
           <Table
             name="Contracts"
@@ -180,6 +181,7 @@ const Contracts = () => {
             onFilter={getContracts}
           />
         </div>
+        </PermissionAbility>
       </div>
 
       <Confirmation

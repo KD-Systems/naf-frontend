@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Activities } from "components/utils/Activities";
 import { useParams, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import WareHouseService from "services/WareHouseService";
@@ -8,6 +9,7 @@ import PermissionAbility from "helpers/PermissionAbility";
 
 const WareHouseShow = () => {
   const [loading, setLoading] = useState(true);
+  const [tab, setTab] = useState("parts");
   const [parts, setParts] = useState([]);
   let { id } = useParams();
   const navigate = useNavigate();
@@ -111,23 +113,62 @@ const WareHouseShow = () => {
             </div>
           </div>
           <div className="col-xl-8">
-            <div className="card card-custom gutter-b">
-              <PermissionAbility permission="warehouses_parts_access">
-              <div className="card-header card-header-tabs-line">
+            <div className="flex-lg-row-fluid ms-lg-15">
+              {/* <div className="card-header card-header-tabs-line">
                 <div className="card-toolbar">
                   {" "}
                   <div className="card-title">
                     <h3 className="card-label">Parts List</h3>
                   </div>
                 </div>
-              </div>
+              </div> */}
+              <ul className="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-bold mb-8">
+              <PermissionAbility permission="warehouses_parts_access">
+              <li className="nav-item">
+                <a
+                  className={`nav-link text-active-primary pb-4 ${
+                    tab == "parts" ? "active" : ""
+                  }`}
+                  data-bs-toggle="tab"
+                  href="#parts"
+                  onClick={() => setTab("parts")}
+                >
+                  Parts List
+                </a>
+              </li>
+              </PermissionAbility>
+              
+              <li className="nav-item">
+                  <a
+                    className={`nav-link text-active-primary pb-4 ${
+                      tab == "activities" ? "active" : ""
+                    }`}
+                    data-bs-toggle="tab"
+                    href="#activities"
+                    onClick={() => setTab("activities")}
+                  >
+                    Activities
+                  </a>
+                </li>
+            </ul>
 
-              <div className="card-body px-0">
-                <div className="card mb-5 mb-xl-8">
+            
+
+
+            <div className="tab-content"> 
+            <PermissionAbility permission="warehouses_parts_access">
+            <div
+                   className={`tab-pane fade ${tab == "parts" ? "active show" : ""
+                  }`}
+                  id="parts"
+                  role="tabpanel"
+                >
+                  <div className="card mb-5 mb-xl-8">
                   <div className="card-body py-3">
                     <Table
                       name="Parts"
-                      isLoading={loading} data={parts}
+                      isLoading={loading}
+                      data={parts} 
                       columns={columns}
                       onFilter={getParts}
                     />
@@ -165,8 +206,13 @@ const WareHouseShow = () => {
                     </div> */}
                   </div>
                 </div>
+                </div>
+            </PermissionAbility>
+
+                <Activities logName="warehouses" modelId={id} tab={tab}/>
               </div>
-              </PermissionAbility>
+
+              
             </div>
           </div>
         </div>

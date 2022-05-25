@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PermissionAbility from "helpers/PermissionAbility";
 import { Activities } from "components/utils/Activities";
 import { useParams, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -69,7 +70,8 @@ const BoxHeadingShow = () => {
 
           <div className="flex-lg-row-fluid ms-lg-15">
             <ul className="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-bold mb-8">
-              <li className="nav-item">
+            <PermissionAbility permission="box_heading_parts_access">
+            <li className="nav-item">
                 <a
                   className={`nav-link text-active-primary pb-4 ${
                     tab == "parts" ? "active" : ""
@@ -81,9 +83,11 @@ const BoxHeadingShow = () => {
                   Parts
                 </a>
               </li>
+            </PermissionAbility>
+              
               <li className="nav-item">
                   <a
-                    className={`nav-link text-active-primary pb-4 ${
+                    className={`nav-link text-active-primary pb-4 ${ 
                       tab == "activities" ? "active" : ""
                     }`}
                     data-bs-toggle="tab"
@@ -96,7 +100,8 @@ const BoxHeadingShow = () => {
             </ul>
 
             <div className="tab-content" id="myTabContent">
-              <div
+            <PermissionAbility permission="box_heading_parts_access">
+            <div
                 className="tab-pane fade show active"
                 id="parts"
                 role="tabpanel"
@@ -157,9 +162,11 @@ const BoxHeadingShow = () => {
                   </div>
                 </div>
               </div>
+            </PermissionAbility>
+              
               {/* end parts */}
               <div
-                className="tab-pane fade show active"
+                className="tab-pane fade show"
                 id="activities"
                 role="tabpanel"
               >

@@ -4,6 +4,7 @@ import Moment from "react-moment";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import ContractService from 'services/ContractService';
 import MachineModels from "./machines/Index";
+import PermissionAbility from "helpers/PermissionAbility";
 
 const ShowContract = () => {
   const [tab, setTab] = useState("machines");
@@ -112,6 +113,7 @@ const ShowContract = () => {
 
             <div className="flex-lg-row-fluid ms-lg-15">
               <ul className="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-bold mb-8">
+              <PermissionAbility permission="contracts_machine_model_access">
                 <li className="nav-item">
                   <a
                     className={`nav-link text-active-primary pb-4 ${tab === "machines" ? "active" : ""
@@ -123,6 +125,7 @@ const ShowContract = () => {
                     Machine Models
                   </a>
                 </li>
+                </PermissionAbility>
                 <li className="nav-item">
                   <a
                     className={`nav-link text-active-primary pb-4 ${tab === "activities" ? "active" : ""
@@ -138,9 +141,11 @@ const ShowContract = () => {
               </ul>
 
               <div className="tab-content" id="machines">
+              <PermissionAbility permission="contracts_machine_model_access">
                 <div className="tab-content">
                   <MachineModels tab={tab} models={data.machine_models} />
                 </div>
+                </PermissionAbility>
               </div>
               <div className="tab-content" id="machines">
                 <div className="tab-content">

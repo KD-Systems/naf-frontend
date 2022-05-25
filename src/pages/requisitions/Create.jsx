@@ -89,7 +89,6 @@ const RequisitionCreate = () => {
   const addPart = (item) => {
     item['quantity'] = 0;
     const newList = list.concat(item)
-    console.log(item);
     setList(Array.from(new Set(newList))) /* add part in the List and remove duplicates from array */
     setSelectedPart(true)
     setFilter({ ...filter, q: "" })
@@ -168,6 +167,8 @@ const RequisitionCreate = () => {
 
   const getParts = async () => {
     let res = await PartService.getAll(filter);
+    
+    console.log("manto",res);
     setSearchData(res.data);
     let items = res.data?.map((dt) => {
       return { label: dt.name, value: dt.id };

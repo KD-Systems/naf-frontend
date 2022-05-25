@@ -153,7 +153,7 @@ const ShowCompany = () => {
               </PermissionAbility>
               {/* Tabs end from here */}
               <div
-                className="tab-pane fade show active"
+                className="tab-pane fade show"
                 id="activities"
                 role="tabpanel"
               >
