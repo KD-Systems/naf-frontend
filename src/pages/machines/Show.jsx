@@ -93,15 +93,14 @@ const ShowMachine = () => {
               </ul>
 
               <div className="tab-content">
-                <PermissionAbility permission="machines_model_part_headings_access">
+                <PermissionAbility permission="machines_model_access">
                 <MachineModels tab={tab} models={data.models} onChange={getMachines} />
                 </PermissionAbility>
-                <PermissionAbility permission="machines_model_access">
+                <PermissionAbility permission="machines_part_headings_access">
                 <PartHeadings tab={tab}/>
                 </PermissionAbility>
-                <PermissionAbility permission="machines_part_headings_access">
                 <Activities logName="machines" modelId={id} tab={tab} />
-                </PermissionAbility>
+                
               </div>
               
             </div>

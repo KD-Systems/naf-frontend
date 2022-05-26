@@ -4,6 +4,7 @@ import Confirmation from 'components/utils/Confirmation';
 import MachineModelService from "services/MachineModelService";
 import CreateMachineModel from "./Create";
 import EditMachineModel from "./Edit";
+import PermissionAbility from 'helpers/PermissionAbility';
 
 const MachineModels = ({ tab, models, onChange }) => {
   let { id } = useParams();
@@ -47,12 +48,14 @@ const MachineModels = ({ tab, models, onChange }) => {
           </h3>
 
           <div className="card-toolbar">
+          <PermissionAbility permission="machines_model_add"> 
             <button
               className="btn btn-light-primary btn-md"
               onClick={() => setOpen(true)}
             >
               Add Model
             </button>
+            </PermissionAbility>
           </div>
 
         </div>
@@ -91,23 +94,28 @@ const MachineModels = ({ tab, models, onChange }) => {
                     <td>{item.space}</td>
 
                     <td className="text-end">
+                    <PermissionAbility permission="machines_model_show">
                       <Link
                         to={"/panel/machines/" + id + '/models/' + item.id}
                         className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
                       >
                         <i className="fa fa-eye"></i>
                       </Link>
-
+                      </PermissionAbility>
+                      <PermissionAbility permission="machines_model_edit"> 
                       <button onClick={() => { setModelId(item.id); setUpdateOpen(true); }} className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                         <i className="fa fa-pen"></i>
                       </button>
-
+                      </PermissionAbility>
+                      <PermissionAbility permission="machines_model_delete">
                       <button
                         onClick={() => { setModelId(item.id); setConfirmDelete(true) }}
                         className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
                       >
                         <i className="fa fa-trash"></i>
                       </button>
+                      </PermissionAbility>
+                      
                     </td>
                   </tr>
                 ))}

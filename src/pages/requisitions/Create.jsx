@@ -17,6 +17,7 @@ const RequisitionCreate = () => {
     part_heading_id: null,
   });
   const [partHeadings, setPartHeadings] = useState([]);
+  const [uniquePart, setUniquePart] = useState([]);
   const [searchData, setSearchData] = useState([]);
   const [list, setList] = useState([]); /* for adding part in requisition */
   const [selectedPart, setSelectedPart] = useState(false) /* Check Part selected or not selected*/
@@ -87,13 +88,34 @@ const RequisitionCreate = () => {
   };
 
   const addPart = (item) => {
-    item['quantity'] = 0;
-    const newList = list.concat(item)
-    setList(Array.from(new Set(newList))) /* add part in the List and remove duplicates from array */
-    setSelectedPart(true)
-    setFilter({ ...filter, q: "" })
-    setSearchData("")
+    
+    
+    // let part = list.find((it => it.unique_id)) //finding 
+    // console.log(part);
+      // if(part.unique_id = item.unique_id){
+      //   window.Swal.fire({
+      //     icon: 'error',
+      //     title: 'Oops...',
+      //     text: 'Part Already Exist',
+      //   });
+      // }else{
+      //   item['quantity'] = 0;
+      //   const newList = list.concat(item)
+      //   setList(Array.from(new Set(newList))) /* add part in the List and remove duplicates from array */
+      //   setSelectedPart(true)
+      //   setFilter({ ...filter, q: "" })
+      //   setSearchData("")
+      // }   
+      // console.log(part);
+      item['quantity'] = 0;
+        const newList = list.concat(item)
+        setList(Array.from(new Set(newList))) /* add part in the List and remove duplicates from array */
+        setSelectedPart(true)
+        setFilter({ ...filter, q: "" })
+        setSearchData("")
+       
   };
+
 
   const removeItem = (id) => {
     const newList = list.filter((item => item.id !== id))
@@ -132,8 +154,11 @@ const RequisitionCreate = () => {
   };
 
   const handleSelect = (option, conf) => {
-    console.log(option)
-    setPartHeading(option)
+    // console.log("shanto",conf)
+    // console.log("shantoargha",option)
+    // if(conf.name = "part_heading_id"){
+      setPartHeading(option)
+    // }
     let value = option.value;
     if (Array.isArray(option))
       value = option.map((dt) => {
@@ -167,8 +192,6 @@ const RequisitionCreate = () => {
 
   const getParts = async () => {
     let res = await PartService.getAll(filter);
-    
-    console.log("manto",res);
     setSearchData(res.data);
     let items = res.data?.map((dt) => {
       return { label: dt.name, value: dt.id };

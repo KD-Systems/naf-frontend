@@ -1,4 +1,5 @@
 import Confirmation from "components/utils/Confirmation";
+import PermissionAbility from "helpers/PermissionAbility";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import CompanyService from "services/CompanyService";
@@ -42,6 +43,7 @@ const CompanyUsers = ({ active }) => {
               <h2>Users</h2>
             </div>
             <div className="card-toolbar">
+            <PermissionAbility permission="companies_users_add_user">
               <button
                 type="button"
                 className="btn btn-light-primary"
@@ -87,6 +89,7 @@ const CompanyUsers = ({ active }) => {
                 </span>
                 Add User
               </button>
+              </PermissionAbility>
             </div>
           </div>
           <div className="card-body pt-0">
@@ -139,12 +142,15 @@ const CompanyUsers = ({ active }) => {
                     </td>
 
                     <td className="text-end">
+                    <PermissionAbility permission="companies_users_show">
                       <Link
                         to={"/panel/companies/" + id + "/users/" + item.id}
                         className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
                       >
                         <i className="fa fa-eye"></i>
                       </Link>
+                      </PermissionAbility>
+                      <PermissionAbility permission="companies_users_edit">
                       <button
                         className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
                         onClick={() => {
@@ -154,6 +160,8 @@ const CompanyUsers = ({ active }) => {
                       >
                         <i className="fa fa-pen"></i>
                       </button>
+                      </PermissionAbility>
+                      <PermissionAbility permission="companies_users_delete">
                       <button
                         onClick={() => {
                           setConfirmDelete(true);
@@ -163,6 +171,8 @@ const CompanyUsers = ({ active }) => {
                       >
                         <i className="fa fa-trash"></i>
                       </button>
+                      </PermissionAbility>
+                      
                     </td>
                   </tr>
                 ))}

@@ -1,4 +1,5 @@
 import Confirmation from 'components/utils/Confirmation';
+import PermissionAbility from 'helpers/PermissionAbility';
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
 import CompanyService from 'services/CompanyService';
@@ -42,6 +43,7 @@ const CompanyMachines = ({ active }) => {
                             <h2>Machines</h2>
                         </div>
                         <div className="card-toolbar">
+                        <PermissionAbility permission="companies_machines_add">
                             <button
                                 type="button"
                                 className="btn btn-light-primary"
@@ -85,6 +87,7 @@ const CompanyMachines = ({ active }) => {
                                 </span>
                                 Add Machine
                             </button>
+                            </PermissionAbility>
                         </div>
                     </div>
                     <div className="card-body pt-0">
@@ -121,6 +124,7 @@ const CompanyMachines = ({ active }) => {
                                         <td>{item.mfg_number}</td>
 
                                         <td className="text-end">
+                                        <PermissionAbility permission="companies_machines_dettach">
                                             <button
                                                 onClick={() => {
                                                     setMachineId(item.id)
@@ -130,6 +134,7 @@ const CompanyMachines = ({ active }) => {
                                             >
                                                 <i className='fa fa-unlink'></i>
                                             </button>
+                                            </PermissionAbility>
                                         </td>
                                     </tr>
                                 ))}

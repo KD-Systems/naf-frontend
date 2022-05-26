@@ -1,3 +1,4 @@
+import PermissionAbility from "helpers/PermissionAbility";
 import React, { useState, useEffect } from "react";
 import { Link,useParams } from "react-router-dom";
 import MachinePartHeadingService from "services/PartHeadingService";
@@ -52,12 +53,14 @@ const PartHeadings = ({ tab }) => {
               <span className="fw-bolder mb-2 text-dark">Part Headings</span>
             </h3>
             <div className="card-toolbar">
+            <PermissionAbility permission="machines_part_headings_add">
               <button
                 className="btn btn-light-primary btn-md"
                 onClick={() => setOpen(true)}
               >
                 Add Heading
               </button>
+              </PermissionAbility>
             </div>
           </div>
           <div className="card-body pt-5">
@@ -96,6 +99,7 @@ const PartHeadings = ({ tab }) => {
                     <td>{item.parts_count}</td>
 
                     <td className="text-end">
+                    
                       <Link
                         to={"/panel/machines/" + id + '/part-headings/'+ item.id}
                        
@@ -121,7 +125,8 @@ const PartHeadings = ({ tab }) => {
                           </svg>
                         </span>
                       </Link>
-
+                      
+                      <PermissionAbility permission="machines_part_headings_edit">
                       <button 
                       onClick={() => { setHeadingId(item.id); setUpdateOpen(true); }} 
                       className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
@@ -145,7 +150,8 @@ const PartHeadings = ({ tab }) => {
                           </svg>
                         </span>
                       </button>
-
+                      </PermissionAbility>
+                      <PermissionAbility permission="machines_part_headings_delete">
                       <button
                         onClick={() => { setHeadingId(item.id); setConfirmDelete(true) }}
                         className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
@@ -175,6 +181,7 @@ const PartHeadings = ({ tab }) => {
                           </svg>
                         </span>
                       </button>
+                      </PermissionAbility>
                     </td>
                   </tr>
                 ))}
