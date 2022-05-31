@@ -20,13 +20,14 @@ const RequisitionCreate = () => {
   const [uniquePart, setUniquePart] = useState([]);
   const [searchData, setSearchData] = useState([]);
   const [list, setList] = useState([]); /* for adding part in requisition */
-  const [selectedPart, setSelectedPart] = useState(false) /* Check Part selected or not selected*/
+  const [selectedPart, setSelectedPart] =
+    useState(false); /* Check Part selected or not selected*/
   const [totalAmount, setTotal] = useState(0); //total amount
-  const [engineers, setEngineers] = useState([])
+  const [engineers, setEngineers] = useState([]);
   const [data, setData] = useState({
     company_id: "",
     engineer_id: "",
-    machine_id:"",
+    machine_id: "",
     priority: "",
     type: "",
     payment_mode: "",
@@ -41,10 +42,10 @@ const RequisitionCreate = () => {
     reason_of_trouble: "",
     remarks: "",
     part_items: list,
-    total: totalAmount
+    total: totalAmount,
   });
 
-  const [partHeading, setPartHeading] = useState(null)
+  const [partHeading, setPartHeading] = useState(null);
 
   const [block, setBlock] = useState(false);
   const [parts, setParts] = useState([]);
@@ -81,46 +82,31 @@ const RequisitionCreate = () => {
   ];
 
   const storeRequisition = async () => {
-    setBlock(true)
+    setBlock(true);
     await RequisitionService.create(data);
-    setBlock(false)
+    setBlock(false);
     navigate("/panel/requisitions");
   };
 
   const addPart = (item) => {
-    
-    
-    // let part = list.find((it => it.unique_id)) //finding 
-    // console.log(part);
-      // if(part.unique_id = item.unique_id){
-      //   window.Swal.fire({
-      //     icon: 'error',
-      //     title: 'Oops...',
-      //     text: 'Part Already Exist',
-      //   });
-      // }else{
-      //   item['quantity'] = 0;
-      //   const newList = list.concat(item)
-      //   setList(Array.from(new Set(newList))) /* add part in the List and remove duplicates from array */
-      //   setSelectedPart(true)
-      //   setFilter({ ...filter, q: "" })
-      //   setSearchData("")
-      // }   
-      // console.log(part);
-      item['quantity'] = 0;
-        const newList = list.concat(item)
-        setList(Array.from(new Set(newList))) /* add part in the List and remove duplicates from array */
-        setSelectedPart(true)
-        setFilter({ ...filter, q: "" })
-        setSearchData("")
-       
+
+    item["quantity"] = 0;
+    let hasItem = list.find((itm) => itm.id == item.id);
+    if (hasItem) return false;
+
+    const newList = list.concat(item);
+    setList(
+      Array.from(new Set(newList))
+    ); /* add part in the List and remove duplicates from array */
+    setSelectedPart(true);
+    setFilter({ ...filter, q: "" });
+    setSearchData("");
   };
 
-
   const removeItem = (id) => {
-    const newList = list.filter((item => item.id !== id))
-    setList(newList)
-  }
+    const newList = list.filter((item) => item.id !== id);
+    setList(newList);
+  };
 
   const getCompanies = async () => {
     let dt = await CompanyService.getAll({
@@ -135,7 +121,7 @@ const RequisitionCreate = () => {
     let dt = await RequisitionService.engineers();
     dt = dt.map((itm) => ({ label: itm?.name, value: itm?.id }));
     setEngineers(dt);
-  }
+  };
 
   const getMachineModels = async (companyId) => {
     setBlock(false);
@@ -157,7 +143,7 @@ const RequisitionCreate = () => {
     // console.log("shanto",conf)
     // console.log("shantoargha",option)
     // if(conf.name = "part_heading_id"){
-      setPartHeading(option)
+    setPartHeading(option);
     // }
     let value = option.value;
     if (Array.isArray(option))
@@ -175,9 +161,9 @@ const RequisitionCreate = () => {
   };
 
   const handleChange = (e) => {
-    const { name } = e.target
-    setData({ ...data, [name]: e.target.value })
-  }
+    const { name } = e.target;
+    setData({ ...data, [name]: e.target.value });
+  };
 
   const handleDateSelect = (value, name) => {
     setData({
@@ -204,7 +190,9 @@ const RequisitionCreate = () => {
     if (data?.machine_id.length === 0) setPartHeadings([]);
 
     if (data?.machine_id.length > 0) {
-      let res = await RequisitionService.partHeadings({ machine_ids: data?.machine_id });
+      let res = await RequisitionService.partHeadings({
+        machine_ids: data?.machine_id,
+      });
 
       let items = res?.map((dt) => {
         return { label: dt.name, value: dt.id };
@@ -224,16 +212,15 @@ const RequisitionCreate = () => {
 
   const search = async (e) => {
     if (e.keyCode === 13 && !machineModels.length)
-      return toast.warning('Please select machine first located at the top!')
+      return toast.warning("Please select machine first located at the top!");
 
     e.keyCode === 13 && (await getParts());
-    if (filter?.q === "")
-      setSearchData([]);
+    if (filter?.q === "") setSearchData([]);
   };
 
   useEffect(() => {
-    setData({ ...data, part_items: list, total: totalAmount })  //add part_items and total amount in data
-  }, [list, totalAmount])
+    setData({ ...data, part_items: list, total: totalAmount }); //add part_items and total amount in data
+  }, [list, totalAmount]);
 
   useEffect(() => {
     if (data.company_id) getMachineModels(data?.company_id);
@@ -242,7 +229,6 @@ const RequisitionCreate = () => {
   useEffect(() => {
     if (data.machine_id) getPartHeadings(data?.machine_id);
   }, [data.machine_id]);
-
 
   useEffect(() => {
     getCompanies();
@@ -257,25 +243,21 @@ const RequisitionCreate = () => {
     setTotal(sum);
   }, [list]);
 
-
   const increment = (item) => {
-    const tempList = [...list]
-    const tempItem = tempList.filter((val) => val.id === item.id)
+    const tempList = [...list];
+    const tempItem = tempList.filter((val) => val.id === item.id);
     tempItem[0].quantity++;
 
     setList(tempList);
-  }
+  };
 
   const decrement = (item) => {
-    const tempList = [...list]
-    const tempItem = tempList.filter((val) => val.id === item.id)
+    const tempList = [...list];
+    const tempItem = tempList.filter((val) => val.id === item.id);
     tempItem[0].quantity--;
 
     setList(tempList);
-  }
-
-
-
+  };
 
   return (
     <>
@@ -287,9 +269,7 @@ const RequisitionCreate = () => {
                 <div className="card-body p-12">
                   <form action="" id="kt_invoice_form">
                     <div className="d-flex flex-column align-items-start flex-xxl-row">
-                      <div
-                        className="d-flex align-items-center flex-equal fw-row me-4 order-2"
-                      >
+                      <div className="d-flex align-items-center flex-equal fw-row me-4 order-2">
                         <input
                           type="text"
                           className="form-control w-50"
@@ -297,22 +277,21 @@ const RequisitionCreate = () => {
                           placeholder="Ref Number"
                           onChange={handleChange}
                         />
-                          <div className="fv-plugins-message-container invalid-feedback" htmlFor="ref_number"></div>
+                        <div
+                          className="fv-plugins-message-container invalid-feedback"
+                          htmlFor="ref_number"
+                        ></div>
                       </div>
 
-                      <div
-                        className="d-flex flex-center flex-equal fw-row text-nowrap order-1 order-xxl-2 me-4"
-                      >
+                      <div className="d-flex flex-center flex-equal fw-row text-nowrap order-1 order-xxl-2 me-4">
                         <span className="fs-2x fw-bolder text-gray-800">
                           Requisition
                         </span>
                       </div>
 
-                      <div
-                        className="d-flex align-items-center justify-content-end flex-equal order-3 fw-row"
-                      >
+                      <div className="d-flex align-items-center justify-content-end flex-equal order-3 fw-row">
                         <span className="fs-5">
-                          Date: {moment().format('DD-MM-YYYY')}
+                          Date: {moment().format("DD-MM-YYYY")}
                         </span>
                       </div>
                     </div>
@@ -328,7 +307,7 @@ const RequisitionCreate = () => {
                             onChange={handleSelect}
                             name="company_id"
                           />
-                        
+
                           <div
                             className="fv-plugins-message-container invalid-feedback"
                             htmlFor="company_id"
@@ -376,7 +355,7 @@ const RequisitionCreate = () => {
                             name="priority"
                             onChange={handleSelect}
                           />
-                                <div
+                          <div
                             className="fv-plugins-message-container invalid-feedback"
                             htmlFor="priority"
                           ></div>
@@ -422,7 +401,6 @@ const RequisitionCreate = () => {
                               name="type"
                               onChange={handleSelect}
                             />
-                       
                           </div>
                           <div
                             className="fv-plugins-message-container invalid-feedback"
@@ -477,7 +455,6 @@ const RequisitionCreate = () => {
                                     options={payment_partial_mode}
                                     name="payment_partial_mode"
                                   />
-
                                 </div>
                                 <div
                                   className="fv-plugins-message-container invalid-feedback"
@@ -533,7 +510,12 @@ const RequisitionCreate = () => {
                       )}
 
                       <div className="col-lg-6">
-                        <label className="form-label fs-6 fw-bolder text-gray-700" htmlFor="types">Machine Problems</label>
+                        <label
+                          className="form-label fs-6 fw-bolder text-gray-700"
+                          htmlFor="types"
+                        >
+                          Machine Problems
+                        </label>
                         <textarea
                           className="form-control form-control-solid mb-3"
                           rows="5"
@@ -545,7 +527,12 @@ const RequisitionCreate = () => {
                       </div>
 
                       <div className="col-lg-6">
-                        <label className="form-label fs-6 fw-bolder text-gray-700" htmlFor="types">Solutions</label>
+                        <label
+                          className="form-label fs-6 fw-bolder text-gray-700"
+                          htmlFor="types"
+                        >
+                          Solutions
+                        </label>
                         <textarea
                           className="form-control form-control-solid mb-3"
                           rows="5"
@@ -557,7 +544,12 @@ const RequisitionCreate = () => {
                       </div>
 
                       <div className="col-lg-6">
-                        <label className="form-label fs-6 fw-bolder text-gray-700" htmlFor="types">Reason of Trouble</label>
+                        <label
+                          className="form-label fs-6 fw-bolder text-gray-700"
+                          htmlFor="types"
+                        >
+                          Reason of Trouble
+                        </label>
                         <textarea
                           className="form-control form-control-solid mb-3"
                           rows="5"
@@ -594,9 +586,7 @@ const RequisitionCreate = () => {
                   <div className="row">
                     <div className="col-lg-4">
                       <div className="form-group">
-                        <label className="form-label">
-                          Part Heading
-                        </label>
+                        <label className="form-label">Part Heading</label>
                         <Select
                           isClearable
                           options={partHeadings}
@@ -766,7 +756,6 @@ const RequisitionCreate = () => {
                         Submit
                       </button>
                     </div>
-
                   </div>
                 </div>
               </div>

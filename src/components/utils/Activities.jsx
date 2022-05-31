@@ -43,8 +43,6 @@ export const Activities = ({ logName, modelId, self, tab }) => {
 
     let keys = Object.keys(att);
 
-    
-
     return keys.map((key) => {
       return {
         [key]: att[key],

@@ -1,6 +1,98 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import Select from "react-select";
+import RoleService from "services/RoleService";
+import SettingsService from "services/SettingsService";
 
 const Settings = () => {
+
+  const [roles, setRoles] = useState([]);
+  const [block, setBlock] = useState(false);
+  const [data, setData] = useState({
+    logo:"",
+    icon:"",
+    siteName: "",
+    notifiableUser_id: "",
+  });
+  const [logo, setLogo] = useState([]);
+  const [icon, setIcon] = useState([]);
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    const name = e.target.name;
+
+    setData({
+      ...data, [name]: value
+    })
+  };
+
+  const handleSelect = (option, conf) => {
+    // console.log(option);
+    // console.log(conf);
+    let value = option.value;
+    if (Array.isArray(option))
+      value = option.map((dt) => {
+        return dt.value;
+      });
+
+    const name = conf.name;
+    setBlock(false);
+
+    setData({
+      ...data,
+      [name]: value,
+    });
+  };
+
+  const handleLogo = (e) => {
+    setLogo({logo:e.target.files[0]});
+    let logoShow = document.getElementById("logo");
+    let fr = new FileReader();
+    fr.readAsDataURL(e.target.files[0]);
+
+    fr.addEventListener("load", function () {
+      logoShow.style.backgroundImage = "url(" + this.result + ")";
+    });
+  };
+
+  const handleIcon = (e) => {
+    setIcon({icon:e.target.files[0]});
+    let IconShow = document.getElementById("icon");
+    let fr = new FileReader();
+    fr.readAsDataURL(e.target.files[0]);
+
+    fr.addEventListener("load", function () {
+      IconShow.style.backgroundImage = "url(" + this.result + ")";
+    });
+  };
+
+//get roles
+  const getNotifiableUsers = async () => {
+    let dt = await RoleService.getAll();
+    dt = dt.map((itm) => ({ label: itm?.name, value: itm?.id }));
+    setRoles(dt);
+  };
+
+  //Store data
+  const createSettings = (e) => {
+    e.preventDefault();
+
+    setBlock(true);
+    // let formData = new FormData(document.getElementById("create-settings"));
+    // console.log(formData);
+    // const formData = new FormData(document.getElementById('settings'));
+    const formData = new FormData();
+    formData.append('logo',logo.logo);
+    formData.append('icon',icon.icon);
+    formData.append('siteName',data.siteName);
+    formData.append('notifiableUser_id',data.notifiableUser_id);
+
+    SettingsService.create(formData);
+  };
+
+  useEffect(() => {
+    getNotifiableUsers();
+  }, []);
+
   return (
     <div
       className="content d-flex flex-column flex-column-fluid"
@@ -17,11 +109,12 @@ const Settings = () => {
               <div className="card-title fs-3 fw-bolder">Project Settings</div>
             </div>
 
-            <form id="kt_project_settings_form" className="form">
+            <form onSubmit={createSettings} id="settings" encType="multipart/form-data">
               <div className="card-body p-9">
+                {/* for project logo */}
                 <div className="row mb-5">
                   <div className="col-xl-3">
-                    <div className="fs-6 fw-bold mt-2 mb-3">Project Logo</div>
+                    <div className="fs-6 fw-bold mt-2 mb-3">Logo</div>
                   </div>
 
                   <div className="col-lg-8">
@@ -31,6 +124,7 @@ const Settings = () => {
                       style={{backgroundImage:"url('assets/media/svg/avatars/blank.svg')"}}
                     >
                       <div
+                      id="logo"
                         className="image-input-wrapper w-125px h-125px bgi-position-center"
                         style={{backgroundSize:"75%",backgroundImage:"url('assets/media/svg/brand-logos/volicity-9.svg')"}}
                       ></div>
@@ -45,10 +139,12 @@ const Settings = () => {
 
                         <input
                           type="file"
-                          name="avatar"
+                          name="logo"
                           accept=".png, .jpg, .jpeg"
+                          // onChange={(e) => { setLogo(e); handleChange(e) }}
+                          onChange={handleLogo}
                         />
-                        <input type="hidden" name="avatar_remove" />
+                        <input type="hidden" name="logo" />
                       </label>
 
                       <span
@@ -76,22 +172,109 @@ const Settings = () => {
                   </div>
                 </div>
 
+                
+                {/* for project tab icon */}
+                <div className="row mb-5">
+                  <div className="col-xl-3">
+                    <div className="fs-6 fw-bold mt-2 mb-3">Icon</div>
+                  </div>
+
+                  <div className="col-lg-8">
+                    <div
+                    id="icon"
+                      className="image-input image-input-outline"
+                      data-kt-image-input="true"
+                      style={{backgroundImage:"url('assets/media/svg/avatars/blank.svg')"}}
+                    >
+                      <div
+                        className="image-input-wrapper w-125px h-125px bgi-position-center"
+                        style={{backgroundSize:"75%",backgroundImage:"url('assets/media/svg/brand-logos/volicity-9.svg')"}}
+                      ></div>
+
+                      <label
+                        className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
+                        data-kt-image-input-action="change"
+                        data-bs-toggle="tooltip"
+                        title="Change avatar"
+                      >
+                        <i className="bi bi-pencil-fill fs-7"></i>
+
+                        <input
+                          type="file"
+                          name="icon"
+                          accept=".png, .jpg, .jpeg"
+                          // onChange={(e) => { setIcon(e); handleChange(e) }}
+                          onChange={handleIcon}
+                        />
+                        <input type="hidden" name="icon" />
+                      </label>
+
+                      <span
+                        className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
+                        data-kt-image-input-action="cancel"
+                        data-bs-toggle="tooltip"
+                        title="Cancel avatar"
+                      >
+                        <i className="bi bi-x fs-2"></i>
+                      </span>
+
+                      <span
+                        className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
+                        data-kt-image-input-action="remove"
+                        data-bs-toggle="tooltip"
+                        title="Remove avatar"
+                      >
+                        <i className="bi bi-x fs-2"></i>
+                      </span>
+                    </div>
+
+                    <div className="form-text">c
+                      Allowed file types: png, jpg, jpeg.
+                    </div>
+                  </div>
+                </div>
+
                 <div className="row mb-8">
                   <div className="col-xl-3">
-                    <div className="fs-6 fw-bold mt-2 mb-3">Project Name</div>
+                    <div className="fs-6 fw-bold mt-2 mb-3">Site Name</div>
                   </div>
 
                   <div className="col-xl-9 fv-row">
                     <input
                       type="text"
                       className="form-control form-control-solid"
-                      name="name"
-                      value="9 Degree Award"
+                      name="siteName"
+                      value={data.siteName ?? ''}
+                      onChange={handleChange}
                     />
                   </div>
                 </div>
 
                 <div className="row mb-8">
+                  <div className="col-xl-3">
+                    <div className="fs-6 fw-bold mt-2 mb-3">Notifiable Users</div>
+                  </div>
+
+                  <div className="col-xl-9 fv-row">
+                  <Select
+                        isMulti
+                        options={roles}
+                        onChange={handleSelect}
+                        name="notifiableUser_id"
+                      />
+                  </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+                {/* <div className="row mb-8">
                   <div className="col-xl-3">
                     <div className="fs-6 fw-bold mt-2 mb-3">Project Type</div>
                   </div>
@@ -224,9 +407,20 @@ const Settings = () => {
                       </label>
                     </div>
                   </div>
-                </div>
-              </div>
+                </div> */}
 
+
+
+
+
+
+
+
+
+
+
+
+              </div>
               <div className="card-footer d-flex justify-content-end py-6 px-9">
                 <button
                   type="reset"
@@ -238,10 +432,15 @@ const Settings = () => {
                   type="submit"
                   className="btn btn-primary"
                   id="kt_project_settings_submit"
+                  // onClick={createSettings}
+                  // onClick={() => {
+                  //   createSettings();
+                  // }}
                 >
                   Save Changes
                 </button>
               </div>
+
             </form>
           </div>
         </div>
