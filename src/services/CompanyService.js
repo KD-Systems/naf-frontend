@@ -13,7 +13,6 @@ const get = async (id) => {
 };
 
 const create = async (data) => {
- 
   return http.post("/companies", data);
 };
 
