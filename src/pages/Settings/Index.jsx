@@ -8,7 +8,7 @@ const Settings = () => {
   const [value, setValue] = useState([]);
   const [block, setBlock] = useState(false);
   const [data, setData] = useState({
-    notifiable_users:[]
+    notifiable_users:""
 
   });
 
@@ -66,42 +66,33 @@ const Settings = () => {
     });
   };
 
-  //get roles
+  //get notifiable users
   const getNotifiableUsers = async () => {
-    let dt = await RoleService.getAll();
+    let dt = await SettingsService.getUsers();
     dt = dt.map((itm) => ({ label: itm?.name, value: itm?.id }));
     setRoles(dt);
   };
 
   //Store data
-  // const createSettings = (e) => {
-  //   e.preventDefault();
-  //   setBlock(true);
-  //   const formData = new FormData(document.getElementById("settings"));
-  //   SettingsService.create(formData);
-  //   setBlock(false);
-  // };
-
-   //Store data
-   const createSettings = async() => {
+  const createSettings = (e) => {
+    e.preventDefault();
     setBlock(true);
-   await SettingsService.create(data);
+    const formData = new FormData(document.getElementById("settings"));
+    formData.append('notifiable_users', data.notifiable_users)
+    SettingsService.create(formData);
     setBlock(false);
   };
+
+   //Store data
+  //  const createSettings = async() => {
+  //   setBlock(true);
+  //  await SettingsService.create(data);
+  //   setBlock(false);
+  // };
   // get setting
   const getSettings = async () => {
     const res = await SettingsService.getAll();
     setData(res.data);
-
-    // const myArray = res?.data?.notifiable_users.split(",");
-    // const Array = [];
-    // myArray.forEach((str) => {
-    //   Array.push(Number(str));
-    // });
-    // setData({
-    //   ...data,
-    //   "notifiable_users": Array,
-    // });
   };
 
   useEffect(() => {
@@ -121,17 +112,17 @@ const Settings = () => {
               <div className="card-title fs-3 fw-bolder">Project Settings</div>
             </div>
 
-            {/* <form
+            <form
               onSubmit={createSettings}
               id="settings"
               encType="multipart/form-data"
-            > */}
+            >
 
-          <form
+          {/* <form
               action=""
               id="settings"
               encType="multipart/form-data"
-            >
+            > */}
               <div className="card-body p-9">
                 {/* for project logo */}
                 <div className="row mb-5">
@@ -299,10 +290,11 @@ const Settings = () => {
                       isMulti
                       options={roles}
                       onChange={handleSelect}
-                      name="notifiable_users"
                     />
                   </div>
                 </div>
+
+                
 
                 {/* <div className="row mb-8">
                   <div className="col-xl-3">
@@ -440,7 +432,7 @@ const Settings = () => {
                 </div> */}
                 
               </div>
-              </form>
+              {/* </form> */}
               <div className="card-footer d-flex justify-content-end py-6 px-9">
                 <button
                   type="reset"
@@ -453,14 +445,14 @@ const Settings = () => {
                   className="btn btn-primary"
                   id="kt_project_settings_submit"
                   // onClick={createSettings}
-                  onClick={() => {
-                    createSettings();
-                  }}
+                  // onClick={() => {
+                  //   createSettings();
+                  // }}
                 >
                   Save Changes
                 </button>
               </div>
-            {/* </form> */}
+            </form>
           </div>
         </div>
       </div>
