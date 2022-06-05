@@ -7,10 +7,7 @@ const Settings = () => {
   const [roles, setRoles] = useState([]);
   const [value, setValue] = useState([]);
   const [block, setBlock] = useState(false);
-  const [data, setData] = useState({
-    notifiable_users:""
-
-  });
+  const [data, setData] = useState({});
 
   // console.log(data.notifiable_users);
 
@@ -78,7 +75,7 @@ const Settings = () => {
     e.preventDefault();
     setBlock(true);
     const formData = new FormData(document.getElementById("settings"));
-    formData.append('notifiable_users', data.notifiable_users)
+    formData.append('notifiable_users', data.notifiable_users);
     SettingsService.create(formData);
     setBlock(false);
   };
@@ -290,6 +287,7 @@ const Settings = () => {
                       isMulti
                       options={roles}
                       onChange={handleSelect}
+                      name="notifiable_users"
                     />
                   </div>
                 </div>

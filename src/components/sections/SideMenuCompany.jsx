@@ -348,53 +348,61 @@ const SideMenuCompany = () => {
             </div>
           </div>
 
-          <div
-            data-kt-menu-trigger="click"
-            className="menu-item menu-accordion"
-          >
-            <span className="menu-link">
-              <span className="menu-icon">
-                <i className="fab fa-wpforms"></i>
-              </span>
-              <span className="menu-title">Requisitions</span>
-            </span>
-          </div>
+          <div className="menu-item">
+                <NavLink
+                  className={(navinfo) =>
+                    navinfo.isActive ? "menu-link active" : "menu-link"
+                  }
+                  to="client-requisitions"
+                >
+                  <span className="menu-icon">
+                    <i className="fas fa-tools"></i>
+                  </span>
+                  <span className="menu-title">Requisitions</span>
+                </NavLink>
+              </div>
 
-          <div
-            data-kt-menu-trigger="click"
-            className="menu-item menu-accordion"
-          >
-            <span className="menu-link">
-              <span className="menu-icon">
-                <i className="fas fa-money-bill"></i>
-              </span>
-              <span className="menu-title">Quotations</span>
-            </span>
-          </div>
+              <div className="menu-item">
+                <NavLink
+                  className={(navinfo) =>
+                    navinfo.isActive ? "menu-link active" : "menu-link"
+                  }
+                  to="client-quotations"
+                >
+                  <span className="menu-icon">
+                    <i className="fas fa-money-bill"></i>
+                  </span>
+                  <span className="menu-title">Quotations</span>
+                </NavLink>
+              </div>
 
-          <div
-            data-kt-menu-trigger="click"
-            className="menu-item menu-accordion"
-          >
-            <span className="menu-link">
-              <span className="menu-icon">
-                <i className="fa fa-credit-card "></i>
-              </span>
-              <span className="menu-title">Invoices</span>
-            </span>
-          </div>
+              <div className="menu-item">
+                <NavLink
+                  className={(navinfo) =>
+                    navinfo.isActive ? "menu-link active" : "menu-link"
+                  }
+                  to="client-invoice"
+                >
+                  <span className="menu-icon">
+                    <i className="fas fa-money-bill"></i>
+                  </span>
+                  <span className="menu-title">Invoice</span>
+                </NavLink>
+              </div>
 
-          <div
-            data-kt-menu-trigger="click"
-            className="menu-item menu-accordion"
-          >
-            <span className="menu-link">
-              <span className="menu-icon">
-                <i className="fa fa-sticky-note"></i>
-              </span>
-              <span className="menu-title">Delivery Notes</span>
-            </span>
-          </div>
+              <div className="menu-item">
+                <NavLink
+                  className={(navinfo) =>
+                    navinfo.isActive ? "menu-link active" : "menu-link"
+                  }
+                  to="client-delivery-notes"
+                >
+                  <span className="menu-icon">
+                    <i className="fas fa-money-bill"></i>
+                  </span>
+                  <span className="menu-title">Delivery Notes</span>
+                </NavLink>
+              </div>
 
           <div className="menu-item">
             <div className="menu-content">

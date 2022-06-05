@@ -53,6 +53,10 @@ import CreateDelivery from "pages/delivery-notes/CreateDelivery";
 import Reports from "pages/reports/Index";
 import GatePass from "pages/gate-passes/Index";
 import PartStockReport from "pages/reports/PartStockReport";
+import ClientRequisitions from "pages/client/requisitions";
+import ClientQuotation from "pages/client/quotations/index.jsx";
+import ClientInvoices from "pages/client/invoices";
+import ClientDeliveryNotes from "pages/client/delivery-notes";
 
 function App() {
   return (
@@ -527,6 +531,44 @@ function App() {
             }
             />
             {/* Gate pass End */}
+
+            {/* Routes for company users */} 
+            <Route
+              path="client-requisitions"
+              element={
+                <PrivateRoute>
+                  <ClientRequisitions />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
+              path="client-quotations"
+              element={
+                <PrivateRoute>
+                  <ClientQuotation />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
+              path="client-invoice"
+              element={
+                <PrivateRoute>
+                  <ClientInvoices />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
+              path="client-delivery-notes"
+              element={
+                <PrivateRoute>
+                  <ClientDeliveryNotes />
+                </PrivateRoute>
+              }
+            />
+
             <Route path="*" element={<NotFound />} />
           </Route>
 

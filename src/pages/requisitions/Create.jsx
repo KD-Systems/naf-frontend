@@ -143,7 +143,7 @@ const RequisitionCreate = () => {
     // console.log("shanto",conf)
     // console.log("shantoargha",option)
     // if(conf.name = "part_heading_id"){
-    setPartHeading(option);
+    // setPartHeading(option);
     // }
     let value = option.value;
     if (Array.isArray(option))
@@ -592,7 +592,7 @@ const RequisitionCreate = () => {
                           options={partHeadings}
                           onChange={handleSelect}
                           name="part_heading_id"
-                          value={partHeading}
+                          // value={partHeading}
                         />
                         <div
                           className="fv-plugins-message-container invalid-feedback"
