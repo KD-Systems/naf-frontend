@@ -44,6 +44,13 @@ const remove = async (id) => {
   return res.data;
 };
 
+// for client module
+const createClientRequisition = async (data) => {
+  const res = await http.post(`/create-client-requisitions`, data)
+  return res.data;
+};
+
+
 const RequisitionService = {
   getAll,
   get,
@@ -53,6 +60,7 @@ const RequisitionService = {
   create,
   update,
   remove,
+  createClientRequisition
 };
 
 export default RequisitionService;

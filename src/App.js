@@ -57,6 +57,7 @@ import ClientRequisitions from "pages/client/requisitions";
 import ClientQuotation from "pages/client/quotations/index.jsx";
 import ClientInvoices from "pages/client/invoices";
 import ClientDeliveryNotes from "pages/client/delivery-notes";
+import ClientRequisitionCreate from "pages/client/requisitions/create";
 
 function App() {
   return (
@@ -538,6 +539,15 @@ function App() {
               element={
                 <PrivateRoute>
                   <ClientRequisitions />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
+              path="client-requisitions/create"
+              element={
+                <PrivateRoute>
+                  <ClientRequisitionCreate />
                 </PrivateRoute>
               }
             />

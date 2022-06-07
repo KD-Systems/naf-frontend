@@ -40,7 +40,14 @@ const importFile = async (data) => {
   return res.data;
 };
 
+//client module
 
+const getClientPart = async (filters) => {
+  const res = await http.get("/client-parts", {
+    params: filters
+  });
+  return res.data;
+};
 
 
 const PartService = {
@@ -50,7 +57,8 @@ const PartService = {
   update,
   remove,
   importFile,
-  getGatePassPart
+  getGatePassPart,
+  getClientPart
 };
 
 export default PartService;

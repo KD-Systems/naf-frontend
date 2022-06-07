@@ -79,14 +79,13 @@ const CompanyRequisitions = () => {
     <div className="post d-flex flex-column-fluid">
       <div className="container-xxl">
         <Table
-          name="Requisitions"
+          name="client Requisitions"
           buttonName="Add Requisition"
           onClickButton={routeChange}
           isLoading={loading}
           data={requisitions}
           columns={columns}
           onFilter={getRequisitions}
-          buttonPermission="requisitions_create"
         />
       </div>
     </div>

@@ -59,12 +59,23 @@ const getMachines = async (companyId) => {
 };
 
 const attachMachine = async (companyId, data) => {
-  let res = await http.post(`/companies/${companyId}/machines`, data);
+  let res = await http.post(`/companies/${companyId}/machines`, data); 
   return res.data;
 };
 
 const detachMachine = async (companyId, machineId) => {
   let res = await http.delete(`/companies/${companyId}/machines/${machineId}`);
+  return res.data;
+};
+
+//for client module
+const getClientCompany = async () => {
+  const res = await http.get("/client-company");
+  return res.data;
+};
+
+const getClientMachines = async () => {
+  const res = await http.get("/client-machines");
   return res.data;
 };
 
@@ -82,6 +93,8 @@ const CompanyService = {
   getMachines,
   attachMachine,
   detachMachine,
+  getClientCompany,
+  getClientMachines
 };
 
 export default CompanyService;
