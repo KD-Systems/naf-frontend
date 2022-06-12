@@ -58,6 +58,11 @@ import ClientQuotation from "pages/client/quotations/index.jsx";
 import ClientInvoices from "pages/client/invoices";
 import ClientDeliveryNotes from "pages/client/delivery-notes";
 import ClientRequisitionCreate from "pages/client/requisitions/create";
+import ClientCompanyMachines from "pages/client/client-machines/index";
+import ClientContract from "pages/client/client-contract/index";
+import ClientContractShow from "pages/client/client-contract/show";
+import ShowClientRequisition from "pages/client/requisitions/show";
+import PrintClientRequisition from "pages/client/requisitions/print";
 
 function App() {
   return (
@@ -179,35 +184,6 @@ function App() {
               }
             />
 
-
-            {/* Company User */}
-            <Route
-              path="companies/:id/user/machines"
-              element={
-                <PrivateRoute>
-                  <CompanyUserMachines />
-                </PrivateRoute>
-              }
-            />
-              <Route
-              path="companies/:id/user/contracts"
-              element={
-                <PrivateRoute>
-                  <CompanyUserContracts />
-                </PrivateRoute>
-              }
-            />
-
-            <Route
-              path="companies/machines/:id"
-              element={
-                <PrivateRoute>
-                  <Machine />
-                </PrivateRoute>
-              }
-            />
-
-            {/* Company User End */}
 
             {/* WareHouse Start */}
             <Route
@@ -533,7 +509,51 @@ function App() {
             />
             {/* Gate pass End */}
 
+
             {/* Routes for company users */} 
+
+
+            <Route
+              path="company/user/machines" 
+              element={
+                <PrivateRoute>
+                  <ClientCompanyMachines />
+                </PrivateRoute>
+              }
+            />
+            {/* client contract start */}
+              <Route
+              path="companies/user/contracts"
+              element={
+                <PrivateRoute>
+                  <ClientContract />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
+              path="client/contracts/:id"
+              element={
+                <PrivateRoute>
+                  <ClientContractShow />
+                </PrivateRoute>
+              }
+            />
+            
+
+            <Route
+              path="companies/machines/:id"
+              element={
+                <PrivateRoute>
+                  <Machine />
+                </PrivateRoute>
+              }
+            />
+            {/* client contract end */}
+
+              {/* company user sales start */}
+
+              {/* client requisition start */}
             <Route
               path="client-requisitions"
               element={
@@ -551,6 +571,26 @@ function App() {
                 </PrivateRoute>
               }
             />
+
+          <Route
+              path="client/requisitions/:id"
+              element={
+                <PrivateRoute>
+                  <ShowClientRequisition />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
+              path="client/requisitions/:id/print"
+              element={
+                <PrivateRoute>
+                  <PrintClientRequisition />
+                </PrivateRoute>
+              }
+            />
+
+            {/* client requisition end */}
 
             <Route
               path="client-quotations"
@@ -578,6 +618,8 @@ function App() {
                 </PrivateRoute>
               }
             />
+
+            {/* company user sales end */}
 
             <Route path="*" element={<NotFound />} />
           </Route>

@@ -53,7 +53,7 @@ const CompanyRequisitions = () => {
       format: (row) => (
         <span className="text-end">
           <Link
-            to={"/panel/requisitions/" + row.id}
+            to={"/panel/client/requisitions/" + row.id}
             className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
           >
             <i className="fa fa-eye"></i>

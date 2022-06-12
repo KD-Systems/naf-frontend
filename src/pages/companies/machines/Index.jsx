@@ -40,7 +40,7 @@ const CompanyMachines = ({ active }) => {
                 <div className="card card-flush py-4">
                     <div className="card-header">
                         <div className="card-title">
-                            <h2>Machines</h2>
+                            <h2>Machin</h2>
                         </div>
                         <div className="card-toolbar">
                         <PermissionAbility permission="companies_machines_add">

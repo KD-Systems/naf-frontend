@@ -161,7 +161,7 @@ const SideMenuCompany = () => {
                   className={(navinfo) =>
                     navinfo.isActive ? "menu-link active" : "menu-link"
                   }
-                  to={`companies/${user?.details?.company_id}/user/machines`}
+                  to={`company/user/machines`}
                 >
                   <span className="menu-icon">
                     <i className="fa fa-building"></i>
@@ -175,7 +175,7 @@ const SideMenuCompany = () => {
                 className={(navinfo) =>
                   navinfo.isActive ? "menu-link active" : "menu-link"
                 }
-                to={`companies/${user?.details?.company_id}/user/contracts`}
+                to={`companies/user/contracts`}
               >
                 <span className="menu-icon">
                 <i className="bi bi-sticky fs-3"></i>
