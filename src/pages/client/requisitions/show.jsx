@@ -130,7 +130,7 @@ const ShowClientRequisition = () => {
                       className="btn btn-sm btn-dark "
                       style={{ marginRight: "0.1rem" }}
                       onClick={() =>
-                        navigate(`/panel/quotations/${requisition?.id}/create`)
+                        navigate(`/panel/client/quotations/${requisition?.id}/create`)
                       }
                     >
                       Generate Quotation

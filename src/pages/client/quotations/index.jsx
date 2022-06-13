@@ -79,7 +79,7 @@ const ClientQuotations = () => {
       format: (row) => (
         <span className="text-end">
           <Link
-            to={"/panel/quotations/" + row.id}
+            to={"/panel/client/quotations/" + row.id}
             className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
           >
             <i className="fa fa-eye"></i>

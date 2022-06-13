@@ -63,6 +63,9 @@ import ClientContract from "pages/client/client-contract/index";
 import ClientContractShow from "pages/client/client-contract/show";
 import ShowClientRequisition from "pages/client/requisitions/show";
 import PrintClientRequisition from "pages/client/requisitions/print";
+import CreateClientQuotation from "pages/client/quotations/create";
+import ShowClientQuotation from "pages/client/quotations/show";
+import ShowClientInvoice from "pages/client/invoices/show";
 
 function App() {
   return (
@@ -592,6 +595,8 @@ function App() {
 
             {/* client requisition end */}
 
+            {/* client quotation start */}
+
             <Route
               path="client-quotations"
               element={
@@ -601,6 +606,26 @@ function App() {
               }
             />
 
+          <Route
+              path="client/quotations/:requisitionId/create"
+              element={
+                <PrivateRoute>
+                  <CreateClientQuotation />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
+            path="client/quotations/:id"
+            element = {
+              <PrivateRoute>
+                <ShowClientQuotation/>
+              </PrivateRoute>
+            }
+            />
+
+            {/* client quotation end */}
+
             <Route
               path="client-invoice"
               element={
@@ -608,6 +633,15 @@ function App() {
                   <ClientInvoices />
                 </PrivateRoute>
               }
+            />
+
+          <Route 
+            path="client/invoices/:id"
+            element={
+              <PrivateRoute>
+                <ShowClientInvoice/>
+              </PrivateRoute>
+            }
             />
 
             <Route

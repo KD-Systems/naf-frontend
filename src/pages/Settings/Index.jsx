@@ -1,3 +1,4 @@
+import Tags from "components/utils/Tags";
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import RoleService from "services/RoleService";
@@ -74,7 +75,7 @@ const Settings = () => {
   const createSettings = (e) => {
     e.preventDefault();
     setBlock(true);
-    const formData = new FormData(document.getElementById("settings"));
+    const formData = new FormData(document.getElementById("settings")); 
     formData.append('notifiable_users', data.notifiable_users);
     SettingsService.create(formData);
     setBlock(false);
@@ -289,6 +290,24 @@ const Settings = () => {
                       onChange={handleSelect}
                       name="notifiable_users"
                     />
+                  </div>
+                </div>
+
+                <div className="row mb-8">
+                  <div className="col-xl-3">
+                    <div className="fs-6 fw-bold mt-2 mb-3">
+                      Notifiable Emails
+                    </div>
+                  </div>
+
+                  <div className="col-xl-9 fv-row">
+                    <Tags
+                    placeholder="Enter notifiable emails"
+                    name="notifiable_emails"
+                    id="notifiable_emails"
+                    value={data.notifiable_emails ?? ''}
+                    onChange={handleChange}
+                  />
                   </div>
                 </div>
 
