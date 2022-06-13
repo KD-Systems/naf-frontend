@@ -13,7 +13,6 @@ const ImportFile = ({ open, onCloseModal, onImported }) => {
         onImported();
         onCloseModal();
         setBlock(false)
-        // console.log('asd');
       }
 
   return (

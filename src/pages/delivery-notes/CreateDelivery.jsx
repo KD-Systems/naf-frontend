@@ -1,9 +1,9 @@
-import React,{useState,useEffect} from 'react'
-import {useParams, useNavigate, Link} from "react-router-dom"
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import Moment from "react-moment";
-import InvoiceService from 'services/InvoiceService';
-import PartService from 'services/PartService';
-import DeliverNoteService from 'services/DeliverNoteService';
+import InvoiceService from "services/InvoiceService";
+import PartService from "services/PartService";
+import DeliverNoteService from "services/DeliverNoteService";
 const CreateDelivery = () => {
   let { invoiceId } = useParams();
 
@@ -12,16 +12,16 @@ const CreateDelivery = () => {
   const [filter, setFilter] = useState({});
 
   const [list, setList] = useState([]);
-  const [selectedPart, setSelectedPart] = useState(false); /* Check Part selected or not selected*/
+  const [selectedPart, setSelectedPart] =
+    useState(false); /* Check Part selected or not selected*/
   const [searchData, setSearchData] = useState({});
-
 
   const [invoice, setInvoice] = useState({});
   const [parts, setParts] = useState([]);
 
   const [data, setData] = useState({
-    invoice:invoice,
-    part_items:list
+    invoice: invoice,
+    part_items: list,
   });
   // console.log(data);
 
@@ -34,7 +34,6 @@ const CreateDelivery = () => {
 
     setParts(items);
   };
-  
 
   const getInvoice = async () => {
     let res = await InvoiceService.get(invoiceId);
@@ -43,7 +42,7 @@ const CreateDelivery = () => {
 
   const filterData = (e) => {
     let query = e.target.value;
-    
+
     setFilter({
       ...filter,
       q: query,
@@ -54,21 +53,17 @@ const CreateDelivery = () => {
 
   const addPart = (item) => {
     //* quantity Set
-    const res = invoice?.part_items?.find((it) => 
-    it.part_id === item.id
-    );
+    const res = invoice?.part_items?.find((it) => it.part_id === item.id);
 
     if (res?.part_id == item.id) {
-        item["quantity"] = res.quantity;
-        item['invoice_exists']=true
-        item['quantity_match']=true
-        
-      } else {
-        item["quantity"] = 0;
-        item['invoice_exists']=false
-        item['quantity_match']=true
-       
-      }
+      item["quantity"] = res.quantity;
+      item["invoice_exists"] = true;
+      item["quantity_match"] = true;
+    } else {
+      item["quantity"] = 0;
+      item["invoice_exists"] = false;
+      item["quantity_match"] = true;
+    }
     // console.log(res);
 
     //* Remove Duplicates
@@ -83,8 +78,6 @@ const CreateDelivery = () => {
     }
   };
 
-
-
   // * Remove Item
 
   const removeItem = (id) => {
@@ -93,19 +86,18 @@ const CreateDelivery = () => {
   };
   // * Increment
   const increment = (item) => {
-  
     const tempList = [...list];
     const tempItem = tempList.filter((val) => val.id === item.id);
-    
+
     tempItem[0].quantity++;
     invoice?.part_items?.forEach((it) => {
-     if (it?.part_id == item?.id) {
-      if (it.quantity == item.quantity) {
-        item['quantity_match'] = true
-      } else {
-        item['quantity_match'] = false
+      if (it?.part_id == item?.id) {
+        if (it.quantity == item.quantity) {
+          item["quantity_match"] = true;
+        } else {
+          item["quantity_match"] = false;
+        }
       }
-     }
     });
 
     setList(tempList);
@@ -118,28 +110,24 @@ const CreateDelivery = () => {
     invoice?.part_items?.forEach((it) => {
       if (it?.part_id == item?.id) {
         if (it.quantity == item.quantity) {
-          item['quantity_match'] = true
+          item["quantity_match"] = true;
         } else {
-          item['quantity_match'] = false
+          item["quantity_match"] = false;
         }
-       }
+      }
     });
-
 
     setList(tempList);
   };
 
-const storeDeliveryNote = async()=>{
-
-  if (invoiceId) {
-    setBlock(true);
-    let res = await DeliverNoteService.create(data);
-    setBlock(false);
-    navigate(`/panel/delivery-notes/${res.data?.id}/show`);
-   
-  }
-}
-
+  const storeDeliveryNote = async () => {
+    if (invoiceId) {
+      setBlock(true);
+      let res = await DeliverNoteService.create(data);
+      setBlock(false);
+      navigate(`/panel/delivery-notes/${res.data?.id}/show`);
+    }
+  };
 
   const search = async (e) => {
     e.keyCode === 13 && (await getParts());
@@ -147,14 +135,15 @@ const storeDeliveryNote = async()=>{
   };
 
   useEffect(() => {
-
-    setData({
-      invoice:invoice,
-      part_items:list
-    })
     getInvoice();
-  }, [invoiceId,list]);
+  }, [invoiceId]);
 
+  useEffect(() => {
+    setData({
+      invoice: invoice,
+      part_items: list,
+    });
+  }, [invoiceId, list]);
 
   return (
     <div className="post d-flex flex-column-fluid" id="content">
@@ -364,14 +353,23 @@ const storeDeliveryNote = async()=>{
                                 {item?.invoice_exists ? (
                                   <span className="badge badge-success"></span>
                                 ) : (
-                                  <span className="badge badge-danger">
-                                    not In Invoice
+                                  <span className="badge badge-danger mt-2">
+                                    <i className="fa fa-times-circle text-white"></i>{" "}
+                                    Doesn't exist in the invoice
                                   </span>
                                 )}
-                               {
-                                 item?.invoice_exists?item?.quantity_match?"":<span className='badge badge-info'>Quantity is not matched</span>:""
-                               }
-                               
+                                {item?.invoice_exists ? (
+                                  item?.quantity_match ? (
+                                    ""
+                                  ) : (
+                                    <span className="badge badge-warning mt-2">
+                                      <i className="fa fa-exclamation-triangle text-white"></i>{" "}
+                                      Quantity mismatched with the invoice
+                                    </span>
+                                  )
+                                ) : (
+                                  ""
+                                )}
                               </td>
                               <td className="text-end">
                                 <button
@@ -380,7 +378,7 @@ const storeDeliveryNote = async()=>{
                                   data-kt-element="remove-item"
                                   onClick={() => removeItem(item?.id)}
                                 >
-                                  <i className="fa fa-trash"></i>
+                                  <i className="fa fa-times"></i>
                                 </button>
                               </td>
                             </tr>
@@ -417,6 +415,6 @@ const storeDeliveryNote = async()=>{
       </div>
     </div>
   );
-}
+};
 
-export default CreateDelivery
+export default CreateDelivery;

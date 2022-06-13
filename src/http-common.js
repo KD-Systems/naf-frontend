@@ -7,9 +7,9 @@ import "react-toastify/dist/ReactToastify.css";
 toast.configure();
 
 let Api = axios.create({
-  // baseURL: `//naf-api.viserx.net/api/`,
+  baseURL: `//naf-api.viserx.net/api/`,
   // baseURL: `//api.naf-inventory.test/api/`,
-  baseURL: `//naf-inventory-back.test/api/`, //shanto
+  // baseURL: `//naf-inventory-back.test/api/`, //shanto
   // baseURL: `//naf-inventory.test/api/`, //shahrukh
   headers: {
     "Content-type": "application/json",
@@ -29,7 +29,7 @@ let Api = axios.create({
     //Specify the messages
     if (errors)
       for (let key in errors) {
-        let el = window.$('[for=' + key + ']');
+        let el = window.$('[for="' + key + '"]');
         if (el.length) {
           reactDom.render(errors[key][0], el[0])
         } else {

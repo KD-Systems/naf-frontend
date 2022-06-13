@@ -75,39 +75,20 @@ const GatePass = () => {
     if (item) {
       setSelectedPart(res.data);
     }
-    if (!item) 
-    window.Swal.fire({
-      icon: 'error',
-      title: 'Oops...',
-      text: 'Not Found in Delivery Note'
-    });
+    if (!item)
+      window.Swal.fire({
+        icon: "warning",
+        title: "Oops...",
+        text: "Data not found",
+      });
   };
-  // console.log(parts);
+
   const partSearch = async (e) => {
     if (e.key == "Enter") {
       e.keyCode === 13 && (await getParts());
       if (filter?.q === "") setSelectedPart([]);
     }
   };
-  // End Part Search
-
-  // const addPart = (item) => {
-  //   var carry = [...color];
-  //   console.log(carry);
-  //   var test = true;
-  //   searchData.part_items.forEach((element, index) => {
-  //     if (element.part_id == item.id) {
-  //       carry[index] = "bg-success";
-  //       test = false; //Check whether the item is present or not
-  //     }
-  //   });
-  //   if (test) {
-  //     alert("Not Found");
-  //   }
-  //   setColor(carry);
-  // };
-
-  useEffect(() => {}, []);
 
   return (
     <div className="post d-flex flex-column-fluid" id="content">
@@ -188,34 +169,6 @@ const GatePass = () => {
                         onKeyUp={DeliveryNoteSearch}
                       />
                     )}
-
-                    {/* <div>
-                      {searchData.length > 0 ? (
-                        <div className="card border border-secondary ">
-                          <div className="card-body ">
-                            {searchData?.map((item, index) => (
-                              <>
-                                <div key={index}>
-                                  <Link
-                                    to={item?.id}
-                                    style={{ color: "black" }}
-                                    // onClick={() => addPart(item)}
-                                  >
-                                    <p>
-                                      {item?.dn_number}
-                                      <span>({item.dn_number})</span>
-                                    </p>
-                                  </Link>
-                                </div>
-                                <hr />
-                              </>
-                            ))}
-                          </div>
-                        </div>
-                      ) : (
-                        ""
-                      )}
-                    </div> */}
                   </div>
                 </div>
 
@@ -237,39 +190,47 @@ const GatePass = () => {
                                 onKeyUp={partSearch}
                               />
                               <div>
-                                
                                 {selectedPart.length > 0 ? (
                                   <div className="card border border-secondary ">
                                     <div className="card-body ">
-                                    {selectedPart?.map((item, index) => (
-                                  <>
-                                    <div key={index}>
-                                      <div class="row">
-                                        <div class="col-md-6 p-1">
-                                          <img
-                                            src={item.image}
-                                            style={{
-                                              height: "150px",
-                                              width: "150px",
-                                            }}
-                                          />
-                                        </div>
-                                        <div class="col-md-6 align-self-center">
-                                          <div class="row">
-                                            <div class="col" style={{ width: 300 }}>
-                                              <h5>Unique ID :</h5><br/>
-                                              <h5>Name :</h5><br/>
-                                              <h5>Part Number :</h5><br/>
+                                      {selectedPart?.map((item, index) => (
+                                        <>
+                                          <div key={index}>
+                                            <div class="row">
+                                              <div class="col-md-6 p-1">
+                                                <img
+                                                  src={item.image}
+                                                  style={{
+                                                    height: "150px",
+                                                    width: "150px",
+                                                  }}
+                                                />
+                                              </div>
+                                              <div class="col-md-6 align-self-center">
+                                                <div class="row">
+                                                  <div
+                                                    class="col"
+                                                    style={{ width: 300 }}
+                                                  >
+                                                    <h5>Unique ID :</h5>
+                                                    <br />
+                                                    <h5>Name :</h5>
+                                                    <br />
+                                                    <h5>Part Number :</h5>
+                                                    <br />
+                                                  </div>
+                                                  <div class="col">
+                                                    <h3>{item.unique_id}</h3>
+                                                    <br />
+                                                    <h3>{item.name}</h3>
+                                                    <br />
+                                                    <h3>{item.part_number}</h3>
+                                                    <br />
+                                                  </div>
+                                                </div>
+                                              </div>
                                             </div>
-                                            <div class="col">
-                                              <h3>{item.unique_id}</h3><br/>
-                                              <h3>{item.name}</h3><br/>
-                                              <h3>{item.part_number}</h3><br/>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    {/* <p>
+                                            {/* <p>
                                         <span>
                                           <img
                                             src={item.image}
@@ -282,9 +243,9 @@ const GatePass = () => {
                                         <span>({item.part_number})</span>
                                         <span>({item.part_number})</span>
                                       </p> */}
-                                    </div>
-                                  </>
-                                ))}
+                                          </div>
+                                        </>
+                                      ))}
                                     </div>
                                   </div>
                                 ) : (
@@ -312,19 +273,19 @@ const GatePass = () => {
                               <tbody>
                                 {searchData?.part_items?.map((item, index) => (
                                   <>
-                                  <tr
-                                    className={
-                                      classNamevalue + " " + color[index]
-                                    }
-                                    key={index}
-                                  >
-                                    <td>{item?.part?.aliases[0].name}</td>
-                                    <td>
-                                      {item?.part?.aliases[0].part_number}
-                                    </td>
-                                    <td>{item?.quantity}</td>
-                                  </tr>
-                                  <div className="pt-1"></div>
+                                    <tr
+                                      className={
+                                        classNamevalue + " " + color[index]
+                                      }
+                                      key={index}
+                                    >
+                                      <td>{item?.part?.aliases[0].name}</td>
+                                      <td>
+                                        {item?.part?.aliases[0].part_number}
+                                      </td>
+                                      <td>{item?.quantity}</td>
+                                    </tr>
+                                    <div className="pt-1"></div>
                                   </>
                                 ))}
                               </tbody>
@@ -332,8 +293,6 @@ const GatePass = () => {
                           </div>
                         </div>
                       )}
-
-                      
                     </div>
                   </div>
                 </div>
@@ -342,7 +301,6 @@ const GatePass = () => {
           </div>
         </div>
       </div>
-      
     </div>
   );
 };
