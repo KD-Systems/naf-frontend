@@ -4,7 +4,7 @@ const InvoicePartItems = ({ tab, active, invoice }) => {
   const { id } = useParams();
   return (
     <div
-      className={`tab-pane fade ${tab == "part_items" ? "active show" : ""}`}
+      className={`tab-pane fade ${tab == "part_items" ? "active show" : ""}`} 
       id="part_items"
       role="tabpanel"
     >

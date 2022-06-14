@@ -58,7 +58,7 @@ const ClientDeliveryNotes = () => {
           {/* to show delivery note */}
           <span className="text-end">
           <Link
-              to={"/panel/delivery-notes/" + row.id + "/show"}  
+              to={"/panel/client/delivery-notes/" + row.id + "/show"}  
               className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
             >
               <i className="fa fa-eye"></i>
@@ -67,7 +67,7 @@ const ClientDeliveryNotes = () => {
 
           <span className="text-end">
           <Link
-              to={"/panel/delivery-notes/" + row.id + "/print"}
+              to={"/panel/client/delivery-notes/" + row.id + "/print"}
               target="_blank"
               className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
               target="_blank"

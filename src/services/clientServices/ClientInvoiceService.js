@@ -19,7 +19,8 @@ const create = async (data) => {
 
 const ClientInvoiceService = {
     getAll,
-    create
+    create,
+    get
   };
   
   export default ClientInvoiceService;

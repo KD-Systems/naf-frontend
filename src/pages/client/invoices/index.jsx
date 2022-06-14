@@ -96,7 +96,7 @@ const ClientInvoices = () => {
         </span>
           <span className="text-end">
           <Link
-              to={"/panel/invoices/" + row.id + "/print"}
+              to={"/panel/client/invoices/" + row.id + "/print"}
               className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
               target="_blank"
             >
@@ -110,7 +110,7 @@ const ClientInvoices = () => {
               //   storeDeliveryNotes(row);
               // }}
 
-              onClick={() => navigate(`/panel/delivery-notes/${row?.id}/create`)}
+              onClick={() => navigate(`/panel/client/delivery-notes/${row?.id}/create`)}
               className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
               data-toggle="tooltip"
               title="Add Delivery Note"

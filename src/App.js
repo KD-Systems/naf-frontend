@@ -66,6 +66,10 @@ import PrintClientRequisition from "pages/client/requisitions/print";
 import CreateClientQuotation from "pages/client/quotations/create";
 import ShowClientQuotation from "pages/client/quotations/show";
 import ShowClientInvoice from "pages/client/invoices/show";
+import PrintClientInvoice from "pages/client/invoices/print";
+import CreateClientDelivery from "pages/client/delivery-notes/create";
+import ShowClientDeliveryNotes from "pages/client/delivery-notes/show";
+import PrintClientDeliveryNotes from "pages/client/delivery-notes/print";
 
 function App() {
   return (
@@ -645,12 +649,50 @@ function App() {
             />
 
             <Route
+              path="client/invoices/:id/print"
+              element={
+                <PrivateRoute>
+                  <PrintClientInvoice />
+                </PrivateRoute>
+              }
+            />
+
+            {/* delivery note */}
+
+            <Route
               path="client-delivery-notes"
               element={
                 <PrivateRoute>
                   <ClientDeliveryNotes />
                 </PrivateRoute>
               }
+            />
+
+            <Route
+              path="client/delivery-notes/:invoiceId/create"
+              element={
+                <PrivateRoute>
+                  <CreateClientDelivery />
+                </PrivateRoute>
+              }
+            />
+
+            <Route 
+            path="client/delivery-notes/:id/show"
+            element={
+              <PrivateRoute>
+                <ShowClientDeliveryNotes/>
+              </PrivateRoute>
+            }
+            />
+
+            <Route 
+            path="client/delivery-notes/:id/print"
+            element={
+              <PrivateRoute>
+                <PrintClientDeliveryNotes/>
+              </PrivateRoute>
+            }
             />
 
             {/* company user sales end */}

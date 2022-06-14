@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import Moment from "react-moment";
 import InvoiceService from "services/InvoiceService";
-// import InvoicePartItems from "./partiItems/Index";
-// import InvoiceCreatePayment from "./paymentHistories/Create";
+import InvoiceCreatePayment from "pages/invoices/paymentHistories/Create";
 import { Activities } from "components/utils/Activities";
 import ClientInvoiceService from "services/clientServices/ClientInvoiceService";
+import InvoicePartItems from "pages/invoices/partiItems/Index"; 
 const ShowInvoice = () => {
   let { id } = useParams();
   const navigate = useNavigate();
@@ -19,7 +19,6 @@ const ShowInvoice = () => {
     let res = await ClientInvoiceService.get(id);
     setInvoice(res);
   };
-
 
   const getPaymentHistories = async () => {
     let res = await InvoiceService.getPaymentHistories(id);
@@ -160,7 +159,7 @@ const ShowInvoice = () => {
                   <h3 className="card-label">
                     <Link
                       className="btn btn-sm btn-dark "
-                      to={"/panel/invoices/" + invoice.id + "/print"}
+                      to={"/panel/client/invoices/" + invoice.id + "/print"}
                       style={{ marginRight: "0.75rem" }}
                       target="_blank"
                     >
@@ -172,7 +171,7 @@ const ShowInvoice = () => {
                     <button
                       className="btn btn-sm btn-dark "
                       style={{ marginRight: "0.1rem" }}
-                      onClick={() => navigate(`/panel/delivery-notes/${invoice?.id}/create`)}
+                      onClick={() => navigate(`/panel/client/delivery-notes/${invoice?.id}/create`)}
                     >
                        Generate Delivery Note
                     </button>
@@ -251,11 +250,11 @@ const ShowInvoice = () => {
                 <div className="tab-content">
                   {/* Tabs start from here */}
 
-                  {/* <InvoicePartItems
+                  <InvoicePartItems
                     active={active}
                     invoice={invoice}
                     tab={tab}
-                  /> */}
+                  />
                   <Activities logName="invoices" modelId={id} tab={tab} />
                   <div
                     className={`tab-pane fade ${
@@ -375,11 +374,11 @@ const ShowInvoice = () => {
         </div>
       </div>
 
-      {/* <InvoiceCreatePayment
+      <InvoiceCreatePayment
         open={open}
         onCloseModal={onCloseModal}
         invoice={invoice}
-      /> */}
+      />
     </>
   );
 };
