@@ -17,7 +17,6 @@ const PrintDeliveryNotes = () => {
     window.print();
   };
 
-  console.log(deliveryNote);
   useEffect(() => {
     if (id) getDeliveryNotes();
   }, [id]);

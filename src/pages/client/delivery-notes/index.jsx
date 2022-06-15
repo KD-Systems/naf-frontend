@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import Table from "components/utils/Table";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; 
 import ClientDeliverNoteService from "services/clientServices/ClientDeliveryNoteService";
 const ClientDeliveryNotes = () => {
   const [loading, setLoading] = useState(false);
   const [block, setBlock] = useState(false);
   const [deliveryNotes, setDeliveryNotes] = useState([]);
-
+ console.log(deliveryNotes);
   const [open, setOpen] = useState(false);
 
   const onOpenModal = () => setOpen(true);

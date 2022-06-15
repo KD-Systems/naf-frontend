@@ -81,6 +81,13 @@ const ClientInvoices = () => {
     },
 
     {
+      name: "DN number",
+      selector: (row) => row?.deliveryNote?.dn_number,
+      sortable: true,
+      field: "role",
+    },
+
+    {
       name: "Action",
       selector: (row) => row.status, 
       format: (row) => (
@@ -104,7 +111,7 @@ const ClientInvoices = () => {
             </Link>
             
           </span>
-          <span className="text-end">
+          {/* <span className="text-end">
           <div
               // onClick={() => {
               //   storeDeliveryNotes(row);
@@ -118,7 +125,7 @@ const ClientInvoices = () => {
               <i className="fa fa-plus"></i>
             </div>
            
-          </span>
+          </span> */}
         </>
       ),
     },

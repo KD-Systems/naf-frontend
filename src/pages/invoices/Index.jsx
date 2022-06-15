@@ -81,6 +81,13 @@ const Invoices = () => {
     },
 
     {
+      name: "DN number",
+      selector: (row) => row?.deliveryNote?.dn_number,
+      sortable: true,
+      field: "role",
+    },
+
+    {
       name: "Action",
       selector: (row) => row.status, 
       format: (row) => (

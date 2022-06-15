@@ -13,10 +13,12 @@ const RequisitionCreate = () => {
   const navigate = useNavigate();
   const [companies, setCompanies] = useState([]);
   const [machineModels, setMachineModels] = useState([]);
+  // console.log(machineModels);
   const [filter, setFilter] = useState({
     part_heading_id: null,
   });
   const [partHeadings, setPartHeadings] = useState([]);
+  // console.log(partHeadings);
   const [uniquePart, setUniquePart] = useState([]);
   const [searchData, setSearchData] = useState([]);
   const [list, setList] = useState([]); /* for adding part in requisition */

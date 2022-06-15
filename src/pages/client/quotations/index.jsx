@@ -10,7 +10,7 @@ const ClientQuotations = () => {
 
   const [open, setOpen] = useState(false);
 
-  const onOpenModal = () => setOpen(true);
+  const onOpenModal = () => setOpen(true); 
   const onCloseModal = () => setOpen(false);
 
   const columns = [
@@ -72,6 +72,29 @@ const ClientQuotations = () => {
       sortable: true,
       field: "role",
     },
+
+    {
+      name: "Status",
+      selector: (row) => row?.locked_at,
+      format: (row) => (
+        <div className='mt-2'>
+          {row?.locked_at ? (
+            "Locked"
+          ): "on-going"}
+         
+        </div>
+      ),
+      sortable: true,
+      field: "id",
+    },
+
+    {
+      name: "IN Number",
+      selector: (row) => row?.invoice?.invoice_number,
+      sortable: true,
+      field: "id",
+    }, 
+  
    
     {
       name: "Action",

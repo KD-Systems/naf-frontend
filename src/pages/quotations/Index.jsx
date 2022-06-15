@@ -8,7 +8,6 @@ import PermissionAbility from "helpers/PermissionAbility";
 const Quotations = () => {
   const [loading, setLoading] = useState(false);
   const [quotations, setQuotations] = useState([]);
-
   const [open, setOpen] = useState(false);
 
   const onOpenModal = () => setOpen(true);
@@ -72,6 +71,28 @@ const Quotations = () => {
       ),
       sortable: true,
       field: "role",
+    },
+
+    {
+      name: "Status",
+      selector: (row) => row?.locked_at,
+      format: (row) => (
+        <div className='mt-2'>
+          {row?.locked_at ? (
+            "Locked"
+          ): "on-going"}
+         
+        </div>
+      ),
+      sortable: true,
+      field: "id",
+    },
+
+    {
+      name: "IN Number",
+      selector: (row) => row?.invoice?.invoice_number,
+      sortable: true,
+      field: "id",
     },
    
     {

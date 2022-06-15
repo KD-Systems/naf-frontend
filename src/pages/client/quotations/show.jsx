@@ -188,7 +188,7 @@ const ShowQuotation = () => {
               </div>
               <div className="card-header">
                 <div className="card-title">
-                  <h3 className="card-label">
+                  {/* <h3 className="card-label">
                   <button
                       className="btn btn-sm btn-dark "
                       style={{ marginRight: "0.1rem" }}
@@ -198,7 +198,7 @@ const ShowQuotation = () => {
                     >
                       Generate Invoice
                     </button>
-                  </h3>
+                  </h3> */}
 
                   {!locked ? (
                     <h3>

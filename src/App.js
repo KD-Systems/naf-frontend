@@ -671,7 +671,7 @@ function App() {
             <Route
               path="client/delivery-notes/:invoiceId/create"
               element={
-                <PrivateRoute>
+                <PrivateRoute> 
                   <CreateClientDelivery />
                 </PrivateRoute>
               }

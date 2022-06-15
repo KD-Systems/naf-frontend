@@ -167,7 +167,7 @@ const ShowInvoice = () => {
                     </Link>
                   </h3>
                   
-                  <h3 className="card-label">
+                  {/* <h3 className="card-label">
                     <button
                       className="btn btn-sm btn-dark "
                       style={{ marginRight: "0.1rem" }}
@@ -175,7 +175,7 @@ const ShowInvoice = () => {
                     >
                        Generate Delivery Note
                     </button>
-                    </h3>                    
+                    </h3>                     */}
                     
                   
                   </div> 
