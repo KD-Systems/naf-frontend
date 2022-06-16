@@ -10,15 +10,30 @@ const ShowQuotation = () => {
   let { id } = useParams();
   const navigate = useNavigate();
   const [quotation, setQuotation] = useState({});
+  const [comment, setComment] = useState([]);
   const [block, setBlock] = useState(false);
   const [locked, setLocked] = useState(false);
   const [list, setList] = useState([]);
   const [tab, setTab] = useState("quotations");
+  const [message, setMessage] = useState("");
 
   const [data, setData] = useState({
     quotation_id: parseInt(id),
     part_items: list,
   });
+
+  const sendComment = async () => {
+    if (message) {
+      await QuotationService.sendComment({ quotation_id: id, text: message });
+      setMessage("");
+    } else {
+    }
+  };
+
+  const getQuotationComment = async () => {
+    let res = await QuotationService.getComment(id);
+    setComment(res.data);
+  };
 
   const getQuotation = async () => {
     let res = await ClientQuotationService.get(id);
@@ -28,10 +43,10 @@ const ShowQuotation = () => {
   //* Generating Invoice
   const storeInvoice = async () => {
     setBlock(true);
-    let res = await ClientInvoiceService.create(quotation); 
+    let res = await ClientInvoiceService.create(quotation);
     setBlock(false);
     navigate(`/panel/invoices/${res.data?.id}`);
-  }; 
+  };
 
   const lockedPartItems = async () => {
     setBlock(true);
@@ -41,7 +56,10 @@ const ShowQuotation = () => {
   };
 
   useEffect(() => {
-    if (id) getQuotation();
+    if (id) {
+      getQuotation();
+      getQuotationComment();
+    }
   }, [id, locked]);
 
   useEffect(() => {
@@ -219,7 +237,6 @@ const ShowQuotation = () => {
                       </button>
                     </h3>
                   )}
-                  
                 </div>
               </div>
             </div>
@@ -238,6 +255,19 @@ const ShowQuotation = () => {
                     onClick={() => setTab("quotations")}
                   >
                     Part Items
+                  </a>
+                </li>
+
+                <li className="nav-item">
+                  <a
+                    className={`nav-link text-active-primary pb-4 ${
+                      tab == "comment" ? "active" : ""
+                    }`}
+                    data-bs-toggle="tab"
+                    href="#comment"
+                    onClick={() => setTab("comment")}
+                  >
+                    Comments
                   </a>
                 </li>
 
@@ -264,8 +294,6 @@ const ShowQuotation = () => {
                 role="tabpanel"
               >
                 <div className="card card-custom gutter-b">
-                  
-
                   <div className="card-body px-0">
                     <div className="card mb-5 mb-xl-8">
                       <div className="card-body py-3">
@@ -347,7 +375,6 @@ const ShowQuotation = () => {
                                       name="unit_value"
                                       placeholder="0TK"
                                       value={item?.unit_value ?? ""}
-                                      
                                       onChange={(e) => handleChange(e, item)}
                                     />
                                   </td>
@@ -375,8 +402,57 @@ const ShowQuotation = () => {
                           ) : (
                             ""
                           )}
-                          
                         </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                className={`tab-pane fade ${
+                  tab == "comment" ? "active show" : ""
+                }`}
+                id="comment"
+                role="tabpanel"
+              >
+                <div className="card card-custom gutter-b">
+                  <div style={{ height: 620 }}>
+                    {comment &&
+                      comment?.map((item) => {
+                        return (
+                          <div className="d-flex justify-content-start">
+                            <div>
+                              <div className="border rounded mx-20 m-2">
+                                <div className="m-3">{item.text}</div>
+                              </div>
+                              <div className="d-flex justify-content-start">
+                                <div className="mx-20">
+                                  {new Date(item.updated_at).getHours()}:
+                                  {new Date(item.updated_at).getMinutes()}:
+                                  {new Date(item.updated_at).getSeconds()}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                  </div>
+                  <div className="d-flex align-items-end">
+                    <div class="input-group mb-3">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Type message..."
+                        aria-label="Recipient's username"
+                        aria-describedby="basic-addon2"
+                        value={message}
+                        onChange={(e) => setMessage(e.target.value)}
+                      />
+                      <div class="input-group-append" onClick={sendComment}>
+                        <button class="input-group-text" id="basic-addon2">
+                          Send
+                        </button>
                       </div>
                     </div>
                   </div>

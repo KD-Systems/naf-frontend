@@ -9,19 +9,34 @@ const ShowQuotation = () => {
   let { id } = useParams();
   const navigate = useNavigate();
   const [quotation, setQuotation] = useState({});
+  const [comment, setComment] = useState({});
   const [block, setBlock] = useState(false);
   const [locked, setLocked] = useState(false);
   const [list, setList] = useState([]);
   const [tab, setTab] = useState("quotations");
+  const [message, setMessage] = useState("");
 
   const [data, setData] = useState({
     quotation_id: parseInt(id),
     part_items: list,
   });
 
+  const sendComment = async () => {
+    if (message) {
+      await QuotationService.sendComment({ quotation_id: id, text: message });
+      setMessage("");
+    } else {
+    }
+  };
+
   const getQuotation = async () => {
     let res = await QuotationService.get(id);
     setQuotation(res);
+  };
+
+  const getQuotationComment = async () => {
+    let res = await QuotationService.getComment(id);
+    setComment(res);
   };
 
   //* Generating Invoice
@@ -30,7 +45,7 @@ const ShowQuotation = () => {
     let res = await InvoiceService.create(quotation);
     setBlock(false);
     navigate(`/panel/invoices/${res.data?.id}`);
-  }; 
+  };
 
   const lockedPartItems = async () => {
     setBlock(true);
@@ -40,7 +55,10 @@ const ShowQuotation = () => {
   };
 
   useEffect(() => {
-    if (id) getQuotation();
+    if (id) {
+      getQuotation();
+      getQuotationComment();
+    }
   }, [id, locked]);
 
   useEffect(() => {
@@ -188,41 +206,40 @@ const ShowQuotation = () => {
               <div className="card-header">
                 <div className="card-title">
                   <h3 className="card-label">
-                  <PermissionAbility permission="quotations_generate_invoice">
-                  <button
-                      className="btn btn-sm btn-dark "
-                      style={{ marginRight: "0.1rem" }}
-                      onClick={() => {
-                        storeInvoice();
-                      }}
-                    >
-                      Generate Invoice
-                    </button>
-                  </PermissionAbility>
+                    <PermissionAbility permission="quotations_generate_invoice">
+                      <button
+                        className="btn btn-sm btn-dark "
+                        style={{ marginRight: "0.1rem" }}
+                        onClick={() => {
+                          storeInvoice();
+                        }}
+                      >
+                        Generate Invoice
+                      </button>
+                    </PermissionAbility>
                   </h3>
 
                   <PermissionAbility permission="quotations_lock">
-                  {!locked ? (
-                    <h3>
-                      <button
-                        className="btn btn-sm btn-dark float-end fs-6 "
-                        onClick={lockedPartItems}
-                      >
-                        Lock
-                      </button>
-                    </h3>
-                  ) : (
-                    <h3>
-                      <button
-                        className="btn btn-sm btn-danger float-end fs-6 "
-                        onClick={lockedPartItems}
-                      >
-                        Locked
-                      </button>
-                    </h3>
-                  )}
+                    {!locked ? (
+                      <h3>
+                        <button
+                          className="btn btn-sm btn-dark float-end fs-6 "
+                          onClick={lockedPartItems}
+                        >
+                          Lock
+                        </button>
+                      </h3>
+                    ) : (
+                      <h3>
+                        <button
+                          className="btn btn-sm btn-danger float-end fs-6 "
+                          onClick={lockedPartItems}
+                        >
+                          Locked
+                        </button>
+                      </h3>
+                    )}
                   </PermissionAbility>
-                  
                 </div>
               </div>
             </div>
@@ -241,6 +258,19 @@ const ShowQuotation = () => {
                     onClick={() => setTab("quotations")}
                   >
                     Part Items
+                  </a>
+                </li>
+
+                <li className="nav-item">
+                  <a
+                    className={`nav-link text-active-primary pb-4 ${
+                      tab == "comment" ? "active" : ""
+                    }`}
+                    data-bs-toggle="tab"
+                    href="#comment"
+                    onClick={() => setTab("comment")}
+                  >
+                    Comments
                   </a>
                 </li>
 
@@ -267,8 +297,6 @@ const ShowQuotation = () => {
                 role="tabpanel"
               >
                 <div className="card card-custom gutter-b">
-                  
-
                   <div className="card-body px-0">
                     <div className="card mb-5 mb-xl-8">
                       <div className="card-body py-3">
@@ -350,7 +378,6 @@ const ShowQuotation = () => {
                                       name="unit_value"
                                       placeholder="0TK"
                                       value={item?.unit_value ?? ""}
-                                      
                                       onChange={(e) => handleChange(e, item)}
                                     />
                                   </td>
@@ -369,19 +396,48 @@ const ShowQuotation = () => {
                             </tbody>
                           </table>
                           <PermissionAbility permission="quotations_partItems_update">
-                          {!locked ? (
-                            <button
-                              className="btn btn-sm btn-dark float-end fs-6 mt-5"
-                              onClick={handleUpdate}
-                            >
-                              Update
-                            </button>
-                          ) : (
-                            ""
-                          )}
+                            {!locked ? (
+                              <button
+                                className="btn btn-sm btn-dark float-end fs-6 mt-5"
+                                onClick={handleUpdate}
+                              >
+                                Update
+                              </button>
+                            ) : (
+                              ""
+                            )}
                           </PermissionAbility>
-                          
                         </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                className={`tab-pane fade ${
+                  tab == "comment" ? "active show" : ""
+                }`}
+                id="comment"
+                role="tabpanel"
+              >
+                <div className="card card-custom gutter-b">
+                  <div style={{ height: 620 }}>Afnana</div>
+                  <div className="d-flex align-items-end">
+                    <div class="input-group mb-3">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Type message..."
+                        aria-label="Recipient's username"
+                        aria-describedby="basic-addon2"
+                        value={message}
+                        onChange={(e) => setMessage(e.target.value)}
+                      />
+                      <div class="input-group-append" onClick={sendComment}>
+                        <button class="input-group-text" id="basic-addon2">
+                          Send
+                        </button>
                       </div>
                     </div>
                   </div>

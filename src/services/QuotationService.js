@@ -14,7 +14,7 @@ const get = async (id) => {
 
 
 const create = async (data) => {
-  const res = await http.post(`/quotations`, data)
+  const res = await http.post(`/quotations`, data) 
   return res.data;
 };
 
@@ -33,13 +33,27 @@ const locked = async (data)=>{
   return res?.data;
 }
 
+// quotation comment 
+const getComment = async (id) => {
+  const res = await http.get(`/quotation-comment/index/${id}`);
+  return res.data;
+};
+
+const sendComment = async (data) => {
+  const res = await http.post(`/quotation-comment`,data); 
+  return res.data;
+
+};
+
 const QuotationService = {
   getAll,
   get,
   create,
   update,
   remove,
-  locked
+  locked,
+  getComment,
+  sendComment
 };
 
 export default QuotationService;
