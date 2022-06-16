@@ -16,7 +16,6 @@ const ShowQuotation = () => {
   const [list, setList] = useState([]);
   const [tab, setTab] = useState("quotations");
   const [message, setMessage] = useState("");
-  console.log(comment);
 
   const [data, setData] = useState({
     quotation_id: parseInt(id),
@@ -435,7 +434,7 @@ const ShowQuotation = () => {
                                   {new Date(item.updated_at).getSeconds()}
                                 </div>
                               </div>
-                            </div>
+                            </div> 
                           </div>
                         );
                       })}

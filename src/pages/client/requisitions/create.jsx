@@ -13,7 +13,7 @@ const RequisitionCreate = () => {
   const navigate = useNavigate();
   const [companies, setCompanies] = useState({});
   const [machineModels, setMachineModels] = useState([]);
-  // console.log(machineModels);
+  console.log(machineModels);
   const [filter, setFilter] = useState({
     part_heading_id: null,
   });
