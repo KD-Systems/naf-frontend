@@ -16,6 +16,7 @@ const ShowQuotation = () => {
   const [list, setList] = useState([]);
   const [tab, setTab] = useState("quotations");
   const [message, setMessage] = useState("");
+  console.log(comment);
 
   const [data, setData] = useState({
     quotation_id: parseInt(id),
@@ -32,7 +33,7 @@ const ShowQuotation = () => {
 
   const getQuotationComment = async () => {
     let res = await QuotationService.getComment(id);
-    setComment(res.data);
+    setComment(res);
   };
 
   const getQuotation = async () => {
@@ -424,7 +425,8 @@ const ShowQuotation = () => {
                           <div className="d-flex justify-content-start">
                             <div>
                               <div className="border rounded mx-20 m-2">
-                                <div className="m-3">{item.text}</div>
+                              {item?.user?.name}
+                                <div className="m-3">{item?.text}</div>
                               </div>
                               <div className="d-flex justify-content-start">
                                 <div className="mx-20">
