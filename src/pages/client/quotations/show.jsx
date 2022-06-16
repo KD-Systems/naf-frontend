@@ -6,6 +6,7 @@ import InvoiceService from "services/InvoiceService";
 import { Activities } from "components/utils/Activities";
 import ClientQuotationService from "services/clientServices/ClientQuotationService";
 import ClientInvoiceService from "services/clientServices/ClientInvoiceService";
+import Scrollbars from "react-custom-scrollbars";
 const ShowQuotation = () => {
   let { id } = useParams();
   const navigate = useNavigate();
@@ -25,6 +26,7 @@ const ShowQuotation = () => {
   const sendComment = async () => {
     if (message) {
       await QuotationService.sendComment({ quotation_id: id, text: message });
+      getQuotationComment();
       setMessage("");
     } else {
     }
@@ -32,7 +34,7 @@ const ShowQuotation = () => {
 
   const getQuotationComment = async () => {
     let res = await QuotationService.getComment(id);
-    setComment(res.data);
+    setComment(res);
   };
 
   const getQuotation = async () => {
@@ -328,22 +330,9 @@ const ShowQuotation = () => {
 
                                   <td>
                                     <div className="input-group input-group-sm">
-                                      <div className="input-group-prepend">
-                                        <button
-                                          disabled={locked ? true : false}
-                                          className="input-group-text"
-                                          id="inputGroup-sizing-sm"
-                                          onClick={() => {
-                                            if (item?.quantity > 0) {
-                                              decrement(item);
-                                            }
-                                          }}
-                                        >
-                                          <i className="fas fa-minus"></i>
-                                        </button>
-                                      </div>
+
                                       <input
-                                        disabled={locked ? true : false}
+                                        disabled={true}
                                         type="text"
                                         className="form-control"
                                         aria-label="Small"
@@ -351,23 +340,12 @@ const ShowQuotation = () => {
                                         min="1"
                                         value={item?.quantity ?? ""}
                                         name="quantity"
-                                      />
-
-                                      <div className="input-group-prepend">
-                                        <button
-                                          className="input-group-text"
-                                          onClick={() => increment(item)}
-                                          style={{ cursor: "pointer" }}
-                                          disabled={locked ? true : false}
-                                        >
-                                          <i className="fas fa-plus"></i>
-                                        </button>
-                                      </div>
+                                      />          
                                     </div>
                                   </td>
                                   <td className=" fw-bolder mb-1 fs-6">
                                     <input
-                                      disabled={locked ? true : false}
+                                      disabled={true}
                                       type="number"
                                       className="form-control"
                                       aria-label="Small"
@@ -391,17 +369,7 @@ const ShowQuotation = () => {
                                 </tr>
                               ))}
                             </tbody>
-                          </table>
-                          {!locked ? (
-                            <button
-                              className="btn btn-sm btn-dark float-end fs-6 mt-5"
-                              onClick={handleUpdate}
-                            >
-                              Update
-                            </button>
-                          ) : (
-                            ""
-                          )}
+                          </table>                  
                         </div>
                       </div>
                     </div>
@@ -416,41 +384,60 @@ const ShowQuotation = () => {
                 id="comment"
                 role="tabpanel"
               >
-                <div className="card card-custom gutter-b">
-                  <div style={{ height: 620 }}>
-                    {comment &&
-                      comment?.map((item) => {
+                <div className="">
+                  <Scrollbars style={{ height: 610 }}>
+                    {comment.length ? (
+                      comment.map((item) => {
+                        console.log(item);
                         return (
-                          <div className="d-flex justify-content-start">
+                          <div className="d-flex flex-row m-5 p-5 card rounded">
+                            <div className="p-2">
+                              <img
+                                className="rounded-circle"
+                                src={item.user.avatar_url}
+                                style={{ height: 50, width: 50 }}
+                              />
+                            </div>
                             <div>
-                              <div className="border rounded mx-20 m-2">
-                                <div className="m-3">{item.text}</div>
-                              </div>
-                              <div className="d-flex justify-content-start">
-                                <div className="mx-20">
-                                  {new Date(item.updated_at).getHours()}:
-                                  {new Date(item.updated_at).getMinutes()}:
-                                  {new Date(item.updated_at).getSeconds()}
+                              <div className="h4">{item.user.name}</div>
+                              <div>
+                                <span>
+                                  {new Date(item.updated_at).getDate()}-
+                                  {new Date(item.updated_at).getMonth()}-
+                                  {new Date(item.updated_at).getFullYear()}
+                                </span>
+                                <span className="border mx-2">{item.type}</span>
+                                <div
+                                  className="justify-content-between"
+                                  style={{ fontSize: 14 }}
+                                >
+                                  {item.text}
                                 </div>
                               </div>
                             </div>
                           </div>
                         );
-                      })}
-                  </div>
+                      })
+                    ) : (
+                      <div className="d-flex justify-content-center mt-20">
+                        <h2>No comment yet</h2>
+                      </div>
+                    )}
+                  </Scrollbars>
                   <div className="d-flex align-items-end">
-                    <div class="input-group mb-3">
-                      <input
-                        type="text"
+                    <div class="input-group m-3">
+                      <textarea
                         class="form-control"
-                        placeholder="Type message..."
-                        aria-label="Recipient's username"
-                        aria-describedby="basic-addon2"
+                        rows="1"
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
+                        placeholder="Type comment..."
                       />
-                      <div class="input-group-append" onClick={sendComment}>
-                        <button class="input-group-text" id="basic-addon2">
+                      <div
+                        class="input-group-append d-flex align-items-end"
+                        onClick={sendComment}
+                      >
+                        <button class="input-group-text " id="basic-addon2">
                           Send
                         </button>
                       </div>
