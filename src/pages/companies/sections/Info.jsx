@@ -67,7 +67,7 @@ const CompanyInfo = ({ company }) => {
               <div className="fw-bolder mt-5">Description</div>
               <div className="text-gray-600">{company.description}</div>
               <div className="fw-bolder mt-5">Due Amount</div>
-              <div className="text-gray-600">{company.due_amount ?? "0"}</div>
+              <div className={parseInt(company.due_amount)<0 ? "text-danger": "text-gray"}>{company.due_amount}</div>
 
               <div className="fw-bolder mt-5">Trade Limit</div>
               <input
