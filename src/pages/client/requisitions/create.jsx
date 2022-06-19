@@ -8,17 +8,16 @@ import PartService from "services/PartService";
 import RequisitionService from "services/RequisitionService";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ClientRequisitionService from "services/clientServices/ClientRequisitionService";
 
 const RequisitionCreate = () => {
   const navigate = useNavigate();
   const [companies, setCompanies] = useState({});
   const [machineModels, setMachineModels] = useState([]);
-  console.log(machineModels);
   const [filter, setFilter] = useState({
     part_heading_id: null,
   });
   const [partHeadings, setPartHeadings] = useState([]);
-  console.log(partHeadings);
   const [uniquePart, setUniquePart] = useState([]);
   const [searchData, setSearchData] = useState([]);
   const [list, setList] = useState([]); /* for adding part in requisition */
@@ -42,6 +41,7 @@ const RequisitionCreate = () => {
     machine_problems: "",
     solutions: "",
     reason_of_trouble: "",
+    status:"",
     remarks: "",
     part_items: list,
     total: totalAmount,
@@ -85,7 +85,7 @@ const RequisitionCreate = () => {
 
   const storeRequisition = async () => {
     setBlock(true);
-    await RequisitionService.createClientRequisition({...data, company_id:companies});
+    await ClientRequisitionService.create({...data, company_id:companies});
     setBlock(false);
     // navigate("/panel/requisitions"); 
   };
