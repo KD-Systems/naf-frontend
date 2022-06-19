@@ -49,9 +49,17 @@ const Requisitions = () => {
 
     {
       name: "PQ Number",
-      selector: (row) => row?.quotation?.pq_number,
+      selector: (row) => row?.quotation?.pq_number, 
       sortable: true,
       field: "role",
+      format: (row) => (
+        <div className='mt-2'>
+          {row?.quotation?.pq_number ? (
+            row?.quotation?.pq_number
+          ): "No quotation yet"}
+         
+        </div>
+      ),
     },
    
     {

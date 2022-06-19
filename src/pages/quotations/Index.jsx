@@ -11,7 +11,7 @@ const Quotations = () => {
   const [open, setOpen] = useState(false);
 
   const onOpenModal = () => setOpen(true);
-  const onCloseModal = () => setOpen(false);
+  const onCloseModal = () => setOpen(false); 
 
   const columns = [
     {
@@ -93,6 +93,14 @@ const Quotations = () => {
       selector: (row) => row?.invoice?.invoice_number,
       sortable: true,
       field: "id",
+      format: (row) => (
+        <div className='mt-2'>
+          {row?.invoice?.invoice_number ? (
+            row?.invoice?.invoice_number
+          ): "No invoice yet"}
+         
+        </div>
+      ),
     },
    
     {
