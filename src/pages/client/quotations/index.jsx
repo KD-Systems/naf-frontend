@@ -93,6 +93,14 @@ const ClientQuotations = () => {
       selector: (row) => row?.invoice?.invoice_number,
       sortable: true,
       field: "id",
+      format: (row) => (
+        <div className='mt-2'>
+          {row?.invoice?.invoice_number ? (
+            row?.invoice?.invoice_number
+          ): "No invoice yet"}
+         
+        </div>
+      ),
     }, 
   
    
