@@ -85,6 +85,14 @@ const Invoices = () => {
       selector: (row) => row?.deliveryNote?.dn_number,
       sortable: true,
       field: "role",
+      format: (row) => (
+        <div className='mt-2'>
+          {row?.deliveryNote?.dn_number ? (
+            row?.deliveryNote?.dn_number
+          ): "No delivery note yet"}
+         
+        </div>
+      ),
     },
 
     {

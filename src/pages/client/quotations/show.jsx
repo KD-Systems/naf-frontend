@@ -399,22 +399,18 @@ const ShowQuotation = () => {
                               />
                             </div>
                             <div>
-                              <div className="h4">{item.user.name}</div>
-                              <div>
-                                <span>
-                                  {new Date(item.updated_at).getDate()}-
-                                  {new Date(item.updated_at).getMonth()}-
-                                  {new Date(item.updated_at).getFullYear()}
-                                </span>
-                                <span className="border mx-2">{item.type}</span>
-                                <div
-                                  className="justify-content-between"
-                                  style={{ fontSize: 14 }}
-                                >
-                                  {item.text}
+                              <div className="border rounded mx-20 m-2">
+                              {item?.user?.name}
+                                <div className="m-3">{item?.text}</div>
+                              </div>
+                              <div className="d-flex justify-content-start">
+                                <div className="mx-20">
+                                  {new Date(item.updated_at).getHours()}:
+                                  {new Date(item.updated_at).getMinutes()}:
+                                  {new Date(item.updated_at).getSeconds()}
                                 </div>
                               </div>
-                            </div>
+                            </div> 
                           </div>
                         );
                       })
