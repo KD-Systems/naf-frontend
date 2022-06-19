@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import Moment from "react-moment";
 import { useNavigate } from "react-router-dom";
@@ -6,15 +6,15 @@ import { useNavigate } from "react-router-dom";
 const CompanyInfo = ({ company }) => {
   const navigate = useNavigate();
 
-  const [limit, setLimit] = useState(company.trade_limit);
+  const [limit, setLimit] = useState();
   const [pay_amount, setPay_amount] = useState(0);
 
   const updateTradeLimit = () => {
-    console.log("call API trade limit",limit);
+    console.log("call API trade limit", limit);
   };
 
   const submitDueAmount = () => {
-    console.log("call API pay amount",pay_amount);
+    console.log("call API pay amount", pay_amount);
   };
 
   return (
@@ -73,7 +73,7 @@ const CompanyInfo = ({ company }) => {
               <input
                 className="col-form-label col-sm-7 rounded"
                 type="text"
-                value={limit}
+                value={limit ?? company.trade_limit}
                 onChange={(e) => {
                   setLimit(e.target.value);
                 }}
