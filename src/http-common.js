@@ -10,7 +10,9 @@ let Api = axios.create({
   // baseURL: `//naf-api.viserx.net/api/`,
   // baseURL: `//api.naf-inventory.test/api/`,
   baseURL: `//naf-inventory-back.test/api/`, //shanto
-  // baseURL: `//naf-inventory.test/api/`, //shahrukh
+  // baseURL: `//naf-inventory.test/api/`, //shahrukh  
+  baseURL: `http://127.0.0.1:8000/api`, //shanto
+
   headers: {
     "Content-type": "application/json",
     "accept": "application/json",

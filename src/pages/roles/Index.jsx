@@ -93,7 +93,7 @@ const Roles = () => {
                               <i className="fa fa-eye"></i>
                             </Link>
                           )}
-                          {item?.name !== "Admin" && (
+                          {/* {item?.name !== "Admin" && (
                             <Link
                               to="#"
                               className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
@@ -104,7 +104,7 @@ const Roles = () => {
                             >
                               <i className="fa fa-trash"></i>
                             </Link>
-                          )}
+                          )} */}
                         </td>
                       </tr>
                     ))}
