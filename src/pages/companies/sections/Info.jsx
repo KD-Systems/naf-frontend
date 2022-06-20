@@ -90,7 +90,7 @@ const CompanyInfo = () => {
                 </div>
 
                 <div className="fw-bolder mt-5">Description</div>
-                <div className="text-gray-600">{company.description}</div>
+                <div className="text-gray-600">{company.description?? "--"}</div>
                 <div className="fw-bolder mt-5">Due Amount</div>
                 <div
                   className={
@@ -99,7 +99,7 @@ const CompanyInfo = () => {
                       : "text-gray"
                   }
                 >
-                  {company.due_amount}
+                  {company.due_amount?? "--"}
                 </div>
                 <div className="fw-bolder mt-5">Trade Limit</div>
                 <div
