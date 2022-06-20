@@ -93,7 +93,7 @@ const Companies = () => {
             }}
           >
             <i className="fa fa-pen"></i>
-          </button>
+          </button> 
           </PermissionAbility>
           <PermissionAbility permission="companies_delete">
           <Link

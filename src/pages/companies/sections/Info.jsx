@@ -1,23 +1,49 @@
+import PermissionAbility from "helpers/PermissionAbility";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import Moment from "react-moment";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import CompanyService from "services/CompanyService";
+import EditCompany from "../Edit";
 
 const CompanyInfo = ({ company }) => {
   const navigate = useNavigate();
+  const { id } = useParams();
+  const [loading, setLoading] = useState(true);
+  const [companyId, setcompanyId] = useState(null);
+  const [openAddModal, setOpenAddModal] = useState(false);
+  const [openEditModal, setOpenEditModal] = useState(false);
+  const [companies, setCompanies] = useState([]);
 
-  const [limit, setLimit] = useState();
-  const [pay_amount, setPay_amount] = useState(0);
-
-  const updateTradeLimit = () => {
-    console.log("call API trade limit", limit);
+  const onCloseModal = () => {
+    setOpenAddModal(false);
+    setOpenEditModal(false);
   };
 
-  const submitDueAmount = () => {
-    console.log("call API pay amount", pay_amount);
+  const getCompanies = async () => {
+    setLoading(true);
+    setCompanies(await CompanyService.get(id));
+    setLoading(false);
   };
+
+  // const [form, setForm] = useState({
+  //   trade_limit: null,
+  //   due_amount: 0,
+  // });
+
+  // const handleSettingState = (e) => {
+  //   setForm({
+  //     ...form,
+  //     [e.target.name]: e.target.value,
+  //   });
+  // };
+
+  // const handleUpdate = async (e) => {
+  //   await CompanyService.updateDueLimit(id, form);
+  // };
 
   return (
+    <>
     <div className="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px">
       <div className="card card-custom">
         <div className="card-header h-auto py-4 mb-2">
@@ -67,44 +93,83 @@ const CompanyInfo = ({ company }) => {
               <div className="fw-bolder mt-5">Description</div>
               <div className="text-gray-600">{company.description}</div>
               <div className="fw-bolder mt-5">Due Amount</div>
-              <div className={parseInt(company.due_amount)<0 ? "text-danger": "text-gray"}>{company.due_amount}</div>
-
+              <div
+                className={
+                  parseInt(company.due_amount) < 0 ? "text-danger" : "text-gray"
+                }
+              >
+                {company.due_amount}
+              </div>
               <div className="fw-bolder mt-5">Trade Limit</div>
+              <div
+                className={
+                  parseInt(company.trade_limit) < 0 ? "text-danger" : "text-gray"
+                }
+              >
+                {company.trade_limit}
+              </div>
+
+
+              <div className="card-header"> 
+                <div className="card-title">
+                  <h3 className="card-label">
+                  <PermissionAbility permission="companies_edit">
+                <button
+                  className="btn btn-sm btn-dark"
+                  onClick={() => {
+                    setcompanyId(id);
+                    setOpenEditModal(true);
+                  }}
+                >
+                  <i className="fa fa">Edit</i>
+                </button>
+              </PermissionAbility>
+                  </h3>
+                  
+                </div>
+              </div>
+
+              {/* <div className="fw-bolder mt-5">Trade Limit</div>
               <input
                 className="col-form-label col-sm-7 rounded"
                 type="text"
-                value={limit ?? company.trade_limit}
-                onChange={(e) => {
-                  setLimit(e.target.value);
-                }}
+                value={form.trade_limit ?? company.trade_limit}
+                onChange={handleSettingState}
+                name="trade_limit"
               />
               <input
                 className="btn btn-primary mx-2"
                 type="button"
                 value="Update"
-                onClick={updateTradeLimit}
+                onClick={handleUpdate}
               />
               <div className="fw-bolder mt-5">Pay Amount</div>
               <input
                 className="col-form-label col-sm-7 rounded"
                 type="number"
-                value={pay_amount}
-                onChange={(e) => {
-                  setPay_amount(e.target.value);
-                }}
+                value={form.due_amount}
+                onChange={handleSettingState} 
+                name="due_amount"
               />
 
               <input
                 className="btn btn-primary mx-2"
                 type="button"
                 value="Submit"
-                onClick={submitDueAmount}
-              />
+                onClick={handleUpdate}
+              /> */}
             </div>
           </div>
         </div>
       </div>
     </div>
+    <EditCompany
+        open={openEditModal}
+        companyId={companyId}
+        onCloseModal={onCloseModal}
+        onUpdated={getCompanies}
+      />
+    </>
   );
 };
 

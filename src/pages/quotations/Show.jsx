@@ -427,7 +427,6 @@ const ShowQuotation = () => {
                   <Scrollbars style={{ height: 610 }}>
                     {comment.length ? (
                       comment.map((item) => {
-                        console.log(item);
                         return (
                           <div className="d-flex flex-row m-5 card">
                             <div className="p-2">

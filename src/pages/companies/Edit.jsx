@@ -56,7 +56,9 @@ const EditCompany = ({ open, companyId, onCloseModal, onUpdated }) => {
       address:"",
       tel:"",
       email:"",
-      web:""
+      web:"",
+      trade_limit:"",
+      due_amount:""
     });
 
     if (companyId) getCompany();
@@ -217,6 +219,39 @@ const EditCompany = ({ open, companyId, onCloseModal, onUpdated }) => {
                 <div
                   className="fv-plugins-message-container invalid-feedback"
                   htmlFor="machine_types"
+                ></div>
+              </div>
+
+              <div className="mb-5 fv-row fv-plugins-icon-container">
+                <label className="form-label">Trade limit</label>
+                <input
+                  type="number"
+                  className="form-control"
+                  placeholder="Enter Trade Limit"
+                  name="trade_limit"
+                  id="trade_limit"
+                  value={company.trade_limit ?? ""}
+                  onChange={handleChange}
+                />
+                <div
+                  className="fv-plugins-message-container invalid-feedback"
+                  htmlFor="description"
+                ></div>
+              </div>
+
+              <div className="mb-5 fv-row fv-plugins-icon-container">
+                <label className="form-label">Due Amount</label>
+                <input
+                  type="number"
+                  className="form-control"
+                  placeholder="Enter Due Amount"
+                  name="due_amount"
+                  id="due_amount"
+                  onChange={handleChange}
+                />
+                <div
+                  className="fv-plugins-message-container invalid-feedback"
+                  htmlFor="description"
                 ></div>
               </div>
 

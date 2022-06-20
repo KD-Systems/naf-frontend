@@ -68,6 +68,12 @@ const detachMachine = async (companyId, machineId) => {
   return res.data;
 };
 
+//updating trade limit 
+const updateDueLimit = async (id, data) => {
+  const res = await http.post(`/companies/due-limit/${id}`, data);
+  return res.data;
+};
+
 //for client module
 const getClientCompany = async () => {
   const res = await http.get("/client-company");
@@ -94,7 +100,9 @@ const CompanyService = {
   attachMachine,
   detachMachine,
   getClientCompany,
-  getClientMachines
+  getClientMachines,
+  updateDueLimit
+
 };
 
 export default CompanyService;
