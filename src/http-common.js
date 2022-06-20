@@ -11,7 +11,7 @@ let Api = axios.create({
   // baseURL: `//api.naf-inventory.test/api/`,
   baseURL: `//naf-inventory-back.test/api/`, //shanto
   // baseURL: `//naf-inventory.test/api/`, //shahrukh  
-  baseURL: `http://127.0.0.1:8000/api`, //shanto
+  // baseURL: `http://127.0.0.1:8000/api`, //shanto
 
   headers: {
     "Content-type": "application/json",

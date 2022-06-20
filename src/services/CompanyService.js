@@ -85,6 +85,8 @@ const getClientMachines = async () => {
   return res.data;
 };
 
+
+
 const CompanyService = {
   getAll,
   get,
@@ -101,7 +103,7 @@ const CompanyService = {
   detachMachine,
   getClientCompany,
   getClientMachines,
-  updateDueLimit
+  updateDueLimit,
 
 };
 
