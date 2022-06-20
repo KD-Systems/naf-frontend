@@ -15,6 +15,10 @@ const ShowRequisition = () => {
     setRequisition(res);
   };
 
+  const approveRequisition = async () => {
+    await RequisitionService.approve(id);
+  };
+
   useEffect(() => {
     if (id) getRequisition();
   }, [id]);
@@ -111,40 +115,56 @@ const ShowRequisition = () => {
               <div className="card-header">
                 <div className="card-title">
                   <h3 className="card-label">
-                  <PermissionAbility permission="requisitions_print">
-                  <Link
-                      className="btn btn-sm btn-dark "
-                      to={"/panel/requisitions/" + requisition.id + "/print"}  
-                      style={{ marginRight: "0.75rem" }}
-                      target="_blank"
-                    >
-                      Print
-                    </Link>
-                  </PermissionAbility>
+                    <PermissionAbility permission="requisitions_print">
+                      <Link
+                        className="btn btn-sm btn-dark "
+                        to={"/panel/requisitions/" + requisition.id + "/print"}
+                        style={{ marginRight: "0.75rem" }}
+                        target="_blank"
+                      >
+                        Print
+                      </Link>
+                    </PermissionAbility>
                   </h3>
-                  {
-                    requisition?.part_items?.map((item,index)=>(
-                      item?.part?.stocks[item?.part?.stocks.length - 1]?.unit_value
-                    ) > 0 )                    
-                    ? 
+                  {requisition?.part_items?.map(
+                    (item, index) =>
+                      item?.part?.stocks[item?.part?.stocks.length - 1]
+                        ?.unit_value > 0
+                  ) ? (
                     <PermissionAbility permission="requisitions_generate_quotation">
-                  <h3 className="card-label">
-                    <button
-                      className="btn btn-sm btn-dark "
-                      style={{ marginRight: "0.1rem" }}
-                      onClick={() =>
-                        navigate(`/panel/quotations/${requisition?.id}/create`)
-                      }
+                      <h3 className="card-label">
+                        <button
+                          className="btn btn-sm btn-dark "
+                          style={{ marginRight: "0.1rem" }}
+                          onClick={() =>
+                            navigate(
+                              `/panel/quotations/${requisition?.id}/create`
+                            )
+                          }
+                        >
+                          Generate Quotation
+                        </button>
+                      </h3>
+                    </PermissionAbility>
+                  ) : (
+                    <span
+                      className="badge badge-danger"
+                      style={{ fontSize: "16px" }}
                     >
-                      Generate Quotation
-                    </button>
+                      stock out
+                    </span>
+                  )}
+
+                  <h3 className="card-label">
+                    {requisition.status === "pending" && (
+                      <button
+                        onClick={approveRequisition}
+                        className="btn btn-primary"
+                      >
+                        Approve
+                      </button>
+                    )}
                   </h3>
-                  </PermissionAbility>
-                  :
-                   <span className="badge badge-danger" style={{fontSize:"16px"}}>stock out</span> 
-                  }
-                  
-                  
                 </div>
               </div>
             </div>
@@ -182,7 +202,8 @@ const ShowRequisition = () => {
 
               <div className="tab-content">
                 <div
-                   className={`tab-pane fade ${tab == "requisitions" ? "active show" : ""
+                  className={`tab-pane fade ${
+                    tab == "requisitions" ? "active show" : ""
                   }`}
                   id="requisitions"
                   role="tabpanel"
@@ -220,7 +241,6 @@ const ShowRequisition = () => {
                                     <td className=" fw-bolder mb-1 fs-6">
                                       <span>{item?.quantity}</span>
                                     </td>
-                                   
                                   </tr>
                                 ))}
                               </tbody>

@@ -5,6 +5,7 @@ import QuotationService from "services/QuotationService";
 import InvoiceService from "services/InvoiceService";
 import { Activities } from "components/utils/Activities";
 import PermissionAbility from "helpers/PermissionAbility";
+import Scrollbars from "react-custom-scrollbars";
 const ShowQuotation = () => {
   let { id } = useParams();
   const navigate = useNavigate();
@@ -24,6 +25,7 @@ const ShowQuotation = () => {
   const sendComment = async () => {
     if (message) {
       await QuotationService.sendComment({ quotation_id: id, text: message });
+      getQuotationComment();
       setMessage("");
     } else {
     }
@@ -421,21 +423,59 @@ const ShowQuotation = () => {
                 id="comment"
                 role="tabpanel"
               >
-                <div className="card card-custom gutter-b">
-                  <div style={{ height: 620 }}>Afnana</div>
+                <div className="card">
+                  <Scrollbars style={{ height: 610 }}>
+                    {comment.length ? (
+                      comment.map((item) => {
+                        return (
+                          <div className="d-flex flex-row m-5 card">
+                            <div className="p-2">
+                              <img
+                                className="rounded-circle"
+                                src={item.user.avatar_url}
+                                style={{ height: 50, width: 50 }}
+                              />
+                            </div>
+                            <div>
+                              <div className="h4">{item.user.name}</div>
+                              <div>
+                                <span>
+                                  {new Date(item.updated_at).getDate()}-
+                                  {new Date(item.updated_at).getMonth()}-
+                                  {new Date(item.updated_at).getFullYear()}
+                                </span>
+                                <span className="border mx-2">{item.type}</span>
+                                <div
+                                  className="justify-content-between"
+                                  style={{ fontSize: 14 }}
+                                >
+                                  {item.text}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })
+                    ) : (
+                      <div className="d-flex justify-content-center mt-20">
+                        <h2>No comment yet</h2>
+                      </div>
+                    )}
+                  </Scrollbars>
                   <div className="d-flex align-items-end">
-                    <div class="input-group mb-3">
-                      <input
-                        type="text"
+                    <div class="input-group m-3">
+                      <textarea
                         class="form-control"
-                        placeholder="Type message..."
-                        aria-label="Recipient's username"
-                        aria-describedby="basic-addon2"
+                        rows="1"
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
+                        placeholder="Type comment..."
                       />
-                      <div class="input-group-append" onClick={sendComment}>
-                        <button class="input-group-text" id="basic-addon2">
+                      <div
+                        class="input-group-append d-flex align-items-end"
+                        onClick={sendComment}
+                      >
+                        <button class="input-group-text " id="basic-addon2">
                           Send
                         </button>
                       </div>

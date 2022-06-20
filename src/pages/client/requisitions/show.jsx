@@ -120,7 +120,7 @@ const ShowClientRequisition = () => {
                       Print
                     </Link>
                   </h3>
-                  {
+                  {/* {
                     requisition?.part_items?.map((item,index)=>(
                       item?.part?.stocks[item?.part?.stocks.length - 1]?.unit_value
                     ) > 0 )                    
@@ -138,7 +138,7 @@ const ShowClientRequisition = () => {
                   </h3>
                   :
                    <span className="badge badge-danger" style={{fontSize:"16px"}}>stock out</span> 
-                  }
+                  } */}
                   
                   
                 </div>

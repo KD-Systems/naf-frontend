@@ -12,9 +12,15 @@ const get = async (id) => {
   return res.data;
 };
 
+const create = async (data) => {
+  const res = await http.post(`/client-requisitions`, data)
+  return res.data;
+};
+
 const ClientRequisitionService = {
   getAll,
-  get
+  get,
+  create
 };
 
 export default ClientRequisitionService;

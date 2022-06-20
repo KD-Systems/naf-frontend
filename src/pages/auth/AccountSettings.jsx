@@ -2,14 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import TopCard from "components/profile/TopCard";
 import { useDispatch, useSelector } from "react-redux";
-import {savingData} from "../../features/Auth"
-
+import { savingData } from "../../features/Auth";
 
 import ProfileService from "services/ProfileService";
 const AccountSettings = () => {
-
   const dispatch = useDispatch();
-  
+
   const [data, setData] = useState({
     current_password: "",
     password: "",
@@ -22,7 +20,7 @@ const AccountSettings = () => {
     avatar: "",
     status: null,
     designation: "",
-    role: ""
+    role: "",
   });
 
   const getUserProfile = async () => {
@@ -30,17 +28,16 @@ const AccountSettings = () => {
   };
 
   const getProfile = async () => {
-    let data = JSON.parse(localStorage.getItem('user'));
-    setProfileData(data.user)
+    let data = JSON.parse(localStorage.getItem("user"));
+    setProfileData(data.user);
   };
 
   useEffect(() => {
     getUserProfile();
-
-  }, [])
-
+  }, []);
 
   const setImage = async (e) => {
+    console.log(e.target.files[0]);
     let logoShow = document.getElementById("avatar");
     let fr = new FileReader();
     // console.log(e.target.files[0]);
@@ -52,25 +49,19 @@ const AccountSettings = () => {
   };
 
   const handleProfileChange = (e) => {
-
     const target = e.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const value = target.type === "checkbox" ? target.checked : target.value;
     const name = e.target.name;
 
     let tempdata = { ...profileData };
     tempdata[name] = value;
 
-
-
     setProfileData(tempdata);
   };
-
-
 
   const handleChange = (e) => {
     const value = e.target.value;
     const name = e.target.name;
-
 
     setData({
       ...data,
@@ -79,46 +70,36 @@ const AccountSettings = () => {
   };
 
   const changePassword = async (data) => {
-
     await ProfileService.changePassword(data);
-
   };
 
   const updateProfile = async () => {
-
     let formData = new FormData(document.getElementById("update-profile"));
     console.log(formData);
 
     await ProfileService.updateProfile(formData);
-    getUserProfile()
-
-
+    getUserProfile();
   };
-  
 
   const onSubmit = (e) => {
     e.preventDefault();
     changePassword(data);
     getProfile();
-  }
+  };
 
   const onProfileSumbit = (e) => {
     e.preventDefault();
     updateProfile();
     getUserProfile();
-    dispatch(savingData(profileData))
-  }
+    dispatch(savingData(profileData));
+  };
 
   return (
     <div id="kt_content_container" className="container-xxl">
       <TopCard />
 
       <div className="card mb-5 mb-xl-10">
-        <div
-          className="card-header border-0 cursor-pointer"
-          role="button"
-
-        >
+        <div className="card-header border-0 cursor-pointer" role="button">
           <div className="card-title m-0">
             <h3 className="fw-bolder m-0">Profile Details</h3>
           </div>
@@ -128,7 +109,6 @@ const AccountSettings = () => {
           <form
             id="update-profile"
             className="form fv-plugins-bootstrap5 fv-plugins-framework"
-
           >
             <div className="card-body border-top p-9">
               <div className="row mb-6">
@@ -139,7 +119,7 @@ const AccountSettings = () => {
                   <div
                     className="image-input image-input-outline"
                     data-kt-image-input="true"
-                  // style={{ backgroundImage: `url(${user?.user.avatar})` }}
+                    // style={{ backgroundImage: `url(${user?.user.avatar})` }}
                   >
                     <div
                       id="avatar"
@@ -207,7 +187,6 @@ const AccountSettings = () => {
                         className="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                         placeholder="Name"
                         value={profileData.name || ""}
-                   
                         onChange={handleProfileChange}
                       />
                       <div className="fv-plugins-message-container invalid-feedback"></div>
@@ -227,7 +206,6 @@ const AccountSettings = () => {
                     className="form-control form-control-lg form-control-solid"
                     placeholder="email"
                     value={profileData.email || ""}
-               
                     onChange={handleProfileChange}
                   />
                   <div className="fv-plugins-message-container invalid-feedback"></div>
@@ -276,22 +254,14 @@ const AccountSettings = () => {
       </div>
 
       <div className="card mb-5 mb-xl-10">
-        <div
-          className="card-header border-0 cursor-pointer"
-          role="button"
-
-        >
+        <div className="card-header border-0 cursor-pointer" role="button">
           <div className="card-title m-0">
             <h3 className="fw-bolder m-0">Password Change</h3>
           </div>
         </div>
 
         <div id="kt_account_settings_profile_details" className="collapse show">
-          <form
-
-            className="form fv-plugins-bootstrap5 fv-plugins-framework"
-
-          >
+          <form className="form fv-plugins-bootstrap5 fv-plugins-framework">
             <div className="card-body border-top p-9">
               <div className="row mb-6">
                 <label className="col-lg-4 col-form-label required fw-bold fs-6">
@@ -362,10 +332,8 @@ const AccountSettings = () => {
                 Discard
               </Link>
               <button
-
                 type="submit"
                 className="btn btn-primary"
-
                 onClick={onSubmit}
               >
                 Update

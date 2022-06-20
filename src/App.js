@@ -103,7 +103,7 @@ function App() {
               path="designations/:id"
               element={
                 <PrivateRoute>
-                  <ShowDesignation />
+                  <ShowDesignation /> 
                 </PrivateRoute>
               }
             />

@@ -6,7 +6,6 @@ const ClientDeliveryNotes = () => {
   const [loading, setLoading] = useState(false);
   const [block, setBlock] = useState(false);
   const [deliveryNotes, setDeliveryNotes] = useState([]);
- console.log(deliveryNotes);
   const [open, setOpen] = useState(false);
 
   const onOpenModal = () => setOpen(true);
