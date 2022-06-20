@@ -6,25 +6,24 @@ import { useNavigate, useParams } from "react-router-dom";
 import CompanyService from "services/CompanyService";
 import UpdateDueAmount from "./UpdateDueAmount";
 
-const CompanyInfo = ({ company }) => {
+const CompanyInfo = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [loading, setLoading] = useState(true);
   const [companyId, setcompanyId] = useState(null);
-  const [updateTradeLimitModal, setUpdateTradeLimitModal] = useState(false);
   const [updateDueAMountModal, setUpdateDueAMountModal] = useState(false);
-  const [companies, setCompanies] = useState([]);
+  const [company, setCompanies] = useState([]);
 
   const onCloseModal = () => {
-    setUpdateTradeLimitModal(false);
     setUpdateDueAMountModal(false);
   };
 
   const getCompanies = async () => {
-    setLoading(true);
     setCompanies(await CompanyService.get(id));
-    setLoading(false);
   };
+
+  useEffect(() => {
+    if (!updateDueAMountModal) getCompanies();
+  }, [updateDueAMountModal]);
 
   // const [form, setForm] = useState({
   //   trade_limit: null,

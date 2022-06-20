@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import Modal from "components/utils/Modal";
 import CompanyService from "services/CompanyService";
 
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+toast.configure();
+
 const UpdateDueAmount = ({ open, companyId, onCloseModal, onUpdated }) => {
   const [company, setCompany] = useState({});
 
@@ -13,7 +17,6 @@ const UpdateDueAmount = ({ open, companyId, onCloseModal, onUpdated }) => {
 
   const [type, setType] = useState("Addition");
   const [amount, setAmount] = useState();
-  const [totalAmount, setTotalAmount] = useState();
   const getCompany = async () => {
     const res = await CompanyService.get(companyId);
     setCompany(res);
@@ -25,15 +28,12 @@ const UpdateDueAmount = ({ open, companyId, onCloseModal, onUpdated }) => {
   };
   useEffect(() => {
     if (companyId) getCompany();
-  }, [companyId]);
+  }, [companyId, open]);
 
   const updateCompany = async () => {
+    console.log(data);
     await CompanyService.updateDueLimit(companyId, data);
-    setData({
-      due_amount: "",
-      trade_limit: "",
-      remarks: "",
-    });
+    setAmount("");
     onUpdated();
     onCloseModal();
   };
@@ -84,6 +84,7 @@ const UpdateDueAmount = ({ open, companyId, onCloseModal, onUpdated }) => {
                   type="number"
                   className="form-control"
                   placeholder="Enter Trade Limit"
+                  name="trade_limit"
                   value={data.trade_limit ?? ""}
                   onChange={handleChange}
                 />
