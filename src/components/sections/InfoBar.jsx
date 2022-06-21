@@ -2,12 +2,13 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "features/Auth";
 import { useDispatch } from "react-redux";
+import Pusher from 'pusher-js';
 
 const InfoBar = () => {
   const dispatch = useDispatch();
-
   const navigate = useNavigate();
-  const [profileOpen, setProfileOpen] = useState(false)
+  const [profileOpen, setProfileOpen] = useState(false);
+  const [push,setPush] = useState([]);
   const ref = useRef();
 
   let data = JSON.parse(localStorage.getItem('user'));
@@ -31,9 +32,25 @@ const InfoBar = () => {
     return () => {
       document.removeEventListener("mousedown", clickIfClickedOutside)
     }
-  }, [profileOpen])
+  }, [profileOpen]);
 
 
+  // for pusher
+  useEffect(() => {
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('31b9b8a1eb615e3700b9', {
+      cluster: 'ap2'
+    });
+
+    var channel = pusher.subscribe('requisition.created');
+    channel.bind('requisition-create', function(data) {
+      // alert(JSON.stringify(data));
+      setPush(data);
+    });
+    
+
+  }, []);
 
 
 
@@ -147,7 +164,16 @@ const InfoBar = () => {
                           href="!#"
                           className="fs-6 text-gray-800 text-hover-primary fw-bolder"
                         >
-                          Project Alice
+                          {push?.requisition?.id && (
+                            <div>
+                              <Link
+                                to={"/panel/client/requisitions/" + push?.requisition?.id} 
+                              >
+                                <span>new requisition created</span>
+                              </Link>
+                            </div>
+                            
+                          )} 
                         </a>
                         <div className="text-gray-400 fs-7">
                           Phase 1 development

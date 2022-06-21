@@ -224,6 +224,7 @@ const RequisitionCreate = () => {
   useEffect(() => {
     setData({ ...data, part_items: list, total: totalAmount }); //add part_items and total amount in data
   }, [list, totalAmount]);
+  
 
 //   useEffect(() => {
 //     if (data.company_id) getMachineModels(data?.company_id);
