@@ -2,57 +2,53 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "features/Auth";
 import { useDispatch } from "react-redux";
-import Pusher from 'pusher-js';
+import Pusher from "pusher-js";
 
 const InfoBar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [profileOpen, setProfileOpen] = useState(false);
-  const [push,setPush] = useState([]);
+  const [push, setPush] = useState([]);
   const ref = useRef();
 
-  let data = JSON.parse(localStorage.getItem('user'));
+  let data = JSON.parse(localStorage.getItem("user"));
   let user = data.user;
 
   const handleLogout = () => {
     dispatch(logout());
     navigate("/logout");
-  }
-
+  };
 
   useEffect(() => {
-    const clickIfClickedOutside = e => {
+    const clickIfClickedOutside = (e) => {
       if (profileOpen && ref.current && !ref.current.contains(e.target)) {
-        setProfileOpen(false)
+        setProfileOpen(false);
       }
-    }
+    };
 
-    document.addEventListener("mousedown", clickIfClickedOutside)
+    document.addEventListener("mousedown", clickIfClickedOutside);
 
     return () => {
-      document.removeEventListener("mousedown", clickIfClickedOutside)
-    }
+      document.removeEventListener("mousedown", clickIfClickedOutside);
+    };
   }, [profileOpen]);
-
 
   // for pusher
   useEffect(() => {
     Pusher.logToConsole = true;
 
-    var pusher = new Pusher('31b9b8a1eb615e3700b9', {
-      cluster: 'ap2'
+    var pusher = new Pusher("31b9b8a1eb615e3700b9", {
+      cluster: "ap2",
     });
 
-    var channel = pusher.subscribe('requisition.created');
-    channel.bind('requisition-create', function(data) {
+    var channel = pusher.subscribe("requisition.created");
+    channel.bind("requisition-create", function (data) {
       // alert(JSON.stringify(data));
       setPush(data);
     });
-    
-
   }, []);
 
-
+  console.log(push);
 
   return (
     <div className="d-flex align-items-stretch flex-shrink-0">
@@ -103,27 +99,6 @@ const InfoBar = () => {
               <h3 className="text-white fw-bold px-9 mt-10 mb-6">
                 Notifications
               </h3>
-
-              <ul className="nav nav-line-tabs nav-line-tabs-2x nav-stretch fw-bold px-9">
-                <li className="nav-item">
-                  <a
-                    className="nav-link text-white opacity-75 opacity-state-100 pb-4 active"
-                    data-bs-toggle="tab"
-                    href="#kt_topbar_notifications_1"
-                  >
-                    Alerts
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a
-                    className="nav-link text-white opacity-75 opacity-state-100 pb-4"
-                    data-bs-toggle="tab"
-                    href="#kt_topbar_notifications_3"
-                  >
-                    Logs
-                  </a>
-                </li>
-              </ul>
             </div>
 
             <div className="tab-content">
@@ -166,18 +141,13 @@ const InfoBar = () => {
                         >
                           {push?.requisition?.id && (
                             <div>
-                              <Link
-                                to={"/panel/client/requisitions/" + push?.requisition?.id} 
-                              >
-                                <span>new requisition created</span>
+                              <Link to={push.url + push?.requisition?.id}>
+                                <span>{push.item + " " + push.type}</span>
                               </Link>
                             </div>
-                            
-                          )} 
+                          )}
                         </a>
-                        <div className="text-gray-400 fs-7">
-                          Phase 1 development
-                        </div>
+                        <div className="text-gray-400 fs-7"></div>
                       </div>
                     </div>
 
@@ -793,7 +763,6 @@ const InfoBar = () => {
             data-kt-menu-trigger="click"
             data-kt-menu-attach="parent"
             data-kt-menu-placement="bottom-end"
-
           >
             <span
               className="symbol-label"
@@ -802,9 +771,22 @@ const InfoBar = () => {
           </div>
 
           <div
-            className={profileOpen ? "menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px show" : "menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px"}
-
-            style={profileOpen ? { zIndex: "105", position: "fixed", inset: "0px 0px auto auto", margin: "0px", transform: "translate(-30px, 65px)" } : {}}
+            className={
+              profileOpen
+                ? "menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px show"
+                : "menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px"
+            }
+            style={
+              profileOpen
+                ? {
+                    zIndex: "105",
+                    position: "fixed",
+                    inset: "0px 0px auto auto",
+                    margin: "0px",
+                    transform: "translate(-30px, 65px)",
+                  }
+                : {}
+            }
           >
             <div className="menu-item px-3">
               <div className="menu-content d-flex align-items-center px-3">
@@ -849,9 +831,6 @@ const InfoBar = () => {
               </Link>
             </div>
           </div>
-
-
-
         </div>
       </div>
     </div>
