@@ -2,12 +2,20 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "features/Auth";
 import { useDispatch } from "react-redux";
+import Pusher from "pusher-js";
+import NotificationService from "services/NotificationService";
+import config from "config";
 
 const InfoBar = () => {
   const dispatch = useDispatch();
-
   const navigate = useNavigate();
   const [profileOpen, setProfileOpen] = useState(false);
+<<<<<<< HEAD
+=======
+  const [push, setPush] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [notification, setNotification] = useState([]);
+>>>>>>> 8b193549c7e17da8eab95dccfb6050cff3fbdbc5
   const ref = useRef();
 
   let data = JSON.parse(localStorage.getItem("user"));
@@ -17,6 +25,16 @@ const InfoBar = () => {
     dispatch(logout());
     navigate("/logout");
   };
+<<<<<<< HEAD
+=======
+
+  const getNotification = async () => {
+    setLoading(true);
+    const res = await NotificationService.getAll();
+    setNotification(res);
+    setLoading(false);
+  };
+>>>>>>> 8b193549c7e17da8eab95dccfb6050cff3fbdbc5
 
   useEffect(() => {
     const clickIfClickedOutside = (e) => {
@@ -31,6 +49,31 @@ const InfoBar = () => {
       document.removeEventListener("mousedown", clickIfClickedOutside);
     };
   }, [profileOpen]);
+<<<<<<< HEAD
+=======
+
+  // for pusher
+  useEffect(() => {
+    Pusher.logToConsole = true;
+    var pusher = new Pusher("31b9b8a1eb615e3700b9", {
+      // authEndpoint: config.baseUrl + "pusher",
+      cluster: "ap2"
+    });
+
+    var channel = pusher.subscribe("naf-inventory");
+    // channel.bind(`notification-${user.id}`, function (data) {
+      channel.bind("notification", function (data) {
+      // alert(JSON.stringify(data));
+      setPush(data);
+    });
+  }, []);
+
+  useEffect(()=>{
+    getNotification();
+  },[])
+
+  console.log(push);
+>>>>>>> 8b193549c7e17da8eab95dccfb6050cff3fbdbc5
 
   return (
     <div className="d-flex align-items-stretch flex-shrink-0">
@@ -98,11 +141,15 @@ const InfoBar = () => {
                           href="http://www.facebook.com/imrul18"
                           className="fs-6 text-gray-800 text-hover-primary fw-bolder"
                         >
-                          Project Alice
+                          {push?.requisition?.id && (
+                            <div>
+                              <Link to={push.url + push?.requisition?.id}>
+                                <span>{push.item + " " + push.type}</span>
+                              </Link>
+                            </div>
+                          )}
                         </a>
-                        <div className="text-gray-400 fs-7">
-                          Phase 1 development
-                        </div>
+                        <div className="text-gray-400 fs-7"></div>
                       </div>
                     </div>
 

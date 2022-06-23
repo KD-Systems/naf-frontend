@@ -10,8 +10,6 @@ const Settings = () => {
   const [block, setBlock] = useState(false);
   const [data, setData] = useState({});
 
-  // console.log(data.notifiable_users);
-
   const [logo, setLogo] = useState([]);
   const [icon, setIcon] = useState([]);
 

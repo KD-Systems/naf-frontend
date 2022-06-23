@@ -5,13 +5,15 @@ import CompanyService from "../../services/CompanyService";
 
 const CreateCompany = ({ open, onCloseModal, onCreated }) => {
   const [data, setData] = useState({
-    name: '',
-    company_group: '',
-    machine_types: '',
-    description: '',
-    tel:"",
-    web:"",
-    email:""
+    name: "",
+    company_group: "",
+    machine_types: "",
+    description: "",
+    tel: "",
+    web: "",
+    email: "",
+    trade_limit: "",
+    due_amount: "",
   });
 
   // Set the selected image to preview
@@ -30,9 +32,10 @@ const CreateCompany = ({ open, onCloseModal, onCreated }) => {
     const name = e.target.name;
 
     setData({
-      ...data, [name]: value
-    })
-  }
+      ...data,
+      [name]: value,
+    });
+  };
 
   //Store data
   const createCompany = async () => {
@@ -41,8 +44,6 @@ const CreateCompany = ({ open, onCloseModal, onCreated }) => {
     onCreated();
     onCloseModal();
   };
-
-
 
   return (
     <div>
@@ -77,11 +78,17 @@ const CreateCompany = ({ open, onCloseModal, onCreated }) => {
                       type="file"
                       name="logo"
                       accept=".png, .jpg, .jpeg"
-                      onChange={(e) => { setImage(e); handleChange(e) }}
+                      onChange={(e) => {
+                        setImage(e);
+                        handleChange(e);
+                      }}
                     />
                   </label>
                 </div>
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="logo"></div>
+                <div
+                  className="fv-plugins-message-container invalid-feedback"
+                  htmlFor="logo"
+                ></div>
               </div>
 
               <div className="mb-5 fv-row fv-plugins-icon-container">
@@ -92,12 +99,15 @@ const CreateCompany = ({ open, onCloseModal, onCreated }) => {
                   placeholder="Enter Company Name"
                   name="name"
                   id="name"
-                  value={data.name ?? ''}
+                  value={data.name ?? ""}
                   onChange={handleChange}
                 />
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="name"></div>
+                <div
+                  className="fv-plugins-message-container invalid-feedback"
+                  htmlFor="name"
+                ></div>
               </div>
-              
+
               <div className="mb-5 fv-row fv-plugins-icon-container">
                 <label className="form-label">Address</label>
                 <input
@@ -106,10 +116,13 @@ const CreateCompany = ({ open, onCloseModal, onCreated }) => {
                   placeholder="Enter Company Address"
                   name="address"
                   id="address"
-                  value={data.address ?? ''}
+                  value={data.address ?? ""}
                   onChange={handleChange}
                 />
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="address"></div>
+                <div
+                  className="fv-plugins-message-container invalid-feedback"
+                  htmlFor="address"
+                ></div>
               </div>
 
               <div className="mb-5 fv-row fv-plugins-icon-container">
@@ -120,12 +133,14 @@ const CreateCompany = ({ open, onCloseModal, onCreated }) => {
                   placeholder="Enter phone number"
                   name="tel"
                   id="tel"
-                  value={data.tel ?? ''}
+                  value={data.tel ?? ""}
                   onChange={handleChange}
                 />
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="tel"></div>
+                <div
+                  className="fv-plugins-message-container invalid-feedback"
+                  htmlFor="tel"
+                ></div>
               </div>
-
 
               <div className="mb-5 fv-row fv-plugins-icon-container">
                 <label className="form-label">Email</label>
@@ -135,10 +150,13 @@ const CreateCompany = ({ open, onCloseModal, onCreated }) => {
                   placeholder="Enter Company Email"
                   name="email"
                   id="email"
-                  value={data.email ?? ''}
+                  value={data.email ?? ""}
                   onChange={handleChange}
                 />
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="email"></div>
+                <div
+                  className="fv-plugins-message-container invalid-feedback"
+                  htmlFor="email"
+                ></div>
               </div>
 
               <div className="mb-5 fv-row fv-plugins-icon-container">
@@ -149,10 +167,13 @@ const CreateCompany = ({ open, onCloseModal, onCreated }) => {
                   placeholder="Enter Company Web"
                   name="web"
                   id="web"
-                  value={data.web ?? ''}
+                  value={data.web ?? ""}
                   onChange={handleChange}
                 />
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="web"></div>
+                <div
+                  className="fv-plugins-message-container invalid-feedback"
+                  htmlFor="web"
+                ></div>
               </div>
 
               <div className="mb-5 fv-row fv-plugins-icon-container">
@@ -163,10 +184,13 @@ const CreateCompany = ({ open, onCloseModal, onCreated }) => {
                   placeholder="Enter Group of Company"
                   name="company_group"
                   id="company_group"
-                  value={data.company_group ?? ''}
+                  value={data.company_group ?? ""}
                   onChange={handleChange}
                 />
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="company_group"></div>
+                <div
+                  className="fv-plugins-message-container invalid-feedback"
+                  htmlFor="company_group"
+                ></div>
               </div>
 
               <div className="mb-5 fv-row fv-plugins-icon-container">
@@ -175,10 +199,46 @@ const CreateCompany = ({ open, onCloseModal, onCreated }) => {
                   placeholder="Enter Machine Types"
                   name="machine_types"
                   id="machine_types"
-                  value={data.machine_types ?? ''}
+                  value={data.machine_types ?? ""}
                   onChange={handleChange}
                 />
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="machine_types"></div>
+                <div
+                  className="fv-plugins-message-container invalid-feedback"
+                  htmlFor="machine_types"
+                ></div>
+              </div>
+
+              <div className="mb-5 fv-row fv-plugins-icon-container">
+                <label className="required form-label">Trade limit</label>
+                <input
+                  type="number"
+                  className="form-control"
+                  placeholder="Enter Trade Limit"
+                  name="trade_limit"
+                  id="trade_limit"
+                  value={data.trade_limit ?? ""}
+                  onChange={handleChange}
+                />
+                <div
+                  className="fv-plugins-message-container invalid-feedback"
+                  htmlFor="description"
+                ></div>
+              </div>
+
+              <div className="mb-5 fv-row fv-plugins-icon-container">
+                <label className="form-label">Due Amount</label>
+                <input
+                  type="number"
+                  className="form-control"
+                  placeholder="Enter Due Amount"
+                  name="due_amount"
+                  id="due_amount"
+                  onChange={handleChange}
+                />
+                <div
+                  className="fv-plugins-message-container invalid-feedback"
+                  htmlFor="description"
+                ></div>
               </div>
 
               <div className="mb-5 fv-row fv-plugins-icon-container">
@@ -190,10 +250,13 @@ const CreateCompany = ({ open, onCloseModal, onCreated }) => {
                   placeholder="Enter Description"
                   name="description"
                   id="description"
-                  value={data.description ?? ''}
+                  value={data.description ?? ""}
                   onChange={handleChange}
                 />
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="description"></div>
+                <div
+                  className="fv-plugins-message-container invalid-feedback"
+                  htmlFor="description"
+                ></div>
               </div>
 
               <button

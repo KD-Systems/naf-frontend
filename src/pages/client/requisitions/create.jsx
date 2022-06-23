@@ -87,7 +87,7 @@ const RequisitionCreate = () => {
     setBlock(true);
     await ClientRequisitionService.create({...data, company_id:companies});
     setBlock(false);
-    // navigate("/panel/requisitions"); 
+    navigate("/panel/client-requisitions"); 
   };
 
   const addPart = (item) => {
@@ -224,6 +224,7 @@ const RequisitionCreate = () => {
   useEffect(() => {
     setData({ ...data, part_items: list, total: totalAmount }); //add part_items and total amount in data
   }, [list, totalAmount]);
+  
 
 //   useEffect(() => {
 //     if (data.company_id) getMachineModels(data?.company_id);

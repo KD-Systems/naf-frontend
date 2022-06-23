@@ -1,5 +1,6 @@
 import axios from "axios";
 import reactDom from "react-dom";
+import config from 'config';
 import {
   toast
 } from "react-toastify";
@@ -9,7 +10,11 @@ toast.configure();
 let Api = axios.create({
   // baseURL: `//naf-api.viserx.net/api/`,
   // baseURL: `//api.naf-inventory.test/api/`,
+<<<<<<< HEAD
   baseURL: `http://45.125.222.74/api`, //shanto
+=======
+  baseURL: config.baseUrl, //shanto
+>>>>>>> 8b193549c7e17da8eab95dccfb6050cff3fbdbc5
   // baseURL: `//naf-inventory.test/api/`, //shahrukh  
   // baseURL: `http://127.0.0.1:8000/api`, //shanto
 
