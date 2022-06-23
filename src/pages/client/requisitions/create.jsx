@@ -87,7 +87,7 @@ const RequisitionCreate = () => {
     setBlock(true);
     await ClientRequisitionService.create({...data, company_id:companies});
     setBlock(false);
-    // navigate("/panel/requisitions"); 
+    navigate("/panel/client-requisitions"); 
   };
 
   const addPart = (item) => {

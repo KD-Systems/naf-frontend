@@ -4,6 +4,7 @@ import Moment from "react-moment";
 import RequisitionService from "../../services/RequisitionService";
 import { Activities } from "components/utils/Activities";
 import PermissionAbility from "helpers/PermissionAbility";
+import QuotationService from "services/QuotationService";
 const ShowRequisition = () => {
   let { id } = useParams();
   const navigate = useNavigate();
@@ -22,6 +23,12 @@ const ShowRequisition = () => {
   useEffect(() => {
     if (id) getRequisition();
   }, [id]);
+
+  //get quotation
+  // const getQuotation = async () => {
+  //   let res = await QuotationService.get(invoiceId);
+  //   setInvoice(res);
+  // };
 
   return (
     <div className="d-flex flex-column-fluid">
