@@ -4,14 +4,12 @@ import { logout } from "features/Auth";
 import { useDispatch } from "react-redux";
 import Pusher from "pusher-js";
 import NotificationService from "services/NotificationService";
-import config from "config";
 
 const InfoBar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [profileOpen, setProfileOpen] = useState(false);
   const [push, setPush] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [notification, setNotification] = useState([]);
   const ref = useRef();
 
@@ -24,10 +22,8 @@ const InfoBar = () => {
   };
 
   const getNotification = async () => {
-    setLoading(true);
     const res = await NotificationService.getAll();
     setNotification(res);
-    setLoading(false);
   };
 
   useEffect(() => {
@@ -44,27 +40,30 @@ const InfoBar = () => {
     };
   }, [profileOpen]);
 
+  const test = async () => {
+    return [...notification];
+  };
+
   // for pusher
   useEffect(() => {
-    Pusher.logToConsole = true;
+    getNotification();
+
+    // Pusher.logToConsole = true;
     var pusher = new Pusher("31b9b8a1eb615e3700b9", {
       // authEndpoint: config.baseUrl + "pusher",
-      cluster: "ap2"
+      cluster: "ap2",
     });
 
-    var channel = pusher.subscribe("naf-inventory");
-    // channel.bind(`notification-${user.id}`, function (data) {
-      channel.bind("notification", function (data) {
-      // alert(JSON.stringify(data));
-      setPush(data);
-    });
+    pusher
+      .subscribe("naf-inventory")
+      .bind(`notification-${user.id}`, async function (data) {
+        getNotification();
+      });
   }, []);
 
-  useEffect(()=>{
-    getNotification();
-  },[])
-
-  console.log(push);
+  useEffect(() => {
+    console.log(notification);
+  }, [notification]);
 
   return (
     <div className="d-flex align-items-stretch flex-shrink-0">
