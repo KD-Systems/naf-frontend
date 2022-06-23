@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 toast.configure();
 let Api = axios.create({
+
   baseURL: config.baseUrl,
 
   headers: {

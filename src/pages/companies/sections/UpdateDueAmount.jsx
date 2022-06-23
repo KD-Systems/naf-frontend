@@ -31,7 +31,6 @@ const UpdateDueAmount = ({ open, companyId, onCloseModal, onUpdated }) => {
   }, [companyId, open]);
 
   const updateCompany = async () => {
-    console.log(data);
     await CompanyService.updateDueLimit(companyId, data);
     setAmount("");
     onUpdated();
@@ -103,6 +102,7 @@ const UpdateDueAmount = ({ open, companyId, onCloseModal, onUpdated }) => {
                       className="form-control"
                       value={amount}
                       placeholder="Amount"
+                      name="amount"
                       onChange={(e) => setAmount(e.target.value)}
                     />
                     <div
@@ -112,7 +112,7 @@ const UpdateDueAmount = ({ open, companyId, onCloseModal, onUpdated }) => {
                   </div>
                 </div>
                 <div className="col-4">
-                  <div class="form-group">
+                  <div className="form-group">
                     <label className="form-label">Type:</label>
                     <select
                       className="form-control"
