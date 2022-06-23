@@ -112,12 +112,11 @@ const CompanyInfo = () => {
                   {company.trade_limit}
                 </div>
 
-                <div className="card-header">
-                  <div className="card-title">
+                  <div className="card-title mt-10">
                     <h3 className="card-label">
                       <PermissionAbility permission="companies_edit">
                         <button
-                          className="btn btn-sm btn-dark m-4"
+                          className="btn btn-sm btn-dark"
                           onClick={() => {
                             setcompanyId(id);
                             setUpdateDueAMountModal(true);
@@ -128,7 +127,6 @@ const CompanyInfo = () => {
                       </PermissionAbility>
                     </h3>
                   </div>
-                </div>
 
                 {/* <div className="fw-bolder mt-5">Trade Limit</div>
               <input
