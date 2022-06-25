@@ -18,6 +18,7 @@ const ShowRequisition = () => {
 
   const approveRequisition = async () => {
     await RequisitionService.approve(id);
+    getRequisition();
   };
 
   useEffect(() => {
@@ -140,6 +141,7 @@ const ShowRequisition = () => {
                   ) ? (
                     <PermissionAbility permission="requisitions_generate_quotation">
                       <h3 className="card-label">
+                      {requisition.status != "pending" && (
                         <button
                           className="btn btn-sm btn-dark "
                           style={{ marginRight: "0.1rem" }}
@@ -151,6 +153,7 @@ const ShowRequisition = () => {
                         >
                           Generate Quotation
                         </button>
+                      )}
                       </h3>
                     </PermissionAbility>
                   ) : (

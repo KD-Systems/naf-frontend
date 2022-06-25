@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Table from "components/utils/Table";
-import { Link, useNavigate } from "react-router-dom"; 
+import { Link, useNavigate } from "react-router-dom";
 import ClientDeliverNoteService from "services/clientServices/ClientDeliveryNoteService";
 const ClientDeliveryNotes = () => {
   const [loading, setLoading] = useState(false);
@@ -42,8 +42,8 @@ const ClientDeliveryNotes = () => {
         <>
           {/* to show delivery note */}
           <span className="text-end">
-          <Link
-              to={"/panel/client/delivery-notes/" + row.id + "/show"}  
+            <Link
+              to={"/panel/client/delivery-notes/" + row.id}
               className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
             >
               <i className="fa fa-eye"></i>
@@ -51,15 +51,13 @@ const ClientDeliveryNotes = () => {
           </span>
 
           <span className="text-end">
-          <Link
+            <Link
               to={"/panel/client/delivery-notes/" + row.id + "/print"}
               target="_blank"
               className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-              target="_blank"
             >
-              <i className="fa fa-print"></i> 
+              <i className="fa fa-print"></i>
             </Link>
-            
           </span>
         </>
       ),

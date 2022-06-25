@@ -5,7 +5,7 @@ import InvoiceService from "services/InvoiceService";
 import InvoiceCreatePayment from "pages/invoices/paymentHistories/Create";
 import { Activities } from "components/utils/Activities";
 import ClientInvoiceService from "services/clientServices/ClientInvoiceService";
-import InvoicePartItems from "pages/invoices/partiItems/Index"; 
+import InvoicePartItems from "pages/invoices/partiItems/Index";
 const ShowInvoice = () => {
   let { id } = useParams();
   const navigate = useNavigate();
@@ -103,9 +103,6 @@ const ShowInvoice = () => {
                     "--"
                   )}
 
-                  <div className="fw-bolder mt-5">Company</div>
-                  <div className="text-gray-600">{invoice?.company?.name}</div>
-
                   <div className="fw-bolder mt-5">Invoice Date</div>
                   <div className="text-gray-600">
                     <Moment format="D MMMM YYYY">
@@ -154,20 +151,20 @@ const ShowInvoice = () => {
                     {invoice?.requisition?.ref_number ?? "--"}
                   </div>
                 </div>
-                  <div className="card-header">
+                <div className="card-header">
                   <div className="card-title">
-                  <h3 className="card-label">
-                    <Link
-                      className="btn btn-sm btn-dark "
-                      to={"/panel/client/invoices/" + invoice.id + "/print"}
-                      style={{ marginRight: "0.75rem" }}
-                      target="_blank"
-                    >
-                      Print
-                    </Link>
-                  </h3>
-                  
-                  {/* <h3 className="card-label">
+                    <h3 className="card-label">
+                      <Link
+                        className="btn btn-sm btn-dark "
+                        to={"/panel/client/invoices/" + invoice.id + "/print"}
+                        style={{ marginRight: "0.75rem" }}
+                        target="_blank"
+                      >
+                        Print
+                      </Link>
+                    </h3>
+
+                    {/* <h3 className="card-label">
                     <button
                       className="btn btn-sm btn-dark "
                       style={{ marginRight: "0.1rem" }}
@@ -176,9 +173,7 @@ const ShowInvoice = () => {
                        Generate Delivery Note
                     </button>
                     </h3>                     */}
-                    
-                  
-                  </div> 
+                  </div>
                 </div>
               </div>
             </div>
@@ -229,8 +224,7 @@ const ShowInvoice = () => {
                     </a>
                   </li>
 
-                  
-                {/* <li className="nav-item">
+                  {/* <li className="nav-item">
                   <a
                     className={`nav-link text-active-primary pb-4 ${
                       tab == "delivery_notes" ? "active" : ""
@@ -242,10 +236,7 @@ const ShowInvoice = () => {
                     Delivery Notes
                   </a>
                 </li> */}
-
-                
                 </ul>
-
 
                 <div className="tab-content">
                   {/* Tabs start from here */}
@@ -270,7 +261,7 @@ const ShowInvoice = () => {
                             <h2>Payment Histories</h2>
                           </div>
                           <div className="card-toolbar">
-                          <button
+                            <button
                               type="button"
                               className="btn btn-light-primary"
                               onClick={() => {
@@ -315,7 +306,6 @@ const ShowInvoice = () => {
                               </span>
                               Add Payment
                             </button>
-                            
                           </div>
                         </div>
                         <div className="card-body pt-0">
@@ -366,7 +356,6 @@ const ShowInvoice = () => {
                       </div>
                     </div>
                   </div>
-                  
                 </div>
               </div>
             </div>

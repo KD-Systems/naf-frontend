@@ -6,17 +6,8 @@ import "react-toastify/dist/ReactToastify.css";
 
 toast.configure();
 let Api = axios.create({
-<<<<<<< HEAD
-  // baseURL: `//naf-api.viserx.net/api/`,
-  // baseURL: `//api.naf-inventory.test/api/`,
-
-  baseURL: config.baseUrl, //shanto
-  // baseURL: `//naf-inventory.test/api/`, //shahrukh
-  // baseURL: `http://127.0.0.1:8000/api`, //shanto
-=======
 
   baseURL: config.baseUrl,
->>>>>>> 77cee3070d4b38efbdfb013fc2890050b39cf01d
 
   headers: {
     "Content-type": "application/json",
@@ -78,14 +69,10 @@ let Api = axios.create({
           break;
 
         case errors?.length:
-          toast.warning(response.message);
+          // toast.warning(response.message);
 
         default:
-<<<<<<< HEAD
-          if (errors?.length) toast.warning(response.message);
-=======
           //
->>>>>>> 77cee3070d4b38efbdfb013fc2890050b39cf01d
           break;
       }
     }

@@ -61,7 +61,7 @@ const DeliveryNotes = () => {
           <span className="text-end">
           <PermissionAbility permission="deliverynotes_show">
           <Link
-              to={"/panel/delivery-notes/" + row.id + "/show"}  
+              to={"/panel/delivery-notes/" + row.id }  
               className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
             >
               <i className="fa fa-eye"></i>
@@ -75,7 +75,6 @@ const DeliveryNotes = () => {
               to={"/panel/delivery-notes/" + row.id + "/print"}
               target="_blank"
               className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-              target="_blank"
             >
               <i className="fa fa-print"></i> 
             </Link>
