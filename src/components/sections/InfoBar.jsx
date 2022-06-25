@@ -47,7 +47,6 @@ const InfoBar = () => {
   // for pusher
   useEffect(() => {
     getNotification();
-
     // Pusher.logToConsole = true;
     var pusher = new Pusher("31b9b8a1eb615e3700b9", {
       // authEndpoint: config.baseUrl + "pusher",
