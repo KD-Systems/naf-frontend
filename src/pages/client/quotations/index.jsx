@@ -21,25 +21,7 @@ const ClientQuotations = () => {
       field: "id",
     },
   
-    {
-      name: "Company",
-      selector: (row) => row?.company?.name,
-      sortable: true,
-      field: "name",
-      format: (row) => (
-        <div className="d-flex align-items-center">
-         
-          <div className="d-flex justify-content-start flex-column">
-            <Link
-              to={"/panel/companies/" + row?.company?.id}
-              className="text-dark fw-bolder text-hover-primary"
-            >
-              {row?.company?.name}
-            </Link>
-          </div>
-        </div>
-      ),
-    },
+
     {
       name: "Requisition Type",
       selector: (row) => row?.requisition?.type?.replaceAll("_", " ")?.capitalize(),
