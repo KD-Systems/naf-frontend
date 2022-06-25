@@ -147,9 +147,6 @@ const ShowQuotation = () => {
                 <div className="fw-bolder mt-5">PQ Number</div>
                 <div className="text-gray-600">{quotation?.pq_number}</div>
 
-                <div className="fw-bolder mt-5">Company</div>
-                <div className="text-gray-600">{quotation?.company?.name}</div>
-
                 <div className="fw-bolder mt-5">Machines</div>
                 <div className="text-gray-600">
                   {quotation?.requisition?.machines?.map((item, index) => (

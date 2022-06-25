@@ -467,7 +467,7 @@ function App() {
             />
 
             <Route 
-            path="delivery-notes/:id/show"
+            path="delivery-notes/:id"
             element={
               <PrivateRoute>
                 <ShowDeliveryNotes/>
@@ -679,7 +679,7 @@ function App() {
             />
 
             <Route 
-            path="client/delivery-notes/:id/show"
+            path="client/delivery-notes/:id"
             element={
               <PrivateRoute>
                 <ShowClientDeliveryNotes/>
