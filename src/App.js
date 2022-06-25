@@ -70,6 +70,7 @@ import PrintClientInvoice from "pages/client/invoices/print";
 import CreateClientDelivery from "pages/client/delivery-notes/create";
 import ShowClientDeliveryNotes from "pages/client/delivery-notes/show";
 import PrintClientDeliveryNotes from "pages/client/delivery-notes/print";
+import Forbidden from "pages/Forbidden";
 
 function App() {
   return (
@@ -697,6 +698,7 @@ function App() {
 
             {/* company user sales end */}
 
+            <Route path="403" element={<Forbidden />} />
             <Route path="*" element={<NotFound />} />
           </Route>
 

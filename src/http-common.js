@@ -3,15 +3,20 @@ import reactDom from "react-dom";
 import config from "config";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-toast.configure();
 
+toast.configure();
 let Api = axios.create({
+<<<<<<< HEAD
   // baseURL: `//naf-api.viserx.net/api/`,
   // baseURL: `//api.naf-inventory.test/api/`,
 
   baseURL: config.baseUrl, //shanto
   // baseURL: `//naf-inventory.test/api/`, //shahrukh
   // baseURL: `http://127.0.0.1:8000/api`, //shanto
+=======
+
+  baseURL: config.baseUrl,
+>>>>>>> 77cee3070d4b38efbdfb013fc2890050b39cf01d
 
   headers: {
     "Content-type": "application/json",
@@ -41,7 +46,7 @@ let Api = axios.create({
       }
 
     //Skip the error message in toast if printed already
-    if (!hasToast && response.message) {
+    if (!hasToast) {
       switch (response.status) {
         case 400:
           toast.error(response.message);
@@ -49,6 +54,11 @@ let Api = axios.create({
 
         case 401:
           toast.warning(response.message);
+          break;
+
+        case 403:
+          window.location.href = "/panel/403";
+          toast.error("You don't have access to this page");
           break;
 
         case 422:
@@ -67,8 +77,15 @@ let Api = axios.create({
           toast.success(response.message);
           break;
 
+        case errors?.length:
+          toast.warning(response.message);
+
         default:
+<<<<<<< HEAD
           if (errors?.length) toast.warning(response.message);
+=======
+          //
+>>>>>>> 77cee3070d4b38efbdfb013fc2890050b39cf01d
           break;
       }
     }
