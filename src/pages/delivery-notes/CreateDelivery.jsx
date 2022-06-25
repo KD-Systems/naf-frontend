@@ -125,7 +125,7 @@ const CreateDelivery = () => {
       setBlock(true);
       let res = await DeliverNoteService.create(data);
       setBlock(false);
-      navigate(`/panel/delivery-notes/${res.data?.id}/show`);
+      navigate(`/panel/delivery-notes/${res.data?.id}`);
     }
   };
 
