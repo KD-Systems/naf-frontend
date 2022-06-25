@@ -2,15 +2,22 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "features/Auth";
 import { useDispatch } from "react-redux";
+<<<<<<< HEAD
+=======
 import Pusher from "pusher-js";
 import NotificationService from "services/NotificationService";
+>>>>>>> 77cee3070d4b38efbdfb013fc2890050b39cf01d
 
 const InfoBar = () => {
   const dispatch = useDispatch();
+
   const navigate = useNavigate();
   const [profileOpen, setProfileOpen] = useState(false);
+<<<<<<< HEAD
+=======
   const [push, setPush] = useState([]);
   const [notification, setNotification] = useState([]);
+>>>>>>> 77cee3070d4b38efbdfb013fc2890050b39cf01d
   const ref = useRef();
 
   let data = JSON.parse(localStorage.getItem("user"));
@@ -20,11 +27,14 @@ const InfoBar = () => {
     dispatch(logout());
     navigate("/logout");
   };
+<<<<<<< HEAD
+=======
 
   const getNotification = async () => {
     const res = await NotificationService.getAll();
     setNotification(res);
   };
+>>>>>>> 77cee3070d4b38efbdfb013fc2890050b39cf01d
 
   useEffect(() => {
     const clickIfClickedOutside = (e) => {
@@ -39,6 +49,8 @@ const InfoBar = () => {
       document.removeEventListener("mousedown", clickIfClickedOutside);
     };
   }, [profileOpen]);
+<<<<<<< HEAD
+=======
 
   const test = async () => {
     return [...notification];
@@ -63,6 +75,7 @@ const InfoBar = () => {
   useEffect(() => {
     console.log(notification);
   }, [notification]);
+>>>>>>> 77cee3070d4b38efbdfb013fc2890050b39cf01d
 
   return (
     <div className="d-flex align-items-stretch flex-shrink-0">
@@ -153,15 +166,11 @@ const InfoBar = () => {
                           href="!#"
                           className="fs-6 text-gray-800 text-hover-primary fw-bolder"
                         >
-                          {push?.requisition?.id && (
-                            <div>
-                              <Link to={push.url + push?.requisition?.id}>
-                                <span>{push.item + " " + push.type}</span>
-                              </Link>
-                            </div>
-                          )}
+                          Project Alice
                         </a>
-                        <div className="text-gray-400 fs-7"></div>
+                        <div className="text-gray-400 fs-7">
+                          Phase 1 development
+                        </div>
                       </div>
                     </div>
 

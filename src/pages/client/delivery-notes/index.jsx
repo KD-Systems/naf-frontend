@@ -24,21 +24,7 @@ const ClientDeliveryNotes = () => {
       sortable: true,
       field: "id",
     },
-    {
-      name: "Company",
-      selector: (row) => row?.invoice?.company?.name,
-      sortable: true,
-      field: "name",
-      format: (row) => (
-        <div className="d-flex align-items-center">
-          <div className="d-flex justify-content-start flex-column">
-            <div className="text-dark fw-bolder text-hover-primary">
-              {row?.invoice?.company?.name}
-            </div>
-          </div>
-        </div>
-      ),
-    },
+
     {
       name: "Invoice Number",
       selector: (row) => row?.invoice?.invoice_number,
