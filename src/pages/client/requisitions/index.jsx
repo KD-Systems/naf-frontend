@@ -30,8 +30,15 @@ const CompanyRequisitions = () => {
     },
 
     {
+      name: "Status",
+      selector: (row) => row?.status,
+      sortable: true,
+      field: "role",
+    },
+
+    {
       name: "PQ Number",
-      selector: (row) => row?.quotation?.pq_number,
+      selector: (row) => row?.quotation?.pq_number, 
       sortable: true, 
       field: "role",
       format: (row) => (

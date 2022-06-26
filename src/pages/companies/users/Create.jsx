@@ -28,7 +28,7 @@ const AddUser = ({ open, onCloseModal, onCreate, companyId }) => {
     name: "",
     email: "",
     password: "",
-    phone: "",
+    phone: "", 
   })
 
   const handleChange = (e) => {
@@ -147,7 +147,7 @@ const AddUser = ({ open, onCloseModal, onCreate, companyId }) => {
               <button
                 type="reset"
                 className="btn btn-secondary  mt-5 "
-                onClick={onCloseModal}
+                onClick={onCloseModal} 
               >
                 Cancel
               </button>
