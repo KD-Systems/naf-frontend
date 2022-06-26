@@ -2,8 +2,8 @@ import http from "../http-common";
 
 const getAll = async (data) => {
   const res = await http.get(`/requisitions`, {
-    params: data
-});
+    params: data,
+  });
   return res.data;
 };
 
@@ -17,20 +17,20 @@ const items = async (id) => {
   return res.data;
 };
 
-const engineers = async () =>{
-  const res = await http.get('/requisitions/engineers');
+const engineers = async () => {
+  const res = await http.get("/requisitions/engineers");
   return res.data;
-}
+};
 
-const partHeadings = async (data) =>{
-  const res = await http.get('/requisitions/part-headings', {
-    params: data
+const partHeadings = async (data) => {
+  const res = await http.get("/requisitions/part-headings", {
+    params: data,
   });
   return res.data;
-}
+};
 
 const create = async (data) => {
-  const res = await http.post(`/requisitions`, data)
+  const res = await http.post(`/requisitions`, data);
   return res.data;
 };
 
@@ -49,12 +49,16 @@ const approve = async (id) => {
   return res.data;
 };
 
+const reject = async (id) => {
+  const res = await http.post(`/requisitions/reject/${id}`);
+  return res.data;
+};
+
 // for client module
 // const createClientRequisition = async (data) => {
 //   const res = await http.post(`/create-client-requisitions`, data)
 //   return res.data;
 // };
-
 
 const RequisitionService = {
   getAll,
@@ -65,7 +69,8 @@ const RequisitionService = {
   create,
   update,
   remove,
-  approve
+  approve,
+  reject,
   // createClientRequisition
 };
 
