@@ -21,6 +21,11 @@ const ShowRequisition = () => {
     getRequisition();
   };
 
+  const rejectRequisition = async () => {
+    await RequisitionService.reject(id);
+    getRequisition();
+  };
+
   useEffect(() => {
     if (id) getRequisition();
   }, [id]);
@@ -140,21 +145,52 @@ const ShowRequisition = () => {
                         ?.unit_value > 0
                   ) ? (
                     <PermissionAbility permission="requisitions_generate_quotation">
-                      <h3 className="card-label">
-                      {requisition.status != "pending" && (
-                        <button
-                          className="btn btn-sm btn-dark "
-                          style={{ marginRight: "0.1rem" }}
-                          onClick={() =>
-                            navigate(
-                              `/panel/quotations/${requisition?.id}/create`
-                            )
-                          }
-                        >
-                          Generate Quotation
-                        </button>
-                      )}
-                      </h3>
+                      <>
+                        {requisition.status == "approved" ? (
+                          <h3 className="card-label">
+                            <button
+                              className="btn btn-sm btn-dark "
+                              style={{ marginRight: "0.1rem" }}
+                              onClick={() =>
+                                navigate(
+                                  `/panel/quotations/${requisition?.id}/create`
+                                )
+                              }
+                            >
+                              Generate Quotation
+                            </button>
+                          </h3>
+                        ) : (
+                          <>
+                            {requisition.status == "rejected" ? (
+                              <h3 className="card-label">
+                                <div className="btn bg-danger disabled">
+                                  Rejected Requisition
+                                </div>
+                              </h3>
+                            ) : (
+                              <>
+                                <h3 className="card-label">
+                                  <button
+                                    onClick={approveRequisition}
+                                    className="btn btn-primary"
+                                  >
+                                    Approve
+                                  </button>
+                                </h3>
+                                <h3 className="card-label">
+                                  <button
+                                    onClick={rejectRequisition}
+                                    className="btn btn-danger"
+                                  >
+                                    Reject
+                                  </button>
+                                </h3>
+                              </>
+                            )}
+                          </>
+                        )}
+                      </>
                     </PermissionAbility>
                   ) : (
                     <span
@@ -164,17 +200,6 @@ const ShowRequisition = () => {
                       stock out
                     </span>
                   )}
-
-                  <h3 className="card-label">
-                    {requisition.status === "pending" && (
-                      <button
-                        onClick={approveRequisition}
-                        className="btn btn-primary"
-                      >
-                        Approve
-                      </button>
-                    )}
-                  </h3>
                 </div>
               </div>
             </div>

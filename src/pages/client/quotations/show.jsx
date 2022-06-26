@@ -327,7 +327,6 @@ const ShowQuotation = () => {
 
                                   <td>
                                     <div className="input-group input-group-sm">
-
                                       <input
                                         disabled={true}
                                         type="text"
@@ -337,7 +336,7 @@ const ShowQuotation = () => {
                                         min="1"
                                         value={item?.quantity ?? ""}
                                         name="quantity"
-                                      />          
+                                      />
                                     </div>
                                   </td>
                                   <td className=" fw-bolder mb-1 fs-6">
@@ -366,7 +365,7 @@ const ShowQuotation = () => {
                                 </tr>
                               ))}
                             </tbody>
-                          </table>                  
+                          </table>
                         </div>
                       </div>
                     </div>
@@ -386,7 +385,7 @@ const ShowQuotation = () => {
                     {comment.length ? (
                       comment.map((item) => {
                         return (
-                          <div className="d-flex flex-row m-5 p-5 card rounded">
+                          <div className="d-flex flex-row m-5 card">
                             <div className="p-2">
                               <img
                                 className="rounded-circle"
@@ -395,18 +394,22 @@ const ShowQuotation = () => {
                               />
                             </div>
                             <div>
-                              <div className="border rounded mx-20 m-2">
-                              {item?.user?.name}
-                                <div className="m-3">{item?.text}</div>
-                              </div>
-                              <div className="d-flex justify-content-start">
-                                <div className="mx-20">
-                                  {new Date(item.updated_at).getHours()}:
-                                  {new Date(item.updated_at).getMinutes()}:
-                                  {new Date(item.updated_at).getSeconds()}
+                              <div className="h4">{item.user.name}</div>
+                              <div>
+                                <span>
+                                  {new Date(item.updated_at).getDate()}-
+                                  {new Date(item.updated_at).getMonth()}-
+                                  {new Date(item.updated_at).getFullYear()}
+                                </span>
+                                <span className="border mx-2">{item.type}</span>
+                                <div
+                                  className="justify-content-between"
+                                  style={{ fontSize: 14 }}
+                                >
+                                  {item.text}
                                 </div>
                               </div>
-                            </div> 
+                            </div>
                           </div>
                         );
                       })
