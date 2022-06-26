@@ -14,6 +14,7 @@ const CreateCompany = ({ open, onCloseModal, onCreated }) => {
     email: "",
     trade_limit: "",
     due_amount: "",
+    logo:""
   });
 
   // Set the selected image to preview

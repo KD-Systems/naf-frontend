@@ -58,12 +58,12 @@ const EditCompany = ({ open, companyId, onCloseModal, onUpdated }) => {
       email:"",
       web:"",
       trade_limit:"",
-      due_amount:""
+      due_amount:"",
+      logo:""
     });
 
     if (companyId) getCompany();
   }, [companyId]);
-
 
 
   return (
