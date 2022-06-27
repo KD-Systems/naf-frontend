@@ -13,6 +13,7 @@ const InfoBar = () => {
 
   const [unreadCount, setUnreadCount] = useState(0);
   const [profileOpen, setProfileOpen] = useState(false);
+  const [expandNotification, setExpandNotification] = useState(false);
   const [push, setPush] = useState([]);
   const [notification, setNotification] = useState([]);
   const [filterNotification, setFilterNotification] = useState();
@@ -27,7 +28,9 @@ const InfoBar = () => {
   };
 
   const getNotification = async () => {
-    const res = await NotificationService.getAll();
+    const res = await NotificationService.getAll({
+      rows: 5
+    });
     setNotification(res);
   };
 
@@ -103,7 +106,9 @@ const InfoBar = () => {
       <div className="d-flex align-items-stretch flex-shrink-0">
         <div className="d-flex align-items-center ms-1 ms-lg-3">
           <div
-            className="btn btn-icon btn-active-light-primary position-relative w-30px h-30px w-md-40px h-md-40px"
+          onClick={() => setExpandNotification(!expandNotification)}
+          // className="btn btn-icon btn-active-light-primary position-relative w-30px h-30px w-md-40px h-md-40px"
+            className={ expandNotification ? "btn btn-icon btn-active-light-primary position-relative w-30px h-30px w-md-40px h-md-40px show menu-dropdown" : "btn btn-icon btn-active-light-primary position-relative w-30px h-30px w-md-40px h-md-40px"}
             data-kt-menu-trigger="click"
             data-kt-menu-attach="parent"
             data-kt-menu-placement="bottom-end"
@@ -144,8 +149,15 @@ const InfoBar = () => {
           </div>
 
           <div
-            className="menu menu-sub menu-sub-dropdown menu-column w-350px w-lg-375px"
+            className={expandNotification ? "menu menu-sub menu-sub-dropdown menu-column w-350px w-lg-375px show" : "menu menu-sub menu-sub-dropdown menu-column w-350px w-lg-375px" }
             data-kt-menu="true"
+            style={expandNotification ? {
+              zIndex: 105,
+              position: 'fixed',
+              inset: '0px 0px auto auto',
+              margin: '0px',
+              transform: 'translate(-128px, 65px)'
+              }: {}}
           >
             <div
               className="d-flex flex-column bgi-no-repeat rounded-top"

@@ -17,6 +17,7 @@ const ShowUser = () => {
       getUser();
     }
   }, [id]);
+
   return (
     <>
       <div className="post d-flex flex-column-fluid" id="kt_post">
