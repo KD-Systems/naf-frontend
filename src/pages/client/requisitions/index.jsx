@@ -34,6 +34,13 @@ const CompanyRequisitions = () => {
       selector: (row) => row?.status,
       sortable: true,
       field: "role",
+      format: (row) => (
+        <>
+          {row?.status == "pending" && <div className="mt-2 text-white bg-warning p-1 px-2 rounded">Pending</div>}
+          {row?.status == "approved" && <div className="mt-2 text-white bg-success p-1 px-2 rounded">Approved</div>}
+          {row?.status == "rejected" && <div className="mt-2 text-white bg-danger p-1 px-2 rounded">Rejected</div>}
+        </>
+      ),
     },
 
     {

@@ -74,7 +74,7 @@ const updateDueLimit = async (id, data) => {
   return res.data;
 };
 
-//for client module
+//for client module in req
 const getClientCompany = async () => {
   const res = await http.get("/client-company");
   return res.data;

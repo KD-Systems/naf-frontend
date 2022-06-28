@@ -127,35 +127,38 @@ const ClientContracts = () => {
 
   const getContracts = async (filters) => {
     setLoading(true);
-    setContracts(await ClientContractService.getAll(filters));
+    const res = await ClientContractService.getAll(filters)
+    setContracts(res?.data)
     setLoading(false);
   };
 
-//   const deleteContract = async (contractId) => {
-//     await ContractService.remove(contractId);
-//     getContracts();
-//   };
+
 
   const onCloseModal = () => {
     setOpenAddModal(false);
     setOpenEditModal(false);
   };
 
-  // useEffect(() => {
-  //   getContracts();
-  // }, []);
+
+  React.useEffect(() => {
+    getContracts()
+  }, []);
 
   return (
     <>
       <div className="post d-flex flex-column-fluid">
         <div className="container-xxl">
-          <Table
-            name="Contracts"
-            onClickButton={() => setOpenAddModal(true)}
-            isLoading={loading} data={contracts}
-            columns={columns}
-            onFilter={getContracts}
-          />
+          {
+            // contracts.length > 0 && (
+              <Table
+              name="Contracts"
+              onClickButton={() => setOpenAddModal(true)}
+              isLoading={loading} data={contracts}
+              columns={columns}
+              onFilter={getContracts}
+            />
+            // )
+          }
         </div>
       </div>
 

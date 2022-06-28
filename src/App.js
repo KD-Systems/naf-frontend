@@ -70,6 +70,8 @@ import PrintClientInvoice from "pages/client/invoices/print";
 import CreateClientDelivery from "pages/client/delivery-notes/create";
 import ShowClientDeliveryNotes from "pages/client/delivery-notes/show";
 import PrintClientDeliveryNotes from "pages/client/delivery-notes/print";
+import CompanyUser from "pages/client/user/index";
+import CompanyUserShow from "pages/client/user/show";
 import Forbidden from "pages/Forbidden";
 
 function App() {
@@ -520,6 +522,25 @@ function App() {
 
             {/* Routes for company users */} 
 
+            {/* Routes for company users */} 
+
+            <Route
+              path="companies/user" 
+              element={
+                <PrivateRoute>
+                  <CompanyUser />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
+              path="companies/user/:id" 
+              element={
+                <PrivateRoute>
+                  <CompanyUserShow />
+                </PrivateRoute>
+              }
+            />
 
             <Route
               path="company/user/machines" 

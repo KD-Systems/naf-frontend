@@ -7,8 +7,9 @@ const getAll = async (data) => {
   return res;
 };
 
+
 const get = async (id) => {
-    const res = await http.get(`/client-contract/${id}`);
+    const res = await http.get(`/client-contract/${id}`); 
     return res.data;
   };
 

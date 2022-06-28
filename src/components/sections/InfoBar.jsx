@@ -16,7 +16,7 @@ const InfoBar = () => {
   const [expandNotification, setExpandNotification] = useState(false);
   const [push, setPush] = useState([]);
   const [notification, setNotification] = useState([]);
-  const [filterNotification, setFilterNotification] = useState();
+  // const [notification, setnotification] = useState();
   const ref = useRef();
 
   let data = JSON.parse(localStorage.getItem("user"));
@@ -65,16 +65,16 @@ const InfoBar = () => {
   }, []);
 
   useEffect(() => {
-    if (filterNotification) {
+    if (notification) {
       let count = 0;
-      filterNotification.forEach((item) => {
+      notification.forEach((item) => {
         if (!item.read_at) {
           count++;
         }
         setUnreadCount(count);
       });
     }
-  }, [filterNotification]);
+  }, [notification]);
 
   const notificationRead = async (item) => {
     let path =
@@ -86,20 +86,20 @@ const InfoBar = () => {
     navigate(path);
   };
 
-  const notificationFilter = () => {
-    if (user.details) {
-      let carry = notification.filter((item) => {
-        if (user.details.company_id == item.data.data.company_id) return item;
-      });
-      setFilterNotification(carry);
-    } else {
-      setFilterNotification(notification);
-    }
-  };
+  // const notificationFilter = () => {
+  //   if (user.details) {
+  //     let carry = notification.filter((item) => {
+  //       if (user.details.company_id == item.data.data.company_id) return item;
+  //     });
+  //     setnotification(carry);
+  //   } else {
+  //     setnotification(notification);
+  //   }
+  // };
 
-  useEffect(() => {
-    notificationFilter();
-  }, [notification]);
+  // useEffect(() => {
+  //   notificationFilter();
+  // }, [notification]);
 
   return (
     <div className="d-flex align-items-stretch flex-shrink-0">
@@ -177,7 +177,7 @@ const InfoBar = () => {
                 role="tabpanel"
               >
                 <div className="scroll-y mh-325px my-5 px-8">
-                  {filterNotification?.map((item) => {
+                  {notification?.map((item) => {
                     return (
                       <div className="d-flex flex-stack py-4">
                         <div className="d-flex align-items-center">
@@ -236,7 +236,7 @@ const InfoBar = () => {
 
                 <div className="py-3 text-center border-top">
                   <div className=" color-gray-600 btn-active-color-primary">
-                    Total ({filterNotification?.length})
+                    Total ({notification?.length})
                   </div>
                 </div>
               </div>

@@ -154,7 +154,25 @@ const SideMenuCompany = () => {
             </NavLink>
           </div>
 
-         
+          <div className="menu-item">
+            <div className="menu-content">
+              <div className="separator mx-1 my-2"></div>
+            </div>
+          </div>
+
+          <div className="menu-item">
+              <NavLink
+                className={(navinfo) =>
+                  navinfo.isActive ? "menu-link active" : "menu-link"
+                }
+                to={`companies/user`}
+              >
+                <span className="menu-icon">
+                <i className="bi bi-sticky fs-3"></i>
+                </span>
+                <span className="menu-title">Company User</span> 
+              </NavLink>
+            </div>
           
           <div className="menu-item">
                 <NavLink
