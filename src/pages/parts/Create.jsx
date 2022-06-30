@@ -15,12 +15,13 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
     setInputField([...inputField, {}]);
   };
 
-  const [arm,setArm]=useState("")
+  const [arm, setArm] = useState("");
 
-  const arms = [
-    {value:45,label:"45"},
-    {value:47,label:"47"}
-  ]
+  const units = [
+    { value: "piece", label: "Piece" },
+    { value: "meter", label: "Meter" },
+    { value: "centimeter", label: "Centimeter" },
+  ];
 
   const handlePartRemove = (index) => {
     const list = [...inputField];
@@ -37,12 +38,11 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
     description: "",
     image: "",
     arm: "",
+    unit: "",
   });
 
   const [inputField, setInputField] = useState([{}]);
-
   const [block, setBlock] = useState(false);
-  const [defaultArm, setDefaultArm] = useState(null);
 
   // Set the selected image to preview
   const setImage = async (e) => {
@@ -70,7 +70,6 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
     const { name, value } = e.target;
     const list = [...inputField];
 
-    // index?list[index][name]= value:list[name]=value
     list[index][name] = value;
     setInputField(list);
   };
@@ -111,6 +110,7 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
     formData.append("image", data.image);
     formData.append("name", data.name);
     formData.append("arm", data.arm);
+    formData.append("unit", data.unit);
     formData.append("description", data.descriptions);
     formData.append("parts", JSON.stringify(temp1));
 
@@ -123,7 +123,7 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
   const getMachines = async () => {
     setBlock(false);
     let data = await MachineService.getAll();
-    
+
     data = data?.data?.map((itm) => ({ label: itm.name, value: itm.id })); //Parse the data as per the select requires
     setMachines(data);
     setBlock(false);
@@ -144,8 +144,7 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
 
   useEffect(() => {
     //Prevent preload data while modal is hidden
-    if (open)
-      getMachines();
+    if (open) getMachines();
     setBlock(false);
   }, [open]);
 
@@ -197,7 +196,7 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
               </div>
 
               <div className="form-group row">
-                <div className="col-8">
+                <div className="col-12">
                   <label className="required form-label">Name</label>
                   <input
                     type="text"
@@ -213,9 +212,25 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
                   ></div>
                 </div>
 
-                <div className="col-4">
+                <div className="col-6">
+                  <label className="form-label">Unit Type</label>
+                  <select
+                    className="form-control"
+                    name="unit"
+                    id="unit"
+                    onChange={handleChange}
+                  >
+                    <option>Select Unit</option>
+                    {units.map((item) => {
+                      return (<option value={item.value}>{item.label}</option>);
+                    })}
+                  </select>
+                </div>
+
+                <div className="col-6">
                   <label className="form-label">ARM</label>
-                  <select className="form-control"
+                  <select
+                    className="form-control"
                     name="arm"
                     id="arm"
                     onChange={handleChange}
@@ -225,8 +240,6 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
                     <option value="45">45</option>
                     <option value="47">47</option>
                   </select>
-
-                
                 </div>
               </div>
 
@@ -347,7 +360,7 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
                 Submit
               </button>
               <button
-              type="button"
+                type="button"
                 className="btn btn-secondary  mt-5 "
                 onClick={onCloseModal}
               >

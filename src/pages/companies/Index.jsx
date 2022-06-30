@@ -62,12 +62,12 @@ const Companies = () => {
       format: (row) => (
         <span
           className={
-            row.status === 1
+            row.status
               ? "badge badge-light-success"
               : "badge badge-light-danger"
           }
         >
-          {row.status === 1 ? "active" : "inactive"}
+          {row.status ? "active" : "inactive"} 
         </span>
       ),
     },

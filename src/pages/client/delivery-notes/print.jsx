@@ -14,7 +14,9 @@ const PrintDeliveryNotes = () => {
     
     let content = document.getElementById("content").innerHTML;
     document.body.innerHTML = content;
-    window.print();
+    setTimeout(() => {
+      window.print();
+    }, 500);
   };
 
   useEffect(() => {
@@ -42,34 +44,35 @@ const PrintDeliveryNotes = () => {
                         </div>
                       </td>
                       <td>
-                        <div
-                          className="text-sm-center fw-bold fs-4 text-muted "
-                          style={{ textAlign: "center", marginLeft: "2rem" }}
-                        >
-                          <h1>{deliveryNote?.company?.name}</h1>
-                          <p className="text-sm">
-                            <small>
-                            {deliveryNote?.company?.address}
-                            </small>
-                            <br />
-                            <small>
-                              Tel:{deliveryNote?.company?.tel},Email:{deliveryNote?.company?.email},Web:{deliveryNote?.company?.web}
-                            </small>
-                          </p>
-                        </div>
-                      </td>
-                      <td>
-                        <div className="text-sm-end fw-bold fs-4 text-muted ">
-                          <div></div>
-                          <Link to="#">
-                            <img
-                              alt="Logo"
-                              src="/assets/media/logos/tajima.png"
-                              style={{ width: "5rem", marginLeft: "2rem" }} 
-                            />
-                          </Link>
-                        </div>
-                      </td>
+                    <div
+                        className="text-sm-center fw-bold fs-4 text-muted "
+                        style={{ textAlign: "center", marginLeft: "6rem" }}
+                      >
+                        <h1>Naf Overseas(PVT.) Ltd.</h1>
+                        <p className="text-sm">
+                          <small>
+                            Head Office:Naya paltan,Dhaka,Bangladesh
+                          </small>
+                          <br />
+                          <small>
+                            Tel:44564,Fax:sddsf,Email:asd@gmail.com,Web:example.com
+                          </small>
+                        </p>
+                      </div>
+                    </td>
+                    <td>
+                      <div className="text-sm-end fw-bold fs-4 text-muted "
+                      style={{ textAlign: "center", marginLeft: "3rem" }}>
+                        <div></div>
+                        <Link to="#">
+                          <img
+                            alt="Logo"
+                            src={deliveryNote?.company?.logo_url}
+                            style={{ width: "5rem", marginLeft: "2rem" }}
+                          />
+                        </Link>
+                      </div>
+                    </td>
                     </tr>
                   </tbody>
                 </table>

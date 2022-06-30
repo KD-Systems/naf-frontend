@@ -42,7 +42,8 @@ const Tags = (props) => {
                 id={options.id}
                 defaultValue={props.value}
                 className="form-control mb-2"
-                onBlur={(e) => {
+                onAddTag={(e) => {
+                    console.log(e);
                     handleChange(e);
                 }}
             />

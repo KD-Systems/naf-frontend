@@ -18,11 +18,11 @@ const Contracts = () => {
   //Set the columns
   const columns = [
     {
-      name: 'Company',
-      selector: row => row.company?.name,
+      name: "Company",
+      selector: (row) => row.company?.name,
       sortable: true,
-      field: 'company',
-      format: row => (
+      field: "company",
+      format: (row) => (
         <div className="d-flex align-items-center">
           <div className="symbol symbol-50px me-5">
             <span className="symbol-label bg-light">
@@ -35,43 +35,42 @@ const Contracts = () => {
           </div>
           <div className="d-flex justify-content-start flex-column">
             <Link
-              to={'/panel/companies/' + row.company?.id}
+              to={"/panel/companies/" + row.company?.id}
               className="text-dark fw-bolder text-hover-primary mb-1 fs-6"
             >
               {row.company?.name}
             </Link>
           </div>
         </div>
-      )
+      ),
     },
     {
-      name: 'Machines',
-      selector: row => row.machine_models,
+      name: "Machines",
+      selector: (row) => row.machine_models,
       sortable: true,
-      field: 'machine_models',
-      format: row => (
-        row.machine_models.map((dt) => (<Link
+      field: "machine_models",
+      format: (row) =>
+        row.machine_models.map((dt) => (
+          <Link
             to={`/panel/machines/${dt.model.machine_id}/models/${dt.model.id}`}
             className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
           >
             {dt.model.name}
-          </Link>))
-      )
+          </Link>
+        )),
     },
     {
-      name: 'Contract Type',
-      selector: row => row.is_foc,
+      name: "Contract Type",
+      selector: (row) => row.is_foc,
       sortable: true,
-      field: 'machines',
+      field: "machines",
       format: (row) => (
         <span
           className={
-            parseInt(row.is_foc)
-              ? "badge badge-light-warning"
-              : "badge badge-light-info"
+            row.is_foc ? "badge badge-light-warning" : "badge badge-light-info"
           }
         >
-          {parseInt(row.is_foc)? "FOC" : "PAID"}
+          {row.is_foc ? "FOC" : "PAID"}
         </span>
       ),
     },
@@ -99,51 +98,52 @@ const Contracts = () => {
       field: "status",
       format: (row) => (
         <span className="text-gray-600 text-hover-primary">
-        <Moment format='YYYY-MM-DD'>
-          {row.end_date}
-        </Moment>
-        {row.has_expired ?
-          <div className="badge badge-light-danger">
-            Expired
-          </div> : ''
-        }
-      </span>
+          <Moment format="YYYY-MM-DD">{row.end_date}</Moment>
+          {row.has_expired ? (
+            <div className="badge badge-light-danger">Expired</div>
+          ) : (
+            ""
+          )}
+        </span>
       ),
     },
     {
-      name: 'Action',
-      selector: row => row.status,
-      format: row => (
+      name: "Action",
+      selector: (row) => row.status,
+      format: (row) => (
         <span className="text-end">
-           <PermissionAbility permission="contracts_show">
-          <Link
-            to={"/panel/contracts/" + row.id}
-            className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-          >
-            <i className="fa fa-eye"></i>
-          </Link>
+          <PermissionAbility permission="contracts_show">
+            <Link
+              to={"/panel/contracts/" + row.id}
+              className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+            >
+              <i className="fa fa-eye"></i>
+            </Link>
           </PermissionAbility>
           <PermissionAbility permission="contracts_edit">
-          <button
-            className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-            onClick={() => {
-              setContractId(row.id);
-              setOpenEditModal(true);
-            }}
-          >
-            <i className="fa fa-pen"></i>
-          </button>
+            <button
+              className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+              onClick={() => {
+                setContractId(row.id);
+                setOpenEditModal(true);
+              }}
+            >
+              <i className="fa fa-pen"></i>
+            </button>
           </PermissionAbility>
           <PermissionAbility permission="contracts_delete">
-          <button
-            className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
-            onClick={() => { setContractId(row.id); setConfirmDelete(true) }}
-          >
-            <i className="fa fa-trash"></i>
-          </button>
+            <button
+              className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
+              onClick={() => {
+                setContractId(row.id);
+                setConfirmDelete(true);
+              }}
+            >
+              <i className="fa fa-trash"></i>
+            </button>
           </PermissionAbility>
         </span>
-      )
+      ),
     },
   ];
 
@@ -170,17 +170,18 @@ const Contracts = () => {
   return (
     <>
       <div className="post d-flex flex-column-fluid">
-      <PermissionAbility permission="contracts_create">
-        <div className="container-xxl">
-          <Table
-            name="Contracts"
-            buttonName="Add Contract"
-            onClickButton={() => setOpenAddModal(true)}
-            isLoading={loading} data={contracts}
-            columns={columns}
-            onFilter={getContracts}
-          />
-        </div>
+        <PermissionAbility permission="contracts_create">
+          <div className="container-xxl">
+            <Table
+              name="Contracts"
+              buttonName="Add Contract"
+              onClickButton={() => setOpenAddModal(true)}
+              isLoading={loading}
+              data={contracts}
+              columns={columns}
+              onFilter={getContracts}
+            />
+          </div>
         </PermissionAbility>
       </div>
 

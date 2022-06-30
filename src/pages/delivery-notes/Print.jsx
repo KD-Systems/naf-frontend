@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import Moment from "react-moment";
 import DeliverNoteService from "services/DeliverNoteService";
+import Barcode from "react-barcode";
 const PrintDeliveryNotes = () => {
   let { id } = useParams();
   const navigate = useNavigate();
@@ -14,7 +15,9 @@ const PrintDeliveryNotes = () => {
     
     let content = document.getElementById("content").innerHTML;
     document.body.innerHTML = content;
-    window.print();
+    setTimeout(() => {
+      window.print();
+    }, 500);
   };
   useEffect(() => {
     if (id) getDeliveryNotes();
@@ -41,34 +44,37 @@ const PrintDeliveryNotes = () => {
                         </div>
                       </td>
                       <td>
-                        <div
-                          className="text-sm-center fw-bold fs-4 text-muted "
-                          style={{ textAlign: "center", marginLeft: "2rem" }}
-                        >
-                          <h1>{deliveryNote?.company?.name}</h1>
-                          <p className="text-sm">
-                            <small>
-                            {deliveryNote?.company?.address}
-                            </small>
-                            <br />
-                            <small>
-                              Tel:{deliveryNote?.company?.tel},Email:{deliveryNote?.company?.email},Web:{deliveryNote?.company?.web}
-                            </small>
-                          </p>
-                        </div>
-                      </td>
-                      <td>
-                        <div className="text-sm-end fw-bold fs-4 text-muted ">
-                          <div></div>
-                          <Link to="#">
-                            <img
-                              alt="Logo"
-                              src="/assets/media/logos/tajima.png"
-                              style={{ width: "5rem", marginLeft: "2rem" }} 
-                            />
-                          </Link>
-                        </div>
-                      </td>
+                    <div
+                        className="text-sm-center fw-bold fs-4 text-muted "
+                        style={{ textAlign: "center", marginLeft: "6rem" }}
+                      >
+                        <h1>Naf Overseas(PVT.) Ltd.</h1>
+                        <p className="text-sm">
+                          <small>
+                            Head Office:Naya paltan,Dhaka,Bangladesh
+                          </small>
+                          <br />
+                          <small>
+                            Tel:44564,Fax:TEST,Email:test@gmail.com,Web:example.com
+                          </small>
+                        </p>
+                      </div>
+                    </td>
+                    <td>
+                      <div className="text-sm-end fw-bold fs-4 text-muted "
+                      style={{ textAlign: "center", marginLeft: "3rem" }}> 
+                        <div></div>
+                        <Link to="#">
+                          <img
+                            alt="Logo"
+                            src={deliveryNote?.company?.logo_url}
+                            style={{ width: "5rem", marginLeft: "2rem" }}
+                          />
+                        </Link>
+                      </div>
+                    </td>
+
+
                     </tr>
                   </tbody>
                 </table>
@@ -82,6 +88,14 @@ const PrintDeliveryNotes = () => {
                       <td className="text-center">
                         <h3>DELIVERY NOTE</h3>
                         <p className="text-muted">#{deliveryNote?.dn_number}</p>
+                        <span>
+                        <Barcode 
+                            value={deliveryNote?.dn_number}
+                            height= "50"
+                            format= "CODE128"
+                            className="w-100"
+                            />
+                            </span>
                       </td>
                       <td className="text-end"></td>
                     </tr>
@@ -106,6 +120,7 @@ const PrintDeliveryNotes = () => {
                           <span className="text-muted">
                             {deliveryNote?.company?.company_group}
                           </span>
+                          <br/>
                         </h6>
                       </td>
                       <td style={{ marginLeft: "120px" }} width="30%"></td>

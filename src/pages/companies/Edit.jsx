@@ -53,18 +53,17 @@ const EditCompany = ({ open, companyId, onCloseModal, onUpdated }) => {
       company_group: "",
       machine_types: "",
       description: "",
-      address:"",
-      tel:"",
-      email:"",
-      web:"",
-      trade_limit:"",
-      due_amount:"",
-      logo:""
+      address: "",
+      tel: "",
+      email: "",
+      web: "",
+      trade_limit: "",
+      due_amount: "",
+      logo: "",
     });
 
     if (companyId) getCompany();
   }, [companyId]);
-
 
   return (
     <div>
@@ -141,10 +140,13 @@ const EditCompany = ({ open, companyId, onCloseModal, onUpdated }) => {
                   placeholder="Enter Company Address"
                   name="address"
                   id="address"
-                  value={company.address ?? ''}
+                  value={company.address ?? ""}
                   onChange={handleChange}
                 />
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="address"></div>
+                <div
+                  className="fv-plugins-message-container invalid-feedback"
+                  htmlFor="address"
+                ></div>
               </div>
 
               <div className="mb-5 fv-row fv-plugins-icon-container">
@@ -155,10 +157,13 @@ const EditCompany = ({ open, companyId, onCloseModal, onUpdated }) => {
                   placeholder="Enter phone number"
                   name="tel"
                   id="tel"
-                  value={company.tel ?? ''}
+                  value={company.tel ?? ""}
                   onChange={handleChange}
                 />
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="tel"></div>
+                <div
+                  className="fv-plugins-message-container invalid-feedback"
+                  htmlFor="tel"
+                ></div>
               </div>
 
               <div className="mb-5 fv-row fv-plugins-icon-container">
@@ -169,13 +174,15 @@ const EditCompany = ({ open, companyId, onCloseModal, onUpdated }) => {
                   placeholder="Enter Company Email"
                   name="email"
                   id="email"
-                  value={company.email ?? ''}
+                  value={company.email ?? ""}
                   onChange={handleChange}
                 />
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="email"></div>
+                <div
+                  className="fv-plugins-message-container invalid-feedback"
+                  htmlFor="email"
+                ></div>
               </div>
 
-     
               <div className="mb-5 fv-row fv-plugins-icon-container">
                 <label className="form-label">Web</label>
                 <input
@@ -184,10 +191,13 @@ const EditCompany = ({ open, companyId, onCloseModal, onUpdated }) => {
                   placeholder="Enter Company Web"
                   name="web"
                   id="web"
-                  value={company.web ?? ''}
+                  value={company.web ?? ""}
                   onChange={handleChange}
                 />
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="web"></div>
+                <div
+                  className="fv-plugins-message-container invalid-feedback"
+                  htmlFor="web"
+                ></div>
               </div>
 
               <div className="mb-5 fv-row fv-plugins-icon-container">
@@ -209,11 +219,13 @@ const EditCompany = ({ open, companyId, onCloseModal, onUpdated }) => {
 
               <div className="mb-5 fv-row fv-plugins-icon-container">
                 <label className="form-label">Factory Types</label>
-                <Tags
-                  placeholder="Enter Machine Types"
+                <input
+                  type="text"
+                  className="form-control mb-2"
+                  placeholder="Ex.: Data1,Data2"
                   name="machine_types"
                   id="machine_types"
-                  value={company.machine_types}
+                  value={company.machine_types ?? ""}
                   onChange={handleChange}
                 />
                 <div
@@ -221,8 +233,6 @@ const EditCompany = ({ open, companyId, onCloseModal, onUpdated }) => {
                   htmlFor="machine_types"
                 ></div>
               </div>
-
-
 
               <div className="mb-5 fv-row fv-plugins-icon-container">
                 <label className="form-label">Description</label>

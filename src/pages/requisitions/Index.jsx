@@ -142,7 +142,7 @@ const Requisitions = () => {
             onClickButton={routeChange}
             callbackButtons={[
               {
-                name: filter ? "Pending" : "All",
+                name: filter ? "All" : "Pending",
                 callback: () => {
                   setFilter(!filter);
                 },

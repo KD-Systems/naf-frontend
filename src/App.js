@@ -29,9 +29,6 @@ import PermissionAbility from "helpers/PermissionAbility";
 import { PrivateRoute } from "helpers/PrivateRoute";
 import Settings from "pages/Settings/Index";
 import ShowStock from "pages/parts/stocks/Show";
-import CompanyUserMachines from "pages/companyUser/Machines";
-import CompanyUserContracts from "pages/companyUser/Contracts";
-import Machine from "pages/companyUser/Machine";
 import RequisitionCreate from "pages/requisitions/Create";
 import BoxHeadings from "pages/box-headings/Index";
 import BoxHeadingShow from "pages/box-headings/Show";
@@ -569,15 +566,6 @@ function App() {
               }
             />
             
-
-            <Route
-              path="companies/machines/:id"
-              element={
-                <PrivateRoute>
-                  <Machine />
-                </PrivateRoute>
-              }
-            />
             {/* client contract end */}
 
               {/* company user sales start */}

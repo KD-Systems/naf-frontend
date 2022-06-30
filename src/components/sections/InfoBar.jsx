@@ -20,7 +20,7 @@ const InfoBar = () => {
   const ref = useRef();
 
   let data = JSON.parse(localStorage.getItem("user"));
-  let user = data.user;
+  let user = data?.user;
 
   const handleLogout = () => {
     dispatch(logout());

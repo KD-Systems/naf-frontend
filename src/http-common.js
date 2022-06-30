@@ -6,7 +6,6 @@ import "react-toastify/dist/ReactToastify.css";
 
 toast.configure();
 let Api = axios.create({
-
   baseURL: config.baseUrl,
 
   headers: {
@@ -44,7 +43,8 @@ let Api = axios.create({
           break;
 
         case 401:
-          toast.warning(response.message);
+          localStorage.setItem("auth_message", response.message);
+          // toast.warning(response.message);
           break;
 
         case 403:
@@ -69,7 +69,7 @@ let Api = axios.create({
           break;
 
         case errors?.length:
-          // toast.warning(response.message);
+        // toast.warning(response.message);
 
         default:
           //

@@ -131,12 +131,12 @@ const CompanyUsers = ({ active }) => {
                       <div className="d-flex align-items-center">
                       <div
                         className={
-                          item?.status === 1
+                          item?.status
                             ? "badge badge-light-success"
                             : "badge badge-light-danger"
                         }
                       >
-                        {item?.status === 1 ? "Active" : "Inactive"}
+                        {item?.status ? "Active" : "Inactive"}
                       </div>
                       </div>
                     </td>

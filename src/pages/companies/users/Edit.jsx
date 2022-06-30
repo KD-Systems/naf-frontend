@@ -3,13 +3,14 @@ import Modal from "components/utils/Modal";
 import CompanyService from "services/CompanyService";
 
 const EditUser = ({ open, onCloseModal, onUpdate, companyId, userId }) => {
+  const [block, setBlock] = useState(false);
   const [data, setData] = useState({
     name: "",
     email: "",
     password: "",
     phone: "",
     avatar: "",
-    status: false
+    status: false,
   });
 
   // Set the selected image to preview
@@ -30,15 +31,16 @@ const EditUser = ({ open, onCloseModal, onUpdate, companyId, userId }) => {
 
   //Store data
   const updateUser = async (e) => {
-    e.target.disabled = true
+    setBlock(true);
     let formData = new FormData(document.getElementById("update-user"));
     await CompanyService.updateUser(companyId, userId, formData);
     onUpdate();
     onCloseModal();
-    e.target.disabled = false
+    setBlock(false);
   };
 
   const handleChange = (e) => {
+    setBlock(false);
     const target = e.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = e.target.name;
@@ -54,12 +56,10 @@ const EditUser = ({ open, onCloseModal, onUpdate, companyId, userId }) => {
 
     //Load the plugins after rendering the page
     setTimeout(() => {
-      window.$('[data-bs-toggle="popover"]').popover()
-      window.$('[data-bs-toggle="tooltip"]').tooltip()
+      window.$('[data-bs-toggle="popover"]').popover();
+      window.$('[data-bs-toggle="tooltip"]').tooltip();
     }, 100);
   }, [userId]);
-
-
 
   return (
     <div>
@@ -185,10 +185,9 @@ const EditUser = ({ open, onCloseModal, onUpdate, companyId, userId }) => {
                 ></div>
               </div>
 
-              {/* status */}
               <div className="form-group mt-5">
                 <div className="form-check form-switch form-check-custom form-check-solid">
-                  <input
+                  {data.name && (<input
                     className="form-check-input"
                     type="checkbox"
                     defaultChecked={data.status}
@@ -196,12 +195,12 @@ const EditUser = ({ open, onCloseModal, onUpdate, companyId, userId }) => {
                     name="status"
                     id="status"
                     onChange={handleChange}
-                  />
+                  />) }
                   <label
                     className="form-check-label"
                     htmlFor="flexSwitchDefault"
                   >
-                    Status {data.status ? "Active" : "Inactive"}
+                    Status
                   </label>
                 </div>
               </div>
@@ -211,6 +210,7 @@ const EditUser = ({ open, onCloseModal, onUpdate, companyId, userId }) => {
                 className="btn btn-primary mr-2 mt-5"
                 style={{ marginRight: "1rem" }}
                 onClick={updateUser}
+                disabled={block}
               >
                 Submit
               </button>

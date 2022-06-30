@@ -3,6 +3,8 @@ import Modal from "components/utils/Modal";
 import CompanyService from "services/CompanyService";
 
 const AddUser = ({ open, onCloseModal, onCreate, companyId }) => {
+
+  const [block, setBlock] = useState(false);
   // Set the selected image to preview
   const setImage = async (e) => {
     let logoShow = document.getElementById("logo");
@@ -16,12 +18,12 @@ const AddUser = ({ open, onCloseModal, onCreate, companyId }) => {
 
   //Store data
   const storeUser = async (e) => {
-    e.target.disabled = true
+    setBlock(true)
     let formData = new FormData(document.getElementById("update-company"));
     await CompanyService.addUser(companyId, formData);
     onCreate();
     onCloseModal();
-    e.target.disabled = false
+    setBlock(false)
   };
 
   const [data, setData] = useState({
@@ -32,6 +34,7 @@ const AddUser = ({ open, onCloseModal, onCreate, companyId }) => {
   })
 
   const handleChange = (e) => {
+    setBlock(false)
     const value = e.target.value;
     const name = e.target.name;
 
@@ -141,13 +144,14 @@ const AddUser = ({ open, onCloseModal, onCreate, companyId }) => {
                 className="btn btn-primary mr-2 mt-5"
                 style={{ marginRight: "1rem" }}
                 onClick={storeUser}
+                disabled={block}
               >
                 Submit
               </button>
               <button
                 type="reset"
                 className="btn btn-secondary  mt-5 "
-                onClick={onCloseModal} 
+                onClick={onCloseModal}
               >
                 Cancel
               </button>

@@ -3,7 +3,7 @@ import http from "../http-common";
 const getAll = async () => {
     const res = await http.get("/box-headings");
     
-    return res.data;
+    return res.data?.data;
 };
 
 const get = async (id) => {

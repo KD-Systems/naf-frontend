@@ -7,21 +7,8 @@ import { savingData } from "../../features/Auth";
 import ProfileService from "services/ProfileService";
 const AccountSettings = () => {
   const dispatch = useDispatch();
-
-  const [data, setData] = useState({
-    current_password: "",
-    password: "",
-    password_confirmation: "",
-  });
-
-  const [profileData, setProfileData] = useState({
-    name: "",
-    email: "",
-    avatar: "",
-    status: null,
-    designation: "",
-    role: "",
-  });
+  const [data, setData] = useState({});
+  const [profileData, setProfileData] = useState({});
 
   const getUserProfile = async () => {
     setProfileData(await ProfileService.getProfile());
@@ -37,10 +24,8 @@ const AccountSettings = () => {
   }, []);
 
   const setImage = async (e) => {
-    console.log(e.target.files[0]);
     let logoShow = document.getElementById("avatar");
     let fr = new FileReader();
-    // console.log(e.target.files[0]);
     fr.readAsDataURL(e.target.files[0]);
 
     fr.addEventListener("load", function () {
@@ -96,7 +81,7 @@ const AccountSettings = () => {
 
   return (
     <div id="kt_content_container" className="container-xxl">
-      <TopCard />
+      <TopCard user={profileData} />
 
       <div className="card mb-5 mb-xl-10">
         <div className="card-header border-0 cursor-pointer" role="button">
@@ -119,16 +104,10 @@ const AccountSettings = () => {
                   <div
                     className="image-input image-input-outline"
                     data-kt-image-input="true"
-                    // style={{ backgroundImage: `url(${user?.user.avatar})` }}
                   >
                     <div
                       id="avatar"
                       className="image-input-wrapper w-125px h-125px"
-                      // style={{
-                      //   backgroundImage:
-                      //     "url(/assets/media/svg/files/blank-image.svg)",
-                      // }}
-
                       style={{ backgroundImage: `url(${profileData?.avatar})` }}
                     ></div>
 
@@ -199,37 +178,22 @@ const AccountSettings = () => {
                 <label className="col-lg-4 col-form-label required fw-bold fs-6">
                   Email
                 </label>
-                <div className="col-lg-8 fv-row fv-plugins-icon-container">
-                  <input
-                    type="email"
-                    name="email"
-                    className="form-control form-control-lg form-control-solid"
-                    placeholder="email"
-                    value={profileData.email || ""}
-                    onChange={handleProfileChange}
-                  />
-                  <div className="fv-plugins-message-container invalid-feedback"></div>
-                </div>
-              </div>
-
-              {/* <div className="row mb-0">
-                <label className="col-lg-4 col-form-label fw-bold fs-6">
-                  Allow Notification
-                </label>
-                <div className="col-lg-8 d-flex align-items-center">
-                  <div className="form-check form-check-solid form-switch fv-row">
-                    <input
-                      className="form-check-input w-45px h-30px"
-                      type="checkbox"
-                      id="allowmarketing"
-                    />
-                    <label
-                      className="form-check-label"
-                      htmlFor="allowmarketing"
-                    ></label>
+                <div className="col-lg-8">
+                  <div className="row">
+                    <div className="col-lg-6 fv-row fv-plugins-icon-container">
+                      <input
+                        type="email"
+                        name="email"
+                        className="form-control form-control-lg form-control-solid"
+                        placeholder="email"
+                        value={profileData.email || ""}
+                        onChange={handleProfileChange}
+                      />
+                      <div className="fv-plugins-message-container invalid-feedback"></div>
+                    </div>
                   </div>
                 </div>
-              </div> */}
+              </div>
             </div>
 
             <div className="card-footer d-flex justify-content-end py-6 px-9">
@@ -274,7 +238,7 @@ const AccountSettings = () => {
                         type="password"
                         name="current_password"
                         className="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                        placeholder="current_password"
+                        placeholder="Current Password"
                         onChange={handleChange}
                         value={data.current_password || ""}
                       />
@@ -295,7 +259,7 @@ const AccountSettings = () => {
                         type="password"
                         name="password"
                         className="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                        placeholder="password"
+                        placeholder="Password"
                         onChange={handleChange}
                         value={data.password || ""}
                       />
@@ -307,18 +271,22 @@ const AccountSettings = () => {
 
               <div className="row mb-6">
                 <label className="col-lg-4 col-form-label required fw-bold fs-6">
-                  password_confirmation
+                  Confirm Password
                 </label>
-                <div className="col-lg-8 fv-row fv-plugins-icon-container">
-                  <input
-                    type="password"
-                    name="password_confirmation"
-                    className="form-control form-control-lg form-control-solid"
-                    placeholder="Password Confirmation"
-                    onChange={handleChange}
-                    value={data.password_confirmation || ""}
-                  />
-                  <div className="fv-plugins-message-container invalid-feedback"></div>
+                <div className="col-lg-8">
+                  <div className="row">
+                    <div className="col-lg-6 fv-row fv-plugins-icon-container">
+                      <input
+                        type="password"
+                        name="password_confirmation"
+                        className="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                        placeholder="Confirm Password"
+                        onChange={handleChange}
+                        value={data.password_confirmation || ""}
+                      />
+                      <div className="fv-plugins-message-container invalid-feedback"></div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

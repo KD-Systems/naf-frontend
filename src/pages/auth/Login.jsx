@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "features/Auth";
+import { getProfile, login } from "features/Auth";
+import { toast } from "react-toastify";
 
 const Login = () => {
-  const { user } = useSelector(state => state.auth)
+  const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -27,16 +28,29 @@ const Login = () => {
     });
   };
 
-  useEffect(() => {
-    if (user != null)
-      navigate("/panel/dashboard");
-  }, [user])
+  useEffect(async () => {
+    let locUser = localStorage.getItem("user");
+    if (locUser) {
+      await dispatch(getProfile());
+
+      if (user) navigate("/panel/dashboard");
+    }
+  }, [user]);
 
   const handleLogin = (e) => {
     e.preventDefault();
     const { email, password } = data;
-    dispatch(login({ email, password }))
+    dispatch(login({ email, password }));
   };
+
+  useEffect(() => {
+    let msg = localStorage.getItem("auth_message");
+
+    if (msg) {
+      toast.warning(msg);
+      localStorage.removeItem("auth_message");
+    }
+  }, []);
 
   return (
     <div className="d-flex flex-column flex-root">

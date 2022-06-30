@@ -6,7 +6,7 @@ import SideMenuCompany from "components/sections/SideMenuCompany";
 
 export default function AppLayout() {
   let data = JSON.parse(localStorage.getItem('user'))
-  let user = data.user
+  let user = data?.user
 
   //Replace the classes of body for the panel
   let body = document.getElementsByTagName("body");

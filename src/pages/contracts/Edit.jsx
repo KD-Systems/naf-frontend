@@ -130,13 +130,13 @@ const EditContract = ({ open, onCloseModal, onUpdated, contractId }) => {
                             <div className="fv-plugins-message-container invalid-feedback" htmlFor="notes"></div>
                         </div>
 
-                        {data.is_foc !== undefined && <div className="form-group mt-5 mb-2">
+                        {data.start_date && <div className="form-group mt-5 mb-2">
                             <div className="form-check form-switch form-check-custom form-check-solid">
                                 <input
                                     className="form-check-input"
                                     type="checkbox"
-                                    defaultChecked={parseInt(data.is_foc)}
-                                    defaultValue={parseInt(data.is_foc)}
+                                    defaultChecked={data?.is_foc}
+                                    defaultValue={data?.is_foc}
                                     name="is_foc"
                                     id="is_foc"
                                     onChange={handleChange}

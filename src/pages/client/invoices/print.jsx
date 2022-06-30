@@ -14,7 +14,9 @@ const PrintInvoice = () => {
     setInvoice(res);
     let content = document.getElementById("content").innerHTML;
     document.body.innerHTML = content;
-    window.print();
+    setTimeout(() => {
+      window.print();
+    }, 500);
   };
 
 
@@ -43,29 +45,30 @@ const PrintInvoice = () => {
                       </div>
                     </td>
                     <td>
-                      <div
+                    <div
                         className="text-sm-center fw-bold fs-4 text-muted "
-                        style={{ textAlign: "center", marginLeft: "2rem" }}
+                        style={{ textAlign: "center", marginLeft: "6rem" }}
                       >
-                        <h1>{invoice?.company?.name}</h1>
+                        <h1>Naf Overseas(PVT.) Ltd.</h1>
                         <p className="text-sm">
                           <small>
-                          {invoice?.company?.address}
+                            Head Office:Naya paltan,Dhaka,Bangladesh
                           </small>
                           <br />
                           <small>
-                            Tel:{invoice?.company?.tel},Email:{invoice?.company?.email},Web:{invoice?.company?.web}
+                            Tel:44564,Fax:sddsf,Email:asd@gmail.com,Web:example.com
                           </small>
                         </p>
                       </div>
                     </td>
                     <td>
-                      <div className="text-sm-end fw-bold fs-4 text-muted ">
+                      <div className="text-sm-end fw-bold fs-4 text-muted "
+                      style={{ textAlign: "center", marginLeft: "3rem" }}>
                         <div></div>
                         <Link to="#">
                           <img
                             alt="Logo"
-                            src="/assets/media/logos/tajima.png"
+                            src={invoice?.company?.logo_url}
                             style={{ width: "5rem", marginLeft: "2rem" }}
                           />
                         </Link>

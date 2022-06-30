@@ -28,7 +28,7 @@ export const Activities = ({ logName, modelId, self, tab }) => {
     });
 
     setData(
-      res.map((dt) => {
+      res?.data?.map((dt) => {
         dt["properties"]["attributes"] = parseAttributes(
           dt.properties?.attributes
         );
@@ -112,7 +112,7 @@ export const Activities = ({ logName, modelId, self, tab }) => {
                                         {keys?.map((key, i) => {
                                           return (
                                             <p>
-                                              {key.capitalize()}: {values[i]}
+                                              {key.capitalize()}: {values[i]?.toString()}
                                             </p>
                                           );
                                         })}

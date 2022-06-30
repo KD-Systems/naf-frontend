@@ -140,8 +140,7 @@ const CreateContract = ({ open, onCloseModal, onCreated }) => {
                   placeholder="Enter Notes"
                   name="description"
                   id="description"
-                  onChange={handleChange}
-                />
+                  onChange={handleChange}></textarea>
                 <div className="fv-plugins-message-container invalid-feedback" htmlFor="description"></div>
               </div>
 

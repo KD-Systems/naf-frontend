@@ -433,7 +433,7 @@ const SideMenuCompany = () => {
               className={(navinfo) =>
                 navinfo.isActive ? "menu-link active" : "menu-link"
               }
-              to="/panel/settings"
+              to="/panel/settings/notfound"
             >
               <span className="menu-icon">
                 <i className="fas fa-cog"></i>

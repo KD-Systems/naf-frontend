@@ -53,7 +53,7 @@ const PartStocks = ({ tab, part, onChange }) => {
         <div className="card-header align-items-center border-0 mt-4">
           <h3 className="card-title align-items-start flex-column">
             <span className="fw-bolder mb-2 text-dark">Stock Histories</span>
-            <span className="text-muted fw-bold fs-7">Currently <span className='fw-bold fs-5 text-dark'>{part.unit === 'piece' ? parseFloat(part.unit_value).toFixed() + ' are' : part.unit_value}</span> {part.unit?.pluralize()} in stock</span>
+            <span className="text-muted fw-bold fs-7">Currently <span className='fw-bold fs-5 text-dark'>{part.unit === 'piece' ? parseFloat(part.unit_value).toFixed() : part.unit_value}</span> {part.unit?.pluralize()} in stock</span>
           </h3>
 
           <div className="card-toolbar">

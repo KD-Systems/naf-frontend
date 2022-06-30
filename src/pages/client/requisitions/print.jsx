@@ -11,7 +11,9 @@ const PrintRequisition = () => {
     setRequisition(res);
     let content = document.getElementById("content").innerHTML;
     document.body.innerHTML = content;
-    window.print();
+    setTimeout(() => {
+      window.print();
+    }, 500);
   };
   useEffect(() => {
     if (id) getRequisition();
@@ -38,29 +40,30 @@ const PrintRequisition = () => {
                       </div>
                     </td>
                     <td>
-                      <div
+                    <div
                         className="text-sm-center fw-bold fs-4 text-muted "
-                        style={{ textAlign: "center", marginLeft: "2rem" }}
+                        style={{ textAlign: "center", marginLeft: "6rem" }}
                       >
-                        <h1>{requisition?.company?.name}</h1>
+                        <h1>Naf Overseas(PVT.) Ltd.</h1>
                         <p className="text-sm">
                           <small>
-                             {requisition?.company?.address}
+                            Head Office:Naya paltan,Dhaka,Bangladesh
                           </small>
                           <br />
                           <small>
-                            Tel:{requisition?.company?.tel},Email:{requisition?.company?.email},Web:{requisition?.company?.web}
+                            Tel:44564,Fax:Test,Email:test@gmail.com,Web:example.com
                           </small>
                         </p>
                       </div>
                     </td>
                     <td>
-                      <div className="text-sm-end fw-bold fs-4 text-muted ">
+                      <div className="text-sm-end fw-bold fs-4 text-muted "
+                      style={{ textAlign: "center", marginLeft: "3rem" }}>
                         <div></div>
                         <Link to="#">
                           <img
                             alt="Logo"
-                            src="/assets/media/logos/tajima.png"
+                            src={requisition?.company?.logo_url}
                             style={{ width: "5rem", marginLeft: "2rem" }}
                           />
                         </Link>
