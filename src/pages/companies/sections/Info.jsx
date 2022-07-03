@@ -122,7 +122,7 @@ const CompanyInfo = () => {
                             setUpdateDueAMountModal(true);
                           }}
                         >
-                          <i className="fa fa">Update</i>
+                          <i className="fa fa-pen"></i> Edit
                         </button>
                       </PermissionAbility>
                     </h3>

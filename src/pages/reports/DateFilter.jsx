@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import moment from "moment";
+import CompanyService from "services/CompanyService";
+import Select from "react-select";
 const DateFilter = ({ enable, onChange }) => {
-    
+  const [companies, setCompanies] = useState([]);
     const [data, setData] = useState({
         stock: 'all',
         start_date: null,
@@ -10,7 +12,17 @@ const DateFilter = ({ enable, onChange }) => {
         start_date_format: null,
         end_date_format: null,
     })
-
+    const getCompanies = async () => {
+      let dt = await CompanyService.getAll({
+        rows: "all",
+      });
+  
+      dt = dt.map((itm) => ({ label: itm.name, value: itm.id })); //Parse the data as per the select requires
+      setCompanies(dt);
+    };
+    useEffect(() => {
+      getCompanies();
+    }, []);
 
     const [block, setBlock] = useState(false);
 
@@ -19,6 +31,20 @@ const DateFilter = ({ enable, onChange }) => {
     const apply = () => {
         typeof onChange === 'function' && onChange(data)
     }
+
+    const handleSelect = (option, conf) => {
+      let value = option.value;
+      if (Array.isArray(option))
+        value = option.map((dt) => {
+          return dt.value;
+        });
+  
+      const name = conf.name;  
+      setData({
+        ...data,
+        [name]: value,
+      });
+    };
 
     const handleChange = (e) => {
         const value = e.target.value;
@@ -72,6 +98,15 @@ const DateFilter = ({ enable, onChange }) => {
         </div>
         <div className="separator border-gray-200"></div>
         <div className="px-7 py-5">
+        <div className="mb-10">
+            <label className="form-label fw-bold">Company:</label>
+              <Select
+                options={companies}
+                onChange={handleSelect}
+                name="company_id"
+              />
+            <div className="fv-plugins-message-container invalid-feedback" htmlFor="start_date"></div>
+          </div>
           <div className="mb-10">
             <label className="form-label fw-bold">Start Date:</label>
             <DatePicker className="form-control" selected={data.start_date} onChange={(date) => handleDateSelect(date, 'start_date')} />
@@ -82,9 +117,9 @@ const DateFilter = ({ enable, onChange }) => {
             <label className="form-label fw-bold">End Date:</label>
             <DatePicker className="form-control" selected={data.end_date} onChange={(date) => handleDateSelect(date, 'end_date')} />
                 <input type='hidden' name="end_date" id="end_date" value={data?.end_date_format || ''} />
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="end_date"></div>
+                <div className="fv-plugins-message-container invalid-feedback" htmlFor="end_date"></div> 
           </div>
-          <div className="mb-10">
+          {/* <div className="mb-10">
             <label className="form-label fw-bold">Stock:</label>
             <div className="d-flex">
               <label className="form-check form-check-sm form-check-custom form-check-solid me-5">
@@ -127,7 +162,7 @@ const DateFilter = ({ enable, onChange }) => {
                 <span className="form-check-label">Unavailable</span>
               </label>
             </div>
-          </div>
+          </div> */}
 
           <div className="d-flex justify-content-end">
             <button

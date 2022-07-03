@@ -96,7 +96,7 @@ const UpdateDueAmount = ({ open, companyId, onCloseModal, onUpdated }) => {
               <div className="row">
                 <div className="col-8">
                   <div className="form-group">
-                    <label className="form-label">Amount</label>
+                    <label className="form-label">Due Amount</label>
                     <input
                       type="number"
                       className="form-control"
@@ -150,7 +150,7 @@ const UpdateDueAmount = ({ open, companyId, onCloseModal, onUpdated }) => {
                 style={{ marginRight: "1rem" }}
                 onClick={updateCompany}
               >
-                Submit
+                Update
               </button>
               <button
                 type="reset"

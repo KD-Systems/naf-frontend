@@ -79,7 +79,7 @@ const GatePass = () => {
       window.Swal.fire({
         icon: "warning",
         title: "Oops...",
-        text: "Data not found",
+        text: "Not found in Delivery note",
       });
   };
 

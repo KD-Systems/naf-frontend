@@ -164,7 +164,7 @@ const ShowRequisition = () => {
                           <>
                             {requisition.status == "rejected" ? (
                               <h3 className="card-label">
-                                <div className="btn bg-danger disabled">
+                                <div className="btn btn-sm bg-danger disabled text-white">
                                   Rejected Requisition
                                 </div>
                               </h3>
@@ -173,7 +173,7 @@ const ShowRequisition = () => {
                                 <h3 className="card-label">
                                   <button
                                     onClick={approveRequisition}
-                                    className="btn btn-primary"
+                                    className="btn btn-sm btn-primary"
                                   >
                                     Approve
                                   </button>
@@ -181,7 +181,7 @@ const ShowRequisition = () => {
                                 <h3 className="card-label">
                                   <button
                                     onClick={rejectRequisition}
-                                    className="btn btn-danger"
+                                    className="btn btn-sm btn-danger"
                                   >
                                     Reject
                                   </button>
