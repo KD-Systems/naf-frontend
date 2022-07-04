@@ -45,10 +45,10 @@ const RequisitionCreate = () => {
     remarks: "",
     part_items: list,
     total: totalAmount,
+    files: [],
   });
 
   const [partHeading, setPartHeading] = useState(null);
-
   const [block, setBlock] = useState(false);
   const [parts, setParts] = useState([]);
 
@@ -91,7 +91,6 @@ const RequisitionCreate = () => {
   };
 
   const addPart = (item) => {
-
     item["quantity"] = 0;
     let hasItem = list.find((itm) => itm.id == item.id);
     if (hasItem) return false;
@@ -581,6 +580,10 @@ const RequisitionCreate = () => {
             </div>
           </div>
 
+          
+
+         
+
           <div className="d-flex flex-column flex-lg-row">
             <div className="flex-lg-row-fluid mb-10 mb-lg-0 me-lg-7 me-xl-10">
               <div className="card mb-5">
@@ -646,7 +649,6 @@ const RequisitionCreate = () => {
               </div>
             </div>
           </div>
-
           {!selectedPart && (
             <div className="d-flex flex-column flex-lg-row">
               <div className="flex-lg-row-fluid mb-10 mb-lg-0 me-lg-7 me-xl-10">
@@ -656,7 +658,6 @@ const RequisitionCreate = () => {
               </div>
             </div>
           )}
-
           {selectedPart && list.length > 0 ? (
             <div className="d-flex flex-column flex-lg-row">
               <div className="flex-lg-row-fluid mb-lg-0 me-lg-7 me-xl-10">

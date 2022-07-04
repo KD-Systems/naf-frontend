@@ -56,6 +56,20 @@ const ShowQuotation = () => {
     setLocked(true);
   };
 
+  const approveQuotation = async () => {
+    setBlock(true);
+    await QuotationService.approve(id);
+    getQuotation();
+    setBlock(false);
+  };
+
+  const rejectQuotation = async () => {
+    setBlock(true);
+    await QuotationService.reject(id);
+    getQuotation();
+    setBlock(false);
+  };
+
   useEffect(() => {
     if (id) {
       getQuotation();
@@ -85,7 +99,7 @@ const ShowQuotation = () => {
     setBlock(true);
     await QuotationService.update(id, data);
     setBlock(false);
-    navigate("/panel/quotations");
+    navigate(`/panel/quotations/${id}`);
   };
 
   const increment = (item) => {
@@ -120,6 +134,8 @@ const ShowQuotation = () => {
       setLocked(true); //check locked at is null or not
     }
   }, [quotation]);
+
+  const permissions = JSON.parse(localStorage.getItem("user")).user.permissions;
 
   return (
     <div className="d-flex flex-column-fluid">
@@ -204,40 +220,77 @@ const ShowQuotation = () => {
                 <div className="text-gray-600">
                   {quotation?.requisition?.remarks ?? "--"}
                 </div>
+
+                {!permissions.includes("quotations_approve") && quotation?.status == 'pending' && (
+                  <div className="fw-bolder mt-5 badge-lg badge badge-warning">Waitting for Approval</div>
+                )}
               </div>
               <div className="card-header">
                 <div className="card-title">
-                  <h3 className="card-label">
-                    <PermissionAbility permission="quotations_generate_invoice">
-                      <button
-                        className="btn btn-sm btn-dark "
-                        style={{ marginRight: "0.1rem" }}
-                        onClick={() => {
-                          storeInvoice();
-                        }}
-                      >
-                        Generate Invoice
-                      </button>
-                    </PermissionAbility>
-                  </h3>
-
-                  <PermissionAbility permission="quotations_lock">
-                    {!locked ? (
-                      <h3>
+                  {quotation?.status != "pending" && (
+                    <h3 className="card-label">
+                      <PermissionAbility permission="quotations_generate_invoice">
                         <button
-                          className="btn btn-sm btn-dark float-end fs-6 "
-                          onClick={lockedPartItems}
+                          className="btn btn-sm btn-dark "
+                          style={{ marginRight: "0.1rem" }}
+                          onClick={() => {
+                            storeInvoice();
+                          }}
                         >
-                          Lock
+                          Generate Invoice
+                        </button>
+                      </PermissionAbility>
+                    </h3>
+                  )}
+
+                  {quotation?.status != "pending" && (
+                    <PermissionAbility permission="quotations_lock">
+                      {!locked ? (
+                        <h3>
+                          <button
+                            className="btn btn-sm btn-dark float-end fs-6 "
+                            onClick={lockedPartItems}
+                          >
+                            Lock
+                          </button>
+                        </h3>
+                      ) : (
+                        <h3>
+                          <button
+                            className="btn btn-sm btn-danger float-end fs-6 "
+                            onClick={lockedPartItems}
+                          >
+                            Locked
+                          </button>
+                        </h3>
+                      )}
+                    </PermissionAbility>
+                  )}
+                  <PermissionAbility permission="quotations_approve">
+                    {quotation?.status == "pending" && (
+                      <h3 className="card-label">
+                        <button
+                          className="btn btn-sm btn-success "
+                          style={{ marginRight: "0.1rem" }}
+                          onClick={() => {
+                            approveQuotation();
+                          }}
+                        >
+                          Approve
                         </button>
                       </h3>
-                    ) : (
-                      <h3>
+                    )}
+
+                    {quotation?.status == "pending" && (
+                      <h3 className="card-label">
                         <button
-                          className="btn btn-sm btn-danger float-end fs-6 "
-                          onClick={lockedPartItems}
+                          className="btn btn-sm btn-danger "
+                          style={{ marginRight: "0.1rem" }}
+                          onClick={() => {
+                            rejectQuotation();
+                          }}
                         >
-                          Locked
+                          Reject
                         </button>
                       </h3>
                     )}

@@ -33,6 +33,16 @@ const locked = async (data)=>{
   return res?.data;
 }
 
+const approve = async (id)=>{
+  const res =await http.post(`/quotations/approve/${id}`);
+  return res?.data;
+}
+
+const reject = async (id)=>{
+  const res =await http.post(`/quotations/reject/${id}`);
+  return res?.data;
+}
+
 // quotation comment 
 const getComment = async (id) => {
   const res = await http.get(`/quotation-comment/index/${id}`);
@@ -53,7 +63,9 @@ const QuotationService = {
   remove,
   locked,
   getComment,
-  sendComment
+  sendComment,
+  approve,
+  reject
 };
 
 export default QuotationService;

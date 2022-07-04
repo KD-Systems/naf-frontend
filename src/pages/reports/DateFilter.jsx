@@ -11,6 +11,7 @@ const DateFilter = ({ enable, onChange }) => {
         end_date: null,
         start_date_format: null,
         end_date_format: null,
+        company_id:'',
     })
     const getCompanies = async () => {
       let dt = await CompanyService.getAll({
@@ -31,7 +32,7 @@ const DateFilter = ({ enable, onChange }) => {
     const apply = () => {
         typeof onChange === 'function' && onChange(data)
     }
-
+    //for company
     const handleSelect = (option, conf) => {
       let value = option.value;
       if (Array.isArray(option))

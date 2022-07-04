@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useCallback } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import Moment from "react-moment";
 import RequisitionService from "../../services/RequisitionService";
 import { Activities } from "components/utils/Activities";
 import PermissionAbility from "helpers/PermissionAbility";
 import QuotationService from "services/QuotationService";
+import NewDropzone from "./Dropzone/MyDropzone";
+
 const ShowRequisition = () => {
   let { id } = useParams();
   const navigate = useNavigate();
@@ -29,6 +31,17 @@ const ShowRequisition = () => {
   useEffect(() => {
     if (id) getRequisition();
   }, [id]);
+
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     let myDropzone = new Dropzone("#my-form", {
+  //       autoProcessQueue: false
+  //     });
+  //     myDropzone.on("addedfile", (file) => {
+  //       console.log(file);
+  //     });
+  //   }, 200);
+  // },[]);
 
   //get quotation
   // const getQuotation = async () => {
@@ -144,10 +157,12 @@ const ShowRequisition = () => {
                       item?.part?.stocks[item?.part?.stocks.length - 1]
                         ?.unit_value > 0
                   ) ? (
-                    <PermissionAbility permission="requisitions_generate_quotation">
+                    
                       <>
+                      
                         {requisition.status == "approved" ? (
                           <h3 className="card-label">
+                            <PermissionAbility permission="requisitions_generate_quotation">
                             <button
                               className="btn btn-sm btn-dark "
                               style={{ marginRight: "0.1rem" }}
@@ -159,9 +174,12 @@ const ShowRequisition = () => {
                             >
                               Generate Quotation
                             </button>
+                            </PermissionAbility>
                           </h3>
+                          
                         ) : (
                           <>
+                          <PermissionAbility permission="requisitions_approve">
                             {requisition.status == "rejected" ? (
                               <h3 className="card-label">
                                 <div className="btn btn-sm bg-danger disabled text-white">
@@ -186,12 +204,13 @@ const ShowRequisition = () => {
                                     Reject
                                   </button>
                                 </h3>
+                                
                               </>
                             )}
+                            </PermissionAbility>
                           </>
                         )}
                       </>
-                    </PermissionAbility>
                   ) : (
                     <span
                       className="badge badge-danger"
@@ -218,6 +237,19 @@ const ShowRequisition = () => {
                     onClick={() => setTab("requisitions")}
                   >
                     Part Items
+                  </a>
+                </li>
+
+                <li className="nav-item">
+                  <a
+                    className={`nav-link text-active-primary pb-4 ${
+                      tab == "Files" ? "active" : ""
+                    }`}
+                    data-bs-toggle="tab"
+                    href="#files"
+                    onClick={() => setTab("files")}
+                  >
+                    Files
                   </a>
                 </li>
 
@@ -287,8 +319,63 @@ const ShowRequisition = () => {
                   </div>
                 </div>
 
+                <div
+                  className={`tab-pane fade ${
+                    tab == "files" ? "active show" : ""
+                  }`}
+                  id="files"
+                  role="tabpanel"
+                >
+                  <div className="card card-custom gutter-b">
+                    <div className="card-body px-0">
+                      <div className="card mb-5 mb-xl-8">
+                        <div className="card-body py-3">
+
+                        <NewDropzone/>
+                          
+                          <div className="table-responsive">
+                            <table className="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
+                              <thead>
+                                <tr className="fw-bolder text-muted">
+                                  <th className="min-w-50px">SL</th>
+                                  <th className="min-w-120px">File Name</th>
+                                </tr>
+                              </thead>
+
+                              <tbody>
+                                {/* {requisition?.part_items?.map((item, index) => (
+                                  <tr key={index}>
+                                    <td className="">
+                                      <Link
+                                        to={"/panel/parts/" + item?.part?.id}
+                                        className="text-dark fw-bolder text-hover-primary"
+                                      >
+                                        {item?.part?.aliases[0].name}
+                                      </Link>
+                                    </td>
+                                    <td className=" fw-bolder mb-1 fs-6">
+                                      <span>
+                                        {item?.part?.aliases[0].part_number}
+                                      </span>
+                                    </td>
+                                    <td className=" fw-bolder mb-1 fs-6">
+                                      <span>{item?.quantity}</span>
+                                    </td>
+                                  </tr>
+                                ))} */}
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
                 <Activities logName="requisitions" modelId={id} tab={tab} />
               </div>
+
+              
             </div>
           </div>
         </div>
