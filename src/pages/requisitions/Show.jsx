@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import Moment from "react-moment";
 import RequisitionService from "../../services/RequisitionService";
@@ -6,11 +6,18 @@ import { Activities } from "components/utils/Activities";
 import PermissionAbility from "helpers/PermissionAbility";
 import QuotationService from "services/QuotationService";
 import NewDropzone from "./Dropzone/MyDropzone";
+import Confirmation from "components/utils/Confirmation";
 
 const ShowRequisition = () => {
+  const [confirmDelete, setConfirmDelete] = useState(false);
+
+  const [uuid, setuuid] = useState();
+  const [model_id, setModelId] = useState();
+
   let { id } = useParams();
   const navigate = useNavigate();
   const [requisition, setRequisition] = useState({});
+  const [file, setFile] = useState({});
   const [tab, setTab] = useState("requisitions");
 
   const getRequisition = async () => {
@@ -28,20 +35,25 @@ const ShowRequisition = () => {
     getRequisition();
   };
 
+  const uploadFile = async (formData) => {
+    await RequisitionService.fileUpload(id, formData);
+    getFile();
+  };
+
+  const deleteItem = async () => {
+    await RequisitionService.deleteFile(uuid, model_id);
+    getFile();
+  };
+
+  const getFile = async () => {
+    const res = await RequisitionService.getFile(id);
+    setFile(res);
+  };
+
   useEffect(() => {
     if (id) getRequisition();
+    getFile();
   }, [id]);
-
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     let myDropzone = new Dropzone("#my-form", {
-  //       autoProcessQueue: false
-  //     });
-  //     myDropzone.on("addedfile", (file) => {
-  //       console.log(file);
-  //     });
-  //   }, 200);
-  // },[]);
 
   //get quotation
   // const getQuotation = async () => {
@@ -157,12 +169,10 @@ const ShowRequisition = () => {
                       item?.part?.stocks[item?.part?.stocks.length - 1]
                         ?.unit_value > 0
                   ) ? (
-                    
-                      <>
-                      
-                        {requisition.status == "approved" ? (
-                          <h3 className="card-label">
-                            <PermissionAbility permission="requisitions_generate_quotation">
+                    <>
+                      {requisition.status == "approved" ? (
+                        <h3 className="card-label">
+                          <PermissionAbility permission="requisitions_generate_quotation">
                             <button
                               className="btn btn-sm btn-dark "
                               style={{ marginRight: "0.1rem" }}
@@ -174,11 +184,10 @@ const ShowRequisition = () => {
                             >
                               Generate Quotation
                             </button>
-                            </PermissionAbility>
-                          </h3>
-                          
-                        ) : (
-                          <>
+                          </PermissionAbility>
+                        </h3>
+                      ) : (
+                        <>
                           <PermissionAbility permission="requisitions_approve">
                             {requisition.status == "rejected" ? (
                               <h3 className="card-label">
@@ -204,13 +213,12 @@ const ShowRequisition = () => {
                                     Reject
                                   </button>
                                 </h3>
-                                
                               </>
                             )}
-                            </PermissionAbility>
-                          </>
-                        )}
-                      </>
+                          </PermissionAbility>
+                        </>
+                      )}
+                    </>
                   ) : (
                     <span
                       className="badge badge-danger"
@@ -330,39 +338,50 @@ const ShowRequisition = () => {
                     <div className="card-body px-0">
                       <div className="card mb-5 mb-xl-8">
                         <div className="card-body py-3">
-
-                        <NewDropzone/>
-                          
+                          <form
+                            id="attachment-form"
+                            encType="multipart/form-data"
+                          >
+                            <NewDropzone onDrop={uploadFile} />
+                          </form>
                           <div className="table-responsive">
                             <table className="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
                               <thead>
                                 <tr className="fw-bolder text-muted">
                                   <th className="min-w-50px">SL</th>
                                   <th className="min-w-120px">File Name</th>
+                                  <th className="min-w-120px">Action</th>
                                 </tr>
                               </thead>
 
                               <tbody>
-                                {/* {requisition?.part_items?.map((item, index) => (
+                                {file?.data?.map((item, index) => (
                                   <tr key={index}>
-                                    <td className="">
-                                      <Link
-                                        to={"/panel/parts/" + item?.part?.id}
-                                        className="text-dark fw-bolder text-hover-primary"
+                                    <td className="">{index + 1}</td>
+                                    <td className=" fw-bolder mb-1 fs-6">
+                                      <span>{item?.file_name}</span>
+                                    </td>
+                                    <td className=" fw-bolder mb-1 fs-6">
+                                      <button
+                                        className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+                                        onClick={() => {
+                                          setConfirmDelete(true);
+                                          setuuid(item.uuid);
+                                          setModelId(item.model_id);
+                                        }}
                                       >
-                                        {item?.part?.aliases[0].name}
-                                      </Link>
-                                    </td>
-                                    <td className=" fw-bolder mb-1 fs-6">
-                                      <span>
-                                        {item?.part?.aliases[0].part_number}
-                                      </span>
-                                    </td>
-                                    <td className=" fw-bolder mb-1 fs-6">
-                                      <span>{item?.quantity}</span>
+                                        <i className="fa fa-trash"></i>
+                                      </button>
+                                      <a 
+                                        className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+                                        href={item?.original_url}
+                                        target="_blank"
+                                      >
+                                        <i className="fa fa-download"></i>
+                                      </a>
                                     </td>
                                   </tr>
-                                ))} */}
+                                ))}
                               </tbody>
                             </table>
                           </div>
@@ -374,12 +393,18 @@ const ShowRequisition = () => {
 
                 <Activities logName="requisitions" modelId={id} tab={tab} />
               </div>
-
-              
             </div>
           </div>
         </div>
       </div>
+      <Confirmation
+        open={confirmDelete}
+        onConfirm={() => {
+          setConfirmDelete(false);
+          deleteItem();
+        }}
+        onCancel={() => setConfirmDelete(false)}
+      />
     </div>
   );
 };

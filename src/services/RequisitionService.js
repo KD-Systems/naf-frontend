@@ -54,6 +54,24 @@ const reject = async (id) => {
   return res.data;
 };
 
+//file upload
+const fileUpload = async (id, data) => {
+  const res = await http.post(`/requisition/${id}/files`, data);
+  return res.data;
+};
+
+//get file
+const getFile = async (id) => {
+  const res = await http.get(`/requisition/${id}/files`);
+  return res.data;
+};
+
+//get file
+const deleteFile = async (uuid,model_id) => {
+  const res = await http.delete(`/requisition/${model_id}/files/${uuid}/delete`);
+  return res.data;
+};
+
 // for client module
 // const createClientRequisition = async (data) => {
 //   const res = await http.post(`/create-client-requisitions`, data)
@@ -71,6 +89,9 @@ const RequisitionService = {
   remove,
   approve,
   reject,
+  fileUpload,
+  getFile,
+  deleteFile
   // createClientRequisition
 };
 
