@@ -267,7 +267,7 @@ const SideMenu = () => {
                 </NavLink>
               </div>
             </PermissionAbility>
-            <PermissionAbility permission="machines_access">
+            <PermissionAbility permission="box_heading_access">
               <div className="menu-item">
                 <NavLink
                   className={(navinfo) =>

@@ -90,13 +90,13 @@ const Quotations = () => {
 
     {
       name: "IN Number",
-      selector: (row) => row?.invoice?.invoice_number,
+      selector: (row) => row?.invoice,
       sortable: true,
       field: "id",
       format: (row) => (
         <div className='mt-2'>
-          {row?.invoice?.invoice_number ? (
-            row?.invoice?.invoice_number
+          {row?.invoice ? (
+            row?.invoice
           ): "No invoice yet"}
          
         </div>
