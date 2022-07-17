@@ -71,6 +71,12 @@ const Parts = () => {
       field: 'part_number',
     },
     {
+      name: 'Old Part Number',
+      selector: row => row.old_part_number ?? "--",
+      sortable: true,
+      field: 'old_part_number ',
+    },
+    {
       name: 'Action',
       selector: row => row.status,
       maxWidth: '150px',

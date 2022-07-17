@@ -35,6 +35,7 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
     machine_heading_id: "",
     name: "",
     part_number: "",
+    old_part_number:"",
     description: "",
     image: "",
     arm: "",
@@ -103,6 +104,7 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
         machine_id: value.machine_id,
         part_heading_id: value.part_heading_id,
         part_number: value.part_number,
+        old_part_number: value.old_part_number,
       });
     });
 
@@ -213,7 +215,7 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
                 </div>
 
                 <div className="col-6">
-                  <label className="form-label">Unit Type</label>
+                  <label className="required form-label">Unit Type</label>
                   <select
                     className="form-control"
                     name="unit"
@@ -247,7 +249,7 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
                 <Fragment key={index}>
                   <div className="form-group mt-5">
                     <div className="row">
-                      <div className="col-sm-3">
+                      <div className="col-sm-6 col-md-6">
                         {" "}
                         <label className="required form-label">Machine</label>
                         <Select
@@ -263,7 +265,7 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
                         ></div>
                       </div>
 
-                      <div className="col-sm-4">
+                      <div className="col-sm-6 col-md-6">
                         <label className="required form-label">
                           Part Heading
                         </label>
@@ -280,7 +282,7 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
                         ></div>
                       </div>
 
-                      <div className="col-sm-4">
+                      <div className="col-sm-6 col-md-6">
                         <label className="required form-label">
                           Part Number
                         </label>
@@ -293,8 +295,26 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
                           onChange={(e) => handlePartChange(e, index)}
                         />
                         <div
-                          className="fv-plugins-message-container invalid-feedback"
+                          className="fv-plugins-message-container invalid-feedback" 
                           htmlFor="part_number[]"
+                        ></div>
+                      </div>
+
+                      <div className="col-sm-6 col-md-6">
+                        <label className="form-label">
+                         Old Part Number
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder="Enter Old Part Number"
+                          name="old_part_number"
+                          id="old_part_number"
+                          onChange={(e) => handlePartChange(e, index)}
+                        />
+                        <div
+                          className="fv-plugins-message-container invalid-feedback"
+                          htmlFor="old_part_number[]"
                         ></div>
                       </div>
 

@@ -17,6 +17,7 @@ const CreatePartAlias = ({ open, onCloseModal, onCreated }) => {
     machine_heading_id: '',
     name: '',
     part_number: '',
+    old_part_number:'',
     description: ''
   })
   const [block, setBlock] = useState(false);
@@ -52,7 +53,7 @@ const CreatePartAlias = ({ open, onCloseModal, onCreated }) => {
   const getMachines = async () => {
     setBlock(false)
     let data = await MachineService.getAll()
-    data = data.map(itm => ({ label: itm.name, value: itm.id })) //Parse the data as per the select requires
+    data = data?.data.map(itm => ({ label: itm.name, value: itm.id })) //Parse the data as per the select requires
     setMachines(data);
     setBlock(false)
   };
@@ -122,6 +123,20 @@ const CreatePartAlias = ({ open, onCloseModal, onCreated }) => {
                 value={data.part_number ?? ''}
               />
               <div className="fv-plugins-message-container invalid-feedback" htmlFor="part_number"></div>
+            </div>
+
+            <div className="form-group">
+              <label className="form-label">Old Part Number</label>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Enter Old Part Number"
+                name="old_part_number"
+                id="old_part_number"
+                onChange={handleChange}
+                value={data.old_part_number ?? ''}
+              />
+              <div className="fv-plugins-message-container invalid-feedback" htmlFor="old_part_number"></div>
             </div>
 
             <div className="form-group mt-5">

@@ -29,7 +29,7 @@ const InfoBar = () => {
 
   const getNotification = async () => {
     const res = await NotificationService.getAll({
-      rows: 5
+      rows: 7
     });
     setNotification(res);
   };

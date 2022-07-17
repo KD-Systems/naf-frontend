@@ -64,6 +64,13 @@ const ShowPartAlias = () => {
                       </span>
                     </div>
 
+                    <div className="fw-bolder mt-5">Old Part Number</div>
+                    <div className="text-gray-600">
+                      <span className="text-gray-600">
+                        {data.old_part_number ?? "--"}
+                      </span>
+                    </div>
+
                     <div className="fw-bolder mt-5">Description</div>
                     <div className="text-gray-600">
                       <span className="text-gray-600">
