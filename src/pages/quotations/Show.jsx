@@ -98,6 +98,7 @@ const ShowQuotation = () => {
   const handleUpdate = async () => {
     setBlock(true);
     await QuotationService.update(id, data);
+    getQuotation();
     setBlock(false);
     navigate(`/panel/quotations/${id}`);
   };

@@ -56,7 +56,7 @@ const ClientQuotations = () => {
     },
 
     {
-      name: "Status",
+      name: "Lock",
       selector: (row) => row?.locked_at,
       format: (row) => (
         <div className='mt-2'>
@@ -68,6 +68,21 @@ const ClientQuotations = () => {
       ),
       sortable: true,
       field: "id",
+    },
+
+    {
+      name: "Status",
+      selector: (row) => row?.status,
+      sortable: true,
+      field: "role",
+      format: (row) => (
+        <>
+          {row?.status == "pending" && <div className="mt-2 text-white bg-warning p-1 px-2 rounded">Pending</div>}
+          {row?.status == "approved" && <div className="mt-2 text-white bg-success p-1 px-2 rounded">Approved</div>}
+          {row?.status == "rejected" && <div className="mt-2 text-white bg-danger p-1 px-2 rounded">Rejected</div>}
+          {row?.status == null && <div className="mt-2 text-white bg-success p-1 px-2 rounded">--</div>}
+        </>
+      ),
     },
 
     {

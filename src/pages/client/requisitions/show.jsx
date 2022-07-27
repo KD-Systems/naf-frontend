@@ -198,12 +198,7 @@ const ShowClientRequisition = () => {
                                 {requisition?.part_items?.map((item, index) => (
                                   <tr key={index}>
                                     <td className="">
-                                      <Link
-                                        to={"/panel/parts/" + item?.part?.id}
-                                        className="text-dark fw-bolder text-hover-primary"
-                                      >
                                         {item?.part?.aliases[0].name}
-                                      </Link>
                                     </td>
                                     <td className=" fw-bolder mb-1 fs-6">
                                       <span>

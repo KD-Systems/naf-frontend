@@ -17,7 +17,7 @@ const CreatePartAlias = ({ open, onCloseModal, onCreated }) => {
     machine_heading_id: '',
     name: '',
     part_number: '',
-    old_part_number:'',
+    // old_part_number:'',
     description: ''
   })
   const [block, setBlock] = useState(false);
@@ -125,7 +125,7 @@ const CreatePartAlias = ({ open, onCloseModal, onCreated }) => {
               <div className="fv-plugins-message-container invalid-feedback" htmlFor="part_number"></div>
             </div>
 
-            <div className="form-group">
+            {/* <div className="form-group">
               <label className="form-label">Old Part Number</label>
               <input
                 type="text"
@@ -137,7 +137,7 @@ const CreatePartAlias = ({ open, onCloseModal, onCreated }) => {
                 value={data.old_part_number ?? ''}
               />
               <div className="fv-plugins-message-container invalid-feedback" htmlFor="old_part_number"></div>
-            </div>
+            </div> */}
 
             <div className="form-group mt-5">
               <label className="form-label">Description</label>
