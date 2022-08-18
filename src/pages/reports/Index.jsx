@@ -132,7 +132,7 @@ const Reports = () => {
           />
         </div>
       </div>
-      <DateFilter enable={enableFilter} onChange={(data) => {filterData(data)}} />
+      <DateFilter enable={enableFilter} cli onChange={(data) => {filterData(data)}} />
     </>
   );
 };

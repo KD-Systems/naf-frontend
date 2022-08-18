@@ -177,13 +177,13 @@ const InfoBar = () => {
                 role="tabpanel"
               >
                 <div className="scroll-y mh-325px my-5 px-8">
-                  {notification?.map((item) => {
+                  {notification?.map((item,index) => {
                     return (
-                      <div className="d-flex flex-stack py-4">
+                      <div key={index} className="d-flex flex-stack py-4">
                         <div className="d-flex align-items-center">
                           <div className="symbol symbol-35px me-4">
                             <span className="symbol-label bg-light-primary">
-                              <span
+                              <span 
                                 className={
                                   item?.read_at
                                     ? "svg-icon svg-icon-2 svg-icon-primary"
