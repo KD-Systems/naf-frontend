@@ -7,10 +7,10 @@ const Dashboard = () => {
   const [labels, setLabels] = useState([]);
   const [values, setValues] = useState([]);
   const [totals, setTotals] = useState([]);
-
-  // const [wlabels, setWeekLabels] = useState([]);
-  // const [wvalues, setWeekValues] = useState([]);
-  // const [wtotals, setWeekTotals] = useState([]);
+// for week
+  const [wlabels, setWeekLabels] = useState([]);
+  const [wvalues, setWeekValues] = useState([]);
+  const [wtotals, setWeekTotals] = useState([]);
 
   const getData = async () => {
     let res = await ReportService.monthlySales();
@@ -30,23 +30,22 @@ const Dashboard = () => {
     }
   };
 
-  // const getweekData = async () => {
-  //   let res = await ReportService.weeklySales();
-  //   var key = Object.keys(res?.weekly);
-  //   var value = Object.values(res?.weekly);
-  //   var total = res?.total;
-  //   // console.log(total);
-  //   setSales(res);
-  //   if (key) {
-  //     setWeekLabels(key);
-  //   }
-  //   if (value) {
-  //     setWeekValues(value);
-  //   }
-  //   if (total) {
-  //     setWeekTotals(total);
-  //   }
-  // };
+  const getweekData = async () => {
+    let res = await ReportService.weeklySales();
+    var key = Object.keys(res?.weekly);
+    var value = Object.values(res?.weekly);
+    var total = res?.total;
+    setSales(res);
+    if (key) {
+      setWeekLabels(key);
+    }
+    if (value) {
+      setWeekValues(value);
+    }
+    if (total) {
+      setWeekTotals(total);
+    }
+  };
 
   const data = {
     labels,
@@ -59,20 +58,20 @@ const Dashboard = () => {
     ],
   };
 
-  // const weekData = {
-  //   wlabels,
-  //   datasets: [
-  //     {
-  //       label: "Weekly Sales",
-  //       data: wvalues.map((v) => v),
-  //       backgroundColor: "rgba(255, 99, 132, 0.5)",
-  //     },
-  //   ],
-  // };
+  const weekData = {
+    wlabels,
+    datasets: [
+      {
+        label: "Weekly Sales",
+        data: wvalues.map((v) => v),
+        backgroundColor: "rgba(255, 99, 132, 0.5)",
+      },
+    ],
+  };
 
   useEffect(() => {
     getData();
-    // getweekData();
+    getweekData();
   }, []);
 
   return (
