@@ -8,6 +8,10 @@ const Dashboard = () => {
   const [values, setValues] = useState([]);
   const [totals, setTotals] = useState([]);
 
+  // const [wlabels, setWeekLabels] = useState([]);
+  // const [wvalues, setWeekValues] = useState([]);
+  // const [wtotals, setWeekTotals] = useState([]);
+
   const getData = async () => {
     let res = await ReportService.monthlySales();
     var key = Object.keys(res?.monthly);
@@ -26,6 +30,24 @@ const Dashboard = () => {
     }
   };
 
+  // const getweekData = async () => {
+  //   let res = await ReportService.weeklySales();
+  //   var key = Object.keys(res?.weekly);
+  //   var value = Object.values(res?.weekly);
+  //   var total = res?.total;
+  //   // console.log(total);
+  //   setSales(res);
+  //   if (key) {
+  //     setWeekLabels(key);
+  //   }
+  //   if (value) {
+  //     setWeekValues(value);
+  //   }
+  //   if (total) {
+  //     setWeekTotals(total);
+  //   }
+  // };
+
   const data = {
     labels,
     datasets: [
@@ -37,8 +59,20 @@ const Dashboard = () => {
     ],
   };
 
+  // const weekData = {
+  //   wlabels,
+  //   datasets: [
+  //     {
+  //       label: "Weekly Sales",
+  //       data: wvalues.map((v) => v),
+  //       backgroundColor: "rgba(255, 99, 132, 0.5)",
+  //     },
+  //   ],
+  // };
+
   useEffect(() => {
     getData();
+    // getweekData();
   }, []);
 
   return (
@@ -307,7 +341,7 @@ const Dashboard = () => {
               <div className="d-flex flex-stack flex-wrap flex-grow-1 px-9 pt-9 pb-3">
                 <div className="me-2">
                   <span className="fw-bolder text-gray-800 d-block fs-3">
-                    Sales
+                   Monthly Sales
                   </span>
                   <span className="text-gray-400 fw-bold"></span>
                 </div>
@@ -324,8 +358,35 @@ const Dashboard = () => {
                   chartData={data}
                 />
               </div>
-            </div>
+            </div>    
           </div>
+
+          {/* <div className="card card-xl-stretch-50 mb-5 mb-xl-8">
+            <div className="card-body p-0 d-flex justify-content-between flex-column overflow-hidden">
+              <div className="d-flex flex-stack flex-wrap flex-grow-1 px-9 pt-9 pb-3">
+                <div className="me-2">
+                  <span className="fw-bolder text-gray-800 d-block fs-3">
+                   Weekly Sales
+                  </span>
+                  <span className="text-gray-400 fw-bold"></span>
+                </div>
+                <div className="fw-bolder fs-3 text-primary">
+                  Total Quantity : {wtotals}
+                </div>
+              </div>
+
+              <div>
+                <BarChart
+                  className="mixed-widget-10-chart"
+                  data-kt-color="primary"
+                  style={{ height: "175px" }}
+                  chartData={weekData}
+                />
+              </div>
+            </div>    
+          </div>           */}
+
+
           <div className="card card-xl-stretch-50 mb-5 mb-xl-8">
             <div className="card-header border-0 pt-5">
               <h3 className="card-title align-items-start flex-column">

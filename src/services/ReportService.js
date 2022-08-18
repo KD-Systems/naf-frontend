@@ -24,6 +24,11 @@ const monthlySales = async ()=>{
   return res.data;
 }
 
+const weeklySales = async ()=>{
+  const res = await http.get("/report/weekly/sales");
+  return res.data;
+}
+
 const stockHistory = async (filters)=>{
   const res = await http.get("/stock-histories", {
     params: filters
@@ -35,6 +40,7 @@ const ReportService = {
     getAll,
     salesExport,
     monthlySales,
+    weeklySales,
     stockHistory,
     stockExport
 };
