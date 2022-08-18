@@ -1,5 +1,5 @@
 export default {
-  baseUrl: "http://naf-inventory-back.test/api",
+  baseUrl: "https://naf-api.viserx.net/api",
   // "baseUrl": 'http://45.125.222.74/api',
   // baseUrl: "https://naf-api.viserx.net/api", //main domain
 
