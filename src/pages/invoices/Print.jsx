@@ -19,12 +19,9 @@ const PrintInvoice = () => {
     );
     let content = document.getElementById("content").innerHTML;
     document.body.innerHTML = content;
-    setTimeout(() => {
-      window.print();
-    }, 500);
+    window.print();
+    navigate("/panel/invoices/" + id);
   };
-
-  console.log(invoice);
 
   useEffect(() => {
     if (id) getInvoice();
@@ -84,6 +81,8 @@ const PrintInvoice = () => {
                                   {invoice?.company?.address}
                                   <br /> Mobile : {invoice?.company?.tel} <br />
                                   Website : {invoice?.company?.web}
+                                  <br />
+                                  {invoice?.company?.address}
                                 </p>
                               </div>
                             </div>
@@ -253,7 +252,7 @@ const PrintInvoice = () => {
                     </div>
                     <div className="pt-2 text-start">
                       <h4>Central Office</h4>
-                      <p>rakibuddin avenue</p>
+                      <p>67 Nayapaltan, Dhaka-1000</p>
                     </div>
                   </div>
                   <div className="d-flex flex-row">
@@ -267,7 +266,7 @@ const PrintInvoice = () => {
                     </div>
                     <div className="pt-2 text-start">
                       <h4>Call Center</h4>
-                      <p>+880 167 7756337</p>
+                      <p>+8802-9349934</p>
                     </div>
                   </div>
                   <div className="d-flex flex-row">
@@ -281,7 +280,7 @@ const PrintInvoice = () => {
                     </div>
                     <div className="pt-2 text-start">
                       <h4>Help Support</h4>
-                      <p>imrul.afnan18@gmail.com</p>
+                      <p>info@nafgroup.org</p>
                     </div>
                   </div>
                 </div>
