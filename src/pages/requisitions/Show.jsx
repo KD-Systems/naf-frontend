@@ -36,6 +36,8 @@ const ShowRequisition = () => {
   };
 
   const uploadFile = async (formData) => {
+    console.log("a",formData);
+
     await RequisitionService.fileUpload(id, formData);
     getFile();
   };
