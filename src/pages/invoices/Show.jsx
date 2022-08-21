@@ -36,6 +36,7 @@ const ShowInvoice = () => {
   }, [id]);
   return (
     <>
+    
       <div className="d-flex flex-column-fluid">
         <div className="container">
           <div className="row">
