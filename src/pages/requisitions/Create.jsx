@@ -152,7 +152,7 @@ const RequisitionCreate = () => {
         return dt.value;
       });
 
-    const name = conf.name;
+    const name = conf.name; 
     setBlock(false);
 
     setData({

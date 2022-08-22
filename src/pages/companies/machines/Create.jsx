@@ -6,7 +6,8 @@ import Select from "react-select";
 import MachineModelService from "services/MachineModelService";
 
 const AddMachine = ({ open, onCloseModal, onCreate, companyId }) => {
-  const [machines, setMachines] = useState([])
+  const [machines, setMachines] = useState([]);
+  console.log(machines);
   const [models, setModels] = useState([])
   const [block, setBlock] = useState(false);
   // Set the selected image to preview
@@ -32,8 +33,8 @@ const AddMachine = ({ open, onCloseModal, onCreate, companyId }) => {
 
   const getMachines = async () => {
     setBlock(false)
-    let data = await MachineService.getAll()
-    data = data.data?.map(itm => ({ label: itm.name, value: itm.id })) //Parse the data as per the select requires
+    let data = await MachineService.allMachines()
+    data = data?.map(itm => ({ label: itm.name, value: itm.id })) //Parse the data as per the select requires
     setMachines(data);
     setBlock(false)
   };
