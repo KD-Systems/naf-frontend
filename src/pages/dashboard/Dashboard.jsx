@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import ReportService from "services/ReportService";
+import DashboardService from "services/DashboardService";
 import { Row, Col } from "react-bootstrap";
 
 import Statistics from "components/dashboard/Statistics";
 import ColumnDataLabelsChart from "components/dashboard/ColumnDataLabelsChart";
 import PieChart from "components/dashboard/PieChart";
 import BorderlessTable from "components/dashboard/BorderlessTable";
+
 
 const Dashboard = () => {
   const [statistics, setStatistics] = useState({})
@@ -22,7 +23,7 @@ const Dashboard = () => {
   const [recentSales, setRecentSales] = useState({ headers: [], data: [] });
   const [topCustomers, setTopCustomers] = useState({ data: [], label: [] });
 
-  const getStatistics = () => {
+  const getStatistics = async () => {
     setStatistics({
       
     });
