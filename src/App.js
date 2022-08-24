@@ -1,6 +1,6 @@
 import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
 import NotFound from "pages/NotFound";
-import Dashboard from "pages/Dashboard";
+import Dashboard from "pages/dashboard/Dashboard";
 import AppLayout from "pages/layouts/AppLayout";
 import Login from "pages/auth/Login";
 import Profile from "pages/auth/Profile";
