@@ -8,35 +8,15 @@ const CreateBoxHeading = ({ open, onCloseModal, onChange }) => {
   const [data, setData] = useState({
     name: "",
     description: "",
-    extended: "",
   });
-  const [headings, setHeadings] = useState([])
-
-  const getHeadings = async () => {
-    let res = await MachinePartHeadingService.getAll()
-    setHeadings(res.map((dt) => ({ label: dt.name, value: dt.id })));
-  };
-
-  const handleCheck = (e) => {
-    setData({ ...data, extended: e.target.checked })
-  }
-
-  const handleSelect = (option, conf) => {
-    const value = option.label;
-    const name = conf.name;
-
-    setData({
-      ...data,
-      [name]: value,
-    });
-  };
+  
 
   const createBox = async (data) => {
     await BoxHeadingService.create(data);
     setData({
       name: "",
       description: "",
-      extended: "",
+      // extended: "",
     })
     onChange();
   };
@@ -56,11 +36,6 @@ const CreateBoxHeading = ({ open, onCloseModal, onChange }) => {
     onCloseModal();
   };
 
-  useEffect(() => {
-    if (open)
-      getHeadings()
-  }, [open])
-
   return (
     <div>
       <Modal
@@ -69,16 +44,20 @@ const CreateBoxHeading = ({ open, onCloseModal, onChange }) => {
         title={<>Add Box Heading</>}
         body={
           <>
-            <div className="form-group">
-              <label className="required form-label">Name</label>
-              <Select
-                options={headings}
-                onChange={handleSelect}
-                name="name"
-              />
-            </div>
 
-            <div className="form-group mt-5">
+            <div className="form-group">
+                <label className="required form-label">Name</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Enter  Name"
+                  name="name"
+                  id="name"
+                  onChange={handleChange}
+                />
+              </div>
+
+            {/* <div className="form-group mt-5">
               <div className="form-check form-switch form-check-custom form-check-solid me-10">
                 <input
                   checked={data.extended}
@@ -95,7 +74,7 @@ const CreateBoxHeading = ({ open, onCloseModal, onChange }) => {
                   Extended Box
                 </label>
               </div>
-            </div>
+            </div> */}
 
             <div className="form-group mt-5">
               <label className="form-label">Description</label>
