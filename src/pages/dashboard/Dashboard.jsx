@@ -8,6 +8,7 @@ import PieChart from "components/dashboard/PieChart";
 import BorderlessTable from "components/dashboard/BorderlessTable";
 
 const Dashboard = () => {
+  const [statistics, setStatistics] = useState({})
   const [monthlyReport, setMonthlyReport] = useState({ data: [], label: [] });
   const [topSellingProductbyMonth, setTopSellingProductbyMonth] = useState({
     data: [],
@@ -20,6 +21,12 @@ const Dashboard = () => {
   });
   const [recentSales, setRecentSales] = useState({ headers: [], data: [] });
   const [topCustomers, setTopCustomers] = useState({ data: [], label: [] });
+
+  const getStatistics = () => {
+    setStatistics({
+      
+    });
+  };
 
   const getMonthlyReport = () => {
     setMonthlyReport({
@@ -50,7 +57,7 @@ const Dashboard = () => {
 
   const getStockAlert = () => {
     setStockAlert({
-      headers: ["A", "B", "C", "D", "C", "D"],
+      headers: ["Name", "B", "C", "D", "C", "D"],
       data: [
         {
           id: 1,
@@ -235,6 +242,7 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
+    getStatistics();
     getMonthlyReport();
     getTopSellingProductbyMonth();
     getStockAlert();
@@ -260,7 +268,7 @@ const Dashboard = () => {
 
   return (
     <div id="kt_content_container" className="container-xxl">
-      <Statistics />
+      <Statistics data={statistics}/>
       <br />
       <Row>
         <Col xl={8}>
@@ -281,7 +289,42 @@ const Dashboard = () => {
           />
         </Col>
       </Row>
-
+      <br />
+      <Row>
+        <Col xl={8}>
+          <BorderlessTable
+            headers={stockAlert.headers}
+            records={stockAlert.data}
+            title="Stocks Alert"
+          />
+        </Col>
+        <Col xl={4}>
+          <BorderlessTable
+            headers={topSellingProductbyYear.headers}
+            records={topSellingProductbyYear.data}
+            title={"Top Selling Product (" + new Date().getFullYear() + ")"}
+          />
+        </Col>
+      </Row>
+      <br />
+      <Row>
+        <Col xl={8}>
+          <BorderlessTable
+            headers={recentSales.headers}
+            records={recentSales.data}
+            title="Recent Sales"
+          />
+        </Col>
+        <Col xl={4}>
+          <PieChart
+            pieChartData={topCustomers.data}
+            labels={topCustomers.label}
+            height={420}
+            title="Top 5 Customers"
+          />
+        </Col>
+      </Row>
+      <br />
     </div>
   );
 };

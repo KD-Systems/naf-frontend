@@ -2,8 +2,8 @@ import React from "react";
 import { Row, Col } from "react-bootstrap";
 import StatisticsChartWidget from "./StatisticsChartWidget";
 
-const Statistics = () => {
-  const amount = 2100;
+const Statistics = ({data}) => {
+  const amount = 0 ;
   return (
     <div>
       <Row>
