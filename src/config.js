@@ -4,4 +4,4 @@ export default {
   // baseUrl: "https://naf-api.viserx.net/api", //main domain
 
   
-};  
+}; 

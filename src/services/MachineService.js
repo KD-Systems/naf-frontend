@@ -8,6 +8,11 @@ const getAll = async (data) => {
     return res.data;
 };
 
+const allMachines = async () => {
+    const res = await http.get("/all_machines");
+    return res.data;
+};
+
 const get = async (id) => {
     const res = await http.get(`/machines/${id}`);
     return res.data;
@@ -29,6 +34,7 @@ const remove = async (id) => {
 };
 
 const MachineService = {
+    allMachines,
     getAll,
     get,
     create,

@@ -44,7 +44,7 @@ const RequisitionCreate = () => {
     status:"",
     remarks: "",
     part_items: list,
-    total: totalAmount,
+    total: totalAmount, 
   });
 
   const [partHeading, setPartHeading] = useState(null);

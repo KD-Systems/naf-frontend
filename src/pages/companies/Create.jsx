@@ -221,7 +221,7 @@ const CreateCompany = ({ open, onCloseModal, onCreated }) => {
                   </div>
 
                   <div className="mb-5 fv-row fv-plugins-icon-container">
-                    <label className="required form-label">Trade limit</label>
+                    <label className="form-label">Trade limit</label>
                     <input
                       type="number"
                       className="form-control"
@@ -237,7 +237,7 @@ const CreateCompany = ({ open, onCloseModal, onCreated }) => {
                     ></div>
                   </div>
 
-                  <div className="mb-5 fv-row fv-plugins-icon-container">
+                  {/* <div className="mb-5 fv-row fv-plugins-icon-container">
                     <label className="form-label">Due Amount</label>
                     <input
                       type="number"
@@ -251,7 +251,7 @@ const CreateCompany = ({ open, onCloseModal, onCreated }) => {
                       className="fv-plugins-message-container invalid-feedback"
                       htmlFor="description"
                     ></div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
 
