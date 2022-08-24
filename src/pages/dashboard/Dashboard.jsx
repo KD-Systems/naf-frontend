@@ -7,9 +7,8 @@ import ColumnDataLabelsChart from "components/dashboard/ColumnDataLabelsChart";
 import PieChart from "components/dashboard/PieChart";
 import BorderlessTable from "components/dashboard/BorderlessTable";
 
-
 const Dashboard = () => {
-  const [statistics, setStatistics] = useState({})
+  const [statistics, setStatistics] = useState({});
   const [monthlyReport, setMonthlyReport] = useState({ data: [], label: [] });
   const [topSellingProductbyMonth, setTopSellingProductbyMonth] = useState({
     data: [],
@@ -24,9 +23,8 @@ const Dashboard = () => {
   const [topCustomers, setTopCustomers] = useState({ data: [], label: [] });
 
   const getStatistics = async () => {
-    setStatistics({
-      
-    });
+    const res = await DashboardService.getStatisticsData();
+    setStatistics(res);
   };
 
   const getMonthlyReport = () => {
@@ -49,10 +47,18 @@ const Dashboard = () => {
     });
   };
 
-  const getTopSellingProductbyMonth = () => {
+  const getTopSellingProductbyMonth = async () => {
+    const res = await DashboardService.getTopProductSellingByMonth();
+    var data = [];
+    var label = [];
+    res.forEach((element) => {
+      label.push(element?.name[0]);
+      data.push(element?.totalSell);
+    });
+
     setTopSellingProductbyMonth({
-      data: [500, 500, 500, 500, 500],
-      label: ["Afnan", "Afnan", "Afnan", "Afnan", "Afnan"],
+      data: data,
+      label: label,
     });
   };
 
@@ -104,16 +110,16 @@ const Dashboard = () => {
     });
   };
 
-  const getTopSellingProductbyYear = () => {
+  const getTopSellingProductbyYear = async () => {
+    const res = await DashboardService.getTopProductSellingByYear();
+    var data = [];
+    res.forEach((element) => {
+      data.push({ name: element?.name[0], qnty: element?.totalSell });
+    });
+
     setTopSellingProductbyYear({
-      headers: ["B", "C", "D"],
-      data: [
-        { firstName: "Mark", lastName: "Otto", userName: "@mdo" },
-        { firstName: "Jacob", lastName: "Thornton", userName: "@fat" },
-        { firstName: "Larry", lastName: "the Bird", userName: "@twitter" },
-        { firstName: "Larry", lastName: "the Bird", userName: "@twitter" },
-        { firstName: "Larry", lastName: "the Bird", userName: "@twitter" },
-      ],
+      headers: ["Name", "Quantity"],
+      data: data,
     });
   };
 
@@ -269,7 +275,7 @@ const Dashboard = () => {
 
   return (
     <div id="kt_content_container" className="container-xxl">
-      <Statistics data={statistics}/>
+      <Statistics data={statistics} />
       <br />
       <Row>
         <Col xl={8}>
@@ -320,7 +326,7 @@ const Dashboard = () => {
           <PieChart
             pieChartData={topCustomers.data}
             labels={topCustomers.label}
-            height={420}
+            height={380}
             title="Top 5 Customers"
           />
         </Col>

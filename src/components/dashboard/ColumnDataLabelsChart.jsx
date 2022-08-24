@@ -4,7 +4,6 @@ import { Card } from "react-bootstrap";
 import { ApexOptions } from "apexcharts";
 
 const ColumnDataLabelsChart = ({ data, categories, title }) => {
-  console.log(data);
   const columnChartData = data;
   const options = {
     plotOptions: {

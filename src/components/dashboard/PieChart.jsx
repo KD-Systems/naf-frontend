@@ -7,7 +7,7 @@ const PieChart = ({ pieChartData, labels, height, title }) => {
   const options = {
     labels: labels,
     legend: {
-      show: true,
+      show: false,
       position: "bottom",
       horizontalAlign: "center",
       floating: false,

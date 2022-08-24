@@ -3,18 +3,17 @@ import { Row, Col } from "react-bootstrap";
 import StatisticsChartWidget from "./StatisticsChartWidget";
 
 const Statistics = ({data}) => {
-  const amount = 0 ;
   return (
     <div>
       <Row>
         <Col sm={6} xl={4}>
           <StatisticsChartWidget
-            title="Today Revenue"
-            stats={amount}
+            title="Total Sell"
+            stats={data?.sell}
             trend={{
               textClass: "text-success",
               icon: "uil uil-arrow-up",
-              value: "10.21%",
+              // value: "10.21%",
             }}
             colors={["#727cf5"]}
           />
@@ -22,39 +21,26 @@ const Statistics = ({data}) => {
 
         <Col sm={6} xl={4}>
           <StatisticsChartWidget
-            title="Product Sold"
-            stats="558"
+            title="Total Purchase"
+            stats={data?.buy}
             trend={{
               textClass: "text-danger",
               icon: "uil uil-arrow-down",
-              value: "5.05%",
+              // value: "5.05%",
             }}
             colors={["#f77e53"]}
           />
         </Col>
-        {/* <Col sm={6} xl={3}>
-          <StatisticsChartWidget
-            title="New Customers"
-            stats="65"
-            trend={{
-              textClass: "text-success",
-              icon: "uil uil-arrow-up",
-              value: "21.16%",
-            }}
-            colors={["#43d39e"]}
-          />
-        </Col> */}
-
         <Col sm={6} xl={4}>
           <StatisticsChartWidget
-            title="New Visitors"
-            stats="958"
+            title="Total Profit"
+            stats={data?.profit}
             trend={{
               textClass: "text-danger",
               icon: "uil uil-arrow-down",
-              value: "5.05%",
+              // value: "5.05%",
             }}
-            colors={["#ffbe0b"]}
+            colors={["#0a0"]}
           />
         </Col>
       </Row>
