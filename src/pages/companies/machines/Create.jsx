@@ -7,7 +7,6 @@ import MachineModelService from "services/MachineModelService";
 
 const AddMachine = ({ open, onCloseModal, onCreate, companyId }) => {
   const [machines, setMachines] = useState([]);
-  console.log(machines);
   const [models, setModels] = useState([])
   const [block, setBlock] = useState(false);
   // Set the selected image to preview
@@ -60,6 +59,7 @@ const AddMachine = ({ open, onCloseModal, onCreate, companyId }) => {
     machine_id: "",
     machine_model_id: "",
     mfg_number: "",
+    qty:"",
     nodes: "",
   })
 
@@ -106,7 +106,7 @@ const AddMachine = ({ open, onCloseModal, onCreate, companyId }) => {
                 <div className="fv-plugins-message-container invalid-feedback" htmlFor="machine_model_id"></div>
               </div>
 
-              <label className="required form-label">MFG Number</label>
+              <label className="form-label">MFG Number</label>
               <input
                 type="text"
                 className="form-control mb-2"
@@ -117,6 +117,20 @@ const AddMachine = ({ open, onCloseModal, onCreate, companyId }) => {
                 onChange={handleChange}
               />
               <div className="fv-plugins-message-container invalid-feedback" htmlFor="mfg_number"></div>
+            </div>
+
+            <div className="mb-5 fv-row fv-plugins-icon-container">
+              <label className="form-label">Quantity</label>
+              <textarea
+                rows="3"
+                type="text"
+                className="form-control"
+                placeholder="Enter Quantity"
+                name="qty"
+                id="qty"
+                onChange={handleChange}
+              />
+              <div className="fv-plugins-message-container invalid-feedback" htmlFor="qty"></div>
             </div>
 
             <div className="mb-5 fv-row fv-plugins-icon-container">

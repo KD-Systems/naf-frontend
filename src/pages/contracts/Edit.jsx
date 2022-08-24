@@ -14,6 +14,7 @@ const EditContract = ({ open, onCloseModal, onUpdated, contractId }) => {
     const [defaultModel, setDefaultModel] = useState(null)
     const [data, setData] = useState({})
     const [block, setBlock] = useState(false);
+    // console.log(data)
 
     const handleChange = (e) => {
         const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
@@ -51,12 +52,12 @@ const EditContract = ({ open, onCloseModal, onUpdated, contractId }) => {
         let dt = await ContractService.get(contractId);
         dt = {
             ...dt, ...{
-                end_date: new Date(Date.parse(dt.end_date)),
-                start_date: new Date(Date.parse(dt.start_date)),
-                machine_model_id: dt.machine_model?.map((d) => {
+                end_date: new Date(Date.parse(dt?.end_date)),
+                start_date: new Date(Date.parse(dt?.start_date)),
+                machine_model_id: dt?.machine_model?.map((d) => {
                     return d.value;
                 }),
-                machine_id: dt.machine?.id
+                machine_id: dt?.machine?.id
             }
         } //Parse the date as per the date select requires
         setData(dt)
@@ -105,15 +106,27 @@ const EditContract = ({ open, onCloseModal, onUpdated, contractId }) => {
 
                         <div className="form-group">
                             <label className="form-label">Start Date</label>
-                            <DatePicker defaultChecked={false} className="form-control" selected={data.start_date} onChange={(date) => handleDateSelect(date, 'start_date')} />
+                            <DatePicker defaultChecked={false} className="form-control" selected={data?.start_date?? new Date()} onChange={(date) => handleDateSelect(date, 'start_date')} />
                             <div className="fv-plugins-message-container invalid-feedback" htmlFor="start_date"></div>
                         </div>
 
                         <div className="form-group mt-5">
                             <label className="form-label">End Date</label>
-                            <DatePicker defaultChecked={false} className="form-control" selected={data.end_date} onChange={(date) => handleDateSelect(date, 'end_date')} />
+                            <DatePicker defaultChecked={false} className="form-control" selected={data?.end_date ?? new Date()} onChange={(date) => handleDateSelect(date, 'end_date')} />
                             <div className="fv-plugins-message-container invalid-feedback" htmlFor="end_date"></div>
                         </div>
+
+                        {/* <div className="form-group">
+                            <label className="form-label">Start Date</label>
+                            <DatePicker defaultChecked={false} className="form-control" onChange={(date) => handleDateSelect(date, 'start_date')} />
+                            <div className="fv-plugins-message-container invalid-feedback" htmlFor="start_date"></div>
+                        </div>
+
+                        <div className="form-group mt-5">
+                            <label className="form-label">End Date</label>
+                            <DatePicker defaultChecked={false} className="form-control" onChange={(date) => handleDateSelect(date, 'end_date')} />
+                            <div className="fv-plugins-message-container invalid-feedback" htmlFor="end_date"></div>
+                        </div> */}
 
                         <div className="form-group mt-5">
                             <label className="form-label">Notes</label>
@@ -130,7 +143,7 @@ const EditContract = ({ open, onCloseModal, onUpdated, contractId }) => {
                             <div className="fv-plugins-message-container invalid-feedback" htmlFor="notes"></div>
                         </div>
 
-                        {data.start_date && <div className="form-group mt-5 mb-2">
+                        {data?.start_date && <div className="form-group mt-5 mb-2">
                             <div className="form-check form-switch form-check-custom form-check-solid">
                                 <input
                                     className="form-check-input"

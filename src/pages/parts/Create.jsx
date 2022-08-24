@@ -35,7 +35,7 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
     machine_heading_id: "",
     name: "",
     part_number: "",
-    old_part_number:"",
+    // old_part_number:"",
     description: "",
     image: "",
     arm: "",
@@ -104,7 +104,7 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
         machine_id: value.machine_id,
         part_heading_id: value.part_heading_id,
         part_number: value.part_number,
-        old_part_number: value.old_part_number,
+        // old_part_number: value.old_part_number,
       });
     });
 
@@ -300,7 +300,7 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
                         ></div>
                       </div>
 
-                      <div className="col-sm-6 col-md-6">
+                      {/* <div className="col-sm-6 col-md-6">
                         <label className="form-label">
                          Old Part Number
                         </label>
@@ -316,7 +316,7 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
                           className="fv-plugins-message-container invalid-feedback"
                           htmlFor="old_part_number[]"
                         ></div>
-                      </div>
+                      </div> */}
 
                       <div className="col-sm-1 mt-8">
                         {index ? (

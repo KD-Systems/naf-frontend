@@ -29,7 +29,7 @@ const CreateBoxHeading = ({ open, onCloseModal, onChange }) => {
       ...data,
       [name]: value,
     });
-  };
+  };  
 
   const onSumbit = async () => {
     await createBox(data);
@@ -45,16 +45,21 @@ const CreateBoxHeading = ({ open, onCloseModal, onChange }) => {
         body={
           <>
 
-            <div className="form-group">
+            {/* <div className="form-group">
                 <label className="required form-label">Name</label>
                 <input
                   type="text"
                   className="form-control"
-                  placeholder="Enter  Name"
+                  placeholder="Enter name"
                   name="name"
                   id="name"
                   onChange={handleChange}
                 />
+              </div> */}
+
+              <div className="form-group">
+                <label className="required form-label"> <span className="text-danger">This is under development</span></label>
+                
               </div>
 
             {/* <div className="form-group mt-5">

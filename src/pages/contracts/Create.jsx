@@ -118,14 +118,14 @@ const CreateContract = ({ open, onCloseModal, onCreated }) => {
               </div>
 
               <div className="form-group mt-5">
-                <label className="required form-label">Start Date</label>
+                <label className="form-label">Start Date</label>
                 <DatePicker className="form-control" selected={data.start_date} onChange={(date) => handleDateSelect(date, 'start_date')} />
                 <input type='hidden' name="start_date" id="start_date" value={data.start_date_format} />
                 <div className="fv-plugins-message-container invalid-feedback" htmlFor="start_date"></div>
               </div>
 
               <div className="form-group mt-5">
-                <label className="required form-label">End Date</label>
+                <label className="form-label">End Date</label>
                 <DatePicker className="form-control" selected={data.end_date} onChange={(date) => handleDateSelect(date, 'end_date')} />
                 <input type='hidden' name="end_date" id="end_date" value={data.end_date_format} />
                 <div className="fv-plugins-message-container invalid-feedback" htmlFor="end_date"></div>
