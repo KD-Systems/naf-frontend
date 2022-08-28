@@ -16,8 +16,8 @@ const Dashboard = () => {
   });
   const [stockAlert, setStockAlert] = useState({ headers: [], data: [] });
   const [topSellingProductbyYear, setTopSellingProductbyYear] = useState({
-    headers: [],
     data: [],
+    label: [],
   });
   const [recentSales, setRecentSales] = useState({ headers: [], data: [] });
   const [topCustomers, setTopCustomers] = useState({ data: [], label: [] });
@@ -49,16 +49,16 @@ const Dashboard = () => {
 
   const getTopSellingProductbyMonth = async () => {
     const res = await DashboardService.getTopProductSellingByMonth();
+    console.log(res);
     var data = [];
-    var label = [];
+
     res.forEach((element) => {
-      label.push(element?.name[0]);
-      data.push(element?.totalSell);
+      data.push({ name: element?.name[0], value: element?.totalSell });
     });
 
     setTopSellingProductbyMonth({
       data: data,
-      label: label,
+      headers: ["Name", "Total"],
     });
   };
 
@@ -113,13 +113,15 @@ const Dashboard = () => {
   const getTopSellingProductbyYear = async () => {
     const res = await DashboardService.getTopProductSellingByYear();
     var data = [];
+    var label = [];
     res.forEach((element) => {
-      data.push({ name: element?.name[0], qnty: element?.totalSell });
+      data.push(element?.totalSell);
+      label.push(element?.name[0]);
     });
 
     setTopSellingProductbyYear({
-      headers: ["Name", "Quantity"],
       data: data,
+      label: label,
     });
   };
 
@@ -287,12 +289,10 @@ const Dashboard = () => {
         </Col>
         <Col xl={4}>
           <PieChart
-            pieChartData={topSellingProductbyMonth.data}
+            pieChartData={topSellingProductbyYear.data}
             height={365}
-            labels={topSellingProductbyMonth.label}
-            title={
-              "Top Selling Product (" + monthNames[new Date().getMonth()] + ")"
-            }
+            labels={topSellingProductbyYear.label}
+            title={"Top Selling Product (" + new Date().getFullYear() + ")"}
           />
         </Col>
       </Row>
@@ -307,9 +307,11 @@ const Dashboard = () => {
         </Col>
         <Col xl={4}>
           <BorderlessTable
-            headers={topSellingProductbyYear.headers}
-            records={topSellingProductbyYear.data}
-            title={"Top Selling Product (" + new Date().getFullYear() + ")"}
+            headers={topSellingProductbyMonth.headers}
+            records={topSellingProductbyMonth.data}
+            title={
+              "Top Selling Product (" + monthNames[new Date().getMonth()] + ")"
+            }
           />
         </Col>
       </Row>
