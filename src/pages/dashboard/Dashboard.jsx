@@ -49,9 +49,7 @@ const Dashboard = () => {
 
   const getTopSellingProductbyMonth = async () => {
     const res = await DashboardService.getTopProductSellingByMonth();
-    console.log(res);
     var data = [];
-
     res.forEach((element) => {
       data.push({ name: element?.name[0], value: element?.totalSell });
     });
@@ -62,51 +60,22 @@ const Dashboard = () => {
     });
   };
 
-  const getStockAlert = () => {
+  const getStockAlert = async () => {
+    const res = await DashboardService.getStockData();
+
+    var data = [];
+    res.forEach((element) => {
+      data.push({
+        id: element?.unique_id,
+        warehouse: element?.warehouse,
+        name: element?.name,
+        remaining: element?.unit_value,
+      });
+    });
+
     setStockAlert({
-      headers: ["Name", "B", "C", "D", "C", "D"],
-      data: [
-        {
-          id: 1,
-          firstName: "Maark",
-          lastName: "Otto",
-          userName: "@mdo",
-          firstNaame: "Mark",
-          lastNaame: "Otto",
-        },
-        {
-          id: 2,
-          firstName: "Jacob",
-          lastName: "Thornton",
-          userName: "@fat",
-          firstNaame: "Mark",
-          lastNaame: "Otto",
-        },
-        {
-          id: 3,
-          firstName: "Larry",
-          lastName: "the Bird",
-          userName: "@twitter",
-          firstNaame: "Mark",
-          lastNaame: "Otto",
-        },
-        {
-          id: 3,
-          firstName: "Larry",
-          lastName: "the Bird",
-          userName: "@twitter",
-          firstNaame: "Mark",
-          lastNaame: "Otto",
-        },
-        {
-          id: 3,
-          firstName: "Larry",
-          lastName: "the Bird",
-          userName: "@twitter",
-          firstNaame: "Mark",
-          lastNaame: "Otto",
-        },
-      ],
+      headers: ["ID", "WareHouse", "Name", "Remaining"],
+      data: data,
     });
   };
 
