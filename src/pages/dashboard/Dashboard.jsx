@@ -276,7 +276,7 @@ const Dashboard = () => {
   return (
     <div id="kt_content_container" className="container-xxl">
       <Statistics data={statistics} />
-      <br />
+      {/* <br />
       <Row>
         <Col xl={8}>
           <ColumnDataLabelsChart
@@ -331,7 +331,7 @@ const Dashboard = () => {
           />
         </Col>
       </Row>
-      <br />
+      <br /> */}
     </div>
   );
 };
