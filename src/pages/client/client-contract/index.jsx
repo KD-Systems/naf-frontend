@@ -45,7 +45,7 @@ const ClientContracts = () => {
     },
     {
       name: 'Machines',
-      selector: row => row.machine_models,
+      selector: row => row?.machine_models,
       sortable: true,
       field: 'machine_models',
       format: row => (

@@ -12,7 +12,6 @@ const ShowClientContract = () => {
   let { id } = useParams();
   const navigate = useNavigate();
   const [data, setData] = useState({});
-  console.log(data);
 
   const getContract = async () => {
     setData(await ClientContractService.get(id));

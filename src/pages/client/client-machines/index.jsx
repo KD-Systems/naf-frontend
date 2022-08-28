@@ -13,6 +13,7 @@ const ClientCompanyMachines = () => {
     setLoading(false);
   };
 
+
   useEffect(() => {
     getClientComapnyMachines();
   }, []);

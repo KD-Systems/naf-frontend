@@ -9,6 +9,7 @@ const CompanyMachines = ({ active }) => {
     const [confirmDelete, setConfirmDelete] = useState(false);
     const [machineId, setMachineId] = useState(null);
     const [machines, setMachines] = useState([]);
+    console.log(machines);
     const [openAddMachine, setOpenAddMachine] = useState(false);
     const { id } = useParams();
 
@@ -40,7 +41,7 @@ const CompanyMachines = ({ active }) => {
                 <div className="card card-flush py-4">
                     <div className="card-header">
                         <div className="card-title">
-                            <h2>Machin</h2>
+                            <h2>Machine</h2>
                         </div>
                         <div className="card-toolbar">
                         <PermissionAbility permission="companies_machines_add">
@@ -97,6 +98,7 @@ const CompanyMachines = ({ active }) => {
                                     <th className="min-w-150px">Machine</th>
                                     <th className="min-w-150px">Model</th>
                                     <th className="min-w-120px">MFG Number</th>
+                                    <th className="min-w-120px">Quantity</th>
                                     <th className="min-w-100px text-end">Actions</th>
                                 </tr>
                             </thead>
@@ -122,6 +124,7 @@ const CompanyMachines = ({ active }) => {
                                         </td>
 
                                         <td>{item.mfg_number}</td>
+                                        <td>{item.qty}</td>
 
                                         <td className="text-end">
                                         <PermissionAbility permission="companies_machines_dettach">
