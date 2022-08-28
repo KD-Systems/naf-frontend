@@ -38,10 +38,11 @@ const PieChart = ({ pieChartData, labels, height, title }) => {
         <h4 className="header-title mt-0 mb-3">{title}</h4>
 
         <Chart
+          style={{ paddingTop: 25, paddingBottom: 25 }}
           options={options}
           series={series}
           type="pie"
-          height={height}
+          height={height - 50}
           className="apex-charts"
           dir="ltr"
         />

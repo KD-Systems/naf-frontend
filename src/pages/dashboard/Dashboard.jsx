@@ -29,20 +29,38 @@ const Dashboard = () => {
 
   const getMonthlyReport = () => {
     setMonthlyReport({
-      data: [19, 24, 23, 41, 25, 36, 71, 18, 91, 19, 41, 62],
+      data: [19, 24, 23, 41, 25, 36, 71, 18, 91, 19, 41, 62,19, 24, 23, 41, 25, 36, 71, 18, 91, 19, 41, 62,71, 18, 91, 19, 41, 62],
       label: [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29",
+        "30"
       ],
     });
   };
@@ -51,7 +69,7 @@ const Dashboard = () => {
     const res = await DashboardService.getTopProductSellingByMonth();
     var data = [];
     res.forEach((element) => {
-      data.push({ name: element?.name[0], value: element?.totalSell });
+      data.push({ name: element?.name[0].slice(0,25)+'...', value: element?.totalSell });
     });
 
     setTopSellingProductbyMonth({
@@ -68,7 +86,7 @@ const Dashboard = () => {
       data.push({
         id: element?.unique_id,
         warehouse: element?.warehouse,
-        name: element?.name,
+        name: element?.name.slice(0,25)+'...',
         remaining: element?.unit_value,
       });
     });
@@ -259,7 +277,7 @@ const Dashboard = () => {
         <Col xl={4}>
           <PieChart
             pieChartData={topSellingProductbyYear.data}
-            height={365}
+            height={355}
             labels={topSellingProductbyYear.label}
             title={"Top Selling Product (" + new Date().getFullYear() + ")"}
           />
