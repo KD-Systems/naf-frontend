@@ -54,6 +54,7 @@ const EditContract = ({ open, onCloseModal, onUpdated, contractId }) => {
   const getContract = async () => {
     // pending
     let dt = await ContractService.get(contractId);
+    console.log(dt);
     dt = {
       ...dt,
       ...{
