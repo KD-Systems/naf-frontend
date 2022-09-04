@@ -106,11 +106,10 @@ const Dashboard = () => {
 
   const getRecentSales = async () => {
     const res = await DashboardService.getRecentSale();
-    console.log("Afnan", res);
     var data = [];
     res.forEach((element) => {
       data.push({
-        id: 1,
+        id: element?.part_id,
         Product_Name: element?.part_name,
         Product_Number: element?.part_number,
         Company_Name: element?.company_name,
@@ -134,6 +133,7 @@ const Dashboard = () => {
 
   const getTopCustomers = async () => {
     const res = await DashboardService.getTopCustomers();
+    console.log(res);
     var data = [];
     setTopCustomers({
       data: [2, 5, 3, 9, 4],
