@@ -6,10 +6,11 @@ import Statistics from "components/dashboard/Statistics";
 import ColumnDataLabelsChart from "components/dashboard/ColumnDataLabelsChart";
 import PieChart from "components/dashboard/PieChart";
 import BorderlessTable from "components/dashboard/BorderlessTable";
+import moment from "moment";
 
 const Dashboard = () => {
   const [statistics, setStatistics] = useState({});
-  const [monthlyReport, setMonthlyReport] = useState({ data: [], label: [] });
+  const [monthlyReport, setMonthlyReport] = useState({});
   const [topSellingProductbyMonth, setTopSellingProductbyMonth] = useState({
     data: [],
     label: [],
@@ -27,66 +28,57 @@ const Dashboard = () => {
     setStatistics(res);
   };
 
-  const getMonthlyReport = () => {
-    setMonthlyReport({
-      data: [19, 24, 23, 41, 25, 36, 71, 18, 91, 19, 41, 62,19, 24, 23, 41, 25, 36, 71, 18, 91, 19, 41, 62,71, 18, 91, 19, 41, 62],
-      label: [
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6",
-        "7",
-        "8",
-        "9",
-        "10",
-        "11",
-        "12",
-        "13",
-        "14",
-        "15",
-        "16",
-        "17",
-        "18",
-        "19",
-        "20",
-        "21",
-        "22",
-        "23",
-        "24",
-        "25",
-        "26",
-        "27",
-        "28",
-        "29",
-        "30"
-      ],
-    });
+  const getMonthlyReport = async () => {
+    const res = await DashboardService.getMonthlyData();
+    var carr = {
+      Jan: 0,
+      Feb: 0,
+      Mar: 0,
+      Apr: 0,
+      May: 0,
+      Jun: 0,
+      Jul: 0,
+      Aug: 0,
+      Sep: 0,
+      Oct: 0,
+      Nov: 0,
+      Dec: 0,
+    };
+    carr = { ...carr, ...res.monthly };
+    var data = [];
+    var label = [];
+    for (var name in carr) {
+      data.push(carr[name]);
+      label.push(name);
+    }
+    setMonthlyReport({ label: label, data: data });
   };
 
   const getTopSellingProductbyMonth = async () => {
     const res = await DashboardService.getTopProductSellingByMonth();
     var data = [];
     res.forEach((element) => {
-      data.push({ name: element?.name[0].slice(0,25)+'...', value: element?.totalSell });
+      data.push({
+        id: element?.part_id,
+        name: element?.name[0].slice(0, 25) + "...",
+        value: element?.totalSell,
+      });
     });
 
     setTopSellingProductbyMonth({
       data: data,
-      headers: ["Name", "Total"],
+      headers: ["ID", "Name", "Total"],
     });
   };
 
   const getStockAlert = async () => {
     const res = await DashboardService.getStockData();
-
     var data = [];
     res.forEach((element) => {
       data.push({
-        id: element?.unique_id,
+        id: element?.part_id,
         warehouse: element?.warehouse,
-        name: element?.name.slice(0,25)+'...',
+        name: element?.name.slice(0, 25) + "...",
         remaining: element?.unit_value,
       });
     });
@@ -112,125 +104,37 @@ const Dashboard = () => {
     });
   };
 
-  const getRecentSales = () => {
+  const getRecentSales = async () => {
+    const res = await DashboardService.getRecentSale();
+    console.log("Afnan", res);
+    var data = [];
+    res.forEach((element) => {
+      data.push({
+        id: 1,
+        Product_Name: element?.part_name,
+        Product_Number: element?.part_number,
+        Company_Name: element?.company_name,
+        Qnty: element?.quantity,
+        Purchse_Date: moment(element?.created_at).format("DD-MMM-YYYY"),
+      });
+    });
+
     setRecentSales({
-      headers: ["B", "C", "D", "B", "C", "D", "B", "C", "D"],
-      data: [
-        {
-          firstName: "Mark",
-          lastName: "Otto",
-          userName: "@mdo",
-          fairstName: "Mark",
-          laastName: "Otto",
-          uaserName: "@mdo",
-          fbirstName: "Mark",
-          lbastName: "Otto",
-          ubserName: "@mdo",
-        },
-        {
-          firstName: "Mark",
-          lastName: "Otto",
-          userName: "@mdo",
-          fairstName: "Mark",
-          laastName: "Otto",
-          uaserName: "@mdo",
-          fbirstName: "Mark",
-          lbastName: "Otto",
-          ubserName: "@mdo",
-        },
-        {
-          firstName: "Mark",
-          lastName: "Otto",
-          userName: "@mdo",
-          fairstName: "Mark",
-          laastName: "Otto",
-          uaserName: "@mdo",
-          fbirstName: "Mark",
-          lbastName: "Otto",
-          ubserName: "@mdo",
-        },
-        {
-          firstName: "Mark",
-          lastName: "Otto",
-          userName: "@mdo",
-          fairstName: "Mark",
-          laastName: "Otto",
-          uaserName: "@mdo",
-          fbirstName: "Mark",
-          lbastName: "Otto",
-          ubserName: "@mdo",
-        },
-        {
-          firstName: "Mark",
-          lastName: "Otto",
-          userName: "@mdo",
-          fairstName: "Mark",
-          laastName: "Otto",
-          uaserName: "@mdo",
-          fbirstName: "Mark",
-          lbastName: "Otto",
-          ubserName: "@mdo",
-        },
-        {
-          firstName: "Mark",
-          lastName: "Otto",
-          userName: "@mdo",
-          fairstName: "Mark",
-          laastName: "Otto",
-          uaserName: "@mdo",
-          fbirstName: "Mark",
-          lbastName: "Otto",
-          ubserName: "@mdo",
-        },
-        {
-          firstName: "Mark",
-          lastName: "Otto",
-          userName: "@mdo",
-          fairstName: "Mark",
-          laastName: "Otto",
-          uaserName: "@mdo",
-          fbirstName: "Mark",
-          lbastName: "Otto",
-          ubserName: "@mdo",
-        },
-        {
-          firstName: "Mark",
-          lastName: "Otto",
-          userName: "@mdo",
-          fairstName: "Mark",
-          laastName: "Otto",
-          uaserName: "@mdo",
-          fbirstName: "Mark",
-          lbastName: "Otto",
-          ubserName: "@mdo",
-        },
-        {
-          firstName: "Mark",
-          lastName: "Otto",
-          userName: "@mdo",
-          fairstName: "Mark",
-          laastName: "Otto",
-          uaserName: "@mdo",
-          fbirstName: "Mark",
-          lbastName: "Otto",
-          ubserName: "@mdo",
-        },
-        {
-          firstName: "Mark",
-          lastName: "Otto",
-          userName: "@mdo",
-          fairstName: "Mark",
-          laastName: "Otto",
-          uaserName: "@mdo",
-          fbirstName: "Mark",
-          lbastName: "Otto",
-          ubserName: "@mdo",
-        },
+      headers: [
+        "ID",
+        "Product Name",
+        "Part Number",
+        "Company Name",
+        "Qnty",
+        "Purchse Date",
       ],
+      data: data,
     });
   };
 
-  const getTopCustomers = () => {
+  const getTopCustomers = async () => {
+    const res = await DashboardService.getTopCustomers();
+    var data = [];
     setTopCustomers({
       data: [2, 5, 3, 9, 4],
       label: ["Afnan", "Afnan", "Afnan", "Afnan", "Afnan"],
@@ -290,6 +194,7 @@ const Dashboard = () => {
             headers={stockAlert.headers}
             records={stockAlert.data}
             title="Stocks Alert"
+            url="/panel/parts/"
           />
         </Col>
         <Col xl={4}>
@@ -299,6 +204,7 @@ const Dashboard = () => {
             title={
               "Top Selling Product (" + monthNames[new Date().getMonth()] + ")"
             }
+            url="/panel/parts/"
           />
         </Col>
       </Row>
@@ -309,6 +215,7 @@ const Dashboard = () => {
             headers={recentSales.headers}
             records={recentSales.data}
             title="Recent Sales"
+            url="/panel/parts/"
           />
         </Col>
         <Col xl={4}>

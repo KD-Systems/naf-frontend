@@ -1,9 +1,7 @@
 import React from "react";
 import { Row, Col, Card, Table } from "react-bootstrap";
 
-
-const BorderlessTable = ({headers, records,title}) => {
-
+const BorderlessTable = ({ headers, records, title, url }) => {
   return (
     <Card>
       <Card.Body>
@@ -29,7 +27,17 @@ const BorderlessTable = ({headers, records,title}) => {
                 return (
                   <tr key={index}>
                     {data.map((item) => {
-                      return <td>{item}</td>;
+                      return (
+                        <td>
+                          <a
+                            href={url + record["id"]}
+                            style={{ color: "#000" }}
+                            target="_blank"
+                          >
+                            {item}
+                          </a>
+                        </td>
+                      );
                     })}
                   </tr>
                 );
