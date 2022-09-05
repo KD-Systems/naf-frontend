@@ -14,7 +14,6 @@ const EditContract = ({ open, onCloseModal, onUpdated, contractId }) => {
   const [defaultModel, setDefaultModel] = useState(null);
   const [data, setData] = useState({});
   const [block, setBlock] = useState(false);
-  // console.log(data)
 
   const handleChange = (e) => {
     const value =
@@ -68,8 +67,12 @@ const EditContract = ({ open, onCloseModal, onUpdated, contractId }) => {
     dt = {
       ...dt,
       ...{
-        end_date: new Date(Date.parse(dt?.end_date)),
-        start_date: new Date(Date.parse(dt?.start_date)),
+        end_date: dt?.end_date
+          ? new Date(Date.parse(dt?.end_date))
+          : new Date(),
+        start_date: dt?.start_date
+          ? new Date(Date.parse(dt?.start_date))
+          : new Date(),
         machine_model_id: dt?.machine_model?.map((d) => {
           return d.value;
         }),
@@ -134,7 +137,7 @@ const EditContract = ({ open, onCloseModal, onUpdated, contractId }) => {
               <DatePicker
                 defaultChecked={false}
                 className="form-control"
-                selected={data?.start_date ?? new Date()}
+                selected={data?.start_date}
                 onChange={(date) => handleDateSelect(date, "start_date")}
               />
               <div
@@ -148,7 +151,7 @@ const EditContract = ({ open, onCloseModal, onUpdated, contractId }) => {
               <DatePicker
                 defaultChecked={false}
                 className="form-control"
-                selected={data?.end_date ?? new Date()}
+                selected={data?.end_date}
                 onChange={(date) => handleDateSelect(date, "end_date")}
               />
               <div
