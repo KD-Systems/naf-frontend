@@ -147,12 +147,9 @@ const ClientDashboard = () => {
 
   useEffect(() => {
     getStatistics();
-    getMonthlyReport();
-    getTopSellingProductbyMonth();
+    
     getStockAlert();
-    getTopSellingProductbyYear();
-    getRecentSales();
-    getTopCustomers();
+
   }, []);
 
   const monthNames = [
