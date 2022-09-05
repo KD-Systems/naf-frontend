@@ -133,11 +133,15 @@ const Dashboard = () => {
 
   const getTopCustomers = async () => {
     const res = await DashboardService.getTopCustomers();
-    console.log(res);
     var data = [];
+    var label = [];
+    res.forEach((element) => {
+      label.push(element?.company_name);
+      data.push(element?.quantity)
+    });
     setTopCustomers({
-      data: [2, 5, 3, 9, 4],
-      label: ["Afnan", "Afnan", "Afnan", "Afnan", "Afnan"],
+      data: data,
+      label: label,
     });
   };
 
