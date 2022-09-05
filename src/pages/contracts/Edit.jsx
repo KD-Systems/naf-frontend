@@ -116,7 +116,11 @@ const EditContract = ({ open, onCloseModal, onUpdated, contractId }) => {
             </div>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
             <div className="form-group mt-5">
+=======
+            {/* <div className="form-group mt-5">
+>>>>>>> main
 =======
             {/* <div className="form-group mt-5">
 >>>>>>> main

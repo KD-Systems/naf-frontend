@@ -70,6 +70,7 @@ import PrintClientDeliveryNotes from "pages/client/delivery-notes/print";
 import CompanyUser from "pages/client/user/index";
 import CompanyUserShow from "pages/client/user/show";
 import Forbidden from "pages/Forbidden";
+import ClientDashboard from "pages/client/dashboard/ClientDashboard";
 
 function App() {
   return (
@@ -520,6 +521,15 @@ function App() {
             {/* Routes for company users */} 
 
             {/* Routes for company users */} 
+
+            <Route
+              path="client/dashboard" 
+              element={
+                <PrivateRoute>
+                  <ClientDashboard />
+                </PrivateRoute>
+              }
+            />
 
             <Route
               path="companies/user" 

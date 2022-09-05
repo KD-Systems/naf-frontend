@@ -29,11 +29,15 @@ const Login = () => {
   };
 
   useEffect(async () => {
-    let locUser = localStorage.getItem("user");
+    let locUser = JSON.parse(localStorage.getItem("user"));
     if (locUser) {
       await dispatch(getProfile());
 
-      if (user) navigate("/panel/dashboard");
+      if (locUser?.user?.details) {
+        navigate("/panel/client/dashboard");
+      } else {
+        navigate("/panel/dashboard");
+      }
     }
   }, [user]);
 
