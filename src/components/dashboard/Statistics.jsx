@@ -2,13 +2,13 @@ import React from "react";
 import { Row, Col } from "react-bootstrap";
 import StatisticsChartWidget from "./StatisticsChartWidget";
 
-const Statistics = ({data}) => {
+const Statistics = ({data, title}) => {
   return (
     <div>
       <Row>
         <Col sm={6} xl={4}>
           <StatisticsChartWidget
-            title="Total Sell"
+            title={title[0]}
             stats={data?.sell}
             trend={{
               textClass: "text-success",
@@ -21,7 +21,7 @@ const Statistics = ({data}) => {
 
         <Col sm={6} xl={4}>
           <StatisticsChartWidget
-            title="Total Purchase"
+            title={title[1]}
             stats={data?.buy}
             trend={{
               textClass: "text-danger",
@@ -33,7 +33,7 @@ const Statistics = ({data}) => {
         </Col>
         <Col sm={6} xl={4}>
           <StatisticsChartWidget
-            title="Total Profit"
+            title={title[2]}
             stats={data?.profit}
             trend={{
               textClass: "text-danger",

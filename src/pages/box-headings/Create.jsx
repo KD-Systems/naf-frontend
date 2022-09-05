@@ -45,7 +45,7 @@ const CreateBoxHeading = ({ open, onCloseModal, onChange }) => {
         body={
           <>
 
-            {/* <div className="form-group">
+            <div className="form-group">
                 <label className="required form-label">Name</label>
                 <input
                   type="text"
@@ -55,12 +55,12 @@ const CreateBoxHeading = ({ open, onCloseModal, onChange }) => {
                   id="name"
                   onChange={handleChange}
                 />
-              </div> */}
+              </div>
 
-              <div className="form-group">
+              {/* <div className="form-group">
                 <label className="required form-label"> <span className="text-danger">This is under development</span></label>
                 
-              </div>
+              </div> */}
 
             {/* <div className="form-group mt-5">
               <div className="form-check form-switch form-check-custom form-check-solid me-10">

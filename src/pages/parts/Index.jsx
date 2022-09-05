@@ -19,7 +19,7 @@ const Parts = () => {
   const [partId, setPartId] = useState(null);
   const [enableFilter, setEnableFilter] = useState(false);
   const [filter, setFilter] = useState({})
-
+console.log(parts)
   //Set the columns
   const columns = [
     {
@@ -63,6 +63,12 @@ const Parts = () => {
       selector: row => row.heading,
       sortable: true,
       field: 'heading',
+    },
+    {
+      name: 'Quatitiy',
+      selector: row => row.stocks[0]?.unit_value ?? "--",
+      sortable: true,
+      field: 'unit_value',
     },
     {
       name: 'Part Number',

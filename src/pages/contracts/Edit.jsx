@@ -113,7 +113,7 @@ const EditContract = ({ open, onCloseModal, onUpdated, contractId }) => {
               <label className="required form-label">Machine</label>
               {defaultMachine && <Select options={machines} onChange={handleSelect} name="machine_id" defaultValue={defaultMachine} />}
               <div className="fv-plugins-message-container invalid-feedback" htmlFor="machine_id"></div>
-            </div> */}
+            </div>
 
             {/* <div className="form-group mt-5">
               <label className="required form-label">Machine Model</label>

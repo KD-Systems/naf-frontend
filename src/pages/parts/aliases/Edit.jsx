@@ -15,7 +15,6 @@ const EditPartAlias = ({ open, onCloseModal, onUpdated, aliasId }) => {
   const [headings, setHeadings] = useState([])
   const [data, setData] = useState({})
   const [block, setBlock] = useState(false);
-
   const handleChange = (e) => {
     const value = e.target.value;
     const name = e.target.name;
@@ -53,7 +52,7 @@ const EditPartAlias = ({ open, onCloseModal, onUpdated, aliasId }) => {
 
   const getMachines = async () => {
     setBlock(false)
-    let dt = await MachineService.getAll()
+    let dt = await MachineService.allMachines();
     dt = dt.map(itm => ({ label: itm.name, value: itm.id })) //Parse the data as per the select requires
     setMachines(dt);
     setBlock(false)

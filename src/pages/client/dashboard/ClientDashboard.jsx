@@ -8,7 +8,7 @@ import PieChart from "components/dashboard/PieChart";
 import BorderlessTable from "components/dashboard/BorderlessTable";
 import moment from "moment";
 
-const Dashboard = () => {
+const ClientDashboard = () => {
   const [statistics, setStatistics] = useState({});
   const [monthlyReport, setMonthlyReport] = useState({});
   const [topSellingProductbyMonth, setTopSellingProductbyMonth] = useState({
@@ -137,7 +137,7 @@ const Dashboard = () => {
     var label = [];
     res.forEach((element) => {
       label.push(element?.company_name);
-      data.push(element?.quantity)
+      data.push(element?.quantity);
     });
     setTopCustomers({
       data: data,
@@ -172,28 +172,10 @@ const Dashboard = () => {
 
   return (
     <div id="kt_content_container" className="container-xxl">
-      <Statistics data={statistics} title={['Total Sell','Total Purchase','Total Profit']}/>
+      <Statistics data={statistics} title={['Total Purchase','Total Pay','Total Due']} />
       <br />
       <Row>
-        <Col xl={8}>
-          <ColumnDataLabelsChart
-            data={monthlyReport.data}
-            categories={monthlyReport.label}
-            title="Monthly Report"
-          />
-        </Col>
-        <Col xl={4}>
-          <PieChart
-            pieChartData={topSellingProductbyYear.data}
-            height={355}
-            labels={topSellingProductbyYear.label}
-            title={"Top Selling Product (" + new Date().getFullYear() + ")"}
-          />
-        </Col>
-      </Row>
-      <br />
-      <Row>
-        <Col xl={8}>
+        <Col xl={12}>
           <BorderlessTable
             headers={stockAlert.headers}
             records={stockAlert.data}
@@ -201,39 +183,9 @@ const Dashboard = () => {
             url="/panel/parts/"
           />
         </Col>
-        <Col xl={4}>
-          <BorderlessTable
-            headers={topSellingProductbyMonth.headers}
-            records={topSellingProductbyMonth.data}
-            title={
-              "Top Selling Product (" + monthNames[new Date().getMonth()] + ")"
-            }
-            url="/panel/parts/"
-          />
-        </Col>
       </Row>
-      <br />
-      <Row>
-        <Col xl={8}>
-          <BorderlessTable
-            headers={recentSales.headers}
-            records={recentSales.data}
-            title="Recent Sales"
-            url="/panel/parts/"
-          />
-        </Col>
-        <Col xl={4}>
-          <PieChart
-            pieChartData={topCustomers.data}
-            labels={topCustomers.label}
-            height={380}
-            title="Top 5 Customers"
-          />
-        </Col>
-      </Row>
-      <br />
     </div>
   );
 };
 
-export default Dashboard;
+export default ClientDashboard;

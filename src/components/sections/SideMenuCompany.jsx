@@ -99,7 +99,7 @@ const SideMenuCompany = () => {
               className={(navinfo) =>
                 navinfo.isActive ? "menu-link active" : "menu-link"
               }
-              to="/panel/dashboard"
+              to="/panel/client/dashboard"
             >
               <span className="menu-icon">
                 <span className="svg-icon svg-icon-2">

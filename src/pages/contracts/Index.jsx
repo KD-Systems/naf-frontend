@@ -46,16 +46,16 @@ const Contracts = () => {
     },
     {
       name: "Machines",
-      selector: (row) => row.machine_models,
+      selector: (row) => row?.machine_models,
       sortable: true,
       field: "machine_models",
       format: (row) =>
-        row.machine_models.map((dt) => (
+        row?.machine_models?.map((dt) => (
           <Link
-            to={`/panel/machines/${dt.model.machine_id}/models/${dt.model.id}`}
+            to={`/panel/machines/${dt?.model?.machine_id}/models/${dt?.model?.id}`}
             className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
           >
-            {dt.model.name}
+            {dt?.model?.name ?? '--'}
           </Link>
         )),
     },
