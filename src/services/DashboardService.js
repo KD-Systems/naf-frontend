@@ -15,11 +15,34 @@ const getTopProductSellingByMonth = async () => {
     return res.data;
   };
 
+  const getStockData = async () => {
+    const res = await http.get('/stock-alert');
+    return res.data;
+  };
+  const getMonthlyData = async () => {
+    const res = await http.get('/report/monthly/sales');
+    return res.data;
+  };
+
+  const getRecentSale = async () => {
+    const res = await http.get('/recent-sales');
+    return res.data;
+  };
+  
+  const getTopCustomers = async () => {
+    const res = await http.get('/top-customers');
+    return res.data;
+  };
+
 
 const DashboardService = {
     getStatisticsData,
     getTopProductSellingByMonth,
-    getTopProductSellingByYear
+    getTopProductSellingByYear,
+    getStockData,
+    getMonthlyData,
+    getRecentSale,
+    getTopCustomers
 };
 
 export default DashboardService;

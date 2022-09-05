@@ -14,6 +14,7 @@ const EditContract = ({ open, onCloseModal, onUpdated, contractId }) => {
   const [defaultModel, setDefaultModel] = useState(null);
   const [data, setData] = useState({});
   const [block, setBlock] = useState(false);
+  // console.log(data)
 
   const handleChange = (e) => {
     const value =
@@ -29,12 +30,23 @@ const EditContract = ({ open, onCloseModal, onUpdated, contractId }) => {
   const handleDateSelect = (value, name) => {
     setData({
       ...data,
-      [name]: new Date(value),
+      [name]: value,
     });
   };
 
+  const addDays = (date, days) => {
+    var result = new Date(date);
+    result.setDate(result.getDate() + days);
+    return result;
+  };
+
   const updateContract = async () => {
-    await ContractService.update(contractId, data);
+    const Updatedata = {
+      ...data,
+      start_date: addDays(data?.start_date, 1),
+      end_date: addDays(data?.end_date, 1),
+    };
+    await ContractService.update(contractId, Updatedata);
     onUpdated();
     onCloseModal();
   };
@@ -52,25 +64,18 @@ const EditContract = ({ open, onCloseModal, onUpdated, contractId }) => {
   };
 
   const getContract = async () => {
-    // pending
     let dt = await ContractService.get(contractId);
-    // console.log(dt);
     dt = {
       ...dt,
       ...{
-        end_date: dt?.end_date
-          ? new Date(Date.parse(dt?.end_date))
-          : new Date(),
-        start_date: dt?.start_date
-          ? new Date(Date.parse(dt?.start_date))
-          : new Date(),
+        end_date: new Date(Date.parse(dt?.end_date)),
+        start_date: new Date(Date.parse(dt?.start_date)),
         machine_model_id: dt?.machine_model?.map((d) => {
           return d.value;
         }),
         machine_id: dt?.machine?.id,
       },
-    }; //Parse the date as per the date select requires\
-
+    }; //Parse the date as per the date select requires
     setData(dt);
 
     setDefaultModel(
@@ -110,7 +115,11 @@ const EditContract = ({ open, onCloseModal, onUpdated, contractId }) => {
               <div className="fv-plugins-message-container invalid-feedback" htmlFor="machine_id"></div>
             </div>
 
+<<<<<<< HEAD
             <div className="form-group mt-5">
+=======
+            {/* <div className="form-group mt-5">
+>>>>>>> main
               <label className="required form-label">Machine Model</label>
               {defaultModel && <Select isMulti options={machineModels} onChange={handleSelect} name="machine_model_id" defaultValue={defaultModel} />}
               <div className="fv-plugins-message-container invalid-feedback" htmlFor="machine_model_id"></div>
@@ -121,7 +130,7 @@ const EditContract = ({ open, onCloseModal, onUpdated, contractId }) => {
               <DatePicker
                 defaultChecked={false}
                 className="form-control"
-                selected={data.start_date}
+                selected={data?.start_date ?? new Date()}
                 onChange={(date) => handleDateSelect(date, "start_date")}
               />
               <div
@@ -135,7 +144,7 @@ const EditContract = ({ open, onCloseModal, onUpdated, contractId }) => {
               <DatePicker
                 defaultChecked={false}
                 className="form-control"
-                selected={data.end_date}
+                selected={data?.end_date ?? new Date()}
                 onChange={(date) => handleDateSelect(date, "end_date")}
               />
               <div
