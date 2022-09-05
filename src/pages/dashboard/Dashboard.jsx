@@ -67,7 +67,7 @@ const Dashboard = () => {
 
     setTopSellingProductbyMonth({
       data: data,
-      headers: ["ID", "Name", "Total"],
+      headers: ["ID", "Product Name", "Total"],
     });
   };
 
@@ -84,7 +84,7 @@ const Dashboard = () => {
     });
 
     setStockAlert({
-      headers: ["ID", "WareHouse", "Name", "Remaining"],
+      headers: ["ID", "WareHouse", "Product Name", "Remaining"],
       data: data,
     });
   };
