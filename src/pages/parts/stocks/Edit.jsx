@@ -17,6 +17,7 @@ const EditPartStock = ({ open, onCloseModal, onUpdated, stockId }) => {
   const [defaultWarehouse, setDefaultWarehouse] = useState(null);
 
   const [data, setData] = useState({})
+  // console.log("Afnan",data);
   const [block, setBlock] = useState(false);
 
   const handleChange = (e) => {
@@ -57,6 +58,7 @@ const EditPartStock = ({ open, onCloseModal, onUpdated, stockId }) => {
   }
 
   const updatePartStock = async () => {
+    // console.log('shanto',data);
     setBlock(true)
     await PartStockService.update(id, stockId, data);
     onUpdated();
