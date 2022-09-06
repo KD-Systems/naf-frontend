@@ -24,7 +24,7 @@ const AddPartStock = ({ open, onCloseModal, onCreated }) => {
 
     if(name == 'yen_price'){
       setData({
-        ...data, 'yen_price': value, 'formula_price': value*3.38, 'selling_price': value*3.38
+        ...data, 'yen_price': value, 'formula_price': Math.floor(value*3.38), 'selling_price': Math.floor(value*3.38)
       })
     }
     else{
