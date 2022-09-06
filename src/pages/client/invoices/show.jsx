@@ -261,7 +261,7 @@ const ShowInvoice = () => {
                             <h2>Payment Histories</h2>
                           </div>
                           <div className="card-toolbar">
-                            <button
+                            {/* <button
                               type="button"
                               className="btn btn-light-primary"
                               onClick={() => {
@@ -305,7 +305,7 @@ const ShowInvoice = () => {
                                 </svg>
                               </span>
                               Add Payment
-                            </button>
+                            </button> */}
                           </div>
                         </div>
                         <div className="card-body pt-0">

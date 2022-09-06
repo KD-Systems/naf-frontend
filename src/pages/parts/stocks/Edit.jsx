@@ -16,7 +16,7 @@ const EditPartStock = ({ open, onCloseModal, onUpdated, stockId }) => {
   const [warehouses, setWarehouses] = useState([]);
   const [defaultWarehouse, setDefaultWarehouse] = useState(null);
 
-  const [data, setData] = useState({});
+  const [data, setData] = useState({})
   const [block, setBlock] = useState(false);
 
   const handleChange = (e) => {
