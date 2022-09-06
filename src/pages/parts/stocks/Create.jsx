@@ -22,9 +22,16 @@ const AddPartStock = ({ open, onCloseModal, onCreated }) => {
     const name = e.target.name;
     setBlock(false)
 
-    setData({
-      ...data, [name]: value
-    })
+    if(name == 'yen_price'){
+      setData({
+        ...data, 'yen_price': value, 'formula_price': value*3.38, 'selling_price': value*3.38
+      })
+    }
+    else{
+      setData({
+        ...data, [name]: value
+      })
+    }    
   }
 
   const handleSelect = (option, conf) => {
@@ -133,9 +140,9 @@ const AddPartStock = ({ open, onCloseModal, onCreated }) => {
                 placeholder="Enter Formula Price"
                 name="formula_price"
                 id="formula_price"
-                onChange={handleChange}
                 value={data.formula_price ?? ''}
                 step="any"
+                disabled
               />
               <div className="fv-plugins-message-container invalid-feedback" htmlFor="formula_price"></div>
             </div>

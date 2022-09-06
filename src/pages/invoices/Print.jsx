@@ -273,7 +273,7 @@ const PrintInvoice = () => {
                     <div className="m-2 p-2 border border-1 rounded-circle border-dark">
                       <span>
                         <img
-                          src="https://img.icons8.com/external-others-anggara-putra/344/external-social-social-media-basic-others-anggara-putra-34.png"
+                          src="https://img.icons8.com//344/question-mark--v1.png"
                           style={{ height: 35, weight: 35 }}
                         />
                       </span>

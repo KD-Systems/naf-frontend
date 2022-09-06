@@ -96,10 +96,7 @@ const EditContract = ({ open, onCloseModal, onUpdated, contractId }) => {
   useEffect(() => {
     setData({});
     if (contractId && open) {
-      //   getMachines();
-      getContract();
-      //   setDefaultModel(null)
-      //   setDefaultMachine(null)
+      getContract();      
     }
     setBlock(false);
   }, [open, contractId]);
