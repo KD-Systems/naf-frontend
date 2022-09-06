@@ -65,7 +65,7 @@ console.log(parts)
       field: 'heading',
     },
     {
-      name: 'Quatitiy',
+      name: 'Quantity',
       selector: row => row.stocks[0]?.unit_value ?? "--",
       sortable: true,
       field: 'unit_value',

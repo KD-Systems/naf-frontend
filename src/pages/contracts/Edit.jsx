@@ -115,7 +115,15 @@ const EditContract = ({ open, onCloseModal, onUpdated, contractId }) => {
               <div className="fv-plugins-message-container invalid-feedback" htmlFor="machine_id"></div>
             </div>
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+            <div className="form-group mt-5">
+=======
             {/* <div className="form-group mt-5">
+>>>>>>> main
+=======
+            {/* <div className="form-group mt-5">
+>>>>>>> main
               <label className="required form-label">Machine Model</label>
               {defaultModel && <Select isMulti options={machineModels} onChange={handleSelect} name="machine_model_id" defaultValue={defaultModel} />}
               <div className="fv-plugins-message-container invalid-feedback" htmlFor="machine_model_id"></div>
