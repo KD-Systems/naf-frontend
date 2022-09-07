@@ -73,6 +73,7 @@ const PartAliases = ({ tab }) => {
                   <th className="min-w-100px">Machine</th>
                   <th className="min-w-120px">Part Heading</th>
                   <th className="min-w-100px">Part Number</th>
+                  <th className="min-w-100px">Old Part Number</th>
                   <th className="min-w-100px text-end">Actions</th>
                 </tr>
               </thead>
@@ -113,6 +114,11 @@ const PartAliases = ({ tab }) => {
 
                     <td>
                       {item.part_number}
+                    </td>
+
+                    <td>
+                      {item.old_part_number.map(item=><p>{item}</p>)}
+                      
                     </td>
 
                     <td className="text-end">
