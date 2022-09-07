@@ -29,7 +29,7 @@ const Dashboard = () => {
   };
 
   const getMonthlyReport = async () => {
-    const res = await DashboardService.getMonthlyData();
+    var res;
     var carr = {
       Jan: 0,
       Feb: 0,
@@ -44,13 +44,18 @@ const Dashboard = () => {
       Nov: 0,
       Dec: 0,
     };
-    carr = { ...carr, ...res.monthly };
     var data = [];
     var label = [];
+    try {
+      res = await DashboardService.getMonthlyData();
+      carr = { ...carr, ...res.monthly };      
+    } catch (error) { console.log(error);}
+
     for (var name in carr) {
       data.push(carr[name]);
       label.push(name);
     }
+
     setMonthlyReport({ label: label, data: data });
   };
 
@@ -60,7 +65,7 @@ const Dashboard = () => {
     res.forEach((element) => {
       data.push({
         id: element?.part_id,
-        name: element?.name[0].slice(0, 25) + "...",
+        name: element?.name[0],
         value: element?.totalSell,
       });
     });
@@ -78,7 +83,7 @@ const Dashboard = () => {
       data.push({
         id: element?.part_id,
         warehouse: element?.warehouse,
-        name: element?.name.slice(0, 25) + "...",
+        name: element?.name,
         remaining: element?.unit_value,
       });
     });
@@ -137,7 +142,7 @@ const Dashboard = () => {
     var label = [];
     res.forEach((element) => {
       label.push(element?.company_name);
-      data.push(element?.quantity)
+      data.push(element?.quantity);
     });
     setTopCustomers({
       data: data,
@@ -172,7 +177,10 @@ const Dashboard = () => {
 
   return (
     <div id="kt_content_container" className="container-xxl">
-      <Statistics data={statistics} title={['Total Sell','Total Purchase','Total Profit']}/>
+      <Statistics
+        data={statistics}
+        title={["Total Sell", "Total Purchase", "Total Profit"]}
+      />
       <br />
       <Row>
         <Col xl={8}>
