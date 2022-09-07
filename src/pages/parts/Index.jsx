@@ -18,18 +18,17 @@ const Parts = () => {
   const [openImportModal, setOpenImportModal] = useState(false);
   const [partId, setPartId] = useState(null);
   const [enableFilter, setEnableFilter] = useState(false);
-  const [filter, setFilter] = useState({})
-console.log(parts)
-  //Set the columns
+  const [filter, setFilter] = useState({});
+
   const columns = [
     {
-      name: 'Common Name',
-      selector: row => row.name,
+      name: "Common Name",
+      selector: (row) => row.name,
       sortable: true,
-      width: '35%',
+      width: "35%",
       wrap: true,
-      field: 'name',
-      format: row => (
+      field: "name",
+      format: (row) => (
         <div className="d-flex align-items-center">
           <div className="symbol symbol-50px me-5">
             <span className="symbol-label bg-light">
@@ -42,51 +41,51 @@ console.log(parts)
           </div>
           <div className="d-flex justify-content-start flex-column">
             <Link
-              to={'/panel/parts/' + row.id}
+              to={"/panel/parts/" + row.id}
               className="text-dark fw-bolder text-hover-primary"
             >
               {row.name}
             </Link>
           </div>
         </div>
-      )
+      ),
     },
     {
-      name: 'Machine',
-      width: '10%',
-      selector: row => row.machines?.map((itm) => itm.name)?.join(', '),
+      name: "Machine",
+      width: "10%",
+      selector: (row) => row.machines?.map((itm) => itm.name)?.join(", "),
       sortable: true,
-      field: 'machine',
+      field: "machine",
     },
     {
-      name: 'Heading',
-      selector: row => row.heading,
+      name: "Heading",
+      selector: (row) => row.heading,
       sortable: true,
-      field: 'heading',
+      field: "heading",
     },
     {
-      name: 'Quantity',
-      selector: row => row.stocks[0]?.unit_value ?? "--",
+      name: "Quantity",
+      selector: (row) => Math.floor(row.stocks[0]?.unit_value) ?? "--",
       sortable: true,
-      field: 'unit_value',
+      field: "unit_value",
     },
     {
-      name: 'Part Number',
-      selector: row => row.part_number,
+      name: "Part Number",
+      selector: (row) => row.part_number,
       sortable: true,
-      field: 'part_number',
+      field: "part_number",
     },
     {
-      name: 'Old Part Number',
-      selector: row => row.old_part_number ?? "--",
+      name: "Old Part Number",
+      selector: (row) => row.old_part_number ?? "--",
       sortable: true,
-      field: 'old_part_number ',
+      field: "old_part_number ",
     },
     {
-      name: 'Action',
-      selector: row => row.status,
-      maxWidth: '150px',
-      format: row => (
+      name: "Action",
+      selector: (row) => row.status,
+      maxWidth: "150px",
+      format: (row) => (
         <span className="text-end">
           <PermissionAbility permission="parts_show">
             <Link
@@ -113,28 +112,32 @@ console.log(parts)
             <Link
               to="#"
               className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
-              onClick={() => { setPartId(row.id); setConfirmDelete(true) }}
+              onClick={() => {
+                setPartId(row.id);
+                setConfirmDelete(true);
+              }}
             >
               <i className="fa fa-trash"></i>
             </Link>
           </PermissionAbility>
         </span>
-      )
+      ),
     },
   ];
 
   const filterData = (dt) => {
     setFilter({
       ...filter,
-      ...dt
-    })
+      ...dt,
+    });
 
-    setEnableFilter(false)
-  }
+    setEnableFilter(false);
+  };
 
   const getParts = async (filters) => {
     setLoading(true);
-    setParts(await PartService.getAll(filters));
+    const data = await PartService.getAll(filters);
+    setParts(data);
     setLoading(false);
   };
 
@@ -150,10 +153,10 @@ console.log(parts)
   };
 
   useEffect(() => {
-    if (filter.order) //Just to avoid double load
-      getParts(filter)
-  }, [filter])
-
+    if (filter.order)
+      //Just to avoid double load
+      getParts(filter);
+  }, [filter]);
 
   return (
     <>
@@ -166,17 +169,22 @@ console.log(parts)
             buttonPermission="parts_create"
             callbackButtons={[
               {
-                name: 'Filter',
-                callback: () => { setEnableFilter(!enableFilter) },
-                permission: null
+                name: "Filter",
+                callback: () => {
+                  setEnableFilter(!enableFilter);
+                },
+                permission: null,
               },
               {
-                name: 'Import',
-                callback: () => { setOpenImportModal(true) },
-                permission: null
-              }
+                name: "Import",
+                callback: () => {
+                  setOpenImportModal(true);
+                },
+                permission: null,
+              },
             ]}
-            isLoading={loading} data={parts}
+            isLoading={loading}
+            data={parts}
             columns={columns}
             onFilter={filterData}
           />
@@ -208,7 +216,12 @@ console.log(parts)
         onImported={getParts}
       />
 
-      <PartFilter enable={enableFilter} onChange={(data) => {filterData(data)}} />
+      <PartFilter
+        enable={enableFilter}
+        onChange={(data) => {
+          filterData(data);
+        }}
+      />
     </>
   );
 };

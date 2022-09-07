@@ -67,7 +67,7 @@ const EditPartStock = ({ open, onCloseModal, onUpdated, stockId }) => {
     setDefaultHeading({ label: res.box?.name, value: res.box?.id });
     res.shipment_date = new Date(res.shipment_date);
     res.warehouse_id = res.warehouse?.id;
-    setData(res);
+    setData({...res,'unit_value': Math.floor(res.unit_value)});
     setBlock(false);
   };
 
