@@ -15,8 +15,6 @@ const ShowPartHeadings = () => {
   useEffect(() => {
     if (headingId) getHeading();
   }, [headingId]);
-
-  console.log("data", data);
   return (
     <>
       {" "}
