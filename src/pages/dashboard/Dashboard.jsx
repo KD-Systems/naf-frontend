@@ -84,7 +84,7 @@ const Dashboard = () => {
         id: element?.part_id,
         warehouse: element?.warehouse,
         name: element?.name,
-        remaining: element?.unit_value,
+        remaining: Math.floor(element?.unit_value),
       });
     });
 

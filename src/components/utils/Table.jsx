@@ -45,7 +45,7 @@ function Table({
 
   //Handle search
   const onSearch = (e) => {
-    if (e.key === "Enter")
+    // if (e.key === "Enter")
       setFilters({
         ...filters,
         q: e.target.value,
@@ -70,7 +70,7 @@ function Table({
               data-filter="search"
               className="form-control form-control-solid w-250px ps-14"
               placeholder={"Search " + name}
-              onKeyDown={onSearch}
+              onChange={onSearch}
             />
           </div>
         </div>

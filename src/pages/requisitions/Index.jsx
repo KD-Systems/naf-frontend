@@ -11,6 +11,8 @@ const Requisitions = () => {
   const [loading, setLoading] = useState(false);
   const [requisitions, setRequisitions] = useState([]);
 
+  console.log("a",requisitions);
+
   let user = JSON.parse(localStorage.getItem("user"))?.user;
 
   const filterdata = () => {

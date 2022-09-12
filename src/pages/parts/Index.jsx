@@ -135,7 +135,7 @@ const Parts = () => {
   };
 
   const getParts = async (filters) => {
-    setLoading(true);
+    // setLoading(true);
     const data = await PartService.getAll(filters);
     setParts(data);
     setLoading(false);
@@ -165,6 +165,7 @@ const Parts = () => {
           <Table
             name="Parts"
             buttonName="Add Part"
+            search
             onClickButton={() => setOpenAddModal(true)}
             buttonPermission="parts_create"
             callbackButtons={[
