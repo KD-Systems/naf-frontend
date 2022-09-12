@@ -125,7 +125,7 @@ function PartFilter({ enable, onChange }) {
                             value={defaultHeading}
                         />
                     </div>
-                    <div className="mb-10">
+                    {/* <div className="mb-10">
                         <label className="form-label fw-bold">Stock:</label>
                         <div className="d-flex">
                             <label className="form-check form-check-sm form-check-custom form-check-solid me-5">
@@ -141,7 +141,7 @@ function PartFilter({ enable, onChange }) {
                                 <span className="form-check-label">Unavailable</span>
                             </label>
                         </div>
-                    </div>
+                    </div> */}
 
                     <div className="d-flex justify-content-end">
                         <button onClick={reset} type="button" className="btn btn-sm btn-light btn-active-light-primary me-2">Reset</button>
