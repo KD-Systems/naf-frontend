@@ -2,28 +2,22 @@ import { useEffect, useState } from "react";
 import Select from "react-select";
 
 function RequisitionFilter({ enable, onChange }) {
+  let user = JSON.parse(localStorage.getItem("user"))?.user;
+
   const [data, setData] = useState({
-    status: "all",
-    type: "all",
+    status: null,
+    type: null,
   });
   const status = [
-    { label: "All", value: "all" },
     { label: "Pending", value: "pending" },
     { label: "Approved", value: "approved" },
   ];
   const type = [
-    { label: "All", value: "all" },
     { label: "Purchase Request", value: "purchase_request" },
     { label: "Claim Report", value: "claim_report" },
   ];
-  const [defaultStatus, setDefaultStatus] = useState({
-    label: "All",
-    value: "all",
-  });
-  const [defaultType, setDefaultType] = useState({
-    label: "All",
-    value: "all",
-  });
+  const [defaultStatus, setDefaultStatus] = useState(null);
+  const [defaultType, setDefaultType] = useState(null);
 
   let custom = {
     zIndex: 105,
@@ -61,23 +55,17 @@ function RequisitionFilter({ enable, onChange }) {
 
   const reset = () => {
     setData({
-      status: "all",
-      type: "all",
+      status: null,
+      type: null,
     });
 
-    setDefaultStatus({
-      label: "All",
-      value: "all",
-    });
-    setDefaultType({
-      label: "All",
-      value: "all",
-    });
+    setDefaultStatus(null);
+    setDefaultType(null);
 
     typeof onChange === "function" &&
       onChange({
-        status: "all",
-        type: "all",
+        status: null,
+        type: null,
       });
   };
 
@@ -96,15 +84,18 @@ function RequisitionFilter({ enable, onChange }) {
         </div>
         <div className="separator border-gray-200"></div>
         <div className="px-7 py-5">
-          <div className="mb-10">
-            <label className="form-label fw-bold">Status:</label>
-            <Select
-              options={status}
-              onChange={(option, action) => handleSelect(option, action)}
-              name="status"
-              value={defaultStatus}
-            />
-          </div>
+          {(user.permissions.includes("requisitions_approve") ||
+            user?.role == "Admin") && (
+            <div className="mb-10">
+              <label className="form-label fw-bold">Status:</label>
+              <Select
+                options={status}
+                onChange={(option, action) => handleSelect(option, action)}
+                name="status"
+                value={defaultStatus}
+              />
+            </div>
+          )}
           <div className="mb-10">
             <label className="form-label fw-bold">Requisition Type:</label>
             <Select

@@ -9,12 +9,9 @@ import RequisitionFilter from "./RequisitionFilter";
 const Requisitions = () => {
   const [filter, setFilter] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [requisitions, setRequisitions] = useState([]);
-
-  let user = JSON.parse(localStorage.getItem("user"))?.user;
+  const [requisitions, setRequisitions] = useState([]);  
 
   const filterdata = (data) => {
-
     setFilter(false);
     getRequisitions(data);
   };
@@ -137,36 +134,23 @@ const Requisitions = () => {
     <>
       <div className="post d-flex flex-column-fluid">
         <div className="container-xxl">
-          {user.permissions.includes("requisitions_approve") ||
-          user?.role == "Admin" ? (
-            <Table
-              name="Requisitions"
-              buttonName="Add Requisition"
-              onClickButton={routeChange}
-              callbackButtons={[
-                {
-                  name: "Filter",
-                  callback: () => {
-                    setFilter(!filter);
-                  },
-                  permission: null,
+          <Table
+            name="Requisitions"
+            buttonName="Add Requisition"
+            onClickButton={routeChange}
+            callbackButtons={[
+              {
+                name: "Filter",
+                callback: () => {
+                  setFilter(!filter);
                 },
-              ]}
-              isLoading={loading}
-              data={requisitions}
-              columns={columns}
-            />
-          ) : (
-            <Table
-              name="Requisitions"
-              buttonName="Add Requisition"
-              onClickButton={routeChange}
-              isLoading={loading}
-              data={requisitions}
-              columns={columns}
-              buttonPermission="requisitions_create"
-            />
-          )}
+                permission: null,
+              },
+            ]}
+            isLoading={loading}
+            data={requisitions}
+            columns={columns}
+          />
         </div>
       </div>
       <RequisitionFilter
