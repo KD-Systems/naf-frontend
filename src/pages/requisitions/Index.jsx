@@ -4,38 +4,24 @@ import { Link, useNavigate } from "react-router-dom";
 import RequisitionService from "services/RequisitionService";
 import PermissionAbility from "helpers/PermissionAbility";
 import userEvent from "@testing-library/user-event";
+import RequisitionFilter from "./RequisitionFilter";
 
 const Requisitions = () => {
-  const [filter, setFilter] = useState(true);
-  const [data, setData] = useState([]);
+  const [filter, setFilter] = useState(false);
   const [loading, setLoading] = useState(false);
   const [requisitions, setRequisitions] = useState([]);
 
-  console.log("a",requisitions);
-
   let user = JSON.parse(localStorage.getItem("user"))?.user;
 
-  const filterdata = () => {
-    let carry = data?.data;
-    if (user.role != "Admin") {
-      if (user.permissions.includes("requisitions_approve")) {
-        if (filter) {
-          let carrydata = carry?.filter((itm) => itm.status == "pending");
-          setRequisitions({ data: carrydata });
-        } else {
-          setRequisitions({ data: carry });
-        }
-      } else {
-        let carrydata = carry?.filter((itm) => itm.status != "pending");
-        setRequisitions({ data: carrydata });
-      }
-    } else {
-      setRequisitions(data);
-    }
+  const filterdata = (data) => {
+
+    setFilter(false);
+    getRequisitions(data);
   };
+
   useEffect(() => {
     filterdata();
-  }, [data, filter]);
+  }, []);
 
   const columns = [
     {
@@ -81,9 +67,21 @@ const Requisitions = () => {
       field: "role",
       format: (row) => (
         <>
-          {row?.status == "pending" && <div className="mt-2 text-white bg-warning p-1 px-2 rounded">Pending</div>}
-          {row?.status == "approved" && <div className="mt-2 text-white bg-success p-1 px-2 rounded">Approved</div>}
-          {row?.status == "rejected" && <div className="mt-2 text-white bg-danger p-1 px-2 rounded">Rejected</div>}
+          {row?.status == "pending" && (
+            <div className="mt-2 text-white bg-warning p-1 px-2 rounded">
+              Pending
+            </div>
+          )}
+          {row?.status == "approved" && (
+            <div className="mt-2 text-white bg-success p-1 px-2 rounded">
+              Approved
+            </div>
+          )}
+          {row?.status == "rejected" && (
+            <div className="mt-2 text-white bg-danger p-1 px-2 rounded">
+              Rejected
+            </div>
+          )}
         </>
       ),
     },
@@ -121,12 +119,13 @@ const Requisitions = () => {
   ];
 
   const getRequisitions = async (filters) => {
-    setLoading(true);
-    // setRequisitions(await RequisitionService.getAll(filters));
     let res = await RequisitionService.getAll(filters);
-    setData(res);
+    setRequisitions(res);
     setLoading(false);
   };
+  useEffect(() => {
+    getRequisitions();
+  }, []);
 
   let navigate = useNavigate();
 
@@ -135,42 +134,48 @@ const Requisitions = () => {
     navigate(path);
   };
   return (
-    <div className="post d-flex flex-column-fluid">
-      <div className="container-xxl">
-        {user.permissions.includes("requisitions_approve") ? (
-          <Table
-            name="Requisitions"
-            buttonName="Add Requisition"
-            onClickButton={routeChange}
-            callbackButtons={[
-              {
-                name: filter ? "All" : "Pending",
-                callback: () => {
-                  setFilter(!filter);
+    <>
+      <div className="post d-flex flex-column-fluid">
+        <div className="container-xxl">
+          {user.permissions.includes("requisitions_approve") ||
+          user?.role == "Admin" ? (
+            <Table
+              name="Requisitions"
+              buttonName="Add Requisition"
+              onClickButton={routeChange}
+              callbackButtons={[
+                {
+                  name: "Filter",
+                  callback: () => {
+                    setFilter(!filter);
+                  },
+                  permission: null,
                 },
-                permission: null,
-              },
-            ]}
-            isLoading={loading}
-            data={requisitions}
-            columns={columns}
-            onFilter={getRequisitions}
-            buttonPermission="requisitions_create"
-          />
-        ) : (
-          <Table
-            name="Requisitions"
-            buttonName="Add Requisition"
-            onClickButton={routeChange}
-            isLoading={loading}
-            data={requisitions}
-            columns={columns}
-            onFilter={getRequisitions}
-            buttonPermission="requisitions_create"
-          />
-        )}
+              ]}
+              isLoading={loading}
+              data={requisitions}
+              columns={columns}
+            />
+          ) : (
+            <Table
+              name="Requisitions"
+              buttonName="Add Requisition"
+              onClickButton={routeChange}
+              isLoading={loading}
+              data={requisitions}
+              columns={columns}
+              buttonPermission="requisitions_create"
+            />
+          )}
+        </div>
       </div>
-    </div>
+      <RequisitionFilter
+        enable={filter}
+        onChange={(data) => {
+          filterdata(data);
+        }}
+      />
+    </>
   );
 };
 
