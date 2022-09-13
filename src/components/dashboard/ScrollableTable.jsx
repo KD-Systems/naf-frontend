@@ -1,13 +1,13 @@
 import React from "react";
 import { Row, Col, Card, Table } from "react-bootstrap";
 
-const ScrollableTable = ({ headers, records, title, url }) => {
+const ScrollableTable = ({ headers, records, title, url, height }) => {
   return (
     <Card>
       <Card.Body>
         <h4 className="header-title mt-0 mb-1">{title}</h4>
 
-        <div className="table-responsive" style={{maxHeight:220}}>
+        <div className="table-responsive" style={{ height: height ?? 220 }}>
           <Table className="mb-0" borderless>
             <thead className="table-light">
               <tr>

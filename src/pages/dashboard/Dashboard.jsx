@@ -211,7 +211,7 @@ const Dashboard = () => {
           />
         </Col>
         <Col xl={4}>
-          <BorderlessTable
+          <ScrollableTable
             headers={topSellingProductbyMonth.headers}
             records={topSellingProductbyMonth.data}
             title={
@@ -224,11 +224,12 @@ const Dashboard = () => {
       <br />
       <Row>
         <Col xl={8}>
-          <BorderlessTable
+          <ScrollableTable
             headers={recentSales.headers}
             records={recentSales.data}
             title="Recent Sales"
             url="/panel/parts/"
+            height = {380}
           />
         </Col>
         <Col xl={4}>
