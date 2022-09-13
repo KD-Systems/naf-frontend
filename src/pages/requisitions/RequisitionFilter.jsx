@@ -18,7 +18,10 @@ function RequisitionFilter({ enable, onChange }) {
     { label: "Purchase Request", value: "purchase_request" },
     { label: "Claim Report", value: "claim_report" },
   ];
-  const [defaultStatus, setDefaultStatus] = useState({ label: "All", value: null });
+  const [defaultStatus, setDefaultStatus] = useState({
+    label: "All",
+    value: null,
+  });
   const [defaultType, setDefaultType] = useState({ label: "All", value: null });
 
   let custom = {
@@ -86,18 +89,15 @@ function RequisitionFilter({ enable, onChange }) {
         </div>
         <div className="separator border-gray-200"></div>
         <div className="px-7 py-5">
-          {(user.permissions.includes("requisitions_approve") ||
-            user?.role == "Admin") && (
-            <div className="mb-10">
-              <label className="form-label fw-bold">Status:</label>
-              <Select
-                options={status}
-                onChange={(option, action) => handleSelect(option, action)}
-                name="status"
-                value={defaultStatus}
-              />
-            </div>
-          )}
+          <div className="mb-10">
+            <label className="form-label fw-bold">Status:</label>
+            <Select
+              options={status}
+              onChange={(option, action) => handleSelect(option, action)}
+              name="status"
+              value={defaultStatus}
+            />
+          </div>
           <div className="mb-10">
             <label className="form-label fw-bold">Requisition Type:</label>
             <Select

@@ -150,6 +150,7 @@ const Requisitions = () => {
             isLoading={loading}
             data={requisitions}
             columns={columns}
+            onFilter={filterdata}
           />
         </div>
       </div>
