@@ -7,6 +7,7 @@ import ColumnDataLabelsChart from "components/dashboard/ColumnDataLabelsChart";
 import PieChart from "components/dashboard/PieChart";
 import BorderlessTable from "components/dashboard/BorderlessTable";
 import moment from "moment";
+import ScrollableTable from "components/dashboard/ScrollableTable";
 
 const Dashboard = () => {
   const [statistics, setStatistics] = useState({});
@@ -202,7 +203,7 @@ const Dashboard = () => {
       <br />
       <Row>
         <Col xl={8}>
-          <BorderlessTable
+          <ScrollableTable
             headers={stockAlert.headers}
             records={stockAlert.data}
             title="Stocks Alert"
