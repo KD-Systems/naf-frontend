@@ -9,15 +9,17 @@ function RequisitionFilter({ enable, onChange }) {
     type: null,
   });
   const status = [
+    { label: "All", value: null },
     { label: "Pending", value: "pending" },
     { label: "Approved", value: "approved" },
   ];
   const type = [
+    { label: "All", value: null },
     { label: "Purchase Request", value: "purchase_request" },
     { label: "Claim Report", value: "claim_report" },
   ];
-  const [defaultStatus, setDefaultStatus] = useState(null);
-  const [defaultType, setDefaultType] = useState(null);
+  const [defaultStatus, setDefaultStatus] = useState({ label: "All", value: null });
+  const [defaultType, setDefaultType] = useState({ label: "All", value: null });
 
   let custom = {
     zIndex: 105,
@@ -59,8 +61,8 @@ function RequisitionFilter({ enable, onChange }) {
       type: null,
     });
 
-    setDefaultStatus(null);
-    setDefaultType(null);
+    setDefaultStatus({ label: "All", value: null });
+    setDefaultType({ label: "All", value: null });
 
     typeof onChange === "function" &&
       onChange({
