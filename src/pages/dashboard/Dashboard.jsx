@@ -5,7 +5,6 @@ import { Row, Col } from "react-bootstrap";
 import Statistics from "components/dashboard/Statistics";
 import ColumnDataLabelsChart from "components/dashboard/ColumnDataLabelsChart";
 import PieChart from "components/dashboard/PieChart";
-import BorderlessTable from "components/dashboard/BorderlessTable";
 import moment from "moment";
 import ScrollableTable from "components/dashboard/ScrollableTable";
 
