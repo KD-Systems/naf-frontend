@@ -45,7 +45,6 @@ const EditContract = ({ open, onCloseModal, onUpdated, contractId }) => {
       start_date: addDays(data?.start_date, 1),
       end_date: addDays(data?.end_date, 1),
     };
-    console.log("A", Updatedata);
     await ContractService.update(contractId, Updatedata);
     onUpdated();
     onCloseModal();
@@ -63,10 +62,8 @@ const EditContract = ({ open, onCloseModal, onUpdated, contractId }) => {
     setBlock(false);
   };
 
-  console.log("X", data);
   const getContract = async () => {
     let dt = await ContractService.get(contractId);
-    console.log("dt", dt);
     dt = {
       ...dt,
       ...{
@@ -76,7 +73,6 @@ const EditContract = ({ open, onCloseModal, onUpdated, contractId }) => {
         machine_id: dt?.machine?.id,
       },
     }; //Parse the date as per the date select requires
-    console.log("dt1", dt);
     setData(dt);
 
     setDefaultModel(
