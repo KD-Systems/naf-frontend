@@ -54,12 +54,14 @@ const ClientCompanyMachines = () => {
                     <tr>
                       <Fragment key={index}>
                         <td>
-                          <Link
-                            to="#"
+                          {/* <Link
+                            to={"/panel/machines/" + item?.model?.machine?.id}
                             className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
                           >
-                            {item?.model?.machine?.name}
-                          </Link>
+                            {item?.model?.machine?.name} 
+                          </Link> */}
+                          
+                            {item?.model?.machine?.name} 
                         </td>
                         <td>{item?.model?.name}</td>
                         <td>{item?.mfg_number}</td>

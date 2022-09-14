@@ -70,7 +70,7 @@ const Contracts = () => {
             row.is_foc ? "badge badge-light-warning" : "badge badge-light-info"
           }
         >
-          {row.is_foc ? "FOC" : "PAID"}
+          {row.is_foc ? "FOC" : "AMC"}
         </span>
       ),
     },

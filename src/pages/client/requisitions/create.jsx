@@ -13,6 +13,7 @@ import ClientRequisitionService from "services/clientServices/ClientRequisitionS
 const RequisitionCreate = () => {
   const navigate = useNavigate();
   const [companies, setCompanies] = useState({});
+  const [contract, setContracts] = useState();
   const [machineModels, setMachineModels] = useState([]);
   const [filter, setFilter] = useState({
     part_heading_id: null,
@@ -41,10 +42,10 @@ const RequisitionCreate = () => {
     machine_problems: "",
     solutions: "",
     reason_of_trouble: "",
-    status:"",
+    status: "",
     remarks: "",
     part_items: list,
-    total: totalAmount, 
+    total: totalAmount,
   });
 
   const [partHeading, setPartHeading] = useState(null);
@@ -85,13 +86,12 @@ const RequisitionCreate = () => {
 
   const storeRequisition = async () => {
     setBlock(true);
-    await ClientRequisitionService.create({...data, company_id:companies});
+    await ClientRequisitionService.create({ ...data, company_id: companies });
     setBlock(false);
-    navigate("/panel/client-requisitions"); 
+    navigate("/panel/client-requisitions");
   };
 
   const addPart = (item) => {
-
     item["quantity"] = 0;
     let hasItem = list.find((itm) => itm.id == item.id);
     if (hasItem) return false;
@@ -110,10 +110,14 @@ const RequisitionCreate = () => {
     setList(newList);
   };
 
-
   const getCompanies = async () => {
     let dt = await CompanyService.getClientCompany();
     setCompanies(dt.data.id);
+  };
+
+  const getContract = async () => {
+    let dt = await CompanyService.getClientCompanyContract();
+    setContracts(dt?.data[0]?.id);
   };
 
   const getEngineers = async () => {
@@ -138,7 +142,28 @@ const RequisitionCreate = () => {
     setBlock(false);
   };
 
+  // useEffect(() => {
+  //   console.log(data);
+  // }, [data]);
+
   const handleSelect = (option, conf) => {
+    if (option?.value == "claim_report" && !contract) {
+      toast.error("You are not a FOC customer?");
+    } else {
+      let value = option.value;
+      if (Array.isArray(option))
+        value = option.map((dt) => {
+          return dt.value;
+        });
+
+      const name = conf.name;
+      setBlock(false);
+
+      setData({
+        ...data,
+        [name]: value,
+      });
+    }
     // console.log("shanto",conf)
     // console.log("shantoargha",option)
     // if(conf.name = "part_heading_id"){
@@ -146,19 +171,6 @@ const RequisitionCreate = () => {
     // }
 
     // setPartHeading(option);  // can redo
-    let value = option.value;
-    if (Array.isArray(option))
-      value = option.map((dt) => {
-        return dt.value;
-      });
-
-    const name = conf.name;
-    setBlock(false);
-
-    setData({
-      ...data,
-      [name]: value,
-    });
   };
 
   const handleChange = (e) => {
@@ -224,11 +236,10 @@ const RequisitionCreate = () => {
   useEffect(() => {
     setData({ ...data, part_items: list, total: totalAmount }); //add part_items and total amount in data
   }, [list, totalAmount]);
-  
 
-//   useEffect(() => {
-//     if (data.company_id) getMachineModels(data?.company_id);
-//   }, [data.company_id]);
+  //   useEffect(() => {
+  //     if (data.company_id) getMachineModels(data?.company_id);
+  //   }, [data.company_id]);
 
   useEffect(() => {
     if (data.machine_id) getPartHeadings(data?.machine_id);
@@ -236,6 +247,7 @@ const RequisitionCreate = () => {
 
   useEffect(() => {
     getCompanies();
+    getContract();
     getEngineers();
     getMachineModels();
   }, []);
@@ -368,7 +380,7 @@ const RequisitionCreate = () => {
                       </div>
 
                       <div className="col-lg-4">
-                        <label className="required form-label">
+                        <label className="form-label">
                           Expected Delivery
                         </label>
                         <div className="mb-5">
