@@ -63,8 +63,10 @@ const EditContract = ({ open, onCloseModal, onUpdated, contractId }) => {
     setBlock(false);
   };
 
+  console.log("X", data);
   const getContract = async () => {
     let dt = await ContractService.get(contractId);
+    console.log("dt", dt);
     dt = {
       ...dt,
       ...{
@@ -74,11 +76,8 @@ const EditContract = ({ open, onCloseModal, onUpdated, contractId }) => {
         machine_id: dt?.machine?.id,
       },
     }; //Parse the date as per the date select requires
+    console.log("dt1", dt);
     setData(dt);
-    dt?.end_date &&
-      setData({ ...data, end_date: new Date(Date.parse(dt?.end_date)) });
-    dt?.start_date &&
-      setData({ ...data, start_date: new Date(Date.parse(dt?.start_date)) });
 
     setDefaultModel(
       dt.machine_model?.map((d) => {
@@ -95,7 +94,7 @@ const EditContract = ({ open, onCloseModal, onUpdated, contractId }) => {
   useEffect(() => {
     setData({});
     if (contractId && open) {
-      getContract();      
+      getContract();
     }
     setBlock(false);
   }, [open, contractId]);
@@ -133,7 +132,9 @@ const EditContract = ({ open, onCloseModal, onUpdated, contractId }) => {
               <DatePicker
                 defaultChecked={false}
                 className="form-control"
-                selected={data?.start_date}
+                selected={
+                  data?.start_date ? new Date(Date.parse(data?.start_date)) : null
+                }
                 onChange={(date) => handleDateSelect(date, "start_date")}
               />
               <div
@@ -147,7 +148,9 @@ const EditContract = ({ open, onCloseModal, onUpdated, contractId }) => {
               <DatePicker
                 defaultChecked={false}
                 className="form-control"
-                selected={data?.end_date}
+                selected={
+                  data?.end_date ? new Date(Date.parse(data?.end_date)) : null
+                }
                 onChange={(date) => handleDateSelect(date, "end_date")}
               />
               <div
