@@ -5,8 +5,8 @@ import { Row, Col } from "react-bootstrap";
 import Statistics from "components/dashboard/Statistics";
 import ColumnDataLabelsChart from "components/dashboard/ColumnDataLabelsChart";
 import PieChart from "components/dashboard/PieChart";
-import BorderlessTable from "components/dashboard/BorderlessTable";
 import moment from "moment";
+import ScrollableTable from "components/dashboard/ScrollableTable";
 
 const Dashboard = () => {
   const [statistics, setStatistics] = useState({});
@@ -48,8 +48,10 @@ const Dashboard = () => {
     var label = [];
     try {
       res = await DashboardService.getMonthlyData();
-      carr = { ...carr, ...res.monthly };      
-    } catch (error) { console.log(error);}
+      carr = { ...carr, ...res.monthly };
+    } catch (error) {
+      console.log(error);
+    }
 
     for (var name in carr) {
       data.push(carr[name]);
@@ -82,14 +84,14 @@ const Dashboard = () => {
     res.forEach((element) => {
       data.push({
         id: element?.part_id,
-        warehouse: element?.warehouse,
         name: element?.name,
+        warehouse: element?.warehouse,
         remaining: Math.floor(element?.unit_value),
       });
     });
 
     setStockAlert({
-      headers: ["ID", "WareHouse", "Product Name", "Remaining"],
+      headers: ["ID", "Product Name", "WareHouse", "Remaining"],
       data: data,
     });
   };
@@ -202,7 +204,7 @@ const Dashboard = () => {
       <br />
       <Row>
         <Col xl={8}>
-          <BorderlessTable
+          <ScrollableTable
             headers={stockAlert.headers}
             records={stockAlert.data}
             title="Stocks Alert"
@@ -210,7 +212,7 @@ const Dashboard = () => {
           />
         </Col>
         <Col xl={4}>
-          <BorderlessTable
+          <ScrollableTable
             headers={topSellingProductbyMonth.headers}
             records={topSellingProductbyMonth.data}
             title={
@@ -223,11 +225,12 @@ const Dashboard = () => {
       <br />
       <Row>
         <Col xl={8}>
-          <BorderlessTable
+          <ScrollableTable
             headers={recentSales.headers}
             records={recentSales.data}
             title="Recent Sales"
             url="/panel/parts/"
+            height={380}
           />
         </Col>
         <Col xl={4}>

@@ -2,28 +2,27 @@ import { useEffect, useState } from "react";
 import Select from "react-select";
 
 function RequisitionFilter({ enable, onChange }) {
+  let user = JSON.parse(localStorage.getItem("user"))?.user;
+
   const [data, setData] = useState({
-    status: "all",
-    type: "all",
+    status: null,
+    type: null,
   });
   const status = [
-    { label: "All", value: "all" },
+    { label: "All", value: null },
     { label: "Pending", value: "pending" },
     { label: "Approved", value: "approved" },
   ];
   const type = [
-    { label: "All", value: "all" },
+    { label: "All", value: null },
     { label: "Purchase Request", value: "purchase_request" },
     { label: "Claim Report", value: "claim_report" },
   ];
   const [defaultStatus, setDefaultStatus] = useState({
     label: "All",
-    value: "all",
+    value: null,
   });
-  const [defaultType, setDefaultType] = useState({
-    label: "All",
-    value: "all",
-  });
+  const [defaultType, setDefaultType] = useState({ label: "All", value: null });
 
   let custom = {
     zIndex: 105,
@@ -61,23 +60,17 @@ function RequisitionFilter({ enable, onChange }) {
 
   const reset = () => {
     setData({
-      status: "all",
-      type: "all",
+      status: null,
+      type: null,
     });
 
-    setDefaultStatus({
-      label: "All",
-      value: "all",
-    });
-    setDefaultType({
-      label: "All",
-      value: "all",
-    });
+    setDefaultStatus({ label: "All", value: null });
+    setDefaultType({ label: "All", value: null });
 
     typeof onChange === "function" &&
       onChange({
-        status: "all",
-        type: "all",
+        status: null,
+        type: null,
       });
   };
 

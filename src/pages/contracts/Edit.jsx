@@ -45,6 +45,7 @@ const EditContract = ({ open, onCloseModal, onUpdated, contractId }) => {
       start_date: addDays(data?.start_date, 1),
       end_date: addDays(data?.end_date, 1),
     };
+    console.log("A", Updatedata);
     await ContractService.update(contractId, Updatedata);
     onUpdated();
     onCloseModal();
@@ -67,12 +68,6 @@ const EditContract = ({ open, onCloseModal, onUpdated, contractId }) => {
     dt = {
       ...dt,
       ...{
-        end_date: dt?.end_date
-          ? new Date(Date.parse(dt?.end_date))
-          : new Date(),
-        start_date: dt?.start_date
-          ? new Date(Date.parse(dt?.start_date))
-          : new Date(),
         machine_model_id: dt?.machine_model?.map((d) => {
           return d.value;
         }),
@@ -80,6 +75,10 @@ const EditContract = ({ open, onCloseModal, onUpdated, contractId }) => {
       },
     }; //Parse the date as per the date select requires
     setData(dt);
+    dt?.end_date &&
+      setData({ ...data, end_date: new Date(Date.parse(dt?.end_date)) });
+    dt?.start_date &&
+      setData({ ...data, start_date: new Date(Date.parse(dt?.start_date)) });
 
     setDefaultModel(
       dt.machine_model?.map((d) => {
