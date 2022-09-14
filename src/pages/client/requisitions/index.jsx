@@ -1,10 +1,11 @@
-import React, { useState } from "react";
 import Table from "components/utils/Table";
-import { Link,useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import ClientRequisitionService from "services/clientServices/ClientRequisitionService";
-import PermissionAbility from "helpers/PermissionAbility";
+import RequisitionFilter from "./RequisitionFilter";
 
 const CompanyRequisitions = () => {
+  const [filter, setFilter] = useState(false);
   const [loading, setLoading] = useState(false);
   const [requisitions, setRequisitions] = useState([]);
 
@@ -15,7 +16,7 @@ const CompanyRequisitions = () => {
       sortable: true,
       field: "id",
     },
-   
+
     {
       name: "Expected Delivery",
       selector: (row) => row?.expected_delivery,
@@ -36,28 +37,39 @@ const CompanyRequisitions = () => {
       field: "role",
       format: (row) => (
         <>
-          {row?.status == "pending" && <div className="mt-2 text-white bg-warning p-1 px-2 rounded">Pending</div>}
-          {row?.status == "approved" && <div className="mt-2 text-white bg-success p-1 px-2 rounded">Approved</div>}
-          {row?.status == "rejected" && <div className="mt-2 text-white bg-danger p-1 px-2 rounded">Rejected</div>}
+          {row?.status == "pending" && (
+            <div className="mt-2 text-white bg-warning p-1 px-2 rounded">
+              Pending
+            </div>
+          )}
+          {row?.status == "approved" && (
+            <div className="mt-2 text-white bg-success p-1 px-2 rounded">
+              Approved
+            </div>
+          )}
+          {row?.status == "rejected" && (
+            <div className="mt-2 text-white bg-danger p-1 px-2 rounded">
+              Rejected
+            </div>
+          )}
         </>
       ),
     },
 
     {
       name: "PQ Number",
-      selector: (row) => row?.quotation?.pq_number, 
-      sortable: true, 
+      selector: (row) => row?.quotation?.pq_number,
+      sortable: true,
       field: "role",
       format: (row) => (
-        <div className='mt-2'>
-          {row?.quotation?.pq_number ? (
-            row?.quotation?.pq_number
-          ): "No quotation yet"}
-         
+        <div className="mt-2">
+          {row?.quotation?.pq_number
+            ? row?.quotation?.pq_number
+            : "No quotation yet"}
         </div>
       ),
     },
-   
+
     {
       name: "Action",
       selector: (row) => row.status,
@@ -74,32 +86,49 @@ const CompanyRequisitions = () => {
     },
   ];
 
-  const getRequisitions = async (filters) => {
+  const getRequisitions = async (data) => {
     setLoading(true);
-    setRequisitions(await ClientRequisitionService.getAll(filters));
+    setRequisitions(await ClientRequisitionService.getAll(data));
     setLoading(false);
   };
 
-  let navigate = useNavigate()
+  let navigate = useNavigate();
 
-  const routeChange = ()=>{
-      let path = `create`;
-      navigate(path)
-  }
+  const routeChange = () => {
+    let path = `create`;
+    navigate(path);
+  };
   return (
-    <div className="post d-flex flex-column-fluid">
-      <div className="container-xxl">
-        <Table
-          name="client Requisitions"
-          buttonName="Add Requisition"
-          onClickButton={routeChange}
-          isLoading={loading}
-          data={requisitions}
-          columns={columns}
-          onFilter={getRequisitions}
-        />
+    <>
+      <div className="post d-flex flex-column-fluid">
+        <div className="container-xxl">
+          <Table
+            name="client Requisitions"
+            buttonName="Add Requisition"
+            onClickButton={routeChange}
+            callbackButtons={[
+              {
+                name: "Filter",
+                callback: () => {
+                  setFilter(!filter);
+                },
+                permission: null,
+              },
+            ]}
+            isLoading={loading}
+            data={requisitions}
+            columns={columns}
+            onFilter={getRequisitions}
+          />
+        </div>
       </div>
-    </div>
+      <RequisitionFilter
+        enable={filter}
+        onChange={(data) => {
+          getRequisitions(data);
+        }}
+      />
+    </>
   );
 };
 

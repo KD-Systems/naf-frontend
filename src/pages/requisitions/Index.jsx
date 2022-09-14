@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
 import Table from "components/utils/Table";
+import PermissionAbility from "helpers/PermissionAbility";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import RequisitionService from "services/RequisitionService";
-import PermissionAbility from "helpers/PermissionAbility";
-import userEvent from "@testing-library/user-event";
 import RequisitionFilter from "./RequisitionFilter";
 
 const Requisitions = () => {
