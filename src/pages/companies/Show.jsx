@@ -12,7 +12,6 @@ const ShowCompany = () => {
   const { id } = useParams();
   const [company, setCompany] = useState({});
   const [active, setActive] = useState("users");
-
   const getCompany = async () => {
     setCompany(await CompanyService.get(id));
   };
@@ -100,11 +99,13 @@ const ShowCompany = () => {
                               <th className="min-w-150px">Machine</th>
                               <th className="min-w-150px">Machine Models</th>
                               <th className="min-w-150px">Expiration Date</th>
+                              <th className="min-w-150px">Type</th>
                               <th className="min-w-120px">Status</th>
                             </tr>
                           </thead>
 
                           <tbody>
+                            
                             {company?.contracts?.map((item, index) => (
                               <tr key={index}>
                                 <td>
@@ -121,6 +122,11 @@ const ShowCompany = () => {
                                     {item.end_date}
                                   </Moment>
                                 </td>
+
+                                <td>
+                                    {item.is_foc==true?"FOC":"AMC"}
+                                </td>
+
                                 <td
                                   className={
                                     item.status
@@ -128,6 +134,7 @@ const ShowCompany = () => {
                                       : "badge badge-light-danger"
                                   }
                                 >
+                                  
                                   <div
                                     className={
                                       item.status

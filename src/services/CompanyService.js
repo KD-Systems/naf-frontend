@@ -85,6 +85,12 @@ const getClientMachines = async () => {
   return res.data;
 };
 
+const getClientCompanyContract = async () => {
+  const res = await http.get("/client-company-contract");
+  return res.data;
+};
+
+
 
 
 const CompanyService = {
@@ -104,6 +110,7 @@ const CompanyService = {
   getClientCompany,
   getClientMachines,
   updateDueLimit,
+  getClientCompanyContract
 
 };
 

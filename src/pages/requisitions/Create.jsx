@@ -364,7 +364,7 @@ const RequisitionCreate = () => {
                       </div>
 
                       <div className="col-lg-4">
-                        <label className="required form-label">
+                        <label className="form-label">
                           Expected Delivery
                         </label>
                         <div className="mb-5">

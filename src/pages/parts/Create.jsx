@@ -124,9 +124,8 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
 
   const getMachines = async () => {
     setBlock(false);
-    let data = await MachineService.getAll();
-
-    data = data?.data?.map((itm) => ({ label: itm.name, value: itm.id })); //Parse the data as per the select requires
+    let data = await MachineService.allMachines();
+    data = data?.map((itm) => ({ label: itm.name, value: itm.id })); //Parse the data as per the select requires
     setMachines(data);
     setBlock(false);
   };

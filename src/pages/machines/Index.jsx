@@ -44,7 +44,7 @@ const Machines = () => {
           <div className="d-flex justify-content-start flex-column">
             <Link
               to={"/panel/machines/" + row.id}
-              className="text-dark fw-bolder text-hover-primary"
+              className="text-dark fw-bolder text-hover-primary" 
             >
               {row.name}
             </Link>

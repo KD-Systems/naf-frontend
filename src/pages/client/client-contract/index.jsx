@@ -31,8 +31,15 @@ const ClientContracts = () => {
             </span>
           </div>
           <div className="d-flex justify-content-start flex-column">
-            <Link
+          {/* <Link
               to={'/panel/companies/' + row.company?.id}
+              className="text-dark fw-bolder text-hover-primary mb-1 fs-6"
+            >
+              {row.company?.name}
+            </Link> */}
+
+            <Link
+              to="#"
               className="text-dark fw-bolder text-hover-primary mb-1 fs-6"
             >
               {row.company?.name}
@@ -63,12 +70,12 @@ const ClientContracts = () => {
       format: (row) => (
         <span
           className={
-            parseInt(row.is_foc)
+            row.is_foc
               ? "badge badge-light-warning"
               : "badge badge-light-info"
           }
         >
-          {parseInt(row.is_foc)? "FOC" : "PAID"}
+          {row.is_foc? "FOC" : "AMC"}
         </span>
       ),
     },
