@@ -3,6 +3,7 @@ import Modal from "components/utils/Modal";
 import DatePicker from "react-datepicker";
 import moment from "moment";
 import InvoiceService from "services/InvoiceService";
+import Select from "react-select";
 const CreateInvoicePayment = ({ open, onCloseModal, invoice }) => {
   const [data, setData] = useState({
     invoice_id: "",
@@ -19,6 +20,27 @@ const CreateInvoicePayment = ({ open, onCloseModal, invoice }) => {
   const handleChange = (e) => {
     const { name } = e.target;
     setData({ ...data, [name]: e.target.value });
+  };
+
+  const handleSelect = (option, conf) => {
+    // console.log("shanto",conf)
+    // console.log("shantoargha",option)
+    // if(conf.name = "part_heading_id"){
+    // setPartHeading(option);
+    // }
+    let value = option.value;
+    if (Array.isArray(option))
+      value = option.map((dt) => {
+        return dt.value;
+      });
+
+    const name = conf.name; 
+    setBlock(false);
+
+    setData({
+      ...data,
+      [name]: value,
+    });
   };
 
   const getPaymentHistories = async (filters) => {
@@ -42,11 +64,27 @@ const CreateInvoicePayment = ({ open, onCloseModal, invoice }) => {
 
   const addPayment = async () => {
     setBlock(true);
-    await InvoiceService.addPayment(data);
+    await InvoiceService.addPayment(data); 
+
+
     setBlock(false);
     onCloseModal();
+    setData({
+      invoice_id: "",
+      payment_mode: "",
+      payment_date: "",
+      amount: null,
+      remarks:""
+    })
     getPaymentHistories();
   };
+
+  const payments = [
+    { value: "cash", label: "Cash" },
+    { value: "bank", label: "Bank" },
+    { value: "check", label: "Check" },
+    { value: "card", label: "Card" },
+  ];
 
   return (
     <div>
@@ -108,6 +146,23 @@ const CreateInvoicePayment = ({ open, onCloseModal, invoice }) => {
                   htmlFor="amount"
                 ></div>
               </div>
+
+              <div className="col-lg-6">
+                            <div className="mb-5">
+                              <label className="required form-label">
+                                Payment Mode
+                              </label>
+                              <Select
+                                options={payments}
+                                name="payment_mode"
+                                onChange={handleSelect}
+                              />
+                              <div
+                                className="fv-plugins-message-container invalid-feedback"
+                                htmlFor="payment_mode"
+                              ></div>
+                            </div>
+                          </div>
 
               <div className="mb-5 fv-row fv-plugins-icon-container">
                 <label className="form-label">Remarks</label>
