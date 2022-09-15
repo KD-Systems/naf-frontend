@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import { Col, Row } from "react-bootstrap";
 import DashboardService from "services/DashboardService";
-import { Row, Col } from "react-bootstrap";
 
-import Statistics from "components/dashboard/Statistics";
 import ColumnDataLabelsChart from "components/dashboard/ColumnDataLabelsChart";
 import PieChart from "components/dashboard/PieChart";
-import moment from "moment";
 import ScrollableTable from "components/dashboard/ScrollableTable";
+import Statistics from "components/dashboard/Statistics";
+import moment from "moment";
 
 const Dashboard = () => {
   const [statistics, setStatistics] = useState({});
@@ -74,7 +74,7 @@ const Dashboard = () => {
 
     setTopSellingProductbyMonth({
       data: data,
-      headers: ["ID", "Product Name", "Total"],
+      headers: ["SL", "Product Name", "Total"],
     });
   };
 
@@ -91,7 +91,7 @@ const Dashboard = () => {
     });
 
     setStockAlert({
-      headers: ["ID", "Product Name", "WareHouse", "Remaining"],
+      headers: ["SL", "Product Name", "WareHouse", "Remaining"],
       data: data,
     });
   };
@@ -127,7 +127,7 @@ const Dashboard = () => {
 
     setRecentSales({
       headers: [
-        "ID",
+        "SL",
         "Product Name",
         "Part Number",
         "Company Name",

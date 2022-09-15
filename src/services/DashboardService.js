@@ -34,6 +34,12 @@ const getTopProductSellingByMonth = async () => {
     return res.data;
   };
 
+  // client dashboard
+  const getClientInvoiceDetails=async()=>{
+    const res = await http.get('/customer-payment-info');
+    return res.data;
+  }
+
 
 const DashboardService = {
     getStatisticsData,
@@ -42,7 +48,8 @@ const DashboardService = {
     getStockData,
     getMonthlyData,
     getRecentSale,
-    getTopCustomers
+    getTopCustomers,
+    getClientInvoiceDetails
 };
 
 export default DashboardService;

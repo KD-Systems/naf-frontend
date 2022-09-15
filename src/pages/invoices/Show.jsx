@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { Activities } from "components/utils/Activities";
+import PermissionAbility from "helpers/PermissionAbility";
+import { useEffect, useState } from "react";
 import Moment from "react-moment";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import InvoiceService from "services/InvoiceService";
 import InvoicePartItems from "./partiItems/Index";
 import InvoiceCreatePayment from "./paymentHistories/Create";
-import { Activities } from "components/utils/Activities";
-import PermissionAbility from "helpers/PermissionAbility";
 const ShowInvoice = () => {
   let { id } = useParams();
   const navigate = useNavigate();
@@ -351,7 +351,7 @@ const ShowInvoice = () => {
                                       {item.payment_date}
                                     </Moment>
                                   </td>
-                                  <td>{item?.amount}Tk.</td>
+                                  <td>{Math.floor(item?.amount)}Tk.</td>
 
                                   <td>
                                     <span className="text-end">

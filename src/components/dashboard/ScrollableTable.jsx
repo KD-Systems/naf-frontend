@@ -21,7 +21,7 @@ const ScrollableTable = ({ headers, records, title, url, height }) => {
               {records?.map((record, index) => {
                 var data = [];
                 for (var key in record) {
-                  data.push(record[key]);
+                  key == "id" ? data.push(index + 1) : data.push(record[key]);
                 }
                 return (
                   <tr key={index}>

@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import { Col, Row } from "react-bootstrap";
 import DashboardService from "services/DashboardService";
-import { Row, Col } from "react-bootstrap";
 
+import ScrollableTable from "components/dashboard/ScrollableTable";
 import Statistics from "components/dashboard/Statistics";
-import BorderlessTable from "components/dashboard/BorderlessTable";
-import moment from "moment";
 
 const ClientDashboard = () => {
   const [statistics, setStatistics] = useState({});
@@ -15,18 +14,46 @@ const ClientDashboard = () => {
   };
 
   const getStockAlert = async () => {
-    const res = await DashboardService.getStockData();
+    const res = await DashboardService.getClientInvoiceDetails();
+    console.log(
+      "🚀 ~ file: ClientDashboard.jsx ~ line 18 ~ getStockAlert ~ res",
+      res
+    );
+
     var data = [];
     res.forEach((element) => {
+      console.log(
+        "🚀 ~ file: ClientDashboard.jsx ~ line 23 ~ res.forEach ~ element",
+        element
+      );
       data.push({
-        id: element?.part_id,
-        warehouse: element?.warehouse,
-        name: element?.name.slice(0, 25) + "...",
-        remaining: element?.unit_value,
+        id: element?.id,
+        invoice_number: element?.invoice_number,
+        quotation_number: element?.quotation_number,
+        requistion_number: element?.requistion_number,
+        type:
+          element?.type == "purchase_request"
+            ? "Purchase Request"
+            : "Claim Report",
+        total_amount: Math.floor(element?.total_amount),
+        total_paid: element?.total_paid ?? "--",
+        total_due:
+          element?.type == "purchase_request"
+            ? element?.total_amount - element?.total_paid
+            : "--",
       });
     });
     setStockAlert({
-      headers: ["ID", "WareHouse", "Product Name", "Remaining"],
+      headers: [
+        "SL",
+        "Invoice Number",
+        "Quotation Number",
+        "Requisition Number",
+        "Type",
+        "Total Amount",
+        "Paid Amount",
+        "Due Amount",
+      ],
       data: data,
     });
   };
@@ -45,11 +72,12 @@ const ClientDashboard = () => {
       <br />
       <Row>
         <Col xl={12}>
-          <BorderlessTable
+          <ScrollableTable
             headers={stockAlert.headers}
             records={stockAlert.data}
-            title="Stocks Alert"
-            url="/panel/parts/"
+            title="Invoice"
+            url="/panel/client/invoices/"
+            height={610}
           />
         </Col>
       </Row>
