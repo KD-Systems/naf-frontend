@@ -1,5 +1,4 @@
-import React from "react";
-import { Row, Col, Card, Table } from "react-bootstrap";
+import { Card, Table } from "react-bootstrap";
 
 const ScrollableTable = ({ headers, records, title, url, height }) => {
   return (
@@ -32,7 +31,6 @@ const ScrollableTable = ({ headers, records, title, url, height }) => {
                           <a
                             href={url + record["id"]}
                             style={{ color: "#000" }}
-                            target="_blank"
                           >
                             {item}
                           </a>
