@@ -209,6 +209,7 @@ const Dashboard = () => {
             records={stockAlert.data}
             title="Stocks Alert"
             url="/panel/parts/"
+            height={220}
           />
         </Col>
         <Col xl={4}>
@@ -219,6 +220,7 @@ const Dashboard = () => {
               "Top Selling Product (" + monthNames[new Date().getMonth()] + ")"
             }
             url="/panel/parts/"
+            height={220}
           />
         </Col>
       </Row>

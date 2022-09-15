@@ -6,7 +6,7 @@ const ScrollableTable = ({ headers, records, title, url, height }) => {
       <Card.Body>
         <h4 className="header-title mt-0 mb-1">{title}</h4>
 
-        <div className="table-responsive" style={{ height: height ?? 220 }}>
+        <div className="table-responsive" style={{ height: height ?? '' }}>
           <Table className="mb-0" borderless>
             <thead className="table-light">
               <tr>
