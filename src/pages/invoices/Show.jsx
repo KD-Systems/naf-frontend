@@ -31,6 +31,12 @@ const ShowInvoice = () => {
     // setOpenEditModal(false);
   };
 
+  useEffect(()=>{
+    if(!open){
+      getPaymentHistories();
+    }
+  },[open])
+
   useEffect(() => {
     if (id) getInvoice();
     getPaymentHistories();
