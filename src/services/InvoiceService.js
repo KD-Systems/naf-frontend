@@ -2,8 +2,8 @@ import http from "../http-common";
 
 const getAll = async (data) => {
   const res = await http.get(`/invoices`, {
-    params: data
-});
+    params: data,
+  });
   return res.data;
 };
 
@@ -12,9 +12,8 @@ const get = async (id) => {
   return res.data;
 };
 
-
 const create = async (data) => {
-  const res = await http.post(`/invoices`, data)
+  const res = await http.post(`/invoices`, data);
   return res.data;
 };
 
@@ -28,16 +27,16 @@ const remove = async (id) => {
   return res.data;
 };
 
-const addPayment = async (data)=>{
-  const res = await http.post(`/payment-histories`, data)
+const addPayment = async (data) => {
+  const res = await http.post(`/payment-histories`, data);
   console.log(data);
   return res.data;
-}
+};
 
 const getPaymentHistories = async (data) => {
   const res = await http.get(`/payment-histories`, {
-    params: data
-});
+    params: { id: data },
+  });
   return res.data;
 };
 
@@ -46,13 +45,12 @@ const getPaymentHistory = async (id) => {
   return res.data;
 };
 
-
-const searchPart = async (data)=>{
+const searchPart = async (data) => {
   const res = await http.get(`/invoices-part-search`, {
-    params: data
-});
+    params: data,
+  });
   return res.data;
-}
+};
 
 const InvoiceService = {
   getAll,
@@ -63,7 +61,7 @@ const InvoiceService = {
   getPaymentHistories,
   getPaymentHistory,
   addPayment,
-  searchPart
+  searchPart,
 };
 
 export default InvoiceService;

@@ -11,6 +11,7 @@ const ShowInvoice = () => {
   const navigate = useNavigate();
   const [invoice, setInvoice] = useState({});
   const [paymentHistories, setPaymentHistories] = useState([]);
+  
   const [block, setBlock] = useState(false);
   const [active, setActive] = useState("part_items"); // * tab active or not
   const [tab, setTab] = useState("part_items");
