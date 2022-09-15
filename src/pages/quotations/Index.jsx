@@ -1,12 +1,12 @@
-import React,{useState} from 'react'
 import Table from "components/utils/Table";
-import { Link,useNavigate } from "react-router-dom";
+import PermissionAbility from "helpers/PermissionAbility";
+import { useState } from 'react';
+import { Link, useNavigate } from "react-router-dom";
 import QuotationService from 'services/QuotationService';
 import CreateModal from "./CreateModal";
-import PermissionAbility from "helpers/PermissionAbility";
 
 const Quotations = () => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [quotations, setQuotations] = useState([]);
   const [open, setOpen] = useState(false);
 
@@ -136,7 +136,6 @@ const Quotations = () => {
   ];
 
   const getQuotations = async (filters) => {
-    setLoading(true);
     setQuotations(await QuotationService.getAll(filters));
     setLoading(false);
   };

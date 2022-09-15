@@ -1,11 +1,11 @@
+import Table from "components/utils/Table";
 import PermissionAbility from "helpers/PermissionAbility";
-import React, { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Confirmation from "../../components/utils/Confirmation";
 import MachineService from "../../services/MachineService";
 import CreateMachine from "./Create";
 import EditMachine from "./Edit";
-import Table from "components/utils/Table";
 
 const Machines = () => {
   const [loading, setLoading] = useState(true);
@@ -21,7 +21,6 @@ const Machines = () => {
   };
 
   const getMachines = async (filters) => {
-    setLoading(true);
     setMachines(await MachineService.getAll(filters));
     setLoading(false);
   };

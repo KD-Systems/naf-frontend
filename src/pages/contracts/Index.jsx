@@ -1,12 +1,12 @@
 import Confirmation from "components/utils/Confirmation";
 import Table from "components/utils/Table";
-import React, { useState } from "react";
+import PermissionAbility from "helpers/PermissionAbility";
+import { useState } from "react";
+import Moment from "react-moment";
 import { Link } from "react-router-dom";
 import ContractService from "services/ContractService";
 import CreateContract from "./Create";
 import EditContract from "./Edit";
-import Moment from "react-moment";
-import PermissionAbility from "helpers/PermissionAbility";
 const Contracts = () => {
   const [loading, setLoading] = useState(true);
   const [confirmDelete, setConfirmDelete] = useState(false);
@@ -148,7 +148,6 @@ const Contracts = () => {
   ];
 
   const getContracts = async (filters) => {
-    setLoading(true);
     setContracts(await ContractService.getAll(filters));
     setLoading(false);
   };

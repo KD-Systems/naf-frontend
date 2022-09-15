@@ -1,10 +1,8 @@
-import Confirmation from "components/utils/Confirmation";
 import Table from "components/utils/Table";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import ContractService from "services/ContractService";
 import Moment from "react-moment";
-import ClientContractService from "services/clientServices/ClientContractService"; 
+import { Link } from "react-router-dom";
+import ClientContractService from "services/clientServices/ClientContractService";
 
 const ClientContracts = () => {
   const [loading, setLoading] = useState(true);
@@ -126,7 +124,6 @@ const ClientContracts = () => {
   ];
 
   const getContracts = async (filters) => {
-    setLoading(true);
     const res = await ClientContractService.getAll(filters)
     setContracts(res?.data)
     setLoading(false);

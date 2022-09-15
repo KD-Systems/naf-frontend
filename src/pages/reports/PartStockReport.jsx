@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from "react";
 import Table from "components/utils/Table";
 import PermissionAbility from "helpers/PermissionAbility";
-import { Link } from "react-router-dom";
-import Moment from "react-moment";
-import DeliverNoteService from "services/DeliverNoteService";
-import DateFilter from "./DateFilter";
-import ReportService from "services/ReportService";
+import { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
+import { Link } from "react-router-dom";
+import ReportService from "services/ReportService";
+import DateFilter from "./DateFilter";
 const PartStockReport = () => {
   const [loading, setLoading] = useState(true);
   const [stockHistory, setStockHistory] = useState([]);
@@ -17,7 +15,6 @@ const PartStockReport = () => {
   const [modalData, setModalData] = useState({})
 
   const getReports = async (filters) => {
-    setLoading(true);
     const res = await ReportService.stockHistory(filters);
     if (res) {
       setStockHistory(res);

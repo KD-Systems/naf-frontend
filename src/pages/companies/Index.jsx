@@ -1,7 +1,7 @@
 import Confirmation from "components/utils/Confirmation";
 import Table from "components/utils/Table";
 import PermissionAbility from "helpers/PermissionAbility";
-import React, { useState,useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import CompanyService from "services/CompanyService";
 import CreateCompany from "./Create";
@@ -110,13 +110,11 @@ const Companies = () => {
   ];
 
   const getCompanies = async (filters) => {
-    setLoading(true);
     setCompanies(await CompanyService.getAll(filters));
     setLoading(false);
   };
 
-  const deletePart = async(companyId) => {
-   
+  const deletePart = async(companyId) => {   
     await CompanyService.remove(companyId);
     getCompanies();
   };

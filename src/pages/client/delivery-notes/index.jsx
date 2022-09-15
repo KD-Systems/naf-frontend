@@ -1,9 +1,9 @@
-import React, { useState } from "react";
 import Table from "components/utils/Table";
-import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import ClientDeliverNoteService from "services/clientServices/ClientDeliveryNoteService";
 const ClientDeliveryNotes = () => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [block, setBlock] = useState(false);
   const [deliveryNotes, setDeliveryNotes] = useState([]);
   const [open, setOpen] = useState(false);
@@ -12,7 +12,6 @@ const ClientDeliveryNotes = () => {
   const onCloseModal = () => setOpen(false);
 
   const getDeliverNotes = async (filters) => {
-    setLoading(true);
     setDeliveryNotes(await ClientDeliverNoteService.getAll(filters));
     setLoading(false);
   };

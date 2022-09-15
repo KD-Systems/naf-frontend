@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
 import Table from "components/utils/Table";
-import { Link, useNavigate } from "react-router-dom";
-import InvoiceService from "services/InvoiceService";
-import DeliverNoteService from "services/DeliverNoteService";
-import CreateInvoice from "./Create";
 import PermissionAbility from "helpers/PermissionAbility";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import DeliverNoteService from "services/DeliverNoteService";
+import InvoiceService from "services/InvoiceService";
+import CreateInvoice from "./Create";
 const Invoices = () => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [invoices, setInvoices] = useState([]);
   const [block, setBlock] = useState(false);
   const [totalQuantity,setTotalQuantity] = useState(0)
@@ -146,7 +146,6 @@ const Invoices = () => {
   ];
 
   const getInvoices = async (filters) => {
-    setLoading(true);
     setInvoices(await InvoiceService.getAll(filters)); 
     setLoading(false);
   };

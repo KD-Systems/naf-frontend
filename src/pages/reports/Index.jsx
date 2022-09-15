@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from "react";
 import Table from "components/utils/Table";
-import PermissionAbility from "helpers/PermissionAbility";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import Moment from "react-moment";
-import DeliverNoteService from "services/DeliverNoteService";
-import DateFilter from "./DateFilter";
 import ReportService from "services/ReportService";
+import DateFilter from "./DateFilter";
 const Reports = () => {
   const [loading, setLoading] = useState(true);
   const [reports, setReports] = useState([]);
@@ -13,7 +10,6 @@ const Reports = () => {
   const [enableFilter, setEnableFilter] = useState(false);
 
   const getReports = async (filters) => {
-    setLoading(true);
     setReports(await ReportService.getAll(filters));
     setLoading(false);
   };

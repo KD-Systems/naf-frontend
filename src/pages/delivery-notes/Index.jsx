@@ -1,11 +1,11 @@
-import React, { useState } from "react";
 import Table from "components/utils/Table";
-import { Link, useNavigate } from "react-router-dom";
+import PermissionAbility from "helpers/PermissionAbility";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import DeliverNoteService from "services/DeliverNoteService";
 import CreateDeliveryNote from "./Create";
-import PermissionAbility from "helpers/PermissionAbility";
 const DeliveryNotes = () => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [block, setBlock] = useState(false);
   const [deliveryNotes, setDeliveryNotes] = useState([]);
 
@@ -15,7 +15,6 @@ const DeliveryNotes = () => {
   const onCloseModal = () => setOpen(false);
 
   const getDeliverNotes = async (filters) => {
-    setLoading(true);
     setDeliveryNotes(await DeliverNoteService.getAll(filters));
     setLoading(false);
   };

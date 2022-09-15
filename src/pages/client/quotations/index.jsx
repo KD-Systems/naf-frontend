@@ -1,11 +1,11 @@
-import React,{useState} from 'react'
 import Table from "components/utils/Table";
-import { Link,useNavigate } from "react-router-dom";
+import { useState } from 'react';
+import { Link, useNavigate } from "react-router-dom";
 import ClientQuotationService from 'services/clientServices/ClientQuotationService';
 // import CreateModal from "./CreateModal";
 
 const ClientQuotations = () => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [quotations, setQuotations] = useState([]);
 
   const [open, setOpen] = useState(false);
@@ -118,7 +118,6 @@ const ClientQuotations = () => {
   ];
 
   const getQuotations = async (filters) => {
-    setLoading(true);
     setQuotations(await ClientQuotationService.getAll(filters));
     setLoading(false);
   };

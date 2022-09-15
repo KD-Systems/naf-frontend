@@ -6,7 +6,7 @@ import RequisitionFilter from "./RequisitionFilter";
 
 const CompanyRequisitions = () => {
   const [filter, setFilter] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [requisitions, setRequisitions] = useState([]);
 
   const columns = [
@@ -87,7 +87,6 @@ const CompanyRequisitions = () => {
   ];
 
   const getRequisitions = async (data) => {
-    setLoading(true);
     setRequisitions(await ClientRequisitionService.getAll(data));
     setLoading(false);
   };
