@@ -1,7 +1,7 @@
 import moment from "moment";
 import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Select from "react-select";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -11,6 +11,21 @@ import RequisitionService from "services/RequisitionService";
 
 const RequiredRequisitionCreate = () => {
   const navigate = useNavigate();
+  let { id } = useParams();
+  
+  const [requisition, setRequisition] = useState({});
+  console.log("🚀 ~ file: Create.jsx ~ line 17 ~ RequiredRequisitionCreate ~ requisition", requisition)
+
+  const getRequisition = async () => {
+    let res = await RequisitionService.getRequiredRequisition(id);
+    setData(res);
+  };
+
+  useEffect(() => {
+    getRequisition()
+  }, [id])
+  
+
   const [companies, setCompanies] = useState([]);
   const [machineModels, setMachineModels] = useState([]);
   // console.log(machineModels);

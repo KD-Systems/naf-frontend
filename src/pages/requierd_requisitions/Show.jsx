@@ -1,67 +1,26 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
-import Moment from "react-moment";
-import RequisitionService from "../../services/RequisitionService";
 import { Activities } from "components/utils/Activities";
 import PermissionAbility from "helpers/PermissionAbility";
-import QuotationService from "services/QuotationService";
-import NewDropzone from "./Dropzone/MyDropzone";
-import Confirmation from "components/utils/Confirmation";
+import { useEffect, useState } from "react";
+import Moment from "react-moment";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import RequisitionService from "../../services/RequisitionService";
 
-const ShowRequisition = () => {
-  const [confirmDelete, setConfirmDelete] = useState(false);
-
-  const [uuid, setuuid] = useState();
-  const [model_id, setModelId] = useState();
-
+const ShowRequiredRequisition = () => {
   let { id } = useParams();
   const navigate = useNavigate();
   const [requisition, setRequisition] = useState({});
-  const [file, setFile] = useState({});
+
   const [tab, setTab] = useState("requisitions");
 
   const getRequisition = async () => {
-    let res = await RequisitionService.get(id);
+    let res = await RequisitionService.getRequiredRequisition(id);
     setRequisition(res);
   };
 
-  const approveRequisition = async () => {
-    await RequisitionService.approve(id);
-    getRequisition();
-  };
-
-  const rejectRequisition = async () => {
-    await RequisitionService.reject(id);
-    getRequisition();
-  };
-
-  const uploadFile = async (formData) => {
-    console.log("a",formData);
-
-    await RequisitionService.fileUpload(id, formData);
-    getFile();
-  };
-
-  const deleteItem = async () => {
-    await RequisitionService.deleteFile(uuid, model_id);
-    getFile();
-  };
-
-  const getFile = async () => {
-    const res = await RequisitionService.getFile(id);
-    setFile(res);
-  };
 
   useEffect(() => {
     if (id) getRequisition();
-    getFile();
   }, [id]);
-
-  //get quotation
-  // const getQuotation = async () => {
-  //   let res = await QuotationService.get(invoiceId);
-  //   setInvoice(res);
-  // };
 
   return (
     <div className="d-flex flex-column-fluid">
@@ -90,18 +49,14 @@ const ShowRequisition = () => {
                   {requisition?.company?.name}
                 </div>
 
-                <div className="fw-bolder mt-5">RQ Number</div>
-
-                <div className="text-gray-600">{requisition?.rq_number}</div>
-
-                <div className="fw-bolder mt-5">Machines</div>
+                {/* <div className="fw-bolder mt-5">Machines</div>
                 <div className="text-gray-600">
                   {requisition?.machines?.map((item, index) => (
                     <span key={index} className="badge badge-light-info ">
                       {item?.model?.name}{" "}
                     </span>
                   ))}
-                </div>
+                </div> */}
 
                 <div className="fw-bolder mt-5">Engineer</div>
                 <div className="text-gray-600">
@@ -155,80 +110,16 @@ const ShowRequisition = () => {
               <div className="card-header">
                 <div className="card-title">
                   <h3 className="card-label">
-                    <PermissionAbility permission="requisitions_print">
-                      <Link
+                    <PermissionAbility permission="requisitions_generate_quotation">
+                      <button
                         className="btn btn-sm btn-dark "
-                        to={"/panel/requisitions/" + requisition.id + "/print"}
-                        style={{ marginRight: "0.75rem" }}
-                        // target="_blank"
+                        style={{ marginRight: "0.1rem" }}
+                        onClick={() => navigate(`/panel/require_req/create/`+id)}
                       >
-                        Print
-                      </Link>
+                        Generate Requisitions
+                      </button>
                     </PermissionAbility>
                   </h3>
-                  {requisition?.part_items?.map(
-                    (item, index) =>
-                      item?.part?.stocks[item?.part?.stocks.length - 1]
-                        ?.unit_value > 0
-                  ) ? (
-                    <>
-                      {requisition.status == "approved" ? (
-                        <h3 className="card-label">
-                          <PermissionAbility permission="requisitions_generate_quotation">
-                            <button
-                              className="btn btn-sm btn-dark "
-                              style={{ marginRight: "0.1rem" }}
-                              onClick={() =>
-                                navigate(
-                                  `/panel/quotations/${requisition?.id}/create`
-                                )
-                              }
-                            >
-                              Generate Quotation
-                            </button>
-                          </PermissionAbility>
-                        </h3>
-                      ) : (
-                        <>
-                          <PermissionAbility permission="requisitions_approve">
-                            {requisition.status == "rejected" ? (
-                              <h3 className="card-label">
-                                <div className="btn btn-sm bg-danger disabled text-white">
-                                  Rejected Requisition
-                                </div>
-                              </h3>
-                            ) : (
-                              <>
-                                <h3 className="card-label">
-                                  <button
-                                    onClick={approveRequisition}
-                                    className="btn btn-sm btn-primary"
-                                  >
-                                    Approve
-                                  </button>
-                                </h3>
-                                <h3 className="card-label">
-                                  <button
-                                    onClick={rejectRequisition}
-                                    className="btn btn-sm btn-danger"
-                                  >
-                                    Reject
-                                  </button>
-                                </h3>
-                              </>
-                            )}
-                          </PermissionAbility>
-                        </>
-                      )}
-                    </>
-                  ) : (
-                    <span
-                      className="badge badge-danger"
-                      style={{ fontSize: "16px" }}
-                    >
-                      stock out
-                    </span>
-                  )}
                 </div>
               </div>
             </div>
@@ -247,19 +138,6 @@ const ShowRequisition = () => {
                     onClick={() => setTab("requisitions")}
                   >
                     Part Items
-                  </a>
-                </li>
-
-                <li className="nav-item">
-                  <a
-                    className={`nav-link text-active-primary pb-4 ${
-                      tab == "Files" ? "active" : ""
-                    }`}
-                    data-bs-toggle="tab"
-                    href="#files"
-                    onClick={() => setTab("files")}
-                  >
-                    Files
                   </a>
                 </li>
 
@@ -300,26 +178,26 @@ const ShowRequisition = () => {
                               </thead>
 
                               <tbody>
-                                {requisition?.part_items?.map((item, index) => (
-                                  <tr key={index}>
-                                    <td className="">
-                                      <Link
-                                        to={"/panel/parts/" + item?.part?.id}
-                                        className="text-dark fw-bolder text-hover-primary"
-                                      >
-                                        {item?.part?.aliases[0].name}
-                                      </Link>
-                                    </td>
-                                    <td className=" fw-bolder mb-1 fs-6">
-                                      <span>
-                                        {item?.part?.aliases[0].part_number}
-                                      </span>
-                                    </td>
-                                    <td className=" fw-bolder mb-1 fs-6">
-                                      <span>{item?.quantity}</span>
-                                    </td>
-                                  </tr>
-                                ))}
+                                {requisition?.required_part_items?.map(
+                                  (item, index) => (
+                                    <tr key={index}>
+                                      <td className="">
+                                        <Link
+                                          to={"/panel/parts/" + item?.part?.id}
+                                          className="text-dark fw-bolder text-hover-primary"
+                                        >
+                                          {item?.part_name}
+                                        </Link>
+                                      </td>
+                                      <td className=" fw-bolder mb-1 fs-6">
+                                        <span>{item?.part_number}</span>
+                                      </td>
+                                      <td className=" fw-bolder mb-1 fs-6">
+                                        <span>{item?.qty}</span>
+                                      </td>
+                                    </tr>
+                                  )
+                                )}
                               </tbody>
                             </table>
                           </div>
@@ -327,88 +205,24 @@ const ShowRequisition = () => {
                       </div>
                     </div>
                   </div>
-                </div>
-
-                <div
-                  className={`tab-pane fade ${
-                    tab == "files" ? "active show" : ""
-                  }`}
-                  id="files"
-                  role="tabpanel"
-                >
-                  <div className="card card-custom gutter-b">
-                    <div className="card-body px-0">
-                      <div className="card mb-5 mb-xl-8">
-                        <div className="card-body py-3">
-                          <form
-                            id="attachment-form"
-                            encType="multipart/form-data"
-                          >
-                            <NewDropzone onDrop={uploadFile} />
-                          </form>
-                          <div className="table-responsive">
-                            <table className="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
-                              <thead>
-                                <tr className="fw-bolder text-muted">
-                                  <th className="min-w-50px">SL</th>
-                                  <th className="min-w-120px">File Name</th>
-                                  <th className="min-w-120px">Action</th>
-                                </tr>
-                              </thead>
-
-                              <tbody>
-                                {file?.data?.map((item, index) => (
-                                  <tr key={index}>
-                                    <td className="">{index + 1}</td>
-                                    <td className=" fw-bolder mb-1 fs-6">
-                                      <span>{item?.file_name}</span>
-                                    </td>
-                                    <td className=" fw-bolder mb-1 fs-6">
-                                      <button
-                                        className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-                                        onClick={() => {
-                                          setConfirmDelete(true);
-                                          setuuid(item.uuid);
-                                          setModelId(item.model_id);
-                                        }}
-                                      >
-                                        <i className="fa fa-trash"></i>
-                                      </button>
-                                      <a 
-                                        className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-                                        href={item?.original_url}
-                                        target="_blank"
-                                      >
-                                        <i className="fa fa-download"></i>
-                                      </a>
-                                    </td>
-                                  </tr>
-                                ))}
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                  <div className="mt-10">
+                    <button
+                      className="btn btn-sm btn-dark "
+                      style={{ marginRight: "0.1rem" }}
+                      onClick={() => navigate(`/panel/parts`)}
+                    >
+                      Add Part
+                    </button>
                   </div>
                 </div>
-
                 <Activities logName="requisitions" modelId={id} tab={tab} />
               </div>
             </div>
           </div>
         </div>
       </div>
-      <Confirmation
-        open={confirmDelete}
-        onConfirm={() => {
-          setConfirmDelete(false);
-          deleteItem();
-        }}
-        onCancel={() => setConfirmDelete(false)}
-      />
     </div>
   );
 };
 
-export default ShowRequisition;
+export default ShowRequiredRequisition;

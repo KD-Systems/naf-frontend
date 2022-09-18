@@ -45,6 +45,7 @@ const RequisitionCreate = () => {
     useState(false); /* Check Part selected or not selected*/
   const [totalAmount, setTotal] = useState(0); //total amount
   const [engineers, setEngineers] = useState([]);
+
   const [data, setData] = useState({
     company_id: "",
     engineer_id: "",
@@ -66,11 +67,12 @@ const RequisitionCreate = () => {
     total: totalAmount,
     files: [],
   });
-  console.log(
-    "🚀 ~ file: Create.jsx ~ line 69 ~ RequisitionCreate ~ list",
-    list
-  );
 
+  useEffect(() => {
+    const queryParams = new URLSearchParams(window.location.search);
+    const testData = queryParams.get("data");
+    setData(JSON.parse(testData));
+  }, []);
   const [partHeading, setPartHeading] = useState(null);
   const [block, setBlock] = useState(false);
   const [parts, setParts] = useState([]);
@@ -663,8 +665,8 @@ const RequisitionCreate = () => {
                         <label className="required form-label">Quantity</label>
                         <input
                           className="form-control"
-                          name="quantity"
-                          id="quantity"
+                          name="qty"
+                          id="qty"
                           onChange={(e) => handleReqSelect(e, index)}
                           type="number"
                         />

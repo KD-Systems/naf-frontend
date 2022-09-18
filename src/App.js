@@ -60,7 +60,9 @@ import Quotations from "pages/quotations/Index";
 import ShowQuotation from "pages/quotations/Show";
 import Reports from "pages/reports/Index";
 import PartStockReport from "pages/reports/PartStockReport";
+import RequiredRequisitionCreate from "pages/requierd_requisitions/Create";
 import RequiredRequisitions from "pages/requierd_requisitions/Index";
+import ShowRequiredRequisition from "pages/requierd_requisitions/Show";
 import RequisitionCreate from "pages/requisitions/Create";
 import Requisitions from "pages/requisitions/Index";
 import PrintRequisition from "pages/requisitions/Print";
@@ -77,8 +79,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/panel/*" element={<AppLayout />}> 
-            
+          <Route path="/panel/*" element={<AppLayout />}>
             <Route
               path="dashboard"
               element={
@@ -89,13 +90,13 @@ function App() {
             />
             {/* <Route path="employees" element={<Employee />} /> */}
             {/* Designation start */}
-          
+
             <Route
               path="designations"
               element={
                 <PrivateRoute>
-                    <PermissionAbility permission="designations_access">
-                  <Designations />
+                  <PermissionAbility permission="designations_access">
+                    <Designations />
                   </PermissionAbility>
                 </PrivateRoute>
               }
@@ -104,11 +105,11 @@ function App() {
               path="designations/:id"
               element={
                 <PrivateRoute>
-                  <ShowDesignation /> 
+                  <ShowDesignation />
                 </PrivateRoute>
               }
             />
-    
+
             {/* Designation end */}
 
             {/* Employee Start */}
@@ -191,7 +192,6 @@ function App() {
                 </PrivateRoute>
               }
             />
-
 
             {/* WareHouse Start */}
             <Route
@@ -371,10 +371,18 @@ function App() {
               }
             />
 
-
             {/* Requisitions End */}
 
             {/* Required Requisition Start*/}
+
+            <Route
+              path="require_req/create/:id"
+              element={
+                <PrivateRoute>
+                  <RequiredRequisitionCreate />
+                </PrivateRoute>
+              }
+            />
 
             <Route
               path="require_req"
@@ -384,7 +392,16 @@ function App() {
                 </PrivateRoute>
               }
             />
-            
+
+            <Route
+              path="require_req/:id"
+              element={
+                <PrivateRoute>
+                  <ShowRequiredRequisition />
+                </PrivateRoute>
+              }
+            />
+
             {/* Required Requisition End*/}
 
             {/* Quotation Start */}
@@ -399,12 +416,12 @@ function App() {
             />
 
             <Route
-            path="quotations/:id"
-            element = {
-              <PrivateRoute>
-                <ShowQuotation/>
-              </PrivateRoute>
-            }
+              path="quotations/:id"
+              element={
+                <PrivateRoute>
+                  <ShowQuotation />
+                </PrivateRoute>
+              }
             />
 
             <Route
@@ -418,28 +435,26 @@ function App() {
 
             {/* Quotation End */}
 
-
             {/* Invoice Start */}
 
-            <Route 
-            path="invoices"
-            element={
-              <PrivateRoute>
-                <Invoices/>
-              </PrivateRoute>
-            }
+            <Route
+              path="invoices"
+              element={
+                <PrivateRoute>
+                  <Invoices />
+                </PrivateRoute>
+              }
             />
-            <Route 
-            path="invoices/:id"
-            element={
-              <PrivateRoute>
-                <ShowInvoice/>
-              </PrivateRoute>
-            }
+            <Route
+              path="invoices/:id"
+              element={
+                <PrivateRoute>
+                  <ShowInvoice />
+                </PrivateRoute>
+              }
             />
-            
 
-          <Route
+            <Route
               path="invoices/:id/print"
               element={
                 <PrivateRoute>
@@ -457,35 +472,34 @@ function App() {
               }
             />
 
-
             {/* Invoice End */}
 
             {/* Delivery Notes Start */}
-            <Route 
-            path="delivery-notes"
-            element={
-              <PrivateRoute>
-                <DeliveryNotes/>
-              </PrivateRoute>
-            }
+            <Route
+              path="delivery-notes"
+              element={
+                <PrivateRoute>
+                  <DeliveryNotes />
+                </PrivateRoute>
+              }
             />
 
-            <Route 
-            path="delivery-notes/:id/print"
-            element={
-              <PrivateRoute>
-                <PrintDeliveryNotes/>
-              </PrivateRoute>
-            }
+            <Route
+              path="delivery-notes/:id/print"
+              element={
+                <PrivateRoute>
+                  <PrintDeliveryNotes />
+                </PrivateRoute>
+              }
             />
 
-            <Route 
-            path="delivery-notes/:id"
-            element={
-              <PrivateRoute>
-                <ShowDeliveryNotes/>
-              </PrivateRoute>
-            }
+            <Route
+              path="delivery-notes/:id"
+              element={
+                <PrivateRoute>
+                  <ShowDeliveryNotes />
+                </PrivateRoute>
+              }
             />
 
             <Route
@@ -496,47 +510,46 @@ function App() {
                 </PrivateRoute>
               }
             />
-        
+
             {/* Delivery Notes End; */}
 
             {/* Report Start */}
-            <Route 
-            path="reports"
-            element={
-              <PrivateRoute>
-                <Reports/>
-              </PrivateRoute>
-            }
+            <Route
+              path="reports"
+              element={
+                <PrivateRoute>
+                  <Reports />
+                </PrivateRoute>
+              }
             />
 
-            <Route 
-            path="part-stock-report"
-            element={
-              <PrivateRoute>
-                <PartStockReport/>
-              </PrivateRoute>
-            }
+            <Route
+              path="part-stock-report"
+              element={
+                <PrivateRoute>
+                  <PartStockReport />
+                </PrivateRoute>
+              }
             />
             {/* Report End */}
 
             {/* Gate pass Start */}
-            <Route 
-            path="gate-passes"
-            element={
-              <PrivateRoute>
-                <GatePass/>
-              </PrivateRoute>
-            }
+            <Route
+              path="gate-passes"
+              element={
+                <PrivateRoute>
+                  <GatePass />
+                </PrivateRoute>
+              }
             />
             {/* Gate pass End */}
 
+            {/* Routes for company users */}
 
-            {/* Routes for company users */} 
-
-            {/* Routes for company users */} 
+            {/* Routes for company users */}
 
             <Route
-              path="client/dashboard" 
+              path="client/dashboard"
               element={
                 <PrivateRoute>
                   <ClientDashboard />
@@ -545,7 +558,7 @@ function App() {
             />
 
             <Route
-              path="companies/user" 
+              path="companies/user"
               element={
                 <PrivateRoute>
                   <CompanyUser />
@@ -554,7 +567,7 @@ function App() {
             />
 
             <Route
-              path="companies/user/:id" 
+              path="companies/user/:id"
               element={
                 <PrivateRoute>
                   <CompanyUserShow />
@@ -563,7 +576,7 @@ function App() {
             />
 
             <Route
-              path="company/user/machines" 
+              path="company/user/machines"
               element={
                 <PrivateRoute>
                   <ClientCompanyMachines />
@@ -571,7 +584,7 @@ function App() {
               }
             />
             {/* client contract start */}
-              <Route
+            <Route
               path="companies/user/contracts"
               element={
                 <PrivateRoute>
@@ -588,12 +601,12 @@ function App() {
                 </PrivateRoute>
               }
             />
-            
+
             {/* client contract end */}
 
-              {/* company user sales start */}
+            {/* company user sales start */}
 
-              {/* client requisition start */}
+            {/* client requisition start */}
             <Route
               path="client-requisitions"
               element={
@@ -612,7 +625,7 @@ function App() {
               }
             />
 
-          <Route
+            <Route
               path="client/requisitions/:id"
               element={
                 <PrivateRoute>
@@ -643,7 +656,7 @@ function App() {
               }
             />
 
-          <Route
+            <Route
               path="client/quotations/:requisitionId/create"
               element={
                 <PrivateRoute>
@@ -653,12 +666,12 @@ function App() {
             />
 
             <Route
-            path="client/quotations/:id"
-            element = {
-              <PrivateRoute>
-                <ShowClientQuotation/>
-              </PrivateRoute>
-            }
+              path="client/quotations/:id"
+              element={
+                <PrivateRoute>
+                  <ShowClientQuotation />
+                </PrivateRoute>
+              }
             />
 
             {/* client quotation end */}
@@ -672,13 +685,13 @@ function App() {
               }
             />
 
-          <Route 
-            path="client/invoices/:id"
-            element={
-              <PrivateRoute>
-                <ShowClientInvoice/>
-              </PrivateRoute>
-            }
+            <Route
+              path="client/invoices/:id"
+              element={
+                <PrivateRoute>
+                  <ShowClientInvoice />
+                </PrivateRoute>
+              }
             />
 
             <Route
@@ -704,28 +717,28 @@ function App() {
             <Route
               path="client/delivery-notes/:invoiceId/create"
               element={
-                <PrivateRoute> 
+                <PrivateRoute>
                   <CreateClientDelivery />
                 </PrivateRoute>
               }
             />
 
-            <Route 
-            path="client/delivery-notes/:id"
-            element={
-              <PrivateRoute>
-                <ShowClientDeliveryNotes/>
-              </PrivateRoute>
-            }
+            <Route
+              path="client/delivery-notes/:id"
+              element={
+                <PrivateRoute>
+                  <ShowClientDeliveryNotes />
+                </PrivateRoute>
+              }
             />
 
-            <Route 
-            path="client/delivery-notes/:id/print"
-            element={
-              <PrivateRoute>
-                <PrintClientDeliveryNotes/>
-              </PrivateRoute>
-            }
+            <Route
+              path="client/delivery-notes/:id/print"
+              element={
+                <PrivateRoute>
+                  <PrintClientDeliveryNotes />
+                </PrivateRoute>
+              }
             />
 
             {/* company user sales end */}
