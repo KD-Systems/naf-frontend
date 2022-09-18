@@ -148,7 +148,7 @@ const RequisitionCreate = () => {
 
   const handleSelect = (option, conf) => {
     if (option?.value == "claim_report" && !contract) {
-      toast.error("You are not a FOC customer?");
+      toast.error("This machine is not under FOC contract");
     } else {
       let value = option.value;
       if (Array.isArray(option))
