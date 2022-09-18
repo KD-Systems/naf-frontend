@@ -1,76 +1,75 @@
-import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
-import NotFound from "pages/NotFound";
-import Dashboard from "pages/dashboard/Dashboard";
-import AppLayout from "pages/layouts/AppLayout";
-import Login from "pages/auth/Login";
-import Profile from "pages/auth/Profile";
-import AccountSettings from "pages/auth/AccountSettings";
-import Employee from "pages/employee/Index";
-import Designations from "pages/designations/Index";
-import Companies from "pages/companies/Index";
-import ShowCompany from "pages/companies/Show";
-import ShowDesignation from "pages/designations/Show";
-import ShowEmployee from "pages/employee/Show";
-import ShowUser from "pages/companies/users/Show";
-import Contracts from "pages/contracts/Index";
-import Machines from "pages/machines/Index";
-import ShowContract from "pages/contracts/Show";
-import WareHouse from "pages/warehouses/Index";
-import ShowMachine from "pages/machines/Show";
-import ShowMachineModel from "pages/machines/models/Show";
-import Parts from "pages/parts/Index";
-import ShowPart from "pages/parts/Show";
-import ShowPartHeadings from "pages/machines/headings/Show";
-import Roles from "pages/roles/Index";
-import ShowPartAlias from "pages/parts/aliases/Show";
-import WareHouseShow from "pages/warehouses/Show";
-import ShowPermission from "pages/roles/Show";
 import PermissionAbility from "helpers/PermissionAbility";
 import { PrivateRoute } from "helpers/PrivateRoute";
-import Settings from "pages/Settings/Index";
-import ShowStock from "pages/parts/stocks/Show";
-import RequisitionCreate from "pages/requisitions/Create";
+import AccountSettings from "pages/auth/AccountSettings";
+import Login from "pages/auth/Login";
+import Profile from "pages/auth/Profile";
 import BoxHeadings from "pages/box-headings/Index";
 import BoxHeadingShow from "pages/box-headings/Show";
-import Requisitions from "pages/requisitions/Index";
-import ShowRequisition from "pages/requisitions/Show";
-import PrintRequisition from "pages/requisitions/Print";
-import Quotations from "pages/quotations/Index";
-import CreateQuotation from "pages/quotations/Create";
-import ShowQuotation from "pages/quotations/Show";
-import Invoices from "pages/invoices/Index";
-import PrintInvoice from "pages/invoices/Print";
-import DeliveryNotes from "pages/delivery-notes/Index";
-import ShowDeliveryNotes from "pages/delivery-notes/Show";
-import PrintDeliveryNotes from "pages/delivery-notes/Print";
-import ShowInvoice from "pages/invoices/Show";
-import ShowPaymentHistories from "pages/invoices/paymentHistories/Show";
-import CreateDeliveryNote from "pages/delivery-notes/Create";
-import CreateDelivery from "pages/delivery-notes/CreateDelivery";
-import Reports from "pages/reports/Index";
-import GatePass from "pages/gate-passes/Index";
-import PartStockReport from "pages/reports/PartStockReport";
-import ClientRequisitions from "pages/client/requisitions";
-import ClientQuotation from "pages/client/quotations/index.jsx";
-import ClientInvoices from "pages/client/invoices";
-import ClientDeliveryNotes from "pages/client/delivery-notes";
-import ClientRequisitionCreate from "pages/client/requisitions/create";
-import ClientCompanyMachines from "pages/client/client-machines/index";
 import ClientContract from "pages/client/client-contract/index";
 import ClientContractShow from "pages/client/client-contract/show";
-import ShowClientRequisition from "pages/client/requisitions/show";
-import PrintClientRequisition from "pages/client/requisitions/print";
-import CreateClientQuotation from "pages/client/quotations/create";
-import ShowClientQuotation from "pages/client/quotations/show";
-import ShowClientInvoice from "pages/client/invoices/show";
-import PrintClientInvoice from "pages/client/invoices/print";
+import ClientCompanyMachines from "pages/client/client-machines/index";
+import ClientDashboard from "pages/client/dashboard/ClientDashboard";
+import ClientDeliveryNotes from "pages/client/delivery-notes";
 import CreateClientDelivery from "pages/client/delivery-notes/create";
-import ShowClientDeliveryNotes from "pages/client/delivery-notes/show";
 import PrintClientDeliveryNotes from "pages/client/delivery-notes/print";
+import ShowClientDeliveryNotes from "pages/client/delivery-notes/show";
+import ClientInvoices from "pages/client/invoices";
+import PrintClientInvoice from "pages/client/invoices/print";
+import ShowClientInvoice from "pages/client/invoices/show";
+import CreateClientQuotation from "pages/client/quotations/create";
+import ClientQuotation from "pages/client/quotations/index.jsx";
+import ShowClientQuotation from "pages/client/quotations/show";
+import ClientRequisitions from "pages/client/requisitions";
+import ClientRequisitionCreate from "pages/client/requisitions/create";
+import PrintClientRequisition from "pages/client/requisitions/print";
+import ShowClientRequisition from "pages/client/requisitions/show";
 import CompanyUser from "pages/client/user/index";
 import CompanyUserShow from "pages/client/user/show";
+import Companies from "pages/companies/Index";
+import ShowCompany from "pages/companies/Show";
+import ShowUser from "pages/companies/users/Show";
+import Contracts from "pages/contracts/Index";
+import ShowContract from "pages/contracts/Show";
+import Dashboard from "pages/dashboard/Dashboard";
+import CreateDelivery from "pages/delivery-notes/CreateDelivery";
+import DeliveryNotes from "pages/delivery-notes/Index";
+import PrintDeliveryNotes from "pages/delivery-notes/Print";
+import ShowDeliveryNotes from "pages/delivery-notes/Show";
+import Designations from "pages/designations/Index";
+import ShowDesignation from "pages/designations/Show";
+import Employee from "pages/employee/Index";
+import ShowEmployee from "pages/employee/Show";
 import Forbidden from "pages/Forbidden";
-import ClientDashboard from "pages/client/dashboard/ClientDashboard";
+import GatePass from "pages/gate-passes/Index";
+import Invoices from "pages/invoices/Index";
+import ShowPaymentHistories from "pages/invoices/paymentHistories/Show";
+import PrintInvoice from "pages/invoices/Print";
+import ShowInvoice from "pages/invoices/Show";
+import AppLayout from "pages/layouts/AppLayout";
+import ShowPartHeadings from "pages/machines/headings/Show";
+import Machines from "pages/machines/Index";
+import ShowMachineModel from "pages/machines/models/Show";
+import ShowMachine from "pages/machines/Show";
+import NotFound from "pages/NotFound";
+import ShowPartAlias from "pages/parts/aliases/Show";
+import Parts from "pages/parts/Index";
+import ShowPart from "pages/parts/Show";
+import ShowStock from "pages/parts/stocks/Show";
+import CreateQuotation from "pages/quotations/Create";
+import Quotations from "pages/quotations/Index";
+import ShowQuotation from "pages/quotations/Show";
+import Reports from "pages/reports/Index";
+import PartStockReport from "pages/reports/PartStockReport";
+import RequisitionCreate from "pages/requisitions/Create";
+import Requisitions from "pages/requisitions/Index";
+import PrintRequisition from "pages/requisitions/Print";
+import ShowRequisition from "pages/requisitions/Show";
+import Roles from "pages/roles/Index";
+import ShowPermission from "pages/roles/Show";
+import Settings from "pages/Settings/Index";
+import WareHouse from "pages/warehouses/Index";
+import WareHouseShow from "pages/warehouses/Show";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 function App() {
   return (
@@ -373,6 +372,10 @@ function App() {
 
 
             {/* Requisitions End */}
+
+            {/* Required Requisition Start*/}
+            
+            {/* Required Requisition End*/}
 
             {/* Quotation Start */}
 

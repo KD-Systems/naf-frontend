@@ -6,9 +6,12 @@ const ScrollableTable = ({ headers, records, title, url, height }) => {
       <Card.Body>
         <h4 className="header-title mt-0 mb-1">{title}</h4>
 
-        <div className="table-responsive" style={{ height: height ?? '' }}>
+        <div className="table-responsive" style={{ height: height ?? "" }}>
           <Table className="mb-0" borderless>
-            <thead className="table-light">
+            <thead
+              className="table-light"
+              style={{ position: "sticky", top: 0 }}
+            >
               <tr>
                 {headers?.map((itm, index) => (
                   <th scope="col" key={index}>
@@ -17,7 +20,7 @@ const ScrollableTable = ({ headers, records, title, url, height }) => {
                 ))}
               </tr>
             </thead>
-            <tbody>
+            <tbody style={{ overflow: "auto" }}>
               {records?.map((record, index) => {
                 var data = [];
                 for (var key in record) {
