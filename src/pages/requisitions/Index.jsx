@@ -7,7 +7,7 @@ import RequisitionFilter from "./RequisitionFilter";
 
 const Requisitions = () => {
   const [filter, setFilter] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [requisitions, setRequisitions] = useState([]);  
 
   const filterdata = (data) => {

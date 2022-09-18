@@ -1,4 +1,3 @@
-import React from "react";
 
 const Breadcrumbs = () => {
   return (
@@ -17,12 +16,11 @@ const Breadcrumbs = () => {
 
         <ul className="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
           <li className="breadcrumb-item text-muted">
-            <a
-              href="/panel/dashboard"
-              className="text-muted text-hover-primary"
+            <span
+              className="text-muted"
             >
               Dashboard
-            </a>
+            </span>
           </li>
 
           <li className="breadcrumb-item">

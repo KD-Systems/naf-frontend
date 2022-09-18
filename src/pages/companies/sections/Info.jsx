@@ -1,6 +1,5 @@
 import PermissionAbility from "helpers/PermissionAbility";
-import React, { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Moment from "react-moment";
 import { useNavigate, useParams } from "react-router-dom";
 import CompanyService from "services/CompanyService";
@@ -99,7 +98,7 @@ const CompanyInfo = () => {
                       : "text-gray"
                   }
                 >
-                  {company.due_amount?? "--"}
+                  {Math.floor(company.due_amount)}
                 </div>
                 <div className="fw-bolder mt-5">Trade Limit</div>
                 <div

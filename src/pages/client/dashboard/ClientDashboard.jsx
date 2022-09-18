@@ -15,28 +15,27 @@ const ClientDashboard = () => {
 
   const getStockAlert = async () => {
     const res = await DashboardService.getClientInvoiceDetails();
-    console.log(
-      "🚀 ~ file: ClientDashboard.jsx ~ line 18 ~ getStockAlert ~ res",
-      res
-    );
-
     var data = [];
     res.forEach((element) => {
-      console.log(
-        "🚀 ~ file: ClientDashboard.jsx ~ line 23 ~ res.forEach ~ element",
-        element
-      );
       data.push({
         id: element?.id,
         invoice_number: element?.invoice_number,
         quotation_number: element?.quotation_number,
         requistion_number: element?.requistion_number,
         type:
-          element?.type == "purchase_request"
-            ? "Purchase Request"
-            : "Claim Report",
+          element?.type == "purchase_request" ? (
+            <div className="mt-0 text-white bg-warning p-1 rounded d-flex justify-content-center">
+              Purchase Request
+            </div>
+          ) : (
+            <div className="mt-0 text-white bg-success p-1 rounded d-flex justify-content-center">
+              Claim Report
+            </div>
+          ),
         total_amount: Math.floor(element?.total_amount),
-        total_paid: element?.total_paid ?? "--",
+        total_paid: element?.total_paid
+          ? Math.floor(element?.total_paid)
+          : "--",
         total_due:
           element?.type == "purchase_request"
             ? element?.total_amount - element?.total_paid
@@ -75,9 +74,8 @@ const ClientDashboard = () => {
           <ScrollableTable
             headers={stockAlert.headers}
             records={stockAlert.data}
-            title="Invoice"
+            title="Payment Histories"
             url="/panel/client/invoices/"
-            height={610}
           />
         </Col>
       </Row>
