@@ -1,7 +1,7 @@
 import Confirmation from "components/utils/Confirmation";
 import Table from "components/utils/Table";
 import PermissionAbility from "helpers/PermissionAbility";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import PartService from "services/PartService";
 import CreateContract from "./Create";
@@ -135,7 +135,6 @@ const Parts = () => {
   };
 
   const getParts = async (filters) => {
-    // setLoading(true);
     const data = await PartService.getAll(filters);
     setParts(data);
     setLoading(false);

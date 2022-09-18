@@ -60,6 +60,7 @@ import Quotations from "pages/quotations/Index";
 import ShowQuotation from "pages/quotations/Show";
 import Reports from "pages/reports/Index";
 import PartStockReport from "pages/reports/PartStockReport";
+import RequiredRequisitions from "pages/requierd_requisitions/Index";
 import RequisitionCreate from "pages/requisitions/Create";
 import Requisitions from "pages/requisitions/Index";
 import PrintRequisition from "pages/requisitions/Print";
@@ -374,6 +375,15 @@ function App() {
             {/* Requisitions End */}
 
             {/* Required Requisition Start*/}
+
+            <Route
+              path="require_req"
+              element={
+                <PrivateRoute>
+                  <RequiredRequisitions />
+                </PrivateRoute>
+              }
+            />
             
             {/* Required Requisition End*/}
 

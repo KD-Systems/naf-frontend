@@ -34,6 +34,11 @@ const create = async (data) => {
   return res.data;
 };
 
+const createrequiredrequisitions = async (data) => {
+  const res = await http.post(`required-part/requisitions`, data);
+  return res.data;
+};
+
 const update = async (id, data) => {
   const res = await http.put(`/requisitions/${id}`, data);
   return res.data;
@@ -85,6 +90,7 @@ const RequisitionService = {
   partHeadings,
   items,
   create,
+  createrequiredrequisitions,
   update,
   remove,
   approve,

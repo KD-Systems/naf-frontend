@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
 import PermissionAbility from "helpers/PermissionAbility";
+import { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
 
 const SideMenu = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -334,6 +334,22 @@ const SideMenu = () => {
                     <i className="fas fa-tools"></i>
                   </span>
                   <span className="menu-title">Requisitions</span>
+                </NavLink>
+              </div>
+            </PermissionAbility>
+
+            <PermissionAbility permission="requisitions_access">
+              <div className="menu-item">
+                <NavLink
+                  className={(navinfo) =>
+                    navinfo.isActive ? "menu-link active" : "menu-link"
+                  }
+                  to="require_req"
+                >
+                  <span className="menu-icon">
+                    <i className="fas fa-tools"></i>
+                  </span>
+                  <span className="menu-title">Requierd Requisitions</span>
                 </NavLink>
               </div>
             </PermissionAbility>

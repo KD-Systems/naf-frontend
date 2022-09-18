@@ -1,5 +1,5 @@
 import moment from "moment";
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import { Link, useNavigate } from "react-router-dom";
 import Select from "react-select";
@@ -9,27 +9,8 @@ import CompanyService from "services/CompanyService";
 import PartService from "services/PartService";
 import RequisitionService from "services/RequisitionService";
 
-const RequisitionCreate = () => {
+const RequiredRequisitionCreate = () => {
   const navigate = useNavigate();
-
-  const [req, setReq] = useState(false);
-  const [inputField, setInputField] = useState([{}]);
-  const handleReqSelect = (e, index) => {
-    const { name, value } = e.target;
-    const list = [...inputField];
-
-    list[index][name] = value;
-    setInputField(list);
-  };
-  const handlePartAdd = () => {
-    setInputField([...inputField, {}]);
-  };
-  const handlePartRemove = (index) => {
-    const list = [...inputField];
-    list.splice(index, 1);
-    setInputField(list);
-  };
-
   const [companies, setCompanies] = useState([]);
   const [machineModels, setMachineModels] = useState([]);
   // console.log(machineModels);
@@ -66,10 +47,6 @@ const RequisitionCreate = () => {
     total: totalAmount,
     files: [],
   });
-  console.log(
-    "🚀 ~ file: Create.jsx ~ line 69 ~ RequisitionCreate ~ list",
-    list
-  );
 
   const [partHeading, setPartHeading] = useState(null);
   const [block, setBlock] = useState(false);
@@ -108,12 +85,7 @@ const RequisitionCreate = () => {
 
   const storeRequisition = async () => {
     setBlock(true);
-    req
-      ? await RequisitionService.createrequiredrequisitions({
-          ...data,
-          part_items: inputField,
-        })
-      : await RequisitionService.create(data);
+    await RequisitionService.create(data);
     setBlock(false);
     navigate("/panel/requisitions");
   };
@@ -180,7 +152,7 @@ const RequisitionCreate = () => {
         return dt.value;
       });
 
-    const name = conf.name;
+    const name = conf.name; 
     setBlock(false);
 
     setData({
@@ -392,7 +364,9 @@ const RequisitionCreate = () => {
                       </div>
 
                       <div className="col-lg-4">
-                        <label className="form-label">Expected Delivery</label>
+                        <label className="form-label">
+                          Expected Delivery
+                        </label>
                         <div className="mb-5">
                           <div className="form-group ">
                             <DatePicker
@@ -605,295 +579,192 @@ const RequisitionCreate = () => {
               </div>
             </div>
           </div>
+
+          
+
+         
+
           <div className="d-flex flex-column flex-lg-row">
             <div className="flex-lg-row-fluid mb-10 mb-lg-0 me-lg-7 me-xl-10">
               <div className="card mb-5">
-                <div className="card-body">
-                  <span>
-                    <input
-                      type="checkbox"
-                      defaultChecked={req}
-                      onChange={() => setReq(!req)}
-                    />
-                  </span>
+                <div className="card-body p-12">
+                  <div className="row">
+                    <div className="col-lg-4">
+                      <div className="form-group">
+                        <label className="form-label">Part Heading</label>
+                        <Select
+                          isClearable
+                          options={partHeadings}
+                          onChange={handleSelect}
+                          name="part_heading_id"
+                          // value={partHeading}
+                        />
+                        <div
+                          className="fv-plugins-message-container invalid-feedback"
+                          htmlFor="part_heading_id"
+                        ></div>
+                      </div>
+                    </div>
 
-                  <span className="p-5">Not in List?</span>
+                    <div className="col-lg-8">
+                      <div className="form-group mt-2">
+                        <label htmlFor=""></label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder="Search"
+                          name="search"
+                          value={filter.q || ""}
+                          onChange={filterData}
+                          onKeyUp={search}
+                        />
+                        <div>
+                          {searchData.length > 0 ? (
+                            <div className="card border border-secondary ">
+                              <div className="card-body ">
+                                {searchData?.map((item, index) => (
+                                  <div key={index}>
+                                    <Link
+                                      to={item?.id}
+                                      style={{ color: "black" }}
+                                      onClick={() => addPart(item)}
+                                    >
+                                      <p>
+                                        {item?.name}
+                                        <span>({item.part_number})</span>
+                                      </p>
+                                    </Link>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          ) : (
+                            ""
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-
-          {req ? (
-            <span>
-              {inputField?.map((item, index) => (
-                <Fragment key={index}>
-                  <div className="form-group mt-5">
+          {!selectedPart && (
+            <div className="d-flex flex-column flex-lg-row">
+              <div className="flex-lg-row-fluid mb-10 mb-lg-0 me-lg-7 me-xl-10">
+                <div className="p-20 bg-white mb-2 text-center">
+                  No items selected
+                </div>
+              </div>
+            </div>
+          )}
+          {selectedPart && list.length > 0 ? (
+            <div className="d-flex flex-column flex-lg-row">
+              <div className="flex-lg-row-fluid mb-lg-0 me-lg-7 me-xl-10">
+                <div className="card">
+                  <div className="card-body">
                     <div className="row">
-                      <div className="col-sm-3 col-md-3">
-                        <label className="required form-label">Part Name</label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          placeholder="Enter Part Name"
-                          name="part_name"
-                          id="part_name"
-                          onChange={(e) => handleReqSelect(e, index)}
-                        />
-                        <div
-                          className="fv-plugins-message-container invalid-feedback"
-                          htmlFor="part_number[]"
-                        ></div>
-                      </div>
-                      <div className="col-sm-2 col-md-2">
-                        <label className="form-label">Part Number</label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          placeholder="Enter Part Number"
-                          name="part_number"
-                          id="part_number"
-                          onChange={(e) => handleReqSelect(e, index)}
-                        />
-                        <div
-                          className="fv-plugins-message-container invalid-feedback"
-                          htmlFor="part_number[]"
-                        ></div>
-                      </div>
-                      <div className="col-sm-1 col-md-1">
-                        <label className="required form-label">Quantity</label>
-                        <input
-                          className="form-control"
-                          name="quantity"
-                          id="quantity"
-                          onChange={(e) => handleReqSelect(e, index)}
-                          type="number"
-                        />
-                        <div
-                          className="fv-plugins-message-container invalid-feedback"
-                          htmlFor="part_number[]"
-                        ></div>
-                      </div>
-                      <div className="col-sm-1 mt-8">
-                        <button
-                          type="button"
-                          className="btn btn-danger float-right"
-                          onClick={() => handlePartRemove(index)}
-                        >
-                          <i className="fa fa-minus"></i>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-
-                  {inputField.length - 1 === index && (
-                    <button
-                      type="button"
-                      className="btn btn-primary mt-5"
-                      onClick={handlePartAdd}
-                    >
-                      <i className="fa fa-plus"></i> Add More
-                    </button>
-                  )}
-                </Fragment>
-              ))}
-              <div className="mt-5">
-                <button
-                  onClick={() => {
-                    storeRequisition();
-                  }}
-                  className="btn btn-primary"
-                >
-                  Submit
-                </button>
-              </div>
-            </span>
-          ) : (
-            <span>
-              <div className="d-flex flex-column flex-lg-row">
-                <div className="flex-lg-row-fluid mb-10 mb-lg-0 me-lg-7 me-xl-10">
-                  <div className="card mb-5">
-                    <div className="card-body p-12">
-                      <div className="row">
-                        <div className="col-lg-4">
-                          <div className="form-group">
-                            <label className="form-label">Part Heading</label>
-                            <Select
-                              isClearable
-                              options={partHeadings}
-                              onChange={handleSelect}
-                              name="part_heading_id"
-                              // value={partHeading}
-                            />
-                            <div
-                              className="fv-plugins-message-container invalid-feedback"
-                              htmlFor="part_heading_id"
-                            ></div>
-                          </div>
-                        </div>
-
-                        <div className="col-lg-8">
-                          <div className="form-group mt-2">
-                            <label htmlFor=""></label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              placeholder="Search"
-                              name="search"
-                              value={filter.q || ""}
-                              onChange={filterData}
-                              onKeyUp={search}
-                            />
-                            <div>
-                              {searchData.length > 0 ? (
-                                <div className="card border border-secondary ">
-                                  <div className="card-body ">
-                                    {searchData?.map((item, index) => (
-                                      <div key={index}>
-                                        <Link
-                                          to={item?.id}
-                                          style={{ color: "black" }}
-                                          onClick={() => addPart(item)}
-                                        >
-                                          <p>
-                                            {item?.name}
-                                            <span>({item.part_number})</span>
-                                          </p>
-                                        </Link>
-                                      </div>
-                                    ))}
-                                  </div>
-                                </div>
-                              ) : (
-                                ""
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              {!selectedPart && (
-                <div className="d-flex flex-column flex-lg-row">
-                  <div className="flex-lg-row-fluid mb-10 mb-lg-0 me-lg-7 me-xl-10">
-                    <div className="p-20 bg-white mb-2 text-center">
-                      No items selected
-                    </div>
-                  </div>
-                </div>
-              )}
-              {selectedPart && list.length > 0 ? (
-                <div className="d-flex flex-column flex-lg-row">
-                  <div className="flex-lg-row-fluid mb-lg-0 me-lg-7 me-xl-10">
-                    <div className="card">
-                      <div className="card-body">
-                        <div className="row">
-                          <div className="col-lg-12">
-                            <div className="table-responsive">
-                              <table
-                                className="table g-5 gs-0 mb-0 fw-bolder text-gray-700"
-                                data-kt-element="items"
-                              >
-                                <thead>
-                                  <tr className="border-bottom fs-7 fw-bolder text-gray-700 text-uppercase">
-                                    <th className="min-w-300px w-475px">
-                                      Item
-                                    </th>
-                                    <th className="min-w-300px w-475px">
-                                      Part Number
-                                    </th>
-                                    <th className="min-w-100px w-250px">QTY</th>
-                                    <th className="min-w-75px w-75px text-end">
-                                      Action
-                                    </th>
-                                  </tr>
-                                </thead>
-
-                                <tbody>
-                                  {list?.map((item, index) => (
-                                    <tr key={index}>
-                                      <td className="pe-7" name="part_name">
-                                        {item?.name}
-                                      </td>
-                                      <td name="part_number">
-                                        {item?.part_number}
-                                      </td>
-
-                                      <td className="product-quantity">
-                                        <div className="input-group input-group-sm ">
-                                          <div className="input-group-prepend">
-                                            <span
-                                              className="input-group-text"
-                                              id="inputGroup-sizing-sm"
-                                              onClick={() => {
-                                                if (item?.quantity > 0) {
-                                                  decrement(item);
-                                                }
-                                              }}
-                                            >
-                                              <i className="fas fa-minus"></i>
-                                            </span>
-                                          </div>
-                                          <input
-                                            type="text"
-                                            className="form-control"
-                                            aria-label="Small"
-                                            aria-describedby="inputGroup-sizing-sm"
-                                            min="1"
-                                            value={item.quantity ?? ""}
-                                            defaultValue={item.quantity}
-                                            name="quantity"
-                                          />
-
-                                          <div className="input-group-prepend">
-                                            <span
-                                              className="input-group-text"
-                                              onClick={() => increment(item)}
-                                              style={{ cursor: "pointer" }}
-                                            >
-                                              <i className="fas fa-plus"></i>
-                                            </span>
-                                          </div>
-                                        </div>
-                                      </td>
-                                      <td className="text-end">
-                                        <button
-                                          type="button"
-                                          className="btn btn-sm btn-icon btn-danger"
-                                          data-kt-element="remove-item"
-                                          onClick={() => removeItem(item?.id)}
-                                        >
-                                          <i className="fa fa-trash"></i>
-                                        </button>
-                                      </td>
-                                    </tr>
-                                  ))}
-                                </tbody>
-                              </table>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="separator separator-dashed"></div>
-                        <div className="mt-5">
-                          <button
-                            onClick={() => {
-                              storeRequisition();
-                            }}
-                            className="btn btn-primary"
+                      <div className="col-lg-12">
+                        <div className="table-responsive">
+                          <table
+                            className="table g-5 gs-0 mb-0 fw-bolder text-gray-700"
+                            data-kt-element="items"
                           >
-                            Submit
-                          </button>
+                            <thead>
+                              <tr className="border-bottom fs-7 fw-bolder text-gray-700 text-uppercase">
+                                <th className="min-w-300px w-475px">Item</th>
+                                <th className="min-w-300px w-475px">
+                                  Part Number
+                                </th>
+                                <th className="min-w-100px w-250px">QTY</th>
+                                <th className="min-w-75px w-75px text-end">
+                                  Action
+                                </th>
+                              </tr>
+                            </thead>
+
+                            <tbody>
+                              {list?.map((item, index) => (
+                                <tr key={index}>
+                                  <td className="pe-7" name="part_name">
+                                    {item?.name}
+                                  </td>
+                                  <td name="part_number">
+                                    {item?.part_number}
+                                  </td>
+
+                                  <td className="product-quantity">
+                                    <div className="input-group input-group-sm ">
+                                      <div className="input-group-prepend">
+                                        <span
+                                          className="input-group-text"
+                                          id="inputGroup-sizing-sm"
+                                          onClick={() => {
+                                            if (item?.quantity > 0) {
+                                              decrement(item);
+                                            }
+                                          }}
+                                        >
+                                          <i className="fas fa-minus"></i>
+                                        </span>
+                                      </div>
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                        aria-label="Small"
+                                        aria-describedby="inputGroup-sizing-sm"
+                                        min="1"
+                                        value={item.quantity ?? ""}
+                                        defaultValue={item.quantity}
+                                        name="quantity"
+                                      />
+
+                                      <div className="input-group-prepend">
+                                        <span
+                                          className="input-group-text"
+                                          onClick={() => increment(item)}
+                                          style={{ cursor: "pointer" }}
+                                        >
+                                          <i className="fas fa-plus"></i>
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </td>
+                                  <td className="text-end">
+                                    <button
+                                      type="button"
+                                      className="btn btn-sm btn-icon btn-danger"
+                                      data-kt-element="remove-item"
+                                      onClick={() => removeItem(item?.id)}
+                                    >
+                                      <i className="fa fa-trash"></i>
+                                    </button>
+                                  </td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
                         </div>
                       </div>
                     </div>
+
+                    <div className="separator separator-dashed"></div>
+                    <div className="mt-5">
+                      <button
+                        onClick={() => {
+                          storeRequisition();
+                        }}
+                        className="btn btn-primary"
+                      >
+                        Submit
+                      </button>
+                    </div>
                   </div>
                 </div>
-              ) : (
-                ""
-              )}
-            </span>
+              </div>
+            </div>
+          ) : (
+            ""
           )}
         </div>
       </div>
@@ -901,4 +772,4 @@ const RequisitionCreate = () => {
   );
 };
 
-export default RequisitionCreate;
+export default RequiredRequisitionCreate;
