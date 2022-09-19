@@ -19,6 +19,8 @@ import ShowClientInvoice from "pages/client/invoices/show";
 import CreateClientQuotation from "pages/client/quotations/create";
 import ClientQuotation from "pages/client/quotations/index.jsx";
 import ShowClientQuotation from "pages/client/quotations/show";
+import ClientRequiredRequisitions from "pages/client/requierd_requisitions/Index";
+import ClientShowRequiredRequisition from "pages/client/requierd_requisitions/Show";
 import ClientRequisitions from "pages/client/requisitions";
 import ClientRequisitionCreate from "pages/client/requisitions/create";
 import PrintClientRequisition from "pages/client/requisitions/print";
@@ -644,6 +646,45 @@ function App() {
             />
 
             {/* client requisition end */}
+
+            {/* client required requisition start */}
+            <Route
+              path="client-required-requisitions"
+              element={
+                <PrivateRoute>
+                  <ClientRequiredRequisitions />
+                </PrivateRoute>
+              }
+            />
+
+            {/* <Route
+              path="client-requisitions/create"
+              element={
+                <PrivateRoute>
+                  <ClientRequisitionCreate />
+                </PrivateRoute>
+              }
+            /> */}
+
+            <Route
+              path="client/client_require_req/:id"
+              element={
+                <PrivateRoute>
+                  <ClientShowRequiredRequisition />
+                </PrivateRoute>
+              }
+            />
+
+            {/* <Route
+              path="client/requisitions/:id/print"
+              element={
+                <PrivateRoute>
+                  <PrintClientRequisition />
+                </PrivateRoute>
+              }
+            /> */}
+
+            {/* client required requisition end */}
 
             {/* client quotation start */}
 

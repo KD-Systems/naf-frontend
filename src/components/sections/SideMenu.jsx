@@ -349,7 +349,7 @@ const SideMenu = () => {
                   <span className="menu-icon">
                     <i className="fas fa-tools"></i>
                   </span>
-                  <span className="menu-title">Requierd Requisitions</span>
+                  <span className="menu-title">Required Requisitions</span>
                 </NavLink>
               </div>
             </PermissionAbility>

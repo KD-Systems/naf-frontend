@@ -1,6 +1,7 @@
 import moment from "moment";
 import { Fragment, useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
+import { DebounceInput } from "react-debounce-input";
 import { Link, useNavigate } from "react-router-dom";
 import Select from "react-select";
 import { toast } from "react-toastify";
@@ -36,7 +37,6 @@ const RequisitionCreate = () => {
   const [filter, setFilter] = useState({
     part_heading_id: null,
   });
-  const [partHeadings, setPartHeadings] = useState([]);
   // console.log(partHeadings);
   const [uniquePart, setUniquePart] = useState([]);
   const [searchData, setSearchData] = useState([]);
@@ -117,7 +117,11 @@ const RequisitionCreate = () => {
         })
       : await RequisitionService.create(data);
     setBlock(false);
-    navigate("/panel/requisitions");
+    if (req) {
+      navigate("/panel/require_req");
+    } else {
+      navigate("/panel/requisitions");
+    }
   };
 
   const addPart = (item) => {
@@ -217,21 +221,6 @@ const RequisitionCreate = () => {
     setParts(items);
   };
 
-  const getPartHeadings = async () => {
-    if (data?.machine_id.length === 0) setPartHeadings([]);
-
-    if (data?.machine_id.length > 0) {
-      let res = await RequisitionService.partHeadings({
-        machine_ids: data?.machine_id,
-      });
-
-      let items = res?.map((dt) => {
-        return { label: dt.name, value: dt.id };
-      });
-      setPartHeadings(items);
-    }
-  };
-
   const filterData = (e) => {
     let query = e.target.value;
     setFilter({
@@ -242,12 +231,18 @@ const RequisitionCreate = () => {
   };
 
   const search = async (e) => {
-    if (e.keyCode === 13 && !machineModels.length)
+    if (!machineModels.length) {
       return toast.warning("Please select machine first located at the top!");
-
-    e.keyCode === 13 && (await getParts());
+    } else {
+      await getParts();
+    }
     if (filter?.q === "") setSearchData([]);
   };
+  useEffect(() => {
+    if (filter?.q) {
+      search();
+    }
+  }, [filter]);
 
   useEffect(() => {
     setData({ ...data, part_items: list, total: totalAmount }); //add part_items and total amount in data
@@ -256,10 +251,6 @@ const RequisitionCreate = () => {
   useEffect(() => {
     if (data.company_id) getMachineModels(data?.company_id);
   }, [data.company_id]);
-
-  useEffect(() => {
-    if (data.machine_id) getPartHeadings(data?.machine_id);
-  }, [data.machine_id]);
 
   useEffect(() => {
     getCompanies();
@@ -718,14 +709,6 @@ const RequisitionCreate = () => {
                       <div className="row">
                         <div className="col-lg-4">
                           <div className="form-group">
-                            <label className="form-label">Part Heading</label>
-                            <Select
-                              isClearable
-                              options={partHeadings}
-                              onChange={handleSelect}
-                              name="part_heading_id"
-                              // value={partHeading}
-                            />
                             <div
                               className="fv-plugins-message-container invalid-feedback"
                               htmlFor="part_heading_id"
@@ -733,18 +716,16 @@ const RequisitionCreate = () => {
                           </div>
                         </div>
 
-                        <div className="col-lg-8">
+                        <div className="col-lg-12">
                           <div className="form-group mt-2">
                             <label htmlFor=""></label>
-                            <input
-                              type="text"
+                            <DebounceInput
                               className="form-control"
-                              placeholder="Search"
-                              name="search"
-                              value={filter.q || ""}
+                              placeholder="search"
+                              debounceTimeout={300}
                               onChange={filterData}
-                              onKeyUp={search}
                             />
+
                             <div>
                               {searchData.length > 0 ? (
                                 <div className="card border border-secondary ">

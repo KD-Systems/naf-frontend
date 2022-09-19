@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react";
 import Modal from "components/utils/Modal";
-import Select from 'react-select'
-import "react-datepicker/dist/react-datepicker.css";
-import PartStockService from "services/PartStockService";
+import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useParams } from "react-router-dom";
-import WareHouseService from "services/WareHouseService";
+import Select from 'react-select';
 import BoxHeadingService from "services/BoxHeadingService";
+import PartStockService from "services/PartStockService";
+import WareHouseService from "services/WareHouseService";
 
 const AddPartStock = ({ open, onCloseModal, onCreated }) => {
   let { id } = useParams();
@@ -69,8 +68,7 @@ const AddPartStock = ({ open, onCloseModal, onCreated }) => {
   const getHeadings = async () => {
     setBlock(false)
     let res = await BoxHeadingService.getAll()
-    
-   let dt = res?.data?.map(itm => ({ label: itm.name, value: itm.id })) //Parse the data as per the select requires
+    let dt = res?.data.map(itm => ({ label: itm.name, value: itm.id })) //Parse the data as per the select requires
     setHeadings(dt);
     setBlock(false)
   };

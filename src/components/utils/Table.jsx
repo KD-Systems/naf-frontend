@@ -1,6 +1,7 @@
 import PermissionAbility from "helpers/PermissionAbility";
 import { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
+import { DebounceInput } from "react-debounce-input";
 function Table({
   name,
   buttonName,
@@ -65,11 +66,13 @@ function Table({
         <div className="card-title">
           <div className="d-flex align-rows-center position-relative">
             <i className="fa fa-search position-absolute ms-4 my-5"></i>
-            <input
+            <DebounceInput
               type="text"
+              debounceTimeout={300}
               data-filter="search"
               className="form-control form-control-solid w-250px ps-14"
               placeholder={"Search " + name}
+              value={filters?.q}
               onChange={onSearch}
             />
           </div>

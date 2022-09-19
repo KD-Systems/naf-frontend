@@ -1,8 +1,6 @@
-import React,{useState,useEffect} from 'react'
-import PermissionAbility from 'helpers/PermissionAbility'
-import Moment from "react-moment";
-import { NavLink } from 'react-router-dom'
+import { useEffect, useState } from 'react';
 import { useSelector } from "react-redux";
+import { NavLink } from 'react-router-dom';
 const SideMenuCompany = () => {
     const [collapsed,setCollapsed]=useState(false)
     const { user } = useSelector((state) => state.auth);
@@ -377,6 +375,20 @@ const SideMenuCompany = () => {
                     <i className="fas fa-tools"></i>
                   </span>
                   <span className="menu-title">Requisitions</span>
+                </NavLink>
+              </div>
+
+              <div className="menu-item">
+                <NavLink
+                  className={(navinfo) =>
+                    navinfo.isActive ? "menu-link active" : "menu-link"
+                  }
+                  to="client-required-requisitions"
+                >
+                  <span className="menu-icon">
+                    <i className="fas fa-tools"></i>
+                  </span>
+                  <span className="menu-title">Required Requisitions</span>
                 </NavLink>
               </div>
 
