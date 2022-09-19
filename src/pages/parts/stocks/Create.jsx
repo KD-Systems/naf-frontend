@@ -68,7 +68,12 @@ const AddPartStock = ({ open, onCloseModal, onCreated }) => {
   const getHeadings = async () => {
     setBlock(false)
     let res = await BoxHeadingService.getAll()
+<<<<<<< HEAD
     let dt = res?.data.map(itm => ({ label: itm.name, value: itm.id })) //Parse the data as per the select requires
+=======
+    
+   let dt = res?.data?.map(itm => ({ label: itm.name, value: itm.id })) //Parse the data as per the select requires
+>>>>>>> e51db088004bbfc58c5c28f43f28c95aed5a6fd2
     setHeadings(dt);
     setBlock(false)
   };
