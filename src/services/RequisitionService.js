@@ -90,11 +90,10 @@ const deleteFile = async (uuid, model_id) => {
   return res.data;
 };
 
-// for client module
-// const createClientRequisition = async (data) => {
-//   const res = await http.post(`/create-client-requisitions`, data)
-//   return res.data;
-// };
+const changeStatus = async (id, data) => {
+  const res = await http.post(`/required-part/requisitions/status/${id}`, data);
+  return res?.data;
+};
 
 const RequisitionService = {
   getAll,
@@ -113,6 +112,7 @@ const RequisitionService = {
   fileUpload,
   getFile,
   deleteFile,
+  changeStatus,
   // createClientRequisition
 };
 

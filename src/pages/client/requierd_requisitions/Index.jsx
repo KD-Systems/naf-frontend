@@ -56,13 +56,13 @@ const ClientRequiredRequisitions = () => {
             </div>
           )}
           {row?.status == "on-going" && (
-            <div className="mt-2 text-white bg-success p-1 px-2 rounded">
+            <div className="mt-2 text-white bg-info p-1 px-2 rounded">
               On Going
             </div>
           )}
-          {row?.status == "completed" && (
-            <div className="mt-2 text-white bg-danger p-1 px-2 rounded">
-              Rejected
+          {row?.status == "complete" && (
+            <div className="mt-2 text-white bg-success p-1 px-2 rounded">
+              Complete
             </div>
           )}
         </>

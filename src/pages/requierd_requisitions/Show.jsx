@@ -24,8 +24,10 @@ const ShowRequiredRequisition = () => {
     { value: "complete", label: "Complete" },
   ];
 
-  const handleSelect = (e) => {
-    console.log("🚀 ~ file: Show.jsx ~ line 30 ~ handleSelect ~ e", e);
+  const handleSelect = async (e) => {
+    let data = { status: e.value };
+    await RequisitionService.changeStatus(id, data);
+    setRequisition({ ...requisition, status: e.value });
   };
 
   useEffect(() => {
