@@ -4,10 +4,11 @@ import { useEffect, useState } from "react";
 import Moment from "react-moment";
 import { useNavigate, useParams } from "react-router-dom";
 import Select from "react-select";
-import RequisitionService from "../../services/RequisitionService";
+import RequisitionService from "services/RequisitionService";
 
-const ShowRequiredRequisition = () => {
+const ClientShowRequiredRequisition = () => {
   let { id } = useParams();
+  console.log("🚀 ~ file: Show.jsx ~ line 11 ~ ClientShowRequiredRequisition ~ id", id)
   const navigate = useNavigate();
   const [requisition, setRequisition] = useState({});
 
@@ -242,4 +243,4 @@ const ShowRequiredRequisition = () => {
   );
 };
 
-export default ShowRequiredRequisition;
+export default ClientShowRequiredRequisition;

@@ -63,6 +63,7 @@ const RequiredRequisitionCreate = () => {
   const [filter, setFilter] = useState({
     part_heading_id: null,
   });
+  const [partHeadings, setPartHeadings] = useState([]);
   const [searchData, setSearchData] = useState([]);
 
   const [selectedPart, setSelectedPart] = useState(false);
@@ -100,6 +101,22 @@ const RequiredRequisitionCreate = () => {
     setBlock(false);
   };
 
+  const handleSelect = (option, conf) => {
+    let value = option.value;
+    if (Array.isArray(option))
+      value = option.map((dt) => {
+        return dt.value;
+      });
+
+    const name = conf.name;
+    setBlock(false);
+
+    setData({
+      ...data,
+      [name]: value,
+    });
+  };
+
   const handleChange = (e) => {
     const { name } = e.target;
     setData({ ...data, [name]: e.target.value });
@@ -115,6 +132,20 @@ const RequiredRequisitionCreate = () => {
     setParts(items);
   };
 
+  const getPartHeadings = async () => {
+    if (data?.machine_id.length === 0) setPartHeadings([]);
+
+    if (data?.machine_id.length > 0) {
+      let res = await RequisitionService.partHeadings({
+        machine_ids: data?.machine_id,
+      });
+
+      let items = res?.map((dt) => {
+        return { label: dt.name, value: dt.id };
+      });
+      setPartHeadings(items);
+    }
+  };
 
   const filterData = (e) => {
     let query = e.target.value;
@@ -148,12 +179,21 @@ const RequiredRequisitionCreate = () => {
   }, [data.company_id]);
 
   useEffect(() => {
+    if (data.machine_id) getPartHeadings(data?.machine_id);
+  }, [data.machine_id]);
+
+  useEffect(() => {
     const sum = list.reduce(
       (partialSum, a) => partialSum + a.selling_price * a.quantity,
       0
     );
     setTotal(sum);
   }, [list]);
+  console.log(
+    "🚀 ~ file: Create.jsx ~ line 192 ~ RequiredRequisitionCreate ~ list",
+    list
+  );
+
   const increment = (item) => {
     const tempList = [...list];
     const tempItem = tempList.filter((val) => val.id === item.id);
@@ -257,7 +297,7 @@ const RequiredRequisitionCreate = () => {
                           <input
                             type="text"
                             className="form-control"
-                            value={data?.engineer?.name}
+                            value={data?.engineer}
                             disabled
                           />
                           <div
