@@ -68,7 +68,7 @@ function Table({
             <i className="fa fa-search position-absolute ms-4 my-5"></i>
             <DebounceInput
               type="text"
-              debounceTimeout={300}
+              debounceTimeout={500}
               data-filter="search"
               className="form-control form-control-solid w-250px ps-14"
               placeholder={"Search " + name}
