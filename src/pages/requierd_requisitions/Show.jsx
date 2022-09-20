@@ -75,6 +75,11 @@ const ShowRequiredRequisition = () => {
                   {requisition?.engineer?.name ?? "--"}
                 </div>
 
+                <div className="fw-bolder mt-5">Requisition ID</div>
+                <div className="text-gray-600">
+                  {requisition?.requisition_id ?? "--"}
+                </div>
+
                 <div className="fw-bolder mt-5">Expected Delivery</div>
                 <div className="text-gray-600">
                   <Moment format="D MMMM YYYY">
@@ -131,23 +136,25 @@ const ShowRequiredRequisition = () => {
                   />
                 </div>
               </div>
-              <div className="card-header">
-                <div className="card-title">
-                  <h3 className="card-label">
-                    <PermissionAbility permission="requisitions_generate_quotation">
-                      <button
-                        className="btn btn-sm btn-dark "
-                        style={{ marginRight: "0.1rem" }}
-                        onClick={() =>
-                          navigate(`/panel/require_req/create/` + id)
-                        }
-                      >
-                        Generate Requisitions
-                      </button>
-                    </PermissionAbility>
-                  </h3>
+              {!requisition?.requisition_id && (
+                <div className="card-header">
+                  <div className="card-title">
+                    <h3 className="card-label">
+                      <PermissionAbility permission="requisitions_generate_quotation">
+                        <button
+                          className="btn btn-sm btn-dark "
+                          style={{ marginRight: "0.1rem" }}
+                          onClick={() =>
+                            navigate(`/panel/require_req/create/` + id)
+                          }
+                        >
+                          Generate Requisitions
+                        </button>
+                      </PermissionAbility>
+                    </h3>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
 

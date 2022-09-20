@@ -1,12 +1,11 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
-import Moment from "react-moment";
-import RequisitionService from "../../services/RequisitionService";
 import { Activities } from "components/utils/Activities";
-import PermissionAbility from "helpers/PermissionAbility";
-import QuotationService from "services/QuotationService";
-import NewDropzone from "./Dropzone/MyDropzone";
 import Confirmation from "components/utils/Confirmation";
+import PermissionAbility from "helpers/PermissionAbility";
+import { useEffect, useState } from "react";
+import Moment from "react-moment";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import RequisitionService from "../../services/RequisitionService";
+import NewDropzone from "./Dropzone/MyDropzone";
 
 const ShowRequisition = () => {
   const [confirmDelete, setConfirmDelete] = useState(false);
@@ -296,6 +295,7 @@ const ShowRequisition = () => {
                                   <th className="min-w-50px">Part Name</th>
                                   <th className="min-w-120px">Part Number</th>
                                   <th className="min-w-120px">Quantity</th>
+                                  <th className="min-w-120px">Remarks</th>
                                 </tr>
                               </thead>
 
@@ -317,6 +317,9 @@ const ShowRequisition = () => {
                                     </td>
                                     <td className=" fw-bolder mb-1 fs-6">
                                       <span>{item?.quantity}</span>
+                                    </td>
+                                    <td className=" fw-bolder mb-1 fs-6">
+                                      <span>{item?.remarks}</span>
                                     </td>
                                   </tr>
                                 ))}

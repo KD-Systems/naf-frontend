@@ -45,6 +45,17 @@ const RequiredRequisitions = () => {
       field: "role",
     },
     {
+      name: "Requisition",
+      selector: (row) => row.requisition_id ,
+      sortable: true,
+      field: "role",
+      format: (row) => (
+        <>
+        {row?.requisition_id ? "A":"B"}
+        </>
+      ),
+    },
+    {
       name: "Status",
       selector: (row) => row?.status,
       sortable: true,
