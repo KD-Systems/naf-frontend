@@ -59,7 +59,7 @@ const AddPartStock = ({ open, onCloseModal, onCreated }) => {
   const getWarehouses = async () => {
     setBlock(false)
     let dt = await WareHouseService.getAll()
-    dt = dt.map(itm => ({ label: itm.name, value: itm.id })) //Parse the data as per the select requires
+    dt = dt.map(itm => ({ label: itm.name, value: itm.id }))
     setWarehouses(dt);
     setBlock(false)
   };
@@ -67,13 +67,13 @@ const AddPartStock = ({ open, onCloseModal, onCreated }) => {
   const getHeadings = async () => {
     setBlock(false)
     let res = await BoxHeadingService.getAllHeadings()
-    let dt = res?.map(itm => ({ label: itm.name, value: itm.id })) //Parse the data as per the select requires
+    let dt = res?.map(itm => ({ label: itm.name, value: itm.id })) 
     setHeadings(dt);
     setBlock(false)
   };
 
   useEffect(() => {
-    if (open) { //Prevent preload data while modal is hidden
+    if (open) {
       getWarehouses();
       getHeadings();
     }
