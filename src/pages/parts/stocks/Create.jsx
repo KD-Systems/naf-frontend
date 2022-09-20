@@ -12,7 +12,6 @@ const AddPartStock = ({ open, onCloseModal, onCreated }) => {
   let { id } = useParams();
   const [warehouses, setWarehouses] = useState([])
   const [headings, setHeadings] = useState([])
-
   const [data, setData] = useState({})
   const [block, setBlock] = useState(false);
 
@@ -67,8 +66,8 @@ const AddPartStock = ({ open, onCloseModal, onCreated }) => {
 
   const getHeadings = async () => {
     setBlock(false)
-    let res = await BoxHeadingService.getAll()
-    let dt = res?.data.map(itm => ({ label: itm.name, value: itm.id })) //Parse the data as per the select requires
+    let res = await BoxHeadingService.getAllHeadings()
+    let dt = res?.map(itm => ({ label: itm.name, value: itm.id })) //Parse the data as per the select requires
     setHeadings(dt);
     setBlock(false)
   };
