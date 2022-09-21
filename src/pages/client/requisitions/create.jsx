@@ -125,7 +125,7 @@ const RequisitionCreate = () => {
     } else {
       navigate("/panel/client-requisitions");
     }
-    setBlock(false);
+    setBlock(false);    
   };
 
   const addPart = (item) => {
@@ -261,7 +261,7 @@ const RequisitionCreate = () => {
       part_heading_id: data?.part_heading_id,
     });
   };
-
+console.log("A",machineModels);
   const search = async (e) => {
     if (!machineModels.length) {
       console.log("🚀 ~ file: create.jsx ~ line 267 ~ search ~ machineModels", machineModels)
