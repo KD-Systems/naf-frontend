@@ -36,6 +36,8 @@ const RequisitionCreate = () => {
   const [companies, setCompanies] = useState({});
   const [contract, setContracts] = useState();
   const [machineModels, setMachineModels] = useState([]);
+  console.log("🚀 ~ file: create.jsx ~ line 39 ~ RequisitionCreate ~ machineModels", machineModels)
+  
   const [filter, setFilter] = useState({
     part_heading_id: null,
   });
@@ -262,6 +264,7 @@ const RequisitionCreate = () => {
 
   const search = async (e) => {
     if (!machineModels.length) {
+      console.log("🚀 ~ file: create.jsx ~ line 267 ~ search ~ machineModels", machineModels)
       toast.warning("Please select machine first located at the top!");
     } else {
       await getParts();
