@@ -111,17 +111,19 @@ const RequisitionCreate = () => {
       ? await ClientRequisitionService.createrequiredrequisitions({
           ...data,
           part_items: inputField,
-          company_id: companies
+          company_id: companies,
         })
-      : await ClientRequisitionService.create({...data, company_id: companies});
+      : await ClientRequisitionService.create({
+          ...data,
+          company_id: companies,
+        });
     setBlock(false);
     if (req) {
       navigate("/panel/require_req");
     } else {
-      navigate("/panel/requisitions");
+      navigate("/panel/client-requisitions");
     }
     setBlock(false);
-    navigate("/panel/client-requisitions");
   };
 
   const addPart = (item) => {
@@ -259,12 +261,19 @@ const RequisitionCreate = () => {
   };
 
   const search = async (e) => {
-    if (e.keyCode === 13 && !machineModels.length)
-      return toast.warning("Please select machine first located at the top!");
-
-    e.keyCode === 13 && (await getParts());
+    if (!machineModels.length) {
+      toast.warning("Please select machine first located at the top!");
+    } else {
+      await getParts();
+    }
     if (filter?.q === "") setSearchData([]);
   };
+
+  useEffect(() => {
+    if (filter?.q) {
+      search();
+    }
+  }, [filter]);
 
   useEffect(() => {
     setData({ ...data, part_items: list, total: totalAmount }); //add part_items and total amount in data

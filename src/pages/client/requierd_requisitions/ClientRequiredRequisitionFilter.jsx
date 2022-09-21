@@ -1,22 +1,23 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Select from "react-select";
 
-function RequisitionFilter({ enable, onChange }) {
+function ClientRequiredRequisitionFilter({ enable, onChange }) {
   let user = JSON.parse(localStorage.getItem("user"))?.user;
 
   const [data, setData] = useState({
     status: null,
-    type: null,
+    r_status: null,
   });
   const status = [
     { label: "All", value: null },
     { label: "Pending", value: "pending" },
+    { label: "On-going", value: "on-going" },
     { label: "Approved", value: "approved" },
   ];
   const type = [
     { label: "All", value: null },
-    { label: "Purchase Request", value: "purchase_request" },
-    { label: "Claim Report", value: "claim_report" },
+    { label: "Created", value: "created" },
+    { label: "Not Created", value: "not_created" },
   ];
   const [defaultStatus, setDefaultStatus] = useState({
     label: "All",
@@ -99,11 +100,11 @@ function RequisitionFilter({ enable, onChange }) {
             />
           </div>
           <div className="mb-10">
-            <label className="form-label fw-bold">Requisition Type:</label>
+            <label className="form-label fw-bold">Requisition Status:</label>
             <Select
               options={type}
               onChange={(option, action) => handleSelect(option, action)}
-              name="type"
+              name="r_status"
               value={defaultType}
             />
           </div>
@@ -132,4 +133,4 @@ function RequisitionFilter({ enable, onChange }) {
   );
 }
 
-export default RequisitionFilter;
+export default ClientRequiredRequisitionFilter;

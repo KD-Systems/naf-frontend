@@ -2,13 +2,15 @@ import { Activities } from "components/utils/Activities";
 import PermissionAbility from "helpers/PermissionAbility";
 import { useEffect, useState } from "react";
 import Moment from "react-moment";
-import { useNavigate, useParams } from "react-router-dom";
-import Select from "react-select";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import RequisitionService from "services/RequisitionService";
 
 const ClientShowRequiredRequisition = () => {
   let { id } = useParams();
-  console.log("🚀 ~ file: Show.jsx ~ line 11 ~ ClientShowRequiredRequisition ~ id", id)
+  console.log(
+    "🚀 ~ file: Show.jsx ~ line 11 ~ ClientShowRequiredRequisition ~ id",
+    id
+  );
   const navigate = useNavigate();
   const [requisition, setRequisition] = useState({});
 
@@ -55,11 +57,6 @@ const ClientShowRequiredRequisition = () => {
               </div>
 
               <div className="card-body py-4">
-                <div className="fw-bolder mt-5">Company</div>
-                <div className="text-gray-600">
-                  {requisition?.company?.name}
-                </div>
-
                 {/* <div className="fw-bolder mt-5">Machines</div>
                 <div className="text-gray-600">
                   {requisition?.machines?.map((item, index) => (
@@ -80,6 +77,20 @@ const ClientShowRequiredRequisition = () => {
                     {requisition?.expected_delivery}
                   </Moment>
                 </div>
+                <div className="fw-bolder mt-5">Requisition Status</div>
+                <div className="fw-bolder text-danger">
+                  {requisition?.requisition_id ? (
+                    <Link
+                      to={"/panel/client/requisitions/" + requisition?.requisition_id}
+                      className="fw-bolder text-success"
+                    >
+                      Created
+                    </Link>
+                  ) : (
+                    "Not yet Created"
+                  )}
+                </div>
+                
 
                 <div className="fw-bolder mt-5">Priority</div>
                 <div className="text-gray-600">
@@ -120,15 +131,6 @@ const ClientShowRequiredRequisition = () => {
 
                 <div className="fw-bolder mt-5">Status</div>
                 <div className="text-gray-600">{requisition?.status}</div>
-
-                <div className="fw-bolder mt-5">Change Status</div>
-                <div className="text-gray-600">
-                  <Select
-                    options={status}
-                    onChange={handleSelect}
-                    name="status"
-                  />
-                </div>
               </div>
               <div className="card-header">
                 <div className="card-title">
@@ -222,15 +224,6 @@ const ClientShowRequiredRequisition = () => {
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="mt-10">
-                    <button
-                      className="btn btn-sm btn-dark "
-                      style={{ marginRight: "0.1rem" }}
-                      onClick={() => navigate(`/panel/parts`)}
-                    >
-                      Add Part
-                    </button>
                   </div>
                 </div>
                 <Activities logName="requisitions" modelId={id} tab={tab} />
