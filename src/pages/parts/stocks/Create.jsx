@@ -12,7 +12,6 @@ const AddPartStock = ({ open, onCloseModal, onCreated }) => {
   let { id } = useParams();
   const [warehouses, setWarehouses] = useState([])
   const [headings, setHeadings] = useState([])
-
   const [data, setData] = useState({})
   const [block, setBlock] = useState(false);
 
@@ -60,21 +59,21 @@ const AddPartStock = ({ open, onCloseModal, onCreated }) => {
   const getWarehouses = async () => {
     setBlock(false)
     let dt = await WareHouseService.getAll()
-    dt = dt.map(itm => ({ label: itm.name, value: itm.id })) //Parse the data as per the select requires
+    dt = dt.map(itm => ({ label: itm.name, value: itm.id }))
     setWarehouses(dt);
     setBlock(false)
   };
 
   const getHeadings = async () => {
     setBlock(false)
-    let res = await BoxHeadingService.getAll()
-    let dt = res?.data.map(itm => ({ label: itm.name, value: itm.id })) //Parse the data as per the select requires
+    let res = await BoxHeadingService.getAllHeadings()
+    let dt = res?.map(itm => ({ label: itm.name, value: itm.id })) 
     setHeadings(dt);
     setBlock(false)
   };
 
   useEffect(() => {
-    if (open) { //Prevent preload data while modal is hidden
+    if (open) {
       getWarehouses();
       getHeadings();
     }

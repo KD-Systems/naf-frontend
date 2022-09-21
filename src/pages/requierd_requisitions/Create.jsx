@@ -18,9 +18,7 @@ const RequiredRequisitionCreate = () => {
     if (hasItem) return false;
 
     const newList = list.concat(item);
-    setList(
-      Array.from(new Set(newList))
-    ); /* add part in the List and remove duplicates from array */
+    setList(Array.from(new Set(newList)));
     setSelectedPart(true);
     setFilter({ ...filter, q: "" });
     setSearchData("");
@@ -28,6 +26,7 @@ const RequiredRequisitionCreate = () => {
 
   const [list, setList] = useState([]);
   const [totalAmount, setTotal] = useState(0);
+  const [machineList, setMachineList] = useState("");
   const [data, setData] = useState({
     company_id: "",
     engineer_id: "",
@@ -51,6 +50,9 @@ const RequiredRequisitionCreate = () => {
   });
   const getRequisition = async () => {
     let res = await RequisitionService.getRequiredRequisition(id);
+    res?.machines_data?.map((item) => {
+      setMachineList(machineList + "," + item?.model?.name);
+    });
     setData(res);
   };
 
@@ -115,7 +117,6 @@ const RequiredRequisitionCreate = () => {
     setParts(items);
   };
 
-
   const filterData = (e) => {
     let query = e.target.value;
     setFilter({
@@ -138,6 +139,7 @@ const RequiredRequisitionCreate = () => {
       search();
     }
   }, [filter]);
+
 
   useEffect(() => {
     setData({ ...data, part_items: list, total: totalAmount }); //add part_items and total amount in data
@@ -240,7 +242,7 @@ const RequiredRequisitionCreate = () => {
                           <input
                             type="text"
                             className="form-control"
-                            value={data?.company?.name}
+                            value={machineList.slice(1, machineList.length)}
                             disabled
                           />
                           <div

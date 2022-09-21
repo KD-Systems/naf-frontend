@@ -2,8 +2,8 @@ import http from "../../http-common";
 
 const getAll = async (data) => {
   const res = await http.get(`/client-requisitions`, {
-    params: data
-});
+    params: data,
+  });
   return res.data;
 };
 
@@ -13,14 +13,19 @@ const get = async (id) => {
 };
 
 const create = async (data) => {
-  const res = await http.post(`/client-requisitions`, data)
+  const res = await http.post(`/client-requisitions`, data);
+  return res.data;
+};
+
+const createrequiredrequisitions = async (data) => {
+  const res = await http.post(`required-part/requisitions`, data);
   return res.data;
 };
 
 //file upload
 const fileUpload = async (id, data) => {
-  console.log("shanto",data);
-  const res = await http.post(`/client-requisitions/${id}/files`, data); 
+  console.log("shanto", data);
+  const res = await http.post(`/client-requisitions/${id}/files`, data);
   return res.data;
 };
 
@@ -31,18 +36,21 @@ const getFile = async (id) => {
 };
 
 //get file
-const deleteFile = async (uuid,model_id) => {
-  const res = await http.delete(`/client-requisitions/${model_id}/files/${uuid}/delete`);
+const deleteFile = async (uuid, model_id) => {
+  const res = await http.delete(
+    `/client-requisitions/${model_id}/files/${uuid}/delete`
+  );
   return res.data;
 };
 
 const ClientRequisitionService = {
   getAll,
+  createrequiredrequisitions,
   get,
   create,
   fileUpload,
   getFile,
-  deleteFile
+  deleteFile,
 };
 
-export default ClientRequisitionService; 
+export default ClientRequisitionService;

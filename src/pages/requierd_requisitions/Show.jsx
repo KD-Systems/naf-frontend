@@ -2,7 +2,7 @@ import { Activities } from "components/utils/Activities";
 import PermissionAbility from "helpers/PermissionAbility";
 import { useEffect, useState } from "react";
 import Moment from "react-moment";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Select from "react-select";
 import RequisitionService from "../../services/RequisitionService";
 
@@ -24,8 +24,10 @@ const ShowRequiredRequisition = () => {
     { value: "complete", label: "Complete" },
   ];
 
-  const handleSelect = (e) => {
-    console.log("🚀 ~ file: Show.jsx ~ line 30 ~ handleSelect ~ e", e);
+  const handleSelect = async (e) => {
+    let data = { status: e.value };
+    await RequisitionService.changeStatus(id, data);
+    setRequisition({ ...requisition, status: e.value });
   };
 
   useEffect(() => {
@@ -71,6 +73,20 @@ const ShowRequiredRequisition = () => {
                 <div className="fw-bolder mt-5">Engineer</div>
                 <div className="text-gray-600">
                   {requisition?.engineer?.name ?? "--"}
+                </div>
+
+                <div className="fw-bolder mt-5">Requisition Status</div>
+                <div className="fw-bolder text-danger">
+                  {requisition?.requisition_id ? (
+                    <Link
+                      to={"/panel/requisitions/" + requisition?.requisition_id}
+                      className="fw-bolder text-success"
+                    >
+                      Created
+                    </Link>
+                  ) : (
+                    "Not yet Created"
+                  )}
                 </div>
 
                 <div className="fw-bolder mt-5">Expected Delivery</div>
@@ -119,33 +135,39 @@ const ShowRequiredRequisition = () => {
 
                 <div className="fw-bolder mt-5">Status</div>
                 <div className="text-gray-600">{requisition?.status}</div>
+              </div>
+              {!requisition?.requisition_id && (
+                <span>
+                  <div className="card-body py-4">
+                    <div className="fw-bolder mt-5">Change Status</div>
+                    <div className="text-gray-600">
+                      <Select
+                        options={status}
+                        onChange={handleSelect}
+                        name="status"
+                      />
+                    </div>
+                  </div>
 
-                <div className="fw-bolder mt-5">Change Status</div>
-                <div className="text-gray-600">
-                  <Select
-                    options={status}
-                    onChange={handleSelect}
-                    name="status"
-                  />
-                </div>
-              </div>
-              <div className="card-header">
-                <div className="card-title">
-                  <h3 className="card-label">
-                    <PermissionAbility permission="requisitions_generate_quotation">
-                      <button
-                        className="btn btn-sm btn-dark "
-                        style={{ marginRight: "0.1rem" }}
-                        onClick={() =>
-                          navigate(`/panel/require_req/create/` + id)
-                        }
-                      >
-                        Generate Requisitions
-                      </button>
-                    </PermissionAbility>
-                  </h3>
-                </div>
-              </div>
+                  <div className="card-header">
+                    <div className="card-title">
+                      <h3 className="card-label">
+                        <PermissionAbility permission="requisitions_generate_quotation">
+                          <button
+                            className="btn btn-sm btn-dark "
+                            style={{ marginRight: "0.1rem" }}
+                            onClick={() =>
+                              navigate(`/panel/require_req/create/` + id)
+                            }
+                          >
+                            Generate Requisitions
+                          </button>
+                        </PermissionAbility>
+                      </h3>
+                    </div>
+                  </div>
+                </span>
+              )}
             </div>
           </div>
 

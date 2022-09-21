@@ -1,9 +1,14 @@
 import http from "../http-common";
 
 const getAll = async (filters) => {
-    console.log("🚀 ~ file: BoxHeadingService.js ~ line 4 ~ getAll ~ filters", filters)
-    
   const res = await http.get("/box-headings", {
+    params: filters,
+  });
+  return res.data;
+};
+
+const getAllHeadings = async (filters) => {
+  const res = await http.get("/all-box-headings", {
     params: filters,
   });
   return res.data;
@@ -36,6 +41,7 @@ const remove = async (id) => {
 
 const BoxHeadingService = {
   getAll,
+  getAllHeadings,
   get,
   parts,
   create,

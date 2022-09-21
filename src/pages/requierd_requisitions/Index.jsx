@@ -9,7 +9,6 @@ const RequiredRequisitions = () => {
   const [filter, setFilter] = useState(false);
   const [loading, setLoading] = useState(true);
   const [requisitions, setRequisitions] = useState([]);
-
   const filterdata = (data) => {
     setFilter(false);
     getRequisitions(data);
@@ -34,7 +33,7 @@ const RequiredRequisitions = () => {
     },
     {
       name: "Expected Delivery",
-      selector: (row) => row?.expected_delivery?? '--',
+      selector: (row) => row?.expected_delivery ?? "--",
       sortable: true,
       field: "expected_delivery",
     },
@@ -43,6 +42,30 @@ const RequiredRequisitions = () => {
       selector: (row) => row.priority,
       sortable: true,
       field: "role",
+    },
+    {
+      name: "Requisition Status",
+      selector: (row) => row.requisition_id,
+      sortable: true,
+      field: "role",
+      format: (row) => (
+        <>
+          {row?.requisition_id ? (
+            <div
+              className="mt-2 text-white bg-success p-1 px-2 rounded"
+              // to={"/panel/requisitions/" + row?.requisition_id}
+            >
+              <Link to={"/panel/requisitions/" + row?.requisition_id} className="text-white w-100">
+              Created
+              </Link>
+            </div>
+          ) : (
+            <div className="mt-2 text-white bg-warning p-1 px-2 rounded w-100">
+              Not yet created
+            </div>
+          )}
+        </>
+      ),
     },
     {
       name: "Status",
@@ -57,13 +80,13 @@ const RequiredRequisitions = () => {
             </div>
           )}
           {row?.status == "on-going" && (
-            <div className="mt-2 text-white bg-success p-1 px-2 rounded">
+            <div className="mt-2 text-white bg-info p-1 px-2 rounded">
               On Going
             </div>
           )}
-          {row?.status == "completed" && (
-            <div className="mt-2 text-white bg-danger p-1 px-2 rounded">
-              Rejected
+          {row?.status == "complete" && (
+            <div className="mt-2 text-white bg-success p-1 px-2 rounded">
+              Complete
             </div>
           )}
         </>
