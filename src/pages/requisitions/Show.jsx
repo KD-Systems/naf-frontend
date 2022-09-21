@@ -13,6 +13,8 @@ const ShowRequisition = () => {
   const [uuid, setuuid] = useState();
   const [model_id, setModelId] = useState();
 
+  const [stock, setStock] = useState(true);
+
   let { id } = useParams();
   const navigate = useNavigate();
   const [requisition, setRequisition] = useState({});
@@ -24,11 +26,13 @@ const ShowRequisition = () => {
     setRequisition(res);
   };
 
-  let x = requisition?.part_items?.map(
-    (item, index) =>
-      item?.part?.stocks[item?.part?.stocks.length]?.unit_value > 0
-  )
-  console.log("🚀 ~ file: Show.jsx ~ line 31 ~ ShowRequisition ~ x", x)
+  useEffect(() => {
+    requisition?.part_items?.map((item, index) => {
+      item?.part?.stocks[0]?.unit_value
+        ? item?.part?.stocks[0]?.unit_value < item?.quantity ?? setStock(false)
+        : setStock(false);
+    });
+  }, [requisition]);
 
   const approveRequisition = async () => {
     await RequisitionService.approve(id);
@@ -41,7 +45,7 @@ const ShowRequisition = () => {
   };
 
   const uploadFile = async (formData) => {
-    console.log("a",formData);
+    console.log("a", formData);
 
     await RequisitionService.fileUpload(id, formData);
     getFile();
@@ -171,10 +175,7 @@ const ShowRequisition = () => {
                       </Link>
                     </PermissionAbility>
                   </h3>
-                  {requisition?.part_items?.map(
-                    (item, index) =>
-                      item?.part?.stocks[item?.part?.stocks.length]?.unit_value > 0
-                  ) ? (
+                  {stock ? (
                     <>
                       {requisition.status == "approved" ? (
                         <h3 className="card-label">
@@ -230,7 +231,7 @@ const ShowRequisition = () => {
                       className="badge badge-danger"
                       style={{ fontSize: "16px" }}
                     >
-                      stock out
+                      Some Part is Missing fro creating requisition. Please add stock of that part
                     </span>
                   )}
                 </div>
@@ -300,6 +301,7 @@ const ShowRequisition = () => {
                                   <th className="min-w-50px">Part Name</th>
                                   <th className="min-w-120px">Part Number</th>
                                   <th className="min-w-120px">Quantity</th>
+                                  <th className="min-w-120px">Stock</th>
                                   <th className="min-w-120px">Remarks</th>
                                 </tr>
                               </thead>
@@ -322,6 +324,17 @@ const ShowRequisition = () => {
                                     </td>
                                     <td className=" fw-bolder mb-1 fs-6">
                                       <span>{item?.quantity}</span>
+                                    </td>
+                                    <td className=" fw-bolder mb-1 fs-6">
+                                      {item?.part?.stocks[0]?.unit_value
+                                        ? item?.part?.stocks[0]?.unit_value <
+                                          item?.quantity
+                                          ? () => {
+                                              setStock(false);
+                                              return "Not Available";
+                                            }
+                                          : "Available"
+                                        : "Not Availabe"}
                                     </td>
                                     <td className=" fw-bolder mb-1 fs-6">
                                       <span>{item?.remarks}</span>
@@ -382,7 +395,7 @@ const ShowRequisition = () => {
                                       >
                                         <i className="fa fa-trash"></i>
                                       </button>
-                                      <a 
+                                      <a
                                         className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
                                         href={item?.original_url}
                                         target="_blank"

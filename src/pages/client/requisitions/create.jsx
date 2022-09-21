@@ -121,10 +121,9 @@ const RequisitionCreate = () => {
     if (req) {
       navigate("/panel/require_req");
     } else {
-      navigate("/panel/requisitions");
+      navigate("/panel/client-requisitions");
     }
-    setBlock(false);
-    navigate("/panel/client-requisitions");
+    setBlock(false);    
   };
 
   const addPart = (item) => {
@@ -260,7 +259,7 @@ const RequisitionCreate = () => {
       part_heading_id: data?.part_heading_id,
     });
   };
-
+console.log("A",machineModels);
   const search = async (e) => {
     if (!machineModels.length) {
       return toast.warning("Please select machine first located at the top!");

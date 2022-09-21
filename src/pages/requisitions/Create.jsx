@@ -212,7 +212,11 @@ const RequisitionCreate = () => {
   };
 
   const getParts = async () => {
-    let res = await PartService.getAll(filter);
+    let res = await PartService.getAll({
+      ...filter,
+      company_id: data?.company_id,
+      machine_id: data?.machine_id,
+    });    
     setSearchData(res.data);
     let items = res.data?.map((dt) => {
       return { label: dt.name, value: dt.id };
@@ -222,7 +226,6 @@ const RequisitionCreate = () => {
   };
 
   const filterData = (e) => {
-    console.log("Afnan");
     let query = e.target.value;
     setFilter({
       ...filter,
@@ -232,7 +235,7 @@ const RequisitionCreate = () => {
   };
 
   const search = async (e) => {
-    if (!machineModels.length) {
+    if (!data?.machine_id) {
       return toast.warning("Please select machine first located at the top!");
     } else {
       await getParts();
