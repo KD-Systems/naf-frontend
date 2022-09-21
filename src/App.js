@@ -667,7 +667,7 @@ function App() {
             /> */}
 
             <Route
-              path="client/client_require_req/:id"
+              path="client_require_req/:id"
               element={
                 <PrivateRoute>
                   <ClientShowRequiredRequisition />

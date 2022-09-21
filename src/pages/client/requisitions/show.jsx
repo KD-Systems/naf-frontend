@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
-import Moment from "react-moment";
 import { Activities } from "components/utils/Activities";
+import Confirmation from "components/utils/Confirmation";
+import { useEffect, useState } from "react";
+import Moment from "react-moment";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import ClientRequisitionService from "services/clientServices/ClientRequisitionService";
 import RequisitionService from "services/RequisitionService";
 import NewDropzone from "./Dropzone/MyDropzone";
-import Confirmation from "components/utils/Confirmation";
 
 const ShowClientRequisition = () => {
   let { id } = useParams();
@@ -230,6 +230,7 @@ const ShowClientRequisition = () => {
                                   <th className="min-w-50px">Part Name</th>
                                   <th className="min-w-120px">Part Number</th>
                                   <th className="min-w-120px">Quantity</th>
+                                  <th className="min-w-120px">Remarks</th>
                                 </tr>
                               </thead>
 
@@ -246,6 +247,9 @@ const ShowClientRequisition = () => {
                                     </td>
                                     <td className=" fw-bolder mb-1 fs-6">
                                       <span>{item?.quantity}</span>
+                                    </td>
+                                    <td className=" fw-bolder mb-1 fs-6">
+                                      <span>{item?.remarks}</span>
                                     </td>
                                    
                                   </tr>

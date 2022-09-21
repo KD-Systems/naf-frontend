@@ -3,7 +3,6 @@ import { Col, Row } from "react-bootstrap";
 import DashboardService from "services/DashboardService";
 
 import ScrollableTable from "components/dashboard/ScrollableTable";
-import Statistics from "components/dashboard/Statistics";
 
 const ClientDashboard = () => {
   const [statistics, setStatistics] = useState({});
@@ -64,14 +63,15 @@ const ClientDashboard = () => {
 
   return (
     <div id="kt_content_container" className="container-xxl">
-      <Statistics
+      {/* <Statistics
         data={statistics}
         title={["Total Purchase", "Total Pay", "Total Due"]}
       />
-      <br />
+      <br /> */}
       <Row>
         <Col xl={12}>
           <ScrollableTable
+          
             headers={stockAlert.headers}
             records={stockAlert.data}
             title="Payment Histories"
