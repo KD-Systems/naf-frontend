@@ -1,8 +1,8 @@
 import Table from "components/utils/Table";
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import RequisitionService from "services/RequisitionService";
-import RequisitionFilter from "./RequisitionFilter";
+import ClientRequiredRequisitionFilter from "./ClientRequiredRequisitionFilter";
 
 const ClientRequiredRequisitions = () => {
   const [filter, setFilter] = useState(false);
@@ -26,12 +26,6 @@ const ClientRequiredRequisitions = () => {
       field: "id",
     },
     {
-      name: "Company",
-      selector: (row) => row?.company,
-      sortable: true,
-      field: "name",
-    },
-    {
       name: "Expected Delivery",
       selector: (row) => row?.expected_delivery ?? "--",
       sortable: true,
@@ -42,6 +36,33 @@ const ClientRequiredRequisitions = () => {
       selector: (row) => row.priority,
       sortable: true,
       field: "role",
+    },
+    {
+      name: "Requisition Status",
+      selector: (row) => row.requisition_id,
+      sortable: true,
+      field: "role",
+      format: (row) => (
+        <>
+          {row?.requisition_id ? (
+            <div
+              className="mt-2 text-white bg-success p-1 px-2 rounded"
+              // to={"/panel/requisitions/" + row?.requisition_id}
+            >
+              <Link
+                to={"/panel/client/requisitions/" + row?.requisition_id}
+                className="text-white w-100"
+              >
+                Created
+              </Link>
+            </div>
+          ) : (
+            <div className="mt-2 text-white bg-warning p-1 px-2 rounded w-100">
+              Not yet created
+            </div>
+          )}
+        </>
+      ),
     },
     {
       name: "Status",
@@ -86,7 +107,9 @@ const ClientRequiredRequisitions = () => {
   ];
 
   const getRequisitions = async (filters) => {
-    let res = await RequisitionService.getAllRequiredRequisitions(filters);
+    let res = await RequisitionService.getAllRequiredRequisitionsClient(
+      filters
+    );
     setRequisitions(res);
     setLoading(false);
   };
@@ -94,23 +117,14 @@ const ClientRequiredRequisitions = () => {
     getRequisitions();
   }, []);
 
-  let navigate = useNavigate();
-
   return (
     <>
       <div className="post d-flex flex-column-fluid">
         <div className="container-xxl">
           <Table
             name="Requisitions"
-            callbackButtons={[
-              {
-                name: "Filter",
-                callback: () => {
-                  setFilter(!filter);
-                },
-                permission: null,
-              },
-            ]}
+            buttonName="Filter"
+            onClickButton={() => setFilter(!filter)}
             isLoading={loading}
             data={requisitions}
             columns={columns}
@@ -118,7 +132,7 @@ const ClientRequiredRequisitions = () => {
           />
         </div>
       </div>
-      <RequisitionFilter
+      <ClientRequiredRequisitionFilter
         enable={filter}
         onChange={(data) => {
           filterdata(data);

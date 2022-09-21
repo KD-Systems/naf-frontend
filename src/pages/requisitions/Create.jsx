@@ -222,6 +222,7 @@ const RequisitionCreate = () => {
   };
 
   const filterData = (e) => {
+    console.log("Afnan");
     let query = e.target.value;
     setFilter({
       ...filter,
