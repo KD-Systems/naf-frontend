@@ -262,7 +262,7 @@ const RequisitionCreate = () => {
 console.log("A",machineModels);
   const search = async (e) => {
     if (!machineModels.length) {
-      return toast.warning("Please select machine first located at the top!");
+      toast.warning("Please select machine first located at the top!");
     } else {
       await getParts();
     }
