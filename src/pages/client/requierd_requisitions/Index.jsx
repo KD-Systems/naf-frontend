@@ -2,7 +2,7 @@ import Table from "components/utils/Table";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import RequisitionService from "services/RequisitionService";
-import RequisitionFilter from "./RequisitionFilter";
+import ClientRequiredRequisitionFilter from "./ClientRequiredRequisitionFilter";
 
 const ClientRequiredRequisitions = () => {
   const [filter, setFilter] = useState(false);
@@ -49,8 +49,11 @@ const ClientRequiredRequisitions = () => {
               className="mt-2 text-white bg-success p-1 px-2 rounded"
               // to={"/panel/requisitions/" + row?.requisition_id}
             >
-              <Link to={"/panel/client/requisitions/" + row?.requisition_id} className="text-white w-100">
-              Created
+              <Link
+                to={"/panel/client/requisitions/" + row?.requisition_id}
+                className="text-white w-100"
+              >
+                Created
               </Link>
             </div>
           ) : (
@@ -104,7 +107,9 @@ const ClientRequiredRequisitions = () => {
   ];
 
   const getRequisitions = async (filters) => {
-    let res = await RequisitionService.getAllRequiredRequisitionsClient(filters);
+    let res = await RequisitionService.getAllRequiredRequisitionsClient(
+      filters
+    );
     setRequisitions(res);
     setLoading(false);
   };
@@ -112,22 +117,14 @@ const ClientRequiredRequisitions = () => {
     getRequisitions();
   }, []);
 
-
   return (
     <>
       <div className="post d-flex flex-column-fluid">
         <div className="container-xxl">
           <Table
             name="Requisitions"
-            callbackButtons={[
-              {
-                name: "Filter",
-                callback: () => {
-                  setFilter(!filter);
-                },
-                permission: null,
-              },
-            ]}
+            buttonName="Filter"
+            onClickButton={() => setFilter(!filter)}
             isLoading={loading}
             data={requisitions}
             columns={columns}
@@ -135,7 +132,7 @@ const ClientRequiredRequisitions = () => {
           />
         </div>
       </div>
-      <RequisitionFilter
+      <ClientRequiredRequisitionFilter
         enable={filter}
         onChange={(data) => {
           filterdata(data);

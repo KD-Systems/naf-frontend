@@ -24,6 +24,12 @@ const ShowRequisition = () => {
     setRequisition(res);
   };
 
+  let x = requisition?.part_items?.map(
+    (item, index) =>
+      item?.part?.stocks[item?.part?.stocks.length]?.unit_value > 0
+  )
+  console.log("🚀 ~ file: Show.jsx ~ line 31 ~ ShowRequisition ~ x", x)
+
   const approveRequisition = async () => {
     await RequisitionService.approve(id);
     getRequisition();
@@ -167,8 +173,7 @@ const ShowRequisition = () => {
                   </h3>
                   {requisition?.part_items?.map(
                     (item, index) =>
-                      item?.part?.stocks[item?.part?.stocks.length - 1]
-                        ?.unit_value > 0
+                      item?.part?.stocks[item?.part?.stocks.length]?.unit_value > 0
                   ) ? (
                     <>
                       {requisition.status == "approved" ? (

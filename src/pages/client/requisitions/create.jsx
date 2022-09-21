@@ -111,9 +111,12 @@ const RequisitionCreate = () => {
       ? await ClientRequisitionService.createrequiredrequisitions({
           ...data,
           part_items: inputField,
-          company_id: companies
+          company_id: companies,
         })
-      : await ClientRequisitionService.create({...data, company_id: companies});
+      : await ClientRequisitionService.create({
+          ...data,
+          company_id: companies,
+        });
     setBlock(false);
     if (req) {
       navigate("/panel/require_req");
@@ -259,12 +262,19 @@ const RequisitionCreate = () => {
   };
 
   const search = async (e) => {
-    if (e.keyCode === 13 && !machineModels.length)
+    if (!machineModels.length) {
       return toast.warning("Please select machine first located at the top!");
-
-    e.keyCode === 13 && (await getParts());
+    } else {
+      await getParts();
+    }
     if (filter?.q === "") setSearchData([]);
   };
+
+  useEffect(() => {
+    if (filter?.q) {
+      search();
+    }
+  }, [filter]);
 
   useEffect(() => {
     setData({ ...data, part_items: list, total: totalAmount }); //add part_items and total amount in data
