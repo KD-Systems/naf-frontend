@@ -80,8 +80,10 @@ const getClientCompany = async () => {
   return res.data;
 };
 
-const getClientMachines = async () => {
-  const res = await http.get("/client-machines");
+const getClientMachines = async (params) => {
+  const res = await http.get("/client-machines",{
+    params: params
+  });
   return res.data;
 };
 

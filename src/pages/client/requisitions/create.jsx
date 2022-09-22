@@ -123,7 +123,7 @@ const RequisitionCreate = () => {
     } else {
       navigate("/panel/client-requisitions");
     }
-    setBlock(false);    
+    setBlock(false);
   };
 
   const addPart = (item) => {
@@ -163,7 +163,7 @@ const RequisitionCreate = () => {
 
   const getMachineModels = async () => {
     setBlock(false);
-    let dt = await CompanyService.getClientMachines();
+    let dt = await CompanyService.getClientMachines({ type: data?.type });
     dt = dt.data.map((itm) => ({
       label: itm.name,
       value: itm.id,
@@ -259,7 +259,7 @@ const RequisitionCreate = () => {
       part_heading_id: data?.part_heading_id,
     });
   };
-console.log("A",machineModels);
+  console.log("A", machineModels);
   const search = async (e) => {
     if (!machineModels.length) {
       toast.warning("Please select machine first located at the top!");
@@ -291,8 +291,11 @@ console.log("A",machineModels);
     getCompanies();
     getContract();
     getEngineers();
-    getMachineModels();
   }, []);
+
+  useEffect(() => {
+    if (data?.type) getMachineModels();
+  }, [data?.type]);
 
   useEffect(() => {
     const sum = list.reduce(
@@ -374,7 +377,26 @@ console.log("A",machineModels);
                         </div>
                       </div> */}
 
-                      <div className="col-lg-6">
+                      <div className="col-lg-4">
+                        <label htmlFor="type" className="required form-label">
+                          Type
+                        </label>
+                        <div className="mb-5">
+                          <div className="form-group">
+                            <Select
+                              options={types}
+                              name="type"
+                              onChange={handleSelect}
+                            />
+                          </div>
+                          <div
+                            className="fv-plugins-message-container invalid-feedback"
+                            htmlFor="type"
+                          ></div>
+                        </div>
+                      </div>
+
+                      <div className="col-lg-4">
                         <div className="form-group">
                           <label className="required form-label">Machine</label>
                           <Select
@@ -390,7 +412,7 @@ console.log("A",machineModels);
                         </div>
                       </div>
 
-                      <div className="col-lg-6">
+                      <div className="col-lg-4">
                         <label className="form-label">Engineer</label>
 
                         <div className="mb-5">
@@ -444,25 +466,6 @@ console.log("A",machineModels);
                               htmlFor="expected_delivery"
                             ></div>
                           </div>
-                        </div>
-                      </div>
-
-                      <div className="col-lg-4">
-                        <label htmlFor="type" className="required form-label">
-                          Type
-                        </label>
-                        <div className="mb-5">
-                          <div className="form-group">
-                            <Select
-                              options={types}
-                              name="type"
-                              onChange={handleSelect}
-                            />
-                          </div>
-                          <div
-                            className="fv-plugins-message-container invalid-feedback"
-                            htmlFor="type"
-                          ></div>
                         </div>
                       </div>
 
