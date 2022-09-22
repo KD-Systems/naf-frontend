@@ -12,7 +12,7 @@ function ClientRequiredRequisitionFilter({ enable, onChange }) {
     { label: "All", value: null },
     { label: "Pending", value: "pending" },
     { label: "On-going", value: "on-going" },
-    { label: "Approved", value: "approved" },
+    { label: "Complete", value: "complete" },
   ];
   const type = [
     { label: "All", value: null },

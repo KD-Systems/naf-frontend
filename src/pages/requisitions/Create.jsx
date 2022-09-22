@@ -84,7 +84,7 @@ const RequisitionCreate = () => {
   ];
 
   const types = [
-    { value: "claim_report", label: "Claim Report" },
+    { value: "claim_report", label: "Claim Request" },
     { value: "purchase_request", label: "Purchase Request" },
   ];
 
