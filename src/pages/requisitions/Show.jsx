@@ -175,7 +175,7 @@ const ShowRequisition = () => {
                       </Link>
                     </PermissionAbility>
                   </h3>
-                  {stock ? (
+                  {stock && (
                     <>
                       {requisition.status == "approved" ? (
                         <h3 className="card-label">
@@ -226,15 +226,17 @@ const ShowRequisition = () => {
                         </>
                       )}
                     </>
-                  ) : (
-                    <span
-                      className="badge badge-danger"
-                      style={{ fontSize: "16px" }}
-                    >
-                      Some Part is Missing fro creating requisition. Please add stock of that part
-                    </span>
                   )}
                 </div>
+
+                {!stock && (
+                  <p
+                    className="badge text-danger"
+                    style={{ fontSize: "16px" }}
+                  >
+                    Unavailable Stock
+                  </p>
+                )}
               </div>
             </div>
           </div>
