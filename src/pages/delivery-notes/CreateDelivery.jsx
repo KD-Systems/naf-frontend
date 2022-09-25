@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { DebounceInput } from "react-debounce-input";
 import Moment from "react-moment";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import DeliverNoteService from "services/DeliverNoteService";
 import InvoiceService from "services/InvoiceService";
 import PartService from "services/PartService";
-import DeliverNoteService from "services/DeliverNoteService";
 const CreateDelivery = () => {
   let { invoiceId } = useParams();
 
@@ -130,9 +131,13 @@ const CreateDelivery = () => {
   };
 
   const search = async (e) => {
-    e.keyCode === 13 && (await getParts());
+    await getParts();
     if (filter?.q === "") setSearchData([]);
   };
+
+  useEffect(() => {
+    search();
+  }, [filter]);
 
   useEffect(() => {
     getInvoice();
@@ -245,14 +250,14 @@ const CreateDelivery = () => {
                 <div className="col-lg-6">
                   <div className="form-group mt-2">
                     <label htmlFor=""></label>
-                    <input
+                    <DebounceInput
+                      debounceTimeout={300}
                       type="text"
                       className="form-control"
                       placeholder="Search"
                       name="search"
                       value={filter.q || ""}
                       onChange={filterData}
-                      onKeyUp={search}
                     />
                     <div>
                       {searchData.length > 0 ? (
