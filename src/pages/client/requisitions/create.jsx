@@ -41,8 +41,6 @@ const RequisitionCreate = () => {
   const [filter, setFilter] = useState({
     part_heading_id: null,
   });
-  const [partHeadings, setPartHeadings] = useState([]);
-  const [uniquePart, setUniquePart] = useState([]);
   const [searchData, setSearchData] = useState([]);
   const [list, setList] = useState([]); /* for adding part in requisition */
   const [selectedPart, setSelectedPart] =
@@ -70,8 +68,6 @@ const RequisitionCreate = () => {
     part_items: list,
     total: totalAmount,
   });
-
-  const [partHeading, setPartHeading] = useState(null);
 
   const [block, setBlock] = useState(false);
   const [parts, setParts] = useState([]);
@@ -125,7 +121,7 @@ const RequisitionCreate = () => {
     } else {
       navigate("/panel/client-requisitions");
     }
-    setBlock(false);    
+    setBlock(false);
   };
 
   const addPart = (item) => {
@@ -164,24 +160,55 @@ const RequisitionCreate = () => {
   };
 
   const getMachineModels = async () => {
-    setBlock(false);
-    let dt = await CompanyService.getClientMachines();
-    dt = dt.data.map((itm) => ({
-      label: itm.name,
-      value: itm.id,
-    })); //Parse the data as per the select requires
+    // setBlock(false);
+    // let dt = await CompanyService.getMachines(companyId);
+    // dt = dt.map((itm) => ({
+    //   label: itm.machine_model?.name,
+    //   value: itm.id,
+    // })); //Parse the data as per the select requires
 
-    setMachineModels(dt);
-    setData({
-      ...data,
-      ...{ machine_model_id: null },
-    });
+    // setMachineModels(dt);
+    // setData({
+    //   ...data,
+    //   ...{ machine_model_id: null },
+    // });
+    // setBlock(false);
+
+    setBlock(false);
+    let dt = await CompanyService.getMachinesforRequisitions(companies);
+    if (data?.type == "purchase_request") {
+      dt = dt[0].machine_model.map((itm) => ({
+        label: itm.name,
+        value: itm.company_machine_id,
+      })); //Parse the data as per the select requires
+
+      setMachineModels(dt);
+      setData({
+        ...data,
+        ...{ machine_model_id: null },
+      });
+    } else {
+      let carry = [];
+
+      dt[0].contracts.forEach((element) => {
+        element?.is_foc &&
+          element?.machine_model?.forEach((itm) =>
+            carry.push({
+              label: itm.name,
+              value: itm.company_machine_id,
+            })
+          );
+      });
+
+      setMachineModels(carry);
+      setData({
+        ...data,
+        ...{ machine_model_id: null },
+      });
+    }
+
     setBlock(false);
   };
-
-  // useEffect(() => {
-  //   console.log(data);
-  // }, [data]);
 
   const handleSelect = (option, conf) => {
     if (option?.value == "claim_report" && !contract) {
@@ -236,21 +263,6 @@ const RequisitionCreate = () => {
     setParts(items);
   };
 
-  const getPartHeadings = async () => {
-    if (data?.machine_id.length === 0) setPartHeadings([]);
-
-    if (data?.machine_id.length > 0) {
-      let res = await RequisitionService.partHeadings({
-        machine_ids: data?.machine_id,
-      });
-
-      let items = res?.map((dt) => {
-        return { label: dt.name, value: dt.id };
-      });
-      setPartHeadings(items);
-    }
-  };
-
   // console.log(data.machine_id);
 
   const filterData = (e) => {
@@ -261,7 +273,7 @@ const RequisitionCreate = () => {
       part_heading_id: data?.part_heading_id,
     });
   };
-console.log("A",machineModels);
+  console.log("A", machineModels);
   const search = async (e) => {
     if (!machineModels.length) {
       console.log("🚀 ~ file: create.jsx ~ line 267 ~ search ~ machineModels", machineModels)
@@ -287,15 +299,14 @@ console.log("A",machineModels);
   //   }, [data.company_id]);
 
   useEffect(() => {
-    if (data.machine_id) getPartHeadings(data?.machine_id);
-  }, [data.machine_id]);
-
-  useEffect(() => {
     getCompanies();
     getContract();
     getEngineers();
-    getMachineModels();
   }, []);
+
+  useEffect(() => {
+    if (data?.type) getMachineModels();
+  }, [data?.type]);
 
   useEffect(() => {
     const sum = list.reduce(
@@ -377,7 +388,26 @@ console.log("A",machineModels);
                         </div>
                       </div> */}
 
-                      <div className="col-lg-6">
+                      <div className="col-lg-4">
+                        <label htmlFor="type" className="required form-label">
+                          Type
+                        </label>
+                        <div className="mb-5">
+                          <div className="form-group">
+                            <Select
+                              options={types}
+                              name="type"
+                              onChange={handleSelect}
+                            />
+                          </div>
+                          <div
+                            className="fv-plugins-message-container invalid-feedback"
+                            htmlFor="type"
+                          ></div>
+                        </div>
+                      </div>
+
+                      <div className="col-lg-4">
                         <div className="form-group">
                           <label className="required form-label">Machine</label>
                           <Select
@@ -393,7 +423,7 @@ console.log("A",machineModels);
                         </div>
                       </div>
 
-                      <div className="col-lg-6">
+                      <div className="col-lg-4">
                         <label className="form-label">Engineer</label>
 
                         <div className="mb-5">
@@ -447,25 +477,6 @@ console.log("A",machineModels);
                               htmlFor="expected_delivery"
                             ></div>
                           </div>
-                        </div>
-                      </div>
-
-                      <div className="col-lg-4">
-                        <label htmlFor="type" className="required form-label">
-                          Type
-                        </label>
-                        <div className="mb-5">
-                          <div className="form-group">
-                            <Select
-                              options={types}
-                              name="type"
-                              onChange={handleSelect}
-                            />
-                          </div>
-                          <div
-                            className="fv-plugins-message-container invalid-feedback"
-                            htmlFor="type"
-                          ></div>
                         </div>
                       </div>
 

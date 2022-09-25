@@ -58,6 +58,11 @@ const getMachines = async (companyId) => {
   return res.data;
 };
 
+const getMachinesforRequisitions = async (companyId) => {
+  let res = await http.get(`/companies/machines/requisition/${companyId}`);
+  return res.data;
+};
+
 const attachMachine = async (companyId, data) => {
   let res = await http.post(`/companies/${companyId}/machines`, data); 
   return res.data;
@@ -80,8 +85,10 @@ const getClientCompany = async () => {
   return res.data;
 };
 
-const getClientMachines = async () => {
-  const res = await http.get("/client-machines");
+const getClientMachines = async (params) => {
+  const res = await http.get("/client-machines",{
+    params: params
+  });
   return res.data;
 };
 
@@ -105,6 +112,7 @@ const CompanyService = {
   updateUser,
   deleteUser,
   getMachines,
+  getMachinesforRequisitions,
   attachMachine,
   detachMachine,
   getClientCompany,

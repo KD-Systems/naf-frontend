@@ -52,7 +52,7 @@ function ClientRequiredRequisitionFilter({ enable, onChange }) {
         value: value,
       });
 
-    if (name === "type")
+    if (name === "r_status")
       setDefaultType({
         label: option.label,
         value: value,
@@ -62,7 +62,7 @@ function ClientRequiredRequisitionFilter({ enable, onChange }) {
   const reset = () => {
     setData({
       status: null,
-      type: null,
+      r_status: null,
     });
 
     setDefaultStatus({ label: "All", value: null });
@@ -71,7 +71,7 @@ function ClientRequiredRequisitionFilter({ enable, onChange }) {
     typeof onChange === "function" &&
       onChange({
         status: null,
-        type: null,
+        r_status: null,
       });
   };
 

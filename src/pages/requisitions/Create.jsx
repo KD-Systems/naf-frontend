@@ -160,17 +160,38 @@ const RequisitionCreate = () => {
 
   const getMachineModels = async (companyId) => {
     setBlock(false);
-    let dt = await CompanyService.getMachines(companyId);
-    dt = dt.map((itm) => ({
-      label: itm.machine_model?.name,
-      value: itm.id,
-    })); //Parse the data as per the select requires
+    let dt = await CompanyService.getMachinesforRequisitions(companyId);
+    if (data?.type == "purchase_request") {
+      dt = dt[0].machine_model.map((itm) => ({
+        label: itm.name,
+        value: itm.company_machine_id,
+      })); //Parse the data as per the select requires
 
-    setMachineModels(dt);
-    setData({
-      ...data,
-      ...{ machine_model_id: null },
-    });
+      setMachineModels(dt);
+      setData({
+        ...data,
+        ...{ machine_model_id: null },
+      });
+    } else {
+      let carry = [];
+
+      dt[0].contracts.forEach((element) => {
+        element?.is_foc &&
+          element?.machine_model?.forEach((itm) =>
+            carry.push({
+              label: itm.name,
+              value: itm.company_machine_id,
+            })
+          );
+      });
+
+      setMachineModels(carry);
+      setData({
+        ...data,
+        ...{ machine_model_id: null },
+      });
+    }
+
     setBlock(false);
   };
 
@@ -216,7 +237,7 @@ const RequisitionCreate = () => {
       ...filter,
       company_id: data?.company_id,
       machine_id: data?.machine_id,
-    });    
+    });
     setSearchData(res.data);
     let items = res.data?.map((dt) => {
       return { label: dt.name, value: dt.id };
@@ -253,8 +274,8 @@ const RequisitionCreate = () => {
   }, [list, totalAmount]);
 
   useEffect(() => {
-    if (data.company_id) getMachineModels(data?.company_id);
-  }, [data.company_id]);
+    if (data.company_id && data?.type) getMachineModels(data?.company_id);
+  }, [data.company_id, data?.type]);
 
   useEffect(() => {
     getCompanies();
@@ -342,6 +363,28 @@ const RequisitionCreate = () => {
                       </div>
 
                       <div className="col-lg-4">
+                        <label htmlFor="type" className="required form-label">
+                          Type
+                        </label>
+                        <div className="mb-5">
+                          <div className="form-group">
+                            <Select
+                              options={types}
+                              name="type"
+                              onChange={(option, config) => {
+                                handleSelect(option, config);
+                                setReq(false);
+                              }}
+                            />
+                          </div>
+                          <div
+                            className="fv-plugins-message-container invalid-feedback"
+                            htmlFor="type"
+                          ></div>
+                        </div>
+                      </div>
+
+                      <div className="col-lg-4">
                         <div className="form-group">
                           <label className="required form-label">Machine</label>
                           <Select
@@ -411,25 +454,6 @@ const RequisitionCreate = () => {
                               htmlFor="expected_delivery"
                             ></div>
                           </div>
-                        </div>
-                      </div>
-
-                      <div className="col-lg-4">
-                        <label htmlFor="type" className="required form-label">
-                          Type
-                        </label>
-                        <div className="mb-5">
-                          <div className="form-group">
-                            <Select
-                              options={types}
-                              name="type"
-                              onChange={handleSelect}
-                            />
-                          </div>
-                          <div
-                            className="fv-plugins-message-container invalid-feedback"
-                            htmlFor="type"
-                          ></div>
                         </div>
                       </div>
 
@@ -602,23 +626,25 @@ const RequisitionCreate = () => {
               </div>
             </div>
           </div>
-          <div className="d-flex flex-column flex-lg-row">
-            <div className="flex-lg-row-fluid mb-10 mb-lg-0 me-lg-7 me-xl-10">
-              <div className="card mb-5">
-                <div className="card-body">
-                  <span>
-                    <input
-                      type="checkbox"
-                      defaultChecked={req}
-                      onChange={() => setReq(!req)}
-                    />
-                  </span>
+          {data?.type == "purchase_request" && (
+            <div className="d-flex flex-column flex-lg-row">
+              <div className="flex-lg-row-fluid mb-10 mb-lg-0 me-lg-7 me-xl-10">
+                <div className="card mb-5">
+                  <div className="card-body">
+                    <span>
+                      <input
+                        type="checkbox"
+                        defaultChecked={req}
+                        onChange={() => setReq(!req)}
+                      />
+                    </span>
 
-                  <span className="p-5">Not in List?</span>
+                    <span className="p-5">Not in List?</span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          )}
 
           {req ? (
             <span>

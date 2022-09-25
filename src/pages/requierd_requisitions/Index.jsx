@@ -9,8 +9,7 @@ const RequiredRequisitions = () => {
   const [filter, setFilter] = useState(false);
   const [loading, setLoading] = useState(true);
   const [requisitions, setRequisitions] = useState([]);
-  const filterdata = (data) => {
-    
+  const filterdata = (data) => {    
     setFilter(false);
     getRequisitions(data);
   };
@@ -116,6 +115,7 @@ const RequiredRequisitions = () => {
 
   const getRequisitions = async (filters) => {
     let res = await RequisitionService.getAllRequiredRequisitions(filters);
+    console.log("🚀 ~ file: Index.jsx ~ line 118 ~ getRequisitions ~ filters", filters)
     setRequisitions(res);
     setLoading(false);
   };
