@@ -15,6 +15,7 @@ const RequisitionCreate = () => {
   const navigate = useNavigate();
 
   const [req, setReq] = useState(false);
+  const [machineId, setMachineId] = useState([]);
   const [inputField, setInputField] = useState([{}]);
   const handleReqSelect = (e, index) => {
     const { name, value } = e.target;
@@ -178,6 +179,7 @@ const RequisitionCreate = () => {
       dt = dt[0].machine_model.map((itm) => ({
         label: itm.name,
         value: itm.company_machine_id,
+        machineId: itm.machine_id,
       })); //Parse the data as per the select requires
 
       setMachineModels(dt);
@@ -193,7 +195,8 @@ const RequisitionCreate = () => {
           element?.machine_model?.forEach((itm) =>
             carry.push({
               label: itm.name,
-              value: itm.company_machine_id,
+              value: itm.Company_machine_id,
+              machineId: itm.machine_id,
             })
           );
       });
@@ -209,6 +212,10 @@ const RequisitionCreate = () => {
   };
 
   const handleSelect = (option, conf) => {
+    if (conf.name == "machine_id") {
+      const res = option?.map((itm) => itm?.machineId);
+      setMachineId(res);
+    }
     if (option?.value == "claim_report" && !contract) {
       toast.error("This machine is not under FOC contract");
     } else {
@@ -252,7 +259,11 @@ const RequisitionCreate = () => {
   };
 
   const getParts = async () => {
-    let res = await PartService.getClientPart(filter);
+    let res = await PartService.getClientPart({
+      ...filter,
+      company_id: data?.company_id,
+      machine_id: machineId,
+    });
     setSearchData(res.data);
     let items = res.data?.map((dt) => {
       return { label: dt.name, value: dt.id };
