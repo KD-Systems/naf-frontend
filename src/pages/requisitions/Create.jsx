@@ -244,8 +244,8 @@ const RequisitionCreate = () => {
   const getParts = async () => {
     let res = await PartService.getAll({
       ...filter,
-      company_id: data?.company_id,
-      machine_id: machineId,
+      // company_id: data?.company_id,
+      // machine_id: machineId,
     });
     setSearchData(res.data);
     let items = res.data?.map((dt) => {
