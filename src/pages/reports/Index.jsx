@@ -69,6 +69,16 @@ const Reports = () => {
     },
 
     {
+      name: "Total",
+      selector: (row) => row?.total_value,
+      format: (row) => (
+        <div className="mt-2">{row?.total_value}</div>
+      ),
+      sortable: true,
+      field: "total_value",
+    },
+
+    {
       name: "Created At",
       selector: (row) => row?.created_at,
       format: (row) => (

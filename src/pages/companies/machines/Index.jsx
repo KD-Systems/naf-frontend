@@ -108,18 +108,18 @@ const CompanyMachines = ({ active }) => {
                                     <tr key={index}>
                                         <td>
                                             <Link
-                                                to={'/panel/machines/' + item.machine.id}
+                                                to={'/panel/machines/' + item?.machine?.id}
                                                 className="text-dark fw-bolder text-hover-primary mb-1 fs-6"
                                             >
-                                                {item.machine.name}
+                                                {item?.machine?.name}
                                             </Link>
                                         </td>
                                         <td>
                                             <Link
-                                                to={'/panel/machines/' + item.machine.id + '/models/' + item.machine_model.id}
+                                                to={'/panel/machines/' + item?.machine?.id + '/models/' + item?.machine_model?.id}
                                                 className="text-dark fw-bolder text-hover-primary mb-1 fs-6"
                                             >
-                                                {item.machine_model.name}
+                                                {item?.machine_model?.name}
                                             </Link>
                                         </td>
 
