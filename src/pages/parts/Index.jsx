@@ -25,7 +25,7 @@ const Parts = () => {
       name: "Common Name",
       selector: (row) => row.name,
       sortable: true,
-      width: "35%",
+      width: "25%",
       wrap: true,
       field: "name",
       format: (row) => (
