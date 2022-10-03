@@ -29,7 +29,7 @@ const InfoBar = () => {
 
   const getNotification = async () => {
     const res = await NotificationService.getAll({
-      rows: 7
+      rows: 7,
     });
     setNotification(res);
   };
@@ -77,13 +77,15 @@ const InfoBar = () => {
   }, [notification]);
 
   const notificationRead = async (item) => {
-    let path =
-      user.details == null
-        ? `/panel/${item?.data?.url}`
-        : `/panel/client/${item?.data?.url}`;
+    // let path =
+    //   user.details == null
+    //     ? `/panel/${item?.data?.url}`
+    //     : `/panel/client/${item?.data?.url}`;
+    // navigate(path);
+    
     await NotificationService.readAt(item.id);
     getNotification();
-    navigate(path);
+    
   };
 
   // const notificationFilter = () => {
@@ -106,9 +108,13 @@ const InfoBar = () => {
       <div className="d-flex align-items-stretch flex-shrink-0">
         <div className="d-flex align-items-center ms-1 ms-lg-3">
           <div
-          onClick={() => setExpandNotification(!expandNotification)}
-          // className="btn btn-icon btn-active-light-primary position-relative w-30px h-30px w-md-40px h-md-40px"
-            className={ expandNotification ? "btn btn-icon btn-active-light-primary position-relative w-30px h-30px w-md-40px h-md-40px show menu-dropdown" : "btn btn-icon btn-active-light-primary position-relative w-30px h-30px w-md-40px h-md-40px"}
+            onClick={() => setExpandNotification(!expandNotification)}
+            // className="btn btn-icon btn-active-light-primary position-relative w-30px h-30px w-md-40px h-md-40px"
+            className={
+              expandNotification
+                ? "btn btn-icon btn-active-light-primary position-relative w-30px h-30px w-md-40px h-md-40px show menu-dropdown"
+                : "btn btn-icon btn-active-light-primary position-relative w-30px h-30px w-md-40px h-md-40px"
+            }
             data-kt-menu-trigger="click"
             data-kt-menu-attach="parent"
             data-kt-menu-placement="bottom-end"
@@ -149,15 +155,23 @@ const InfoBar = () => {
           </div>
 
           <div
-            className={expandNotification ? "menu menu-sub menu-sub-dropdown menu-column w-350px w-lg-375px show" : "menu menu-sub menu-sub-dropdown menu-column w-350px w-lg-375px" }
+            className={
+              expandNotification
+                ? "menu menu-sub menu-sub-dropdown menu-column w-350px w-lg-375px show"
+                : "menu menu-sub menu-sub-dropdown menu-column w-350px w-lg-375px"
+            }
             data-kt-menu="true"
-            style={expandNotification ? {
-              zIndex: 105,
-              position: 'fixed',
-              inset: '0px 0px auto auto',
-              margin: '0px',
-              transform: 'translate(-128px, 65px)'
-              }: {}}
+            style={
+              expandNotification
+                ? {
+                    zIndex: 105,
+                    position: "fixed",
+                    inset: "0px 0px auto auto",
+                    margin: "0px",
+                    transform: "translate(-128px, 65px)",
+                  }
+                : {}
+            }
           >
             <div
               className="d-flex flex-column bgi-no-repeat rounded-top"
@@ -177,13 +191,13 @@ const InfoBar = () => {
                 role="tabpanel"
               >
                 <div className="scroll-y mh-325px my-5 px-8">
-                  {notification?.map((item,index) => {
+                  {notification?.map((item, index) => {
                     return (
                       <div key={index} className="d-flex flex-stack py-4">
                         <div className="d-flex align-items-center">
                           <div className="symbol symbol-35px me-4">
                             <span className="symbol-label bg-light-primary">
-                              <span 
+                              <span
                                 className={
                                   item?.read_at
                                     ? "svg-icon svg-icon-2 svg-icon-primary"
@@ -212,14 +226,19 @@ const InfoBar = () => {
                           </div>
 
                           <div className="mb-0 me-2">
-                            <a
+                            <Link
+                              to={
+                                user.details == null
+                                  ? `/panel/${item?.data?.url}`
+                                  : `/panel/client/${item?.data?.url}`
+                              }
                               onClick={() => {
                                 notificationRead(item);
                               }}
                               className="fs-6 text-gray-800 text-hover-primary fw-bolder"
                             >
                               {item?.data?.message}
-                            </a>
+                            </Link>
                             <div className="text-gray-400 fs-7">
                               {item?.data?.message} by {item?.data?.user?.name}
                             </div>
@@ -227,7 +246,7 @@ const InfoBar = () => {
                         </div>
 
                         <span className="badge badge-light fs-8">
-                          <Moment format="HH:mm">{item?.created_at}</Moment>
+                          <Moment format="HH:mm">{item?.created_at}</Moment> 
                         </span>
                       </div>
                     );
@@ -235,9 +254,16 @@ const InfoBar = () => {
                 </div>
 
                 <div className="py-3 text-center border-top">
-                  <div className=" color-gray-600 btn-active-color-primary">
+                  {/* <Link to={
+                                user.details == null
+                                  ? `/panel/all-notification`
+                                  : `/panel/client/all-notification`
+                              } className=" color-gray-600 btn-active-color-primary">
                     Total ({notification?.length})
-                  </div>
+                  </Link> */}
+
+                  Total ({notification?.length})
+
                 </div>
               </div>
 

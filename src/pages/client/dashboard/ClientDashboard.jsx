@@ -3,14 +3,25 @@ import { Col, Row } from "react-bootstrap";
 import DashboardService from "services/DashboardService";
 
 import ScrollableTable from "components/dashboard/ScrollableTable";
+import StatisticsChartWidget from "components/dashboard/StatisticsChartWidget";
+import Statistics from "components/dashboard/Statistics";
+import ClientStatistics from "components/dashboard/ClientStatistics";
+import ClientUserService from "services/clientServices/ClientUserService";
 
 const ClientDashboard = () => {
   const [statistics, setStatistics] = useState({});
+  const[companyInfo, setCompanyInfo] = useState({});
   const [stockAlert, setStockAlert] = useState({ headers: [], data: [] });
   const getStatistics = async () => {
     const res = await DashboardService.getStatisticsData();
     setStatistics(res);
   };
+
+  const getCompanyInfo= async () =>{
+    const res = await ClientUserService.getCompanyInfo();
+    console.log("shanto",res);
+    setCompanyInfo(res);
+  }
 
   const getStockAlert = async () => {
     const res = await DashboardService.getClientInvoiceDetails();
@@ -35,10 +46,10 @@ const ClientDashboard = () => {
         total_paid: element?.total_paid
           ? Math.floor(element?.total_paid)
           : "--",
-        total_due:
-          element?.type == "purchase_request"
-            ? element?.total_amount - element?.total_paid
-            : "--",
+        // total_due:
+        //   element?.type == "purchase_request"
+        //     ? element?.total_amount - element?.total_paid
+        //     : "--",
       });
     });
     setStockAlert({
@@ -50,7 +61,7 @@ const ClientDashboard = () => {
         "Type",
         "Total Amount",
         "Paid Amount",
-        "Due Amount",
+        // "Due Amount",
       ],
       data: data,
     });
@@ -59,16 +70,31 @@ const ClientDashboard = () => {
   useEffect(() => {
     getStatistics();
     getStockAlert();
+    getCompanyInfo();
   }, []);
 
   return (
     <div id="kt_content_container" className="container-xxl">
-      {/* <Statistics
-        data={statistics}
-        title={["Total Purchase", "Total Pay", "Total Due"]}
+      <ClientStatistics
+        data={companyInfo?.due_amount}
+        title={"Due amount"} 
       />
-      <br /> */}
+      <br />
       <Row>
+
+      {/* <Col sm={6} xl={4}>
+          <StatisticsChartWidget
+            title="Total Due"
+            // stats={data?.due}
+            trend={{
+              textClass: "text-success",
+              icon: "uil uil-arrow-up",
+              // value: "10.21%",
+            }}
+            colors={["#727cf5"]}
+          />
+        </Col> */}
+
         <Col xl={12}>
           <ScrollableTable
           

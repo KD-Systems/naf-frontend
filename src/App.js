@@ -1,5 +1,6 @@
 import PermissionAbility from "helpers/PermissionAbility";
 import { PrivateRoute } from "helpers/PrivateRoute";
+import AllNotification from "pages/all-notification/AllNotification";
 import AccountSettings from "pages/auth/AccountSettings";
 import Login from "pages/auth/Login";
 import Profile from "pages/auth/Profile";
@@ -8,6 +9,7 @@ import BoxHeadingShow from "pages/box-headings/Show";
 import ClientContract from "pages/client/client-contract/index";
 import ClientContractShow from "pages/client/client-contract/show";
 import ClientCompanyMachines from "pages/client/client-machines/index";
+import ClientAllNotification from "pages/client/client-notification/ClientAllNotification";
 import ClientDashboard from "pages/client/dashboard/ClientDashboard";
 import ClientDeliveryNotes from "pages/client/delivery-notes";
 import CreateClientDelivery from "pages/client/delivery-notes/create";
@@ -533,6 +535,15 @@ function App() {
                 </PrivateRoute>
               }
             />
+
+            <Route
+              path="all-notification"
+              element={
+                <PrivateRoute>
+                  <AllNotification />
+                </PrivateRoute>
+              }
+            />
             {/* Report End */}
 
             {/* Gate pass Start */}
@@ -544,11 +555,21 @@ function App() {
                 </PrivateRoute>
               }
             />
+
+
             {/* Gate pass End */}
 
             {/* Routes for company users */}
 
             {/* Routes for company users */}
+            <Route
+              path="client/all-notification"
+              element={
+                <PrivateRoute>
+                  <ClientAllNotification />
+                </PrivateRoute>
+              }
+            />
 
             <Route
               path="client/dashboard"

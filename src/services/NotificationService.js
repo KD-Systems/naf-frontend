@@ -11,9 +11,16 @@ const readAt = async (id) => {
   return res?.data;
 };
 
+const allNotifications = async (params) => {
+  const res = await http.get("/all-notification");
+  return res?.data;
+};
+
+
 const NotificationService = {
   getAll,
   readAt,
+  allNotifications
 };
 
 export default NotificationService;
