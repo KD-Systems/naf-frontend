@@ -101,9 +101,11 @@ const Reports = () => {
     setEnableFilter(false)
   }
 
-  const exportSales = async()=>{
+  const exportSales = async(filters)=>{ 
+    console.log('filter',filters);
+    // return
     setLoading(true);
-    let data = await ReportService.salesExport();
+    let data = await ReportService.salesExport(filters);
     window.location.href = data;
     setLoading(false);
 
@@ -128,7 +130,7 @@ const Reports = () => {
             callbackButtons={[
               {
                 name: 'Export',
-                callback: () => { exportSales() },
+                callback: () => { exportSales(filter) },
                 permission: null
                 
               },

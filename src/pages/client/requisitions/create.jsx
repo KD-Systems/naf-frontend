@@ -37,7 +37,6 @@ const RequisitionCreate = () => {
   const [companies, setCompanies] = useState({});
   const [contract, setContracts] = useState();
   const [machineModels, setMachineModels] = useState([]);
-  console.log("🚀 ~ file: create.jsx ~ line 39 ~ RequisitionCreate ~ machineModels", machineModels)
   
   const [filter, setFilter] = useState({
     part_heading_id: null,
@@ -264,7 +263,7 @@ const RequisitionCreate = () => {
     let res = await PartService.getClientPart({
       ...filter,
       company_id: data?.company_id,
-      machine_id: machineId,
+      // machine_id: machineId,
     });
     setSearchData(res.data);
     let items = res.data?.map((dt) => {
@@ -287,7 +286,6 @@ const RequisitionCreate = () => {
   console.log("A", machineModels);
   const search = async (e) => {
     if (!machineModels.length) {
-      console.log("🚀 ~ file: create.jsx ~ line 267 ~ search ~ machineModels", machineModels)
       toast.warning("Please select machine first located at the top!");
     } else {
       await getParts();

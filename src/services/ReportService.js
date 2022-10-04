@@ -8,8 +8,10 @@ const getAll = async (filters) => {
     return res.data;
 };
 
-const salesExport = async ()=>{
-  const res = await http.get("/report/sales/export");
+const salesExport = async (filters)=>{
+  const res = await http.get("/report/sales/export", {
+    params: filters
+  });
   return res.data.url;
 }
 
