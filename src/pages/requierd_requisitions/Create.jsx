@@ -382,7 +382,7 @@ const RequiredRequisitionCreate = () => {
                               </div>
 
                               <div className="col-lg-4">
-                                <label className="required form-label">
+                                <label className="form-label">
                                   Partial Time
                                 </label>
                                 <div className="mb-5">
@@ -400,7 +400,7 @@ const RequiredRequisitionCreate = () => {
                               </div>
 
                               <div className="col-lg-4">
-                                <label htmlFor="types">Next Payment</label>
+                                <label className="required" htmlFor="types">Next Payment</label>
                                 <div className="mb-5">
                                   <input
                                     type="text"

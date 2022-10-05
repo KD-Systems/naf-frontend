@@ -283,7 +283,6 @@ const RequisitionCreate = () => {
       part_heading_id: data?.part_heading_id,
     });
   };
-  console.log("A", machineModels);
   const search = async (e) => {
     if (!machineModels.length) {
       toast.warning("Please select machine first located at the top!");
@@ -543,7 +542,7 @@ const RequisitionCreate = () => {
                               </div>
 
                               <div className="col-lg-4">
-                                <label className="required form-label">
+                                <label className="form-label">
                                   Partial Time
                                 </label>
                                 <div className="mb-5">
@@ -562,7 +561,7 @@ const RequisitionCreate = () => {
                               </div>
 
                               <div className="col-lg-4">
-                                <label htmlFor="types">Next Payment</label>
+                                <label className="required" htmlFor="types">Next Payment</label>
                                 <div className="mb-5">
                                   <DatePicker
                                     className="form-control"

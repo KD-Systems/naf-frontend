@@ -205,11 +205,6 @@ const RequisitionCreate = () => {
       setMachineId(res);
     }
 
-    // console.log("shanto",conf)
-    // console.log("shantoargha",option)
-    // if(conf.name = "part_heading_id"){
-    // setPartHeading(option);
-    // }
     let value = option.value;
     if (Array.isArray(option))
       value = option.map((dt) => {
@@ -223,6 +218,32 @@ const RequisitionCreate = () => {
       ...data,
       [name]: value,
     });
+
+    ////////////////for foc alert
+    // if (option?.value == "claim_report" && !contract) {
+    //   toast.error("This machine is not under FOC contract");
+    // } else {
+    //   let value = option.value;
+    //   if (Array.isArray(option))
+    //     value = option.map((dt) => {
+    //       return dt.value;
+    //     });
+
+    //   const name = conf.name;
+    //   setBlock(false);
+
+    //   setData({
+    //     ...data,
+    //     [name]: value,
+    //   });
+    // }
+
+    // console.log("shanto",conf)
+    // console.log("shantoargha",option)
+    // if(conf.name = "part_heading_id"){
+    // setPartHeading(option);
+    // }
+    
   };
 
   const handleChange = (e) => {
@@ -520,7 +541,7 @@ const RequisitionCreate = () => {
                               </div>
 
                               <div className="col-lg-4">
-                                <label className="required form-label">
+                                <label className="form-label">
                                   Partial Time
                                 </label>
                                 <div className="mb-5">
@@ -539,7 +560,7 @@ const RequisitionCreate = () => {
                               </div>
 
                               <div className="col-lg-4">
-                                <label htmlFor="types">Next Payment</label>
+                                <label className="required" htmlFor="types">Next Payment</label>
                                 <div className="mb-5">
                                   <DatePicker
                                     className="form-control"
