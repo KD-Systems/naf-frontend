@@ -98,7 +98,7 @@ const RequisitionCreate = () => {
 
   const payment_terms = [
     { value: "full", label: "Full" },
-    { value: "half", label: "Half" },
+    // { value: "half", label: "Half" },
     { value: "partial", label: "Partial" },
   ];
 
@@ -179,7 +179,7 @@ const RequisitionCreate = () => {
       let carry = [];
 
       dt[0].contracts.forEach((element) => {
-        element?.is_foc &&
+        element?.is_foc && !element?.is_expired && element?.is_status &&          
           element?.machine_model?.forEach((itm) =>
             carry.push({
               label: itm.name,
@@ -188,13 +188,14 @@ const RequisitionCreate = () => {
             })
           );
       });
-
       setMachineModels(carry);
       setData({
         ...data,
         ...{ machine_model_id: null },
       });
     }
+      
+      
 
     setBlock(false);
   };

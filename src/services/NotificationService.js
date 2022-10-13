@@ -4,7 +4,6 @@ const getAll = async (params) => {
   const res = await http.get("/notification", {
     params
   });
-  console.log("🚀 ~ file: NotificationService.js ~ line 7 ~ getAll ~ res", res)
   return res?.data;
 };
 const readAt = async (id) => {

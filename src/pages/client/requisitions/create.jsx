@@ -92,7 +92,7 @@ const RequisitionCreate = () => {
 
   const payment_terms = [
     { value: "full", label: "Full" },
-    { value: "half", label: "Half" },
+    // { value: "half", label: "Half" },
     { value: "partial", label: "Partial" },
   ];
 

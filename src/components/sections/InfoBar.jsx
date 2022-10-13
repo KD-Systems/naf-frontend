@@ -86,34 +86,21 @@ const InfoBar = () => {
   }, []);
 
   const notificationRead = async (item) => {
-
     await NotificationService.readAt(item.id);
 
+    // getNotification();
+
     const newNotification = notification.map((itm) => {
-      var x = itm;
-      if (itm?.id == item?.id) {
-        x.read_at = Date.now();
+      if (itm?.id == item?.id && !itm.read_at) {
+        itm.read_at = Date.now();
+        setUnreadCount(unreadCount - 1);
       }
       return itm;
     });
     setNotification(newNotification);
-    setUnreadCount(unreadCount - 1);
   };
 
-  // const notificationFilter = () => {
-  //   if (user.details) {
-  //     let carry = notification.filter((item) => {
-  //       if (user.details.company_id == item.data.data.company_id) return item;
-  //     });
-  //     setnotification(carry);
-  //   } else {
-  //     setnotification(notification);
-  //   }
-  // };
 
-  // useEffect(() => {
-  //   notificationFilter();
-  // }, [notification]);
 
   return (
     <div className="d-flex align-items-stretch flex-shrink-0">

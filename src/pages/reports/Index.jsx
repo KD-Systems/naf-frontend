@@ -101,8 +101,7 @@ const Reports = () => {
     setEnableFilter(false)
   }
 
-  const exportSales = async(filters)=>{ 
-    console.log('filter',filters);
+  const exportSales = async(filters)=>{
     // return
     setLoading(true);
     let data = await ReportService.salesExport(filters);
