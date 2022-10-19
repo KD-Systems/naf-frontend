@@ -115,7 +115,6 @@ const RequiredRequisitions = () => {
 
   const getRequisitions = async (filters) => {
     let res = await RequisitionService.getAllRequiredRequisitions(filters);
-    console.log("🚀 ~ file: Index.jsx ~ line 118 ~ getRequisitions ~ filters", filters)
     setRequisitions(res);
     setLoading(false);
   };
