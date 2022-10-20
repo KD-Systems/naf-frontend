@@ -54,6 +54,7 @@ const RequisitionCreate = () => {
     priority: "",
     type: "",
     payment_mode: "",
+    account_details:"",  
     expected_delivery: "",
     payment_term: "",
     payment_partial_mode: "",
@@ -490,7 +491,7 @@ const RequisitionCreate = () => {
 
                       {data?.type !== "claim_report" && data?.type !== "" && (
                         <>
-                          <div className="col-lg-6">
+                          <div className="col-lg-4">
                             <div className="mb-5">
                               <label className="required form-label">
                                 Payment Mode
@@ -507,7 +508,24 @@ const RequisitionCreate = () => {
                             </div>
                           </div>
 
-                          <div className="col-lg-6">
+                          <div className="col-lg-4">
+                            <label
+                              className="form-label fs-6 fw-bolder text-gray-700"
+                              htmlFor="types"
+                            >
+                              Account Details
+                            </label>
+                            <textarea
+                              className="form-control form-control-solid mb-3"
+                              rows="2"
+                              name="account_details"
+                              data-kt-element="input"
+                              placeholder="Account details"
+                              onChange={handleChange}
+                            ></textarea>
+                          </div>
+
+                          <div className="col-lg-4">
                             <div className="mb-5">
                               <label className="required form-label">
                                 Payment Term

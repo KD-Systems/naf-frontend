@@ -75,8 +75,10 @@ const PartStocks = ({ tab, part, onChange }) => {
                 <tr className="fw-bolder text-muted">
                   <th className="min-w-140px">Warehouse</th>
                   <th className="min-w-120px">Box Heading</th>
-                  <th className="min-w-100px">Unit</th>
-                  <th className="min-w-120px">Unit Value</th>
+                  {/* <th className="min-w-100px">Unit</th> */}
+                  <th className="min-w-120px">Quantity</th>
+                  <th className="min-w-120px">Selling Price</th>
+                  <th className="min-w-120px">Total Selling Price</th>
                   <th className="min-w-120px">Shipment Invoice</th>
                   <th className="min-w-120px">Arrival Date</th>
                   <th className="min-w-100px text-end">Actions</th>
@@ -113,12 +115,20 @@ const PartStocks = ({ tab, part, onChange }) => {
                       </Link>
                     </td>
 
-                    <td>
+                    {/* <td>
                       {item.unit?.capitalize()}
-                    </td>
+                    </td> */}
 
                     <td>
                       {part.unit === 'piece' ? parseFloat(item.unit_value).toFixed() : item.unit_value}
+                    </td>
+
+                    <td>
+                      {item.selling_price}
+                    </td>
+
+                    <td>
+                      {item.unit_value*item.selling_price}
                     </td>
 
                     <td>

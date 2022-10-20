@@ -53,14 +53,14 @@ const PrintRequisition = () => {
                         className="text-sm-center fw-bold fs-4 text-muted "
                         style={{ textAlign: "center", marginLeft: "6rem" }}
                       >
-                        <h1>Naf Overseas(PVT.) Ltd.</h1>
+                        <h1>Stitch & Color Technology</h1>
                         <p className="text-sm">
                           <small>
-                            Head Office:Naya paltan,Dhaka,Bangladesh
+                            Head Office: Naya paltan,Dhaka,Bangladesh
                           </small>
                           <br />
                           <small>
-                            Tel:44564,Fax:sddsf,Email:asd@gmail.com,Web:example.com
+                            Tel: 44564, Email: nafgroup@dhaka.net, Web: www.nafgroup.org
                           </small>
                         </p>
                       </div>
@@ -134,7 +134,9 @@ const PrintRequisition = () => {
                     <strong>Machine Model: </strong>
                     <span className="text-muted">
                       {requisition?.machines?.map((item, index) => (
-                        <span key={index}>{item?.machine_model?.name}</span>
+                        <span key={index} className="badge badge-light-info ">
+                        {item?.model?.name}{" "}
+                      </span>
                       ))}
                     </span>
                   </h6>
@@ -173,22 +175,25 @@ const PrintRequisition = () => {
                       <table className="table">
                         <thead>
                           <tr className="fs-6 fw-bolder text-dark text-uppercase">
-                            <th className="min-w-175px pb-9">SL.No</th>
-                            <th className="min-w-70px pb-9 text-end">
+                            <th className="min-w-10px pb-9">SL.No</th>
+                            <th className="min-w-70px pb-9 ">
                               Parts Name
                             </th>
-                            <th className="min-w-80px pb-9 text-end">
+                            <th className="min-w-20px pb-9">
                               Parts Number
                             </th>
-                            <th className="min-w-100px pe-lg-6 pb-9 text-end">
+                            <th className="min-w-50px pe-lg-6 pb-9">
                               Quantity
+                            </th>
+                            <th className="min-w-100px pe-lg-6 pb-9">
+                              Remarks
                             </th>
                           </tr>
                         </thead>
                         <tbody>
                           {requisition?.part_items?.map((item, index) => (
                             <tr
-                              className="fw-bolder text-gray-700 fs-5 text-end"
+                              className="fw-bolder text-gray-700 fs-5"
                               key={index}
                             >
                               <td className="d-flex align-items-center pb-10">
@@ -198,6 +203,9 @@ const PrintRequisition = () => {
                               <td>{item?.part?.aliases[0].part_number}</td>
                               <td className="fs-5 text-dark fw-boldest pe-lg-6">
                                 {item?.quantity}
+                              </td>
+                              <td className="fs-5 text-dark fw-boldest pe-lg-6">
+                                {item?.remarks}
                               </td>
                             </tr>
                           ))}
