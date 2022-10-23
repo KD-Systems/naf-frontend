@@ -32,7 +32,7 @@ const PrintRequisition = () => {
     <div className="post" id="content">
       <div className="container-xxl">
         <div className="card">
-          <div className="card-body py-20">
+          <div className="card-body py-10">
             <div className="mw-lg-950px mx-auto w-100">
               <div className="mb-19">
                 <table>
@@ -56,7 +56,7 @@ const PrintRequisition = () => {
                         <h1>Stitch & Color Technology</h1>
                         <p className="text-sm">
                           <small>
-                            Head Office: Naya paltan,Dhaka,Bangladesh
+                            Factory address: Tajima Complex , Amloki bagan , Akran , Birulia , Savar , Dhaka.
                           </small>
                           <br />
                           <small>
@@ -94,9 +94,16 @@ const PrintRequisition = () => {
                       </h6>
 
                       <h6>
-                        <strong>Group of Company: </strong>
+                        <strong>Company Email: </strong>
                         <span className="text-muted">
-                          {requisition?.company?.company_group}
+                          {requisition?.company?.email}
+                        </span>
+                      </h6>
+
+                      <h6>
+                        <strong>Created_by: </strong>
+                        <span className="text-muted">
+                          {requisition?.created_by}
                         </span>
                       </h6>
                     </td>
@@ -143,7 +150,7 @@ const PrintRequisition = () => {
                 </div>
                 {/* Machine Problems */}
                 <div className="d-flex justify-content-between flex-column flex-md-row">
-                  <div className="flex-grow-1 pt-8 mb-13">
+                  <div className="flex-grow-1 pt-5 mb-8">
                     <h6 className="" style={{ textDecoration: "underline" }}>
                       Machine Problem Details
                     </h6>
@@ -152,7 +159,7 @@ const PrintRequisition = () => {
                 </div>
                 {/* Solutions */}
                 <div className="d-flex justify-content-between flex-column flex-md-row">
-                  <div className="flex-grow-1 pt-4 mb-13">
+                  <div className="flex-grow-1 pt-4 mb-8">
                     <h6 className="" style={{ textDecoration: "underline" }}>
                       Solutions/Counter Measure
                     </h6>
@@ -161,7 +168,7 @@ const PrintRequisition = () => {
                 </div>
                 {/* Reason Of Trouble */}
                 <div className="d-flex justify-content-between flex-column flex-md-row">
-                  <div className="flex-grow-1 pt-4 mb-13">
+                  <div className="flex-grow-1 pt-4 mb-8">
                     <h6 className="" style={{ textDecoration: "underline" }}>
                       Reasons Of trouble
                     </h6>
@@ -170,7 +177,7 @@ const PrintRequisition = () => {
                 </div>
 
                 <div className="d-flex justify-content-between flex-column flex-md-row">
-                  <div className="flex-grow-1 pt-8 mb-13">
+                  <div className="flex-grow-1 pt-8 mb-8">
                     <div className="table-responsive ">
                       <table className="table">
                         <thead>
