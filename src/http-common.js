@@ -1,6 +1,6 @@
 import axios from "axios";
+import config from "./config";
 import reactDom from "react-dom";
-import config from "config";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
