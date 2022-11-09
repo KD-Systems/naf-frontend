@@ -266,11 +266,7 @@ const RequisitionCreate = () => {
   const getParts = async () => {
     let res = await PartService.getAll({
       ...filter,
-<<<<<<< HEAD
-      // company_id: data?.company_id,
-=======
       company_id: data?.company_id,
->>>>>>> origin/shanto
       // machine_id: machineId,
     });
     setSearchData(res.data);
