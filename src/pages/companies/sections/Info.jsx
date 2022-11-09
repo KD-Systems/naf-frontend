@@ -4,6 +4,7 @@ import Moment from "react-moment";
 import { useNavigate, useParams } from "react-router-dom";
 import CompanyService from "services/CompanyService";
 import UpdateDueAmount from "./UpdateDueAmount";
+import UpdateTradeLimit from "./UpdateTradeLimit";
 
 const CompanyInfo = () => {
   const navigate = useNavigate();
@@ -11,6 +12,8 @@ const CompanyInfo = () => {
   const [companyId, setcompanyId] = useState(null);
   const [updateDueAMountModal, setUpdateDueAMountModal] = useState(false);
   const [company, setCompanies] = useState([]);
+
+  const [dueModal, setDueModal] = useState(false)
 
   const onCloseModal = () => {
     setUpdateDueAMountModal(false);
@@ -111,8 +114,8 @@ const CompanyInfo = () => {
                   {company.trade_limit}
                 </div>
 
-                  <div className="card-title mt-10">
-                    <h3 className="card-label">
+                  <div className="card-title mt-10 justify-content-center">
+                    <h3 className="card-label mr-10">
                       <PermissionAbility permission="companies_edit">
                         <button
                           className="btn btn-sm btn-dark"
@@ -121,7 +124,20 @@ const CompanyInfo = () => {
                             setUpdateDueAMountModal(true);
                           }}
                         >
-                          <i className="fa fa-pen"></i> Edit
+                          <i className="fa fa-pen"></i> Update Trade Limit
+                        </button>
+                      </PermissionAbility>
+                    </h3>
+                    <h3 className="card-label">
+                      <PermissionAbility permission="companies_edit">
+                        <button
+                          className="btn btn-sm btn-dark"
+                          onClick={() => {
+                            setcompanyId(id);
+                            setDueModal(true);
+                          }}
+                        >
+                          <i className="fa fa-pen"></i> Add Due
                         </button>
                       </PermissionAbility>
                     </h3>
@@ -161,10 +177,16 @@ const CompanyInfo = () => {
           </div>
         </div>
       </div>
-      <UpdateDueAmount
+      <UpdateTradeLimit
         open={updateDueAMountModal}
         companyId={companyId}
         onCloseModal={onCloseModal}
+        onUpdated={getCompanies}
+      />
+      <UpdateDueAmount
+        open={dueModal}
+        companyId={companyId}
+        onCloseModal={()=>setDueModal(false)}
         onUpdated={getCompanies}
       />
     </>

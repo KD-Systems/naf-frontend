@@ -1,19 +1,32 @@
 import Modal from "components/utils/Modal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import CompanyService from "services/CompanyService";
 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import RequisitionService from "services/RequisitionService";
 toast.configure();
 
-const UpdateDueAmount = ({ open, companyId, onCloseModal, onUpdated }) => {
-   const [data, setData] = useState({
-    amount:'',
+const UpdateTradeLimit = ({ open, companyId, onCloseModal, onUpdated }) => {
+
+  const [data, setData] = useState({
+    trade_limit: "",
     remarks: "",
   });
 
+  const getCompany = async () => {
+    const res = await CompanyService.get(companyId);
+    setData({
+      ...data,
+      trade_limit: res.trade_limit,
+      due_amount: res.due_amount,
+    });
+  };
+  useEffect(() => {
+    if (companyId) getCompany();
+  }, [companyId, open]);
+
   const updateCompany = async () => {
-    await RequisitionService.create({company_id: companyId, is_due:true,  ...data});
+    await CompanyService.updateDueLimit(companyId, data);
     onUpdated();
     onCloseModal();
   };
@@ -29,24 +42,23 @@ const UpdateDueAmount = ({ open, companyId, onCloseModal, onUpdated }) => {
   };
 
 
-
-
   return (
     <div>
       <Modal
         open={open}
         onCloseModal={onCloseModal}
-        title={<>Add Due Amount</>}
+        title={<>Trade Limit</>}
         body={
           <>
             <form id="update-company">
               <div className="mb-5 fv-row fv-plugins-icon-container">
-                <label className="form-label">Due Amount</label>
+                <label className="form-label">Trade limit</label>
                 <input
                   type="number"
                   className="form-control"
-                  placeholder="Amount"
-                  name="amount"
+                  placeholder="Enter Trade Limit"
+                  name="trade_limit"
+                  value={data.trade_limit ?? ""}
                   onChange={handleChange}
                 />
                 <div
@@ -95,4 +107,4 @@ const UpdateDueAmount = ({ open, companyId, onCloseModal, onUpdated }) => {
   );
 };
 
-export default UpdateDueAmount;
+export default UpdateTradeLimit;
