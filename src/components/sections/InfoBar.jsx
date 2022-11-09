@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import Pusher from "pusher-js";
 import NotificationService from "services/NotificationService";
 import Moment from "react-moment";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const InfoBar = () => {
   const dispatch = useDispatch();
@@ -16,6 +17,9 @@ const InfoBar = () => {
   const [expandNotification, setExpandNotification] = useState(false);
   const [push, setPush] = useState([]);
   const [notification, setNotification] = useState([]);
+  const [page, setPage] = useState(1);
+  const [lastPage, setLastPage] = useState();
+
   // const [notification, setnotification] = useState();
   const ref = useRef();
 
@@ -29,9 +33,26 @@ const InfoBar = () => {
 
   const getNotification = async () => {
     const res = await NotificationService.getAll({
-      rows: 7
+      // rows: 6,
+      page: page,
     });
-    setNotification(res);
+    setPage(res?.notification?.current_page);
+    setLastPage(res?.notification?.last_page);
+    setNotification(res?.notification?.data);
+    setUnreadCount(res.unread);
+  };
+
+  const fetchMoreData = async () => {
+    if (page < lastPage) {
+      const res = await NotificationService.getAll({
+        page: page + 1,
+      });
+      setPage(res?.notification?.current_page);
+      setLastPage(res?.notification?.last_page);
+      var x = notification.concat(res?.notification?.data);
+      setNotification(x);
+      setUnreadCount(res.unread);
+    }
   };
 
   useEffect(() => {
@@ -64,51 +85,35 @@ const InfoBar = () => {
       });
   }, []);
 
-  useEffect(() => {
-    if (notification) {
-      let count = 0;
-      notification.forEach((item) => {
-        if (!item.read_at) {
-          count++;
-        }
-        setUnreadCount(count);
-      });
-    }
-  }, [notification]);
-
   const notificationRead = async (item) => {
-    let path =
-      user.details == null
-        ? `/panel/${item?.data?.url}`
-        : `/panel/client/${item?.data?.url}`;
     await NotificationService.readAt(item.id);
-    getNotification();
-    navigate(path);
+
+    // getNotification();
+
+    const newNotification = notification.map((itm) => {
+      if (itm?.id == item?.id && !itm.read_at) {
+        itm.read_at = Date.now();
+        setUnreadCount(unreadCount - 1);
+      }
+      return itm;
+    });
+    setNotification(newNotification);
   };
 
-  // const notificationFilter = () => {
-  //   if (user.details) {
-  //     let carry = notification.filter((item) => {
-  //       if (user.details.company_id == item.data.data.company_id) return item;
-  //     });
-  //     setnotification(carry);
-  //   } else {
-  //     setnotification(notification);
-  //   }
-  // };
 
-  // useEffect(() => {
-  //   notificationFilter();
-  // }, [notification]);
 
   return (
     <div className="d-flex align-items-stretch flex-shrink-0">
       <div className="d-flex align-items-stretch flex-shrink-0">
         <div className="d-flex align-items-center ms-1 ms-lg-3">
           <div
-          onClick={() => setExpandNotification(!expandNotification)}
-          // className="btn btn-icon btn-active-light-primary position-relative w-30px h-30px w-md-40px h-md-40px"
-            className={ expandNotification ? "btn btn-icon btn-active-light-primary position-relative w-30px h-30px w-md-40px h-md-40px show menu-dropdown" : "btn btn-icon btn-active-light-primary position-relative w-30px h-30px w-md-40px h-md-40px"}
+            onClick={() => setExpandNotification(!expandNotification)}
+            // className="btn btn-icon btn-active-light-primary position-relative w-30px h-30px w-md-40px h-md-40px"
+            className={
+              expandNotification
+                ? "btn btn-icon btn-active-light-primary position-relative w-30px h-30px w-md-40px h-md-40px show menu-dropdown"
+                : "btn btn-icon btn-active-light-primary position-relative w-30px h-30px w-md-40px h-md-40px"
+            }
             data-kt-menu-trigger="click"
             data-kt-menu-attach="parent"
             data-kt-menu-placement="bottom-end"
@@ -149,15 +154,23 @@ const InfoBar = () => {
           </div>
 
           <div
-            className={expandNotification ? "menu menu-sub menu-sub-dropdown menu-column w-350px w-lg-375px show" : "menu menu-sub menu-sub-dropdown menu-column w-350px w-lg-375px" }
+            className={
+              expandNotification
+                ? "menu menu-sub menu-sub-dropdown menu-column w-350px w-lg-375px show"
+                : "menu menu-sub menu-sub-dropdown menu-column w-350px w-lg-375px"
+            }
             data-kt-menu="true"
-            style={expandNotification ? {
-              zIndex: 105,
-              position: 'fixed',
-              inset: '0px 0px auto auto',
-              margin: '0px',
-              transform: 'translate(-128px, 65px)'
-              }: {}}
+            style={
+              expandNotification
+                ? {
+                    zIndex: 105,
+                    position: "fixed",
+                    inset: "0px 0px auto auto",
+                    margin: "0px",
+                    transform: "translate(-128px, 65px)",
+                  }
+                : {}
+            }
           >
             <div
               className="d-flex flex-column bgi-no-repeat rounded-top"
@@ -176,68 +189,91 @@ const InfoBar = () => {
                 id="kt_topbar_notifications_1"
                 role="tabpanel"
               >
-                <div className="scroll-y mh-325px my-5 px-8">
-                  {notification?.map((item,index) => {
-                    return (
-                      <div key={index} className="d-flex flex-stack py-4">
-                        <div className="d-flex align-items-center">
-                          <div className="symbol symbol-35px me-4">
-                            <span className="symbol-label bg-light-primary">
-                              <span 
-                                className={
-                                  item?.read_at
-                                    ? "svg-icon svg-icon-2 svg-icon-primary"
-                                    : "svg-icon svg-icon-2 svg-icon-danger"
-                                }
-                              >
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  width="24"
-                                  height="24"
-                                  viewBox="0 0 24 24"
-                                  fill="none"
+                <InfiniteScroll
+                  dataLength={notification?.length}
+                  next={fetchMoreData}
+                  hasMore={true}
+                  // loader={<h4>Loading...</h4>}
+                  pullDownToRefreshThreshold={80}
+                  scrollableTarget="scrollableDiv"
+                >
+                  <div
+                    id="scrollableDiv"
+                    className="scroll-y mh-325px my-5 px-8"
+                  >
+                    {notification?.map((item, index) => {
+                      return (
+                        <div key={index} className="d-flex flex-stack py-4">
+                          <div className="d-flex align-items-center">
+                            <div className="symbol symbol-35px me-4">
+                              <span className="symbol-label bg-light-primary">
+                                <span
+                                  className={
+                                    item?.read_at
+                                      ? "svg-icon svg-icon-2 svg-icon-primary"
+                                      : "svg-icon svg-icon-2 svg-icon-danger"
+                                  }
                                 >
-                                  <path
-                                    opacity="0.3"
-                                    d="M6 22H4V3C4 2.4 4.4 2 5 2C5.6 2 6 2.4 6 3V22Z"
-                                    fill="black"
-                                  ></path>
-                                  <path
-                                    d="M18 14H4V4H18C18.8 4 19.2 4.9 18.7 5.5L16 9L18.8 12.5C19.3 13.1 18.8 14 18 14Z"
-                                    fill="black"
-                                  ></path>
-                                </svg>
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                  >
+                                    <path
+                                      opacity="0.3"
+                                      d="M6 22H4V3C4 2.4 4.4 2 5 2C5.6 2 6 2.4 6 3V22Z"
+                                      fill="black"
+                                    ></path>
+                                    <path
+                                      d="M18 14H4V4H18C18.8 4 19.2 4.9 18.7 5.5L16 9L18.8 12.5C19.3 13.1 18.8 14 18 14Z"
+                                      fill="black"
+                                    ></path>
+                                  </svg>
+                                </span>
                               </span>
-                            </span>
-                          </div>
+                            </div>
 
-                          <div className="mb-0 me-2">
-                            <a
-                              onClick={() => {
-                                notificationRead(item);
-                              }}
-                              className="fs-6 text-gray-800 text-hover-primary fw-bolder"
-                            >
-                              {item?.data?.message}
-                            </a>
-                            <div className="text-gray-400 fs-7">
-                              {item?.data?.message} by {item?.data?.user?.name}
+                            <div className="mb-0 me-2">
+                              <Link
+                                to={
+                                  user.details == null
+                                    ? `/panel/${item?.data?.url}`
+                                    : `/panel/client/${item?.data?.url}`
+                                }
+                                onClick={() => {
+                                  notificationRead(item);
+                                }}
+                                className="fs-6 text-gray-800 text-hover-primary fw-bolder"
+                              >
+                                {item?.data?.message}
+                              </Link>
+                              <div className="text-gray-400 fs-7">
+                                {item?.data?.message} by{" "}
+                                {item?.data?.user?.name}
+                              </div>
                             </div>
                           </div>
-                        </div>
 
-                        <span className="badge badge-light fs-8">
-                          <Moment format="HH:mm">{item?.created_at}</Moment>
-                        </span>
-                      </div>
-                    );
-                  })}
-                </div>
+                          <span className="badge badge-light fs-8">
+                            <Moment format="HH:mm">{item?.created_at}</Moment>
+                          </span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </InfiniteScroll>
 
                 <div className="py-3 text-center border-top">
-                  <div className=" color-gray-600 btn-active-color-primary">
+                  {/* <Link to={
+                                user.details == null
+                                  ? `/panel/all-notification`
+                                  : `/panel/client/all-notification`
+                              } className=" color-gray-600 btn-active-color-primary">
                     Total ({notification?.length})
-                  </div>
+                  </Link> */}
+                  Total ({notification?.length})
                 </div>
               </div>
 

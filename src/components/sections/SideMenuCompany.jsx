@@ -27,7 +27,7 @@ const SideMenuCompany = () => {
     data-kt-drawer-toggle="#kt_aside_mobile_toggle"
   >
     <div className="aside-logo flex-column-auto" id="kt_aside_logo">
-      <NavLink to="/panel/dashboard">
+      <NavLink to="/panel/client/dashboard">
         <img
           alt="Logo"
           src="/assets/media/logos/naf.png"

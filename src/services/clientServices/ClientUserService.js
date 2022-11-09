@@ -9,10 +9,15 @@ const getUser = async (id) => {
   let res = await http.get(`company-user/${id}`);
   return res.data;
 };
+ const getCompanyInfo = async()=>{
+  const res = await http.get("client-info");
+  return res.data;
+ }
 
 const ClientUserService = {
     getAll,
-    getUser
+    getUser,
+    getCompanyInfo
   };
   
   export default ClientUserService; 

@@ -163,6 +163,7 @@ const EditPartStock = ({ open, onCloseModal, onUpdated, stockId }) => {
                 onChange={handleChange}
                 value={data.unit_value ?? ""}
                 step="any"
+                disabled
               />
               <div
                 className="fv-plugins-message-container invalid-feedback"

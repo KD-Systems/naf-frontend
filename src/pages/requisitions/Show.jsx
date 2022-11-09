@@ -124,6 +124,11 @@ const ShowRequisition = () => {
                   </Moment>
                 </div>
 
+                <div className="fw-bolder mt-5">Account details</div>
+                <div className="text-gray-600">
+                  {requisition?.account_details ?? "--"}
+                </div>
+
                 <div className="fw-bolder mt-5">Priority</div>
                 <div className="text-gray-600">
                   {requisition?.priority?.capitalize()}
@@ -161,7 +166,7 @@ const ShowRequisition = () => {
                   {requisition?.remarks ?? "--"}
                 </div>
               </div>
-              <div className="card-header">
+              <div className="card-header"> 
                 <div className="card-title">
                   <h3 className="card-label">
                     <PermissionAbility permission="requisitions_print">

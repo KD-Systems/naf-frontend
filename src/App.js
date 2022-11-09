@@ -1,5 +1,6 @@
 import PermissionAbility from "helpers/PermissionAbility";
 import { PrivateRoute } from "helpers/PrivateRoute";
+import AllNotification from "pages/all-notification/AllNotification";
 import AccountSettings from "pages/auth/AccountSettings";
 import Login from "pages/auth/Login";
 import Profile from "pages/auth/Profile";
@@ -8,6 +9,7 @@ import BoxHeadingShow from "pages/box-headings/Show";
 import ClientContract from "pages/client/client-contract/index";
 import ClientContractShow from "pages/client/client-contract/show";
 import ClientCompanyMachines from "pages/client/client-machines/index";
+import ClientAllNotification from "pages/client/client-notification/ClientAllNotification";
 import ClientDashboard from "pages/client/dashboard/ClientDashboard";
 import ClientDeliveryNotes from "pages/client/delivery-notes";
 import CreateClientDelivery from "pages/client/delivery-notes/create";
@@ -59,6 +61,7 @@ import ShowPart from "pages/parts/Show";
 import ShowStock from "pages/parts/stocks/Show";
 import CreateQuotation from "pages/quotations/Create";
 import Quotations from "pages/quotations/Index";
+import PrintQuotation from "pages/quotations/Print";
 import ShowQuotation from "pages/quotations/Show";
 import Reports from "pages/reports/Index";
 import PartStockReport from "pages/reports/PartStockReport";
@@ -427,6 +430,15 @@ function App() {
             />
 
             <Route
+              path="quotations/:id/print"
+              element={
+                <PrivateRoute>
+                  <PrintQuotation />
+                </PrivateRoute>
+              }
+              />
+
+            <Route
               path="quotations/:requisitionId/create"
               element={
                 <PrivateRoute>
@@ -533,6 +545,15 @@ function App() {
                 </PrivateRoute>
               }
             />
+
+            <Route
+              path="all-notification"
+              element={
+                <PrivateRoute>
+                  <AllNotification />
+                </PrivateRoute>
+              }
+            />
             {/* Report End */}
 
             {/* Gate pass Start */}
@@ -544,11 +565,21 @@ function App() {
                 </PrivateRoute>
               }
             />
+
+
             {/* Gate pass End */}
 
             {/* Routes for company users */}
 
             {/* Routes for company users */}
+            <Route
+              path="client/all-notification"
+              element={
+                <PrivateRoute>
+                  <ClientAllNotification />
+                </PrivateRoute>
+              }
+            />
 
             <Route
               path="client/dashboard"

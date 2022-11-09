@@ -73,10 +73,24 @@ const ShowStock = () => {
                       </span>
                     </div>
 
+                    <div className="fw-bolder mt-5">Total Yen Price</div>
+                    <div className="text-gray-600">
+                      <span className="text-gray-600">
+                        {data.yen_price*data.unit_value}
+                      </span>
+                    </div>
+
                     <div className="fw-bolder mt-5">Selling Price (BDT)</div>
                     <div className="text-gray-600">
                       <span className="text-gray-600">
                         {data.selling_price}
+                      </span>
+                    </div>
+
+                    <div className="fw-bolder mt-5">Total Selling Price (BDT)</div>
+                    <div className="text-gray-600">
+                      <span className="text-gray-600">
+                        {data.selling_price*data.unit_value}
                       </span>
                     </div>
 

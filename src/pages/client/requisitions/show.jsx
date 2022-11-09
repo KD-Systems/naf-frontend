@@ -87,6 +87,11 @@ const ShowClientRequisition = () => {
                   {requisition?.engineer?.name ?? "--"}
                 </div>
 
+                <div className="fw-bolder mt-5">Account details</div>
+                <div className="text-gray-600">
+                  {requisition?.account_details ?? "--"}
+                </div>
+
                 <div className="fw-bolder mt-5">Expected Delivery</div>
                 <div className="text-gray-600">
                   <Moment format="D MMMM YYYY">

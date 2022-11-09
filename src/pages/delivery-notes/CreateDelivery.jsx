@@ -55,7 +55,8 @@ const CreateDelivery = () => {
   const addPart = (item) => {
     //* quantity Set
     const res = invoice?.part_items?.find((it) => it.part_id === item.id);
-
+    
+    item['unit_value'] = res.unit_value
     if (res?.part_id == item.id) {
       item["quantity"] = res.quantity;
       item["invoice_exists"] = true;
@@ -75,7 +76,7 @@ const CreateDelivery = () => {
       /* add part in the List and remove duplicates from array */
       setSelectedPart(true);
       setFilter({ ...filter, q: "" });
-      setSearchData("");
+      setSearchData(""); 
     }
   };
 

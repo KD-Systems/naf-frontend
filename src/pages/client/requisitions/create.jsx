@@ -37,6 +37,7 @@ const RequisitionCreate = () => {
   const [companies, setCompanies] = useState({});
   const [contract, setContracts] = useState();
   const [machineModels, setMachineModels] = useState([]);
+  
   const [filter, setFilter] = useState({
     part_heading_id: null,
   });
@@ -53,6 +54,7 @@ const RequisitionCreate = () => {
     priority: "",
     type: "",
     payment_mode: "",
+    account_details:"",  
     expected_delivery: "",
     payment_term: "",
     payment_partial_mode: "",
@@ -91,7 +93,7 @@ const RequisitionCreate = () => {
 
   const payment_terms = [
     { value: "full", label: "Full" },
-    { value: "half", label: "Half" },
+    // { value: "half", label: "Half" },
     { value: "partial", label: "Partial" },
   ];
 
@@ -261,7 +263,11 @@ const RequisitionCreate = () => {
   const getParts = async () => {
     let res = await PartService.getClientPart({
       ...filter,
+<<<<<<< HEAD
       // company_id: data?.company_id,
+=======
+      company_id: data?.company_id,
+>>>>>>> origin/shanto
       // machine_id: machineId,
     });
     setSearchData(res.data);
@@ -282,7 +288,6 @@ const RequisitionCreate = () => {
       part_heading_id: data?.part_heading_id,
     });
   };
-  console.log("A", machineModels);
   const search = async (e) => {
     if (!machineModels.length) {
       toast.warning("Please select machine first located at the top!");
@@ -490,7 +495,7 @@ const RequisitionCreate = () => {
 
                       {data?.type !== "claim_report" && data?.type !== "" && (
                         <>
-                          <div className="col-lg-6">
+                          <div className="col-lg-4">
                             <div className="mb-5">
                               <label className="required form-label">
                                 Payment Mode
@@ -507,7 +512,24 @@ const RequisitionCreate = () => {
                             </div>
                           </div>
 
-                          <div className="col-lg-6">
+                          <div className="col-lg-4">
+                            <label
+                              className="form-label fs-6 fw-bolder text-gray-700"
+                              htmlFor="types"
+                            >
+                              Account Details
+                            </label>
+                            <textarea
+                              className="form-control form-control-solid mb-3"
+                              rows="2"
+                              name="account_details"
+                              data-kt-element="input"
+                              placeholder="Account details"
+                              onChange={handleChange}
+                            ></textarea>
+                          </div>
+
+                          <div className="col-lg-4">
                             <div className="mb-5">
                               <label className="required form-label">
                                 Payment Term
@@ -542,7 +564,7 @@ const RequisitionCreate = () => {
                               </div>
 
                               <div className="col-lg-4">
-                                <label className="required form-label">
+                                <label className="form-label">
                                   Partial Time
                                 </label>
                                 <div className="mb-5">
@@ -561,7 +583,7 @@ const RequisitionCreate = () => {
                               </div>
 
                               <div className="col-lg-4">
-                                <label htmlFor="types">Next Payment</label>
+                                <label className="required" htmlFor="types">Next Payment</label>
                                 <div className="mb-5">
                                   <DatePicker
                                     className="form-control"

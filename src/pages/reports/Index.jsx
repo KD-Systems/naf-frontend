@@ -69,6 +69,16 @@ const Reports = () => {
     },
 
     {
+      name: "Total",
+      selector: (row) => row?.total_value,
+      format: (row) => (
+        <div className="mt-2">{row?.total_value}</div>
+      ),
+      sortable: true,
+      field: "total_value",
+    },
+
+    {
       name: "Created At",
       selector: (row) => row?.created_at,
       format: (row) => (
@@ -91,9 +101,10 @@ const Reports = () => {
     setEnableFilter(false)
   }
 
-  const exportSales = async()=>{
+  const exportSales = async(filters)=>{
+    // return
     setLoading(true);
-    let data = await ReportService.salesExport();
+    let data = await ReportService.salesExport(filters);
     window.location.href = data;
     setLoading(false);
 
@@ -118,7 +129,7 @@ const Reports = () => {
             callbackButtons={[
               {
                 name: 'Export',
-                callback: () => { exportSales() },
+                callback: () => { exportSales(filter) },
                 permission: null
                 
               },

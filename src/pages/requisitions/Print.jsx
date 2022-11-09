@@ -32,7 +32,7 @@ const PrintRequisition = () => {
     <div className="post" id="content">
       <div className="container-xxl">
         <div className="card">
-          <div className="card-body py-20">
+          <div className="card-body py-10">
             <div className="mw-lg-950px mx-auto w-100">
               <div className="mb-19">
                 <table>
@@ -53,14 +53,14 @@ const PrintRequisition = () => {
                         className="text-sm-center fw-bold fs-4 text-muted "
                         style={{ textAlign: "center", marginLeft: "6rem" }}
                       >
-                        <h1>Naf Overseas(PVT.) Ltd.</h1>
+                        <h1>Stitch & Color Technology</h1>
                         <p className="text-sm">
                           <small>
-                            Head Office:Naya paltan,Dhaka,Bangladesh
+                            Factory address: Tajima Complex , Amloki bagan , Akran , Birulia , Savar , Dhaka.
                           </small>
                           <br />
                           <small>
-                            Tel:44564,Fax:sddsf,Email:asd@gmail.com,Web:example.com
+                            Tel: 44564, Email: nafgroup@dhaka.net, Web: www.nafgroup.org
                           </small>
                         </p>
                       </div>
@@ -94,9 +94,16 @@ const PrintRequisition = () => {
                       </h6>
 
                       <h6>
-                        <strong>Group of Company: </strong>
+                        <strong>Company Email: </strong>
                         <span className="text-muted">
-                          {requisition?.company?.company_group}
+                          {requisition?.company?.email}
+                        </span>
+                      </h6>
+
+                      <h6>
+                        <strong>Created_by: </strong>
+                        <span className="text-muted">
+                          {requisition?.created_by}
                         </span>
                       </h6>
                     </td>
@@ -134,14 +141,16 @@ const PrintRequisition = () => {
                     <strong>Machine Model: </strong>
                     <span className="text-muted">
                       {requisition?.machines?.map((item, index) => (
-                        <span key={index}>{item?.machine_model?.name}</span>
+                        <span key={index} className="badge badge-light-info ">
+                        {item?.model?.name}{" "}
+                      </span>
                       ))}
                     </span>
                   </h6>
                 </div>
                 {/* Machine Problems */}
                 <div className="d-flex justify-content-between flex-column flex-md-row">
-                  <div className="flex-grow-1 pt-8 mb-13">
+                  <div className="flex-grow-1 pt-5 mb-8">
                     <h6 className="" style={{ textDecoration: "underline" }}>
                       Machine Problem Details
                     </h6>
@@ -150,7 +159,7 @@ const PrintRequisition = () => {
                 </div>
                 {/* Solutions */}
                 <div className="d-flex justify-content-between flex-column flex-md-row">
-                  <div className="flex-grow-1 pt-4 mb-13">
+                  <div className="flex-grow-1 pt-4 mb-8">
                     <h6 className="" style={{ textDecoration: "underline" }}>
                       Solutions/Counter Measure
                     </h6>
@@ -159,7 +168,7 @@ const PrintRequisition = () => {
                 </div>
                 {/* Reason Of Trouble */}
                 <div className="d-flex justify-content-between flex-column flex-md-row">
-                  <div className="flex-grow-1 pt-4 mb-13">
+                  <div className="flex-grow-1 pt-4 mb-8">
                     <h6 className="" style={{ textDecoration: "underline" }}>
                       Reasons Of trouble
                     </h6>
@@ -168,27 +177,30 @@ const PrintRequisition = () => {
                 </div>
 
                 <div className="d-flex justify-content-between flex-column flex-md-row">
-                  <div className="flex-grow-1 pt-8 mb-13">
+                  <div className="flex-grow-1 pt-8 mb-8">
                     <div className="table-responsive ">
                       <table className="table">
                         <thead>
                           <tr className="fs-6 fw-bolder text-dark text-uppercase">
-                            <th className="min-w-175px pb-9">SL.No</th>
-                            <th className="min-w-70px pb-9 text-end">
+                            <th className="min-w-10px pb-9">SL.No</th>
+                            <th className="min-w-70px pb-9 ">
                               Parts Name
                             </th>
-                            <th className="min-w-80px pb-9 text-end">
+                            <th className="min-w-20px pb-9">
                               Parts Number
                             </th>
-                            <th className="min-w-100px pe-lg-6 pb-9 text-end">
+                            <th className="min-w-50px pe-lg-6 pb-9">
                               Quantity
+                            </th>
+                            <th className="min-w-100px pe-lg-6 pb-9">
+                              Remarks
                             </th>
                           </tr>
                         </thead>
                         <tbody>
                           {requisition?.part_items?.map((item, index) => (
                             <tr
-                              className="fw-bolder text-gray-700 fs-5 text-end"
+                              className="fw-bolder text-gray-700 fs-5"
                               key={index}
                             >
                               <td className="d-flex align-items-center pb-10">
@@ -198,6 +210,9 @@ const PrintRequisition = () => {
                               <td>{item?.part?.aliases[0].part_number}</td>
                               <td className="fs-5 text-dark fw-boldest pe-lg-6">
                                 {item?.quantity}
+                              </td>
+                              <td className="fs-5 text-dark fw-boldest pe-lg-6">
+                                {item?.remarks}
                               </td>
                             </tr>
                           ))}

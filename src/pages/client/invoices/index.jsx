@@ -121,7 +121,7 @@ const ClientInvoices = () => {
   ];
 
   const getInvoices = async (filters) => {
-    setInvoices(await ClientInvoiceService.getAll(filters)); 
+    setInvoices(await ClientInvoiceService.getAll(filters));  
     setLoading(false);
   };
 
