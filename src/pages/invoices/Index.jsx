@@ -9,6 +9,7 @@ import InvoiceFilter from "./InvoiceFilter";
 const Invoices = () => {
   const [loading, setLoading] = useState(true);
   const [invoices, setInvoices] = useState([]);
+  console.log("🚀 ~ file: Index.jsx ~ line 12 ~ Invoices ~ invoices", invoices)
   const [filter, setFilter] = useState(false)
   const [block, setBlock] = useState(false);
   const [totalQuantity, setTotalQuantity] = useState(0);
@@ -87,33 +88,61 @@ const Invoices = () => {
       sortable: true,
       field: "expected_delivery",
     },
+    // {
+    //   name: "Total",
+    //   selector: (row) =>
+    //     row?.part_items?.reduce(
+    //       (partialSum, a) => partialSum + a.total_value,
+    //       0
+    //     ),
+    //   format: (row) => (
+    //     <div className="mt-2">
+    //       {row?.amount
+    //         ? row?.amount
+    //         : row?.requisition?.type != "claim_report"
+    //         ? row?.part_items?.reduce(
+    //             (partialSum, a) => partialSum + parseInt(a.total_value),
+    //             0
+    //           )
+    //         : 0}{" "}
+    //       Tk.
+    //     </div>
+    //   ),
+    //   sortable: true,
+    //   field: "role",
+    // },
+
     {
       name: "Total",
-      selector: (row) =>
-        row?.part_items?.reduce(
-          (partialSum, a) => partialSum + a.total_value,
-          0
-        ),
+      selector: (row) => row?.totalAmount,      
+      sortable: true,
+      field: "total_due",
       format: (row) => (
         <div className="mt-2">
-          {row?.amount
-            ? row?.amount
-            : row?.requisition?.type != "claim_report"
-            ? row?.part_items?.reduce(
-                (partialSum, a) => partialSum + parseInt(a.total_value),
-                0
-              )
-            : 0}{" "}
-          Tk.
+          {row?.totalAmount
+            ? row?.totalAmount
+            : "N/A"}
         </div>
       ),
+    },
+
+    {
+      name: "Paid",
+      selector: (row) => row?.totalPaid,      
       sortable: true,
-      field: "role",
+      field: "total_due",
+      format: (row) => (
+        <div className="mt-2">
+          {row?.totalPaid
+            ? row?.totalPaid
+            : "N/A"}
+        </div>
+      ),
     },
 
     {
       name: "DN number",
-      selector: (row) => row?.deliveryNote?.dn_number,
+      selector: (row) => row?.deliveryNote?.dn_number,      
       sortable: true,
       field: "role",
       format: (row) => (
