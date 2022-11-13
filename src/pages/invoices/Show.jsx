@@ -22,7 +22,7 @@ const ShowInvoice = () => {
     let res = await InvoiceService.get(id);
     setInvoice(res);
     setTotal(
-      res?.amount ??
+      res?.previous_due ??
         res?.part_items?.reduce(
           (partialSum, a) => parseInt(partialSum) + parseInt(a.total_value),
           0
