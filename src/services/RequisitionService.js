@@ -48,6 +48,7 @@ const partHeadings = async (data) => {
 };
 
 const create = async (data) => {
+  console.log("Afnan submit", data);
   const res = await http.post(`/requisitions`, data);
   return res.data;
 };

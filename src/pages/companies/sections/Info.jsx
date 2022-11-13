@@ -2,25 +2,31 @@ import PermissionAbility from "helpers/PermissionAbility";
 import { useEffect, useState } from "react";
 import Moment from "react-moment";
 import { useNavigate, useParams } from "react-router-dom";
+import AdvanceService from "services/AdvanceService";
 import CompanyService from "services/CompanyService";
-import UpdateDueAmount from "./UpdateDueAmount";
 import UpdateTradeLimit from "./UpdateTradeLimit";
 
 const CompanyInfo = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [companyId, setcompanyId] = useState(null);
+  const [advance, setAdvance] = useState(0);
   const [updateDueAMountModal, setUpdateDueAMountModal] = useState(false);
   const [company, setCompanies] = useState([]);
-
-  const [dueModal, setDueModal] = useState(false)
-
   const onCloseModal = () => {
     setUpdateDueAMountModal(false);
   };
 
   const getCompanies = async () => {
     setCompanies(await CompanyService.get(id));
+    const res = await AdvanceService.getAll();
+    var total = 0;
+    res.forEach((element) => {
+      total = element.transaction_type
+        ? total + element.amount
+        : total - element.amount;
+    });
+    setAdvance(total);
   };
 
   useEffect(() => {
@@ -92,7 +98,17 @@ const CompanyInfo = () => {
                 </div>
 
                 <div className="fw-bolder mt-5">Description</div>
-                <div className="text-gray-600">{company.description?? "--"}</div>
+                <div className="text-gray-600">
+                  {company.description ?? "--"}
+                </div>
+                <div className="fw-bolder mt-5">Advance Amount</div>
+                <div
+                  className={
+                    parseInt(advance) < 0 ? "text-danger" : "text-gray"
+                  }
+                >
+                  {Math.floor(advance)}
+                </div>
                 <div className="fw-bolder mt-5">Due Amount</div>
                 <div
                   className={
@@ -114,34 +130,21 @@ const CompanyInfo = () => {
                   {company.trade_limit}
                 </div>
 
-                  <div className="card-title mt-10 justify-content-center">
-                    <h3 className="card-label mr-10">
-                      <PermissionAbility permission="companies_edit">
-                        <button
-                          className="btn btn-sm btn-dark"
-                          onClick={() => {
-                            setcompanyId(id);
-                            setUpdateDueAMountModal(true);
-                          }}
-                        >
-                          <i className="fa fa-pen"></i> Update Trade Limit
-                        </button>
-                      </PermissionAbility>
-                    </h3>
-                    <h3 className="card-label">
-                      <PermissionAbility permission="companies_edit">
-                        <button
-                          className="btn btn-sm btn-dark"
-                          onClick={() => {
-                            setcompanyId(id);
-                            setDueModal(true);
-                          }}
-                        >
-                          <i className="fa fa-pen"></i> Add Due
-                        </button>
-                      </PermissionAbility>
-                    </h3>
-                  </div>
+                <div className="card-title mt-10 justify-content-center">
+                  <h3 className="card-label mr-10">
+                    <PermissionAbility permission="companies_edit">
+                      <button
+                        className="btn btn-sm btn-dark"
+                        onClick={() => {
+                          setcompanyId(id);
+                          setUpdateDueAMountModal(true);
+                        }}
+                      >
+                        <i className="fa fa-pen"></i> Update Trade Limit
+                      </button>
+                    </PermissionAbility>
+                  </h3>
+                </div>
 
                 {/* <div className="fw-bolder mt-5">Trade Limit</div>
               <input
@@ -181,12 +184,6 @@ const CompanyInfo = () => {
         open={updateDueAMountModal}
         companyId={companyId}
         onCloseModal={onCloseModal}
-        onUpdated={getCompanies}
-      />
-      <UpdateDueAmount
-        open={dueModal}
-        companyId={companyId}
-        onCloseModal={()=>setDueModal(false)}
         onUpdated={getCompanies}
       />
     </>
