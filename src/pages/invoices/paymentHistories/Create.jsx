@@ -1,19 +1,20 @@
-import React, { useEffect, useState } from "react";
 import Modal from "components/utils/Modal";
-import DatePicker from "react-datepicker";
 import moment from "moment";
-import InvoiceService from "services/InvoiceService";
+import { useEffect, useState } from "react";
+import DatePicker from "react-datepicker";
 import Select from "react-select";
+import AdvanceService from "services/AdvanceService";
+import InvoiceService from "services/InvoiceService";
 const CreateInvoicePayment = ({ open, onCloseModal, invoice }) => {
   const [data, setData] = useState({
     invoice_id: "",
     payment_mode: "",
     payment_date: "",
     amount: null,
-    remarks:""
+    remarks: "",
   });
 
-
+  const [advance, setAdvance] = useState(0);
 
   const [block, setBlock] = useState(false);
 
@@ -34,7 +35,7 @@ const CreateInvoicePayment = ({ open, onCloseModal, invoice }) => {
         return dt.value;
       });
 
-    const name = conf.name; 
+    const name = conf.name;
     setBlock(false);
 
     setData({
@@ -58,14 +59,25 @@ const CreateInvoicePayment = ({ open, onCloseModal, invoice }) => {
     setBlock(false);
   };
 
-  useEffect(()=>{
-    setData({ ...data, invoice_id: invoice?.id,payment_mode:invoice?.payment_mode });
-  },[open])
+  useEffect(async () => {
+    const res = await AdvanceService.getAll();
+    var total = 0;
+    res.forEach((element) => {
+      total = element.transaction_type
+        ? total + element.amount
+        : total - element.amount;
+    });
+    setAdvance(total);
+    setData({
+      ...data,
+      invoice_id: invoice?.id,
+      payment_mode: invoice?.payment_mode,
+    });
+  }, [open]);
 
   const addPayment = async () => {
     setBlock(true);
-    await InvoiceService.addPayment(data); 
-
+    await InvoiceService.addPayment(data);
 
     setBlock(false);
     onCloseModal();
@@ -74,8 +86,8 @@ const CreateInvoicePayment = ({ open, onCloseModal, invoice }) => {
       payment_mode: "",
       payment_date: "",
       amount: null,
-      remarks:""
-    })
+      remarks: "",
+    });
     getPaymentHistories();
   };
 
@@ -84,6 +96,7 @@ const CreateInvoicePayment = ({ open, onCloseModal, invoice }) => {
     { value: "bank", label: "Bank" },
     { value: "check", label: "Check" },
     { value: "card", label: "Card" },
+    { value: "advance", label: "Advance" },
   ];
 
   return (
@@ -96,7 +109,7 @@ const CreateInvoicePayment = ({ open, onCloseModal, invoice }) => {
           <>
             <form id="create-payment">
               <div>
-              <input
+                <input
                   type="hidden"
                   className="form-control"
                   placeholder="Enter invoice Id"
@@ -147,22 +160,21 @@ const CreateInvoicePayment = ({ open, onCloseModal, invoice }) => {
                 ></div>
               </div>
 
-              <div className="col-lg-6">
-                            <div className="mb-5">
-                              <label className="required form-label">
-                                Payment Mode
-                              </label>
-                              <Select
-                                options={payments}
-                                name="payment_mode"
-                                onChange={handleSelect}
-                              />
-                              <div
-                                className="fv-plugins-message-container invalid-feedback"
-                                htmlFor="payment_mode"
-                              ></div>
-                            </div>
-                          </div>
+              <div className="col-lg-12">
+                <div className="mb-5">
+                  <label className="required form-label">Payment Mode</label>
+                  <Select
+                    options={payments}
+                    name="payment_mode"
+                    onChange={handleSelect}
+                  />
+                  <div
+                    className="fv-plugins-message-container invalid-feedback"
+                    htmlFor="payment_mode"
+                  ></div>
+                  <label className="form-label">Advance Remaining: {advance}tk</label>
+                </div>
+              </div>
 
               <div className="mb-5 fv-row fv-plugins-icon-container">
                 <label className="form-label">Remarks</label>

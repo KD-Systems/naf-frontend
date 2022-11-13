@@ -3,17 +3,20 @@ import { useState } from "react";
 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import RequisitionService from "services/RequisitionService";
+import AdvanceService from "services/AdvanceService";
 toast.configure();
 
-const UpdateDueAmount = ({ open, companyId, onCloseModal, onUpdated }) => {
+const AdvanceAmount = ({ open, companyId, onCloseModal, onUpdated }) => {
+
    const [data, setData] = useState({
+    company_id: companyId,
     amount:'',
     remarks: "",
+    transaction_type: true
   });
 
   const updateCompany = async () => {
-    await RequisitionService.create({company_id: companyId, is_due:true,  ...data});
+    await AdvanceService.create(data);
     onUpdated();
     onCloseModal();
   };
@@ -27,6 +30,7 @@ const UpdateDueAmount = ({ open, companyId, onCloseModal, onUpdated }) => {
       [name]: value,
     });
   };
+
 
 
 
@@ -95,4 +99,4 @@ const UpdateDueAmount = ({ open, companyId, onCloseModal, onUpdated }) => {
   );
 };
 
-export default UpdateDueAmount;
+export default AdvanceAmount;
