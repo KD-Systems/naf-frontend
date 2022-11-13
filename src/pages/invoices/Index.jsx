@@ -50,7 +50,9 @@ const Invoices = () => {
     {
       name: "Requisition Type",
       selector: (row) =>
-        row?.requisition?.type?.replaceAll("_", " ")?.capitalize(),
+        row?.amount
+          ? "Advance Type"
+          : row?.requisition?.type?.replaceAll("_", " ")?.capitalize(),
       sortable: true,
       field: "id",
     },
@@ -60,10 +62,12 @@ const Invoices = () => {
         row?.part_items?.reduce((partialSum, a) => partialSum + a.quantity, 0),
       format: (row) => (
         <div className="mt-2">
-          {row?.part_items?.reduce(
-            (partialSum, a) => partialSum + a.quantity,
-            0
-          )}
+          {row?.amount
+            ? "N/A"
+            : row?.part_items?.reduce(
+                (partialSum, a) => partialSum + a.quantity,
+                0
+              )}
         </div>
       ),
       sortable: true,
@@ -78,7 +82,9 @@ const Invoices = () => {
         ),
       format: (row) => (
         <div className="mt-2">
-          {row?.requisition?.type != "claim_report"
+          {row?.amount
+            ? row?.amount
+            : row?.requisition?.type != "claim_report"
             ? row?.part_items?.reduce(
                 (partialSum, a) => partialSum + parseInt(a.total_value),
                 0
@@ -98,7 +104,9 @@ const Invoices = () => {
       field: "role",
       format: (row) => (
         <div className="mt-2">
-          {row?.deliveryNote?.dn_number
+          {row?.amount
+            ? "N/A"
+            : row?.deliveryNote?.dn_number
             ? row?.deliveryNote?.dn_number
             : "No delivery note yet"}
         </div>
