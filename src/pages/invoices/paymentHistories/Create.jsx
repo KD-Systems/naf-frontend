@@ -3,9 +3,10 @@ import moment from "moment";
 import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import Select from "react-select";
+import { toast } from "react-toastify";
 import AdvanceService from "services/AdvanceService";
 import InvoiceService from "services/InvoiceService";
-const CreateInvoicePayment = ({ open, onCloseModal, invoice }) => {
+const CreateInvoicePayment = ({ open, onCloseModal, invoice, due }) => {
   const [data, setData] = useState({
     invoice_id: "",
     payment_mode: "",
@@ -76,19 +77,32 @@ const CreateInvoicePayment = ({ open, onCloseModal, invoice }) => {
   }, [open]);
 
   const addPayment = async () => {
-    setBlock(true);
-    await InvoiceService.addPayment(data);
-
-    setBlock(false);
-    onCloseModal();
-    setData({
-      invoice_id: "",
-      payment_mode: "",
-      payment_date: "",
-      amount: null,
-      remarks: "",
-    });
-    getPaymentHistories();
+    if (data?.amount > due) {
+      toast.error("Amount should not be grater then Due amount!");
+      setData({
+        ...data,
+        amount: due,
+      });
+    } else if (data?.payment_mode == "advance" && data?.amount > advance) {
+      toast.error("Insufficient Advance amount!");
+      setData({
+        ...data,
+        amount: advance,
+      });
+    } else {
+      setBlock(true);
+      await InvoiceService.addPayment(data);
+      setBlock(false);
+      onCloseModal();
+      setData({
+        invoice_id: "",
+        payment_mode: "",
+        payment_date: "",
+        amount: null,
+        remarks: "",
+      });
+      getPaymentHistories();
+    }
   };
 
   const payments = [
@@ -104,7 +118,12 @@ const CreateInvoicePayment = ({ open, onCloseModal, invoice }) => {
       <Modal
         open={open}
         onCloseModal={onCloseModal}
-        title={<>Add Payment</>}
+        title={
+          <>
+            <div>Add Payment</div>
+            <label className="form-label">Total Due Amount: {due}tk</label>
+          </>
+        }
         body={
           <>
             <form id="create-payment">
@@ -146,7 +165,7 @@ const CreateInvoicePayment = ({ open, onCloseModal, invoice }) => {
               <div className="mb-5 fv-row fv-plugins-icon-container">
                 <label className="required form-label">Amount</label>
                 <input
-                  type="text"
+                  type="number"
                   className="form-control"
                   placeholder="Enter Amount"
                   name="amount"
@@ -172,7 +191,11 @@ const CreateInvoicePayment = ({ open, onCloseModal, invoice }) => {
                     className="fv-plugins-message-container invalid-feedback"
                     htmlFor="payment_mode"
                   ></div>
-                  <label className="form-label">Advance Remaining: {advance}tk</label>
+                  {data?.payment_mode == "advance" && (
+                    <label className="form-label">
+                      Advance Remaining: {advance}tk
+                    </label>
+                  )}
                 </div>
               </div>
 
@@ -181,7 +204,7 @@ const CreateInvoicePayment = ({ open, onCloseModal, invoice }) => {
                 <textarea
                   type="text"
                   className="form-control"
-                  placeholder="Enter Amount"
+                  placeholder="Enter Remarks"
                   name="remarks"
                   id="remarks"
                   value={data.remarks}
