@@ -10,8 +10,10 @@ const ShowInvoice = () => {
   let { id } = useParams();
   const navigate = useNavigate();
   const [invoice, setInvoice] = useState({});
+  const [total, setTotal] = useState(0);
+  const [totalPayment, setTotalPayment] = useState(0);
   const [paymentHistories, setPaymentHistories] = useState([]);
-  
+
   const [block, setBlock] = useState(false);
   const [active, setActive] = useState("part_items"); // * tab active or not
   const [tab, setTab] = useState("part_items");
@@ -19,23 +21,35 @@ const ShowInvoice = () => {
   const getInvoice = async () => {
     let res = await InvoiceService.get(id);
     setInvoice(res);
+    setTotal(
+      res?.amount ??
+        res?.part_items?.reduce(
+          (partialSum, a) => parseInt(partialSum) + parseInt(a.total_value),
+          0
+        )
+    );
   };
-
 
   const getPaymentHistories = async () => {
     let res = await InvoiceService.getPaymentHistories(id);
     setPaymentHistories(res.data);
+    setTotalPayment(
+      res?.data?.reduce(
+          (partialSum, a) => parseInt(partialSum) + parseInt(a.amount),
+          0
+        )
+    );
   };
   const onCloseModal = () => {
     setOpen(false);
     // setOpenEditModal(false);
   };
 
-  useEffect(()=>{
-    if(!open){
+  useEffect(() => {
+    if (!open) {
       getPaymentHistories();
     }
-  },[open])
+  }, [open]);
 
   useEffect(() => {
     if (id) getInvoice();
@@ -43,7 +57,6 @@ const ShowInvoice = () => {
   }, [id]);
   return (
     <>
-    
       <div className="d-flex flex-column-fluid">
         <div className="container">
           <div className="row">
@@ -163,36 +176,37 @@ const ShowInvoice = () => {
                     {invoice?.requisition?.ref_number ?? "--"}
                   </div>
                 </div>
-                  <div className="card-header">
+                <div className="card-header">
                   <div className="card-title">
-                  <PermissionAbility permission="invoices_print">
-                  <h3 className="card-label">
-                    <Link
-                      className="btn btn-sm btn-dark "
-                      to={"/panel/invoices/" + invoice.id + "/print"}
-                      style={{ marginRight: "0.75rem" }}
-                      target="_blank"
-                    >
-                      Print
-                    </Link>
-                  </h3>
-                  </PermissionAbility>
-                  
-                  <PermissionAbility permission="invoices_generate_delivery_note">
-                  <h3 className="card-label">
-                    <button
-                      className="btn btn-sm btn-dark "
-                      style={{ marginRight: "0.1rem" }}
-                      onClick={() => navigate(`/panel/delivery-notes/${invoice?.id}/create`)}
-                    >
-                       Generate Delivery Note
-                    </button>
-                    </h3>
-                  </PermissionAbility>
-                    
-                    
-                  
-                  </div> 
+                    <PermissionAbility permission="invoices_print">
+                      <h3 className="card-label">
+                        <Link
+                          className="btn btn-sm btn-dark "
+                          to={"/panel/invoices/" + invoice.id + "/print"}
+                          style={{ marginRight: "0.75rem" }}
+                          target="_blank"
+                        >
+                          Print
+                        </Link>
+                      </h3>
+                    </PermissionAbility>
+
+                    <PermissionAbility permission="invoices_generate_delivery_note">
+                      <h3 className="card-label">
+                        <button
+                          className="btn btn-sm btn-dark "
+                          style={{ marginRight: "0.1rem" }}
+                          onClick={() =>
+                            navigate(
+                              `/panel/delivery-notes/${invoice?.id}/create`
+                            )
+                          }
+                        >
+                          Generate Delivery Note
+                        </button>
+                      </h3>
+                    </PermissionAbility>
+                  </div>
                 </div>
               </div>
             </div>
@@ -243,8 +257,7 @@ const ShowInvoice = () => {
                     </a>
                   </li>
 
-                  
-                {/* <li className="nav-item">
+                  {/* <li className="nav-item">
                   <a
                     className={`nav-link text-active-primary pb-4 ${
                       tab == "delivery_notes" ? "active" : ""
@@ -256,10 +269,7 @@ const ShowInvoice = () => {
                     Delivery Notes
                   </a>
                 </li> */}
-
-                
                 </ul>
-
 
                 <div className="tab-content">
                   {/* Tabs start from here */}
@@ -284,54 +294,53 @@ const ShowInvoice = () => {
                             <h2>Payment Histories</h2>
                           </div>
                           <div className="card-toolbar">
-                          <PermissionAbility permission="invoices_payment"> 
-                          <button
-                              type="button"
-                              className="btn btn-light-primary"
-                              onClick={() => {
-                                setOpen(true);
-                              }}
-                            >
-                              <span className="svg-icon svg-icon-3">
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  width="24"
-                                  height="24"
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                >
-                                  <rect
-                                    opacity="0.3"
-                                    x="2"
-                                    y="2"
-                                    width="20"
-                                    height="20"
-                                    rx="5"
-                                    fill="black"
-                                  ></rect>
-                                  <rect
-                                    x="10.8891"
-                                    y="17.8033"
-                                    width="12"
-                                    height="2"
-                                    rx="1"
-                                    transform="rotate(-90 10.8891 17.8033)"
-                                    fill="black"
-                                  ></rect>
-                                  <rect
-                                    x="6.01041"
-                                    y="10.9247"
-                                    width="12"
-                                    height="2"
-                                    rx="1"
-                                    fill="black"
-                                  ></rect>
-                                </svg>
-                              </span>
-                              Add Payment
-                            </button>
-                          </PermissionAbility>
-                            
+                            <PermissionAbility permission="invoices_payment">
+                              <button
+                                type="button"
+                                className="btn btn-light-primary"
+                                onClick={() => {
+                                  setOpen(true);
+                                }}
+                              >
+                                <span className="svg-icon svg-icon-3">
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                  >
+                                    <rect
+                                      opacity="0.3"
+                                      x="2"
+                                      y="2"
+                                      width="20"
+                                      height="20"
+                                      rx="5"
+                                      fill="black"
+                                    ></rect>
+                                    <rect
+                                      x="10.8891"
+                                      y="17.8033"
+                                      width="12"
+                                      height="2"
+                                      rx="1"
+                                      transform="rotate(-90 10.8891 17.8033)"
+                                      fill="black"
+                                    ></rect>
+                                    <rect
+                                      x="6.01041"
+                                      y="10.9247"
+                                      width="12"
+                                      height="2"
+                                      rx="1"
+                                      fill="black"
+                                    ></rect>
+                                  </svg>
+                                </span>
+                                Add Payment
+                              </button>
+                            </PermissionAbility>
                           </div>
                         </div>
                         <div className="card-body pt-0">
@@ -382,7 +391,6 @@ const ShowInvoice = () => {
                       </div>
                     </div>
                   </div>
-                  
                 </div>
               </div>
             </div>
@@ -394,6 +402,7 @@ const ShowInvoice = () => {
         open={open}
         onCloseModal={onCloseModal}
         invoice={invoice}
+        due={total-totalPayment}
       />
     </>
   );

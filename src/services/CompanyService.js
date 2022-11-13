@@ -97,9 +97,6 @@ const getClientCompanyContract = async () => {
   return res.data;
 };
 
-
-
-
 const CompanyService = {
   getAll,
   get,

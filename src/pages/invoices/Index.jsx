@@ -5,9 +5,11 @@ import { Link, useNavigate } from "react-router-dom";
 import DeliverNoteService from "services/DeliverNoteService";
 import InvoiceService from "services/InvoiceService";
 import CreateInvoice from "./Create";
+import InvoiceFilter from "./InvoiceFilter";
 const Invoices = () => {
   const [loading, setLoading] = useState(true);
   const [invoices, setInvoices] = useState([]);
+  const [filter, setFilter] = useState(false)
   const [block, setBlock] = useState(false);
   const [totalQuantity, setTotalQuantity] = useState(0);
 
@@ -15,6 +17,18 @@ const Invoices = () => {
 
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
+
+  const filterdata = (data) => {
+    setFilter(false);
+    getInvoices(data);
+  };
+
+  const getInvoices = async (filters) => {
+    setInvoices(await InvoiceService.getAll(filters));
+    setLoading(false);
+  };
+
+  let navigate = useNavigate();
 
   const storeDeliveryNotes = async (data) => {
     setBlock(true);
@@ -158,12 +172,7 @@ const Invoices = () => {
     },
   ];
 
-  const getInvoices = async (filters) => {
-    setInvoices(await InvoiceService.getAll(filters));
-    setLoading(false);
-  };
 
-  let navigate = useNavigate();
   return (
     <>
       <div className="post d-flex flex-column-fluid">
@@ -172,6 +181,15 @@ const Invoices = () => {
             name="Quotations"
             buttonName="Add Invoice"
             onClickButton={onOpenModal}
+            callbackButtons={[
+              {
+                name: "Filter",
+                callback: () => {
+                  setFilter(!filter);
+                },
+                permission: null,
+              },
+            ]}
             isLoading={loading}
             data={invoices}
             columns={columns}
@@ -184,6 +202,12 @@ const Invoices = () => {
         open={open}
         onCloseModal={onCloseModal}
         getInvoices={getInvoices}
+      />
+      <InvoiceFilter
+        enable={filter}
+        onChange={(data) => {
+          filterdata(data);
+        }}
       />
     </>
   );
