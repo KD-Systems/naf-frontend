@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
 import { Activities } from "components/utils/Activities";
+import PermissionAbility from "helpers/PermissionAbility";
+import { useEffect, useState } from "react";
+import Moment from "react-moment";
 import { useParams } from "react-router-dom";
 import CompanyService from "services/CompanyService";
+import CompanyAdvance from "./company_advance/Index";
+import CompanyMachines from "./machines/Index";
 import CompanyInfo from "./sections/Info";
 import CompanyUsers from "./users/Index";
-import Moment from "react-moment";
-import CompanyMachines from "./machines/Index";
-import PermissionAbility from "helpers/PermissionAbility";
 
 const ShowCompany = () => {
   const { id } = useParams();
@@ -68,6 +69,18 @@ const ShowCompany = () => {
                 <a
                   className="nav-link text-active-primary pb-4"
                   data-bs-toggle="tab"
+                  href="#advancePayment"
+                  onClick={() => {
+                    setActive("advancePayment");
+                  }}
+                >
+                  Advance Payment
+                </a>
+              </li>
+              <li className="nav-item">
+                <a
+                  className="nav-link text-active-primary pb-4"
+                  data-bs-toggle="tab"
                   href="#activities"
                   onClick={() => {
                     setActive("activities");
@@ -76,6 +89,7 @@ const ShowCompany = () => {
                   Activities
                 </a>
               </li>
+              
             </ul>
 
             <div className="tab-content">
@@ -159,6 +173,17 @@ const ShowCompany = () => {
                 <CompanyMachines active={active} companyId={company.id} />
               </PermissionAbility>
               {/* Tabs end from here */}
+
+              <div
+                className="tab-pane fade show"
+                id="advancePayment"
+                role="tabpanel"
+              >
+                <div className="card card-xl-stretch mb-xl-10">
+                <CompanyAdvance active={active} companyId={company.id} />
+                  </div>
+              </div>
+
               <div
                 className="tab-pane fade show"
                 id="activities"
