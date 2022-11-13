@@ -61,7 +61,7 @@ const CreateInvoicePayment = ({ open, onCloseModal, invoice, due }) => {
   };
 
   useEffect(async () => {
-    const res = await AdvanceService.getAll();
+    const res = await AdvanceService.getAll({id:invoice?.company?.id});
     var total = 0;
     res.forEach((element) => {
       total = element.transaction_type

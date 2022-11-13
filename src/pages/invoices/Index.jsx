@@ -9,7 +9,8 @@ import InvoiceFilter from "./InvoiceFilter";
 const Invoices = () => {
   const [loading, setLoading] = useState(true);
   const [invoices, setInvoices] = useState([]);
-  const [filter, setFilter] = useState(false)
+  console.log("🚀 ~ file: Index.jsx ~ line 12 ~ Invoices ~ invoices", invoices);
+  const [filter, setFilter] = useState(false);
   const [block, setBlock] = useState(false);
   const [totalQuantity, setTotalQuantity] = useState(0);
 
@@ -64,9 +65,11 @@ const Invoices = () => {
     {
       name: "Requisition Type",
       selector: (row) =>
-        row?.amount
-          ? "Advance Type"
-          : row?.requisition?.type?.replaceAll("_", " ")?.capitalize(),
+        row?.previous_due
+          ? "Previous Due"
+          : row?.quotation?.requisition?.type
+              ?.replaceAll("_", " ")
+              ?.capitalize(),
       sortable: true,
       field: "id",
     },
@@ -76,7 +79,7 @@ const Invoices = () => {
         row?.part_items?.reduce((partialSum, a) => partialSum + a.quantity, 0),
       format: (row) => (
         <div className="mt-2">
-          {row?.amount
+          {row?.previous_due
             ? "N/A"
             : row?.part_items?.reduce(
                 (partialSum, a) => partialSum + a.quantity,
@@ -113,35 +116,29 @@ const Invoices = () => {
 
     {
       name: "Total",
-      selector: (row) => row?.totalAmount,      
+      selector: (row) => row?.previous_due,
       sortable: true,
       field: "total_due",
       format: (row) => (
-        <div className="mt-2">
-          {row?.totalAmount
-            ? row?.totalAmount
-            : "N/A"}
-        </div>
+        <div className="mt-2">{row?.previous_due ?? row?.totalAmount} tk</div>
       ),
     },
 
     {
       name: "Paid",
-      selector: (row) => row?.totalPaid,      
+      selector: (row) => row?.totalPaid,
       sortable: true,
       field: "total_due",
       format: (row) => (
         <div className="mt-2">
-          {row?.totalPaid
-            ? row?.totalPaid
-            : "N/A"}
+          {row?.totalPaid ? parseInt(row?.totalPaid) : 0} tk
         </div>
       ),
     },
 
     {
       name: "DN number",
-      selector: (row) => row?.deliveryNote?.dn_number,      
+      selector: (row) => row?.deliveryNote?.dn_number,
       sortable: true,
       field: "role",
       format: (row) => (
@@ -199,7 +196,6 @@ const Invoices = () => {
       ),
     },
   ];
-
 
   return (
     <>
