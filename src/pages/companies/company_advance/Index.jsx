@@ -21,7 +21,7 @@ const CompanyAdvance = ({ active }) => {
   };
 
   const getUsers = async () => {
-    setUsers(await AdvanceService.getAll());
+    setUsers(await AdvanceService.getAll({id:id}));
   };
 
   const deleteUser = async (userId) => {
@@ -30,8 +30,8 @@ const CompanyAdvance = ({ active }) => {
   };
 
   useEffect(() => {
-    if (active && id) getUsers();
-  }, []);
+    if (id) getUsers();
+  }, [id]);
 
   return (
     <div className="post d-flex flex-column-fluid">

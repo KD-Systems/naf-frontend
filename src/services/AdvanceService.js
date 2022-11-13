@@ -1,9 +1,8 @@
 import http from "../http-common";
 
-const getAll = async (params) => {
-  const res = await http.get("/advance-payment", {
-    params: params
-  });
+const getAll = async (param) => {
+  console.log("Afnana",param);
+  const res = await http.get(`/advance-payment`, {params:param});
   return res.data;
 };
 

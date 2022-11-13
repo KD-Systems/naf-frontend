@@ -19,7 +19,7 @@ const CompanyInfo = () => {
 
   const getCompanies = async () => {
     setCompanies(await CompanyService.get(id));
-    const res = await AdvanceService.getAll();
+    const res = await AdvanceService.getAll({id:id});
     var total = 0;
     res.forEach((element) => {
       total = element.transaction_type

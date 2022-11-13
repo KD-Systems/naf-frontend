@@ -11,6 +11,7 @@ import ClientUserService from "services/clientServices/ClientUserService";
 const ClientDashboard = () => {
   const [statistics, setStatistics] = useState({});
   const[companyInfo, setCompanyInfo] = useState({});
+  const[companyAdvance, setCompanyAdvance] = useState({});
   const [stockAlert, setStockAlert] = useState({ headers: [], data: [] });
   const getStatistics = async () => {
     const res = await DashboardService.getStatisticsData();
@@ -20,8 +21,14 @@ const ClientDashboard = () => {
   const getCompanyInfo= async () =>{
     const res = await ClientUserService.getCompanyInfo();
     console.log("shanto",res);
-    setCompanyInfo(res);
-  }
+    setCompanyInfo(res.user);
+    setCompanyAdvance(res);
+  };
+  // const getCompanyAdvance= async () =>{
+  //   const res = await ClientUserService.getCompanyAdvance();
+  //   console.log("shanto",res);
+  //   setAdvance(res);
+  // }
 
   const getStockAlert = async () => {
     const res = await DashboardService.getClientInvoiceDetails();
@@ -71,6 +78,7 @@ const ClientDashboard = () => {
     getStatistics();
     getStockAlert();
     getCompanyInfo();
+    // getCompanyAdvance();
   }, []);
 
   return (
@@ -80,6 +88,10 @@ const ClientDashboard = () => {
         title={"Due amount"} 
       />
       <br />
+      <ClientStatistics
+        data={companyAdvance.advanceAmount}
+        title={"Advance Amount"} 
+      />
       <Row>
 
       {/* <Col sm={6} xl={4}>
