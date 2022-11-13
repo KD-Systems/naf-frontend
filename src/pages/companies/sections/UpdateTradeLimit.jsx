@@ -1,25 +1,20 @@
-import React, { useEffect, useState } from "react";
 import Modal from "components/utils/Modal";
+import { useEffect, useState } from "react";
 import CompanyService from "services/CompanyService";
 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 toast.configure();
 
-const UpdateDueAmount = ({ open, companyId, onCloseModal, onUpdated }) => {
-  const [company, setCompany] = useState({});
+const UpdateTradeLimit = ({ open, companyId, onCloseModal, onUpdated }) => {
 
   const [data, setData] = useState({
-    due_amount: "",
     trade_limit: "",
     remarks: "",
   });
 
-  const [type, setType] = useState("Addition");
-  const [amount, setAmount] = useState();
   const getCompany = async () => {
     const res = await CompanyService.get(companyId);
-    setCompany(res);
     setData({
       ...data,
       trade_limit: res.trade_limit,
@@ -32,7 +27,6 @@ const UpdateDueAmount = ({ open, companyId, onCloseModal, onUpdated }) => {
 
   const updateCompany = async () => {
     await CompanyService.updateDueLimit(companyId, data);
-    setAmount("");
     onUpdated();
     onCloseModal();
   };
@@ -47,33 +41,13 @@ const UpdateDueAmount = ({ open, companyId, onCloseModal, onUpdated }) => {
     });
   };
 
-  const handleAmount = () => {
-    var x;
-    if (amount?.length) {
-      if (type == "Addition") {
-        x = parseInt(company.due_amount) + parseInt(amount);
-      } else {
-        x = parseInt(company.due_amount) - parseInt(amount);
-      }
-    } else {
-      x = parseInt(company.due_amount);
-    }
-    setData({
-      ...data,
-      due_amount: x,
-    });
-  };
-
-  useEffect(() => {
-    handleAmount();
-  }, [amount, type]);
 
   return (
     <div>
       <Modal
         open={open}
         onCloseModal={onCloseModal}
-        title={<>Edit Company</>}
+        title={<>Trade Limit</>}
         body={
           <>
             <form id="update-company">
@@ -91,40 +65,6 @@ const UpdateDueAmount = ({ open, companyId, onCloseModal, onUpdated }) => {
                   className="fv-plugins-message-container invalid-feedback"
                   htmlFor="description"
                 ></div>
-              </div>
-
-              <div className="row">
-                <div className="col-8">
-                  <div className="form-group">
-                    <label className="form-label">Due Amount</label>
-                    <input
-                      type="number"
-                      className="form-control"
-                      value={amount}
-                      placeholder="Amount"
-                      name="amount"
-                      onChange={(e) => setAmount(e.target.value)}
-                    />
-                    <div
-                      className="fv-plugins-message-container invalid-feedback"
-                      htmlFor="description"
-                    ></div>
-                  </div>
-                </div>
-                <div className="col-4">
-                  <div className="form-group">
-                    <label className="form-label">Type:</label>
-                    <select
-                      className="form-control"
-                      id="type"
-                      onChange={(e) => setType(e.target.value)}
-                    >
-                      <option disabled>Select</option>
-                      <option>Addition</option>
-                      <option>Deduction</option>
-                    </select>
-                  </div>
-                </div>
               </div>
 
               <div className="mb-5 fv-row fv-plugins-icon-container">
@@ -167,4 +107,4 @@ const UpdateDueAmount = ({ open, companyId, onCloseModal, onUpdated }) => {
   );
 };
 
-export default UpdateDueAmount;
+export default UpdateTradeLimit;

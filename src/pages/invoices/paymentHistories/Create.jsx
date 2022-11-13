@@ -1,19 +1,21 @@
-import React, { useEffect, useState } from "react";
 import Modal from "components/utils/Modal";
-import DatePicker from "react-datepicker";
 import moment from "moment";
-import InvoiceService from "services/InvoiceService";
+import { useEffect, useState } from "react";
+import DatePicker from "react-datepicker";
 import Select from "react-select";
-const CreateInvoicePayment = ({ open, onCloseModal, invoice }) => {
+import { toast } from "react-toastify";
+import AdvanceService from "services/AdvanceService";
+import InvoiceService from "services/InvoiceService";
+const CreateInvoicePayment = ({ open, onCloseModal, invoice, due }) => {
   const [data, setData] = useState({
     invoice_id: "",
     payment_mode: "",
     payment_date: "",
     amount: null,
-    remarks:""
+    remarks: "",
   });
 
-
+  const [advance, setAdvance] = useState(0);
 
   const [block, setBlock] = useState(false);
 
@@ -34,7 +36,7 @@ const CreateInvoicePayment = ({ open, onCloseModal, invoice }) => {
         return dt.value;
       });
 
-    const name = conf.name; 
+    const name = conf.name;
     setBlock(false);
 
     setData({
@@ -58,25 +60,49 @@ const CreateInvoicePayment = ({ open, onCloseModal, invoice }) => {
     setBlock(false);
   };
 
-  useEffect(()=>{
-    setData({ ...data, invoice_id: invoice?.id,payment_mode:invoice?.payment_mode });
-  },[open])
+  useEffect(async () => {
+    const res = await AdvanceService.getAll();
+    var total = 0;
+    res.forEach((element) => {
+      total = element.transaction_type
+        ? total + element.amount
+        : total - element.amount;
+    });
+    setAdvance(total);
+    setData({
+      ...data,
+      invoice_id: invoice?.id,
+      payment_mode: invoice?.payment_mode,
+    });
+  }, [open]);
 
   const addPayment = async () => {
-    setBlock(true);
-    await InvoiceService.addPayment(data); 
-
-
-    setBlock(false);
-    onCloseModal();
-    setData({
-      invoice_id: "",
-      payment_mode: "",
-      payment_date: "",
-      amount: null,
-      remarks:""
-    })
-    getPaymentHistories();
+    if (data?.amount > due) {
+      toast.error("Amount should not be grater then Due amount!");
+      setData({
+        ...data,
+        amount: due,
+      });
+    } else if (data?.payment_mode == "advance" && data?.amount > advance) {
+      toast.error("Insufficient Advance amount!");
+      setData({
+        ...data,
+        amount: advance,
+      });
+    } else {
+      setBlock(true);
+      await InvoiceService.addPayment(data);
+      setBlock(false);
+      onCloseModal();
+      setData({
+        invoice_id: "",
+        payment_mode: "",
+        payment_date: "",
+        amount: null,
+        remarks: "",
+      });
+      getPaymentHistories();
+    }
   };
 
   const payments = [
@@ -84,6 +110,7 @@ const CreateInvoicePayment = ({ open, onCloseModal, invoice }) => {
     { value: "bank", label: "Bank" },
     { value: "check", label: "Check" },
     { value: "card", label: "Card" },
+    { value: "advance", label: "Advance" },
   ];
 
   return (
@@ -91,12 +118,17 @@ const CreateInvoicePayment = ({ open, onCloseModal, invoice }) => {
       <Modal
         open={open}
         onCloseModal={onCloseModal}
-        title={<>Add Payment</>}
+        title={
+          <>
+            <div>Add Payment</div>
+            <label className="form-label">Total Due Amount: {due}tk</label>
+          </>
+        }
         body={
           <>
             <form id="create-payment">
               <div>
-              <input
+                <input
                   type="hidden"
                   className="form-control"
                   placeholder="Enter invoice Id"
@@ -133,7 +165,7 @@ const CreateInvoicePayment = ({ open, onCloseModal, invoice }) => {
               <div className="mb-5 fv-row fv-plugins-icon-container">
                 <label className="required form-label">Amount</label>
                 <input
-                  type="text"
+                  type="number"
                   className="form-control"
                   placeholder="Enter Amount"
                   name="amount"
@@ -147,29 +179,32 @@ const CreateInvoicePayment = ({ open, onCloseModal, invoice }) => {
                 ></div>
               </div>
 
-              <div className="col-lg-6">
-                            <div className="mb-5">
-                              <label className="required form-label">
-                                Payment Mode
-                              </label>
-                              <Select
-                                options={payments}
-                                name="payment_mode"
-                                onChange={handleSelect}
-                              />
-                              <div
-                                className="fv-plugins-message-container invalid-feedback"
-                                htmlFor="payment_mode"
-                              ></div>
-                            </div>
-                          </div>
+              <div className="col-lg-12">
+                <div className="mb-5">
+                  <label className="required form-label">Payment Mode</label>
+                  <Select
+                    options={payments}
+                    name="payment_mode"
+                    onChange={handleSelect}
+                  />
+                  <div
+                    className="fv-plugins-message-container invalid-feedback"
+                    htmlFor="payment_mode"
+                  ></div>
+                  {data?.payment_mode == "advance" && (
+                    <label className="form-label">
+                      Advance Remaining: {advance}tk
+                    </label>
+                  )}
+                </div>
+              </div>
 
               <div className="mb-5 fv-row fv-plugins-icon-container">
                 <label className="form-label">Remarks</label>
                 <textarea
                   type="text"
                   className="form-control"
-                  placeholder="Enter Amount"
+                  placeholder="Enter Remarks"
                   name="remarks"
                   id="remarks"
                   value={data.remarks}

@@ -5,9 +5,11 @@ import { Link, useNavigate } from "react-router-dom";
 import DeliverNoteService from "services/DeliverNoteService";
 import InvoiceService from "services/InvoiceService";
 import CreateInvoice from "./Create";
+import InvoiceFilter from "./InvoiceFilter";
 const Invoices = () => {
   const [loading, setLoading] = useState(true);
   const [invoices, setInvoices] = useState([]);
+  const [filter, setFilter] = useState(false)
   const [block, setBlock] = useState(false);
   const [totalQuantity, setTotalQuantity] = useState(0);
 
@@ -15,6 +17,18 @@ const Invoices = () => {
 
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
+
+  const filterdata = (data) => {
+    setFilter(false);
+    getInvoices(data);
+  };
+
+  const getInvoices = async (filters) => {
+    setInvoices(await InvoiceService.getAll(filters));
+    setLoading(false);
+  };
+
+  let navigate = useNavigate();
 
   const storeDeliveryNotes = async (data) => {
     setBlock(true);
@@ -50,7 +64,9 @@ const Invoices = () => {
     {
       name: "Requisition Type",
       selector: (row) =>
-        row?.requisition?.type?.replaceAll("_", " ")?.capitalize(),
+        row?.amount
+          ? "Advance Type"
+          : row?.requisition?.type?.replaceAll("_", " ")?.capitalize(),
       sortable: true,
       field: "id",
     },
@@ -60,10 +76,12 @@ const Invoices = () => {
         row?.part_items?.reduce((partialSum, a) => partialSum + a.quantity, 0),
       format: (row) => (
         <div className="mt-2">
-          {row?.part_items?.reduce(
-            (partialSum, a) => partialSum + a.quantity,
-            0
-          )}
+          {row?.amount
+            ? "N/A"
+            : row?.part_items?.reduce(
+                (partialSum, a) => partialSum + a.quantity,
+                0
+              )}
         </div>
       ),
       sortable: true,
@@ -78,7 +96,9 @@ const Invoices = () => {
         ),
       format: (row) => (
         <div className="mt-2">
-          {row?.requisition?.type != "claim_report"
+          {row?.amount
+            ? row?.amount
+            : row?.requisition?.type != "claim_report"
             ? row?.part_items?.reduce(
                 (partialSum, a) => partialSum + parseInt(a.total_value),
                 0
@@ -98,7 +118,9 @@ const Invoices = () => {
       field: "role",
       format: (row) => (
         <div className="mt-2">
-          {row?.deliveryNote?.dn_number
+          {row?.amount
+            ? "N/A"
+            : row?.deliveryNote?.dn_number
             ? row?.deliveryNote?.dn_number
             : "No delivery note yet"}
         </div>
@@ -150,12 +172,7 @@ const Invoices = () => {
     },
   ];
 
-  const getInvoices = async (filters) => {
-    setInvoices(await InvoiceService.getAll(filters));
-    setLoading(false);
-  };
 
-  let navigate = useNavigate();
   return (
     <>
       <div className="post d-flex flex-column-fluid">
@@ -164,6 +181,15 @@ const Invoices = () => {
             name="Quotations"
             buttonName="Add Invoice"
             onClickButton={onOpenModal}
+            callbackButtons={[
+              {
+                name: "Filter",
+                callback: () => {
+                  setFilter(!filter);
+                },
+                permission: null,
+              },
+            ]}
             isLoading={loading}
             data={invoices}
             columns={columns}
@@ -176,6 +202,12 @@ const Invoices = () => {
         open={open}
         onCloseModal={onCloseModal}
         getInvoices={getInvoices}
+      />
+      <InvoiceFilter
+        enable={filter}
+        onChange={(data) => {
+          filterdata(data);
+        }}
       />
     </>
   );
