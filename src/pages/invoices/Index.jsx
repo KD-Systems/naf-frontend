@@ -9,7 +9,6 @@ import InvoiceFilter from "./InvoiceFilter";
 const Invoices = () => {
   const [loading, setLoading] = useState(true);
   const [invoices, setInvoices] = useState([]);
-  console.log("🚀 ~ file: Index.jsx ~ line 12 ~ Invoices ~ invoices", invoices)
   const [filter, setFilter] = useState(false)
   const [block, setBlock] = useState(false);
   const [totalQuantity, setTotalQuantity] = useState(0);
