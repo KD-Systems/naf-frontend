@@ -4,8 +4,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import DeliverNoteService from "services/DeliverNoteService";
 import InvoiceService from "services/InvoiceService";
-import CreateInvoice from "./Create";
-import InvoiceFilter from "./InvoiceFilter";
+import Filter from "./Filter";
 const Invoices = () => {
   const [loading, setLoading] = useState(true);
   const [invoices, setInvoices] = useState([]);
@@ -20,10 +19,10 @@ const Invoices = () => {
 
   const filterdata = (data) => {
     setFilter(false);
-    getInvoices(data);
+    getTransactionSummary(data);
   };
 
-  const getInvoices = async (filters) => {
+  const getTransactionSummary = async (filters) => {
     setInvoices(await InvoiceService.getAll(filters));
     setLoading(false);
   };
@@ -64,54 +63,10 @@ const Invoices = () => {
     {
       name: "Requisition Type",
       selector: (row) =>
-        row?.previous_due
-          ? "Previous Due"
-          : row?.quotation?.requisition?.type
-              ?.replaceAll("_", " ")
-              ?.capitalize(),
+        row?.quotation?.requisition?.type?.replaceAll("_", " ")?.capitalize(),
       sortable: true,
       field: "id",
     },
-    {
-      name: "Part Quantity",
-      selector: (row) =>
-        row?.part_items?.reduce((partialSum, a) => partialSum + a.quantity, 0),
-      format: (row) => (
-        <div className="mt-2">
-          {row?.previous_due
-            ? "N/A"
-            : row?.part_items?.reduce(
-                (partialSum, a) => partialSum + a.quantity,
-                0
-              )}
-        </div>
-      ),
-      sortable: true,
-      field: "expected_delivery",
-    },
-    // {
-    //   name: "Total",
-    //   selector: (row) =>
-    //     row?.part_items?.reduce(
-    //       (partialSum, a) => partialSum + a.total_value,
-    //       0
-    //     ),
-    //   format: (row) => (
-    //     <div className="mt-2">
-    //       {row?.amount
-    //         ? row?.amount
-    //         : row?.requisition?.type != "claim_report"
-    //         ? row?.part_items?.reduce(
-    //             (partialSum, a) => partialSum + parseInt(a.total_value),
-    //             0
-    //           )
-    //         : 0}{" "}
-    //       Tk.
-    //     </div>
-    //   ),
-    //   sortable: true,
-    //   field: "role",
-    // },
 
     {
       name: "Total",
@@ -136,8 +91,8 @@ const Invoices = () => {
     },
 
     {
-      name: "DN number",
-      selector: (row) => row?.deliveryNote?.dn_number,
+      name: "Due",
+      selector: (row) => row?.totalPaid,
       sortable: true,
       field: "role",
       format: (row) => (
@@ -159,42 +114,13 @@ const Invoices = () => {
           <span className="text-end">
             <PermissionAbility permission="invoices_show">
               <Link
-                to={"/panel/invoices/" + row.id}
+                to={"/panel/transaction-summary/" + row.id}
                 className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
               >
                 <i className="fa fa-eye"></i>
               </Link>
             </PermissionAbility>
           </span>
-          {!row?.previous_due && (
-            <>
-              <span className="text-end">
-                <PermissionAbility permission="invoices_print">
-                  <Link
-                    to={"/panel/invoices/" + row.id + "/print"}
-                    className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-                    target="_blank"
-                  >
-                    <i className="fa fa-print"></i>
-                  </Link>
-                </PermissionAbility>
-              </span>
-              <span className="text-end">
-                <PermissionAbility permission="invoices_generate_delivery_note">
-                  <div
-                    onClick={() =>
-                      navigate(`/panel/delivery-notes/${row?.id}/create`)
-                    }
-                    className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-                    data-toggle="tooltip"
-                    title="Add Delivery Note"
-                  >
-                    <i className="fa fa-plus"></i>
-                  </div>
-                </PermissionAbility>
-              </span>
-            </>
-          )}
         </>
       ),
     },
@@ -205,8 +131,7 @@ const Invoices = () => {
       <div className="post d-flex flex-column-fluid">
         <div className="container-xxl">
           <Table
-            name="Quotations"
-            buttonName="Add Invoice"
+            name="By Invoice ID"            
             onClickButton={onOpenModal}
             callbackButtons={[
               {
@@ -220,17 +145,11 @@ const Invoices = () => {
             isLoading={loading}
             data={invoices}
             columns={columns}
-            onFilter={getInvoices}
-            buttonPermission="invoices_create"
+            onFilter={getTransactionSummary}       
           />
         </div>
       </div>
-      <CreateInvoice
-        open={open}
-        onCloseModal={onCloseModal}
-        getInvoices={getInvoices}
-      />
-      <InvoiceFilter
+      <Filter
         enable={filter}
         onChange={(data) => {
           filterdata(data);
