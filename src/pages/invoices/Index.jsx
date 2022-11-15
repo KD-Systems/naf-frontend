@@ -143,7 +143,7 @@ const Invoices = () => {
       field: "role",
       format: (row) => (
         <div className="mt-2">
-          {row?.amount
+          {row?.previous_due
             ? "N/A"
             : row?.deliveryNote?.dn_number
             ? row?.deliveryNote?.dn_number
@@ -167,31 +167,35 @@ const Invoices = () => {
               </Link>
             </PermissionAbility>
           </span>
-          <span className="text-end">
-            <PermissionAbility permission="invoices_print">
-              <Link
-                to={"/panel/invoices/" + row.id + "/print"}
-                className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-                target="_blank"
-              >
-                <i className="fa fa-print"></i>
-              </Link>
-            </PermissionAbility>
-          </span>
-          <span className="text-end">
-            <PermissionAbility permission="invoices_generate_delivery_note">
-              <div
-                onClick={() =>
-                  navigate(`/panel/delivery-notes/${row?.id}/create`)
-                }
-                className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-                data-toggle="tooltip"
-                title="Add Delivery Note"
-              >
-                <i className="fa fa-plus"></i>
-              </div>
-            </PermissionAbility>
-          </span>
+          {!row?.previous_due && (
+            <>
+              <span className="text-end">
+                <PermissionAbility permission="invoices_print">
+                  <Link
+                    to={"/panel/invoices/" + row.id + "/print"}
+                    className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+                    target="_blank"
+                  >
+                    <i className="fa fa-print"></i>
+                  </Link>
+                </PermissionAbility>
+              </span>
+              <span className="text-end">
+                <PermissionAbility permission="invoices_generate_delivery_note">
+                  <div
+                    onClick={() =>
+                      navigate(`/panel/delivery-notes/${row?.id}/create`)
+                    }
+                    className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+                    data-toggle="tooltip"
+                    title="Add Delivery Note"
+                  >
+                    <i className="fa fa-plus"></i>
+                  </div>
+                </PermissionAbility>
+              </span>
+            </>
+          )}
         </>
       ),
     },

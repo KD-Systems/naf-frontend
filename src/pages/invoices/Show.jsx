@@ -21,6 +21,9 @@ const ShowInvoice = () => {
   const getInvoice = async () => {
     let res = await InvoiceService.get(id);
     setInvoice(res);
+    if (res?.part_items?.length == 0) {
+      setTab("payment_histories");
+    }
     setTotal(
       res?.previous_due ??
         res?.part_items?.reduce(
@@ -30,14 +33,18 @@ const ShowInvoice = () => {
     );
   };
 
+  useEffect(() => {
+    invoice?.part_items?.length == 0 && setActive("payment_histories");
+  }, [invoice]);
+
   const getPaymentHistories = async () => {
     let res = await InvoiceService.getPaymentHistories(id);
     setPaymentHistories(res.data);
     setTotalPayment(
       res?.data?.reduce(
-          (partialSum, a) => parseInt(partialSum) + parseInt(a.amount),
-          0
-        )
+        (partialSum, a) => parseInt(partialSum) + parseInt(a.amount),
+        0
+      )
     );
   };
   const onCloseModal = () => {
@@ -80,49 +87,58 @@ const ShowInvoice = () => {
                 <div className="card-body py-4">
                   <div className="fw-bolder mt-5">Invoice Number</div>
                   <div className="text-gray-600">{invoice?.invoice_number}</div>
-                  <div className="fw-bolder mt-5">Invoice Status</div>
-                  {invoice?.requisition?.type !== "claim_report" ? (
+                  {invoice?.part_items?.length > 0 && (
                     <>
-                      <div className="text-gray-600">
-                        {invoice?.part_items?.reduce(
-                          (partialSum, a) =>
-                            partialSum + parseInt(a.total_value),
-                          0
-                        ) ==
-                        paymentHistories?.reduce(
-                          (partialSum, a) => partialSum + parseInt(a.amount),
-                          0
-                        ) ? (
-                          <span className="badge badge-light-success">
-                            Paid
-                          </span>
-                        ) : invoice?.part_items?.reduce(
-                            (partialSum, a) =>
-                              partialSum + parseInt(a.total_value),
-                            0
-                          ) >
-                          paymentHistories?.reduce(
-                            (partialSum, a) => partialSum + parseInt(a.amount),
-                            0
-                          ) ? (
-                          <span className="badge badge-light-warning">
-                            Partial Paid
-                          </span>
-                        ) : paymentHistories?.reduce(
-                            (partialSum, a) => partialSum + parseInt(a.amount),
-                            0
-                          ) == 0 ? (
-                          <span className="badge badge-light-danger">
-                            {" "}
-                            UnPaid
-                          </span>
-                        ) : (
-                          <span className="badge badge-light-danger"> </span>
-                        )}
-                      </div>
+                      <div className="fw-bolder mt-5">Invoice Status</div>
+                      {invoice?.requisition?.type !== "claim_report" ? (
+                        <>
+                          <div className="text-gray-600">
+                            {invoice?.part_items?.reduce(
+                              (partialSum, a) =>
+                                partialSum + parseInt(a.total_value),
+                              0
+                            ) ==
+                            paymentHistories?.reduce(
+                              (partialSum, a) =>
+                                partialSum + parseInt(a.amount),
+                              0
+                            ) ? (
+                              <span className="badge badge-light-success">
+                                Paid
+                              </span>
+                            ) : invoice?.part_items?.reduce(
+                                (partialSum, a) =>
+                                  partialSum + parseInt(a.total_value),
+                                0
+                              ) >
+                              paymentHistories?.reduce(
+                                (partialSum, a) =>
+                                  partialSum + parseInt(a.amount),
+                                0
+                              ) ? (
+                              <span className="badge badge-light-warning">
+                                Partial Paid
+                              </span>
+                            ) : paymentHistories?.reduce(
+                                (partialSum, a) =>
+                                  partialSum + parseInt(a.amount),
+                                0
+                              ) == 0 ? (
+                              <span className="badge badge-light-danger">
+                                {" "}
+                                UnPaid
+                              </span>
+                            ) : (
+                              <span className="badge badge-light-danger">
+                                {" "}
+                              </span>
+                            )}
+                          </div>
+                        </>
+                      ) : (
+                        "--"
+                      )}
                     </>
-                  ) : (
-                    "--"
                   )}
 
                   <div className="fw-bolder mt-5">Company</div>
@@ -134,79 +150,86 @@ const ShowInvoice = () => {
                       {invoice?.invoice_date}
                     </Moment>
                   </div>
+                  {invoice?.part_items?.length > 0 && (
+                    <>
+                      <div className="fw-bolder mt-5">Payment Mode</div>
+                      <div className="text-gray-600">
+                        {invoice?.payment_mode ?? "--"}
+                      </div>
 
-                  <div className="fw-bolder mt-5">Payment Mode</div>
-                  <div className="text-gray-600">
-                    {invoice?.payment_mode ?? "--"}
-                  </div>
+                      <div className="fw-bolder mt-5">Payment Term</div>
+                      <div className="text-gray-600">
+                        {invoice?.payment_term ?? "--"}
+                      </div>
 
-                  <div className="fw-bolder mt-5">Payment Term</div>
-                  <div className="text-gray-600">
-                    {invoice?.payment_term ?? "--"}
-                  </div>
+                      <div className="fw-bolder mt-5">Payment Partial Mode</div>
+                      <div className="text-gray-600">
+                        {invoice?.payment_partial_mode ?? "--"}
+                      </div>
+                      <div className="fw-bolder mt-5">Next Payment </div>
+                      <div className="text-gray-600">
+                        {invoice?.next_payment ?? "--"}
+                      </div>
 
-                  <div className="fw-bolder mt-5">Payment Partial Mode</div>
-                  <div className="text-gray-600">
-                    {invoice?.payment_partial_mode ?? "--"}
-                  </div>
-                  <div className="fw-bolder mt-5">Next Payment </div>
-                  <div className="text-gray-600">
-                    {invoice?.next_payment ?? "--"}
-                  </div>
+                      <div className="fw-bolder mt-5">Last Payment </div>
+                      <div className="text-gray-600">
+                        {invoice?.last_payment ?? "--"}
+                      </div>
 
-                  <div className="fw-bolder mt-5">Last Payment </div>
-                  <div className="text-gray-600">
-                    {invoice?.last_payment ?? "--"}
-                  </div>
+                      <div className="fw-bolder mt-5">Priority</div>
+                      <div className="text-gray-600">
+                        {invoice?.requisition?.priority?.capitalize()}
+                      </div>
 
-                  <div className="fw-bolder mt-5">Priority</div>
-                  <div className="text-gray-600">
-                    {invoice?.requisition?.priority?.capitalize()}
-                  </div>
+                      <div className="fw-bolder mt-5">Requisition Type</div>
+                      <div className="text-gray-600">
+                        {invoice?.requisition?.type
+                          ?.replaceAll("_", " ")
+                          ?.capitalize()}
+                      </div>
 
-                  <div className="fw-bolder mt-5">Requisition Type</div>
-                  <div className="text-gray-600">
-                    {invoice?.requisition?.type
-                      ?.replaceAll("_", " ")
-                      ?.capitalize()}
-                  </div>
-
-                  <div className="fw-bolder mt-5">Requisition Ref Number</div>
-                  <div className="text-gray-600">
-                    {invoice?.requisition?.ref_number ?? "--"}
-                  </div>
+                      <div className="fw-bolder mt-5">
+                        Requisition Ref Number
+                      </div>
+                      <div className="text-gray-600">
+                        {invoice?.requisition?.ref_number ?? "--"}
+                      </div>
+                    </>
+                  )}
                 </div>
                 <div className="card-header">
-                  <div className="card-title">
-                    <PermissionAbility permission="invoices_print">
-                      <h3 className="card-label">
-                        <Link
-                          className="btn btn-sm btn-dark "
-                          to={"/panel/invoices/" + invoice.id + "/print"}
-                          style={{ marginRight: "0.75rem" }}
-                          target="_blank"
-                        >
-                          Print
-                        </Link>
-                      </h3>
-                    </PermissionAbility>
+                  {invoice?.part_items?.length > 0 && (
+                    <div className="card-title">
+                      <PermissionAbility permission="invoices_print">
+                        <h3 className="card-label">
+                          <Link
+                            className="btn btn-sm btn-dark "
+                            to={"/panel/invoices/" + invoice.id + "/print"}
+                            style={{ marginRight: "0.75rem" }}
+                            target="_blank"
+                          >
+                            Print
+                          </Link>
+                        </h3>
+                      </PermissionAbility>
 
-                    <PermissionAbility permission="invoices_generate_delivery_note">
-                      <h3 className="card-label">
-                        <button
-                          className="btn btn-sm btn-dark "
-                          style={{ marginRight: "0.1rem" }}
-                          onClick={() =>
-                            navigate(
-                              `/panel/delivery-notes/${invoice?.id}/create`
-                            )
-                          }
-                        >
-                          Generate Delivery Note
-                        </button>
-                      </h3>
-                    </PermissionAbility>
-                  </div>
+                      <PermissionAbility permission="invoices_generate_delivery_note">
+                        <h3 className="card-label">
+                          <button
+                            className="btn btn-sm btn-dark "
+                            style={{ marginRight: "0.1rem" }}
+                            onClick={() =>
+                              navigate(
+                                `/panel/delivery-notes/${invoice?.id}/create`
+                              )
+                            }
+                          >
+                            Generate Delivery Note
+                          </button>
+                        </h3>
+                      </PermissionAbility>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -214,19 +237,21 @@ const ShowInvoice = () => {
             <div className="col-xl-9">
               <div className="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
                 <ul className="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-bold mb-n2">
-                  <li className="nav-item">
-                    <a
-                      className="nav-link text-active-primary pb-4 active"
-                      data-bs-toggle="tab"
-                      href="#part_items"
-                      onClick={() => {
-                        setActive("part_items");
-                        setTab("part_items");
-                      }}
-                    >
-                      Part Items
-                    </a>
-                  </li>
+                  {invoice?.part_items?.length > 0 && (
+                    <li className="nav-item">
+                      <a
+                        className="nav-link text-active-primary pb-4 active"
+                        data-bs-toggle="tab"
+                        href="#part_items"
+                        onClick={() => {
+                          setActive("part_items");
+                          setTab("part_items");
+                        }}
+                      >
+                        Part Items
+                      </a>
+                    </li>
+                  )}
                   {invoice?.requisition?.type !== "claim_report" ? (
                     <li className="nav-item">
                       <a
@@ -244,31 +269,20 @@ const ShowInvoice = () => {
                     ""
                   )}
 
-                  <li className="nav-item">
-                    <a
-                      className={`nav-link text-active-primary pb-4 ${
-                        tab == "activities" ? "active" : ""
-                      }`}
-                      data-bs-toggle="tab"
-                      href="#activities"
-                      onClick={() => setTab("activities")}
-                    >
-                      Activities
-                    </a>
-                  </li>
-
-                  {/* <li className="nav-item">
-                  <a
-                    className={`nav-link text-active-primary pb-4 ${
-                      tab == "delivery_notes" ? "active" : ""
-                    }`}
-                    data-bs-toggle="tab"
-                    href="#delivery_notes"
-                    onClick={() => setTab("delivery_notes")}
-                  >
-                    Delivery Notes
-                  </a>
-                </li> */}
+                  {invoice?.part_items?.length > 0 && (
+                    <li className="nav-item">
+                      <a
+                        className={`nav-link text-active-primary pb-4 ${
+                          tab == "activities" ? "active" : ""
+                        }`}
+                        data-bs-toggle="tab"
+                        href="#activities"
+                        onClick={() => setTab("activities")}
+                      >
+                        Activities
+                      </a>
+                    </li>
+                  )}
                 </ul>
 
                 <div className="tab-content">
@@ -402,7 +416,7 @@ const ShowInvoice = () => {
         open={open}
         onCloseModal={onCloseModal}
         invoice={invoice}
-        due={total-totalPayment}
+        due={total - totalPayment}
       />
     </>
   );

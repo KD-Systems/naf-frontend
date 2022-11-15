@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import Moment from "react-moment";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import InvoiceService from "services/InvoiceService";
 const PrintInvoice = () => {
   let { id } = useParams();
@@ -29,9 +29,9 @@ const PrintInvoice = () => {
   return (
     <div className="post" id="content">
       <div className="container-xxl">
-        <div className="card">
+        <div className="card" style={{backgroundColor:'#f5f8fa'}}>
           <div className="card-body py-20">
-            <div className="mw-lg-950px mx-auto w-100">
+            <div className="mw-lg-950px mx-auto w-100" >
               <div className="mb-4">
                 <table className="table">
                   <tbody>
