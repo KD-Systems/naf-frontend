@@ -5,12 +5,12 @@ import Select from "react-select";
 import CompanyService from "services/CompanyService";
 const DateFilter = ({ enable, onChange }) => {
   const [companies, setCompanies] = useState([]);
-  const status = [
-    { value: 'paid', label: "Paid" },
-    { value: 'due', label: "Due" },
-  ];
+  // const status = [
+  //   { value: 'paid', label: "Paid" },
+  //   { value: 'due', label: "Due" },
+  // ];
   const type = [
-    { value: 'purchase_requiest', label: "Purchase Requiest" },
+    { value: 'purchase_request', label: "Purchase Request" },
     { value: 'claim_request', label: "Claim Request" },
     { value: 'previous_due', label: "Previous Due" },
     
@@ -137,7 +137,7 @@ const DateFilter = ({ enable, onChange }) => {
             ></div>
           </div>
 
-          <div className="mb-10">
+          {/* <div className="mb-10">
             <label className="form-label fw-bold">Status:</label>
             <Select
               selected
@@ -149,7 +149,7 @@ const DateFilter = ({ enable, onChange }) => {
               className="fv-plugins-message-container invalid-feedback"
               htmlFor="year"
             ></div>
-          </div>
+          </div> */}
 
           <div className="mb-10">
             <label className="form-label fw-bold">Start Date:</label>

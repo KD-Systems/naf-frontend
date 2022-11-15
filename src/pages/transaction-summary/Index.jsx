@@ -9,7 +9,6 @@ import Filter from "./Filter";
 const Invoices = () => {
   const [loading, setLoading] = useState(true);
   const [invoices, setInvoices] = useState([]);
-  console.log("🚀 ~ file: Index.jsx ~ line 12 ~ Invoices ~ invoices", invoices)
   const [filter, setFilter] = useState(false);
   const [block, setBlock] = useState(false);
   const [totalQuantity, setTotalQuantity] = useState(0);
@@ -31,10 +30,11 @@ const Invoices = () => {
 
   let navigate = useNavigate();
 
-  const storeDeliveryNotes = async (data) => {
-    setBlock(true);
-    await DeliverNoteService.create(data);
-    setBlock(false);
+  const exportSales = async (filter) => {
+    setLoading(true);
+    let data = await TransactionSummery.transcExport(filter);
+    window.location.href = data;
+    setLoading(false);
   };
 
   const columns = [
@@ -43,6 +43,18 @@ const Invoices = () => {
       selector: (row) => row?.invoice_number,
       sortable: true,
       field: "id",
+      format: (row) => (
+        <div className="d-flex align-items-center">
+          <div className="d-flex justify-content-start flex-column">
+            <Link
+              to={"/panel/invoices/" + row?.id}
+              className="text-dark fw-bolder text-hover-primary"
+            >
+              {row?.invoice_number}
+            </Link>
+          </div>
+        </div>
+      ),
     },
     {
       name: "Company",
@@ -64,9 +76,7 @@ const Invoices = () => {
     },
     {
       name: "Type",
-      selector: (row) =>
-        row?.type?.replaceAll("_", " ")
-        ?.capitalize(),
+      selector: (row) => row?.type?.replaceAll("_", " ")?.capitalize(),
       sortable: true,
       field: "id",
     },
@@ -98,13 +108,7 @@ const Invoices = () => {
       selector: (row) => row?.due,
       sortable: true,
       field: "role",
-      format: (row) => (
-        <div className="mt-2">
-          {row?.due
-            ? row?.due
-            : 0}
-        </div>
-      ),
+      format: (row) => <div className="mt-2">{row?.due ? row?.due : 0}</div>,
     },
 
     {
@@ -132,7 +136,7 @@ const Invoices = () => {
       <div className="post d-flex flex-column-fluid">
         <div className="container-xxl">
           <Table
-            name="By Invoice ID"            
+            name="By Invoice ID"
             onClickButton={onOpenModal}
             callbackButtons={[
               {
@@ -142,11 +146,23 @@ const Invoices = () => {
                 },
                 permission: null,
               },
+              {
+                name: "Export",
+                callback: () => {
+                  exportSales();
+                },
+                permission: null,
+              },
             ]}
+            grandtotal={{
+              total_amount: invoices?.total_amount,
+              total_paid: invoices?.total_paid,
+              total_due: invoices?.total_due,
+            }}
             isLoading={loading}
             data={invoices}
             columns={columns}
-            onFilter={getTransactionSummary}       
+            onFilter={getTransactionSummary}
           />
         </div>
       </div>

@@ -2,61 +2,43 @@ import { useEffect, useState } from "react";
 import Moment from "react-moment";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import InvoiceService from "services/InvoiceService";
+import TransactionSummery from "services/TransactionSummery";
+import Filter from "./Filter2";
 const ShowInvoice = () => {
   let { id } = useParams();
   const navigate = useNavigate();
   const [invoice, setInvoice] = useState({});
   const [total, setTotal] = useState(0);
   const [totalPayment, setTotalPayment] = useState(0);
-  const [paymentHistories, setPaymentHistories] = useState([]);
+  const [trancDetails, setTrancDetails] = useState([]);
+
+  const [filter, setFilter] = useState(false);
 
   const [block, setBlock] = useState(false);
   const [active, setActive] = useState("part_items"); // * tab active or not
   const [tab, setTab] = useState("part_items");
-  const [open, setOpen] = useState(false); //* open modal
-  const getInvoice = async () => {
-    let res = await InvoiceService.get(id);
-    setInvoice(res);
-    if (res?.part_items?.length == 0) {
-      setTab("payment_histories");
-    }
-    setTotal(
-      res?.previous_due ??
-        res?.part_items?.reduce(
-          (partialSum, a) => parseInt(partialSum) + parseInt(a.total_value),
-          0
-        )
-    );
-  };
+  const [open, setOpen] = useState(false);
 
-  useEffect(() => {
-    invoice?.part_items?.length == 0 && setActive("payment_histories");
-  }, [invoice]);
-
-  const getPaymentHistories = async () => {
-    let res = await InvoiceService.getPaymentHistories(id);
-    setPaymentHistories(res.data);
-    setTotalPayment(
-      res?.data?.reduce(
-        (partialSum, a) => parseInt(partialSum) + parseInt(a.amount),
-        0
-      )
-    );
+  const getTransactionDetails = async (data) => {
+    let res = await TransactionSummery.getTransactionDetails(id, data);
+    setTrancDetails(res.data);
   };
   const onCloseModal = () => {
     setOpen(false);
-    // setOpenEditModal(false);
+  };
+
+  const onClickFilter = () => {
+    setFilter(!filter);
   };
 
   useEffect(() => {
     if (!open) {
-      getPaymentHistories();
+      getTransactionDetails();
     }
   }, [open]);
 
   useEffect(() => {
-    if (id) getInvoice();
-    getPaymentHistories();
+    if (id) getTransactionDetails();
   }, [id]);
   return (
     <>
@@ -70,7 +52,7 @@ const ShowInvoice = () => {
                   <div className="d-flex flex-column gap-7 gap-lg-10">
                     <div className="card card-flush py-4">
                       <div className="card-body pt-0">
-                        <div className="card-title">
+                        <div className="card-title d-flex justify-content-between">
                           <h3 className="card-label">
                             <button
                               className="btn btn-sm btn-dark "
@@ -79,8 +61,14 @@ const ShowInvoice = () => {
                             >
                               <i className="fa fa-arrow-left"></i>Back
                             </button>
-                            Payment Histories
+                            Details
                           </h3>
+                          <button
+                            className="btn btn-light-primary btn-md ml-5"
+                            onClick={onClickFilter}
+                          >
+                            Filter
+                          </button>
                         </div>
                         <table className="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
                           <thead>
@@ -89,40 +77,26 @@ const ShowInvoice = () => {
                               <th className="min-w-120px">payment Mode</th>
                               <th className="min-w-120px">Payment Date</th>
                               <th className="min-w-120px">Amount</th>
-                              <th className="min-w-150x">Action</th>
+                              {/* <th className="min-w-150x">Action</th> */}
                             </tr>
                           </thead>
 
                           <tbody>
-                            {paymentHistories?.map((item, index) => (
-                              <tr key={index}>
-                                <td>{item?.invoice?.invoice_number}</td>
-                                <td>{item.payment_mode}</td>
+                            {trancDetails.length
+                              ? trancDetails?.map((item, index) => (
+                                  <tr key={index}>
+                                    <td>{item?.invoice_number}</td>
+                                    <td>{item.payment_mode}</td>
 
-                                <td>
-                                  <Moment format="YYYY-MM-DD">
-                                    {item.payment_date}
-                                  </Moment>
-                                </td>
-                                <td>{Math.floor(item?.amount)}Tk.</td>
-
-                                <td>
-                                  <span className="text-end">
-                                    <Link
-                                      to={
-                                        `/panel/invoices/` +
-                                        item?.invoice?.id +
-                                        `/payment-histories/` +
-                                        item.id
-                                      }
-                                      className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-                                    >
-                                      <i className="fa fa-eye"></i>
-                                    </Link>
-                                  </span>
-                                </td>
-                              </tr>
-                            ))}
+                                    <td>
+                                      <Moment format="YYYY-MM-DD">
+                                        {item.payment_date}
+                                      </Moment>
+                                    </td>
+                                    <td>{Math.floor(item?.amount)}Tk.</td>
+                                  </tr>
+                                ))
+                              : "No data Found"}
                           </tbody>
                         </table>
                       </div>
@@ -133,6 +107,12 @@ const ShowInvoice = () => {
             </div>
           </div>
         </div>
+        <Filter
+          enable={filter}
+          onChange={(data) => {
+            getTransactionDetails(data);
+          }}
+        />
       </div>
     </>
   );

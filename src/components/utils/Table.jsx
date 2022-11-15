@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import { DebounceInput } from "react-debounce-input";
 function Table({
+  grandtotal,
   name,
   buttonName,
   title,
@@ -47,10 +48,10 @@ function Table({
   //Handle search
   const onSearch = (e) => {
     // if (e.key === "Enter")
-      setFilters({
-        ...filters,
-        q: e.target.value,
-      });
+    setFilters({
+      ...filters,
+      q: e.target.value,
+    });
   };
 
   //Create event while order or filter updates
@@ -76,6 +77,25 @@ function Table({
               onChange={onSearch}
             />
           </div>
+          {grandtotal && (
+            <div className="d-flex">
+              <div className="mx-4">
+                <div className="btn btn-light-primary btn-md">
+                  Grand Total: {grandtotal?.total_amount} tk
+                </div>
+              </div>
+              <div className="mx-4">
+                <div className="btn btn-light-primary btn-md">
+                 Total Paid: {grandtotal?.total_paid} tk
+                </div>
+              </div>
+              <div className="mx-4">
+                <div className="btn btn-light-primary btn-md">
+                 Total Due: {grandtotal?.total_due} tk
+                </div>
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="card-toolbar flex-row-fluid justify-content-end gap-5">
