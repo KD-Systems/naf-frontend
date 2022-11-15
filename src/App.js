@@ -75,6 +75,8 @@ import ShowRequisition from "pages/requisitions/Show";
 import Roles from "pages/roles/Index";
 import ShowPermission from "pages/roles/Show";
 import Settings from "pages/Settings/Index";
+import TransactionSummary from 'pages/transaction-summary/Index';
+import ShowTransactionSummary from "pages/transaction-summary/Show";
 import WareHouse from "pages/warehouses/Index";
 import WareHouseShow from "pages/warehouses/Show";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
@@ -436,7 +438,7 @@ function App() {
                   <PrintQuotation />
                 </PrivateRoute>
               }
-              />
+            />
 
             <Route
               path="quotations/:requisitionId/create"
@@ -527,6 +529,25 @@ function App() {
 
             {/* Delivery Notes End; */}
 
+            {/* Accounts Start */}
+            <Route
+              path="transaction-summary"
+              element={
+                <PrivateRoute>
+                  <TransactionSummary />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="transaction-summary/:id"
+              element={
+                <PrivateRoute>
+                  <ShowTransactionSummary />
+                </PrivateRoute>
+              }
+            />
+            {/* Accounts End */}
+
             {/* Report Start */}
             <Route
               path="reports"
@@ -565,7 +586,6 @@ function App() {
                 </PrivateRoute>
               }
             />
-
 
             {/* Gate pass End */}
 
@@ -688,10 +708,7 @@ function App() {
               }
             />
 
-            {/* <Route
-              path="client-requisitions/create"
-              element={
-                <PrivateRoute>
+            {/* <Routereports
                   <ClientRequisitionCreate />
                 </PrivateRoute>
               }
