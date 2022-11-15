@@ -4,10 +4,12 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import DeliverNoteService from "services/DeliverNoteService";
 import InvoiceService from "services/InvoiceService";
+import TransactionSummery from "services/TransactionSummery";
 import Filter from "./Filter";
 const Invoices = () => {
   const [loading, setLoading] = useState(true);
   const [invoices, setInvoices] = useState([]);
+  console.log("🚀 ~ file: Index.jsx ~ line 12 ~ Invoices ~ invoices", invoices)
   const [filter, setFilter] = useState(false);
   const [block, setBlock] = useState(false);
   const [totalQuantity, setTotalQuantity] = useState(0);
@@ -23,7 +25,7 @@ const Invoices = () => {
   };
 
   const getTransactionSummary = async (filters) => {
-    setInvoices(await InvoiceService.getAll(filters));
+    setInvoices(await TransactionSummery.getAll(filters));
     setLoading(false);
   };
 
@@ -61,9 +63,10 @@ const Invoices = () => {
       ),
     },
     {
-      name: "Requisition Type",
+      name: "Type",
       selector: (row) =>
-        row?.quotation?.requisition?.type?.replaceAll("_", " ")?.capitalize(),
+        row?.type?.replaceAll("_", " ")
+        ?.capitalize(),
       sortable: true,
       field: "id",
     },
@@ -92,16 +95,14 @@ const Invoices = () => {
 
     {
       name: "Due",
-      selector: (row) => row?.totalPaid,
+      selector: (row) => row?.due,
       sortable: true,
       field: "role",
       format: (row) => (
         <div className="mt-2">
-          {row?.previous_due
-            ? "N/A"
-            : row?.deliveryNote?.dn_number
-            ? row?.deliveryNote?.dn_number
-            : "No delivery note yet"}
+          {row?.due
+            ? row?.due
+            : 0}
         </div>
       ),
     },
