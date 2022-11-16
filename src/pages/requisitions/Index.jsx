@@ -51,6 +51,13 @@ const Requisitions = () => {
       selector: (row) => row?.expected_delivery,
       sortable: true,
       field: "expected_delivery",
+      format: (row) => (
+        <div className="mt-2">
+          {row?.expected_delivery
+            ? row?.expected_delivery
+            : "--"}
+        </div>
+      ),
     },
     {
       name: "Priority",

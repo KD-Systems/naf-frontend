@@ -7,15 +7,18 @@ import { toast } from "react-toastify";
 import AdvanceService from "services/AdvanceService";
 import InvoiceService from "services/InvoiceService";
 const CreateInvoicePayment = ({ open, onCloseModal, invoice, due }) => {
+  const [advance, setAdvance] = useState(0);
+  const [file, setFile] = useState("");
+
   const [data, setData] = useState({
     invoice_id: "",
     payment_mode: "",
     payment_date: "",
     amount: null,
     remarks: "",
+    transaction_details: "",
+    file: file,
   });
-
-  const [advance, setAdvance] = useState(0);
 
   const [block, setBlock] = useState(false);
 
@@ -25,11 +28,6 @@ const CreateInvoicePayment = ({ open, onCloseModal, invoice, due }) => {
   };
 
   const handleSelect = (option, conf) => {
-    // console.log("shanto",conf)
-    // console.log("shantoargha",option)
-    // if(conf.name = "part_heading_id"){
-    // setPartHeading(option);
-    // }
     let value = option.value;
     if (Array.isArray(option))
       value = option.map((dt) => {
@@ -61,7 +59,7 @@ const CreateInvoicePayment = ({ open, onCloseModal, invoice, due }) => {
   };
 
   useEffect(async () => {
-    const res = await AdvanceService.getAll({id:invoice?.company?.id});
+    const res = await AdvanceService.getAll({ id: invoice?.company?.id });
     var total = 0;
     res.forEach((element) => {
       total = element.transaction_type
@@ -91,7 +89,8 @@ const CreateInvoicePayment = ({ open, onCloseModal, invoice, due }) => {
       });
     } else {
       setBlock(true);
-      await InvoiceService.addPayment(data);
+    let formData = new FormData(document.getElementById("create-payment"));
+      await InvoiceService.addPayment(formData);
       setBlock(false);
       onCloseModal();
       setData({
@@ -99,6 +98,8 @@ const CreateInvoicePayment = ({ open, onCloseModal, invoice, due }) => {
         payment_mode: "",
         payment_date: "",
         amount: null,
+        transaction_details: "",
+        file: "",
         remarks: "",
       });
       getPaymentHistories();
@@ -163,6 +164,22 @@ const CreateInvoicePayment = ({ open, onCloseModal, invoice, due }) => {
               </div>
 
               <div className="mb-5 fv-row fv-plugins-icon-container">
+                <label className="required form-label">file</label>
+                <input
+                  type="file"
+                  className="form-control"
+                  placeholder="Enter Amount"
+                  name="file"
+                  id="file"
+                  onChange={(e) => setFile(e.target.files[0])}
+                />
+                <div
+                  className="fv-plugins-message-container invalid-feedback"
+                  htmlFor="amount"
+                ></div>
+              </div>
+
+              <div className="mb-5 fv-row fv-plugins-icon-container">
                 <label className="required form-label">Amount</label>
                 <input
                   type="number"
@@ -197,6 +214,23 @@ const CreateInvoicePayment = ({ open, onCloseModal, invoice, due }) => {
                     </label>
                   )}
                 </div>
+              </div>
+
+              <div className="mb-5 fv-row fv-plugins-icon-container">
+                <label className="form-label">Transaction Details</label>
+                <textarea
+                  type="text"
+                  className="form-control"
+                  placeholder="Enter Transaction Details"
+                  name="transaction_details"
+                  id="transaction_details"
+                  value={data.transaction_details}
+                  onChange={handleChange}
+                />
+                <div
+                  className="fv-plugins-message-container invalid-feedback"
+                  htmlFor="transaction_details"
+                ></div>
               </div>
 
               <div className="mb-5 fv-row fv-plugins-icon-container">

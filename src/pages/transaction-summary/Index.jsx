@@ -18,10 +18,14 @@ const Invoices = () => {
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
 
-  const filterdata = (data) => {
-    setFilter(false);
-    getTransactionSummary(data);
-  };
+  const filterData = (data) => {    
+    setFilter({
+      ...filter,
+      ...data
+    })
+
+    getTransactionSummary(data)
+  }
 
   const getTransactionSummary = async (filters) => {
     setInvoices(await TransactionSummery.getAll(filters));
@@ -30,9 +34,9 @@ const Invoices = () => {
 
   let navigate = useNavigate();
 
-  const exportSales = async (filter) => {
+  const exportSales = async (filters) => {
     setLoading(true);
-    let data = await TransactionSummery.transcExport(filter);
+    let data = await TransactionSummery.transcExport(filters);
     window.location.href = data;
     setLoading(false);
   };
@@ -149,7 +153,7 @@ const Invoices = () => {
               {
                 name: "Export",
                 callback: () => {
-                  exportSales();
+                  exportSales(filter);
                 },
                 permission: null,
               },
@@ -169,7 +173,7 @@ const Invoices = () => {
       <Filter
         enable={filter}
         onChange={(data) => {
-          filterdata(data);
+          filterData(data);
         }}
       />
     </>

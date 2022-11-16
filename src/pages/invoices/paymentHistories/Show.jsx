@@ -73,6 +73,22 @@ const ShowPaymentHistories = () => {
                   </span>
                 </div>
               </div>
+
+              <div className="form-group row my-2">
+                <label className="col-4 col-form-label">File:</label>
+                <div className="col-8">
+                  <span className="form-control-plaintext">
+                    <span className="label label-inline label-danger label-bold">
+                      <a 
+                              href={payment.file}
+                              className="h-75 overflow-hidden"
+                              alt=""
+                              target="_blank"
+                            > File</a>
+                    </span>
+                  </span>
+                </div>
+              </div>
           
               <div className="form-group row my-2">
                 <label className="col-4 col-form-label">Remarks:</label>

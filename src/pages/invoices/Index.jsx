@@ -9,7 +9,6 @@ import InvoiceFilter from "./InvoiceFilter";
 const Invoices = () => {
   const [loading, setLoading] = useState(true);
   const [invoices, setInvoices] = useState([]);
-  console.log("🚀 ~ file: Index.jsx ~ line 12 ~ Invoices ~ invoices", invoices)
   const [filter, setFilter] = useState(false);
   const [block, setBlock] = useState(false);
   const [totalQuantity, setTotalQuantity] = useState(0);
@@ -67,7 +66,7 @@ const Invoices = () => {
       selector: (row) =>
         row?.previous_due
           ? "Previous Due"
-          : row?.quotation?.requisition?.type
+          : row?.type
               ?.replaceAll("_", " ")
               ?.capitalize(),
       sortable: true,
@@ -90,29 +89,6 @@ const Invoices = () => {
       sortable: true,
       field: "expected_delivery",
     },
-    // {
-    //   name: "Total",
-    //   selector: (row) =>
-    //     row?.part_items?.reduce(
-    //       (partialSum, a) => partialSum + a.total_value,
-    //       0
-    //     ),
-    //   format: (row) => (
-    //     <div className="mt-2">
-    //       {row?.amount
-    //         ? row?.amount
-    //         : row?.requisition?.type != "claim_report"
-    //         ? row?.part_items?.reduce(
-    //             (partialSum, a) => partialSum + parseInt(a.total_value),
-    //             0
-    //           )
-    //         : 0}{" "}
-    //       Tk.
-    //     </div>
-    //   ),
-    //   sortable: true,
-    //   field: "role",
-    // },
 
     {
       name: "Total",

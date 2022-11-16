@@ -10,7 +10,6 @@ const ShowQuotation = () => {
   let { id } = useParams();
   const navigate = useNavigate();
   const [quotation, setQuotation] = useState({});
-  console.log("🚀 ~ file: Show.jsx ~ line 13 ~ ShowQuotation ~ quotation", quotation)
   const [comment, setComment] = useState({});
   const [block, setBlock] = useState(false);
   const [locked, setLocked] = useState(false);

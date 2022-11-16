@@ -16,6 +16,7 @@ const getTransactionDetails = async (id, data) => {
   };
 
   const transcExport = async (filters)=>{
+    // console.log(filters);
     const res = await http.get("transaction-summery-export", {
       params: filters
     });

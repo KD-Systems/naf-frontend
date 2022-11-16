@@ -14,12 +14,6 @@ const ClientInvoices = () => {
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
 
-  const storeDeliveryNotes = async (data) => {
-    // setBlock(true);
-    // await DeliverNoteService.create(data); 
-    // setBlock(false);
-  };
-
 
 
   const columns = [
@@ -31,8 +25,27 @@ const ClientInvoices = () => {
     },
 
     {
+      name: "Company",
+      selector: (row) => row?.company?.name,
+      sortable: true,
+      field: "name",
+      format: (row) => (
+        <div className="d-flex align-items-center">
+          <div className="d-flex justify-content-start flex-column">
+            <Link
+              to={"/panel/companies/" + row?.company?.id}
+              className="text-dark fw-bolder text-hover-primary"
+            >
+              {row?.company?.name}
+            </Link>
+          </div>
+        </div>
+      ),
+    },
+
+    {
       name: "Requisition Type",
-      selector: (row) => row?.requisition?.type?.replaceAll("_", " ")?.capitalize(),
+      selector: (row) => row?.type?.replaceAll("_", " ")?.capitalize(),
       sortable: true,
       field: "id",
     },
@@ -49,16 +62,24 @@ const ClientInvoices = () => {
     },
     {
       name: "Total",
-      selector: (row) => row?.part_items?.reduce((partialSum,a)=>partialSum + a.total_value ,0),
+      selector: (row) => row?.previous_due,
+      sortable: true,
+      field: "total_due",
+      format: (row) => (
+        <div className="mt-2">{row?.previous_due ?? row?.totalAmount} tk</div>
+      ),
+    },
+
+    {
+      name: "Paid",
+      selector: (row) => row?.totalPaid,
+      sortable: true,
+      field: "total_due",
       format: (row) => (
         <div className="mt-2">
-           {row?.requisition?.type != 'claim_report' ? (
-           row?.part_items?.reduce((partialSum,a)=>partialSum + parseInt(a.total_value) ,0)
-          ):0} Tk.
+          {row?.totalPaid ? parseInt(row?.totalPaid) : 0} tk
         </div>
       ),
-      sortable: true,
-      field: "role",
     },
 
     {
@@ -100,28 +121,13 @@ const ClientInvoices = () => {
             </Link>
             
           </span>
-          {/* <span className="text-end">
-          <div
-              // onClick={() => {
-              //   storeDeliveryNotes(row);
-              // }}
-
-              onClick={() => navigate(`/panel/client/delivery-notes/${row?.id}/create`)}
-              className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-              data-toggle="tooltip"
-              title="Add Delivery Note"
-            >
-              <i className="fa fa-plus"></i>
-            </div>
-           
-          </span> */}
         </>
       ),
     },
   ];
 
   const getInvoices = async (filters) => {
-    setInvoices(await ClientInvoiceService.getAll(filters));  
+    setInvoices(await ClientInvoiceService.getAll(filters));   
     setLoading(false);
   };
 
@@ -142,11 +148,6 @@ const ClientInvoices = () => {
         />
       </div>
     </div>
-    {/* <CreateInvoice
-        open={open}
-        onCloseModal={onCloseModal}
-        getInvoices = {getInvoices}
-      /> */}
     </>
   );
 };
