@@ -158,56 +158,92 @@ const PrintDeliveryNotes = () => {
             </div> */}
 
                 <div className="d-flex justify-content-between flex-column flex-md-row">
-                  <div className="flex-grow-1 pt-8">
+                  <div className="flex-grow-1 pt-2">
                     <div className="table-responsive ">
-                      <div className="border-bottom pb-12">
-                        <table className="table">
-                          <thead>
-                            <tr className="fs-6 fw-bolder text-dark text-uppercase">
-                              <th className="min-w-15px pb-9">SL.No</th>
-                              <th className="min-w-70px pb-9 text-end">
-                                Parts Name
-                              </th>
-                              <th className="min-w-80px pb-9 text-end">
-                                Parts Number
-                              </th>
-                              <th className="min-w-100px pe-lg-6 pb-9 text-end">
-                                Quantity
-                              </th>
-                              <th className="min-w-100px pe-lg-6 pb-9 text-end">
-                                Remarks
-                              </th>
-                            </tr>
-                          </thead>
+                      <table className="table">
+                        <thead className="m-20">
+                          <tr className="fs-6 fw-bolder text-dark text-uppercase">
+                            <th className="text-center">
+                              <div className="p-1" style={{ backgroundColor: "#FD7E14", color: "#fff" }} > SL.No </div>
+                            </th>
+                            <th className="text-start w-50 ">
+                              <div className="p-1" style={{ backgroundColor: "#009EF7", color: "#fff" }} > Part Name </div>
+                            </th>
+                            <th className="text-center">
+                              <div className="p-1" style={{ backgroundColor: "#FD7E14", color: "#fff" }} > Number </div>
+                            </th>
+                            <th className="text-center">
+                              <div className="p-1" style={{ backgroundColor: "#FD7E14", color: "#fff" }} > Quantity </div>
+                            </th>
+                            <th className="text-center">
+                              <div className="p-1" style={{ backgroundColor: "#009EF7", color: "#fff"}} > Remarks </div>
+                            </th>
+                          </tr>
+                        </thead>
 
-                          <tbody>
-                            {deliveryNote?.part_items?.map((item, index) => (
-                              <tr
-                                className="fw-bolder text-gray-700 fs-5 text-end"
-                                key={index}
-                              >
-                                <td className="d-flex align-items-center pb-10">
-                                  {index + 1}
-                                </td>
-                                <td>{item?.part?.aliases[0].name}</td>
-                                <td>{item?.part?.aliases[0].part_number}</td>
-                              
-                                <td className="fs-5 text-dark fw-boldest pe-lg-6">
-                                  {item?.quantity}
-                                </td>
-                                <td className="fs-5 pe-lg-6">
-                                  {item?.remarks}
-                                </td>
-                   
+                        <tbody>
+                          {deliveryNote?.part_items?.map((item, idx) => {
+                            return (
+                              <tr className="text-dark border-bottom border-1 border-dark" key={idx} >
+                                <td className=" text-center">{idx + 1}</td>
+                                <td className="text-start"> <h6>{item?.part?.aliases[0].name}</h6></td>
+                                <td><div>{item?.part?.aliases[0].part_number}</div></td>
+                                <td className="text-center">{item?.quantity}</td>
+                                <td className=" text-center"> {item?.remarks ? item?.remarks : '--'} </td>
                               </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      </div>
-                
+                            );
+                          })}
+                        </tbody>
+                      </table>
                     </div>
                   </div>
                 </div>
+                <div className="fixed-bottom mb-10 text-center border-top border-1 border-dark mt-3">
+                <div className="d-flex flex-row justify-content-evenly">
+                  <div className="d-flex flex-row">
+                    <div className="m-2 p-2 border border-1 rounded-circle border-dark">
+                      <span>
+                        <img
+                          src="https://img.icons8.com/ios/344/city-buildings.png"
+                          style={{ height: 35, weight: 35 }}
+                        />
+                      </span>
+                    </div>
+                    <div className="pt-2 text-start">
+                      <h4>Central Office</h4>
+                      <p>67 Nayapaltan, Dhaka-1000</p>
+                    </div>
+                  </div>
+                  <div className="d-flex flex-row">
+                    <div className="m-2 p-2 border border-1 rounded-circle border-dark">
+                      <span>
+                        <img
+                          src="https://img.icons8.com/ios/344/phone-disconnected.png"
+                          style={{ height: 35, weight: 35 }}
+                        />
+                      </span>
+                    </div>
+                    <div className="pt-2 text-start">
+                      <h4>Call Center</h4>
+                      <p>+8802-9349934</p>
+                    </div>
+                  </div>
+                  <div className="d-flex flex-row">
+                    <div className="m-2 p-2 border border-1 rounded-circle border-dark">
+                      <span>
+                        <img
+                          src="https://img.icons8.com//344/question-mark--v1.png"
+                          style={{ height: 35, weight: 35 }}
+                        />
+                      </span>
+                    </div>
+                    <div className="pt-2 text-start">
+                      <h4>Help Support</h4>
+                      <p>info@nafgroup.org</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
               </div>
             </div>
           </div>

@@ -40,12 +40,12 @@ const AdvanceAmount = ({ open, companyId, onCloseModal, onUpdated }) => {
       <Modal
         open={open}
         onCloseModal={onCloseModal}
-        title={<>Add Due Amount</>}
+        title={<>Add Advance Amount</>}
         body={
           <>
             <form id="update-company">
               <div className="mb-5 fv-row fv-plugins-icon-container">
-                <label className="form-label">Due Amount</label>
+                <label className="form-label">Advance Amount</label>
                 <input
                   type="number"
                   className="form-control"
