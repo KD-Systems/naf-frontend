@@ -23,8 +23,8 @@ const CompanyInfo = () => {
     var total = 0;
     res.forEach((element) => {
       total = element.transaction_type
-        ? total + element.amount
-        : total - element.amount;
+        ? parseInt(total) + parseInt(element.amount)
+        : parseInt(total) - parseInt(element.amount);
     });
     setAdvance(total);
   };
