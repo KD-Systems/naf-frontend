@@ -510,7 +510,7 @@ const NewRequisition = () => {
 
                           <div className="col-lg-4">
                             <label
-                              className="form-label fs-6 fw-bolder text-gray-700"
+                              className="required form-label fs-6 fw-bolder text-gray-700"
                               htmlFor="types"
                             >
                               Account Details
@@ -523,6 +523,10 @@ const NewRequisition = () => {
                               placeholder="Account details"
                               onChange={handleChange}
                             ></textarea>
+                            <div
+                                className="fv-plugins-message-container invalid-feedback"
+                                htmlFor="account_details"
+                              ></div>
                           </div>
 
                           <div className="col-lg-4">

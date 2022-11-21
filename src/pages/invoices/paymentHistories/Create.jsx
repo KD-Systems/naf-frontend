@@ -157,25 +157,24 @@ const CreateInvoicePayment = ({ open, onCloseModal, invoice, due }) => {
                     />
                     <div
                       className="fv-plugins-message-container invalid-feedback"
-                      htmlFor="expected_delivery"
+                      htmlFor="payment_date"
                     ></div>
                   </div>
                 </div>
               </div>
 
               <div className="mb-5 fv-row fv-plugins-icon-container">
-                <label className="required form-label">file</label>
+                <label className="required form-label">File</label>
                 <input
                   type="file"
                   className="form-control"
-                  placeholder="Enter Amount"
                   name="file"
                   id="file"
                   onChange={(e) => setFile(e.target.files[0])}
                 />
                 <div
                   className="fv-plugins-message-container invalid-feedback"
-                  htmlFor="amount"
+                  htmlFor="file"
                 ></div>
               </div>
 
@@ -190,7 +189,7 @@ const CreateInvoicePayment = ({ open, onCloseModal, invoice, due }) => {
                   value={data.amount}
                   onChange={handleChange}
                 />
-                <div
+               <div
                   className="fv-plugins-message-container invalid-feedback"
                   htmlFor="amount"
                 ></div>
@@ -217,7 +216,7 @@ const CreateInvoicePayment = ({ open, onCloseModal, invoice, due }) => {
               </div>
 
               <div className="mb-5 fv-row fv-plugins-icon-container">
-                <label className="form-label">Transaction Details</label>
+                <label className="required form-label">Transaction Details</label>
                 <textarea
                   type="text"
                   className="form-control"
