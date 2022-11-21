@@ -166,52 +166,49 @@ const PrintRequisition = () => {
                     <p className="">{requisition?.reason_of_trouble}</p>
                   </div>
                 </div>
-
+                
                 <div className="d-flex justify-content-between flex-column flex-md-row">
-                  <div className="flex-grow-1 pt-8 mb-8">
+                  <div className="flex-grow-1 pt-2">
                     <div className="table-responsive ">
                       <table className="table">
-                        <thead>
+                        <thead className="m-20">
                           <tr className="fs-6 fw-bolder text-dark text-uppercase">
-                            <th className="min-w-10px pb-9">SL.No</th>
-                            <th className="min-w-70px pb-9 ">
-                              Parts Name
+                            <th className="text-center">
+                              <div className="p-1" style={{ backgroundColor: "#FD7E14", color: "#fff" }} > SL.No </div>
                             </th>
-                            <th className="min-w-20px pb-9">
-                              Parts Number
+                            <th className="text-start w-50 ">
+                              <div className="p-1" style={{ backgroundColor: "#009EF7", color: "#fff" }} > Part Name </div>
                             </th>
-                            <th className="min-w-50px pe-lg-6 pb-9">
-                              Quantity
+                            <th className="text-center">
+                              <div className="p-1" style={{ backgroundColor: "#FD7E14", color: "#fff" }} > Parts Number </div>
                             </th>
-                            <th className="min-w-100px pe-lg-6 pb-9">
-                              Remarks
+                            <th className="text-center">
+                              <div className="p-1" style={{ backgroundColor: "#FD7E14", color: "#fff" }} > Quantity </div>
+                            </th>
+                            <th className="text-center">
+                              <div className="p-1" style={{ backgroundColor: "#009EF7", color: "#fff"}} > Remarks </div>
                             </th>
                           </tr>
                         </thead>
+
                         <tbody>
-                          {requisition?.part_items?.map((item, index) => (
-                            <tr
-                              className="fw-bolder text-gray-700 fs-5"
-                              key={index}
-                            >
-                              <td className="d-flex align-items-center pb-10">
-                                {index + 1}
-                              </td>
-                              <td>{item?.part?.aliases[0].name}</td>
-                              <td>{item?.part?.aliases[0].part_number}</td>
-                              <td className="fs-5 text-dark fw-boldest pe-lg-6">
-                                {item?.quantity}
-                              </td>
-                              <td className="fs-5 text-dark fw-boldest pe-lg-6">
-                                {item?.remarks}
-                              </td>
-                            </tr>
-                          ))}
+                          {requisition?.part_items?.map((item, idx) => {
+                            return (
+                              <tr className="text-dark border-bottom border-1 border-dark" key={idx} >
+                                <td className=" text-center">{idx + 1}</td>
+                                <td className="text-start"> <h6>{item?.part?.aliases[0].name}</h6></td>
+                                <td><div>{item?.part?.aliases[0].part_number}</div></td>
+                                <td className="text-center">{item?.quantity}</td>
+                                <td className=" text-center"> {item?.remarks} </td>
+                              </tr>
+                            );
+                          })}
                         </tbody>
                       </table>
                     </div>
                   </div>
                 </div>
+
               </div>
             </div>
           </div>

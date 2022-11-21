@@ -43,6 +43,8 @@ import Designations from "pages/designations/Index";
 import ShowDesignation from "pages/designations/Show";
 import Employee from "pages/employee/Index";
 import ShowEmployee from "pages/employee/Show";
+import ClaimRequisition from "pages/foc-requisitions/Index";
+import ShowClaimRequisition from "pages/foc-requisitions/Show";
 import Forbidden from "pages/Forbidden";
 import GatePass from "pages/gate-passes/Index";
 import Invoices from "pages/invoices/Index";
@@ -523,6 +525,26 @@ function App() {
               element={
                 <PrivateRoute>
                   <CreateDelivery />
+                </PrivateRoute>
+              }
+            />
+
+            {/* FOC Management Module Routes */}
+
+            <Route
+              path="claim-requisitions"
+              element={
+                <PrivateRoute>
+                  <ClaimRequisition />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
+              path="claim-requisitions/:id"
+              element={
+                <PrivateRoute>
+                  <ShowClaimRequisition />
                 </PrivateRoute>
               }
             />

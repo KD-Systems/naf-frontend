@@ -267,6 +267,7 @@ const SideMenu = () => {
                 </NavLink>
               </div>
             </PermissionAbility>
+
             <PermissionAbility permission="box_heading_access">
               <div className="menu-item">
                 <NavLink
@@ -282,6 +283,7 @@ const SideMenu = () => {
                 </NavLink>
               </div>
             </PermissionAbility>
+
             <PermissionAbility permission="machines_access">
               <div className="menu-item">
                 <NavLink
@@ -450,6 +452,28 @@ const SideMenu = () => {
               </NavLink>
             </div>
             </PermissionAbility>
+
+            {/* For FOC */}
+
+            <div className="menu-item">
+              <div className="menu-content pt-8 pb-2">
+                <span className="menu-section text-muted text-uppercase fs-8 ls-1">
+                FOC Management
+                </span>
+              </div>
+            </div>
+
+            <PermissionAbility>
+            <div className="menu-item">
+              <NavLink className={(navinfo) => navinfo.isActive ? "menu-link active" : "menu-link" } to="claim-requisitions">
+                <span className="menu-icon">
+                  <i className="fa fa-sticky-note"></i>
+                </span>
+                <span className="menu-title">Claim Requisition</span> 
+              </NavLink>
+            </div>
+            </PermissionAbility>
+            
             
 
             {/* For Reports */}

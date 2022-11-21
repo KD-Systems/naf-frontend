@@ -6,10 +6,6 @@ const PrintInvoice = () => {
   let { id } = useParams();
   const navigate = useNavigate();
   const [invoice, setInvoice] = useState({});
-  console.log(
-    "🚀 ~ file: Print.jsx ~ line 9 ~ PrintInvoice ~ invoice",
-    invoice
-  );
   const [total, setTotal] = useState(0);
 
   const getInvoice = async () => {
@@ -95,59 +91,19 @@ const PrintInvoice = () => {
                       <thead className="m-20">
                         <tr className="fs-6 fw-bolder text-dark text-uppercase">
                           <th className="text-center">
-                            <div
-                              className="p-1"
-                              style={{
-                                backgroundColor: "#FD7E14",
-                                color: "#fff",
-                              }}
-                            >
-                              SL.No
-                            </div>
+                            <div className="p-1" style={{ backgroundColor: "#FD7E14", color: "#fff" }} > SL.No </div>
                           </th>
                           <th className="text-start w-50 ">
-                            <div
-                              className="p-1"
-                              style={{
-                                backgroundColor: "#009EF7",
-                                color: "#fff",
-                              }}
-                            >
-                              Part Name
-                            </div>
+                            <div className="p-1" style={{ backgroundColor: "#009EF7", color: "#fff" }} > Part Name </div>
                           </th>
                           <th className="text-center">
-                            <div
-                              className="p-1"
-                              style={{
-                                backgroundColor: "#FD7E14",
-                                color: "#fff",
-                              }}
-                            >
-                              Qty
-                            </div>
+                            <div className="p-1" style={{ backgroundColor: "#FD7E14", color: "#fff" }} > Qty </div>
                           </th>
                           <th className="text-center">
-                            <div
-                              className="p-1"
-                              style={{
-                                backgroundColor: "#FD7E14",
-                                color: "#fff",
-                              }}
-                            >
-                              Price
-                            </div>
+                            <div className="p-1" style={{ backgroundColor: "#FD7E14", color: "#fff" }} > Price </div>
                           </th>
                           <th className="text-center">
-                            <div
-                              className="p-1"
-                              style={{
-                                backgroundColor: "#009EF7",
-                                color: "#fff",
-                              }}
-                            >
-                              Total
-                            </div>
+                            <div className="p-1" style={{ backgroundColor: "#009EF7", color: "#fff"}} > Total </div>
                           </th>
                         </tr>
                       </thead>
@@ -155,10 +111,7 @@ const PrintInvoice = () => {
                       <tbody>
                         {invoice?.part_items?.map((item, idx) => {
                           return (
-                            <tr
-                              className="text-dark border-bottom border-1 border-dark"
-                              key={idx}
-                            >
+                            <tr className="text-dark border-bottom border-1 border-dark" key={idx} >
                               <td className=" text-center">{idx + 1}</td>
                               <td className="text-start">
                                 <h6>{item?.part?.aliases[0].name}</h6>
@@ -201,30 +154,11 @@ const PrintInvoice = () => {
                           <td></td>
                           <td></td>
                           <td className="text-center" colSpan={2}>
-                            <div
-                              className="p-1"
-                              style={{
-                                backgroundColor: "#FD7E14",
-                                color: "#fff",
-                                fontSize: 16,
-                              }}
-                            >
-                              Total
-                            </div>
+                            <div className="p-1" style={{ backgroundColor: "#FD7E14", color: "#fff", fontSize: 16, }} > Total </div>
                           </td>
                           <td className="text-center">
-                            <div
-                              className="p-1"
-                              style={{
-                                backgroundColor: "#FD7E14",
-                                color: "#fff",
-                                fontSize: 16,
-                              }}
-                            >
-                              {invoice.discount
-                                ? total - invoice.discount
-                                : total}{" "}
-                              TK.
+                            <div className="p-1" style={{ backgroundColor: "#FD7E14", color: "#fff", fontSize: 16, }}>
+                              {invoice.discount ? total - invoice.discount : total} TK.
                             </div>
                           </td>
                         </tr>
