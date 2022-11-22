@@ -121,7 +121,7 @@ const DueRequisition = () => {
                           </div>
                           <div
                             className="fv-plugins-message-container invalid-feedback"
-                            htmlFor="type"
+                            htmlFor="amount"
                           ></div>
                         </div>
                       </div>
