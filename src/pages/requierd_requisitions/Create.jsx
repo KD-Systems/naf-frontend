@@ -23,7 +23,7 @@ const RequiredRequisitionCreate = () => {
     setFilter({ ...filter, q: "" });
     setSearchData("");
   };
-
+  const [req, setReq] = useState(false);
   const [list, setList] = useState([]);
   const [totalAmount, setTotal] = useState(0);
   const [machineList, setMachineList] = useState("");
@@ -487,6 +487,26 @@ const RequiredRequisitionCreate = () => {
               </div>
             </div>
           </div>
+
+          {data?.type == "claim_request" && (
+            <div className="d-flex flex-column flex-lg-row">
+              <div className="flex-lg-row-fluid mb-10 mb-lg-0 me-lg-7 me-xl-10">
+                <div className="card mb-5">
+                  <div className="card-body">
+                    <span>
+                      <input
+                        type="checkbox"
+                        defaultChecked={req}
+                        onChange={() => setReq(!req)}
+                      />
+                    </span>
+
+                    <span className="p-5">Not in List?</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
 
           <div className="d-flex flex-column flex-lg-row mb-20">
             <div className="flex-lg-row-fluid mb-lg-0 me-lg-7 me-xl-10">
