@@ -49,6 +49,26 @@ const getComment = async (id) => {
   return res.data;
 };
 
+
+//file upload
+const fileUpload = async (id, data) => {
+  const res = await http.post(`/quotations/${id}/files`, data);
+  return res.data;
+};
+
+//get file
+const getFile = async (id) => {
+  const res = await http.get(`/quotations/${id}/files`);
+  return res.data;
+};
+
+//get file
+const deleteFile = async (uuid, model_id) => {
+  const res = await http.delete( `/quotations/${model_id}/files/${uuid}/delete`);
+  return res.data;
+};
+
+
 const sendComment = async (data) => {
   const res = await http.post(`/quotation-comment`,data); 
   return res.data;
@@ -65,7 +85,11 @@ const QuotationService = {
   getComment,
   sendComment,
   approve,
-  reject
+  reject,
+  fileUpload,
+  getFile,
+  deleteFile
+
 };
 
 export default QuotationService;

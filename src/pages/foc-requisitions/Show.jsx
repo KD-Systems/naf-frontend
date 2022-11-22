@@ -7,7 +7,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import RequisitionService from "../../services/RequisitionService";
 import NewDropzone from "./Dropzone/MyDropzone";
 
-const ShowRequisition = () => {
+const ShowClaimRequisition = () => {
   const [confirmDelete, setConfirmDelete] = useState(false);
 
   const [uuid, setuuid] = useState();
@@ -45,6 +45,8 @@ const ShowRequisition = () => {
   };
 
   const uploadFile = async (formData) => {
+    console.log("a", formData);
+
     await RequisitionService.fileUpload(id, formData);
     getFile();
   };
@@ -437,4 +439,4 @@ const ShowRequisition = () => {
   );
 };
 
-export default ShowRequisition;
+export default ShowClaimRequisition;
