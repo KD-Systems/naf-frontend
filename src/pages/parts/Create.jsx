@@ -10,6 +10,9 @@ import Tags from "components/utils/Tags";
 const CreatePart = ({ open, onCloseModal, onCreated }) => {
   const [machines, setMachines] = useState([]);
   const [headings, setHeadings] = useState([]);
+  const [foc, setFoc] = useState(false);
+  console.log("🚀 ~ file: Create.jsx ~ line 14 ~ CreatePart ~ foc", foc)
+
 
   const handlePartAdd = () => {
     setInputField([...inputField, {}]);
@@ -40,6 +43,7 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
     image: "",
     arm: "",
     unit: "",
+    is_foc:foc
   });
 
   const [inputField, setInputField] = useState([{}]);
@@ -115,7 +119,8 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
     formData.append("unit", data.unit);
     formData.append("description", data.descriptions);
     formData.append("parts", JSON.stringify(temp1));
-
+    formData.append("is_foc", foc);
+// console.log("shanto",formData);
     await PartService.create(formData);
     onCreated();
     onCloseModal();
@@ -196,7 +201,43 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
                 ></div>
               </div>
 
+              <div className="d-flex">
+              <div className="flex-lg-row-fluid">
+                <div className="card">
+                  <div className="card-body">
+                    <span>
+                      <input
+                        type="checkbox"
+                        defaultChecked={foc}
+                        onChange={() => setFoc(!foc)}
+                      />
+                    </span>
+
+                    <span className="p-5">FOC</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* <div className="form-group mt-5 mb-2">
+                <div className="form-check form-switch form-check-custom form-check-solid">
+                  <input
+                    className="form-check-input"
+                    type="checkbox"
+                    defaultChecked={data.is_foc}
+                    defaultValue={data.is_foc}
+                    name="is_foc"
+                    id="is_foc"
+                    onChange={handleChange}
+                  />
+                  <label className="form-check-label" htmlFor="is_foc">
+                    Under FOC
+                  </label>
+                </div>
+              </div> */}
+
               <div className="form-group row">
+
                 <div className="col-12">
                   <label className="required form-label">Name</label>
                   <input
