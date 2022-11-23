@@ -6,7 +6,9 @@ import DeliverNoteService from "services/DeliverNoteService";
 import InvoiceService from "services/InvoiceService";
 import CreateInvoice from "./Create";
 import InvoiceFilter from "./InvoiceFilter";
+
 const Invoices = () => {
+  
   const [loading, setLoading] = useState(true);
   const [invoices, setInvoices] = useState([]);
   const [filter, setFilter] = useState(false);
@@ -66,9 +68,7 @@ const Invoices = () => {
       selector: (row) =>
         row?.previous_due
           ? "Previous Due"
-          : row?.type
-              ?.replaceAll("_", " ")
-              ?.capitalize(),
+          : row?.type?.replaceAll("_", " ")?.capitalize(),
       sortable: true,
       field: "id",
     },
@@ -209,6 +209,9 @@ const Invoices = () => {
       />
       <InvoiceFilter
         enable={filter}
+        onClickOutside={() => {
+          setFilter(!filter);
+        }}
         onChange={(data) => {
           filterdata(data);
         }}

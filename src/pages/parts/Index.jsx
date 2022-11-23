@@ -218,6 +218,9 @@ const Parts = () => {
 
       <PartFilter
         enable={enableFilter}
+        onClickOutside={() => {
+          setEnableFilter(!filter);
+        }}
         onChange={(data) => {
           filterData(data);
         }}

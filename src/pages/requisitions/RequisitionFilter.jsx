@@ -2,7 +2,6 @@ import { useEffect, useState, useRef } from "react";
 import Select from "react-select";
 
 function RequisitionFilter({ enable, onChange, onClickOutside }) {
-
   const ref = useRef(null);
   let user = JSON.parse(localStorage.getItem("user"))?.user;
 
