@@ -45,9 +45,9 @@ const PrintInvoice = () => {
                               style={{ width: "6rem" }}
                             />
                           </Link>
-                          <h3 className="mt-2">Naf Limited</h3>
+                          <h3 className="mt-2">Stitch & Color Technology</h3>
                           <p>
-                            Naya paltan,
+                          Tajima Complex , Amloki bagan , Akran , Birulia , Savar , Dhaka.
                             <br /> Dhaka-1230 <br />
                             Bangladesh
                           </p>
@@ -70,6 +70,11 @@ const PrintInvoice = () => {
                                 <h5>Invoice to:</h5>
                                 <h2>{invoice?.company?.name}</h2>
                               </div>
+                              <div>
+                                <h5>Issued By:</h5>
+                                <h2>{invoice?.created_by}</h2>
+                              </div>
+                              
                             </div>
                             <div className="px-5">
                               <div>
@@ -78,12 +83,17 @@ const PrintInvoice = () => {
                               </div>
                               <div>
                                 <p>
-                                  {invoice?.company?.address}
-                                  <br /> Mobile : {invoice?.company?.tel} <br />
-                                  Website : {invoice?.company?.web}
+                                  <br /> Mobile : 01719753294 <br />01714845179     
                                   <br />
-                                  {invoice?.company?.address}
                                 </p>
+                              </div>
+                              <div>
+                                <h5>Approved by :</h5>
+                                <span>Tajima Nawaz, Director,Naf Group</span><br/>
+                                <span>Email:tajima@nafgroup.org</span><br/>
+                                <span>Contact No: 01719753294</span><br/>
+
+
                               </div>
                             </div>
                           </div>
@@ -239,6 +249,42 @@ const PrintInvoice = () => {
                   </div>
                 </div>
               </div>
+
+              <div className="d-flex justify-content-between flex-column flex-md-row">
+                <div className="flex-grow-1 pt-2">
+                  <div className="table-responsive ">
+                    <p>
+                      Terms & conditions :<br />
+                      Brand : Tajima <br />
+                      Origin: Japan
+                      <br />
+                      Payment mode: Cash or cheque have to be paid before parts
+                      delivery <br />
+                      validity:This quotation is valid for 07 days . Price might
+                      vary after validity period expired. <br />
+                      <br />
+                      Feel free to contact us, if you need any further
+                      clarification/information or comments related to this
+                      Mail.
+                      <br />
+                      <br />
+                      Thanks & Best Regards
+                      <br />
+                      <br />
+                      Safil Nawaz Chowdhury
+                      <br />
+                      Deputy Managing Director
+                      <br />
+                      NAF GROUP (Stitch & Color Technology)
+                      <br />
+                      Mail ID: safil@nafgroup.org
+                      <br />
+                      01919331919
+                    </p>
+                  </div>
+                </div>
+              </div> 
+
               <div className="fixed-bottom mb-10 text-center border-top border-1 border-dark">
                 <div className="d-flex flex-row justify-content-evenly">
                   <div className="d-flex flex-row">

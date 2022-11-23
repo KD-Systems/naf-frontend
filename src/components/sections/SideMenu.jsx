@@ -455,7 +455,7 @@ const SideMenu = () => {
 
             {/* For FOC */}
 
-            <div className="menu-item">
+            {/* <div className="menu-item">
               <div className="menu-content pt-8 pb-2">
                 <span className="menu-section text-muted text-uppercase fs-8 ls-1">
                 FOC Management
@@ -472,7 +472,7 @@ const SideMenu = () => {
                 <span className="menu-title">Claim Requisition</span> 
               </NavLink>
             </div>
-            </PermissionAbility>
+            </PermissionAbility> */}
             
             
 

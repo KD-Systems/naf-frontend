@@ -26,7 +26,7 @@ const PrintDeliveryNotes = () => {
     <div className="post" id="content">
       <div className="container-xxl">
         <div className="card">
-          <div className="card-body py-20">
+          <div className="card-body">
             <div className="mw-lg-950px mx-auto w-100">
               <div className="mb-4">
                 <table>
@@ -48,14 +48,14 @@ const PrintDeliveryNotes = () => {
                         className="text-sm-center fw-bold fs-4 text-muted "
                         style={{ textAlign: "center", marginLeft: "6rem" }}
                       >
-                        <h1>Naf Overseas(PVT.) Ltd.</h1>
+                        <h1>Stitch & Color Technology</h1>
                         <p className="text-sm">
                           <small>
-                            Head Office:Naya paltan,Dhaka,Bangladesh
+                          Tajima Complex, Amloki bagan, Akran, Birulia, Savar, Dhaka.
                           </small>
                           <br />
                           <small>
-                            Tel:44564,Fax:TEST,Email:test@gmail.com,Web:example.com
+                          Tel: 44564, Email: nafgroup@dhaka.net, Web: www.nafgroup.org
                           </small>
                         </p>
                       </div>
@@ -116,12 +116,11 @@ const PrintDeliveryNotes = () => {
                         </h6>
 
                         <h6>
-                          <strong>Group of Company: </strong>
-                          <span className="text-muted">
-                            {deliveryNote?.company?.company_group}
-                          </span>
-                          <br/>
-                        </h6>
+                        <strong>Issued By: </strong>
+                        <span className="text-muted">
+                          {deliveryNote?.created_by}
+                        </span>
+                      </h6>
                       </td>
                       <td style={{ marginLeft: "120px" }} width="30%"></td>
 
@@ -141,6 +140,15 @@ const PrintDeliveryNotes = () => {
                             #{deliveryNote?.invoice?.invoice_number}
                           </span>
                         </h6>
+
+                        <h6>
+                          <strong>Approved by: </strong><br/>
+                          <span className="text-muted">
+                            <span>Tajima Nawaz, Director,Naf Group</span><br/>
+                            <span>Email:tajima@nafgroup.org</span><br/>
+                            <span>Contact No: 01719753294</span><br/>
+                          </span>
+                        </h6>
                       </td>
                     </tr>
                   </tbody>
@@ -156,6 +164,8 @@ const PrintDeliveryNotes = () => {
                 </span>
               </h6>
             </div> */}
+
+            
 
                 <div className="d-flex justify-content-between flex-column flex-md-row">
                   <div className="flex-grow-1 pt-2">
@@ -198,6 +208,44 @@ const PrintDeliveryNotes = () => {
                     </div>
                   </div>
                 </div>
+
+                <hr/>
+
+                <div className="d-flex justify-content-between flex-column flex-md-row">
+                <div className="flex-grow-1 pt-2">
+                  <div className="table-responsive ">
+                    <p>
+                      Terms & conditions :<br />
+                      Brand : Tajima <br />
+                      Origin: Japan
+                      <br />
+                      Payment mode: Cash or cheque have to be paid before parts
+                      delivery <br />
+                      validity:This quotation is valid for 07 days . Price might
+                      vary after validity period expired. <br />
+                      <br />
+                      Feel free to contact us, if you need any further
+                      clarification/information or comments related to this
+                      Mail.
+                      <br />
+                      <br />
+                      Thanks & Best Regards
+                      <br />
+                      <br />
+                      Safil Nawaz Chowdhury
+                      <br />
+                      Deputy Managing Director
+                      <br />
+                      NAF GROUP (Stitch & Color Technology)
+                      <br />
+                      Mail ID: safil@nafgroup.org
+                      <br />
+                      01919331919
+                    </p>
+                  </div>
+                </div>
+              </div>
+
                 <div className="fixed-bottom mb-10 text-center border-top border-1 border-dark mt-3">
                 <div className="d-flex flex-row justify-content-evenly">
                   <div className="d-flex flex-row">

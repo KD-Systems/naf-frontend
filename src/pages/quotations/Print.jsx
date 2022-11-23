@@ -6,6 +6,7 @@ const PrintInvoice = () => {
   let { id } = useParams();
   const navigate = useNavigate();
   const [invoice, setInvoice] = useState({});
+  console.log("🚀 ~ file: Print.jsx ~ line 9 ~ PrintInvoice ~ invoice", invoice)
   const [total, setTotal] = useState(0);
 
   const getInvoice = async () => {
@@ -48,6 +49,11 @@ const PrintInvoice = () => {
                                 <h5>Invoice to:</h5>
                                 <h2>{invoice?.company?.name}</h2>
                               </div>
+                              <div>
+                                <h5>Issued by: </h5>
+                                <p>{invoice?.created_by}</p>
+    
+                              </div>
                             </div>
                             <div className="px-5">
                               <div style={{ flex:1, flexDirection: "row" }}>
@@ -58,6 +64,12 @@ const PrintInvoice = () => {
                                     {invoice?.invoice_date}
                                   </Moment></h5>
     
+                              </div>
+                              <div>
+                                <h5>Approved by :</h5>
+                                <span>Tajima Nawaz, Director,Naf Group</span><br/>
+                                <span>Email:tajima@nafgroup.org</span><br/>
+                                <span>Contact No: 01719753294</span><br/>
                               </div>
                             </div>
                           </div>
@@ -201,7 +213,7 @@ const PrintInvoice = () => {
                     </p>
                   </div>
                 </div>
-              </div>
+              </div> 
 
               <div className="fixed-bottom mb-10 text-center border-top border-1 border-dark">
                 <div className="d-flex flex-row justify-content-evenly">
