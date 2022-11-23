@@ -1,14 +1,16 @@
+import RequisitionService from "services/RequisitionService";
+import RequiredRequisitionFilter from "./RequiredRequisitionFilter";
 import Table from "components/utils/Table";
 import PermissionAbility from "helpers/PermissionAbility";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import RequisitionService from "services/RequisitionService";
-import RequiredRequisitionFilter from "./RequiredRequisitionFilter";
+
 
 const RequiredRequisitions = () => {
   const [filter, setFilter] = useState(false);
   const [loading, setLoading] = useState(true);
   const [requisitions, setRequisitions] = useState([]);
+
   const filterdata = (data) => {    
     setFilter(false);
     getRequisitions(data);
@@ -137,7 +139,9 @@ const RequiredRequisitions = () => {
           />
         </div>
       </div>
+
       <RequiredRequisitionFilter
+        onClickOutside={() => {setFilter(!filter)}}
         enable={filter}
         onChange={(data) => {
           filterdata(data);

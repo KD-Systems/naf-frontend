@@ -6,11 +6,9 @@ import RequisitionService from "services/RequisitionService";
 import RequisitionFilter from "./RequisitionFilter";
 
 const Requisitions = () => {
-
-  
   const [filter, setFilter] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [requisitions, setRequisitions] = useState([]);  
+  const [requisitions, setRequisitions] = useState([]);
 
   const filterdata = (data) => {
     setFilter(false);
@@ -53,9 +51,7 @@ const Requisitions = () => {
       field: "expected_delivery",
       format: (row) => (
         <div className="mt-2">
-          {row?.expected_delivery
-            ? row?.expected_delivery
-            : "--"}
+          {row?.expected_delivery ? row?.expected_delivery : "--"}
         </div>
       ),
     },
@@ -162,12 +158,17 @@ const Requisitions = () => {
           />
         </div>
       </div>
-      <RequisitionFilter
-        enable={filter}
-        onChange={(data) => {
-          filterdata(data);
-        }}
-      />
+      {filter && (
+        <RequisitionFilter
+          onClickOutside={() => {
+            setFilter(!filter);
+          }}
+          enable={filter}
+          onChange={(data) => {
+            filterdata(data);
+          }}
+        />
+      )}
     </>
   );
 };
