@@ -94,8 +94,8 @@ const ClaimRequisition = () => {
       <div className="post d-flex flex-column-fluid">
         <div className="container-xxl">
           <Table
-            name="client Requisitions"
-            buttonName="Add Requisition"
+            name="Claim Request"
+            buttonName="Add Claim Request"
             onClickButton={routeChange}
             callbackButtons={[
               {

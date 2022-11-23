@@ -13,6 +13,13 @@ const getAllRequiredRequisitions = async (data) => {
   return res.data;
 };
 
+const getAllClaimRequest = async (data) => {
+  const res = await http.get(`/claim-request`, {
+    params: data,
+  });
+  return res.data;
+};
+
 const getAllRequiredRequisitionsClient = async (data) => {
   const res = await http.get(`client-required-part/requisitions`, {
     params: data,
@@ -107,6 +114,7 @@ const RequisitionService = {
   getAll,
   getAllRequiredRequisitions,
   getAllRequiredRequisitionsClient,
+  getAllClaimRequest,
   get,
   getRequiredRequisition,
   engineers,
