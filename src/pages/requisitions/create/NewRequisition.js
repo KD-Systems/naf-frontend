@@ -120,7 +120,7 @@ const NewRequisition = () => {
         })
       : await RequisitionService.create(data);
     setBlock(false);
-    if (req) {
+    if (req || data?.type == "claim_report") {
       navigate("/panel/require_req");
     } else {
       navigate("/panel/requisitions");
@@ -701,7 +701,7 @@ const NewRequisition = () => {
             </div>
           )}
 
-          {req ? (
+          {req || data?.type == "claim_report" ? (
             <span>
               {inputField?.map((item, index) => (
                 <Fragment key={index}>

@@ -44,6 +44,7 @@ import ShowDesignation from "pages/designations/Show";
 import Employee from "pages/employee/Index";
 import ShowEmployee from "pages/employee/Show";
 import ClaimRequisition from "pages/foc-requisitions/Index";
+import CreateClaimRequisition from "pages/foc-requisitions/Create";
 import ShowClaimRequisition from "pages/foc-requisitions/Show";
 import Forbidden from "pages/Forbidden";
 import GatePass from "pages/gate-passes/Index";
@@ -77,11 +78,14 @@ import ShowRequisition from "pages/requisitions/Show";
 import Roles from "pages/roles/Index";
 import ShowPermission from "pages/roles/Show";
 import Settings from "pages/Settings/Index";
-import TransactionSummary from 'pages/transaction-summary/Index';
+import TransactionSummary from "pages/transaction-summary/Index";
 import ShowTransactionSummary from "pages/transaction-summary/Show";
 import WareHouse from "pages/warehouses/Index";
 import WareHouseShow from "pages/warehouses/Show";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import ClaimRequest from "pages/foc_claim_request/Index";
+import ShowClaimRequest from "pages/foc_claim_request/Show";
+import ClaimRequestRequisitionCreate from "pages/foc_claim_request/Create";
 
 function App() {
   return (
@@ -541,10 +545,46 @@ function App() {
             />
 
             <Route
+              path="claim-requisitions/create"
+              element={
+                <PrivateRoute>
+                  <CreateClaimRequisition />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
               path="claim-requisitions/:id"
               element={
                 <PrivateRoute>
                   <ShowClaimRequisition />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
+              path="claim-requests"
+              element={
+                <PrivateRoute>
+                  <ClaimRequest />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
+              path="claim-requests/create/:id"
+              element={
+                <PrivateRoute>
+                  <ClaimRequestRequisitionCreate />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
+              path="claim-requests/:id"
+              element={
+                <PrivateRoute>
+                  <ShowClaimRequest />
                 </PrivateRoute>
               }
             />

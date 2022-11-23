@@ -8,9 +8,11 @@ import CompanyService from "services/CompanyService";
 import PartService from "services/PartService";
 import RequisitionService from "services/RequisitionService";
 
-const RequiredRequisitionCreate = () => {
+const ClaimRequestRequisitionCreate = () => {
   const navigate = useNavigate();
   let { id } = useParams();
+
+  const [fromFoc, setFromFoc] = useState(true)
 
   const addPart = (item) => {
     item["quantity"] = 0;
@@ -108,7 +110,7 @@ const RequiredRequisitionCreate = () => {
   };
 
   const getParts = async () => {
-    let res = await PartService.getAll(filter);
+    let res = fromFoc ? await PartService.getAll(filter) : await PartService.getAll(filter);
     setSearchData(res.data);
     let items = res.data?.map((dt) => {
       return { label: dt.name, value: dt.id };
@@ -205,7 +207,7 @@ const RequiredRequisitionCreate = () => {
 
                       <div className="d-flex flex-center flex-equal fw-row text-nowrap order-1 order-xxl-2 me-4">
                         <span className="fs-2x fw-bolder text-gray-800">
-                          Requisition
+                          Claim Request Requisition
                         </span>
                       </div>
 
@@ -550,6 +552,24 @@ const RequiredRequisitionCreate = () => {
           </div>
 
           <div className="d-flex flex-column flex-lg-row">
+              <div className="flex-lg-row-fluid mb-10 mb-lg-0 me-lg-7 me-xl-10">
+                <div className="card mb-5">
+                  <div className="card-body">
+                    <span>
+                      <input
+                        type="checkbox"
+                        defaultChecked={fromFoc}
+                        onChange={() => setFromFoc(!fromFoc)}
+                      />
+                    </span>
+
+                    <span className="p-5">From FOC stock?</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          <div className="d-flex flex-column flex-lg-row">
             <div className="flex-lg-row-fluid mb-10 mb-lg-0 me-lg-7 me-xl-10">
               <div className="card mb-5">
                 <div className="card-body p-12">
@@ -737,4 +757,4 @@ const RequiredRequisitionCreate = () => {
   );
 };
 
-export default RequiredRequisitionCreate;
+export default ClaimRequestRequisitionCreate;
