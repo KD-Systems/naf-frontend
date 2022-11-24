@@ -47,6 +47,7 @@ const CreateDesignation = ({ open, onCloseModal, getDesignations }) => {
                   onChange={handleChange}
                 />
               </div>
+              <div className="fv-plugins-message-container invalid-feedback" htmlFor="name"></div>
 
               <div className="form-group mt-5">
                 <label className="form-label">Description</label>
