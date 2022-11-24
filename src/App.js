@@ -86,6 +86,9 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import ClaimRequest from "pages/foc_claim_request/Index";
 import ShowClaimRequest from "pages/foc_claim_request/Show";
 import ClaimRequestRequisitionCreate from "pages/foc_claim_request/Create";
+import ClientClaimRequisition from "pages/client/foc-requisitions/Index";
+import ClientClaimRequest from "pages/client/foc_claim_request/Index";
+import CreateClientClaimRequisition from "pages/client/foc-requisitions/Create";
 
 function App() {
   return (
@@ -545,15 +548,6 @@ function App() {
             />
 
             <Route
-              path="claim-requisitions/create"
-              element={
-                <PrivateRoute>
-                  <CreateClaimRequisition />
-                </PrivateRoute>
-              }
-            />
-
-            <Route
               path="claim-requisitions/:id"
               element={
                 <PrivateRoute>
@@ -572,6 +566,15 @@ function App() {
             />
 
             <Route
+              path="claim-requests/create"
+              element={
+                <PrivateRoute>
+                  <CreateClaimRequisition />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
               path="claim-requests/create/:id"
               element={
                 <PrivateRoute>
@@ -581,7 +584,7 @@ function App() {
             />
 
             <Route
-              path="claim-requests/:id"
+              path="claim-request/:id"
               element={
                 <PrivateRoute>
                   <ShowClaimRequest />
@@ -892,7 +895,66 @@ function App() {
               }
             />
 
+
             {/* company user sales end */}
+
+            {/* client foc start */}
+
+            <Route
+              path="client-claim-requisitions"
+              element={
+                <PrivateRoute>
+                  <ClientClaimRequisition />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
+              path="claim-requisitions/:id"
+              element={
+                <PrivateRoute>
+                  <ShowClaimRequisition />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
+              path="client-claim-requests"
+              element={
+                <PrivateRoute>
+                  <ClientClaimRequest />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
+              path="client-claim-requests/create"
+              element={
+                <PrivateRoute>
+                  <CreateClientClaimRequisition />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
+              path="claim-requests/create/:id"
+              element={
+                <PrivateRoute>
+                  <ClaimRequestRequisitionCreate />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
+              path="claim-request/:id"
+              element={
+                <PrivateRoute>
+                  <ShowClaimRequest />
+                </PrivateRoute>
+              }
+            />
+            {/* client foc end */}
+
 
             <Route path="403" element={<Forbidden />} />
             <Route path="*" element={<NotFound />} />
