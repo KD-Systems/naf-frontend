@@ -24,9 +24,7 @@ const CompanyRequisitions = () => {
       field: "expected_delivery",
       format: (row) => (
         <div className="mt-2">
-          {row?.expected_delivery
-            ? row?.expected_delivery
-            : "--"}
+          {row?.expected_delivery ? row?.expected_delivery : "--"}
         </div>
       ),
     },
@@ -130,6 +128,9 @@ const CompanyRequisitions = () => {
       </div>
       <RequisitionFilter
         enable={filter}
+        onClickOutside={() => {
+          setFilter(!filter);
+        }}
         onChange={(data) => {
           getRequisitions(data);
         }}

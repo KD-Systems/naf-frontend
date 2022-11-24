@@ -1,19 +1,20 @@
 import moment from "moment";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import DatePicker from "react-datepicker";
 import Select from "react-select";
 import CompanyService from "services/CompanyService";
-const DateFilter = ({ enable, onChange }) => {
+
+const DateFilter = ({ enable, onClickOutside, onChange }) => {
+  const ref = useRef(null);
   const [companies, setCompanies] = useState([]);
   // const status = [
   //   { value: 'paid', label: "Paid" },
   //   { value: 'due', label: "Due" },
   // ];
   const type = [
-    { value: 'purchase_request', label: "Purchase Request" },
-    { value: 'claim_request', label: "Claim Request" },
-    { value: 'previous_due', label: "Previous Due" },
-    
+    { value: "purchase_request", label: "Purchase Request" },
+    { value: "claim_request", label: "Claim Request" },
+    { value: "previous_due", label: "Previous Due" },
   ];
   const [data, setData] = useState({
     start_date: null,
@@ -99,15 +100,24 @@ const DateFilter = ({ enable, onChange }) => {
       });
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (ref.current && !ref.current.contains(event.target))
+        onClickOutside && onClickOutside();
+    };
+
+    document.addEventListener("click", handleClickOutside, true);
+    return () =>
+      document.removeEventListener("click", handleClickOutside, true);
+  }, [onClickOutside]);
+
+  if (!enable) return null;
+
   return (
     <>
-      {" "}
       <div
-        className={
-          enable
-            ? "menu menu-sub menu-sub-dropdown w-250px w-md-300px show"
-            : "menu menu-sub menu-sub-dropdown w-250px w-md-300px"
-        }
+        ref={ref}
+        className="menu menu-sub menu-sub-dropdown w-250px w-md-300px show"
         style={custom}
       >
         <div className="px-7 py-5">

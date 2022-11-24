@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Select from "react-select";
 
-function ClientRequiredRequisitionFilter({ enable, onChange }) {
+function ClientRequiredRequisitionFilter({ enable, onClickOutside, onChange }) {
+  const ref = useRef(null);
   let user = JSON.parse(localStorage.getItem("user"))?.user;
 
   const [data, setData] = useState({
@@ -75,14 +76,24 @@ function ClientRequiredRequisitionFilter({ enable, onChange }) {
       });
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (ref.current && !ref.current.contains(event.target))
+        onClickOutside && onClickOutside();
+    };
+
+    document.addEventListener("click", handleClickOutside, true);
+    return () =>
+      document.removeEventListener("click", handleClickOutside, true);
+  }, [onClickOutside]);
+
+  if (!enable) return null;
+
   return (
     <>
       <div
-        className={
-          enable
-            ? "menu menu-sub menu-sub-dropdown w-250px w-md-300px show"
-            : "menu menu-sub menu-sub-dropdown w-250px w-md-300px"
-        }
+        ref={ref}
+        className="menu menu-sub menu-sub-dropdown w-250px w-md-300px show"
         style={custom}
       >
         <div className="px-7 py-5">

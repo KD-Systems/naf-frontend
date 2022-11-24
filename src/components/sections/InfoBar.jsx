@@ -193,7 +193,6 @@ const InfoBar = () => {
                   dataLength={notification?.length}
                   next={fetchMoreData}
                   hasMore={true}
-                  // loader={<h4>Loading...</h4>}
                   pullDownToRefreshThreshold={80}
                   scrollableTarget="scrollableDiv"
                 >
