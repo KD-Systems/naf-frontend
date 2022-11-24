@@ -46,10 +46,9 @@ const Index = () => {
     setData(tempdata);
   };
   //update designation
-  const onSubmit = (e) => {
-    // e.preve
-    updateDesignation();
-    onCloseModal();
+  const onSubmit = async (e) => {
+    const res = await updateDesignation();
+    if (!res.errors) onCloseModal();
   };
 
   //delete Designation
@@ -121,9 +120,7 @@ const Index = () => {
                             {item.name}
                           </Link>
                         </td>
-                        <td>
-                          {item.members}
-                        </td>
+                        <td>{item.members}</td>
 
                         <td className="text-end">
                           <PermissionAbility permission="designations_show">
@@ -177,7 +174,7 @@ const Index = () => {
           <>
             <form>
               <div className="form-group">
-              <label className="required form-label">Name</label>
+                <label className="required form-label">Name</label>
                 <input
                   type="text"
                   className="form-control"
@@ -188,7 +185,10 @@ const Index = () => {
                   onChange={handleChange}
                 />
               </div>
-              <div className="fv-plugins-message-container invalid-feedback" htmlFor="name"></div>
+              <div
+                className="fv-plugins-message-container invalid-feedback"
+                htmlFor="name"
+              ></div>
 
               <div className="form-group mt-5">
                 <textarea
