@@ -46,7 +46,8 @@ const Index = () => {
     setData(tempdata);
   };
   //update designation
-  const onSubmit = () => {
+  const onSubmit = (e) => {
+    // e.preve
     updateDesignation();
     onCloseModal();
   };
@@ -176,6 +177,7 @@ const Index = () => {
           <>
             <form>
               <div className="form-group">
+              <label className="required form-label">Name</label>
                 <input
                   type="text"
                   className="form-control"
@@ -186,6 +188,7 @@ const Index = () => {
                   onChange={handleChange}
                 />
               </div>
+              <div className="fv-plugins-message-container invalid-feedback" htmlFor="name"></div>
 
               <div className="form-group mt-5">
                 <textarea
