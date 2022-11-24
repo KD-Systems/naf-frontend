@@ -4,10 +4,11 @@ import PermissionAbility from "helpers/PermissionAbility";
 import { useEffect, useState } from "react";
 import Moment from "react-moment";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import RequisitionService from "../../services/RequisitionService";
+import RequisitionService from "services/RequisitionService";
+// import RequisitionService from "../../services/RequisitionService";
 import NewDropzone from "./Dropzone/MyDropzone";
 
-const ShowClaimRequisition = () => {
+const ShowClientClaimRequisition = () => {
   const [confirmDelete, setConfirmDelete] = useState(false);
 
   const [uuid, setuuid] = useState();
@@ -22,8 +23,8 @@ const ShowClaimRequisition = () => {
   const [tab, setTab] = useState("requisitions");
 
   const getRequisition = async () => {
-    let res = await RequisitionService.get(id);
-    setRequisition(res);
+    // let res = await RequisitionService.get(id);
+    // setRequisition(res);
   };
 
   useEffect(() => {
@@ -166,7 +167,7 @@ const ShowClaimRequisition = () => {
                   {requisition?.remarks ?? "--"}
                 </div>
               </div>
-              <div className="card-header"> 
+              <div className="card-header">
                 <div className="card-title">
                   <h3 className="card-label">
                     <PermissionAbility permission="requisitions_print">
@@ -180,68 +181,7 @@ const ShowClaimRequisition = () => {
                       </Link>
                     </PermissionAbility>
                   </h3>
-                  {stock && (
-                    <>
-                      {requisition.status == "approved" ? (
-                        <h3 className="card-label">
-                          <PermissionAbility permission="requisitions_generate_quotation">
-                            <button
-                              className="btn btn-sm btn-dark "
-                              style={{ marginRight: "0.1rem" }}
-                              onClick={() =>
-                                navigate(
-                                  `/panel/quotations/${requisition?.id}/create`
-                                )
-                              }
-                            >
-                              Generate Quotation
-                            </button>
-                          </PermissionAbility>
-                        </h3>
-                      ) : (
-                        <>
-                          <PermissionAbility permission="requisitions_approve">
-                            {requisition.status == "rejected" ? (
-                              <h3 className="card-label">
-                                <div className="btn btn-sm bg-danger disabled text-white">
-                                  Rejected Requisition
-                                </div>
-                              </h3>
-                            ) : (
-                              <>
-                                <h3 className="card-label">
-                                  <button
-                                    onClick={approveRequisition}
-                                    className="btn btn-sm btn-primary"
-                                  >
-                                    Approve
-                                  </button>
-                                </h3>
-                                <h3 className="card-label">
-                                  <button
-                                    onClick={rejectRequisition}
-                                    className="btn btn-sm btn-danger"
-                                  >
-                                    Reject
-                                  </button>
-                                </h3>
-                              </>
-                            )}
-                          </PermissionAbility>
-                        </>
-                      )}
-                    </>
-                  )}
                 </div>
-
-                {!stock && (
-                  <p
-                    className="badge text-danger"
-                    style={{ fontSize: "16px" }}
-                  >
-                    Unavailable Stock
-                  </p>
-                )}
               </div>
             </div>
           </div>
@@ -439,4 +379,4 @@ const ShowClaimRequisition = () => {
   );
 };
 
-export default ShowClaimRequisition;
+export default ShowClientClaimRequisition;

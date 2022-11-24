@@ -65,17 +65,17 @@ const ClientClaimRequisition = () => {
       format: (row) => (<div className="mt-2"> {row?.quotation?.pq_number ? row?.quotation?.pq_number : "No quotation yet"} </div> ),
     },
 
-    // {
-    //   name: "Action",
-    //   selector: (row) => row.status,
-    //   format: (row) => (
-    //     <span className="text-end">
-    //       <Link to={"/panel/claim-requisitions/" + row.id} className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" >
-    //         <i className="fa fa-eye"></i>
-    //       </Link>
-    //     </span>
-    //   ),
-    // },
+    {
+      name: "Action",
+      selector: (row) => row.status,
+      format: (row) => (
+        <span className="text-end">
+          <Link to={"/panel/client-claim-requisitions/" + row.id} className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" >
+            <i className="fa fa-eye"></i>
+          </Link>
+        </span>
+      ),
+    },
   ];
 
   const getRequisitions = async (data) => {
