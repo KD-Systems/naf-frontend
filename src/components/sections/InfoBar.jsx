@@ -60,14 +60,16 @@ const InfoBar = () => {
       if (profileOpen && ref.current && !ref.current.contains(e.target)) {
         setProfileOpen(false);
       }
+      if (expandNotification && ref.current && !ref.current.contains(e.target)) {
+        setExpandNotification(false);
+      }
     };
-
     document.addEventListener("mousedown", clickIfClickedOutside);
 
     return () => {
       document.removeEventListener("mousedown", clickIfClickedOutside);
     };
-  }, [profileOpen]);
+  }, [profileOpen, expandNotification]);
 
   // for pusher
   useEffect(() => {
@@ -107,8 +109,14 @@ const InfoBar = () => {
       <div className="d-flex align-items-stretch flex-shrink-0">
         <div className="d-flex align-items-center ms-1 ms-lg-3">
           <div
+            ref={ref}
             onClick={() => setExpandNotification(!expandNotification)}
-            className="btn btn-icon btn-active-light-primary position-relative w-30px h-30px w-md-40px h-md-40px show menu-dropdown"
+            // className="btn btn-icon btn-active-light-primary position-relative w-30px h-30px w-md-40px h-md-40px"
+            className={
+              expandNotification
+                ? "btn btn-icon btn-active-light-primary position-relative w-30px h-30px w-md-40px h-md-40px show menu-dropdown"
+                : "btn btn-icon btn-active-light-primary position-relative w-30px h-30px w-md-40px h-md-40px"
+            }
             data-kt-menu-trigger="click"
             data-kt-menu-attach="parent"
             data-kt-menu-placement="bottom-end"
@@ -188,6 +196,7 @@ const InfoBar = () => {
                   dataLength={notification?.length}
                   next={fetchMoreData}
                   hasMore={true}
+                  // loader={<h4>Loading...</h4>}
                   pullDownToRefreshThreshold={80}
                   scrollableTarget="scrollableDiv"
                 >
