@@ -108,12 +108,7 @@ const InfoBar = () => {
         <div className="d-flex align-items-center ms-1 ms-lg-3">
           <div
             onClick={() => setExpandNotification(!expandNotification)}
-            // className="btn btn-icon btn-active-light-primary position-relative w-30px h-30px w-md-40px h-md-40px"
-            className={
-              expandNotification
-                ? "btn btn-icon btn-active-light-primary position-relative w-30px h-30px w-md-40px h-md-40px show menu-dropdown"
-                : "btn btn-icon btn-active-light-primary position-relative w-30px h-30px w-md-40px h-md-40px"
-            }
+            className="btn btn-icon btn-active-light-primary position-relative w-30px h-30px w-md-40px h-md-40px show menu-dropdown"
             data-kt-menu-trigger="click"
             data-kt-menu-attach="parent"
             data-kt-menu-placement="bottom-end"
