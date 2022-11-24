@@ -59,10 +59,10 @@ const CreateContract = ({ open, onCloseModal, onCreated }) => {
 
   const addContract = async () => {
     setBlock(true)
-    onCloseModal();
     let formData = new FormData(document.getElementById("create-contract"));
     await ContractService.create(formData);
     onCreated();
+    onCloseModal();
     setData({
       company_id: '',
       machine_id: '',
