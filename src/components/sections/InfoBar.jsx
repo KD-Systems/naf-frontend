@@ -60,10 +60,15 @@ const InfoBar = () => {
       if (profileOpen && ref.current && !ref.current.contains(e.target)) {
         setProfileOpen(false);
       }
-      if (expandNotification && ref.current && !ref.current.contains(e.target)) {
+      if (
+        expandNotification &&
+        ref.current &&
+        !ref.current.contains(e.target)
+      ) {
         setExpandNotification(false);
       }
     };
+
     document.addEventListener("mousedown", clickIfClickedOutside);
 
     return () => {
@@ -102,21 +107,14 @@ const InfoBar = () => {
     setNotification(newNotification);
   };
 
-
-
   return (
     <div className="d-flex align-items-stretch flex-shrink-0">
       <div className="d-flex align-items-stretch flex-shrink-0">
         <div className="d-flex align-items-center ms-1 ms-lg-3">
           <div
-            ref={ref}
             onClick={() => setExpandNotification(!expandNotification)}
             // className="btn btn-icon btn-active-light-primary position-relative w-30px h-30px w-md-40px h-md-40px"
-            className={
-              expandNotification
-                ? "btn btn-icon btn-active-light-primary position-relative w-30px h-30px w-md-40px h-md-40px show menu-dropdown"
-                : "btn btn-icon btn-active-light-primary position-relative w-30px h-30px w-md-40px h-md-40px"
-            }
+            className="btn btn-icon btn-active-light-primary position-relative w-30px h-30px w-md-40px h-md-40px show menu-dropdown"
             data-kt-menu-trigger="click"
             data-kt-menu-attach="parent"
             data-kt-menu-placement="bottom-end"
@@ -156,376 +154,371 @@ const InfoBar = () => {
             ></span>
           </div>
 
-          <div
-            className={
-              expandNotification
-                ? "menu menu-sub menu-sub-dropdown menu-column w-350px w-lg-375px show"
-                : "menu menu-sub menu-sub-dropdown menu-column w-350px w-lg-375px"
-            }
-            data-kt-menu="true"
-            style={
-              expandNotification
-                ? {
-                    zIndex: 105,
-                    position: "fixed",
-                    inset: "0px 0px auto auto",
-                    margin: "0px",
-                    transform: "translate(-128px, 65px)",
-                  }
-                : {}
-            }
-          >
+          {expandNotification ? (
             <div
-              className="d-flex flex-column bgi-no-repeat rounded-top"
+              ref={ref}
+              className="menu menu-sub menu-sub-dropdown menu-column w-350px w-lg-375px show"
+              data-kt-menu="true"
               style={{
-                backgroundImage: "url('/assets/media/misc/pattern-1.jpg')",
+                zIndex: 105,
+                position: "fixed",
+                inset: "0px 0px auto auto",
+                margin: "0px",
+                transform: "translate(-128px, 65px)",
               }}
             >
-              <h3 className="text-white fw-bold px-9 mt-10 mb-6">
-                Notifications
-              </h3>
-            </div>
-
-            <div className="tab-content">
               <div
-                className="tab-pane fade show active"
-                id="kt_topbar_notifications_1"
-                role="tabpanel"
+                className="d-flex flex-column bgi-no-repeat rounded-top"
+                style={{
+                  backgroundImage: "url('/assets/media/misc/pattern-1.jpg')",
+                }}
               >
-                <InfiniteScroll
-                  dataLength={notification?.length}
-                  next={fetchMoreData}
-                  hasMore={true}
-                  // loader={<h4>Loading...</h4>}
-                  pullDownToRefreshThreshold={80}
-                  scrollableTarget="scrollableDiv"
-                >
-                  <div
-                    id="scrollableDiv"
-                    className="scroll-y mh-325px my-5 px-8"
-                  >
-                    {notification?.map((item, index) => {
-                      return (
-                        <div key={index} className="d-flex flex-stack py-4">
-                          <div className="d-flex align-items-center">
-                            <div className="symbol symbol-35px me-4">
-                              <span className="symbol-label bg-light-primary">
-                                <span
-                                  className={
-                                    item?.read_at
-                                      ? "svg-icon svg-icon-2 svg-icon-primary"
-                                      : "svg-icon svg-icon-2 svg-icon-danger"
-                                  }
-                                >
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="24"
-                                    height="24"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                  >
-                                    <path
-                                      opacity="0.3"
-                                      d="M6 22H4V3C4 2.4 4.4 2 5 2C5.6 2 6 2.4 6 3V22Z"
-                                      fill="black"
-                                    ></path>
-                                    <path
-                                      d="M18 14H4V4H18C18.8 4 19.2 4.9 18.7 5.5L16 9L18.8 12.5C19.3 13.1 18.8 14 18 14Z"
-                                      fill="black"
-                                    ></path>
-                                  </svg>
-                                </span>
-                              </span>
-                            </div>
+                <h3 className="text-white fw-bold px-9 mt-10 mb-6">
+                  Notifications
+                </h3>
+              </div>
 
-                            <div className="mb-0 me-2">
-                              <Link
-                                to={
-                                  user.details == null
-                                    ? `/panel/${item?.data?.url}`
-                                    : `/panel/client/${item?.data?.url}`
-                                }
-                                onClick={() => {
-                                  notificationRead(item);
-                                }}
-                                className="fs-6 text-gray-800 text-hover-primary fw-bolder"
-                              >
-                                {item?.data?.message}
-                              </Link>
-                              <div className="text-gray-400 fs-7">
-                                {item?.data?.message} by{" "}
-                                {item?.data?.user?.name}
+              <div className="tab-content">
+                <div
+                  className="tab-pane fade show active"
+                  id="kt_topbar_notifications_1"
+                  role="tabpanel"
+                >
+                  <InfiniteScroll
+                    dataLength={notification?.length}
+                    next={fetchMoreData}
+                    hasMore={true}
+                    // loader={<h4>Loading...</h4>}
+                    pullDownToRefreshThreshold={80}
+                    scrollableTarget="scrollableDiv"
+                  >
+                    <div
+                      id="scrollableDiv"
+                      className="scroll-y mh-325px my-5 px-8"
+                    >
+                      {notification?.map((item, index) => {
+                        return (
+                          <div key={index} className="d-flex flex-stack py-4">
+                            <div className="d-flex align-items-center">
+                              <div className="symbol symbol-35px me-4">
+                                <span className="symbol-label bg-light-primary">
+                                  <span
+                                    className={
+                                      item?.read_at
+                                        ? "svg-icon svg-icon-2 svg-icon-primary"
+                                        : "svg-icon svg-icon-2 svg-icon-danger"
+                                    }
+                                  >
+                                    <svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      width="24"
+                                      height="24"
+                                      viewBox="0 0 24 24"
+                                      fill="none"
+                                    >
+                                      <path
+                                        opacity="0.3"
+                                        d="M6 22H4V3C4 2.4 4.4 2 5 2C5.6 2 6 2.4 6 3V22Z"
+                                        fill="black"
+                                      ></path>
+                                      <path
+                                        d="M18 14H4V4H18C18.8 4 19.2 4.9 18.7 5.5L16 9L18.8 12.5C19.3 13.1 18.8 14 18 14Z"
+                                        fill="black"
+                                      ></path>
+                                    </svg>
+                                  </span>
+                                </span>
+                              </div>
+
+                              <div className="mb-0 me-2">
+                                <Link
+                                  to={
+                                    user.details == null
+                                      ? `/panel/${item?.data?.url}`
+                                      : `/panel/client/${item?.data?.url}`
+                                  }
+                                  onClick={() => {
+                                    notificationRead(item);
+                                  }}
+                                  className="fs-6 text-gray-800 text-hover-primary fw-bolder"
+                                >
+                                  {item?.data?.message}
+                                </Link>
+                                <div className="text-gray-400 fs-7">
+                                  {item?.data?.message} by{" "}
+                                  {item?.data?.user?.name}
+                                </div>
                               </div>
                             </div>
+
+                            <span className="badge badge-light fs-8">
+                              <Moment format="HH:mm">{item?.created_at}</Moment>
+                            </span>
                           </div>
+                        );
+                      })}
+                    </div>
+                  </InfiniteScroll>
 
-                          <span className="badge badge-light fs-8">
-                            <Moment format="HH:mm">{item?.created_at}</Moment>
-                          </span>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </InfiniteScroll>
-
-                <div className="py-3 text-center border-top">
-                  {/* <Link to={
+                  <div className="py-3 text-center border-top">
+                    {/* <Link to={
                                 user.details == null
                                   ? `/panel/all-notification`
                                   : `/panel/client/all-notification`
                               } className=" color-gray-600 btn-active-color-primary">
                     Total ({notification?.length})
                   </Link> */}
-                  Total ({notification?.length})
-                </div>
-              </div>
-
-              <div
-                className="tab-pane fade"
-                id="kt_topbar_notifications_3"
-                role="tabpanel"
-              >
-                <div className="scroll-y mh-325px my-5 px-8">
-                  <div className="d-flex flex-stack py-4">
-                    <div className="d-flex align-items-center me-2">
-                      <span className="w-70px badge badge-light-success me-4">
-                        200 OK
-                      </span>
-
-                      <a
-                        href="!#"
-                        className="text-gray-800 text-hover-primary fw-bold"
-                      >
-                        New order
-                      </a>
-                    </div>
-
-                    <span className="badge badge-light fs-8">Just now</span>
-                  </div>
-
-                  <div className="d-flex flex-stack py-4">
-                    <div className="d-flex align-items-center me-2">
-                      <span className="w-70px badge badge-light-danger me-4">
-                        500 ERR
-                      </span>
-
-                      <a
-                        href="!#"
-                        className="text-gray-800 text-hover-primary fw-bold"
-                      >
-                        New customer
-                      </a>
-                    </div>
-
-                    <span className="badge badge-light fs-8">2 hrs</span>
-                  </div>
-
-                  <div className="d-flex flex-stack py-4">
-                    <div className="d-flex align-items-center me-2">
-                      <span className="w-70px badge badge-light-success me-4">
-                        200 OK
-                      </span>
-
-                      <a
-                        href="!#"
-                        className="text-gray-800 text-hover-primary fw-bold"
-                      >
-                        Payment process
-                      </a>
-                    </div>
-
-                    <span className="badge badge-light fs-8">5 hrs</span>
-                  </div>
-
-                  <div className="d-flex flex-stack py-4">
-                    <div className="d-flex align-items-center me-2">
-                      <span className="w-70px badge badge-light-warning me-4">
-                        300 WRN
-                      </span>
-
-                      <a
-                        href="!#"
-                        className="text-gray-800 text-hover-primary fw-bold"
-                      >
-                        Search query
-                      </a>
-                    </div>
-
-                    <span className="badge badge-light fs-8">2 days</span>
-                  </div>
-
-                  <div className="d-flex flex-stack py-4">
-                    <div className="d-flex align-items-center me-2">
-                      <span className="w-70px badge badge-light-success me-4">
-                        200 OK
-                      </span>
-
-                      <a
-                        href="!#"
-                        className="text-gray-800 text-hover-primary fw-bold"
-                      >
-                        API connection
-                      </a>
-                    </div>
-
-                    <span className="badge badge-light fs-8">1 week</span>
-                  </div>
-
-                  <div className="d-flex flex-stack py-4">
-                    <div className="d-flex align-items-center me-2">
-                      <span className="w-70px badge badge-light-success me-4">
-                        200 OK
-                      </span>
-
-                      <a
-                        href="!#"
-                        className="text-gray-800 text-hover-primary fw-bold"
-                      >
-                        Database restore
-                      </a>
-                    </div>
-
-                    <span className="badge badge-light fs-8">Mar 5</span>
-                  </div>
-
-                  <div className="d-flex flex-stack py-4">
-                    <div className="d-flex align-items-center me-2">
-                      <span className="w-70px badge badge-light-warning me-4">
-                        300 WRN
-                      </span>
-
-                      <a
-                        href="!#"
-                        className="text-gray-800 text-hover-primary fw-bold"
-                      >
-                        System update
-                      </a>
-                    </div>
-
-                    <span className="badge badge-light fs-8">May 15</span>
-                  </div>
-
-                  <div className="d-flex flex-stack py-4">
-                    <div className="d-flex align-items-center me-2">
-                      <span className="w-70px badge badge-light-warning me-4">
-                        300 WRN
-                      </span>
-
-                      <a
-                        href="!#"
-                        className="text-gray-800 text-hover-primary fw-bold"
-                      >
-                        Server OS update
-                      </a>
-                    </div>
-
-                    <span className="badge badge-light fs-8">Apr 3</span>
-                  </div>
-
-                  <div className="d-flex flex-stack py-4">
-                    <div className="d-flex align-items-center me-2">
-                      <span className="w-70px badge badge-light-warning me-4">
-                        300 WRN
-                      </span>
-
-                      <a
-                        href="!#"
-                        className="text-gray-800 text-hover-primary fw-bold"
-                      >
-                        API rollback
-                      </a>
-                    </div>
-
-                    <span className="badge badge-light fs-8">Jun 30</span>
-                  </div>
-
-                  <div className="d-flex flex-stack py-4">
-                    <div className="d-flex align-items-center me-2">
-                      <span className="w-70px badge badge-light-danger me-4">
-                        500 ERR
-                      </span>
-
-                      <a
-                        href="!#"
-                        className="text-gray-800 text-hover-primary fw-bold"
-                      >
-                        Refund process
-                      </a>
-                    </div>
-
-                    <span className="badge badge-light fs-8">Jul 10</span>
-                  </div>
-
-                  <div className="d-flex flex-stack py-4">
-                    <div className="d-flex align-items-center me-2">
-                      <span className="w-70px badge badge-light-danger me-4">
-                        500 ERR
-                      </span>
-
-                      <a
-                        href="!#"
-                        className="text-gray-800 text-hover-primary fw-bold"
-                      >
-                        Withdrawal process
-                      </a>
-                    </div>
-
-                    <span className="badge badge-light fs-8">Sep 10</span>
-                  </div>
-
-                  <div className="d-flex flex-stack py-4">
-                    <div className="d-flex align-items-center me-2">
-                      <span className="w-70px badge badge-light-danger me-4">
-                        500 ERR
-                      </span>
-
-                      <a
-                        href="!#"
-                        className="text-gray-800 text-hover-primary fw-bold"
-                      >
-                        Mail tasks
-                      </a>
-                    </div>
-
-                    <span className="badge badge-light fs-8">Dec 10</span>
+                    Total ({notification?.length})
                   </div>
                 </div>
 
-                <div className="py-3 text-center border-top">
-                  <a
-                    href="../../demo1/dist/pages/profile/activity.html"
-                    className="btn btn-color-gray-600 btn-active-color-primary"
-                  >
-                    View All
-                    <span className="svg-icon svg-icon-5">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                      >
-                        <rect
-                          opacity="0.5"
-                          x="18"
-                          y="13"
-                          width="13"
-                          height="2"
-                          rx="1"
-                          transform="rotate(-180 18 13)"
-                          fill="black"
-                        ></rect>
-                        <path
-                          d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z"
-                          fill="black"
-                        ></path>
-                      </svg>
-                    </span>
-                  </a>
+                <div
+                  className="tab-pane fade"
+                  id="kt_topbar_notifications_3"
+                  role="tabpanel"
+                >
+                  <div className="scroll-y mh-325px my-5 px-8">
+                    <div className="d-flex flex-stack py-4">
+                      <div className="d-flex align-items-center me-2">
+                        <span className="w-70px badge badge-light-success me-4">
+                          200 OK
+                        </span>
+
+                        <a
+                          href="!#"
+                          className="text-gray-800 text-hover-primary fw-bold"
+                        >
+                          New order
+                        </a>
+                      </div>
+
+                      <span className="badge badge-light fs-8">Just now</span>
+                    </div>
+
+                    <div className="d-flex flex-stack py-4">
+                      <div className="d-flex align-items-center me-2">
+                        <span className="w-70px badge badge-light-danger me-4">
+                          500 ERR
+                        </span>
+
+                        <a
+                          href="!#"
+                          className="text-gray-800 text-hover-primary fw-bold"
+                        >
+                          New customer
+                        </a>
+                      </div>
+
+                      <span className="badge badge-light fs-8">2 hrs</span>
+                    </div>
+
+                    <div className="d-flex flex-stack py-4">
+                      <div className="d-flex align-items-center me-2">
+                        <span className="w-70px badge badge-light-success me-4">
+                          200 OK
+                        </span>
+
+                        <a
+                          href="!#"
+                          className="text-gray-800 text-hover-primary fw-bold"
+                        >
+                          Payment process
+                        </a>
+                      </div>
+
+                      <span className="badge badge-light fs-8">5 hrs</span>
+                    </div>
+
+                    <div className="d-flex flex-stack py-4">
+                      <div className="d-flex align-items-center me-2">
+                        <span className="w-70px badge badge-light-warning me-4">
+                          300 WRN
+                        </span>
+
+                        <a
+                          href="!#"
+                          className="text-gray-800 text-hover-primary fw-bold"
+                        >
+                          Search query
+                        </a>
+                      </div>
+
+                      <span className="badge badge-light fs-8">2 days</span>
+                    </div>
+
+                    <div className="d-flex flex-stack py-4">
+                      <div className="d-flex align-items-center me-2">
+                        <span className="w-70px badge badge-light-success me-4">
+                          200 OK
+                        </span>
+
+                        <a
+                          href="!#"
+                          className="text-gray-800 text-hover-primary fw-bold"
+                        >
+                          API connection
+                        </a>
+                      </div>
+
+                      <span className="badge badge-light fs-8">1 week</span>
+                    </div>
+
+                    <div className="d-flex flex-stack py-4">
+                      <div className="d-flex align-items-center me-2">
+                        <span className="w-70px badge badge-light-success me-4">
+                          200 OK
+                        </span>
+
+                        <a
+                          href="!#"
+                          className="text-gray-800 text-hover-primary fw-bold"
+                        >
+                          Database restore
+                        </a>
+                      </div>
+
+                      <span className="badge badge-light fs-8">Mar 5</span>
+                    </div>
+
+                    <div className="d-flex flex-stack py-4">
+                      <div className="d-flex align-items-center me-2">
+                        <span className="w-70px badge badge-light-warning me-4">
+                          300 WRN
+                        </span>
+
+                        <a
+                          href="!#"
+                          className="text-gray-800 text-hover-primary fw-bold"
+                        >
+                          System update
+                        </a>
+                      </div>
+
+                      <span className="badge badge-light fs-8">May 15</span>
+                    </div>
+
+                    <div className="d-flex flex-stack py-4">
+                      <div className="d-flex align-items-center me-2">
+                        <span className="w-70px badge badge-light-warning me-4">
+                          300 WRN
+                        </span>
+
+                        <a
+                          href="!#"
+                          className="text-gray-800 text-hover-primary fw-bold"
+                        >
+                          Server OS update
+                        </a>
+                      </div>
+
+                      <span className="badge badge-light fs-8">Apr 3</span>
+                    </div>
+
+                    <div className="d-flex flex-stack py-4">
+                      <div className="d-flex align-items-center me-2">
+                        <span className="w-70px badge badge-light-warning me-4">
+                          300 WRN
+                        </span>
+
+                        <a
+                          href="!#"
+                          className="text-gray-800 text-hover-primary fw-bold"
+                        >
+                          API rollback
+                        </a>
+                      </div>
+
+                      <span className="badge badge-light fs-8">Jun 30</span>
+                    </div>
+
+                    <div className="d-flex flex-stack py-4">
+                      <div className="d-flex align-items-center me-2">
+                        <span className="w-70px badge badge-light-danger me-4">
+                          500 ERR
+                        </span>
+
+                        <a
+                          href="!#"
+                          className="text-gray-800 text-hover-primary fw-bold"
+                        >
+                          Refund process
+                        </a>
+                      </div>
+
+                      <span className="badge badge-light fs-8">Jul 10</span>
+                    </div>
+
+                    <div className="d-flex flex-stack py-4">
+                      <div className="d-flex align-items-center me-2">
+                        <span className="w-70px badge badge-light-danger me-4">
+                          500 ERR
+                        </span>
+
+                        <a
+                          href="!#"
+                          className="text-gray-800 text-hover-primary fw-bold"
+                        >
+                          Withdrawal process
+                        </a>
+                      </div>
+
+                      <span className="badge badge-light fs-8">Sep 10</span>
+                    </div>
+
+                    <div className="d-flex flex-stack py-4">
+                      <div className="d-flex align-items-center me-2">
+                        <span className="w-70px badge badge-light-danger me-4">
+                          500 ERR
+                        </span>
+
+                        <a
+                          href="!#"
+                          className="text-gray-800 text-hover-primary fw-bold"
+                        >
+                          Mail tasks
+                        </a>
+                      </div>
+
+                      <span className="badge badge-light fs-8">Dec 10</span>
+                    </div>
+                  </div>
+
+                  <div className="py-3 text-center border-top">
+                    <a
+                      href="../../demo1/dist/pages/profile/activity.html"
+                      className="btn btn-color-gray-600 btn-active-color-primary"
+                    >
+                      View All
+                      <span className="svg-icon svg-icon-5">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <rect
+                            opacity="0.5"
+                            x="18"
+                            y="13"
+                            width="13"
+                            height="2"
+                            rx="1"
+                            transform="rotate(-180 18 13)"
+                            fill="black"
+                          ></rect>
+                          <path
+                            d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z"
+                            fill="black"
+                          ></path>
+                        </svg>
+                      </span>
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          ) : null}
         </div>
 
         <div className="d-flex align-items-center ms-1 ms-lg-3">
