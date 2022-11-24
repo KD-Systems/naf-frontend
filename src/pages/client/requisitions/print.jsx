@@ -51,7 +51,7 @@ const PrintRequisition = () => {
                           </small>
                           <br />
                           <small>
-                            Tel: 44564, Email: nafgroup@dhaka.net, Web: www.nafgroup.org
+                            Tel: 44564, Email: nafgroup@dhaka.net, Web: www.nafgroup.org 
                           </small>
                         </p>
                       </div>
@@ -92,7 +92,7 @@ const PrintRequisition = () => {
                       </h6>
 
                       <h6>
-                        <strong>Created_by: </strong>
+                        <strong>Issued By: </strong>
                         <span className="text-muted">
                           {requisition?.created_by}
                         </span>
@@ -112,15 +112,12 @@ const PrintRequisition = () => {
                         </span>
                       </h6>
                       <h6>
-                        <strong>Engineer Name: </strong>
+                        <strong>Phone: </strong><br/>
                         <span className="text-muted">
-                          {requisition?.engineer?.name}
-                        </span>
-                      </h6>
-                      <h6>
-                        <strong>Email: </strong>
+                          01719753294
+                        </span><br/>
                         <span className="text-muted">
-                          {requisition?.engineer?.email}
+                          01719753294
                         </span>
                       </h6>
                     </td>
@@ -166,7 +163,7 @@ const PrintRequisition = () => {
                     <p className="">{requisition?.reason_of_trouble}</p>
                   </div>
                 </div>
-                
+
                 <div className="d-flex justify-content-between flex-column flex-md-row">
                   <div className="flex-grow-1 pt-2">
                     <div className="table-responsive ">
@@ -180,7 +177,7 @@ const PrintRequisition = () => {
                               <div className="p-1" style={{ backgroundColor: "#009EF7", color: "#fff" }} > Part Name </div>
                             </th>
                             <th className="text-center">
-                              <div className="p-1" style={{ backgroundColor: "#FD7E14", color: "#fff" }} > Parts Number </div>
+                              <div className="p-1" style={{ backgroundColor: "#FD7E14", color: "#fff" }} > Number </div>
                             </th>
                             <th className="text-center">
                               <div className="p-1" style={{ backgroundColor: "#FD7E14", color: "#fff" }} > Quantity </div>
@@ -199,7 +196,7 @@ const PrintRequisition = () => {
                                 <td className="text-start"> <h6>{item?.part?.aliases[0].name}</h6></td>
                                 <td><div>{item?.part?.aliases[0].part_number}</div></td>
                                 <td className="text-center">{item?.quantity}</td>
-                                <td className=" text-center"> {item?.remarks} </td>
+                                <td className=" text-center"> {item?.remarks ? item?.remarks : '--'} </td>
                               </tr>
                             );
                           })}
@@ -208,6 +205,88 @@ const PrintRequisition = () => {
                     </div>
                   </div>
                 </div>
+
+                {/* <div className="d-flex justify-content-between flex-column flex-md-row">
+                <div className="flex-grow-1 pt-2">
+                  <div className="table-responsive ">
+                    <p>
+                      Terms & conditions :<br />
+                      Brand : Tajima <br />
+                      Origin: Japan
+                      <br />
+                      Payment mode: Cash or cheque have to be paid before parts
+                      delivery <br />
+                      validity:This quotation is valid for 07 days . Price might
+                      vary after validity period expired. <br />
+                      <br />
+                      Feel free to contact us, if you need any further
+                      clarification/information or comments related to this
+                      Mail.
+                      <br />
+                      <br />
+                      Thanks & Best Regards
+                      <br />
+                      <br />
+                      Safil Nawaz Chowdhury
+                      <br />
+                      Deputy Managing Director
+                      <br />
+                      NAF GROUP (Stitch & Color Technology)
+                      <br />
+                      Mail ID: safil@nafgroup.org
+                      <br />
+                      01919331919
+                    </p>
+                  </div>
+                </div>
+              </div> */}
+
+              <div className="fixed-bottom mb-10 text-center border-top border-1 border-dark mt-3">
+                <div className="d-flex flex-row justify-content-evenly">
+                <div className="d-flex flex-row">
+                    <div className="m-2 p-2 border border-1 rounded-circle border-dark">
+                      <span>
+                        <img
+                          src="https://img.icons8.com/ios/344/city-buildings.png"
+                          style={{ height: 35, weight: 35 }}
+                        />
+                      </span>
+                    </div>
+                    <div className="pt-2 text-start">
+                      <h4>Central Office</h4>
+                      <span>Tajima Complex, Amloki bagan,</span><br/><span> Akran, Birulia, Savar, Dhaka.</span>
+                    </div>
+                  </div>
+                  <div className="d-flex flex-row">
+                    <div className="m-2 p-2 border border-1 rounded-circle border-dark">
+                      <span>
+                        <img
+                          src="https://img.icons8.com/ios/344/phone-disconnected.png"
+                          style={{ height: 35, weight: 35 }}
+                        />
+                      </span>
+                    </div>
+                    <div className="pt-2 text-start">
+                      <h4>Call Center</h4>
+                      <span>01909045764</span><br/><span>01719753294</span><br/><span>01783424112</span>
+                    </div>
+                  </div>
+                  <div className="d-flex flex-row">
+                    <div className="m-2 p-2 border border-1 rounded-circle border-dark">
+                      <span>
+                        <img
+                          src="https://img.icons8.com//344/question-mark--v1.png"
+                          style={{ height: 35, weight: 35 }}
+                        />
+                      </span>
+                    </div>
+                    <div className="pt-2 text-start">
+                      <h4>Help Support</h4>
+                      <p>info@nafgroup.org</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
               </div>
             </div>

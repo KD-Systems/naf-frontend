@@ -116,6 +116,21 @@ const AddPartStock = ({ open, onCloseModal, onCreated }) => {
             </div>
 
             <div className="form-group">
+              <label className="form-label">Stock Alert</label>
+              <input
+                type="number"
+                className="form-control"
+                placeholder="Enter Stock alert Value"
+                name="stock_alert"
+                id="stock_alert"
+                onChange={handleChange}
+                value={data.stock_alert ?? ''}
+                step="any"
+              />
+              <div className="fv-plugins-message-container invalid-feedback" htmlFor="stock_alert"></div>
+            </div>
+
+            <div className="form-group">
               <label className="form-label">Yen Price</label>
               <input
                 type="number"

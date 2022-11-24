@@ -64,6 +64,7 @@ import ShowStock from "pages/parts/stocks/Show";
 import CreateQuotation from "pages/quotations/Create";
 import Quotations from "pages/quotations/Index";
 import PrintQuotation from "pages/quotations/Print";
+import PrintClientQuotation from "pages/client/quotations/print";
 import ShowQuotation from "pages/quotations/Show";
 import Reports from "pages/reports/Index";
 import PartStockReport from "pages/reports/PartStockReport";
@@ -781,6 +782,15 @@ function App() {
               element={
                 <PrivateRoute>
                   <ShowClientQuotation />
+                </PrivateRoute>
+              }
+            />
+
+<Route
+              path="client/quotations/:id/print"
+              element={
+                <PrivateRoute>
+                  <PrintClientQuotation />
                 </PrivateRoute>
               }
             />

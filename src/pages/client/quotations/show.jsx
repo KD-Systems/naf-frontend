@@ -217,6 +217,17 @@ const ShowQuotation = () => {
                     </button>
                   </h3> */}
 
+                  <h3 className="card-label">
+                    <Link
+                      className="btn btn-sm btn-dark "
+                      to={"/panel/client/quotations/" + quotation.id + "/print"}
+                      style={{ marginRight: "0.75rem" }}
+                      target="_blank"
+                    >
+                      Print
+                    </Link>
+                  </h3>
+
                   {!locked ? (
                     <h3>
                       <button
@@ -312,7 +323,7 @@ const ShowQuotation = () => {
                               {quotation?.part_items?.map((item, index) => (
                                 <tr key={index}>
                                   <td className="">
-                                      {item?.part?.aliases[0].name}
+                                    {item?.part?.aliases[0].name}
                                   </td>
                                   <td className=" fw-bolder mb-1 fs-6">
                                     <span>

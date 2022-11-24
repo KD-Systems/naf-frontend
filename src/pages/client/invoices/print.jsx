@@ -30,15 +30,15 @@ const PrintInvoice = () => {
   return (
     <div className="post" id="content">
       <div className="container-xxl">
-        <div className="card">
-          <div className="card-body py-20">
-            <div className="mw-lg-950px mx-auto w-100">
+        <div className="card" style={{backgroundColor:'#f5f8fa'}}>
+          <div className="card-body">
+            <div className="mw-lg-950px mx-auto w-100" >
               <div className="mb-4">
                 <table className="table">
                   <tbody>
                     <tr>
                       <td>
-                        <div className="border border-1 border-dark text-center p-5">
+                        <div className="border border-1 border-dark text-center p-3">
                           <Link to="#">
                             <img
                               alt="Logo"
@@ -46,19 +46,19 @@ const PrintInvoice = () => {
                               style={{ width: "6rem" }}
                             />
                           </Link>
-                          <h3 className="mt-2">Naf Limited</h3>
+                          <h3 className="mt-2">Stitch & Color Technology</h3>
                           <p>
-                            Naya paltan,
+                          Tajima Complex , Amloki bagan , Akran , Birulia , Savar , Dhaka.
                             <br /> Dhaka-1230 <br />
                             Bangladesh
                           </p>
                         </div>
                       </td>
                       <td>
-                        <div className="px-10">
+                        <div className="px-5">
                           <div style={{ fontSize: 36 }}>INVOICE</div>
                           <div className="d-flex justify-content-between">
-                            <div className="px-5">
+                            <div className="">
                               <div className="py-2">
                                 <h5>Date:</h5>
                                 <p>
@@ -71,6 +71,11 @@ const PrintInvoice = () => {
                                 <h5>Invoice to:</h5>
                                 <h2>{invoice?.company?.name}</h2>
                               </div>
+                              <div>
+                                <h5>Issued By:</h5>
+                                <h2>{invoice?.created_by}</h2>
+                              </div>
+                              
                             </div>
                             <div className="px-5">
                               <div>
@@ -79,12 +84,17 @@ const PrintInvoice = () => {
                               </div>
                               <div>
                                 <p>
-                                  {invoice?.company?.address}
-                                  <br /> Mobile : {invoice?.company?.tel} <br />
-                                  Website : {invoice?.company?.web}
+                                  <br /> Mobile : 01719753294 <br />01714845179     
                                   <br />
-                                  {invoice?.company?.address}
                                 </p>
+                              </div>
+                              <div>
+                                <h5>Approved by :</h5>
+                                <span>Tajima Nawaz, Director,Naf Group</span><br/>
+                                <span>Email:tajima@nafgroup.org</span><br/>
+                                <span>Contact No: 01719753294</span><br/>
+
+
                               </div>
                             </div>
                           </div>
@@ -193,7 +203,7 @@ const PrintInvoice = () => {
                             <h4>{total} TK.</h4>
                           </td>
                         </tr>
-                        <tr>
+                        {/* <tr>
                           <td className=" text-center"></td>
                           <td className="text-start"></td>
                           <td className="text-center"></td>
@@ -203,7 +213,7 @@ const PrintInvoice = () => {
                           <td className="text-center ">
                             <h4>{invoice.discount ?? "0"} TK.</h4>
                           </td>
-                        </tr>
+                        </tr> */}
                         <tr>
                           <td></td>
                           <td></td>
@@ -240,9 +250,45 @@ const PrintInvoice = () => {
                   </div>
                 </div>
               </div>
+
+              <div className="d-flex justify-content-between flex-column flex-md-row">
+                <div className="flex-grow-1 pt-2">
+                  <div className="table-responsive ">
+                    <p>
+                      Terms & conditions :<br />
+                      Brand : Tajima <br />
+                      Origin: Japan
+                      <br />
+                      Payment mode: Cash or cheque have to be paid before parts
+                      delivery <br />
+                      validity:This quotation is valid for 07 days . Price might
+                      vary after validity period expired. <br />
+                      <br />
+                      Feel free to contact us, if you need any further
+                      clarification/information or comments related to this
+                      Mail.
+                      <br />
+                      <br />
+                      Thanks & Best Regards
+                      <br />
+                      <br />
+                      Safil Nawaz Chowdhury
+                      <br />
+                      Deputy Managing Director
+                      <br />
+                      NAF GROUP (Stitch & Color Technology)
+                      <br />
+                      Mail ID: safil@nafgroup.org
+                      <br />
+                      01919331919
+                    </p>
+                  </div>
+                </div>
+              </div> 
+
               <div className="fixed-bottom mb-10 text-center border-top border-1 border-dark">
                 <div className="d-flex flex-row justify-content-evenly">
-                  <div className="d-flex flex-row">
+                <div className="d-flex flex-row">
                     <div className="m-2 p-2 border border-1 rounded-circle border-dark">
                       <span>
                         <img
@@ -253,7 +299,7 @@ const PrintInvoice = () => {
                     </div>
                     <div className="pt-2 text-start">
                       <h4>Central Office</h4>
-                      <p>67 Nayapaltan, Dhaka-1000</p>
+                      <span>Tajima Complex, Amloki bagan,</span><br/><span> Akran, Birulia, Savar, Dhaka.</span>
                     </div>
                   </div>
                   <div className="d-flex flex-row">
@@ -267,7 +313,7 @@ const PrintInvoice = () => {
                     </div>
                     <div className="pt-2 text-start">
                       <h4>Call Center</h4>
-                      <p>+8802-9349934</p>
+                      <span>01909045764</span><br/><span>01719753294</span><br/><span>01783424112</span>
                     </div>
                   </div>
                   <div className="d-flex flex-row">

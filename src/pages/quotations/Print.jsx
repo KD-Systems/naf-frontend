@@ -6,7 +6,6 @@ const PrintInvoice = () => {
   let { id } = useParams();
   const navigate = useNavigate();
   const [invoice, setInvoice] = useState({});
-  console.log("🚀 ~ file: Print.jsx ~ line 9 ~ PrintInvoice ~ invoice", invoice)
   const [total, setTotal] = useState(0);
 
   const getInvoice = async () => {
@@ -21,7 +20,7 @@ const PrintInvoice = () => {
     let content = document.getElementById("content").innerHTML;
     document.body.innerHTML = content;
     window.print();
-    navigate("/panel/quotations/" + id);
+    navigate("/panel/quotations/" + id); 
   };
 
   useEffect(() => {
@@ -54,6 +53,17 @@ const PrintInvoice = () => {
                                 <p>{invoice?.created_by}</p>
     
                               </div>
+
+                              {/* <div>
+                        <strong>Phone: </strong><br/>
+                        <span>
+                          01719753294
+                        </span><br/>
+                        <span>
+                          01719753294
+                        </span>
+                      </div> */}
+
                             </div>
                             <div className="px-5">
                               <div style={{ flex:1, flexDirection: "row" }}>
@@ -151,7 +161,7 @@ const PrintInvoice = () => {
                             <h4>{total} TK.</h4>
                           </td>
                         </tr>
-                        <tr>
+                        {/* <tr>
                           <td className=" text-center"></td>
                           <td className="text-start"></td>
                           <td className="text-center"></td>
@@ -161,7 +171,7 @@ const PrintInvoice = () => {
                           <td className="text-center ">
                             <h4>{invoice.discount ?? "0"} TK.</h4>
                           </td>
-                        </tr>
+                        </tr> */}
                         <tr>
                           <td></td>
                           <td></td>
@@ -217,7 +227,7 @@ const PrintInvoice = () => {
 
               <div className="fixed-bottom mb-10 text-center border-top border-1 border-dark">
                 <div className="d-flex flex-row justify-content-evenly">
-                  <div className="d-flex flex-row">
+                <div className="d-flex flex-row">
                     <div className="m-2 p-2 border border-1 rounded-circle border-dark">
                       <span>
                         <img
@@ -228,7 +238,7 @@ const PrintInvoice = () => {
                     </div>
                     <div className="pt-2 text-start">
                       <h4>Central Office</h4>
-                      <p>67 Nayapaltan, Dhaka-1000</p>
+                      <span>Tajima Complex, Amloki bagan,</span><br/><span> Akran, Birulia, Savar, Dhaka.</span>
                     </div>
                   </div>
                   <div className="d-flex flex-row">
@@ -242,7 +252,7 @@ const PrintInvoice = () => {
                     </div>
                     <div className="pt-2 text-start">
                       <h4>Call Center</h4>
-                      <p>+8802-9349934</p>
+                      <span>01909045764</span><br/><span>01719753294</span><br/><span>01783424112</span>
                     </div>
                   </div>
                   <div className="d-flex flex-row">

@@ -258,8 +258,8 @@ const ShowQuotation = () => {
                         <Link
                           className="btn btn-sm btn-dark "
                           to={"/panel/quotations/" + quotation.id + "/print"}
-                          style={{ marginRight: "0.75rem" }}
-                          // target="_blank"
+                          style={{ marginRight: "0.75rem" }} 
+                          target="_blank"
                         >
                           Print
                         </Link>

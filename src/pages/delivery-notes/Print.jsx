@@ -97,7 +97,7 @@ const PrintDeliveryNotes = () => {
                             />
                             </span>
                       </td>
-                      <td className="text-end"></td>
+                      <td className="text-end"></td> 
                     </tr>
                   </tbody>
                 </table>
@@ -115,12 +115,12 @@ const PrintDeliveryNotes = () => {
                           </span>
                         </h6>
 
-                        {/* <h6>
+                        <h6>
                         <strong>Issued By: </strong>
                         <span className="text-muted">
                           {deliveryNote?.created_by}
                         </span>
-                      </h6> */}
+                      </h6>
                       </td>
                       <td style={{ marginLeft: "120px" }} width="30%"></td>
 
@@ -211,7 +211,7 @@ const PrintDeliveryNotes = () => {
 
                 <hr/>
 
-                {/* <div className="d-flex justify-content-between flex-column flex-md-row">
+                <div className="d-flex justify-content-between flex-column flex-md-row">
                 <div className="flex-grow-1 pt-2">
                   <div className="table-responsive ">
                     <p>
@@ -244,7 +244,7 @@ const PrintDeliveryNotes = () => {
                     </p>
                   </div>
                 </div>
-              </div> */}
+              </div>
 
                 <div className="fixed-bottom mb-10 text-center border-top border-1 border-dark mt-3">
                 <div className="d-flex flex-row justify-content-evenly">
@@ -259,7 +259,7 @@ const PrintDeliveryNotes = () => {
                     </div>
                     <div className="pt-2 text-start">
                       <h4>Central Office</h4>
-                      <p>67 Nayapaltan, Dhaka-1000</p>
+                      <span>Tajima Complex, Amloki bagan,</span><br/><span> Akran, Birulia, Savar, Dhaka.</span>
                     </div>
                   </div>
                   <div className="d-flex flex-row">
@@ -273,7 +273,7 @@ const PrintDeliveryNotes = () => {
                     </div>
                     <div className="pt-2 text-start">
                       <h4>Call Center</h4>
-                      <p>+8802-9349934</p>
+                      <span>01909045764</span><br/><span>01719753294</span><br/><span>01783424112</span>
                     </div>
                   </div>
                   <div className="d-flex flex-row">

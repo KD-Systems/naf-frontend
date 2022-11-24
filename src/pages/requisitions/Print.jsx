@@ -6,6 +6,7 @@ const PrintRequisition = () => {
   let { id } = useParams();
   const navigate = useNavigate();
   const [requisition, setRequisition] = useState({});
+  console.log("🚀 ~ file: Print.jsx ~ line 9 ~ PrintRequisition ~ requisition", requisition)
   const [total, setTotal] = useState(0);
 
   const getRequisition = async () => {
@@ -60,7 +61,7 @@ const PrintRequisition = () => {
                           </small>
                           <br />
                           <small>
-                            Tel: 44564, Email: nafgroup@dhaka.net, Web: www.nafgroup.org
+                            Tel: 44564, Email: nafgroup@dhaka.net, Web: www.nafgroup.org 
                           </small>
                         </p>
                       </div>
@@ -101,7 +102,7 @@ const PrintRequisition = () => {
                       </h6>
 
                       <h6>
-                        <strong>Created_by: </strong>
+                        <strong>Issued By: </strong>
                         <span className="text-muted">
                           {requisition?.created_by}
                         </span>
@@ -121,15 +122,12 @@ const PrintRequisition = () => {
                         </span>
                       </h6>
                       <h6>
-                        <strong>Engineer Name: </strong>
+                        <strong>Phone: </strong><br/>
                         <span className="text-muted">
-                          {requisition?.engineer?.name}
-                        </span>
-                      </h6>
-                      <h6>
-                        <strong>Email: </strong>
+                          01719753294
+                        </span><br/>
                         <span className="text-muted">
-                          {requisition?.engineer?.email}
+                          01719753294
                         </span>
                       </h6>
                     </td>
@@ -255,7 +253,7 @@ const PrintRequisition = () => {
 
               <div className="fixed-bottom mb-10 text-center border-top border-1 border-dark mt-3">
                 <div className="d-flex flex-row justify-content-evenly">
-                  <div className="d-flex flex-row">
+                <div className="d-flex flex-row">
                     <div className="m-2 p-2 border border-1 rounded-circle border-dark">
                       <span>
                         <img
@@ -266,7 +264,7 @@ const PrintRequisition = () => {
                     </div>
                     <div className="pt-2 text-start">
                       <h4>Central Office</h4>
-                      <p>67 Nayapaltan, Dhaka-1000</p>
+                      <span>Tajima Complex, Amloki bagan,</span><br/><span> Akran, Birulia, Savar, Dhaka.</span>
                     </div>
                   </div>
                   <div className="d-flex flex-row">
@@ -280,7 +278,7 @@ const PrintRequisition = () => {
                     </div>
                     <div className="pt-2 text-start">
                       <h4>Call Center</h4>
-                      <p>+8802-9349934</p>
+                      <span>01909045764</span><br/><span>01719753294</span><br/><span>01783424112</span>
                     </div>
                   </div>
                   <div className="d-flex flex-row">
