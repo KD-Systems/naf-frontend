@@ -32,7 +32,13 @@ const Index = () => {
   };
 
   const updateDesignation = async () => {
-    await DesignationService.update(designationId, data);
+    try {
+      await DesignationService.update(designationId, data);
+      onCloseModal();
+      setData({ name: "", designation: "" });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   // change data
@@ -46,9 +52,8 @@ const Index = () => {
     setData(tempdata);
   };
   //update designation
-  const onSubmit = async (e) => {
-    const res = await updateDesignation();
-    if (!res.errors) onCloseModal();
+  const onSubmit = () => {
+    updateDesignation();
   };
 
   //delete Designation
