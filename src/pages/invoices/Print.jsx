@@ -70,10 +70,10 @@ const PrintInvoice = () => {
                                 <h5>Invoice to:</h5>
                                 <h2>{invoice?.company?.name}</h2>
                               </div>
-                              <div>
+                              {/* <div>
                                 <h5>Issued By:</h5>
                                 <h2>{invoice?.created_by}</h2>
-                              </div>
+                              </div> */}
                               
                             </div>
                             <div className="px-5">

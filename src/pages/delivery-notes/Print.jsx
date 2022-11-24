@@ -115,12 +115,12 @@ const PrintDeliveryNotes = () => {
                           </span>
                         </h6>
 
-                        <h6>
+                        {/* <h6>
                         <strong>Issued By: </strong>
                         <span className="text-muted">
                           {deliveryNote?.created_by}
                         </span>
-                      </h6>
+                      </h6> */}
                       </td>
                       <td style={{ marginLeft: "120px" }} width="30%"></td>
 
@@ -211,7 +211,7 @@ const PrintDeliveryNotes = () => {
 
                 <hr/>
 
-                <div className="d-flex justify-content-between flex-column flex-md-row">
+                {/* <div className="d-flex justify-content-between flex-column flex-md-row">
                 <div className="flex-grow-1 pt-2">
                   <div className="table-responsive ">
                     <p>
@@ -244,7 +244,7 @@ const PrintDeliveryNotes = () => {
                     </p>
                   </div>
                 </div>
-              </div>
+              </div> */}
 
                 <div className="fixed-bottom mb-10 text-center border-top border-1 border-dark mt-3">
                 <div className="d-flex flex-row justify-content-evenly">
