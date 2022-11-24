@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import RequisitionService from "services/RequisitionService";
 import ClaimRequestFilter from "./ClaimRequestFilter";
 
-const ClaimRequest = () => {
+const ClientClaimRequest = () => {
   const [filter, setFilter] = useState(false);
   const [loading, setLoading] = useState(true);
   const [requisitions, setRequisitions] = useState([]);
@@ -95,22 +95,22 @@ const ClaimRequest = () => {
       ),
     },
 
-    {
-      name: "Action",
-      selector: (row) => row.status,
-      format: (row) => (
-        <span className="text-end">
-          <PermissionAbility permission="requisitions_show">
-            <Link
-              to={"/panel/claim-request/" + row.id}
-              className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-            >
-              <i className="fa fa-eye"></i>
-            </Link>
-          </PermissionAbility>
-        </span>
-      ),
-    },
+    // {
+    //   name: "Action",
+    //   selector: (row) => row.status,
+    //   format: (row) => (
+    //     <span className="text-end">
+    //       <PermissionAbility permission="requisitions_show">
+    //         <Link
+    //           to={"/panel/claim-requests/" + row.id}
+    //           className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+    //         >
+    //           <i className="fa fa-eye"></i>
+    //         </Link>
+    //       </PermissionAbility>
+    //     </span>
+    //   ),
+    // },
   ];
 
   const getClaimRequest = async (filters) => {
@@ -133,7 +133,7 @@ const ClaimRequest = () => {
     <>
       <div className="post d-flex flex-column-fluid">
         <div className="container-xxl">
-          <Table
+        <Table
             name="Required Requisitions"
             buttonName="Add Claim Request"
             onClickButton={routeChange}
@@ -156,9 +156,6 @@ const ClaimRequest = () => {
       </div>
       <ClaimRequestFilter
         enable={filter}
-        onClickOutside={() => {
-          setFilter(!filter);
-        }}
         onChange={(data) => {
           filterdata(data);
         }}
@@ -167,4 +164,4 @@ const ClaimRequest = () => {
   );
 };
 
-export default ClaimRequest;
+export default ClientClaimRequest;

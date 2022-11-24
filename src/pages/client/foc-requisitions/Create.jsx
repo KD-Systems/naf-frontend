@@ -10,7 +10,7 @@ import CompanyService from "services/CompanyService";
 import PartService from "services/PartService";
 import RequisitionService from "services/RequisitionService";
 
-const CreateClaimRequisition = () => {
+const CreateClientClaimRequisition = () => {
   const navigate = useNavigate();
 
   const [req, setReq] = useState(false);
@@ -32,7 +32,6 @@ const CreateClaimRequisition = () => {
     setInputField(list);
   };
 
-  const [companies, setCompanies] = useState([]);
   const [machineModels, setMachineModels] = useState([]);
   // console.log(machineModels);
   const [filter, setFilter] = useState({
@@ -134,15 +133,6 @@ const CreateClaimRequisition = () => {
   const removeItem = (id) => {
     const newList = list.filter((item) => item.id !== id);
     setList(newList);
-  };
-
-  const getCompanies = async () => {
-    let dt = await CompanyService.getAll({
-      rows: "all",
-    });
-
-    dt = dt.map((itm) => ({ label: itm.name, value: itm.id })); //Parse the data as per the select requires
-    setCompanies(dt);
   };
 
   const getEngineers = async () => {
@@ -299,9 +289,14 @@ const CreateClaimRequisition = () => {
     if (data.company_id && data?.type) getMachineModels(data?.company_id);
   }, [data.company_id, data?.type]);
 
+  const getCompanies = async () => {
+    let dt = await CompanyService.getClientCompany();
+    setData({ ...data, company_id: dt?.data?.id });
+  };
+
   useEffect(() => {
-    getCompanies();
     getEngineers();
+    getCompanies();
   }, []);
 
   useEffect(() => {
@@ -369,24 +364,6 @@ const CreateClaimRequisition = () => {
                         <div className="separator separator-dashed my-10"></div>
 
                         <div className="row gx-10 mb-5">
-                          <div className="col-lg-4">
-                            <div className="form-group">
-                              <label className="required form-label">
-                                Company
-                              </label>
-                              <Select
-                                options={companies}
-                                onChange={handleSelect}
-                                name="company_id"
-                              />
-
-                              <div
-                                className="fv-plugins-message-container invalid-feedback"
-                                htmlFor="company_id"
-                              ></div>
-                            </div>
-                          </div>
-
                           <div className="col-lg-4">
                             <div className="form-group">
                               <label className="required form-label">
@@ -465,6 +442,10 @@ const CreateClaimRequisition = () => {
                               </div>
                             </div>
                           </div>
+
+                          <div className="col-lg-4"></div>
+
+                          <div className="col-lg-4"></div>
 
                           {data?.type !== "claim_report" && data?.type !== "" && (
                             <>
@@ -769,4 +750,4 @@ const CreateClaimRequisition = () => {
   );
 };
 
-export default CreateClaimRequisition;
+export default CreateClientClaimRequisition;
