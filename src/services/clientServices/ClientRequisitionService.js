@@ -17,6 +17,11 @@ const create = async (data) => {
   return res.data;
 };
 
+const createrequiredrequisitions = async (data) => {
+  const res = await http.post(`required-part/requisitions`, data);
+  return res.data;
+};
+
 //file upload
 const fileUpload = async (id, data) => {
   console.log("shanto", data);
@@ -40,6 +45,7 @@ const deleteFile = async (uuid, model_id) => {
 
 const ClientRequisitionService = {
   getAll,
+  createrequiredrequisitions,
   get,
   create,
   fileUpload,
