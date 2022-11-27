@@ -571,7 +571,7 @@ function App() {
               path="claim-requests/create"
               element={
                 <PrivateRoute>
-                  <CreateClaimRequisition />
+                  <ClaimRequestRequisitionCreate />
                 </PrivateRoute>
               }
             />
@@ -580,7 +580,7 @@ function App() {
               path="claim-requests/create/:id"
               element={
                 <PrivateRoute>
-                  <ClaimRequestRequisitionCreate />
+                  <CreateClaimRequisition />
                 </PrivateRoute>
               }
             />
