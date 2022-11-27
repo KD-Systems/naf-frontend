@@ -1,5 +1,6 @@
 import http from "../http-common";
 
+//for admin claim requisition
 const getAll = async (data) => {
   const res = await http.get(`/claim-requisitions`, {
     params: data,
@@ -12,39 +13,33 @@ const get = async (id) => {
   return res.data;
 };
 
-// const create = async (data) => {
-//   const res = await http.post(`/claim-requisitions`, data);
-//   return res.data;
-// };
+//for client claim request and requisition
+const createClientClaimRequest = async (data) => {
+  const res = await http.post(`/client-claim-request-create`, data);
+  return res.data;
+};
 
-// const createrequiredrequisitions = async (data) => {
-//   const res = await http.post(`required-part/requisitions`, data);
-//   return res.data;
-// };
+const getAllClientClaimRequest = async (data) => {
+  const res = await http.get(`/client-claim-request`, {
+    params: data,
+  });
+  return res.data;
+};
 
-// //file upload
-// const fileUpload = async (id, data) => {
-//   console.log("shanto", data);
-//   const res = await http.post(`/claim-requisitions/${id}/files`, data);
-//   return res.data;
-// };
+const getClientClaimRequisition = async (data) => {
+  const res = await http.get(`/client-claim-requisition`, {
+    params: data,
+  });
+  return res.data;
+};
 
-// //get file
-// const getFile = async (id) => {
-//   const res = await http.get(`/claim-requisitions/${id}/files`);
-//   return res.data;
-// };
-
-// //get file
-// const deleteFile = async (uuid, model_id) => {
-//   const res = await http.delete(
-//     `/claim-requisitions/${model_id}/files/${uuid}/delete`
-//   );
-//   return res.data;
-// };
 
 const ClaimRequisitionService = {
-  getAll
+  getAll,
+  //for client
+  createClientClaimRequest,
+  getAllClientClaimRequest,
+  getClientClaimRequisition
 };
 
 export default ClaimRequisitionService;

@@ -65,6 +65,7 @@ import ShowStock from "pages/parts/stocks/Show";
 import CreateQuotation from "pages/quotations/Create";
 import Quotations from "pages/quotations/Index";
 import PrintQuotation from "pages/quotations/Print";
+import PrintClientQuotation from "pages/client/quotations/print";
 import ShowQuotation from "pages/quotations/Show";
 import Reports from "pages/reports/Index";
 import PartStockReport from "pages/reports/PartStockReport";
@@ -88,7 +89,8 @@ import ShowClaimRequest from "pages/foc_claim_request/Show";
 import ClaimRequestRequisitionCreate from "pages/foc_claim_request/Create";
 import ClientClaimRequisition from "pages/client/foc-requisitions/Index";
 import ClientClaimRequest from "pages/client/foc_claim_request/Index";
-import CreateClientClaimRequisition from "pages/client/foc-requisitions/Create";
+import ShowClientClaimRequisition from "pages/client/foc-requisitions/Show";
+import CreateClientClaimRequisition from "pages/client/foc_claim_request/Create";
 
 function App() {
   return (
@@ -569,7 +571,7 @@ function App() {
               path="claim-requests/create"
               element={
                 <PrivateRoute>
-                  <CreateClaimRequisition />
+                  <ClaimRequestRequisitionCreate />
                 </PrivateRoute>
               }
             />
@@ -578,7 +580,7 @@ function App() {
               path="claim-requests/create/:id"
               element={
                 <PrivateRoute>
-                  <ClaimRequestRequisitionCreate />
+                  <CreateClaimRequisition />
                 </PrivateRoute>
               }
             />
@@ -828,6 +830,15 @@ function App() {
               }
             />
 
+<Route
+              path="client/quotations/:id/print"
+              element={
+                <PrivateRoute>
+                  <PrintClientQuotation />
+                </PrivateRoute>
+              }
+            />
+
             {/* client quotation end */}
 
             <Route
@@ -946,10 +957,10 @@ function App() {
             />
 
             <Route
-              path="claim-request/:id"
+              path="client-claim-requisitions/:id"
               element={
                 <PrivateRoute>
-                  <ShowClaimRequest />
+                  <ShowClientClaimRequisition />
                 </PrivateRoute>
               }
             />

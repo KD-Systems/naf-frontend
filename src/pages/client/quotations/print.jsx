@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Moment from "react-moment";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import InvoiceService from "services/InvoiceService";
+import { useNavigate, useParams } from "react-router-dom";
+import ClientQuotationService from "services/clientServices/ClientQuotationService";
 const PrintInvoice = () => {
   let { id } = useParams();
   const navigate = useNavigate();
@@ -9,7 +9,7 @@ const PrintInvoice = () => {
   const [total, setTotal] = useState(0);
 
   const getInvoice = async () => {
-    let res = await InvoiceService.get(id);
+    let res = await ClientQuotationService.get(id);
     setInvoice(res);
     setTotal(
       res?.part_items?.reduce(
@@ -20,7 +20,7 @@ const PrintInvoice = () => {
     let content = document.getElementById("content").innerHTML;
     document.body.innerHTML = content;
     window.print();
-    navigate("/panel/invoices/" + id);
+    navigate("/panel/client/quotations/" + id); 
   };
 
   useEffect(() => {
@@ -29,71 +29,57 @@ const PrintInvoice = () => {
   return (
     <div className="post" id="content">
       <div className="container-xxl">
-        <div className="card" style={{backgroundColor:'#f5f8fa'}}>
-          <div className="card-body">
-            <div className="mw-lg-950px mx-auto w-100" >
-              <div className="mb-4">
+        <div
+          className="card"
+          style={{ backgroundColor: "#f5f8fa", alignContent: "center" }}
+        >
+          <div className="card-body py-20">
+            <div className="mw-lg-950px mx-auto w-100">
+              <div className="mb-4" style={{ alignContent: "center" }}>
+                <div style={{ fontSize: 36 }}>PRICE QUOTATION</div>
                 <table className="table">
                   <tbody>
                     <tr>
                       <td>
-                        <div className="border border-1 border-dark text-center p-3">
-                          <Link to="#">
-                            <img
-                              alt="Logo"
-                              src="/assets/media/logos/naf3.jpeg"
-                              style={{ width: "6rem" }}
-                            />
-                          </Link>
-                          <h3 className="mt-2">Stitch & Color Technology</h3>
-                          <p>
-                          Tajima Complex , Amloki bagan , Akran , Birulia , Savar , Dhaka.
-                            <br /> Dhaka-1230 <br />
-                            Bangladesh
-                          </p>
-                        </div>
-                      </td>
-                      <td>
                         <div className="px-5">
-                          <div style={{ fontSize: 36 }}>INVOICE</div>
                           <div className="d-flex justify-content-between">
-                            <div className="">
-                              <div className="py-2">
-                                <h5>Date:</h5>
-                                <p>
-                                  <Moment format="D MMMM YYYY">
-                                    {invoice?.invoice_date}
-                                  </Moment>
-                                </p>
-                              </div>
+                            <div className="px-5">
                               <div>
                                 <h5>Invoice to:</h5>
                                 <h2>{invoice?.company?.name}</h2>
                               </div>
                               <div>
-                                <h5>Issued By:</h5>
-                                <h2>{invoice?.created_by}</h2>
+                                <h5>Issued by: </h5>
+                                <p>{invoice?.created_by}</p>
+    
                               </div>
-                              
+
+                              {/* <div>
+                        <strong>Phone: </strong><br/>
+                        <span>
+                          01719753294
+                        </span><br/>
+                        <span>
+                          01719753294
+                        </span>
+                      </div> */}
+
                             </div>
                             <div className="px-5">
-                              <div>
-                                <h5>Invoice No:</h5>
-                                <p>{invoice?.invoice_number}</p>
+                              <div style={{ flex:1, flexDirection: "row" }}>
+                                <h5>PQ No: {invoice?.pq_number}</h5>
                               </div>
                               <div>
-                                <p>
-                                  <br /> Mobile : 01719753294 <br />01714845179     
-                                  <br />
-                                </p>
+                                <h5>Date: <Moment format="D MMMM YYYY">
+                                    {invoice?.invoice_date}
+                                  </Moment></h5>
+    
                               </div>
                               <div>
                                 <h5>Approved by :</h5>
                                 <span>Tajima Nawaz, Director,Naf Group</span><br/>
                                 <span>Email:tajima@nafgroup.org</span><br/>
                                 <span>Contact No: 01719753294</span><br/>
-
-
                               </div>
                             </div>
                           </div>
@@ -104,66 +90,42 @@ const PrintInvoice = () => {
                 </table>
               </div>
 
+              {/* Afnan */}
               <div className="d-flex justify-content-between flex-column flex-md-row">
-                <div className="flex-grow-1 pt-8">
+                <div className="flex-grow-1 pt-2">
+                  <div className="table-responsive ">
+                    <p>
+                      Dear Concern, <br />
+                      Thank you for showing interest to purchase spare parts of
+                      Tajima Embroidery Machine.
+                      <br />
+                      We have given the quotation as per your requirements
+                      below:
+                    </p>
+                  </div>
+                </div>
+              </div>
+              {/* Afnan */}
+              <div className="d-flex justify-content-between flex-column flex-md-row">
+                <div className="flex-grow-1 pt-2">
                   <div className="table-responsive ">
                     <table className="table">
                       <thead className="m-20">
                         <tr className="fs-6 fw-bolder text-dark text-uppercase">
                           <th className="text-center">
-                            <div
-                              className="p-1"
-                              style={{
-                                backgroundColor: "#FD7E14",
-                                color: "#fff",
-                              }}
-                            >
-                              SL.No
-                            </div>
+                            <div className="p-1" style={{ backgroundColor: "#FD7E14", color: "#fff" }} > SL.No </div>
                           </th>
                           <th className="text-start w-50 ">
-                            <div
-                              className="p-1"
-                              style={{
-                                backgroundColor: "#009EF7",
-                                color: "#fff",
-                              }}
-                            >
-                              Part Name
-                            </div>
+                            <div className="p-1" style={{ backgroundColor: "#009EF7", color: "#fff" }} > Part Name </div>
                           </th>
                           <th className="text-center">
-                            <div
-                              className="p-1"
-                              style={{
-                                backgroundColor: "#FD7E14",
-                                color: "#fff",
-                              }}
-                            >
-                              Qty
-                            </div>
+                            <div className="p-1" style={{ backgroundColor: "#FD7E14", color: "#fff" }} > Qty </div>
                           </th>
                           <th className="text-center">
-                            <div
-                              className="p-1"
-                              style={{
-                                backgroundColor: "#FD7E14",
-                                color: "#fff",
-                              }}
-                            >
-                              Price
-                            </div>
+                            <div className="p-1" style={{ backgroundColor: "#FD7E14", color: "#fff" }} > Price </div>
                           </th>
                           <th className="text-center">
-                            <div
-                              className="p-1"
-                              style={{
-                                backgroundColor: "#009EF7",
-                                color: "#fff",
-                              }}
-                            >
-                              Total
-                            </div>
+                            <div className="p-1" style={{ backgroundColor: "#009EF7", color: "#fff"}} > Total </div>
                           </th>
                         </tr>
                       </thead>
@@ -171,10 +133,7 @@ const PrintInvoice = () => {
                       <tbody>
                         {invoice?.part_items?.map((item, idx) => {
                           return (
-                            <tr
-                              className="text-dark border-bottom border-1 border-dark"
-                              key={idx}
-                            >
+                            <tr className="text-dark border-bottom border-1 border-dark" key={idx} >
                               <td className=" text-center">{idx + 1}</td>
                               <td className="text-start">
                                 <h6>{item?.part?.aliases[0].name}</h6>
@@ -217,30 +176,11 @@ const PrintInvoice = () => {
                           <td></td>
                           <td></td>
                           <td className="text-center" colSpan={2}>
-                            <div
-                              className="p-1"
-                              style={{
-                                backgroundColor: "#FD7E14",
-                                color: "#fff",
-                                fontSize: 16,
-                              }}
-                            >
-                              Total
-                            </div>
+                            <div className="p-1" style={{ backgroundColor: "#FD7E14", color: "#fff", fontSize: 16, }} > Total </div>
                           </td>
                           <td className="text-center">
-                            <div
-                              className="p-1"
-                              style={{
-                                backgroundColor: "#FD7E14",
-                                color: "#fff",
-                                fontSize: 16,
-                              }}
-                            >
-                              {invoice.discount
-                                ? total - invoice.discount
-                                : total}{" "}
-                              TK.
+                            <div className="p-1" style={{ backgroundColor: "#FD7E14", color: "#fff", fontSize: 16, }}>
+                              {invoice.discount ? total - invoice.discount : total} TK.
                             </div>
                           </td>
                         </tr>

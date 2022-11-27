@@ -9,13 +9,13 @@ import RequisitionService from "../../services/RequisitionService";
 const ShowClaimRequest = () => {
   let { id } = useParams();
   const navigate = useNavigate();
-  const [requisition, setRequisition] = useState({});
+  const [claimRequest, setClaimRequest] = useState({});
 
   const [tab, setTab] = useState("requisitions");
 
   const getRequisition = async () => {
     let res = await RequisitionService.getRequiredRequisition(id);
-    setRequisition(res);
+    setClaimRequest(res);
   };
 
   const status = [
@@ -27,7 +27,7 @@ const ShowClaimRequest = () => {
   const handleSelect = async (e) => {
     let data = { status: e.value };
     await RequisitionService.changeStatus(id, data);
-    setRequisition({ ...requisition, status: e.value });
+    setClaimRequest({ ...claimRequest, status: e.value });
   };
 
   useEffect(() => {
@@ -58,7 +58,7 @@ const ShowClaimRequest = () => {
               <div className="card-body py-4">
                 <div className="fw-bolder mt-5">Company</div>
                 <div className="text-gray-600">
-                  {requisition?.company?.name}
+                  {claimRequest?.company?.name}
                 </div>
 
                 {/* <div className="fw-bolder mt-5">Machines</div>
@@ -72,14 +72,14 @@ const ShowClaimRequest = () => {
 
                 <div className="fw-bolder mt-5">Engineer</div>
                 <div className="text-gray-600">
-                  {requisition?.engineer?.name ?? "--"}
+                  {claimRequest?.engineer?.name ?? "--"}
                 </div>
 
                 <div className="fw-bolder mt-5">Requisition Status</div>
                 <div className="fw-bolder text-danger">
-                  {requisition?.requisition_id ? (
+                  {claimRequest?.requisition_id ? (
                     <Link
-                      to={"/panel/requisitions/" + requisition?.requisition_id}
+                      to={"/panel/requisitions/" + claimRequest?.requisition_id}
                       className="fw-bolder text-success"
                     >
                       Created
@@ -92,51 +92,51 @@ const ShowClaimRequest = () => {
                 <div className="fw-bolder mt-5">Expected Delivery</div>
                 <div className="text-gray-600">
                   <Moment format="D MMMM YYYY">
-                    {requisition?.expected_delivery}
+                    {claimRequest?.expected_delivery}
                   </Moment>
                 </div>
 
                 <div className="fw-bolder mt-5">Priority</div>
                 <div className="text-gray-600">
-                  {requisition?.priority?.capitalize()}
+                  {claimRequest?.priority?.capitalize()}
                 </div>
 
                 <div className="fw-bolder mt-5">Type</div>
                 <div className="text-gray-600">
-                  {requisition?.type?.replaceAll("_", " ")?.capitalize()}
+                  {claimRequest?.type?.replaceAll("_", " ")?.capitalize()}
                 </div>
 
                 <div className="fw-bolder mt-5">Updated At</div>
                 <div className="text-gray-600">
                   <Moment format="D MMMM YYYY">
-                    {requisition?.updated_at}
+                    {claimRequest?.updated_at}
                   </Moment>
                 </div>
 
                 <div className="fw-bolder mt-5">Ref Number</div>
                 <div className="text-gray-600">
-                  {requisition?.ref_number ?? "--"}
+                  {claimRequest?.ref_number ?? "--"}
                 </div>
 
                 <div className="fw-bolder mt-5">Reason Of Trouble</div>
                 <div className="text-gray-600">
-                  {requisition?.reason_of_trouble ?? "--"}
+                  {claimRequest?.reason_of_trouble ?? "--"}
                 </div>
 
                 <div className="fw-bolder mt-5">Solutions</div>
                 <div className="text-gray-600">
-                  {requisition?.solutions ?? "--"}
+                  {claimRequest?.solutions ?? "--"}
                 </div>
 
                 <div className="fw-bolder mt-5">Remarks</div>
                 <div className="text-gray-600">
-                  {requisition?.remarks ?? "--"}
+                  {claimRequest?.remarks ?? "--"}
                 </div>
 
                 <div className="fw-bolder mt-5">Status</div>
-                <div className="text-gray-600">{requisition?.status}</div>
+                <div className="text-gray-600">{claimRequest?.status}</div>
               </div>
-              {!requisition?.requisition_id && (
+              {!claimRequest?.requisition_id && (
                 <span>
                   <div className="card-body py-4">
                     <div className="fw-bolder mt-5">Change Status</div>
@@ -149,7 +149,7 @@ const ShowClaimRequest = () => {
                     </div>
                   </div>
 
-                  {requisition?.status == "complete" && (
+                  {claimRequest?.status == "complete" && (
                     <div className="card-header">
                       <div className="card-title">
                         <h3 className="card-label">
@@ -226,7 +226,7 @@ const ShowClaimRequest = () => {
                               </thead>
 
                               <tbody>
-                                {requisition?.required_part_items?.map(
+                                {claimRequest?.required_part_items?.map(
                                   (item, index) => (
                                     <tr key={index}>
                                       <td className="">{item?.part_name}</td>

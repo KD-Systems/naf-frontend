@@ -7,7 +7,7 @@ import RequisitionFilter from "./RequisitionFilter";
 const ClientClaimRequisition = () => {
   const [filter, setFilter] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [requisitions, setRequisitions] = useState([]);
+  const [focClaimRequisition, setFocClaimRequisition] = useState([]);
 
   const columns = [
     {
@@ -65,21 +65,21 @@ const ClientClaimRequisition = () => {
       format: (row) => (<div className="mt-2"> {row?.quotation?.pq_number ? row?.quotation?.pq_number : "No quotation yet"} </div> ),
     },
 
-    // {
-    //   name: "Action",
-    //   selector: (row) => row.status,
-    //   format: (row) => (
-    //     <span className="text-end">
-    //       <Link to={"/panel/claim-requisitions/" + row.id} className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" >
-    //         <i className="fa fa-eye"></i>
-    //       </Link>
-    //     </span>
-    //   ),
-    // },
+    {
+      name: "Action",
+      selector: (row) => row.status,
+      format: (row) => (
+        <span className="text-end">
+          <Link to={"/panel/client-claim-requisitions/" + row.id} className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" >
+            <i className="fa fa-eye"></i>
+          </Link>
+        </span>
+      ),
+    },
   ];
 
-  const getRequisitions = async (data) => {
-    setRequisitions(await ClaimRequisitionService.getAll(data));
+  const getClientClaimRequisitions = async (data) => {
+    setFocClaimRequisition(await ClaimRequisitionService.getClientClaimRequisition(data));
     setLoading(false);
   };
 
@@ -93,16 +93,16 @@ const ClientClaimRequisition = () => {
             buttonName="Filter"
             onClickButton={() => setFilter(!filter)}
             isLoading={loading}
-            data={requisitions}
+            data={focClaimRequisition}
             columns={columns}
-            onFilter={getRequisitions}
+            onFilter={getClientClaimRequisitions}
           />
         </div>
       </div>
       <RequisitionFilter
         enable={filter}
         onChange={(data) => {
-          getRequisitions(data);
+          getClientClaimRequisitions(data);
         }}
       />
     </>

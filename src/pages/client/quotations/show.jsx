@@ -241,6 +241,17 @@ const ShowQuotation = () => {
                     </button>
                   </h3> */}
 
+                  <h3 className="card-label">
+                    <Link
+                      className="btn btn-sm btn-dark "
+                      to={"/panel/client/quotations/" + quotation.id + "/print"}
+                      style={{ marginRight: "0.75rem" }}
+                      target="_blank"
+                    >
+                      Print
+                    </Link>
+                  </h3>
+
                   {!locked ? (
                     <h3>
                       <button

@@ -34,6 +34,7 @@ const RequiredRequisitionCreate = () => {
     priority: "",
     type: "",
     payment_mode: "",
+    account_details:"",
     expected_delivery: "",
     payment_term: "",
     payment_partial_mode: "",
@@ -50,6 +51,7 @@ const RequiredRequisitionCreate = () => {
   });
   const getRequisition = async () => {
     let res = await RequisitionService.getRequiredRequisition(id);
+    console.log("🚀 ~ file: Create.jsx ~ line 53 ~ getRequisition ~ res", res)
     res?.machines_data?.map((item) => {
       setMachineList(machineList + "," + item?.model?.name);
     });
@@ -326,7 +328,7 @@ const RequiredRequisitionCreate = () => {
 
                       {data?.type !== "claim_report" && data?.type !== "" && (
                         <>
-                          <div className="col-lg-6">
+                          <div className="col-lg-4">
                             <div className="mb-5">
                               <label className="required form-label">
                                 Payment Mode
@@ -334,7 +336,7 @@ const RequiredRequisitionCreate = () => {
                               <input
                                 type="text"
                                 className="form-control"
-                                value={data?.payment_mode}
+                                value={data?.payment_mode} 
                                 disabled
                               />
                               <div
@@ -344,7 +346,29 @@ const RequiredRequisitionCreate = () => {
                             </div>
                           </div>
 
-                          <div className="col-lg-6">
+                          <div className="col-lg-4">
+                            <label
+                              className="required form-label fs-6 fw-bolder text-gray-700"
+                              htmlFor="types"
+                            >
+                              Account Details
+                            </label>
+                            <textarea
+                              className="form-control form-control-solid mb-3"
+                              rows="2"
+                              name="account_details"
+                              data-kt-element="input"
+                              placeholder="Account details"
+                              value={data?.account_details} 
+                              disabled
+                            ></textarea>
+                            <div
+                                className="fv-plugins-message-container invalid-feedback"
+                                htmlFor="account_details"
+                              ></div>
+                          </div>
+
+                          <div className="col-lg-4">
                             <div className="mb-5">
                               <label className="required form-label">
                                 Payment Term

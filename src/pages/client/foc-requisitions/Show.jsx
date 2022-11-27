@@ -4,10 +4,12 @@ import PermissionAbility from "helpers/PermissionAbility";
 import { useEffect, useState } from "react";
 import Moment from "react-moment";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import RequisitionService from "../../services/RequisitionService";
+import ClientRequisitionService from "services/clientServices/ClientRequisitionService";
+import RequisitionService from "services/RequisitionService";
+// import RequisitionService from "../../services/RequisitionService";
 import NewDropzone from "./Dropzone/MyDropzone";
 
-const ShowClaimRequisition = () => {
+const ShowClientClaimRequisition = () => {
   const [confirmDelete, setConfirmDelete] = useState(false);
 
   const [uuid, setuuid] = useState();
@@ -17,31 +19,31 @@ const ShowClaimRequisition = () => {
 
   let { id } = useParams();
   const navigate = useNavigate();
-  const [requisition, setRequisition] = useState({});
+  const [focClaimRequisition, setFocClaimRequisition] = useState({});
   const [file, setFile] = useState({});
   const [tab, setTab] = useState("requisitions");
 
-  const getRequisition = async () => {
-    let res = await RequisitionService.get(id);
-    setRequisition(res);
+  const getClientClaimRequisition = async () => {
+    let res = await ClientRequisitionService.get(id);
+    setFocClaimRequisition(res);
   };
 
   useEffect(() => {
-    requisition?.part_items?.map((item, index) => {
+    focClaimRequisition?.part_items?.map((item, index) => {
       item?.part?.stocks[0]?.unit_value
         ? item?.part?.stocks[0]?.unit_value < item?.quantity ?? setStock(false)
         : setStock(false);
     });
-  }, [requisition]);
+  }, [focClaimRequisition]);
 
   const approveRequisition = async () => {
     await RequisitionService.approve(id);
-    getRequisition();
+    getClientClaimRequisition();
   };
 
   const rejectRequisition = async () => {
     await RequisitionService.reject(id);
-    getRequisition();
+    getClientClaimRequisition();
   };
 
   const uploadFile = async (formData) => {
@@ -62,7 +64,7 @@ const ShowClaimRequisition = () => {
   };
 
   useEffect(() => {
-    if (id) getRequisition();
+    if (id) getClientClaimRequisition();
     getFile();
   }, [id]);
 
@@ -96,16 +98,16 @@ const ShowClaimRequisition = () => {
               <div className="card-body py-4">
                 <div className="fw-bolder mt-5">Company</div>
                 <div className="text-gray-600">
-                  {requisition?.company?.name}
+                  {focClaimRequisition?.company?.name}
                 </div>
 
                 <div className="fw-bolder mt-5">RQ Number</div>
 
-                <div className="text-gray-600">{requisition?.rq_number}</div>
+                <div className="text-gray-600">{focClaimRequisition?.rq_number}</div>
 
                 <div className="fw-bolder mt-5">Machines</div>
                 <div className="text-gray-600">
-                  {requisition?.machines?.map((item, index) => (
+                  {focClaimRequisition?.machines?.map((item, index) => (
                     <span key={index} className="badge badge-light-info ">
                       {item?.model?.name}{" "}
                     </span>
@@ -114,65 +116,65 @@ const ShowClaimRequisition = () => {
 
                 <div className="fw-bolder mt-5">Engineer</div>
                 <div className="text-gray-600">
-                  {requisition?.engineer?.name ?? "--"}
+                  {focClaimRequisition?.engineer?.name ?? "--"}
                 </div>
 
                 <div className="fw-bolder mt-5">Expected Delivery</div>
                 <div className="text-gray-600">
                   <Moment format="D MMMM YYYY">
-                    {requisition?.expected_delivery}
+                    {focClaimRequisition?.expected_delivery}
                   </Moment>
                 </div>
 
                 <div className="fw-bolder mt-5">Account details</div>
                 <div className="text-gray-600">
-                  {requisition?.account_details ?? "--"}
+                  {focClaimRequisition?.account_details ?? "--"}
                 </div>
 
                 <div className="fw-bolder mt-5">Priority</div>
                 <div className="text-gray-600">
-                  {requisition?.priority?.capitalize()}
+                  {focClaimRequisition?.priority?.capitalize()}
                 </div>
 
                 <div className="fw-bolder mt-5">Type</div>
                 <div className="text-gray-600">
-                  {requisition?.type?.replaceAll("_", " ")?.capitalize()}
+                  {focClaimRequisition?.type?.replaceAll("_", " ")?.capitalize()}
                 </div>
 
                 <div className="fw-bolder mt-5">Updated At</div>
                 <div className="text-gray-600">
                   <Moment format="D MMMM YYYY">
-                    {requisition?.updated_at}
+                    {focClaimRequisition?.updated_at}
                   </Moment>
                 </div>
 
                 <div className="fw-bolder mt-5">Ref Number</div>
                 <div className="text-gray-600">
-                  {requisition?.ref_number ?? "--"}
+                  {focClaimRequisition?.ref_number ?? "--"}
                 </div>
 
                 <div className="fw-bolder mt-5">Reason Of Trouble</div>
                 <div className="text-gray-600">
-                  {requisition?.reason_of_trouble ?? "--"}
+                  {focClaimRequisition?.reason_of_trouble ?? "--"}
                 </div>
 
                 <div className="fw-bolder mt-5">Solutions</div>
                 <div className="text-gray-600">
-                  {requisition?.solutions ?? "--"}
+                  {focClaimRequisition?.solutions ?? "--"}
                 </div>
 
                 <div className="fw-bolder mt-5">Remarks</div>
                 <div className="text-gray-600">
-                  {requisition?.remarks ?? "--"}
+                  {focClaimRequisition?.remarks ?? "--"}
                 </div>
               </div>
-              <div className="card-header"> 
+              <div className="card-header">
                 <div className="card-title">
                   <h3 className="card-label">
                     <PermissionAbility permission="requisitions_print">
                       <Link
                         className="btn btn-sm btn-dark "
-                        to={"/panel/requisitions/" + requisition.id + "/print"}
+                        to={"/panel/requisitions/" + focClaimRequisition.id + "/print"}
                         style={{ marginRight: "0.75rem" }}
                         // target="_blank"
                       >
@@ -180,68 +182,7 @@ const ShowClaimRequisition = () => {
                       </Link>
                     </PermissionAbility>
                   </h3>
-                  {stock && (
-                    <>
-                      {requisition.status == "approved" ? (
-                        <h3 className="card-label">
-                          <PermissionAbility permission="requisitions_generate_quotation">
-                            <button
-                              className="btn btn-sm btn-dark "
-                              style={{ marginRight: "0.1rem" }}
-                              onClick={() =>
-                                navigate(
-                                  `/panel/quotations/${requisition?.id}/create`
-                                )
-                              }
-                            >
-                              Generate Quotation
-                            </button>
-                          </PermissionAbility>
-                        </h3>
-                      ) : (
-                        <>
-                          <PermissionAbility permission="requisitions_approve">
-                            {requisition.status == "rejected" ? (
-                              <h3 className="card-label">
-                                <div className="btn btn-sm bg-danger disabled text-white">
-                                  Rejected Requisition
-                                </div>
-                              </h3>
-                            ) : (
-                              <>
-                                <h3 className="card-label">
-                                  <button
-                                    onClick={approveRequisition}
-                                    className="btn btn-sm btn-primary"
-                                  >
-                                    Approve
-                                  </button>
-                                </h3>
-                                <h3 className="card-label">
-                                  <button
-                                    onClick={rejectRequisition}
-                                    className="btn btn-sm btn-danger"
-                                  >
-                                    Reject
-                                  </button>
-                                </h3>
-                              </>
-                            )}
-                          </PermissionAbility>
-                        </>
-                      )}
-                    </>
-                  )}
                 </div>
-
-                {!stock && (
-                  <p
-                    className="badge text-danger"
-                    style={{ fontSize: "16px" }}
-                  >
-                    Unavailable Stock
-                  </p>
-                )}
               </div>
             </div>
           </div>
@@ -314,7 +255,7 @@ const ShowClaimRequisition = () => {
                               </thead>
 
                               <tbody>
-                                {requisition?.part_items?.map((item, index) => (
+                                {focClaimRequisition?.part_items?.map((item, index) => (
                                   <tr key={index}>
                                     <td className="">
                                       <Link
@@ -439,4 +380,4 @@ const ShowClaimRequisition = () => {
   );
 };
 
-export default ShowClaimRequisition;
+export default ShowClientClaimRequisition;
