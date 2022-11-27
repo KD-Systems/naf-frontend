@@ -19,22 +19,22 @@ const ShowClientClaimRequisition = () => {
 
   let { id } = useParams();
   const navigate = useNavigate();
-  const [requisition, setRequisition] = useState({});
+  const [focClaimRequisition, setFocClaimRequisition] = useState({});
   const [file, setFile] = useState({});
   const [tab, setTab] = useState("requisitions");
 
   const getClientClaimRequisition = async () => {
     let res = await ClientRequisitionService.get(id);
-    setRequisition(res);
+    setFocClaimRequisition(res);
   };
 
   useEffect(() => {
-    requisition?.part_items?.map((item, index) => {
+    focClaimRequisition?.part_items?.map((item, index) => {
       item?.part?.stocks[0]?.unit_value
         ? item?.part?.stocks[0]?.unit_value < item?.quantity ?? setStock(false)
         : setStock(false);
     });
-  }, [requisition]);
+  }, [focClaimRequisition]);
 
   const approveRequisition = async () => {
     await RequisitionService.approve(id);
@@ -98,16 +98,16 @@ const ShowClientClaimRequisition = () => {
               <div className="card-body py-4">
                 <div className="fw-bolder mt-5">Company</div>
                 <div className="text-gray-600">
-                  {requisition?.company?.name}
+                  {focClaimRequisition?.company?.name}
                 </div>
 
                 <div className="fw-bolder mt-5">RQ Number</div>
 
-                <div className="text-gray-600">{requisition?.rq_number}</div>
+                <div className="text-gray-600">{focClaimRequisition?.rq_number}</div>
 
                 <div className="fw-bolder mt-5">Machines</div>
                 <div className="text-gray-600">
-                  {requisition?.machines?.map((item, index) => (
+                  {focClaimRequisition?.machines?.map((item, index) => (
                     <span key={index} className="badge badge-light-info ">
                       {item?.model?.name}{" "}
                     </span>
@@ -116,56 +116,56 @@ const ShowClientClaimRequisition = () => {
 
                 <div className="fw-bolder mt-5">Engineer</div>
                 <div className="text-gray-600">
-                  {requisition?.engineer?.name ?? "--"}
+                  {focClaimRequisition?.engineer?.name ?? "--"}
                 </div>
 
                 <div className="fw-bolder mt-5">Expected Delivery</div>
                 <div className="text-gray-600">
                   <Moment format="D MMMM YYYY">
-                    {requisition?.expected_delivery}
+                    {focClaimRequisition?.expected_delivery}
                   </Moment>
                 </div>
 
                 <div className="fw-bolder mt-5">Account details</div>
                 <div className="text-gray-600">
-                  {requisition?.account_details ?? "--"}
+                  {focClaimRequisition?.account_details ?? "--"}
                 </div>
 
                 <div className="fw-bolder mt-5">Priority</div>
                 <div className="text-gray-600">
-                  {requisition?.priority?.capitalize()}
+                  {focClaimRequisition?.priority?.capitalize()}
                 </div>
 
                 <div className="fw-bolder mt-5">Type</div>
                 <div className="text-gray-600">
-                  {requisition?.type?.replaceAll("_", " ")?.capitalize()}
+                  {focClaimRequisition?.type?.replaceAll("_", " ")?.capitalize()}
                 </div>
 
                 <div className="fw-bolder mt-5">Updated At</div>
                 <div className="text-gray-600">
                   <Moment format="D MMMM YYYY">
-                    {requisition?.updated_at}
+                    {focClaimRequisition?.updated_at}
                   </Moment>
                 </div>
 
                 <div className="fw-bolder mt-5">Ref Number</div>
                 <div className="text-gray-600">
-                  {requisition?.ref_number ?? "--"}
+                  {focClaimRequisition?.ref_number ?? "--"}
                 </div>
 
                 <div className="fw-bolder mt-5">Reason Of Trouble</div>
                 <div className="text-gray-600">
-                  {requisition?.reason_of_trouble ?? "--"}
+                  {focClaimRequisition?.reason_of_trouble ?? "--"}
                 </div>
 
                 <div className="fw-bolder mt-5">Solutions</div>
                 <div className="text-gray-600">
-                  {requisition?.solutions ?? "--"}
+                  {focClaimRequisition?.solutions ?? "--"}
                 </div>
 
                 <div className="fw-bolder mt-5">Remarks</div>
                 <div className="text-gray-600">
-                  {requisition?.remarks ?? "--"}
+                  {focClaimRequisition?.remarks ?? "--"}
                 </div>
               </div>
               <div className="card-header">
@@ -174,7 +174,7 @@ const ShowClientClaimRequisition = () => {
                     <PermissionAbility permission="requisitions_print">
                       <Link
                         className="btn btn-sm btn-dark "
-                        to={"/panel/requisitions/" + requisition.id + "/print"}
+                        to={"/panel/requisitions/" + focClaimRequisition.id + "/print"}
                         style={{ marginRight: "0.75rem" }}
                         // target="_blank"
                       >
@@ -255,7 +255,7 @@ const ShowClientClaimRequisition = () => {
                               </thead>
 
                               <tbody>
-                                {requisition?.part_items?.map((item, index) => (
+                                {focClaimRequisition?.part_items?.map((item, index) => (
                                   <tr key={index}>
                                     <td className="">
                                       <Link

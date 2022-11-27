@@ -9,10 +9,10 @@ import ClaimRequestFilter from "./ClaimRequestFilter";
 const ClientClaimRequest = () => {
   const [filter, setFilter] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [requisitions, setRequisitions] = useState([]);
+  const [focClaimRequest, setFocClaimRequest] = useState([]);
   const filterdata = (data) => {    
     setFilter(false);
-    getClaimRequest(data);
+    getFocClaimRequest(data);
   };
   useEffect(() => {
     filterdata();
@@ -96,31 +96,15 @@ const ClientClaimRequest = () => {
       ),
     },
 
-    // {
-    //   name: "Action",
-    //   selector: (row) => row.status,
-    //   format: (row) => (
-    //     <span className="text-end">
-    //       <PermissionAbility permission="requisitions_show">
-    //         <Link
-    //           to={"/panel/claim-requests/" + row.id}
-    //           className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-    //         >
-    //           <i className="fa fa-eye"></i>
-    //         </Link>
-    //       </PermissionAbility>
-    //     </span>
-    //   ),
-    // },
   ];
 
-  const getClaimRequest = async (filters) => {
+  const getFocClaimRequest = async (filters) => {
     let res = await ClaimRequisitionService.getAllClientClaimRequest(filters);
-    setRequisitions(res);
+    setFocClaimRequest(res);
     setLoading(false);
   };
   useEffect(() => {
-    getClaimRequest();
+    getFocClaimRequest();
   }, []);
 
   let navigate = useNavigate();
@@ -149,7 +133,7 @@ const ClientClaimRequest = () => {
               },
             ]}     
             isLoading={loading}
-            data={requisitions}
+            data={focClaimRequest}
             columns={columns}
             onFilter={filterdata}
           />

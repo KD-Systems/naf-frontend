@@ -440,6 +440,15 @@ const SideMenuCompany = () => {
             </div>
 
             <div className="menu-item">
+              <NavLink className={(navinfo) => navinfo.isActive ? "menu-link active" : "menu-link" } to="client-claim-requests">
+                <span className="menu-icon">
+                  <i className="fa fa-sticky-note"></i>
+                </span>
+                <span className="menu-title">Claim Request</span> 
+              </NavLink>
+            </div>
+            
+            <div className="menu-item">
               <NavLink className={(navinfo) => navinfo.isActive ? "menu-link active" : "menu-link" } to="client-claim-requisitions">
                 <span className="menu-icon">
                   <i className="fa fa-sticky-note"></i>
@@ -448,14 +457,6 @@ const SideMenuCompany = () => {
               </NavLink>
             </div>
 
-            <div className="menu-item">
-              <NavLink className={(navinfo) => navinfo.isActive ? "menu-link active" : "menu-link" } to="client-claim-requests">
-                <span className="menu-icon">
-                  <i className="fa fa-sticky-note"></i>
-                </span>
-                <span className="menu-title">Claim Request</span> 
-              </NavLink>
-            </div>
 
             <div className="menu-item">
               <div className="menu-content">

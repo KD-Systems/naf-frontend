@@ -9,13 +9,13 @@ import RequisitionService from "../../services/RequisitionService";
 const ShowClaimRequest = () => {
   let { id } = useParams();
   const navigate = useNavigate();
-  const [claimRequest, setRequisition] = useState({});
+  const [claimRequest, setClaimRequest] = useState({});
 
   const [tab, setTab] = useState("requisitions");
 
   const getRequisition = async () => {
     let res = await RequisitionService.getRequiredRequisition(id);
-    setRequisition(res);
+    setClaimRequest(res);
   };
 
   const status = [
@@ -27,7 +27,7 @@ const ShowClaimRequest = () => {
   const handleSelect = async (e) => {
     let data = { status: e.value };
     await RequisitionService.changeStatus(id, data);
-    setRequisition({ ...claimRequest, status: e.value });
+    setClaimRequest({ ...claimRequest, status: e.value });
   };
 
   useEffect(() => {
