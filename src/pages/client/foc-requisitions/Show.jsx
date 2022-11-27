@@ -4,6 +4,7 @@ import PermissionAbility from "helpers/PermissionAbility";
 import { useEffect, useState } from "react";
 import Moment from "react-moment";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import ClientRequisitionService from "services/clientServices/ClientRequisitionService";
 import RequisitionService from "services/RequisitionService";
 // import RequisitionService from "../../services/RequisitionService";
 import NewDropzone from "./Dropzone/MyDropzone";
@@ -22,9 +23,9 @@ const ShowClientClaimRequisition = () => {
   const [file, setFile] = useState({});
   const [tab, setTab] = useState("requisitions");
 
-  const getRequisition = async () => {
-    // let res = await RequisitionService.get(id);
-    // setRequisition(res);
+  const getClientClaimRequisition = async () => {
+    let res = await ClientRequisitionService.get(id);
+    setRequisition(res);
   };
 
   useEffect(() => {
@@ -37,12 +38,12 @@ const ShowClientClaimRequisition = () => {
 
   const approveRequisition = async () => {
     await RequisitionService.approve(id);
-    getRequisition();
+    getClientClaimRequisition();
   };
 
   const rejectRequisition = async () => {
     await RequisitionService.reject(id);
-    getRequisition();
+    getClientClaimRequisition();
   };
 
   const uploadFile = async (formData) => {
@@ -63,7 +64,7 @@ const ShowClientClaimRequisition = () => {
   };
 
   useEffect(() => {
-    if (id) getRequisition();
+    if (id) getClientClaimRequisition();
     getFile();
   }, [id]);
 

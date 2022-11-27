@@ -89,8 +89,8 @@ import ShowClaimRequest from "pages/foc_claim_request/Show";
 import ClaimRequestRequisitionCreate from "pages/foc_claim_request/Create";
 import ClientClaimRequisition from "pages/client/foc-requisitions/Index";
 import ClientClaimRequest from "pages/client/foc_claim_request/Index";
-import CreateClientClaimRequisition from "pages/client/foc-requisitions/Create";
 import ShowClientClaimRequisition from "pages/client/foc-requisitions/Show";
+import CreateClientClaimRequisition from "pages/client/foc_claim_request/Create";
 
 function App() {
   return (

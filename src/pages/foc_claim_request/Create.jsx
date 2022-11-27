@@ -80,7 +80,7 @@ const ClaimRequestRequisitionCreate = () => {
     setBlock(true);
     await RequisitionService.create(data);
     setBlock(false);
-    navigate("/panel/requisitions");
+    navigate("/panel/claim-requests");
   };
 
   const removeItem = (id) => {

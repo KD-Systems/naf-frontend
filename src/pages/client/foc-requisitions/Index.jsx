@@ -78,8 +78,8 @@ const ClientClaimRequisition = () => {
     },
   ];
 
-  const getRequisitions = async (data) => {
-    setRequisitions(await ClaimRequisitionService.getAll(data));
+  const getClientClaimRequisitions = async (data) => {
+    setRequisitions(await ClaimRequisitionService.getClientClaimRequisition(data));
     setLoading(false);
   };
 
@@ -95,14 +95,14 @@ const ClientClaimRequisition = () => {
             isLoading={loading}
             data={requisitions}
             columns={columns}
-            onFilter={getRequisitions}
+            onFilter={getClientClaimRequisitions}
           />
         </div>
       </div>
       <RequisitionFilter
         enable={filter}
         onChange={(data) => {
-          getRequisitions(data);
+          getClientClaimRequisitions(data);
         }}
       />
     </>

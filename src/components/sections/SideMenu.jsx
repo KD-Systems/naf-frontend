@@ -439,22 +439,22 @@ const SideMenu = () => {
 
             <PermissionAbility>
             <div className="menu-item">
-              <NavLink className={(navinfo) => navinfo.isActive ? "menu-link active" : "menu-link" } to="claim-requisitions">
+              <NavLink className={(navinfo) => navinfo.isActive ? "menu-link active" : "menu-link" } to="claim-requests">
                 <span className="menu-icon">
                   <i className="fa fa-sticky-note"></i>
                 </span>
-                <span className="menu-title">Claim Requisition</span> 
+                <span className="menu-title">Claim Request</span> 
               </NavLink>
             </div>
             </PermissionAbility>
 
             <PermissionAbility>
             <div className="menu-item">
-              <NavLink className={(navinfo) => navinfo.isActive ? "menu-link active" : "menu-link" } to="claim-requests">
+              <NavLink className={(navinfo) => navinfo.isActive ? "menu-link active" : "menu-link" } to="claim-requisitions">
                 <span className="menu-icon">
                   <i className="fa fa-sticky-note"></i>
                 </span>
-                <span className="menu-title">Claim Request</span> 
+                <span className="menu-title">Claim Requisition</span> 
               </NavLink>
             </div>
             </PermissionAbility>

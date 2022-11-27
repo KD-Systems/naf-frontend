@@ -10,7 +10,7 @@ import CompanyService from "services/CompanyService";
 import PartService from "services/PartService";
 import RequisitionService from "services/RequisitionService";
 
-const CreateClientClaimRequisition = () => {
+const ClaimRequisition = () => {
   const navigate = useNavigate();
 
   const [req, setReq] = useState(false);
@@ -750,4 +750,4 @@ const CreateClientClaimRequisition = () => {
   );
 };
 
-export default CreateClientClaimRequisition;
+export default ClaimRequisition;
