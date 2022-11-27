@@ -281,11 +281,9 @@ const PrintInvoice = () => {
                       Brand : Tajima <br />
                       Origin: Japan
                       <br />
-                      Payment mode: Cash or cheque have to be paid before parts
-                      delivery <br />
-                      validity:This quotation is valid for 07 days . Price might
-                      vary after validity period expired. <br />
+                      Payment mode: Credit or Cash <br />
                       <br />
+                      
                       AIT: This price is excluding AIT.
                       <br />
                       <br />
