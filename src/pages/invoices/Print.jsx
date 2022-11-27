@@ -198,8 +198,21 @@ const PrintInvoice = () => {
                           <td className="text-center">
                             <h4>Sub-Total</h4>
                           </td>
-                          <td className="text-center border-bottom border-1 border-dark">
+                          <td className="text-center">
                             <h4>{total} TK.</h4>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className=" text-center"></td>
+                          <td className="text-start"></td>
+                          <td className="text-center"></td>
+                          <td className="text-center">
+                            <h4>VAT({invoice.vat})</h4>
+                          </td>
+                          <td className="text-center border-bottom border-1 border-dark">
+                            <h4>
+                              {Math.round((invoice.vat_amount - 1) * total)} TK.
+                            </h4>
                           </td>
                         </tr>
                         {/* <tr>
@@ -238,8 +251,8 @@ const PrintInvoice = () => {
                               }}
                             >
                               {invoice.discount
-                                ? total - invoice.discount
-                                : total}{" "}
+                                ? Math.round(invoice.vat_amount * total) - invoice.discount
+                                : Math.round(invoice.vat_amount* total)}
                               TK.
                             </div>
                           </td>
@@ -250,7 +263,7 @@ const PrintInvoice = () => {
                 </div>
               </div>
 
-              <div className="d-flex justify-content-between flex-column flex-md-row">
+              <div className="d-flex justify-content-between flex-row flex-md-row">
                 <div className="flex-grow-1 pt-2">
                   <div className="table-responsive ">
                     <p>
@@ -258,10 +271,7 @@ const PrintInvoice = () => {
                       Brand : Tajima <br />
                       Origin: Japan
                       <br />
-                      Payment mode: Cash or cheque have to be paid before parts
-                      delivery <br />
-                      validity:This quotation is valid for 07 days . Price might
-                      vary after validity period expired. <br />
+                      Payment mode: Cash or Cdedit <br />
                       <br />
                       Feel free to contact us, if you need any further
                       clarification/information or comments related to this
@@ -271,19 +281,37 @@ const PrintInvoice = () => {
                       Thanks & Best Regards
                       <br />
                       <br />
-                      Safil Nawaz Chowdhury
-                      <br />
-                      Deputy Managing Director
-                      <br />
-                      NAF GROUP (Stitch & Color Technology)
-                      <br />
-                      Mail ID: safil@nafgroup.org
-                      <br />
-                      01919331919
+                      <span className="d-flex justify-content-between">
+                        <span>
+                          Safil Nawaz Chowdhury
+                          <br />
+                          Deputy Managing Director
+                          <br />
+                          NAF GROUP (Stitch & Color Technology)
+                          <br />
+                          Mail ID: safil@nafgroup.org
+                          <br />
+                          01919331919
+                        </span>
+                        <span>
+                          Prepared by
+                          <br />
+                          <br />
+                          <br />
+                          -------------
+                        </span>
+                        <span>
+                          Approved by
+                          <br />
+                          <br />
+                          <br />
+                          -------------
+                        </span>
+                      </span>
                     </p>
                   </div>
                 </div>
-              </div> 
+              </div>
 
               <div className="fixed-bottom mb-10 text-center border-top border-1 border-dark">
                 <div className="d-flex flex-row justify-content-evenly">
