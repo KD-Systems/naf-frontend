@@ -6,7 +6,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import Select from "react-select";
 import RequisitionService from "../../services/RequisitionService";
 
-const ShowRequiredRequisition = () => {
+const ShowClaimRequest = () => {
   let { id } = useParams();
   const navigate = useNavigate();
   const [requisition, setRequisition] = useState({});
@@ -158,7 +158,7 @@ const ShowRequiredRequisition = () => {
                               className="btn btn-sm btn-dark "
                               style={{ marginRight: "0.1rem" }}
                               onClick={() =>
-                                navigate(`/panel/require_req/create/` + id)
+                                navigate(`/panel/claim-requests/create/` + id)
                               }
                             >
                               Generate Requisitions
@@ -266,4 +266,4 @@ const ShowRequiredRequisition = () => {
   );
 };
 
-export default ShowRequiredRequisition;
+export default ShowClaimRequest;

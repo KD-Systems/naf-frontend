@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import ClaimRequisitionService from "services/ClaimRequisitionService";
 import RequisitionFilter from "./RequisitionFilter";
 
-const ClaimRequisition = () => {
+const ClientClaimRequisition = () => {
   const [filter, setFilter] = useState(false);
   const [loading, setLoading] = useState(true);
   const [requisitions, setRequisitions] = useState([]);
@@ -70,7 +70,7 @@ const ClaimRequisition = () => {
       selector: (row) => row.status,
       format: (row) => (
         <span className="text-end">
-          <Link to={"/panel/claim-requisitions/" + row.id} className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" >
+          <Link to={"/panel/client-claim-requisitions/" + row.id} className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" >
             <i className="fa fa-eye"></i>
           </Link>
         </span>
@@ -109,4 +109,4 @@ const ClaimRequisition = () => {
   );
 };
 
-export default ClaimRequisition;
+export default ClientClaimRequisition;

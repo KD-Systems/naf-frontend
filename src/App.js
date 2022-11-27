@@ -44,6 +44,7 @@ import ShowDesignation from "pages/designations/Show";
 import Employee from "pages/employee/Index";
 import ShowEmployee from "pages/employee/Show";
 import ClaimRequisition from "pages/foc-requisitions/Index";
+import CreateClaimRequisition from "pages/foc-requisitions/Create";
 import ShowClaimRequisition from "pages/foc-requisitions/Show";
 import Forbidden from "pages/Forbidden";
 import GatePass from "pages/gate-passes/Index";
@@ -78,11 +79,18 @@ import ShowRequisition from "pages/requisitions/Show";
 import Roles from "pages/roles/Index";
 import ShowPermission from "pages/roles/Show";
 import Settings from "pages/Settings/Index";
-import TransactionSummary from 'pages/transaction-summary/Index';
+import TransactionSummary from "pages/transaction-summary/Index";
 import ShowTransactionSummary from "pages/transaction-summary/Show";
 import WareHouse from "pages/warehouses/Index";
 import WareHouseShow from "pages/warehouses/Show";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import ClaimRequest from "pages/foc_claim_request/Index";
+import ShowClaimRequest from "pages/foc_claim_request/Show";
+import ClaimRequestRequisitionCreate from "pages/foc_claim_request/Create";
+import ClientClaimRequisition from "pages/client/foc-requisitions/Index";
+import ClientClaimRequest from "pages/client/foc_claim_request/Index";
+import CreateClientClaimRequisition from "pages/client/foc-requisitions/Create";
+import ShowClientClaimRequisition from "pages/client/foc-requisitions/Show";
 
 function App() {
   return (
@@ -550,6 +558,42 @@ function App() {
               }
             />
 
+            <Route
+              path="claim-requests"
+              element={
+                <PrivateRoute>
+                  <ClaimRequest />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
+              path="claim-requests/create"
+              element={
+                <PrivateRoute>
+                  <CreateClaimRequisition />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
+              path="claim-requests/create/:id"
+              element={
+                <PrivateRoute>
+                  <ClaimRequestRequisitionCreate />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
+              path="claim-request/:id"
+              element={
+                <PrivateRoute>
+                  <ShowClaimRequest />
+                </PrivateRoute>
+              }
+            />
+
             {/* Delivery Notes End; */}
 
             {/* Accounts Start */}
@@ -862,7 +906,66 @@ function App() {
               }
             />
 
+
             {/* company user sales end */}
+
+            {/* client foc start */}
+
+            <Route
+              path="client-claim-requisitions"
+              element={
+                <PrivateRoute>
+                  <ClientClaimRequisition />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
+              path="claim-requisitions/:id"
+              element={
+                <PrivateRoute>
+                  <ShowClaimRequisition />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
+              path="client-claim-requests"
+              element={
+                <PrivateRoute>
+                  <ClientClaimRequest />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
+              path="client-claim-requests/create"
+              element={
+                <PrivateRoute>
+                  <CreateClientClaimRequisition />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
+              path="claim-requests/create/:id"
+              element={
+                <PrivateRoute>
+                  <ClaimRequestRequisitionCreate />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
+              path="client-claim-requisitions/:id"
+              element={
+                <PrivateRoute>
+                  <ShowClientClaimRequisition />
+                </PrivateRoute>
+              }
+            />
+            {/* client foc end */}
+
 
             <Route path="403" element={<Forbidden />} />
             <Route path="*" element={<NotFound />} />

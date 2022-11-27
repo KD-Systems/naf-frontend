@@ -120,7 +120,7 @@ const NewRequisition = () => {
         })
       : await RequisitionService.create(data);
     setBlock(false);
-    if (req || data?.type == "claim_report") {
+    if (req) {
       navigate("/panel/require_req");
     } else {
       navigate("/panel/requisitions");
@@ -510,7 +510,7 @@ const NewRequisition = () => {
 
                           <div className="col-lg-4">
                             <label
-                              className="required form-label fs-6 fw-bolder text-gray-700"
+                              className="form-label fs-6 fw-bolder text-gray-700"
                               htmlFor="types"
                             >
                               Account Details
@@ -523,10 +523,6 @@ const NewRequisition = () => {
                               placeholder="Account details"
                               onChange={handleChange}
                             ></textarea>
-                            <div
-                                className="fv-plugins-message-container invalid-feedback"
-                                htmlFor="account_details"
-                              ></div>
                           </div>
 
                           <div className="col-lg-4">
@@ -701,7 +697,7 @@ const NewRequisition = () => {
             </div>
           )}
 
-          {req || data?.type == "claim_report" ? (
+          {req ? (
             <span>
               {inputField?.map((item, index) => (
                 <Fragment key={index}>
