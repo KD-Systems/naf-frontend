@@ -8,7 +8,7 @@ import ClaimRequestFilter from "./ClaimRequestFilter";
 const ClaimRequest = () => {
   const [filter, setFilter] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [requisitions, setRequisitions] = useState([]);
+  const [claimRequest, setClaimRequest] = useState([]);
   const filterdata = (data) => {    
     setFilter(false);
     getClaimRequest(data);
@@ -115,7 +115,7 @@ const ClaimRequest = () => {
 
   const getClaimRequest = async (filters) => {
     let res = await RequisitionService.getAllClaimRequest(filters);
-    setRequisitions(res);
+    setClaimRequest(res);
     setLoading(false);
   };
   useEffect(() => {
@@ -148,7 +148,7 @@ const ClaimRequest = () => {
               },
             ]}     
             isLoading={loading}
-            data={requisitions}
+            data={claimRequest}
             columns={columns}
             onFilter={filterdata}
           />

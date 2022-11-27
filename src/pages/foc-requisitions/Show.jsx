@@ -17,31 +17,31 @@ const ShowClaimRequisition = () => {
 
   let { id } = useParams();
   const navigate = useNavigate();
-  const [requisition, setRequisition] = useState({});
+  const [focRequisition, setFocRequisition] = useState({});
   const [file, setFile] = useState({});
   const [tab, setTab] = useState("requisitions");
 
-  const getRequisition = async () => {
+  const getFocRequisition = async () => {
     let res = await RequisitionService.get(id);
-    setRequisition(res);
+    setFocRequisition(res);
   };
 
   useEffect(() => {
-    requisition?.part_items?.map((item, index) => {
+    focRequisition?.part_items?.map((item, index) => {
       item?.part?.stocks[0]?.unit_value
         ? item?.part?.stocks[0]?.unit_value < item?.quantity ?? setStock(false)
         : setStock(false);
     });
-  }, [requisition]);
+  }, [focRequisition]);
 
   const approveRequisition = async () => {
     await RequisitionService.approve(id);
-    getRequisition();
+    getFocRequisition();
   };
 
   const rejectRequisition = async () => {
     await RequisitionService.reject(id);
-    getRequisition();
+    getFocRequisition();
   };
 
   const uploadFile = async (formData) => {
@@ -62,15 +62,10 @@ const ShowClaimRequisition = () => {
   };
 
   useEffect(() => {
-    if (id) getRequisition();
+    if (id) getFocRequisition();
     getFile();
   }, [id]);
 
-  //get quotation
-  // const getQuotation = async () => {
-  //   let res = await QuotationService.get(invoiceId);
-  //   setInvoice(res);
-  // };
 
   return (
     <div className="d-flex flex-column-fluid">
@@ -96,16 +91,16 @@ const ShowClaimRequisition = () => {
               <div className="card-body py-4">
                 <div className="fw-bolder mt-5">Company</div>
                 <div className="text-gray-600">
-                  {requisition?.company?.name}
+                  {focRequisition?.company?.name}
                 </div>
 
                 <div className="fw-bolder mt-5">RQ Number</div>
 
-                <div className="text-gray-600">{requisition?.rq_number}</div>
+                <div className="text-gray-600">{focRequisition?.rq_number}</div>
 
                 <div className="fw-bolder mt-5">Machines</div>
                 <div className="text-gray-600">
-                  {requisition?.machines?.map((item, index) => (
+                  {focRequisition?.machines?.map((item, index) => (
                     <span key={index} className="badge badge-light-info ">
                       {item?.model?.name}{" "}
                     </span>
@@ -114,56 +109,56 @@ const ShowClaimRequisition = () => {
 
                 <div className="fw-bolder mt-5">Engineer</div>
                 <div className="text-gray-600">
-                  {requisition?.engineer?.name ?? "--"}
+                  {focRequisition?.engineer?.name ?? "--"}
                 </div>
 
                 <div className="fw-bolder mt-5">Expected Delivery</div>
                 <div className="text-gray-600">
                   <Moment format="D MMMM YYYY">
-                    {requisition?.expected_delivery}
+                    {focRequisition?.expected_delivery}
                   </Moment>
                 </div>
 
                 <div className="fw-bolder mt-5">Account details</div>
                 <div className="text-gray-600">
-                  {requisition?.account_details ?? "--"}
+                  {focRequisition?.account_details ?? "--"}
                 </div>
 
                 <div className="fw-bolder mt-5">Priority</div>
                 <div className="text-gray-600">
-                  {requisition?.priority?.capitalize()}
+                  {focRequisition?.priority?.capitalize()}
                 </div>
 
                 <div className="fw-bolder mt-5">Type</div>
                 <div className="text-gray-600">
-                  {requisition?.type?.replaceAll("_", " ")?.capitalize()}
+                  {focRequisition?.type?.replaceAll("_", " ")?.capitalize()}
                 </div>
 
                 <div className="fw-bolder mt-5">Updated At</div>
                 <div className="text-gray-600">
                   <Moment format="D MMMM YYYY">
-                    {requisition?.updated_at}
+                    {focRequisition?.updated_at}
                   </Moment>
                 </div>
 
                 <div className="fw-bolder mt-5">Ref Number</div>
                 <div className="text-gray-600">
-                  {requisition?.ref_number ?? "--"}
+                  {focRequisition?.ref_number ?? "--"}
                 </div>
 
                 <div className="fw-bolder mt-5">Reason Of Trouble</div>
                 <div className="text-gray-600">
-                  {requisition?.reason_of_trouble ?? "--"}
+                  {focRequisition?.reason_of_trouble ?? "--"}
                 </div>
 
                 <div className="fw-bolder mt-5">Solutions</div>
                 <div className="text-gray-600">
-                  {requisition?.solutions ?? "--"}
+                  {focRequisition?.solutions ?? "--"}
                 </div>
 
                 <div className="fw-bolder mt-5">Remarks</div>
                 <div className="text-gray-600">
-                  {requisition?.remarks ?? "--"}
+                  {focRequisition?.remarks ?? "--"}
                 </div>
               </div>
               <div className="card-header"> 
@@ -172,7 +167,7 @@ const ShowClaimRequisition = () => {
                     <PermissionAbility permission="requisitions_print">
                       <Link
                         className="btn btn-sm btn-dark "
-                        to={"/panel/requisitions/" + requisition.id + "/print"}
+                        to={"/panel/requisitions/" + focRequisition.id + "/print"}
                         style={{ marginRight: "0.75rem" }}
                         // target="_blank"
                       >
@@ -182,7 +177,7 @@ const ShowClaimRequisition = () => {
                   </h3>
                   {stock && (
                     <>
-                      {requisition.status == "approved" ? (
+                      {focRequisition.status == "approved" ? (
                         <h3 className="card-label">
                           <PermissionAbility permission="requisitions_generate_quotation">
                             <button
@@ -190,7 +185,7 @@ const ShowClaimRequisition = () => {
                               style={{ marginRight: "0.1rem" }}
                               onClick={() =>
                                 navigate(
-                                  `/panel/quotations/${requisition?.id}/create`
+                                  `/panel/quotations/${focRequisition?.id}/create`
                                 )
                               }
                             >
@@ -201,7 +196,7 @@ const ShowClaimRequisition = () => {
                       ) : (
                         <>
                           <PermissionAbility permission="requisitions_approve">
-                            {requisition.status == "rejected" ? (
+                            {focRequisition.status == "rejected" ? (
                               <h3 className="card-label">
                                 <div className="btn btn-sm bg-danger disabled text-white">
                                   Rejected Requisition
@@ -314,7 +309,7 @@ const ShowClaimRequisition = () => {
                               </thead>
 
                               <tbody>
-                                {requisition?.part_items?.map((item, index) => (
+                                {focRequisition?.part_items?.map((item, index) => (
                                   <tr key={index}>
                                     <td className="">
                                       <Link
