@@ -211,7 +211,7 @@ const PrintDeliveryNotes = () => {
 
                 <hr/>
 
-                <div className="d-flex justify-content-between flex-column flex-md-row">
+                <div className="d-flex justify-content-between flex-row flex-md-row">
                 <div className="flex-grow-1 pt-2">
                   <div className="table-responsive ">
                     <p>
@@ -219,10 +219,11 @@ const PrintDeliveryNotes = () => {
                       Brand : Tajima <br />
                       Origin: Japan
                       <br />
-                      Payment mode: Cash or cheque have to be paid before parts
-                      delivery <br />
-                      validity:This quotation is valid for 07 days . Price might
-                      vary after validity period expired. <br />
+                      {deliveryNote?.requisition?.type == "purchase_request" && (
+                        <>
+                            Payment mode: {deliveryNote?.requisition?.payment_mode}
+                        </>
+                      )}
                       <br />
                       Feel free to contact us, if you need any further
                       clarification/information or comments related to this
@@ -232,15 +233,24 @@ const PrintDeliveryNotes = () => {
                       Thanks & Best Regards
                       <br />
                       <br />
-                      Safil Nawaz Chowdhury
-                      <br />
-                      Deputy Managing Director
-                      <br />
-                      NAF GROUP (Stitch & Color Technology)
-                      <br />
-                      Mail ID: safil@nafgroup.org
-                      <br />
-                      01919331919
+                      <span className="d-flex justify-content-between"> 
+                        <span>
+                          Safil Nawaz Chowdhury
+                          <br />
+                          Deputy Managing Director
+                          <br />
+                          NAF GROUP (Stitch & Color Technology)
+                          <br />
+                          Mail ID: safil@nafgroup.org
+                        </span>
+                        <span>
+                          Received by
+                          <br />
+                          <br />
+                          <br />
+                          -------------
+                        </span>
+                      </span>
                     </p>
                   </div>
                 </div>

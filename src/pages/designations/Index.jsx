@@ -32,7 +32,13 @@ const Index = () => {
   };
 
   const updateDesignation = async () => {
-    await DesignationService.update(designationId, data);
+    try {
+      await DesignationService.update(designationId, data);
+      onCloseModal();
+      setData({ name: "", designation: "" });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   // change data
@@ -48,7 +54,6 @@ const Index = () => {
   //update designation
   const onSubmit = () => {
     updateDesignation();
-    onCloseModal();
   };
 
   //delete Designation
@@ -120,9 +125,7 @@ const Index = () => {
                             {item.name}
                           </Link>
                         </td>
-                        <td>
-                          {item.members}
-                        </td>
+                        <td>{item.members}</td>
 
                         <td className="text-end">
                           <PermissionAbility permission="designations_show">
@@ -176,6 +179,7 @@ const Index = () => {
           <>
             <form>
               <div className="form-group">
+                <label className="required form-label">Name</label>
                 <input
                   type="text"
                   className="form-control"
@@ -186,6 +190,10 @@ const Index = () => {
                   onChange={handleChange}
                 />
               </div>
+              <div
+                className="fv-plugins-message-container invalid-feedback"
+                htmlFor="name"
+              ></div>
 
               <div className="form-group mt-5">
                 <textarea

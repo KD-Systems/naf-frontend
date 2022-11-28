@@ -4,18 +4,18 @@ import { useEffect, useState } from "react";
 import Moment from "react-moment";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Select from "react-select";
-import RequisitionService from "../../services/RequisitionService";
+import ClientRequisitionService from "services/clientServices/ClientRequisitionService";
 
-const ShowClaimRequest = () => {
+const ShowClientClaimRequest = () => {
   let { id } = useParams();
   const navigate = useNavigate();
-  const [requisition, setRequisition] = useState({});
+  const [claimRequest, setClaimRequest] = useState({});
 
   const [tab, setTab] = useState("requisitions");
 
   const getRequisition = async () => {
-    let res = await RequisitionService.getRequiredRequisition(id);
-    setRequisition(res);
+    let res = await ClientRequisitionService.getRequiredRequisitionClient(id);
+    setClaimRequest(res);
   };
 
   const status = [
@@ -24,11 +24,6 @@ const ShowClaimRequest = () => {
     { value: "complete", label: "Complete" },
   ];
 
-  const handleSelect = async (e) => {
-    let data = { status: e.value };
-    await RequisitionService.changeStatus(id, data);
-    setRequisition({ ...requisition, status: e.value });
-  };
 
   useEffect(() => {
     if (id) getRequisition();
@@ -58,7 +53,7 @@ const ShowClaimRequest = () => {
               <div className="card-body py-4">
                 <div className="fw-bolder mt-5">Company</div>
                 <div className="text-gray-600">
-                  {requisition?.company?.name}
+                  {claimRequest?.company?.name}
                 </div>
 
                 {/* <div className="fw-bolder mt-5">Machines</div>
@@ -72,14 +67,14 @@ const ShowClaimRequest = () => {
 
                 <div className="fw-bolder mt-5">Engineer</div>
                 <div className="text-gray-600">
-                  {requisition?.engineer?.name ?? "--"}
+                  {claimRequest?.engineer?.name ?? "--"}
                 </div>
 
                 <div className="fw-bolder mt-5">Requisition Status</div>
                 <div className="fw-bolder text-danger">
-                  {requisition?.requisition_id ? (
+                  {claimRequest?.requisition_id ? (
                     <Link
-                      to={"/panel/requisitions/" + requisition?.requisition_id}
+                      to={"/panel/requisitions/" + claimRequest?.requisition_id}
                       className="fw-bolder text-success"
                     >
                       Created
@@ -92,84 +87,50 @@ const ShowClaimRequest = () => {
                 <div className="fw-bolder mt-5">Expected Delivery</div>
                 <div className="text-gray-600">
                   <Moment format="D MMMM YYYY">
-                    {requisition?.expected_delivery}
+                    {claimRequest?.expected_delivery}
                   </Moment>
                 </div>
 
                 <div className="fw-bolder mt-5">Priority</div>
                 <div className="text-gray-600">
-                  {requisition?.priority?.capitalize()}
+                  {claimRequest?.priority?.capitalize()}
                 </div>
 
                 <div className="fw-bolder mt-5">Type</div>
                 <div className="text-gray-600">
-                  {requisition?.type?.replaceAll("_", " ")?.capitalize()}
+                  {claimRequest?.type?.replaceAll("_", " ")?.capitalize()}
                 </div>
 
                 <div className="fw-bolder mt-5">Updated At</div>
                 <div className="text-gray-600">
                   <Moment format="D MMMM YYYY">
-                    {requisition?.updated_at}
+                    {claimRequest?.updated_at}
                   </Moment>
                 </div>
 
                 <div className="fw-bolder mt-5">Ref Number</div>
                 <div className="text-gray-600">
-                  {requisition?.ref_number ?? "--"}
+                  {claimRequest?.ref_number ?? "--"}
                 </div>
 
                 <div className="fw-bolder mt-5">Reason Of Trouble</div>
                 <div className="text-gray-600">
-                  {requisition?.reason_of_trouble ?? "--"}
+                  {claimRequest?.reason_of_trouble ?? "--"}
                 </div>
 
                 <div className="fw-bolder mt-5">Solutions</div>
                 <div className="text-gray-600">
-                  {requisition?.solutions ?? "--"}
+                  {claimRequest?.solutions ?? "--"}
                 </div>
 
                 <div className="fw-bolder mt-5">Remarks</div>
                 <div className="text-gray-600">
-                  {requisition?.remarks ?? "--"}
+                  {claimRequest?.remarks ?? "--"}
                 </div>
 
                 <div className="fw-bolder mt-5">Status</div>
-                <div className="text-gray-600">{requisition?.status}</div>
+                <div className="text-gray-600">{claimRequest?.status}</div>
               </div>
-              {!requisition?.requisition_id && (
-                <span>
-                  <div className="card-body py-4">
-                    <div className="fw-bolder mt-5">Change Status</div>
-                    <div className="text-gray-600">
-                      <Select
-                        options={status}
-                        onChange={handleSelect}
-                        name="status"
-                      />
-                    </div>
-                  </div>
-
-                  {requisition?.status == "complete" && (
-                    <div className="card-header">
-                      <div className="card-title">
-                        <h3 className="card-label">
-                          <PermissionAbility permission="requisitions_generate_quotation">
-                            <button
-                              className="btn btn-sm btn-dark "
-                              style={{ marginRight: "0.1rem" }}
-                              onClick={() =>
-                                navigate(`/panel/claim-requests/create/` + id)
-                              }
-                            >
-                              Generate Requisitions
-                            </button>
-                          </PermissionAbility>
-                        </h3>
-                      </div>
-                    </div>
-                  )}
-                </span>
-              )}
             </div>
           </div>
 
@@ -226,7 +187,7 @@ const ShowClaimRequest = () => {
                               </thead>
 
                               <tbody>
-                                {requisition?.required_part_items?.map(
+                                {claimRequest?.required_part_items?.map(
                                   (item, index) => (
                                     <tr key={index}>
                                       <td className="">{item?.part_name}</td>
@@ -246,7 +207,7 @@ const ShowClaimRequest = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="mt-10">
+                  {/* <div className="mt-10">
                     <button
                       className="btn btn-sm btn-dark "
                       style={{ marginRight: "0.1rem" }}
@@ -254,7 +215,7 @@ const ShowClaimRequest = () => {
                     >
                       Add Part
                     </button>
-                  </div>
+                  </div> */}
                 </div>
                 <Activities logName="requisitions" modelId={id} tab={tab} />
               </div>
@@ -266,4 +227,4 @@ const ShowClaimRequest = () => {
   );
 };
 
-export default ShowClaimRequest;
+export default ShowClientClaimRequest;

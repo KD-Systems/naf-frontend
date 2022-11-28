@@ -6,6 +6,7 @@ import DeliverNoteService from "services/DeliverNoteService";
 import InvoiceService from "services/InvoiceService";
 import TransactionSummery from "services/TransactionSummery";
 import Filter from "./Filter";
+
 const Invoices = () => {
   const [loading, setLoading] = useState(true);
   const [invoices, setInvoices] = useState([]);
@@ -18,14 +19,14 @@ const Invoices = () => {
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
 
-  const filterData = (data) => {    
+  const filterData = (data) => {
     setFilter({
       ...filter,
-      ...data
-    })
+      ...data,
+    });
 
-    getTransactionSummary(data)
-  }
+    getTransactionSummary(data);
+  };
 
   const getTransactionSummary = async (filters) => {
     setInvoices(await TransactionSummery.getAll(filters));
@@ -172,6 +173,9 @@ const Invoices = () => {
       </div>
       <Filter
         enable={filter}
+        onClickOutside={() => {
+          setFilter(!filter);
+        }}
         onChange={(data) => {
           filterData(data);
         }}

@@ -7,6 +7,9 @@ import { Activities } from "components/utils/Activities";
 import ClientQuotationService from "services/clientServices/ClientQuotationService";
 import ClientInvoiceService from "services/clientServices/ClientInvoiceService";
 import Scrollbars from "react-custom-scrollbars";
+import NewDropzone from "./Dropzone/MyDropzone";
+
+
 const ShowQuotation = () => {
   let { id } = useParams();
   const navigate = useNavigate();
@@ -17,6 +20,11 @@ const ShowQuotation = () => {
   const [list, setList] = useState([]);
   const [tab, setTab] = useState("quotations");
   const [message, setMessage] = useState("");
+
+  const [uuid, setuuid] = useState();
+  const [model_id, setModelId] = useState();
+  const [file, setFile] = useState({});
+  const [confirmDelete, setConfirmDelete] = useState(false);
 
   const [data, setData] = useState({
     quotation_id: parseInt(id),
@@ -57,10 +65,26 @@ const ShowQuotation = () => {
     setLocked(true);
   };
 
+  const uploadFile = async (formData) => {
+    await QuotationService.fileUpload(id, formData);
+    getFile();
+  };
+
+  const deleteItem = async () => {
+    await QuotationService.deleteFile(uuid, model_id);
+    getFile();
+  };
+
+  const getFile = async () => {
+    const res = await QuotationService.getFile(id);
+    setFile(res);
+  };
+
   useEffect(() => {
     if (id) {
       getQuotation();
       getQuotationComment();
+      getFile();
     }
   }, [id, locked]);
 
@@ -284,6 +308,19 @@ const ShowQuotation = () => {
                 <li className="nav-item">
                   <a
                     className={`nav-link text-active-primary pb-4 ${
+                      tab == "files" ? "active" : ""
+                    }`}
+                    data-bs-toggle="tab"
+                    href="#files"
+                    onClick={() => setTab("files")}
+                  >
+                    Files
+                  </a>
+                </li>
+
+                <li className="nav-item">
+                  <a
+                    className={`nav-link text-active-primary pb-4 ${
                       tab == "activities" ? "active" : ""
                     }`}
                     data-bs-toggle="tab"
@@ -441,6 +478,70 @@ const ShowQuotation = () => {
                         <button class="input-group-text " id="basic-addon2">
                           Send
                         </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                className={`tab-pane fade ${
+                  tab == "files" ? "active show" : ""
+                }`}
+                id="files"
+                role="tabpanel"
+              >
+                <div className="card card-custom gutter-b">
+                  <div className="card-body px-0">
+                    <div className="card mb-5 mb-xl-8">
+                      <div className="card-body py-3">
+                        <form
+                          id="attachment-form"
+                          encType="multipart/form-data"
+                        >
+                          <NewDropzone onDrop={uploadFile} />
+                        </form>
+                        <div className="table-responsive">
+                          <table className="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
+                            <thead>
+                              <tr className="fw-bolder text-muted">
+                                <th className="min-w-50px">SL</th>
+                                <th className="min-w-120px">File Name</th>
+                                <th className="min-w-120px">Action</th>
+                              </tr>
+                            </thead>
+
+                            <tbody>
+                              {file?.data?.map((item, index) => (
+                                <tr key={index}>
+                                  <td className="">{index + 1}</td>
+                                  <td className=" fw-bolder mb-1 fs-6">
+                                    <span>{item?.file_name}</span>
+                                  </td>
+                                  <td className=" fw-bolder mb-1 fs-6">
+                                    <button
+                                      className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+                                      onClick={() => {
+                                        setConfirmDelete(true);
+                                        setuuid(item.uuid);
+                                        setModelId(item.model_id);
+                                      }}
+                                    >
+                                      <i className="fa fa-trash"></i>
+                                    </button>
+                                    <a
+                                      className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+                                      href={item?.original_url}
+                                      target="_blank"
+                                    >
+                                      <i className="fa fa-download"></i>
+                                    </a>
+                                  </td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
                       </div>
                     </div>
                   </div>

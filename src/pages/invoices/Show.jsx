@@ -206,7 +206,7 @@ const ShowInvoice = () => {
                             className="btn btn-sm btn-dark "
                             to={"/panel/invoices/" + invoice.id + "/print"}
                             style={{ marginRight: "0.75rem" }}
-                            // target="_blank"
+                            target="_blank"
                           >
                             Print
                           </Link>

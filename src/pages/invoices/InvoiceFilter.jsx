@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Select from "react-select";
 import CompanyService from "services/CompanyService";
 
-function InvoiceFilter({ enable, onChange }) {
+function InvoiceFilter({ enable, onClickOutside, onChange }) {
+  const ref = useRef(null);
   let user = JSON.parse(localStorage.getItem("user"))?.user;
 
   const [data, setData] = useState({
@@ -16,11 +17,11 @@ function InvoiceFilter({ enable, onChange }) {
   const [type, setType] = useState(null);
 
   useEffect(async () => {
-    const res = await CompanyService.getAll({rows:'all'});
+    const res = await CompanyService.getAll({ rows: "all" });
     const companyName = res?.map((itm) => {
       return { label: itm?.name, value: itm?.id };
     });
-    setType(companyName)
+    setType(companyName);
   }, []);
 
   const [defaultStatus, setDefaultStatus] = useState({
@@ -39,7 +40,7 @@ function InvoiceFilter({ enable, onChange }) {
 
   const apply = () => {
     typeof onChange === "function" && onChange(data);
-    console.log("🚀 ~ file: InvoiceFilter.jsx ~ line 42 ~ apply ~ data", data)
+    console.log("🚀 ~ file: InvoiceFilter.jsx ~ line 42 ~ apply ~ data", data);
   };
 
   const handleSelect = (option, action) => {
@@ -80,14 +81,24 @@ function InvoiceFilter({ enable, onChange }) {
       });
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (ref.current && !ref.current.contains(event.target))
+        onClickOutside && onClickOutside();
+    };
+
+    document.addEventListener("click", handleClickOutside, true);
+    return () =>
+      document.removeEventListener("click", handleClickOutside, true);
+  }, [onClickOutside]);
+
+  if (!enable) return null;
+
   return (
     <>
       <div
-        className={
-          enable
-            ? "menu menu-sub menu-sub-dropdown w-250px w-md-300px show"
-            : "menu menu-sub menu-sub-dropdown w-250px w-md-300px"
-        }
+        ref={ref}
+        className="menu menu-sub menu-sub-dropdown w-250px w-md-300px show"
         style={custom}
       >
         <div className="px-7 py-5">

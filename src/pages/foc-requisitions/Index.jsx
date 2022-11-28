@@ -101,6 +101,10 @@ const ClaimRequisition = () => {
       </div>
       <RequisitionFilter
         enable={filter}
+        onClickOutside={() => {
+          setFilter(!filter);
+        }}
+        
         onChange={(data) => {
           getFocRequisition(data);
         }}

@@ -89,6 +89,7 @@ import ShowClaimRequest from "pages/foc_claim_request/Show";
 import ClaimRequestRequisitionCreate from "pages/foc_claim_request/Create";
 import ClientClaimRequisition from "pages/client/foc-requisitions/Index";
 import ClientClaimRequest from "pages/client/foc_claim_request/Index";
+import ShowClientClaimRequest from "pages/client/foc_claim_request/Show";
 import ShowClientClaimRequisition from "pages/client/foc-requisitions/Show";
 import CreateClientClaimRequisition from "pages/client/foc_claim_request/Create";
 
@@ -830,7 +831,7 @@ function App() {
               }
             />
 
-<Route
+            <Route
               path="client/quotations/:id/print"
               element={
                 <PrivateRoute>
@@ -906,7 +907,6 @@ function App() {
               }
             />
 
-
             {/* company user sales end */}
 
             {/* client foc start */}
@@ -939,6 +939,15 @@ function App() {
             />
 
             <Route
+              path="client-claim-requests/:id"
+              element={
+                <PrivateRoute>
+                  <ShowClientClaimRequest />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
               path="client-claim-requests/create"
               element={
                 <PrivateRoute>
@@ -965,7 +974,6 @@ function App() {
               }
             />
             {/* client foc end */}
-
 
             <Route path="403" element={<Forbidden />} />
             <Route path="*" element={<NotFound />} />

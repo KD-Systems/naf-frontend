@@ -98,7 +98,7 @@ const ShowDeliveryNotes = () => {
                 </div>
 
                 <div className="card-header">
-                <div className="card-title">
+                <div className="card-title"> 
                 <PermissionAbility permission="deliverynotes_print">
                   <h3 className="card-label">
                     <Link

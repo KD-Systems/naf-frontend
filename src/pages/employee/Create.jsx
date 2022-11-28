@@ -43,6 +43,13 @@ const CreateEmployee = ({ open, onCloseModal, getEmployees }) => {
     await EmployeeService.create(formData);
     getEmployees();
     onCloseModal();
+    setData({
+      name: "",
+      email: "",
+      password: "",
+      designation_id: "",
+    });
+    setDefaultRole(null);
   };
   const [designations, setDesignations] = useState([]);
 
@@ -144,6 +151,7 @@ const CreateEmployee = ({ open, onCloseModal, getEmployees }) => {
                   id="email"
                   onChange={handleChange}
                   value={data.email ?? ''}
+                  autoComplete="off"
                 />
                 <div className="fv-plugins-message-container invalid-feedback" htmlFor="email"></div>
               </div>
@@ -158,6 +166,7 @@ const CreateEmployee = ({ open, onCloseModal, getEmployees }) => {
                   id="password"
                   onChange={handleChange}
                   value={data.password ?? ''}
+                  autoComplete="off"
                 />
                 <div className="fv-plugins-message-container invalid-feedback" htmlFor="password"></div>
               </div>
@@ -181,6 +190,7 @@ const CreateEmployee = ({ open, onCloseModal, getEmployees }) => {
                   name="role"
                   maxMenuHeight={250} 
                   defaultValue={defaultRole ?? ""}
+                  placeholder="Select Role"
                 />
 
                 <div

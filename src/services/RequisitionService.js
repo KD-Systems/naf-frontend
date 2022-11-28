@@ -6,29 +6,9 @@ const getAll = async (data) => {
   });
   return res.data;
 };
-const getAllRequiredRequisitions = async (data) => {
-  const res = await http.get(`required-part/requisitions`, {
-    params: data,
-  });
-  return res.data;
-};
-
-
-
-// const getAllRequiredRequisitionsClient = async (data) => {
-//   const res = await http.get(`client-required-part/requisitions`, {
-//     params: data,
-//   });
-//   return res.data;
-// };
 
 const get = async (id) => {
   const res = await http.get(`/requisitions/${id}`);
-  return res.data;
-};
-
-const getRequiredRequisition = async (id) => {
-  const res = await http.get(`/required-part/requisitions/${id}`);
   return res.data;
 };
 
@@ -52,11 +32,6 @@ const partHeadings = async (data) => {
 const create = async (data) => {
   console.log("Afnan submit", data);
   const res = await http.post(`/requisitions`, data);
-  return res.data;
-};
-
-const createrequiredrequisitions = async (data) => {
-  const res = await http.post(`required-part/requisitions`, data);
   return res.data;
 };
 
@@ -100,6 +75,24 @@ const deleteFile = async (uuid, model_id) => {
   return res.data;
 };
 
+//for required requisition
+const createrequiredrequisitions = async (data) => {
+  const res = await http.post(`required-part/requisitions`, data);
+  return res.data;
+};
+
+const getRequiredRequisition = async (id) => {
+  const res = await http.get(`/required-part/requisitions/${id}`);
+  return res.data;
+};
+
+const getAllRequiredRequisitions = async (data) => {
+  const res = await http.get(`required-part/requisitions`, {
+    params: data,
+  });
+  return res.data;
+};
+
 const changeStatus = async (id, data) => {
   const res = await http.post(`/required-part/requisitions/status/${id}`, data);
   return res?.data;
@@ -107,16 +100,11 @@ const changeStatus = async (id, data) => {
 
 const RequisitionService = {
   getAll,
-  getAllRequiredRequisitions,
-  // getAllRequiredRequisitionsClient,
-  // getAllClaimRequest,
   get,
-  getRequiredRequisition,
   engineers,
   partHeadings,
   items,
   create,
-  createrequiredrequisitions,
   update,
   remove,
   approve,
@@ -125,7 +113,10 @@ const RequisitionService = {
   getFile,
   deleteFile,
   changeStatus,
-  // createClientRequisition
+  //for required requisition
+  getAllRequiredRequisitions,
+  getRequiredRequisition,
+  createrequiredrequisitions,
 };
 
 export default RequisitionService;

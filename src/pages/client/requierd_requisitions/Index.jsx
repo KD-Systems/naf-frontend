@@ -135,6 +135,9 @@ const ClientRequiredRequisitions = () => {
       </div>
       <ClientRequiredRequisitionFilter
         enable={filter}
+        onClickOutside={() => {
+          setFilter(!filter);
+        }}
         onChange={(data) => {
           filterdata(data);
         }}

@@ -20,7 +20,8 @@ const CreateContract = ({ open, onCloseModal, onCreated }) => {
     start_date_format: '',
     end_date_format: '',
     notes: ''
-  })
+  });
+
   const [block, setBlock] = useState(false);
 
   const handleDateSelect = (value, name) => {
@@ -62,6 +63,16 @@ const CreateContract = ({ open, onCloseModal, onCreated }) => {
     await ContractService.create(formData);
     onCreated();
     onCloseModal();
+    setData({
+      company_id: '',
+      machine_id: '',
+      company_machine_id: '',
+      start_date: '',
+      end_date: '',
+      start_date_format: '',
+      end_date_format: '',
+      notes: ''
+    });
   }
 
   const getCompanies = async () => {
@@ -120,14 +131,14 @@ const CreateContract = ({ open, onCloseModal, onCreated }) => {
               <div className="form-group mt-5">
                 <label className="form-label">Start Date</label>
                 <DatePicker className="form-control" selected={data.start_date} onChange={(date) => handleDateSelect(date, 'start_date')} />
-                <input type='hidden' name="start_date" id="start_date" value={data.start_date_format} />
+                <input type='hidden' name="start_date" id="start_date" value={data.start_date_format} autoComplete="off" />
                 <div className="fv-plugins-message-container invalid-feedback" htmlFor="start_date"></div>
               </div>
 
               <div className="form-group mt-5">
                 <label className="form-label">End Date</label>
                 <DatePicker className="form-control" selected={data.end_date} onChange={(date) => handleDateSelect(date, 'end_date')} />
-                <input type='hidden' name="end_date" id="end_date" value={data.end_date_format} />
+                <input type='hidden' name="end_date" id="end_date" value={data.end_date_format} autoComplete="off" />
                 <div className="fv-plugins-message-container invalid-feedback" htmlFor="end_date"></div>
               </div>
 

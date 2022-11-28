@@ -4,6 +4,7 @@ import Confirmation from "../../components/utils/Confirmation";
 import RoleService from "services/RoleService";
 import CreateRole from "./Create";
 import { useSelector } from "react-redux";
+
 const Roles = () => {
   const [open, setOpen] = useState(false);
   const [roles, setRoles] = useState([]);
@@ -24,6 +25,7 @@ const Roles = () => {
   useEffect(() => {
     getRoles();
   }, []);
+
   return (
     <>
       <div className="post d-flex flex-column-fluid" id="kt_post">
@@ -127,7 +129,7 @@ const Roles = () => {
       <CreateRole
         open={open}
         onCloseModal={onCloseModal}
-        onCreated={() => getRoles}
+        onCreated={() => getRoles()}
       />
     </>
   );

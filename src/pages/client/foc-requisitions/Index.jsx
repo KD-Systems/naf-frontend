@@ -8,7 +8,7 @@ import RequisitionFilter from "./RequisitionFilter";
 const ClientClaimRequisition = () => {
   const [filter, setFilter] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [requisitions, setRequisitions] = useState([]);
+  const [focClaimRequisition, setFocClaimRequisition] = useState([]);
 
   const columns = [
     {
@@ -80,7 +80,7 @@ const ClientClaimRequisition = () => {
   ];
 
   const getClientClaimRequisitions = async (data) => {
-    setRequisitions(await ClientClaimRequisitionService.getClientClaimRequisition(data));
+    setFocClaimRequisition(await ClientClaimRequisitionService.getClientClaimRequisition(data));
     setLoading(false);
   };
 
@@ -94,7 +94,7 @@ const ClientClaimRequisition = () => {
             buttonName="Filter"
             onClickButton={() => setFilter(!filter)}
             isLoading={loading}
-            data={requisitions}
+            data={focClaimRequisition}
             columns={columns}
             onFilter={getClientClaimRequisitions}
           />
