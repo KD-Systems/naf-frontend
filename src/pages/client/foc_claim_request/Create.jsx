@@ -10,6 +10,7 @@ import CompanyService from "services/CompanyService";
 import PartService from "services/PartService";
 import RequisitionService from "services/RequisitionService";
 import ClaimRequisitionService from "services/ClaimRequisitionService";
+import ClientClaimRequisitionService from "services/clientServices/ClientClaimRequisitionService";
 
 const CreateClientClaimRequisition = () => {
   const navigate = useNavigate();
@@ -107,7 +108,7 @@ const CreateClientClaimRequisition = () => {
 
   const storeClientClaimRequest = async () => {
     setBlock(true);
-    await ClaimRequisitionService.createClientClaimRequest({
+    await ClientClaimRequisitionService.createClientClaimRequest({
       ...data,
       part_items: inputField,
     });
@@ -117,24 +118,24 @@ const CreateClientClaimRequisition = () => {
     navigate("/panel/client-claim-requests");
   };
 
-  const addPart = (item) => {
-    item["quantity"] = 0;
-    let hasItem = list.find((itm) => itm.id == item.id);
-    if (hasItem) return false;
+  // const addPart = (item) => {
+  //   item["quantity"] = 0;
+  //   let hasItem = list.find((itm) => itm.id == item.id);
+  //   if (hasItem) return false;
 
-    const newList = list.concat(item);
-    setList(
-      Array.from(new Set(newList))
-    ); /* add part in the List and remove duplicates from array */
-    setSelectedPart(true);
-    setFilter({ ...filter, q: "" });
-    setSearchData("");
-  };
+  //   const newList = list.concat(item);
+  //   setList(
+  //     Array.from(new Set(newList))
+  //   ); /* add part in the List and remove duplicates from array */
+  //   setSelectedPart(true);
+  //   setFilter({ ...filter, q: "" });
+  //   setSearchData("");
+  // };
 
-  const removeItem = (id) => {
-    const newList = list.filter((item) => item.id !== id);
-    setList(newList);
-  };
+  // const removeItem = (id) => {
+  //   const newList = list.filter((item) => item.id !== id);
+  //   setList(newList);
+  // };
 
   const getEngineers = async () => {
     let dt = await RequisitionService.engineers();

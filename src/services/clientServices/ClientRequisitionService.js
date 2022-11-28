@@ -17,10 +17,6 @@ const create = async (data) => {
   return res.data;
 };
 
-const createrequiredrequisitions = async (data) => {
-  const res = await http.post(`required-part/requisitions`, data);
-  return res.data;
-};
 
 //file upload
 const fileUpload = async (id, data) => {
@@ -43,14 +39,36 @@ const deleteFile = async (uuid, model_id) => {
   return res.data;
 };
 
+// required requisiton for client
+const createClientRequiredRequisitions = async (data) => {
+  const res = await http.post(`client-required-part/requisitions`, data);
+  return res.data;
+};
+
+const getAllRequiredRequisitionsClient = async (data) => {
+  const res = await http.get(`client-required-part/requisitions`, {
+    params: data,
+  });
+  return res.data;
+};
+
+const getRequiredRequisitionClient = async (id) => {
+  const res = await http.get(`client-required-part/requisitions/${id}`);
+  return res.data;
+};
+
+
 const ClientRequisitionService = {
   getAll,
-  createrequiredrequisitions,
   get,
   create,
   fileUpload,
   getFile,
   deleteFile,
+  // for required part
+  createClientRequiredRequisitions,
+  getAllRequiredRequisitionsClient,
+  getRequiredRequisitionClient,
 };
 
 export default ClientRequisitionService;

@@ -3,6 +3,7 @@ import PermissionAbility from "helpers/PermissionAbility";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ClaimRequisitionService from "services/ClaimRequisitionService";
+import ClientClaimRequisitionService from "services/clientServices/ClientClaimRequisitionService";
 import RequisitionService from "services/RequisitionService";
 import ClaimRequestFilter from "./ClaimRequestFilter";
 
@@ -115,7 +116,7 @@ const ClientClaimRequest = () => {
   ];
 
   const getClaimRequest = async (filters) => {
-    let res = await ClaimRequisitionService.getAllClientClaimRequest(filters);
+    let res = await ClientClaimRequisitionService.getAllClientClaimRequest(filters);
     setRequisitions(res);
     setLoading(false);
   };

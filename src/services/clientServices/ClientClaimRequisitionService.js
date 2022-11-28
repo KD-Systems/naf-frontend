@@ -1,25 +1,5 @@
-import http from "../http-common";
+import http from "../../http-common";
 
-//for admin claim requisition
-const getAll = async (data) => {
-  const res = await http.get(`/claim-requisitions`, {
-    params: data,
-  });
-  return res.data;
-};
-
-const get = async (id) => {
-  const res = await http.get(`/claim-requisitions/${id}`);
-  return res.data;
-};
-
-//claim request
-const getAllClaimRequest = async (data) => {
-  const res = await http.get(`/claim-request`, {
-    params: data,
-  });
-  return res.data;
-};
 
 //for client claim request and requisition
 const createClientClaimRequest = async (data) => {
@@ -42,13 +22,11 @@ const getClientClaimRequisition = async (data) => {
 };
 
 
-const ClaimRequisitionService = {
-  getAll,
-  getAllClaimRequest,
-  //for client
+const ClientClaimRequisitionService = {
+
   createClientClaimRequest,
   getAllClientClaimRequest,
   getClientClaimRequisition
 };
 
-export default ClaimRequisitionService;
+export default ClientClaimRequisitionService;

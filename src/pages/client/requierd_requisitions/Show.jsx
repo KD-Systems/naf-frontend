@@ -3,21 +3,18 @@ import PermissionAbility from "helpers/PermissionAbility";
 import { useEffect, useState } from "react";
 import Moment from "react-moment";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import ClientRequisitionService from "services/clientServices/ClientRequisitionService";
 import RequisitionService from "services/RequisitionService";
 
 const ClientShowRequiredRequisition = () => {
   let { id } = useParams();
-  console.log(
-    "🚀 ~ file: Show.jsx ~ line 11 ~ ClientShowRequiredRequisition ~ id",
-    id
-  );
   const navigate = useNavigate();
   const [requisition, setRequisition] = useState({});
 
   const [tab, setTab] = useState("requisitions");
 
   const getRequisition = async () => {
-    let res = await RequisitionService.getRequiredRequisition(id);
+    let res = await ClientRequisitionService.getRequiredRequisitionClient(id);
     setRequisition(res);
   };
 
@@ -26,10 +23,6 @@ const ClientShowRequiredRequisition = () => {
     { value: "on-going", label: "On-going" },
     { value: "complete", label: "Complete" },
   ];
-
-  const handleSelect = (e) => {
-    console.log("🚀 ~ file: Show.jsx ~ line 30 ~ handleSelect ~ e", e);
-  };
 
   useEffect(() => {
     if (id) getRequisition();

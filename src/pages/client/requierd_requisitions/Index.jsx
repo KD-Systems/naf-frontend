@@ -1,6 +1,7 @@
 import Table from "components/utils/Table";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import ClientRequisitionService from "services/clientServices/ClientRequisitionService";
 import RequisitionService from "services/RequisitionService";
 import ClientRequiredRequisitionFilter from "./ClientRequiredRequisitionFilter";
 
@@ -107,7 +108,7 @@ const ClientRequiredRequisitions = () => {
   ];
 
   const getRequisitions = async (filters) => {
-    let res = await RequisitionService.getAllRequiredRequisitionsClient(
+    let res = await ClientRequisitionService.getAllRequiredRequisitionsClient(
       filters
     );
     setRequisitions(res);

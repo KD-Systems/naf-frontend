@@ -107,7 +107,7 @@ const RequisitionCreate = () => {
   const storeRequisition = async () => {
     setBlock(true);
     req
-      ? await ClientRequisitionService.createrequiredrequisitions({
+      ? await ClientRequisitionService.createClientRequiredRequisitions({
           ...data,
           part_items: inputField,
           company_id: companies,

@@ -2,6 +2,7 @@ import Table from "components/utils/Table";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ClaimRequisitionService from "services/ClaimRequisitionService";
+import ClientClaimRequisitionService from "services/clientServices/ClientClaimRequisitionService";
 import RequisitionFilter from "./RequisitionFilter";
 
 const ClientClaimRequisition = () => {
@@ -79,7 +80,7 @@ const ClientClaimRequisition = () => {
   ];
 
   const getClientClaimRequisitions = async (data) => {
-    setRequisitions(await ClaimRequisitionService.getClientClaimRequisition(data));
+    setRequisitions(await ClientClaimRequisitionService.getClientClaimRequisition(data));
     setLoading(false);
   };
 

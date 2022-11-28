@@ -13,19 +13,14 @@ const getAllRequiredRequisitions = async (data) => {
   return res.data;
 };
 
-const getAllClaimRequest = async (data) => {
-  const res = await http.get(`/claim-request`, {
-    params: data,
-  });
-  return res.data;
-};
 
-const getAllRequiredRequisitionsClient = async (data) => {
-  const res = await http.get(`client-required-part/requisitions`, {
-    params: data,
-  });
-  return res.data;
-};
+
+// const getAllRequiredRequisitionsClient = async (data) => {
+//   const res = await http.get(`client-required-part/requisitions`, {
+//     params: data,
+//   });
+//   return res.data;
+// };
 
 const get = async (id) => {
   const res = await http.get(`/requisitions/${id}`);
@@ -113,8 +108,8 @@ const changeStatus = async (id, data) => {
 const RequisitionService = {
   getAll,
   getAllRequiredRequisitions,
-  getAllRequiredRequisitionsClient,
-  getAllClaimRequest,
+  // getAllRequiredRequisitionsClient,
+  // getAllClaimRequest,
   get,
   getRequiredRequisition,
   engineers,

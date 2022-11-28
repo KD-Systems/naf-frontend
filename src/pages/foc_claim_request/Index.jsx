@@ -2,6 +2,7 @@ import Table from "components/utils/Table";
 import PermissionAbility from "helpers/PermissionAbility";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import ClaimRequisitionService from "services/ClaimRequisitionService";
 import RequisitionService from "services/RequisitionService";
 import ClaimRequestFilter from "./ClaimRequestFilter";
 
@@ -114,7 +115,7 @@ const ClaimRequest = () => {
   ];
 
   const getClaimRequest = async (filters) => {
-    let res = await RequisitionService.getAllClaimRequest(filters);
+    let res = await ClaimRequisitionService.getAllClaimRequest(filters);
     setClaimRequest(res);
     setLoading(false);
   };
