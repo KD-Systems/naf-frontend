@@ -12,8 +12,6 @@ const DueRequisition = () => {
     is_due: true,
   });
 
-  console.log("Afnan data", data);
-
   const updateCompany = async () => {
 
       await RequisitionService.create({...data, amount: parseInt(data?.amount)});
