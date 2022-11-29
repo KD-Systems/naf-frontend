@@ -123,7 +123,7 @@ const RequiredRequisitionCreate = () => {
   };
 
   const getParts = async () => {
-    let res = await PartService.getAll(filter);
+    let res = await PartService.getSellable(filter);
     setSearchData(res.data);
     let items = res.data?.map((dt) => {
       return { label: dt.name, value: dt.id };

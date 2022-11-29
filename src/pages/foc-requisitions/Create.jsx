@@ -15,7 +15,8 @@ const ClaimRequestRequisitionCreate = () => {
   const navigate = useNavigate();
   let { id } = useParams();
 
-  const [fromFoc, setFromFoc] = useState(true)
+  const [fromFoc, setFromFoc] = useState(false)
+  console.log("🚀 ~ file: Create.jsx ~ line 19 ~ ClaimRequestRequisitionCreate ~ fromFoc", fromFoc)
 
   const addPart = (item) => {
     item["quantity"] = 0;
@@ -113,7 +114,8 @@ const ClaimRequestRequisitionCreate = () => {
   };
 
   const getParts = async () => {
-    let res = fromFoc ? await PartService.getAll(filter) : await PartService.getAll(filter);
+    let res = fromFoc ? await PartService.getFoc(filter) : await PartService.getSellable(filter);
+    // let res = await PartService.getAll(filter);
     setSearchData(res.data);
     let items = res.data?.map((dt) => {
       return { label: dt.name, value: dt.id };
@@ -128,6 +130,7 @@ const ClaimRequestRequisitionCreate = () => {
       ...filter,
       q: query,
       part_heading_id: data?.part_heading_id,
+      // foc:fromFoc
     });
   };
 
@@ -138,6 +141,7 @@ const ClaimRequestRequisitionCreate = () => {
       await getParts();
     }
     if (filter?.q === "") setSearchData([]);
+    
   };
   useEffect(() => {
     if (filter?.q) {

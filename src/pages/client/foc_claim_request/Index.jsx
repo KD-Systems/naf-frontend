@@ -83,14 +83,15 @@ const ClientClaimRequest = () => {
               Pending
             </div>
           )}
-          {row?.status == "on-going" && (
-            <div className="mt-2 text-white bg-info p-1 px-2 rounded">
-              On Going
+          {(row?.status == "from_foc" || row?.status == "from_sellable" || row?.status == "complete") && (
+            <div className="mt-2 text-white bg-warning p-1 px-2 rounded">
+              Complete
             </div>
           )}
-          {row?.status == "complete" && (
-            <div className="mt-2 text-white bg-success p-1 px-2 rounded"> 
-              Complete
+          
+          {row?.status == "waiting_for_mother_company" && (
+            <div className="mt-2 text-white bg-success p-1 px-2 rounded">
+              Waiting for Mother Company
             </div>
           )}
         </>

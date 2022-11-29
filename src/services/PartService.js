@@ -39,6 +39,21 @@ const importFile = async (data) => {
   const res = await http.post("/parts-import", data)
   return res.data;
 };
+// get foc parts
+const getFoc = async (filters) => {
+  const res = await http.get("/foc-parts",{
+    params: filters
+  });
+  return res.data;
+}
+
+// get sellable parts
+const getSellable = async (filters) => {
+  const res = await http.get("/sellable-parts",{
+    params: filters
+  });
+  return res.data;
+}
 
 //client module
 
@@ -58,7 +73,11 @@ const PartService = {
   remove,
   importFile,
   getGatePassPart,
-  getClientPart
+  getClientPart,
+  //get foc part
+  getFoc,
+  //get sellable parts
+  getSellable
 };
 
 export default PartService;

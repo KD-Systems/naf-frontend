@@ -20,7 +20,9 @@ const ShowClaimRequest = () => {
 
   const status = [
     { value: "pending", label: "Pending" },
-    { value: "on-going", label: "On-going" },
+    { value: "from_foc", label: "From Foc" },
+    { value: "from_sellable", label: "From Sellable" },
+    { value: "waiting_for_tajima", label: "Waiting for tajima" },
     { value: "complete", label: "Complete" },
   ];
 
@@ -149,7 +151,7 @@ const ShowClaimRequest = () => {
                     </div>
                   </div>
 
-                  {claimRequest?.status == "complete" && (
+                  {(claimRequest?.status == "complete" || claimRequest?.status == "from_foc" || claimRequest?.status == "from_sellable") && (
                     <div className="card-header">
                       <div className="card-title">
                         <h3 className="card-label">

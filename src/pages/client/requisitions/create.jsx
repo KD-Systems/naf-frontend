@@ -261,7 +261,7 @@ const RequisitionCreate = () => {
   };
 
   const getParts = async () => {
-    let res = await PartService.getClientPart({
+    let res = await PartService.getSellable({
       ...filter,
       company_id: data?.company_id,
       // machine_id: machineId,

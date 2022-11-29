@@ -4,8 +4,6 @@ import MachineService from "services/MachineService";
 import MachinePartHeadingService from "services/PartHeadingService";
 
 function PartFilter({ enable, onClickOutside, onChange }) {
-
-  console.log(onClickOutside);
   
   const ref = useRef(null);
 
@@ -13,11 +11,17 @@ function PartFilter({ enable, onClickOutside, onChange }) {
     stock: "all",
     machine_id: null,
     part_heading_id: null,
+    // defaultType: null,
   });
+  // const type = [
+  //   {value:'is_foc' ,label:'Foc parts'},
+  //   {value:'non_foc' ,label:'Non Foc parts'},
+  // ]
   const [machines, setMachines] = useState([]);
   const [headings, setHeadings] = useState([]);
   const [defaultMachine, setDefaultMachine] = useState(null);
   const [defaultHeading, setDefaultHeading] = useState(null);
+  // const [defaultType, setDefaultType] = useState(null);
 
   let custom = {
     zIndex: 105,
@@ -61,6 +65,11 @@ function PartFilter({ enable, onClickOutside, onChange }) {
         label: option.label,
         value: value,
       });
+      // if (name === "foc_parts")
+      // setDefaultType({
+      //   label: option.label,
+      //   value: value,
+      // });
   };
 
   const getMachines = async () => {
@@ -84,6 +93,7 @@ function PartFilter({ enable, onClickOutside, onChange }) {
       stock: "all",
       machine_id: null,
       part_heading_id: null,
+      // defaultType: null,
     });
 
     setDefaultMachine(null);
@@ -94,6 +104,8 @@ function PartFilter({ enable, onClickOutside, onChange }) {
         stock: "all",
         machine_id: null,
         part_heading_id: null,
+      defaultType: null,
+
       });
   };
 
@@ -149,6 +161,16 @@ function PartFilter({ enable, onClickOutside, onChange }) {
               value={defaultHeading}
             />
           </div>
+
+          {/* <div className="mb-10">
+            <label className="form-label fw-bold">Foc Parts:</label>
+            <Select
+              options={type}
+              onChange={(option, action) => handleSelect(option, action)}
+              name="part"
+              value={defaultType}
+            />
+          </div> */}
           {/* <div className="mb-10">
                         <label className="form-label fw-bold">Stock:</label>
                         <div className="d-flex">
