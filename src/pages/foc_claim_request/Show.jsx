@@ -1,5 +1,6 @@
 import { Activities } from "components/utils/Activities";
 import PermissionAbility from "helpers/PermissionAbility";
+import UpdateReqInfo from "pages/requierd_requisitions/section/UpdateReqInfo";
 import { useEffect, useState } from "react";
 import Moment from "react-moment";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -10,9 +11,13 @@ const ShowClaimRequest = () => {
   let { id } = useParams();
   const navigate = useNavigate();
   const [claimRequest, setClaimRequest] = useState({});
+  const [reqId, setReqId] = useState({});
 
   const [tab, setTab] = useState("requisitions");
-
+  const [updateDueAMountModal, setUpdateDueAMountModal] = useState(false);
+  const onCloseModal = () => {
+    setUpdateDueAMountModal(false);
+  };
   const getRequisition = async () => {
     let res = await RequisitionService.getRequiredRequisition(id);
     setClaimRequest(res);
@@ -137,6 +142,23 @@ const ShowClaimRequest = () => {
 
                 <div className="fw-bolder mt-5">Status</div>
                 <div className="text-gray-600">{claimRequest?.status}</div>
+
+                <div className="card-title mt-10 justify-content-center">
+                  <h3 className="card-label mr-10">
+                    {/* <PermissionAbility permission="companies_edit"> */}
+                      <button
+                        className="btn btn-sm btn-dark"
+                        onClick={() => {
+                          setReqId(id);
+                          setUpdateDueAMountModal(true);
+                        }}
+                      >
+                        <i className="fa fa-pen"></i> Update Info
+                      </button>
+                    {/* </PermissionAbility> */}
+                  </h3>
+                </div>
+
               </div>
               {!claimRequest?.requisition_id && (
                 <span>
@@ -264,6 +286,13 @@ const ShowClaimRequest = () => {
           </div>
         </div>
       </div>
+      {/* From required part section */}
+      <UpdateReqInfo
+        open={updateDueAMountModal}
+        reqId={reqId}
+        onCloseModal={onCloseModal}
+        onUpdated={getRequisition}
+      />
     </div>
   );
 };

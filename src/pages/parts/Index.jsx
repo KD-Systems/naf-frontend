@@ -58,12 +58,6 @@ const Parts = () => {
       field: "machine",
     },
     {
-      name: "Heading",
-      selector: (row) => row.heading,
-      sortable: true,
-      field: "heading",
-    },
-    {
       name: "Quantity",
       selector: (row) => Math.floor(row.stocks[0]?.unit_value) ?? "--",
       sortable: true,
@@ -80,6 +74,12 @@ const Parts = () => {
       selector: (row) => row.old_part_number ?? "--",
       sortable: true,
       field: "old_part_number ",
+    },
+    {
+      name: "Remarks",
+      selector: (row) => row.remarks ?? "--",
+      sortable: true,
+      field: "remarks ",
     },
     {
       name: "Action",

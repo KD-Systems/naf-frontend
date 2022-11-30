@@ -72,10 +72,7 @@ const PrintInvoice = () => {
                                 <h5>Invoice to:</h5>
                                 <h2>{invoice?.company?.name}</h2>
                               </div>
-                              <div>
-                                <h5>Issued By:</h5>
-                                <h2>{invoice?.created_by}</h2>
-                              </div>
+                              
                               
                             </div>
                             <div className="px-5">
@@ -84,18 +81,13 @@ const PrintInvoice = () => {
                                 <p>{invoice?.invoice_number}</p>
                               </div>
                               <div>
-                                <p>
-                                  <br /> Mobile : 01719753294 <br />01714845179     
-                                  <br />
-                                </p>
-                              </div>
-                              <div>
                                 <h5>Approved by :</h5>
                                 <span>Tajima Nawaz, Director,Naf Group</span><br/>
                                 <span>Email:tajima@nafgroup.org</span><br/>
-                                <span>Contact No: 01719753294</span><br/>
-
-
+                              </div>
+                              <div>
+                                <h5>Issued By:</h5>
+                                <h3>{invoice?.created_by}</h3>
                               </div>
                             </div>
                           </div>

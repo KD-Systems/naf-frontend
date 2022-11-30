@@ -35,8 +35,10 @@ const RequisitionCreate = () => {
   };
 
   const [companies, setCompanies] = useState({});
+  console.log("🚀 ~ file: create.jsx ~ line 38 ~ RequisitionCreate ~ companies", companies)
   const [contract, setContracts] = useState();
   const [machineModels, setMachineModels] = useState([]);
+  console.log("🚀 ~ file: create.jsx ~ line 40 ~ RequisitionCreate ~ machineModels", machineModels)
   
   const [filter, setFilter] = useState({
     part_heading_id: null,
@@ -52,7 +54,7 @@ const RequisitionCreate = () => {
     engineer_id: "",
     machine_id: "",
     priority: "",
-    type: "",
+    type: "purchase_request",
     payment_mode: "",
     account_details:"",  
     expected_delivery: "",
@@ -162,22 +164,9 @@ const RequisitionCreate = () => {
 
   const getMachineModels = async () => {
     // setBlock(false);
-    // let dt = await CompanyService.getMachines(companyId);
-    // dt = dt.map((itm) => ({
-    //   label: itm.machine_model?.name,
-    //   value: itm.id,
-    // })); //Parse the data as per the select requires
-
-    // setMachineModels(dt);
-    // setData({
-    //   ...data,
-    //   ...{ machine_model_id: null },
-    // });
-    // setBlock(false);
-
-    setBlock(false);
     let dt = await CompanyService.getMachinesforRequisitions(companies);
-    if (data?.type == "purchase_request") {
+    console.log("🚀 ~ file: create.jsx ~ line 168 ~ getMachineModels ~ dt", dt)
+    // if (data?.type == "purchase_request") {
       dt = dt[0].machine_model.map((itm) => ({
         label: itm.name,
         value: itm.company_machine_id,
@@ -189,28 +178,30 @@ const RequisitionCreate = () => {
         ...data,
         ...{ machine_model_id: null },
       });
-    } else {
-      let carry = [];
+    // }
+    
+    // else {
+    //   let carry = [];
 
-      dt[0].contracts.forEach((element) => {
-        element?.is_foc &&
-          element?.machine_model?.forEach((itm) =>
-            carry.push({
-              label: itm.name,
-              value: itm.Company_machine_id,
-              machineId: itm.machine_id,
-            })
-          );
-      });
+    //   dt[0].contracts.forEach((element) => {
+    //     element?.is_foc &&
+    //       element?.machine_model?.forEach((itm) =>
+    //         carry.push({
+    //           label: itm.name,
+    //           value: itm.Company_machine_id,
+    //           machineId: itm.machine_id,
+    //         })
+    //       );
+    //   });
 
-      setMachineModels(carry);
-      setData({
-        ...data,
-        ...{ machine_model_id: null },
-      });
-    }
+    //   setMachineModels(carry);
+    //   setData({
+    //     ...data,
+    //     ...{ machine_model_id: null },
+    //   });
+    // }
 
-    setBlock(false);
+    // setBlock(false);
   };
 
   const handleSelect = (option, conf) => {
@@ -235,13 +226,6 @@ const RequisitionCreate = () => {
         [name]: value,
       });
     }
-    // console.log("shanto",conf)
-    // console.log("shantoargha",option)
-    // if(conf.name = "part_heading_id"){
-    // setPartHeading(option);  // can redo
-    // }
-
-    // setPartHeading(option);  // can redo
   };
 
   const handleChange = (e) => {
@@ -303,9 +287,6 @@ const RequisitionCreate = () => {
     setData({ ...data, part_items: list, total: totalAmount }); //add part_items and total amount in data
   }, [list, totalAmount]);
 
-  //   useEffect(() => {
-  //     if (data.company_id) getMachineModels(data?.company_id);
-  //   }, [data.company_id]);
 
   useEffect(() => {
     getCompanies();
@@ -314,8 +295,9 @@ const RequisitionCreate = () => {
   }, []);
 
   useEffect(() => {
-    if (data?.type) getMachineModels();
-  }, [data?.type]);
+    getMachineModels()
+  }, [companies]);
+
 
   useEffect(() => {
     const sum = list.reduce(
@@ -397,24 +379,7 @@ const RequisitionCreate = () => {
                         </div>
                       </div> */}
 
-                      <div className="col-lg-4">
-                        <label htmlFor="type" className="required form-label">
-                          Type
-                        </label>
-                        <div className="mb-5">
-                          <div className="form-group">
-                            <Select
-                              options={types}
-                              name="type"
-                              onChange={handleSelect}
-                            />
-                          </div>
-                          <div
-                            className="fv-plugins-message-container invalid-feedback"
-                            htmlFor="type"
-                          ></div>
-                        </div>
-                      </div>
+                      
 
                       <div className="col-lg-4">
                         <div className="form-group">
@@ -463,7 +428,7 @@ const RequisitionCreate = () => {
                         </div>
                       </div>
 
-                      <div className="col-lg-4">
+                      {/* <div className="col-lg-4">
                         <label className="form-label">Expected Delivery</label>
                         <div className="mb-5">
                           <div className="form-group ">
@@ -487,10 +452,9 @@ const RequisitionCreate = () => {
                             ></div>
                           </div>
                         </div>
-                      </div>
+                      </div> */}
 
-                      {data?.type !== "claim_report" && data?.type !== "" && (
-                        <>
+                      
                           <div className="col-lg-4">
                             <div className="mb-5">
                               <label className="required form-label">
@@ -607,8 +571,7 @@ const RequisitionCreate = () => {
                               </div>
                             </>
                           )}
-                        </>
-                      )}
+                        
 
                       <div className="col-lg-6">
                         <label

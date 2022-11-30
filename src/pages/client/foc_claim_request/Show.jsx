@@ -24,7 +24,6 @@ const ShowClientClaimRequest = () => {
     { value: "complete", label: "Complete" },
   ];
 
-
   useEffect(() => {
     if (id) getRequisition();
   }, [id]);
@@ -129,7 +128,26 @@ const ShowClientClaimRequest = () => {
                 </div>
 
                 <div className="fw-bolder mt-5">Status</div>
-                <div className="text-gray-600">{claimRequest?.status}</div>
+                <div className="text-gray-600">
+                  {claimRequest?.status == "pending" && (
+                    <div className="mt-2 text-white bg-warning p-1 px-2 rounded">
+                      Pending
+                    </div>
+                  )}
+                  {(claimRequest?.status == "from_foc" ||
+                    claimRequest?.status == "from_sellable" ||
+                    claimRequest?.status == "complete") && (
+                    <div className="mt-2 text-white bg-warning p-1 px-2 rounded">
+                      Complete
+                    </div>
+                  )}
+
+                  {claimRequest?.status == "waiting_for_tajima" && (
+                    <div className="mt-2 text-white bg-success p-1 px-2 rounded">
+                      Waiting for Mother Company
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>

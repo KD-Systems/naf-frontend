@@ -6,12 +6,18 @@ import Moment from "react-moment";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import RequisitionService from "../../services/RequisitionService";
 import NewDropzone from "./Dropzone/MyDropzone";
+import UpdateReqInfo from "./section/UpdateReqInfo";
 
 const ShowRequisition = () => {
+  const [updateDueAMountModal, setUpdateDueAMountModal] = useState(false);
+  const onCloseModal = () => {
+    setUpdateDueAMountModal(false);
+  };
   const [confirmDelete, setConfirmDelete] = useState(false);
 
   const [uuid, setuuid] = useState();
   const [model_id, setModelId] = useState();
+  const [reqId, setReqId] = useState({});
 
   const [stock, setStock] = useState(true);
 
@@ -163,6 +169,23 @@ const ShowRequisition = () => {
                 <div className="text-gray-600">
                   {requisition?.remarks ?? "--"}
                 </div>
+                
+                <div className="card-title mt-10 justify-content-center">
+                  <h3 className="card-label mr-10">
+                    {/* <PermissionAbility permission="companies_edit"> */}
+                      <button
+                        className="btn btn-sm btn-dark"
+                        onClick={() => {
+                          setReqId(id);
+                          setUpdateDueAMountModal(true);
+                        }}
+                      >
+                        <i className="fa fa-pen"></i> Update Info
+                      </button>
+                    {/* </PermissionAbility> */}
+                  </h3>
+                </div>
+
               </div>
               <div className="card-header"> 
                 <div className="card-title">
@@ -432,6 +455,12 @@ const ShowRequisition = () => {
           deleteItem();
         }}
         onCancel={() => setConfirmDelete(false)}
+      />
+      <UpdateReqInfo
+        open={updateDueAMountModal}
+        reqId={reqId}
+        onCloseModal={onCloseModal}
+        onUpdated={getRequisition}
       />
     </div>
   );

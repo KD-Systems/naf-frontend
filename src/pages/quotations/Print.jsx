@@ -35,7 +35,7 @@ const PrintInvoice = () => {
           className="card"
           style={{ backgroundColor: "#f5f8fa", alignContent: "center" }}
         >
-          <div className="card-body py-20">
+          <div className="card-body">
             <div className="mw-lg-950px mx-auto w-100">
               <div className="mb-4" style={{ alignContent: "center" }}>
                 <div style={{ fontSize: 36 }}>PRICE QUOTATION</div>
@@ -82,8 +82,6 @@ const PrintInvoice = () => {
                                 <span>Tajima Nawaz, Director,Naf Group</span>
                                 <br />
                                 <span>Email:tajima@nafgroup.org</span>
-                                <br />
-                                <span>Contact No: 01719753294</span>
                                 <br />
                               </div>
                             </div>

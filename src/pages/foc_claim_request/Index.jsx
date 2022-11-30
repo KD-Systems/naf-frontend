@@ -75,7 +75,7 @@ const ClaimRequest = () => {
       selector: (row) => row?.status,
       sortable: true,
       field: "role",
-      format: (row) => (
+      format: (row) => ( 
         <>
           {row?.status == "pending" && (
             <div className="mt-2 text-white bg-warning p-1 px-2 rounded">
@@ -92,9 +92,9 @@ const ClaimRequest = () => {
               From Sellable
             </div>
           )}
-          {row?.status == "waiting_for_mother_company" && (
+          {row?.status == "waiting_for_tajima" && (
             <div className="mt-2 text-white bg-success p-1 px-2 rounded">
-              Waiting for Mother Company
+              Waiting for Tajima
             </div>
           )}
           {row?.status == "complete" && (

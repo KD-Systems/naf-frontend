@@ -89,7 +89,7 @@ const ClientClaimRequest = () => {
             </div>
           )}
           
-          {row?.status == "waiting_for_mother_company" && (
+          {row?.status == "waiting_for_tajima" && ( 
             <div className="mt-2 text-white bg-success p-1 px-2 rounded">
               Waiting for Mother Company
             </div>

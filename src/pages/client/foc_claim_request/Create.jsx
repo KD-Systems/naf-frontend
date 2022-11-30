@@ -295,7 +295,7 @@ const CreateClientClaimRequisition = () => {
                             </div>
                           </div>
 
-                          <div className="col-lg-4">
+                          {/* <div className="col-lg-4">
                             <label className="form-label">
                               Expected Delivery
                             </label>
@@ -321,7 +321,7 @@ const CreateClientClaimRequisition = () => {
                                 ></div>
                               </div>
                             </div>
-                          </div>
+                          </div> */}
                           <div className="col-lg-4"></div>
                           <div className="col-lg-4"></div>                          
 

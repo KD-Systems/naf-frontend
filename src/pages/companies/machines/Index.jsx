@@ -9,7 +9,6 @@ const CompanyMachines = ({ active }) => {
     const [confirmDelete, setConfirmDelete] = useState(false);
     const [machineId, setMachineId] = useState(null);
     const [machines, setMachines] = useState([]);
-    console.log(machines);
     const [openAddMachine, setOpenAddMachine] = useState(false);
     const { id } = useParams();
 

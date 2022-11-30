@@ -75,7 +75,17 @@ const deleteFile = async (uuid, model_id) => {
   return res.data;
 };
 
-//for required requisition
+//expected delivey and remarks update for requisiton
+const updateReqInfo = async (id, data) => {
+  const res = await http.post(`/requisition/info/${id}`, data);
+  return res?.data;
+};
+
+
+
+
+    ///////////////////////////////////////// For required requisition //////////////////////////////////////////////////
+
 const createrequiredrequisitions = async (data) => {
   const res = await http.post(`required-part/requisitions`, data);
   return res.data;
@@ -98,6 +108,11 @@ const changeStatus = async (id, data) => {
   return res?.data;
 };
 
+const updateRequiredReqInfo = async (id, data) => {
+  const res = await http.post(`/required-part/requisitions/info/${id}`, data);
+  return res?.data;
+};
+
 const RequisitionService = {
   getAll,
   get,
@@ -113,10 +128,12 @@ const RequisitionService = {
   getFile,
   deleteFile,
   changeStatus,
-  //for required requisition
+  updateReqInfo,
+  ///////////////////////////////////////// For required requisition ///////////////////////////////////////////
   getAllRequiredRequisitions,
   getRequiredRequisition,
   createrequiredrequisitions,
+  updateRequiredReqInfo,
 };
 
 export default RequisitionService;

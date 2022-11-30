@@ -11,7 +11,6 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
   const [machines, setMachines] = useState([]);
   const [headings, setHeadings] = useState([]);
   const [foc, setFoc] = useState(false);
-  console.log("🚀 ~ file: Create.jsx ~ line 14 ~ CreatePart ~ foc", foc)
 
 
   const handlePartAdd = () => {
@@ -201,7 +200,7 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
                 ></div>
               </div>
 
-              <div className="d-flex">
+              {/* <div className="d-flex">
               <div className="flex-lg-row-fluid">
                 <div className="card">
                   <div className="card-body">
@@ -217,7 +216,7 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
 
             {/* <div className="form-group mt-5 mb-2">
                 <div className="form-check form-switch form-check-custom form-check-solid">
