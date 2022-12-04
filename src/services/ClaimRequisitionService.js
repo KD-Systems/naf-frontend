@@ -1,5 +1,9 @@
 import http from "../http-common";
 
+const create = async (data) => {
+  const res = await http.post(`/claim-requisitions`, data);
+  return res.data;
+};
 //for admin claim requisition
 const getAll = async (data) => {
   const res = await http.get(`/claim-requisitions`, {
@@ -43,6 +47,7 @@ const getAllClaimRequest = async (data) => {
 
 
 const ClaimRequisitionService = {
+  create,
   getAll,
   getAllClaimRequest,
   //for client

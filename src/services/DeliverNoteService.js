@@ -20,11 +20,21 @@ const create = async (data) => {
 
 
 
+const deliveredFocParts = async (data) => {
+  const res = await http.get(`/delivered-foc-parts`, {
+    params: data
+});
+  return res.data;
+};
+
+
+
 
 const DeliverNoteService = {
   getAll,
   get,
   create,
+  deliveredFocParts
 };
 
 export default DeliverNoteService;

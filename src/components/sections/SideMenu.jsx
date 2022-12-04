@@ -531,6 +531,22 @@ const SideMenu = () => {
               </NavLink>
             </div>
             </PermissionAbility>
+
+            <PermissionAbility permission="stock_report_access">
+            <div className="menu-item">
+              <NavLink
+                className={(navinfo) =>
+                  navinfo.isActive ? "menu-link active" : "menu-link"
+                }
+                to="delivered-foc-part"
+              >
+                <span className="menu-icon">
+                  <i className="fa fa-sticky-note"></i>
+                </span>
+                <span className="menu-title">Delivered Foc Parts</span>
+              </NavLink>
+            </div>
+            </PermissionAbility>
             
 
             <div className="menu-item">

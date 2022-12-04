@@ -97,6 +97,11 @@ const ClaimRequest = () => {
               Waiting for Tajima
             </div>
           )}
+          {row?.status == "both" && (
+            <div className="mt-2 text-white bg-success p-1 px-2 rounded">
+              Both 
+            </div>
+          )}
           {row?.status == "complete" && (
             <div className="mt-2 text-white bg-success p-1 px-2 rounded">
               Complete 

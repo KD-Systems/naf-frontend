@@ -69,6 +69,7 @@ import PrintClientQuotation from "pages/client/quotations/print";
 import ShowQuotation from "pages/quotations/Show";
 import Reports from "pages/reports/Index";
 import PartStockReport from "pages/reports/PartStockReport";
+import DeliveredFocParts from "pages/reports/deliveredFocParts";
 import RequiredRequisitionCreate from "pages/requierd_requisitions/Create";
 import RequiredRequisitions from "pages/requierd_requisitions/Index";
 import ShowRequiredRequisition from "pages/requierd_requisitions/Show";
@@ -631,6 +632,15 @@ function App() {
               element={
                 <PrivateRoute>
                   <PartStockReport />
+                </PrivateRoute>
+              }
+            />
+
+<Route
+              path="delivered-foc-part"
+              element={
+                <PrivateRoute>
+                  <DeliveredFocParts />
                 </PrivateRoute>
               }
             />

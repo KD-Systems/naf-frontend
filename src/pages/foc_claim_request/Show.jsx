@@ -31,8 +31,8 @@ const ShowClaimRequest = () => {
     { value: "pending", label: "Pending" },
     { value: "from_foc", label: "From Foc" },
     { value: "from_sellable", label: "From Sellable" },
+    { value: "both", label: "Both" },
     { value: "waiting_for_tajima", label: "Waiting for tajima" },
-    { value: "complete", label: "Complete" },
   ];
 
   const handleSelect = async (e) => {
@@ -178,7 +178,8 @@ const ShowClaimRequest = () => {
 
                   {(claimRequest?.status == "complete" ||
                     claimRequest?.status == "from_foc" ||
-                    claimRequest?.status == "from_sellable") && (
+                    claimRequest?.status == "from_sellable" ||
+                    claimRequest?.status == "both") && (
                     <div className="card-header">
                       <div className="card-title">
                         <h3 className="card-label">
@@ -276,7 +277,6 @@ const ShowClaimRequest = () => {
                                       </td>
 
                                       <td className=" fw-bolder mb-1 fs-6">
-
                                         <span className="text-end">
                                           <div
                                             // onClick={()=>handleModal(row)}

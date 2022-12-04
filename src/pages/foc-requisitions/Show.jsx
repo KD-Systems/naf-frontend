@@ -1,6 +1,7 @@
 import { Activities } from "components/utils/Activities";
 import Confirmation from "components/utils/Confirmation";
 import PermissionAbility from "helpers/PermissionAbility";
+import UpdatePartInfo from "pages/foc-requisitions/section/UpdatePartInfo";
 import { useEffect, useState } from "react";
 import Moment from "react-moment";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -12,8 +13,12 @@ const ShowClaimRequisition = () => {
 
   const [uuid, setuuid] = useState();
   const [model_id, setModelId] = useState();
-
+  const [part, setPart] = useState({});
   const [stock, setStock] = useState(true);
+  const [reqisitionPartModal, setReqisitionPartModal] = useState(false);
+  const onCloseModal = () => {
+    setReqisitionPartModal(false);
+  };
 
   let { id } = useParams();
   const navigate = useNavigate();
@@ -304,7 +309,10 @@ const ShowClaimRequisition = () => {
                                   <th className="min-w-120px">Part Number</th>
                                   <th className="min-w-120px">Quantity</th>
                                   <th className="min-w-120px">Stock</th>
-                                  <th className="min-w-120px">Remarks</th>
+                                  <th className="min-w-120px">Status</th>
+                                  <th className="min-w-120px">Remarks</th> 
+                                  <th className="min-w-120px">Action</th>
+
                                 </tr>
                               </thead>
 
@@ -327,6 +335,7 @@ const ShowClaimRequisition = () => {
                                     <td className=" fw-bolder mb-1 fs-6">
                                       <span>{item?.quantity}</span>
                                     </td>
+
                                     <td className=" fw-bolder mb-1 fs-6">
                                       {item?.part?.stocks[0]?.unit_value
                                         ? item?.part?.stocks[0]?.unit_value <
@@ -339,8 +348,27 @@ const ShowClaimRequisition = () => {
                                         : "Not Availabe"}
                                     </td>
                                     <td className=" fw-bolder mb-1 fs-6">
+                                      <span>{item?.status}</span>
+                                    </td>
+                                    <td className=" fw-bolder mb-1 fs-6">
                                       <span>{item?.remarks}</span>
                                     </td>
+                                    <td className=" fw-bolder mb-1 fs-6">
+
+                                        <span className="text-end">
+                                          <div
+                                            // onClick={()=>handleModal(row)}
+                                            className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+                                            data-toggle="tooltip"
+                                            onClick={() => {
+                                              setPart(item);
+                                              setReqisitionPartModal(true);
+                                            }}
+                                          >
+                                            <i className="fa fa-pen"></i>
+                                          </div>
+                                        </span>
+                                      </td>
                                   </tr>
                                 ))}
                               </tbody>
@@ -430,6 +458,13 @@ const ShowClaimRequisition = () => {
         }}
         onCancel={() => setConfirmDelete(false)}
       />
+      <UpdatePartInfo
+        open={reqisitionPartModal}
+        part={part}
+        onCloseModal={onCloseModal}
+        onUpdated={getFocRequisition}
+      />
+    
     </div>
   );
 };

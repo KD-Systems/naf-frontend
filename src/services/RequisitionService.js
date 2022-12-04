@@ -30,7 +30,6 @@ const partHeadings = async (data) => {
 };
 
 const create = async (data) => {
-  console.log("Afnan submit", data);
   const res = await http.post(`/requisitions`, data);
   return res.data;
 };
@@ -81,7 +80,10 @@ const updateReqInfo = async (id, data) => {
   return res?.data;
 };
 
-
+const updateFocRequisitionPart = async (id,data) => {
+  const res = await http.post(`claim-requisitions/update-part-info/${id}`,data);
+  return res?.data;
+};
 
 
     ///////////////////////////////////////// For required requisition //////////////////////////////////////////////////
@@ -138,6 +140,8 @@ const RequisitionService = {
   deleteFile,
   changeStatus,
   updateReqInfo,
+  updateFocRequisitionPart,
+
   ///////////////////////////////////////// For required requisition ///////////////////////////////////////////
   getAllRequiredRequisitions,
   getRequiredRequisition,

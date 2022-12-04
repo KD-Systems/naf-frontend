@@ -8,6 +8,7 @@ import CompanyService from "services/CompanyService";
 import PartService from "services/PartService";
 import RequisitionService from "services/RequisitionService";
 import Select from "react-select";
+import ClaimRequisitionService from "services/ClaimRequisitionService";
 
 const ClaimRequestRequisitionCreate = () => {
   const navigate = useNavigate();
@@ -99,7 +100,7 @@ const ClaimRequestRequisitionCreate = () => {
 
   const storeFocRequisition = async () => {
     setBlock(true);
-    await RequisitionService.create(data);
+    await ClaimRequisitionService.create(data);
     setBlock(false);
     navigate("/panel/claim-requests");
   };
@@ -131,16 +132,33 @@ const ClaimRequestRequisitionCreate = () => {
   };
 
   const getParts = async () => {
-    let res =
-      data.status == "from_foc"
-        ? await PartService.getFoc(filter)
-        : await PartService.getSellable(filter);
-    setSearchData(res.data);
-    let items = res.data?.map((dt) => {
-      return { label: dt.name, value: dt.id };
-    });
+    // let res =
+    //   data.status == "from_foc"
+    //     ? await PartService.getFoc(filter)
+    //     : await PartService.getSellable(filter);
 
-    setParts(items);
+    if (data.status == "from_foc") {
+      let res = await PartService.getFoc(filter);
+      setSearchData(res.data);
+      let items = res.data?.map((dt) => {
+        return { label: dt.name, value: dt.id };
+      });
+      setParts(items);
+    } else if (data.status == "sellable") {
+      let res = await PartService.getSellable(filter);
+      setSearchData(res.data);
+      let items = res.data?.map((dt) => {
+        return { label: dt.name, value: dt.id };
+      });
+      setParts(items);
+    } else {
+      let res = await PartService.getAll(filter);
+      setSearchData(res.data);
+      let items = res.data?.map((dt) => {
+        return { label: dt.name, value: dt.id };
+      });
+      setParts(items);
+    }
   };
 
   const filterData = (e) => {
@@ -198,7 +216,7 @@ const ClaimRequestRequisitionCreate = () => {
     setList(tempList);
   };
 
-  const onChange = (e, item) => {    
+  const onChange = (e, item) => {
     const tempList = [...list];
     const tempItem = tempList.filter((val) => val.id === item.id);
     tempItem[0][e.target.name] = e.target.value;
@@ -515,6 +533,7 @@ const ClaimRequestRequisitionCreate = () => {
                                       <p>
                                         {item?.name}
                                         <span>({item.part_number})</span>
+                                        <span>({item.is_foc == true ? "Foc":"Non foc"})</span>,.
                                       </p>
                                     </Link>
                                   </div>
@@ -560,7 +579,7 @@ const ClaimRequestRequisitionCreate = () => {
                                   Part Number
                                 </th>
                                 <th className="min-w-100px w-200px">QTY</th>
-                                <th className="min-w-100px w-100px">Status</th>
+                                <th className="min-w-100px w-200px">Status</th>
                                 <th className="min-w-100px w-450px">Remarks</th>
                                 <th className="min-w-75px w-75px text-end">
                                   Action
@@ -615,7 +634,7 @@ const ClaimRequestRequisitionCreate = () => {
                                       </div>
                                     </div>
                                   </td>
-                                  <td>
+                                  {/* <td>
                                     <div className="form-control position-absolute w-20">
                                         <Select 
                                           options={status}
@@ -623,12 +642,32 @@ const ClaimRequestRequisitionCreate = () => {
                                           name="status"
                                         />
                                     </div>
+                                  </td> */}
+                                  <td>
+                                    <div className="position-absolute">
+                                      <Select
+                                        options={status}
+                                        onChange={(e) =>
+                                          onChange(
+                                            {
+                                              target: {
+                                                name: "status",
+                                                value: e.value,
+                                              },
+                                            },
+                                            item
+                                          )
+                                        }
+                                        name="status"
+                                        required
+                                      />
+                                    </div>
                                   </td>
                                   <td name="part_number">
                                     <input
                                       type="text"
                                       className="form-control"
-                                      aria-label="Small" 
+                                      aria-label="Small"
                                       aria-describedby="inputGroup-sizing-sm"
                                       name="remarks"
                                       onChange={(e) => onChange(e, item)}
