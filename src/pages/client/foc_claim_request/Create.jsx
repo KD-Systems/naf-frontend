@@ -114,20 +114,20 @@ const CreateClientClaimRequisition = () => {
   const getMachineModels = async (companyId) => {
     setBlock(false);
     let dt = await CompanyService.getMachinesforRequisitions(companyId);
-    if (data?.type == "purchase_request") {
-      dt = dt[0].machine_model.map((itm) => ({
-        label: itm.name,
-        value: itm.company_machine_id,
-        machineId: itm.machine_id,
-      })); //Parse the data as per the select requires
+    // if (data?.type == "purchase_request") {
+      // dt = dt[0].machine_model.map((itm) => ({
+      //   label: itm.name,
+      //   value: itm.company_machine_id,
+      //   machineId: itm.machine_id,
+      // })); //Parse the data as per the select requires
 
-      setMachineModels(dt);
+      // setMachineModels(dt);
 
-      setData({
-        ...data,
-        ...{ machine_model_id: null },
-      });
-    } else {
+      // setData({
+      //   ...data,
+      //   ...{ machine_model_id: null },
+      // });
+    // } else {
       let carry = [];
 
       dt[0].contracts.forEach((element) => {
@@ -147,7 +147,7 @@ const CreateClientClaimRequisition = () => {
         ...data,
         ...{ machine_model_id: null },
       });
-    }
+    // }
 
     setBlock(false);
   };

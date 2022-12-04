@@ -112,6 +112,15 @@ const updateRequiredReqInfo = async (id, data) => {
   const res = await http.post(`/required-part/requisitions/info/${id}`, data);
   return res?.data;
 };
+const getRequestedPart = async (id) => {
+  const res = await http.get(`required-part/requisitions/get-request-parts/${id}`);
+  return res?.data;
+};
+
+const updateRequestedPart = async (id,data) => {
+  const res = await http.post(`required-part/requisitions/update-request-parts/${id}`,data);
+  return res?.data;
+};
 
 const RequisitionService = {
   getAll,
@@ -134,6 +143,8 @@ const RequisitionService = {
   getRequiredRequisition,
   createrequiredrequisitions,
   updateRequiredReqInfo,
+  getRequestedPart,
+  updateRequestedPart
 };
 
 export default RequisitionService;

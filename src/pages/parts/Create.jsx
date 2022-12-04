@@ -200,7 +200,7 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
                 ></div>
               </div>
 
-              {/* <div className="d-flex">
+              <div className="d-flex">
               <div className="flex-lg-row-fluid">
                 <div className="card">
                   <div className="card-body">
@@ -216,7 +216,7 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
                   </div>
                 </div>
               </div>
-            </div> */}
+            </div>
 
             {/* <div className="form-group mt-5 mb-2">
                 <div className="form-check form-switch form-check-custom form-check-solid">

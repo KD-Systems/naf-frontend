@@ -1,6 +1,3 @@
-
-
-
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { DebounceInput } from "react-debounce-input";
@@ -10,13 +7,17 @@ import "react-toastify/dist/ReactToastify.css";
 import CompanyService from "services/CompanyService";
 import PartService from "services/PartService";
 import RequisitionService from "services/RequisitionService";
+import Select from "react-select";
 
 const ClaimRequestRequisitionCreate = () => {
   const navigate = useNavigate();
   let { id } = useParams();
 
-  const [fromFoc, setFromFoc] = useState(false)
-  console.log("🚀 ~ file: Create.jsx ~ line 19 ~ ClaimRequestRequisitionCreate ~ fromFoc", fromFoc)
+  const [fromFoc, setFromFoc] = useState(false);
+  const status = [
+    { value: "from_foc", label: "From Foc" },
+    { value: "waiting_for_tajima", label: "Waiting for tajima" },
+  ];
 
   const addPart = (item) => {
     item["quantity"] = 0;
@@ -53,7 +54,23 @@ const ClaimRequestRequisitionCreate = () => {
     part_items: list,
     total: totalAmount,
     files: [],
+    status: "",
   });
+
+  const handleSelect = (option, conf) => {
+    let value = option.value;
+    if (Array.isArray(option))
+      value = option.map((dt) => {
+        return dt.value;
+      });
+
+    const name = conf.name;
+    setData({
+      ...data,
+      [name]: value,
+    });
+  };
+
   const getRequisition = async () => {
     let res = await RequisitionService.getRequiredRequisition(id);
     res?.machines_data?.map((item) => {
@@ -114,8 +131,10 @@ const ClaimRequestRequisitionCreate = () => {
   };
 
   const getParts = async () => {
-    let res = fromFoc ? await PartService.getFoc(filter) : await PartService.getSellable(filter);
-    // let res = await PartService.getAll(filter);
+    let res =
+      data.status == "from_foc"
+        ? await PartService.getFoc(filter)
+        : await PartService.getSellable(filter);
     setSearchData(res.data);
     let items = res.data?.map((dt) => {
       return { label: dt.name, value: dt.id };
@@ -141,14 +160,12 @@ const ClaimRequestRequisitionCreate = () => {
       await getParts();
     }
     if (filter?.q === "") setSearchData([]);
-    
   };
   useEffect(() => {
     if (filter?.q) {
       search();
     }
   }, [filter]);
-
 
   useEffect(() => {
     setData({ ...data, part_items: list, total: totalAmount }); //add part_items and total amount in data
@@ -181,7 +198,7 @@ const ClaimRequestRequisitionCreate = () => {
     setList(tempList);
   };
 
-  const onChange = (e, item) => {
+  const onChange = (e, item) => {    
     const tempList = [...list];
     const tempItem = tempList.filter((val) => val.id === item.id);
     tempItem[0][e.target.name] = e.target.value;
@@ -331,7 +348,7 @@ const ClaimRequestRequisitionCreate = () => {
                             htmlFor="type"
                           ></div>
                         </div>
-                      </div>                      
+                      </div>
 
                       <div className="col-lg-6">
                         <label
@@ -400,7 +417,7 @@ const ClaimRequestRequisitionCreate = () => {
                 </div>
               </div>
             </div>
-          </div>     
+          </div>
 
           <div className="d-flex flex-column flex-lg-row mb-20">
             <div className="flex-lg-row-fluid mb-lg-0 me-lg-7 me-xl-10">
@@ -443,7 +460,7 @@ const ClaimRequestRequisitionCreate = () => {
             </div>
           </div>
 
-          <div className="d-flex flex-column flex-lg-row">
+          {/* <div className="d-flex flex-column flex-lg-row">
               <div className="flex-lg-row-fluid mb-10 mb-lg-0 me-lg-7 me-xl-10">
                 <div className="card mb-5">
                   <div className="card-body">
@@ -459,7 +476,7 @@ const ClaimRequestRequisitionCreate = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
 
           <div className="d-flex flex-column flex-lg-row">
             <div className="flex-lg-row-fluid mb-10 mb-lg-0 me-lg-7 me-xl-10">
@@ -538,11 +555,12 @@ const ClaimRequestRequisitionCreate = () => {
                           >
                             <thead>
                               <tr className="border-bottom fs-7 fw-bolder text-gray-700 text-uppercase">
-                                <th className="min-w-300px w-375px">Item</th>
-                                <th className="min-w-300px w-375px">
+                                <th className="min-w-300px w-200px">Item</th>
+                                <th className="min-w-300px w-200px">
                                   Part Number
                                 </th>
-                                <th className="min-w-100px w-250px">QTY</th>
+                                <th className="min-w-100px w-200px">QTY</th>
+                                <th className="min-w-100px w-100px">Status</th>
                                 <th className="min-w-100px w-450px">Remarks</th>
                                 <th className="min-w-75px w-75px text-end">
                                   Action
@@ -597,11 +615,20 @@ const ClaimRequestRequisitionCreate = () => {
                                       </div>
                                     </div>
                                   </td>
+                                  <td>
+                                    <div className="form-control position-absolute w-20">
+                                        <Select 
+                                          options={status}
+                                          onChange={(e) => onChange({target:{name:'status',value:e.value}}, item)}
+                                          name="status"
+                                        />
+                                    </div>
+                                  </td>
                                   <td name="part_number">
                                     <input
                                       type="text"
                                       className="form-control"
-                                      aria-label="Small"
+                                      aria-label="Small" 
                                       aria-describedby="inputGroup-sizing-sm"
                                       name="remarks"
                                       onChange={(e) => onChange(e, item)}

@@ -6,17 +6,21 @@ import Moment from "react-moment";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Select from "react-select";
 import RequisitionService from "../../services/RequisitionService";
+import UpdatePartInfo from "./section/UpdatePartInfo";
 
 const ShowClaimRequest = () => {
   let { id } = useParams();
   const navigate = useNavigate();
   const [claimRequest, setClaimRequest] = useState({});
   const [reqId, setReqId] = useState({});
+  const [part, setPart] = useState({});
 
   const [tab, setTab] = useState("requisitions");
-  const [updateDueAMountModal, setUpdateDueAMountModal] = useState(false);
+  const [reqisitionInfoModal, setReqisitionInfoModal] = useState(false);
+  const [reqisitionPartModal, setReqisitionPartModal] = useState(false);
   const onCloseModal = () => {
-    setUpdateDueAMountModal(false);
+    setReqisitionInfoModal(false);
+    setReqisitionPartModal(false);
   };
   const getRequisition = async () => {
     let res = await RequisitionService.getRequiredRequisition(id);
@@ -146,19 +150,18 @@ const ShowClaimRequest = () => {
                 <div className="card-title mt-10 justify-content-center">
                   <h3 className="card-label mr-10">
                     {/* <PermissionAbility permission="companies_edit"> */}
-                      <button
-                        className="btn btn-sm btn-dark"
-                        onClick={() => {
-                          setReqId(id);
-                          setUpdateDueAMountModal(true);
-                        }}
-                      >
-                        <i className="fa fa-pen"></i> Update Info
-                      </button>
+                    <button
+                      className="btn btn-sm btn-dark"
+                      onClick={() => {
+                        setReqId(id);
+                        setReqisitionInfoModal(true);
+                      }}
+                    >
+                      <i className="fa fa-pen"></i> Update Info
+                    </button>
                     {/* </PermissionAbility> */}
                   </h3>
                 </div>
-
               </div>
               {!claimRequest?.requisition_id && (
                 <span>
@@ -173,7 +176,9 @@ const ShowClaimRequest = () => {
                     </div>
                   </div>
 
-                  {(claimRequest?.status == "complete" || claimRequest?.status == "from_foc" || claimRequest?.status == "from_sellable") && (
+                  {(claimRequest?.status == "complete" ||
+                    claimRequest?.status == "from_foc" ||
+                    claimRequest?.status == "from_sellable") && (
                     <div className="card-header">
                       <div className="card-title">
                         <h3 className="card-label">
@@ -246,6 +251,9 @@ const ShowClaimRequest = () => {
                                   <th className="min-w-50px">Part Name</th>
                                   <th className="min-w-120px">Part Number</th>
                                   <th className="min-w-120px">Quantity</th>
+                                  <th className="min-w-120px">status</th>
+                                  <th className="min-w-120px">Remarks</th>
+                                  <th className="min-w-120px">Action</th>
                                 </tr>
                               </thead>
 
@@ -259,6 +267,29 @@ const ShowClaimRequest = () => {
                                       </td>
                                       <td className=" fw-bolder mb-1 fs-6">
                                         <span>{item?.qty}</span>
+                                      </td>
+                                      <td className=" fw-bolder mb-1 fs-6">
+                                        <span>{item?.status}</span>
+                                      </td>
+                                      <td className=" fw-bolder mb-1 fs-6">
+                                        <span>{item?.remarks}</span>
+                                      </td>
+
+                                      <td className=" fw-bolder mb-1 fs-6">
+
+                                        <span className="text-end">
+                                          <div
+                                            // onClick={()=>handleModal(row)}
+                                            className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+                                            data-toggle="tooltip"
+                                            onClick={() => {
+                                              setPart(item);
+                                              setReqisitionPartModal(true);
+                                            }}
+                                          >
+                                            <i className="fa fa-pen"></i>
+                                          </div>
+                                        </span>
                                       </td>
                                     </tr>
                                   )
@@ -288,8 +319,15 @@ const ShowClaimRequest = () => {
       </div>
       {/* From required part section */}
       <UpdateReqInfo
-        open={updateDueAMountModal}
+        open={reqisitionInfoModal}
         reqId={reqId}
+        onCloseModal={onCloseModal}
+        onUpdated={getRequisition}
+      />
+
+      <UpdatePartInfo
+        open={reqisitionPartModal}
+        part={part}
         onCloseModal={onCloseModal}
         onUpdated={getRequisition}
       />

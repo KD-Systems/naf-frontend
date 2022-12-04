@@ -442,7 +442,7 @@ const ShowRequisition = () => {
                   </div>
                 </div>
 
-                <Activities logName="requisitions" modelId={id} tab={tab} />
+                <Activities logName="requisitions" modelId={id} tab={tab} /> 
               </div>
             </div>
           </div>
