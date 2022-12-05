@@ -41,7 +41,7 @@ const InvoicePartItems = ({ tab, active, invoice }) => {
                               to={"/panel/parts/" + item?.part?.id}
                               className="text-dark fw-bolder text-hover-primary"
                             >
-                              {item?.part?.aliases[0].name}
+                              {item?.part?.aliases[0].name} <span className="text-primary">{item?.part?.is_foc == true ? "Foc":"Non foc"}</span>
                             </Link>
                           </td>
                           <td className=" fw-bolder mb-1 fs-6">

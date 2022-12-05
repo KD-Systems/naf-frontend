@@ -26,6 +26,23 @@ const DeliveryNotes = () => {
       sortable: true,
       field: "id",
     },
+
+    {
+      name: "Type",
+      selector: (row) => row?.invoice?.quotation?.requisition?.type,
+      sortable: true,
+      field: "name",
+      format: (row) => (
+        <div className="d-flex align-items-center">
+          <div className="d-flex justify-content-start flex-column">
+            <div className="text-dark fw-bolder text-hover-primary">
+              {row?.invoice?.quotation?.requisition?.type.replaceAll("_", " ")?.capitalize()}
+            </div>
+          </div>
+        </div>
+      ),
+    },
+
     {
       name: "Company",
       selector: (row) => row?.invoice?.company?.name,

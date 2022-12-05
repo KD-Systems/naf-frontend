@@ -61,10 +61,14 @@ const CreateDelivery = () => {
       item["quantity"] = res.quantity;
       item["invoice_exists"] = true;
       item["quantity_match"] = true;
+      item["status"] = res.status;
+      item["type"] = res.type;
     } else {
       item["quantity"] = 0;
       item["invoice_exists"] = false;
       item["quantity_match"] = true;
+      item["status"] = res.status;
+      item["type"] = res.type;
     }
     // console.log(res);
 

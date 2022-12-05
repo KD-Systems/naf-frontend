@@ -144,7 +144,7 @@ const ClaimRequestRequisitionCreate = () => {
         return { label: dt.name, value: dt.id };
       });
       setParts(items);
-    } else if (data.status == "sellable") {
+    } else if (data.status == "from_sellable") {
       let res = await PartService.getSellable(filter);
       setSearchData(res.data);
       let items = res.data?.map((dt) => {
@@ -533,7 +533,7 @@ const ClaimRequestRequisitionCreate = () => {
                                       <p>
                                         {item?.name}
                                         <span>({item.part_number})</span>
-                                        <span>({item.is_foc == true ? "Foc":"Non foc"})</span>,.
+                                        <span>({item.is_foc == true ? "Foc":"Non foc"})</span>
                                       </p>
                                     </Link>
                                   </div>
@@ -591,7 +591,7 @@ const ClaimRequestRequisitionCreate = () => {
                               {list?.map((item, index) => (
                                 <tr key={index}>
                                   <td className="pe-7" name="part_name">
-                                    {item?.name}
+                                    {item?.name} <span className="text-primary">{item.is_foc == true ? "Foc":"Non foc"}</span>
                                   </td>
                                   <td name="part_number">
                                     {item?.part_number}

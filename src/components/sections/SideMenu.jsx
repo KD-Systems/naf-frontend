@@ -543,7 +543,7 @@ const SideMenu = () => {
                 <span className="menu-icon">
                   <i className="fa fa-sticky-note"></i>
                 </span>
-                <span className="menu-title">Delivered Foc Parts</span>
+                <span className="menu-title">Foc Summery</span>
               </NavLink>
             </div>
             </PermissionAbility>

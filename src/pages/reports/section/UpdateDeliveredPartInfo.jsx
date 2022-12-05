@@ -9,7 +9,7 @@ import Select from "react-select";
 
 toast.configure();
 
-const UpdatePartInfo = ({ open, part, onCloseModal, onUpdated }) => {
+const UpdateDeliveredPartInfo = ({ open, part, onCloseModal, onUpdated }) => {
   const [data, setData] = useState({
     status: part.status,
     remarks: part.remarks,
@@ -20,6 +20,7 @@ const UpdatePartInfo = ({ open, part, onCloseModal, onUpdated }) => {
   const status = [
     { value: "from_foc", label: "From Foc" },
     { value: "waiting_for_tajima", label: "Waiting for mother company" },
+    { value: "complete", label: "Complete" },
   ];
 
   const [defaultStatus, setDefaultStatus] = useState({ value: "a", label:"a"})
@@ -71,8 +72,8 @@ const UpdatePartInfo = ({ open, part, onCloseModal, onUpdated }) => {
           <>
             <form id="update-company">
                 <div>
-                    <span>Status:<h3>{data?.status?.replaceAll("_", " ")?.capitalize()}</h3></span><br/>
-                    <span>Remarks: {data?.remarks}</span>
+                    <span>Status:<h3>{part?.status?.replaceAll("_", " ")?.capitalize()}</h3></span><br/>
+                    <span>Remarks: {part?.remarks}</span>
                 </div>
                 <br/>
                 <br/>
@@ -132,4 +133,4 @@ const UpdatePartInfo = ({ open, part, onCloseModal, onUpdated }) => {
   );
 };
 
-export default UpdatePartInfo;
+export default UpdateDeliveredPartInfo;
