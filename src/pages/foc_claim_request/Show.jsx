@@ -252,9 +252,9 @@ const ShowClaimRequest = () => {
                                   <th className="min-w-50px">Part Name</th>
                                   <th className="min-w-120px">Part Number</th>
                                   <th className="min-w-120px">Quantity</th>
-                                  <th className="min-w-120px">status</th>
+                                  {/* <th className="min-w-120px">status</th> */}
                                   <th className="min-w-120px">Remarks</th>
-                                  <th className="min-w-120px">Action</th>
+                                  {/* <th className="min-w-120px">Action</th> */}
                                 </tr>
                               </thead>
 
@@ -269,14 +269,14 @@ const ShowClaimRequest = () => {
                                       <td className=" fw-bolder mb-1 fs-6">
                                         <span>{item?.qty}</span>
                                       </td>
-                                      <td className=" fw-bolder mb-1 fs-6">
+                                      {/* <td className=" fw-bolder mb-1 fs-6">
                                         <span>{item?.status}</span>
-                                      </td>
+                                      </td> */}
                                       <td className=" fw-bolder mb-1 fs-6">
                                         <span>{item?.remarks}</span>
                                       </td>
 
-                                      <td className=" fw-bolder mb-1 fs-6">
+                                      {/* <td className=" fw-bolder mb-1 fs-6">
                                         <span className="text-end">
                                           <div
                                             // onClick={()=>handleModal(row)}
@@ -290,7 +290,7 @@ const ShowClaimRequest = () => {
                                             <i className="fa fa-pen"></i>
                                           </div>
                                         </span>
-                                      </td>
+                                      </td> */}
                                     </tr>
                                   )
                                 )}
