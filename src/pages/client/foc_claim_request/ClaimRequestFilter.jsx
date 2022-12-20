@@ -16,8 +16,8 @@ function ClaimRequestFilter({ enable, onChange }) {
   ];
   const type = [
     { label: "All", value: null },
-    { label: "Created", value: "created" },
-    { label: "Not Created", value: "not_created" },
+    { value: "pending", label: "Pending" },
+    { value: "waiting_for_tajima", label: "Waiting for tajima" },
   ];
   const [defaultStatus, setDefaultStatus] = useState({
     label: "All",
