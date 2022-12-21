@@ -28,9 +28,8 @@ const remove = async (id) => {
 };
 
 const addPayment = async (data) => {
-  console.log("🚀 ~ file: InvoiceService.js:31 ~ addPayment ~ data", data)
-  // const res = await http.post(`/payment-histories`, data);
-  // return res.data;
+  const res = await http.post(`/payment-histories`, data);
+  return res.data;
 };
 
 const getPaymentHistories = async (data) => {
