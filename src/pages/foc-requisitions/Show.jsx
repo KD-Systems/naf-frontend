@@ -311,7 +311,7 @@ const ShowClaimRequisition = () => {
                                   <th className="min-w-120px">Stock</th>
                                   <th className="min-w-120px">Status</th>
                                   <th className="min-w-120px">Remarks</th> 
-                                  <th className="min-w-120px">Action</th>
+                                  {/* <th className="min-w-120px">Action</th> */}
 
                                 </tr>
                               </thead>
@@ -348,12 +348,12 @@ const ShowClaimRequisition = () => {
                                         : "Not Availabe"}
                                     </td>
                                     <td className=" fw-bolder mb-1 fs-6">
-                                      <span>{item?.status}</span>
+                                      <span>{item?.status.replaceAll("_", " ")?.capitalize()}</span>
                                     </td>
                                     <td className=" fw-bolder mb-1 fs-6">
                                       <span>{item?.remarks}</span>
                                     </td>
-                                    <td className=" fw-bolder mb-1 fs-6">
+                                    {/* <td className=" fw-bolder mb-1 fs-6">
 
                                         <span className="text-end">
                                           <div
@@ -368,7 +368,7 @@ const ShowClaimRequisition = () => {
                                             <i className="fa fa-pen"></i>
                                           </div>
                                         </span>
-                                      </td>
+                                      </td> */}
                                   </tr>
                                 ))}
                               </tbody>
