@@ -6,24 +6,18 @@ function RequisitionFilter({ enable, onClickOutside, onChange }) {
   let user = JSON.parse(localStorage.getItem("user"))?.user;
 
   const [data, setData] = useState({
-    status: null,
-    type: null,
+    status: null
   });
   const status = [
     { label: "All", value: null },
     { label: "Pending", value: "pending" },
     { label: "Approved", value: "approved" },
   ];
-  const type = [
-    { label: "All", value: null },
-    { label: "Purchase Request", value: "purchase_request" },
-    { label: "Claim Report", value: "claim_report" },
-  ];
+  
   const [defaultStatus, setDefaultStatus] = useState({
     label: "All",
     value: null,
   });
-  const [defaultType, setDefaultType] = useState({ label: "All", value: null });
 
   let custom = {
     zIndex: 105,
@@ -51,27 +45,18 @@ function RequisitionFilter({ enable, onClickOutside, onChange }) {
         label: option.label,
         value: value,
       });
-
-    if (name === "type")
-      setDefaultType({
-        label: option.label,
-        value: value,
-      });
   };
 
   const reset = () => {
     setData({
       status: null,
-      type: null,
     });
 
     setDefaultStatus({ label: "All", value: null });
-    setDefaultType({ label: "All", value: null });
 
     typeof onChange === "function" &&
       onChange({
-        status: null,
-        type: null,
+        status: null
       });
   };
 
@@ -107,15 +92,6 @@ function RequisitionFilter({ enable, onClickOutside, onChange }) {
               onChange={(option, action) => handleSelect(option, action)}
               name="status"
               value={defaultStatus}
-            />
-          </div>
-          <div className="mb-10">
-            <label className="form-label fw-bold">Requisition Type:</label>
-            <Select
-              options={type}
-              onChange={(option, action) => handleSelect(option, action)}
-              name="type"
-              value={defaultType}
             />
           </div>
 

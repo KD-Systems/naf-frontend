@@ -17,8 +17,11 @@ function ClaimRequestFilter({ enable, onClickOutside, onChange }) {
   ];
   const type = [
     { label: "All", value: null },
-    { label: "Created", value: "created" },
-    { label: "Not Created", value: "not_created" },
+    { value: "pending", label: "Pending" },
+    { value: "from_foc", label: "From Foc" },
+    { value: "from_sellable", label: "From Sellable" },
+    { value: "both", label: "Both" },
+    { value: "waiting_for_tajima", label: "Waiting for tajima" },
   ];
   const [defaultStatus, setDefaultStatus] = useState({
     label: "All",
