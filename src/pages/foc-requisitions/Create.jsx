@@ -14,10 +14,9 @@ const ClaimRequestRequisitionCreate = () => {
   const navigate = useNavigate();
   let { id } = useParams();
 
-  const [fromFoc, setFromFoc] = useState(false);
   const status = [
     { value: "from_foc", label: "From Foc" },
-    { value: "waiting_for_tajima", label: "Waiting for tajima" },
+    { value: "waiting_for_tajima", label: "Dispatch From Sellable" },
   ];
 
   const addPart = (item) => {
@@ -31,7 +30,7 @@ const ClaimRequestRequisitionCreate = () => {
     setFilter({ ...filter, q: "" });
     setSearchData("");
   };
-  const [req, setReq] = useState(false);
+
   const [list, setList] = useState([]);
   const [totalAmount, setTotal] = useState(0);
   const [machineList, setMachineList] = useState("");
@@ -58,20 +57,6 @@ const ClaimRequestRequisitionCreate = () => {
     status: "",
   });
 
-  const handleSelect = (option, conf) => {
-    let value = option.value;
-    if (Array.isArray(option))
-      value = option.map((dt) => {
-        return dt.value;
-      });
-
-    const name = conf.name;
-    setData({
-      ...data,
-      [name]: value,
-    });
-  };
-
   const getRequisition = async () => {
     let res = await RequisitionService.getRequiredRequisition(id);
     res?.machines_data?.map((item) => {
@@ -92,17 +77,21 @@ const ClaimRequestRequisitionCreate = () => {
   const [searchData, setSearchData] = useState([]);
 
   const [selectedPart, setSelectedPart] = useState(false);
-  const [engineers, setEngineers] = useState([]);
 
-  const [partHeading, setPartHeading] = useState(null);
   const [block, setBlock] = useState(false);
   const [parts, setParts] = useState([]);
 
   const storeFocRequisition = async () => {
-    setBlock(true);
-    await ClaimRequisitionService.create(data);
-    setBlock(false);
-    navigate("/panel/claim-requests");
+    const qntyLessThanZro = data.part_items.every((i) => i.quantity > 0);
+    if (!qntyLessThanZro) {
+      toast.error("Quantity should be greater than zero!");
+      return false;
+    } else {
+      setBlock(true);
+      await ClaimRequisitionService.create(data);
+      setBlock(false);
+      navigate("/panel/claim-requests");
+    }
   };
 
   const removeItem = (id) => {
@@ -132,11 +121,6 @@ const ClaimRequestRequisitionCreate = () => {
   };
 
   const getParts = async () => {
-    // let res =
-    //   data.status == "from_foc"
-    //     ? await PartService.getFoc(filter)
-    //     : await PartService.getSellable(filter);
-
     if (data.status == "from_foc") {
       let res = await PartService.getFoc(filter);
       setSearchData(res.data);
@@ -477,25 +461,6 @@ const ClaimRequestRequisitionCreate = () => {
               </div>
             </div>
           </div>
-
-          {/* <div className="d-flex flex-column flex-lg-row">
-              <div className="flex-lg-row-fluid mb-10 mb-lg-0 me-lg-7 me-xl-10">
-                <div className="card mb-5">
-                  <div className="card-body">
-                    <span>
-                      <input
-                        type="checkbox"
-                        defaultChecked={fromFoc}
-                        onChange={() => setFromFoc(!fromFoc)}
-                      />
-                    </span>
-
-                    <span className="p-5">From FOC stock?</span>
-                  </div>
-                </div>
-              </div>
-            </div> */}
-
           <div className="d-flex flex-column flex-lg-row">
             <div className="flex-lg-row-fluid mb-10 mb-lg-0 me-lg-7 me-xl-10">
               <div className="card mb-5">
@@ -533,7 +498,13 @@ const ClaimRequestRequisitionCreate = () => {
                                       <p>
                                         {item?.name}
                                         <span>({item.part_number})</span>
-                                        <span>({item.is_foc == true ? "Foc":"Non foc"})</span>
+                                        <span>
+                                          (
+                                          {item.is_foc == true
+                                            ? "Foc"
+                                            : "Non foc"}
+                                          )
+                                        </span>
                                       </p>
                                     </Link>
                                   </div>
@@ -574,16 +545,12 @@ const ClaimRequestRequisitionCreate = () => {
                           >
                             <thead>
                               <tr className="border-bottom fs-7 fw-bolder text-gray-700 text-uppercase">
-                                <th className="min-w-300px w-200px">Item</th>
-                                <th className="min-w-300px w-200px">
-                                  Part Number
-                                </th>
-                                <th className="min-w-100px w-200px">QTY</th>
-                                <th className="min-w-100px w-200px">Status</th>
-                                <th className="min-w-100px w-450px">Remarks</th>
-                                <th className="min-w-75px w-75px text-end">
-                                  Action
-                                </th>
+                                <th>Item</th>
+                                <th>Part Number</th>
+                                <th>QTY</th>
+                                <th className="w-300px">Status</th>
+                                <th className="w-200px">Remarks</th>
+                                <th>Action</th>
                               </tr>
                             </thead>
 
@@ -591,7 +558,10 @@ const ClaimRequestRequisitionCreate = () => {
                               {list?.map((item, index) => (
                                 <tr key={index}>
                                   <td className="pe-7" name="part_name">
-                                    {item?.name} <span className="text-primary">{item.is_foc == true ? "Foc":"Non foc"}</span>
+                                    {item?.name}
+                                    <span className="text-primary">
+                                      {item.is_foc == true ? "Foc" : "Non foc"}
+                                    </span>
                                   </td>
                                   <td name="part_number">
                                     {item?.part_number}
@@ -601,6 +571,7 @@ const ClaimRequestRequisitionCreate = () => {
                                     <div className="input-group input-group-sm ">
                                       <div className="input-group-prepend">
                                         <span
+                                          style={{ cursor: "pointer" }}
                                           className="input-group-text"
                                           id="inputGroup-sizing-sm"
                                           onClick={() => {
@@ -613,14 +584,16 @@ const ClaimRequestRequisitionCreate = () => {
                                         </span>
                                       </div>
                                       <input
+                                        style={{ width: "50px" }}
                                         type="text"
                                         className="form-control"
                                         aria-label="Small"
                                         aria-describedby="inputGroup-sizing-sm"
                                         min="1"
-                                        value={item.quantity ?? ""}
-                                        defaultValue={item.quantity}
+                                        value={item.quantity}
+                                        defaultValue={item?.quantity}
                                         name="quantity"
+                                        required={!item.quantity}
                                       />
 
                                       <div className="input-group-prepend">
@@ -634,34 +607,33 @@ const ClaimRequestRequisitionCreate = () => {
                                       </div>
                                     </div>
                                   </td>
-                                  {/* <td>
-                                    <div className="form-control position-absolute w-20">
-                                        <Select 
-                                          options={status}
-                                          onChange={(e) => onChange({target:{name:'status',value:e.value}}, item)}
-                                          name="status"
-                                        />
-                                    </div>
-                                  </td> */}
+
                                   <td>
-                                    <div className="position-absolute">
-                                      <Select
-                                        options={status}
-                                        onChange={(e) =>
-                                          onChange(
-                                            {
-                                              target: {
-                                                name: "status",
-                                                value: e.value,
-                                              },
+                                    <div>{item.is_foc}</div>
+                                    <Select
+                                      className="position-absolute w-20"
+                                      options={
+                                        item.is_foc
+                                          ? status.filter(
+                                              (i) => i.value == "from_foc"
+                                            )
+                                          : status.filter(
+                                              (i) => i.value !== "from_foc"
+                                            )
+                                      }
+                                      onChange={(e) =>
+                                        onChange(
+                                          {
+                                            target: {
+                                              name: "status",
+                                              value: e.value,
                                             },
-                                            item
-                                          )
-                                        }
-                                        name="status"
-                                        required
-                                      />
-                                    </div>
+                                          },
+                                          item
+                                        )
+                                      }
+                                      name="status"
+                                    />
                                   </td>
                                   <td name="part_number">
                                     <input
