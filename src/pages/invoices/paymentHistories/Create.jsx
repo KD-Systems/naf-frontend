@@ -90,7 +90,6 @@ const CreateInvoicePayment = ({ open, onCloseModal, invoice, due }) => {
     } else {
       setBlock(true);
     let formData = new FormData(document.getElementById("create-payment"));
-      console.log("🚀 ~ file: Create.jsx:93 ~ addPayment ~ formData", formData)
       await InvoiceService.addPayment(formData);
       setBlock(false);
       onCloseModal();
