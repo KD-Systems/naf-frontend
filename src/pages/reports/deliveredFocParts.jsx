@@ -116,7 +116,7 @@ const DeliveredFocParts = () => {
     {
       name: "Status",
       selector: (row) => row?.status,
-      format: (row) => <div className="mt-2">{row?.status.replaceAll("_", " ")?.capitalize()}</div>,
+      format: (row) => <div className="mt-2">{row?.status?.replaceAll("_", " ")?.capitalize()}</div>,
       sortable: true,
       field: "status",
     },

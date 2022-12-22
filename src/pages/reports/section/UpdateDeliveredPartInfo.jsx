@@ -10,12 +10,7 @@ import Select from "react-select";
 toast.configure();
 
 const UpdateDeliveredPartInfo = ({ open, part, onCloseModal, onUpdated }) => {
-  const [data, setData] = useState({
-    status: part.status,
-    remarks: part.remarks,
-  });
-  
-  const [info, setInfo] = useState(part);
+  const [data, setData] = useState();
 
   const status = [
     { value: "from_foc", label: "From Foc" },
@@ -23,20 +18,26 @@ const UpdateDeliveredPartInfo = ({ open, part, onCloseModal, onUpdated }) => {
     { value: "complete", label: "Complete" },
   ];
 
-  const [defaultStatus, setDefaultStatus] = useState({ value: "a", label:"a"})
-
   useEffect(() => {
-    setDefaultStatus({ value: part?.status, label:part?.status?.replaceAll("_", " ")?.capitalize()})
-  }, [part])
-
+    setData({
+      status: part.status,
+      remarks: part.remarks,
+    });
+  }, [part]);
 
   const updateInfo = async () => {
-    await RequisitionService.updateFocRequisitionPart(part?.id, data);
-    onUpdated();
-    onCloseModal();
+    try {
+      // console.log(data)
+      await RequisitionService.updateFocRequisitionPart(part?.id, data);
+      onUpdated();
+      onCloseModal();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleChange = (e) => {
+    console.log()
     const value = e.target.value;
     const name = e.target.name;
 
@@ -60,8 +61,6 @@ const UpdateDeliveredPartInfo = ({ open, part, onCloseModal, onUpdated }) => {
     });
   };
 
-
-
   return (
     <div>
       <Modal
@@ -71,30 +70,34 @@ const UpdateDeliveredPartInfo = ({ open, part, onCloseModal, onUpdated }) => {
         body={
           <>
             <form id="update-company">
-                <div>
-                    <span>Status:<h3>{part?.status?.replaceAll("_", " ")?.capitalize()}</h3></span><br/>
-                    <span>Remarks: {part?.remarks}</span>
-                </div>
-                <br/>
-                <br/>
+              <div>
+                <span>
+                  Status:
+                  <h3>{part?.status?.replaceAll("_", " ")?.capitalize()}</h3>
+                </span>
+                <br />
+                <span>Remarks: {part?.remarks}</span>
+              </div>
+              <br />
+              <br />
               <div className="mb-5 fv-row fv-plugins-icon-container">
-                <label className="form-label">Status</label>
+                <label className="form-label required">Status</label>
 
                 <Select
                   options={status}
-                  defaultValue={defaultStatus}
+                  defaultValue={status.filter((i) => i.value === part?.status)}
                   onChange={handleSelect}
                   name="status"
                   id="status"
-                /> 
+                />
                 <div
                   className="fv-plugins-message-container invalid-feedback"
-                  htmlFor="description"
+                  htmlFor="status"
                 ></div>
               </div>
 
               <div className="mb-5 fv-row fv-plugins-icon-container">
-                <label className="form-label">Remarks</label>
+                <label className="form-label required">Remarks</label>
                 <input
                   type="text"
                   className="form-control"
@@ -106,7 +109,7 @@ const UpdateDeliveredPartInfo = ({ open, part, onCloseModal, onUpdated }) => {
                 />
                 <div
                   className="fv-plugins-message-container invalid-feedback"
-                  htmlFor="description"
+                  htmlFor="remarks"
                 ></div>
               </div>
 
