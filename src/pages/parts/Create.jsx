@@ -116,7 +116,7 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
     formData.append("name", data.name);
     formData.append("arm", data.arm);
     formData.append("unit", data.unit);
-    formData.append("description", data.descriptions);
+    formData.append("description", data.description);
     formData.append("parts", JSON.stringify(temp1));
     formData.append("is_foc", foc);
 // console.log("shanto",formData);
