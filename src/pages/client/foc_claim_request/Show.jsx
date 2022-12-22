@@ -63,6 +63,10 @@ const ShowClientClaimRequest = () => {
                     </span>
                   ))}
                 </div> */}
+                <div className="fw-bolder mt-5">RR Number</div>
+                <div className="text-gray-600">
+                  {claimRequest?.rr_number ?? "--"}
+                </div>
 
                 <div className="fw-bolder mt-5">Engineer</div>
                 <div className="text-gray-600">
@@ -130,20 +134,21 @@ const ShowClientClaimRequest = () => {
                 <div className="fw-bolder mt-5">Status</div>
                 <div className="text-gray-600">
                   {claimRequest?.status == "pending" && (
-                    <div className="mt-2 text-white bg-warning p-1 px-2 rounded">
+                    <span className="badge badge-info">
                       Pending
-                    </div>
+                    </span>
                   )}
-                  {(claimRequest?.status == "from_foc" ||
-                    claimRequest?.status == "from_sellable" ||
-                    claimRequest?.status == "complete") && (
-                    <div className="mt-2 text-white bg-warning p-1 px-2 rounded">
+
+                  {claimRequest?.status?.includes(
+                    "from_foc" || "from_sellable" || "complete" || "both"
+                  ) && (
+                    <div className="badge badge-info">
                       Complete
                     </div>
                   )}
 
                   {claimRequest?.status == "waiting_for_tajima" && (
-                    <div className="mt-2 text-white bg-success p-1 px-2 rounded">
+                    <div className="badge badge-info">
                       Waiting for Mother Company
                     </div>
                   )}

@@ -84,7 +84,7 @@ const ClientClaimRequest = () => {
             </div>
           )}
           {row?.status.includes("from_foc" || "from_sellable" || "complete" || 'both') && (
-            <div className="mt-2 text-white bg-warning p-1 px-2 rounded">
+            <div className="mt-2 text-white bg-info p-1 px-2 rounded">
               Complete
             </div>
           )}

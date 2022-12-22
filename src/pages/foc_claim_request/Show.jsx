@@ -81,6 +81,11 @@ const ShowClaimRequest = () => {
                   ))}
                 </div> */}
 
+                <div className="fw-bolder mt-5">RR Number</div>
+                <div className="text-gray-600">
+                  {claimRequest?.rr_number ?? "--"}
+                </div>
+
                 <div className="fw-bolder mt-5">Engineer</div>
                 <div className="text-gray-600">
                   {claimRequest?.engineer?.name ?? "--"}
@@ -145,7 +150,9 @@ const ShowClaimRequest = () => {
                 </div>
 
                 <div className="fw-bolder mt-5">Status</div>
-                <div className="text-gray-600">{claimRequest?.status}</div>
+                <div className="text-gray-600">
+                  <span className="badge badge-info">{claimRequest?.status.replace('_',' ').capitalize()}</span>
+                </div>
 
                 <div className="card-title mt-10 justify-content-center">
                   <h3 className="card-label mr-10">

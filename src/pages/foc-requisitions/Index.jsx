@@ -18,6 +18,19 @@ const ClaimRequisition = () => {
     },
 
     {
+      name: "Required Requisition",
+      selector: (row) => row?.required_requisition_number,
+      format: (row) => (
+        <Link to={"/panel/claim-request/" + row?.required_requisition_id} >
+          {row?.required_requisition_number}
+        </Link>
+      ),
+
+      sortable: true,
+      field: "required_requisition_number",
+    },
+
+    {
       name: "Expected Delivery",
       selector: (row) => row?.expected_delivery,
       sortable: true,
