@@ -77,7 +77,7 @@ const Parts = () => {
     },
     {
       name: "Description",
-      selector: (row) => row.description ?? "--",
+      selector: (row) => row.description == 'undefined' ? "--" :row.description,
       sortable: true,
       field: "description ",
     },
