@@ -83,7 +83,7 @@ const ClientClaimRequest = () => {
               Pending
             </div>
           )}
-          {(row?.status == "from_foc" || row?.status == "from_sellable" || row?.status == "complete") && (
+          {row?.status.includes("from_foc" || "from_sellable" || "complete" || 'both') && (
             <div className="mt-2 text-white bg-warning p-1 px-2 rounded">
               Complete
             </div>
