@@ -27,7 +27,6 @@ const UpdateDeliveredPartInfo = ({ open, part, onCloseModal, onUpdated }) => {
 
   const updateInfo = async () => {
     try {
-      // console.log(data)
       await RequisitionService.updateFocRequisitionPart(part?.id, data);
       onUpdated();
       onCloseModal();
