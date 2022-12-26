@@ -76,10 +76,10 @@ const Parts = () => {
       field: "old_part_number ",
     },
     {
-      name: "Remarks",
-      selector: (row) => row.remarks ?? "--",
+      name: "Description",
+      selector: (row) => row.description == 'undefined' ? "--" :row.description,
       sortable: true,
-      field: "remarks ",
+      field: "description ",
     },
     {
       name: "Action",
