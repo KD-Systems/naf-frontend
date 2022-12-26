@@ -32,7 +32,6 @@ const NewRequisition = () => {
     setInputField(list);
   };
 
-
   const [companies, setCompanies] = useState([]);
   const [machineModels, setMachineModels] = useState([]);
   // console.log(machineModels);
@@ -112,18 +111,24 @@ const NewRequisition = () => {
   ];
 
   const storeRequisition = async () => {
-    setBlock(true);
-    req
-      ? await RequisitionService.createrequiredrequisitions({
-          ...data,
-          part_items: inputField,
-        })
-      : await RequisitionService.create(data);
-    setBlock(false);
-    if (req || data?.type == "claim_report") {
-      navigate("/panel/require_req");
+    const qntyLessThanZro = data.part_items.every((i) => i.quantity > 0);
+    if (!qntyLessThanZro) {
+      toast.error("Quantity should be greater than zero!");
+      return false;
     } else {
-      navigate("/panel/requisitions");
+      setBlock(true);
+      req
+        ? await RequisitionService.createrequiredrequisitions({
+            ...data,
+            part_items: inputField,
+          })
+        : await RequisitionService.create(data);
+      setBlock(false);
+      if (req || data?.type == "claim_report") {
+        navigate("/panel/require_req");
+      } else {
+        navigate("/panel/requisitions");
+      }
     }
   };
 
@@ -394,7 +399,6 @@ const NewRequisition = () => {
                         </div>
                       </div>
 
-                      
                       <div className="col-lg-4">
                         <div className="form-group">
                           <label className="required form-label">Machine</label>
@@ -468,128 +472,124 @@ const NewRequisition = () => {
                         </div>
                       </div>
 
-                      
-                        <>
-                          <div className="col-lg-4">
-                            <div className="mb-5">
-                              <label className="required form-label">
-                                Payment Mode
-                              </label>
-                              <Select
-                                options={payments}
-                                name="payment_mode"
-                                onChange={handleSelect}
-                              />
-                              <div
-                                className="fv-plugins-message-container invalid-feedback"
-                                htmlFor="payment_mode"
-                              ></div>
-                            </div>
-                          </div>
-
-                          <div className="col-lg-4">
-                            <label
-                              className="required form-label fs-6 fw-bolder text-gray-700"
-                              htmlFor="types"
-                            >
-                              Account Details
+                      <>
+                        <div className="col-lg-4">
+                          <div className="mb-5">
+                            <label className="required form-label">
+                              Payment Mode
                             </label>
-                            <textarea
-                              className="form-control form-control-solid mb-3"
-                              rows="2"
-                              name="account_details"
-                              data-kt-element="input"
-                              placeholder="Account details"
-                              onChange={handleChange}
-                            ></textarea>
+                            <Select
+                              options={payments}
+                              name="payment_mode"
+                              onChange={handleSelect}
+                            />
                             <div
-                                className="fv-plugins-message-container invalid-feedback"
-                                htmlFor="account_details"
-                              ></div>
+                              className="fv-plugins-message-container invalid-feedback"
+                              htmlFor="payment_mode"
+                            ></div>
                           </div>
+                        </div>
 
-                          <div className="col-lg-4">
-                            <div className="mb-5">
-                              <label className="required form-label">
-                                Payment Term
+                        <div className="col-lg-4">
+                          <label
+                            className="required form-label fs-6 fw-bolder text-gray-700"
+                            htmlFor="types"
+                          >
+                            Account Details
+                          </label>
+                          <textarea
+                            className="form-control form-control-solid mb-3"
+                            rows="2"
+                            name="account_details"
+                            data-kt-element="input"
+                            placeholder="Account details"
+                            onChange={handleChange}
+                          ></textarea>
+                          <div
+                            className="fv-plugins-message-container invalid-feedback"
+                            htmlFor="account_details"
+                          ></div>
+                        </div>
+
+                        <div className="col-lg-4">
+                          <div className="mb-5">
+                            <label className="required form-label">
+                              Payment Term
+                            </label>
+                            <Select
+                              options={payment_terms}
+                              name="payment_term"
+                              onChange={handleSelect}
+                            />
+                            <div
+                              className="fv-plugins-message-container invalid-feedback"
+                              htmlFor="payment_term"
+                            ></div>
+                          </div>
+                        </div>
+                        {data?.payment_term === "partial" && (
+                          <>
+                            <div className="col-lg-4">
+                              <label htmlFor="payment_partial_mode">
+                                Payment Partial Mode
                               </label>
-                              <Select
-                                options={payment_terms}
-                                name="payment_term"
-                                onChange={handleSelect}
-                              />
+                              <div className="mb-5 mt-2">
+                                <Select
+                                  options={payment_partial_mode}
+                                  name="payment_partial_mode"
+                                />
+                              </div>
                               <div
                                 className="fv-plugins-message-container invalid-feedback"
-                                htmlFor="payment_term"
+                                htmlFor="payment_partial_mode"
                               ></div>
                             </div>
-                          </div>
-                          {data?.payment_term === "partial" && (
-                            <>
-                              <div className="col-lg-4">
-                                <label htmlFor="payment_partial_mode">
-                                  Payment Partial Mode
-                                </label>
-                                <div className="mb-5 mt-2">
-                                  <Select
-                                    options={payment_partial_mode}
-                                    name="payment_partial_mode"
-                                  />
-                                </div>
+
+                            <div className="col-lg-4">
+                              <label className="form-label">Partial Time</label>
+                              <div className="mb-5">
+                                <input
+                                  type="text"
+                                  className="form-control form-control-solid "
+                                  name="partial_time"
+                                  placeholder="Partial Time"
+                                  onChange={handleChange}
+                                />
                                 <div
                                   className="fv-plugins-message-container invalid-feedback"
-                                  htmlFor="payment_partial_mode"
+                                  htmlFor="partial_time"
                                 ></div>
                               </div>
+                            </div>
 
-                              <div className="col-lg-4">
-                                <label className="form-label">
-                                  Partial Time
-                                </label>
-                                <div className="mb-5">
-                                  <input
-                                    type="text"
-                                    className="form-control form-control-solid "
-                                    name="partial_time"
-                                    placeholder="Partial Time"
-                                    onChange={handleChange}
-                                  />
-                                  <div
-                                    className="fv-plugins-message-container invalid-feedback"
-                                    htmlFor="partial_time"
-                                  ></div>
-                                </div>
+                            <div className="col-lg-4">
+                              <label className="required" htmlFor="types">
+                                Next Payment
+                              </label>
+                              <div className="mb-5">
+                                <DatePicker
+                                  className="form-control"
+                                  name="next_payment"
+                                  selected={data.next_payment}
+                                  onChange={(date) =>
+                                    handleDateSelect(date, "next_payment")
+                                  }
+                                />
+                                <input
+                                  type="hidden"
+                                  name="next_payment"
+                                  id="next_payment"
+                                  value={data.next_payment}
+                                />
+                                <div
+                                  className="fv-plugins-message-container invalid-feedback"
+                                  htmlFor="next_payment"
+                                ></div>
                               </div>
-
-                              <div className="col-lg-4">
-                                <label className="required" htmlFor="types">
-                                  Next Payment
-                                </label>
-                                <div className="mb-5">
-                                  <DatePicker
-                                    className="form-control"
-                                    name="next_payment"
-                                    selected={data.next_payment}
-                                    onChange={(date) =>
-                                      handleDateSelect(date, "next_payment")
-                                    }
-                                  />
-                                  <input
-                                    type="hidden"
-                                    name="next_payment"
-                                    id="next_payment"
-                                    value={data.next_payment}
-                                  />
-                                  <div
-                                    className="fv-plugins-message-container invalid-feedback"
-                                    htmlFor="next_payment"
-                                  ></div>
-                                </div>
-                              </div>
-                            </>
-                          )}
-                        </>
-                      
+                            </div>
+                          </>
+                        )}
+                      </>
 
                       <div className="col-lg-6">
                         <label
@@ -660,23 +660,23 @@ const NewRequisition = () => {
               </div>
             </div>
           </div>
-            <div className="d-flex flex-column flex-lg-row">
-              <div className="flex-lg-row-fluid mb-10 mb-lg-0 me-lg-7 me-xl-10">
-                <div className="card mb-5">
-                  <div className="card-body">
-                    <span>
-                      <input
-                        type="checkbox"
-                        defaultChecked={req}
-                        onChange={() => setReq(!req)}
-                      />
-                    </span>
+          <div className="d-flex flex-column flex-lg-row">
+            <div className="flex-lg-row-fluid mb-10 mb-lg-0 me-lg-7 me-xl-10">
+              <div className="card mb-5">
+                <div className="card-body">
+                  <span>
+                    <input
+                      type="checkbox"
+                      defaultChecked={req}
+                      onChange={() => setReq(!req)}
+                    />
+                  </span>
 
-                    <span className="p-5">Not in List?</span>
-                  </div>
+                  <span className="p-5">Not in List?</span>
                 </div>
               </div>
             </div>
+          </div>
 
           {req ? (
             <span>

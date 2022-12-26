@@ -348,7 +348,7 @@ const ShowClaimRequisition = () => {
                                         : "Not Availabe"}
                                     </td>
                                     <td className=" fw-bolder mb-1 fs-6">
-                                      <span>{item?.status.replaceAll("_", " ")?.capitalize()}</span>
+                                    <span className="badge badge-info">{item?.status.replaceAll("_", " ")?.capitalize()}</span>
                                     </td>
                                     <td className=" fw-bolder mb-1 fs-6">
                                       <span>{item?.remarks}</span>

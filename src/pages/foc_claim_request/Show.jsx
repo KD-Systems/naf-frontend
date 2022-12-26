@@ -151,12 +151,12 @@ const ShowClaimRequest = () => {
 
                 <div className="fw-bolder mt-5">Status</div>
                 <div className="text-gray-600">
-                  <span className="badge badge-info">{claimRequest?.status.replace('_',' ').capitalize()}</span>
+                 {claimRequest?.status && <span className="badge badge-info">{claimRequest?.status.replace('_',' ').capitalize()}</span>} 
                 </div>
 
                 <div className="card-title mt-10 justify-content-center">
                   <h3 className="card-label mr-10">
-                    {/* <PermissionAbility permission="companies_edit"> */}
+                    <PermissionAbility permission="companies_edit">
                     <button
                       className="btn btn-sm btn-dark"
                       onClick={() => {
@@ -166,7 +166,7 @@ const ShowClaimRequest = () => {
                     >
                       <i className="fa fa-pen"></i> Update Info
                     </button>
-                    {/* </PermissionAbility> */}
+                    </PermissionAbility>
                   </h3>
                 </div>
               </div>
