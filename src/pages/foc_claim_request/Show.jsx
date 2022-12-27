@@ -183,10 +183,8 @@ const ShowClaimRequest = () => {
                     </div>
                   </div>
 
-                  {(claimRequest?.status == "complete" ||
-                    claimRequest?.status == "from_foc" ||
-                    claimRequest?.status == "from_sellable" ||
-                    claimRequest?.status == "both") && (
+                  { claimRequest?.status == ("complete" || "from_foc" || "from_sellable" || "both") 
+                  && (
                     <div className="card-header">
                       <div className="card-title">
                         <h3 className="card-label">
