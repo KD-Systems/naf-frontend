@@ -137,7 +137,7 @@ const Parts = () => {
   };
 
   const getParts = async (filters) => {
-    const data = await PartService.getAll({ ...filters, type: type});
+    const data = await PartService.getAll({ ...filters, type: type });
     setParts(data);
     setLoading(false);
   };
@@ -165,26 +165,38 @@ const Parts = () => {
         <div className="container-xxl">
           <Table
             name="Parts"
-            buttonName="Add Part"
             search
+            buttonName="Add Part"
             onClickButton={() => setOpenAddModal(true)}
             buttonPermission="parts_create"
-            callbackButtons={[
-              {
-                name: "Filter",
-                callback: () => {
-                  setEnableFilter(!enableFilter);
-                },
-                permission: null,
-              },
-              {
-                name: "Import",
-                callback: () => {
-                  setOpenImportModal(true);
-                },
-                permission: null,
-              },
-            ]}
+            callbackButtons={
+              type !== "company"
+                ? [
+                    {
+                      name: "Filter",
+                      callback: () => {
+                        setEnableFilter(!enableFilter);
+                      },
+                      permission: null,
+                    },
+                    {
+                      name: "Import",
+                      callback: () => {
+                        setOpenImportModal(true);
+                      },
+                      permission: null,
+                    },
+                  ]
+                : [
+                    {
+                      name: "Filter",
+                      callback: () => {
+                        setEnableFilter(!enableFilter);
+                      },
+                      permission: null,
+                    },
+                  ]
+            }
             isLoading={loading}
             data={parts}
             columns={columns}
