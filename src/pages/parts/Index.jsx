@@ -19,7 +19,18 @@ const Parts = () => {
   const [openImportModal, setOpenImportModal] = useState(false);
   const [partId, setPartId] = useState(null);
   const [enableFilter, setEnableFilter] = useState(false);
-  const [filter, setFilter] = useState({});
+
+
+  const [filter, setFilter] = useState(null);
+  console.log(filter);
+  const getParts = async () => {
+    const data = await PartService.getAll({ ...filter, type: type });
+    setParts(data);
+    setLoading(false);
+  };
+  useEffect(() => {
+    getParts();
+  }, [filter, type]);
 
   const columns = [
     {
@@ -127,21 +138,6 @@ const Parts = () => {
     },
   ];
 
-  const filterData = (dt) => {
-    setFilter({
-      ...filter,
-      ...dt,
-    });
-
-    setEnableFilter(false);
-  };
-
-  const getParts = async (filters) => {
-    const data = await PartService.getAll({ ...filters, type: type });
-    setParts(data);
-    setLoading(false);
-  };
-
   const deletePart = (partId) => {
     PartService.remove(partId);
     getParts();
@@ -152,12 +148,6 @@ const Parts = () => {
     setOpenEditModal(false);
     setOpenImportModal(false);
   };
-
-  useEffect(() => {
-    if (filter.order)
-      //Just to avoid double load
-      getParts(filter);
-  }, [filter, type]);
 
   return (
     <>
@@ -200,7 +190,6 @@ const Parts = () => {
             isLoading={loading}
             data={parts}
             columns={columns}
-            onFilter={filterData}
           />
         </div>
       </div>
@@ -232,12 +221,13 @@ const Parts = () => {
       />
 
       <PartFilter
-        enable={enableFilter}
+        filter={filter}
+        setFilter={setFilter}
+        paramsType={type}
+        enableFilter={enableFilter}
+        setEnableFilter={setEnableFilter}
         onClickOutside={() => {
           setEnableFilter(!filter);
-        }}
-        onChange={(data) => {
-          filterData(data);
         }}
       />
     </>

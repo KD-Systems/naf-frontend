@@ -13,7 +13,6 @@ const get = async (machineId, id) => {
     return res.data;
 };
 
-
 const filtered = async (filter)=>{
     const res = await http.get(`/machines/filtered/`,filter);
     return res.data;

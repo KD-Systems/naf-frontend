@@ -3,20 +3,28 @@ import Select from "react-select";
 import MachineService from "services/MachineService";
 import MachinePartHeadingService from "services/PartHeadingService";
 
-function PartFilter({ enable, onClickOutside, onChange }) {
-  
+function PartFilter({
+  filter,
+  setFilter,
+  enableFilter,
+  setEnableFilter,
+  onClickOutside,
+  paramsType,
+}) {
   const ref = useRef(null);
 
   const [data, setData] = useState({
     stock: "all",
-    machine_id: null,
-    part_heading_id: null,
+    machineId: null,
+    partHeadingId: null,
     defaultType: null,
+    type: paramsType,
   });
-  const type = [
-    {value:'is_foc' ,label:'Foc parts'},
-    {value:'non_foc' ,label:'Non Foc parts'},
-  ]
+
+  const partTypes = [
+    { value: "is_foc", label: "Foc parts" },
+    { value: "non_foc", label: "Non Foc parts" },
+  ];
   const [machines, setMachines] = useState([]);
   const [headings, setHeadings] = useState([]);
   const [defaultMachine, setDefaultMachine] = useState(null);
@@ -31,20 +39,6 @@ function PartFilter({ enable, onClickOutside, onChange }) {
     transform: "translate(-100%, 50%)",
   };
 
-  const apply = () => {
-    typeof onChange === "function" && onChange(data);
-  };
-
-  const handleChange = (e) => {
-    const value = e.target.value;
-    const name = e.target.name;
-
-    setData({
-      ...data,
-      [name]: value,
-    });
-  };
-
   const handleSelect = (option, action) => {
     const value = option.value;
     const name = action.name;
@@ -54,22 +48,27 @@ function PartFilter({ enable, onClickOutside, onChange }) {
       [name]: value,
     });
 
-    if (name === "machine_id")
+    if (name === "machineId")
       setDefaultMachine({
         label: option.label,
         value: value,
       });
 
-    if (name === "part_heading_id")
+    if (name === "partHeadingId")
       setDefaultHeading({
         label: option.label,
         value: value,
       });
-      if (name === "foc_parts")
+    if (name === "part")
       setDefaultType({
         label: option.label,
         value: value,
       });
+  };
+
+  const apply = () => {
+    setFilter(data);
+    setEnableFilter(!enableFilter);
   };
 
   const getMachines = async () => {
@@ -98,26 +97,21 @@ function PartFilter({ enable, onClickOutside, onChange }) {
 
     setDefaultMachine(null);
     setDefaultHeading(null);
+    setDefaultType(null);
 
-    typeof onChange === "function" &&
-      onChange({
-        stock: "all",
-        machine_id: null,
-        part_heading_id: null,
-      defaultType: null,
-
-      });
+    setFilter(null);
+    setEnableFilter(!enableFilter);
   };
 
   useEffect(() => {
-    if (enable && !machines.length) getMachines();
+    if (enableFilter && !machines.length) getMachines();
 
     if (!defaultMachine) setDefaultHeading(null);
-  }, [enable]);
+  }, [enableFilter]);
 
   useEffect(() => {
-    if (enable) getHeadings(data.machine_id);
-  }, [data.machine_id]);
+    if (enableFilter) getHeadings(data.machineId);
+  }, [data.machineId]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -126,10 +120,11 @@ function PartFilter({ enable, onClickOutside, onChange }) {
     };
 
     document.addEventListener("click", handleClickOutside, true);
-    return () => document.removeEventListener("click", handleClickOutside, true);
+    return () =>
+      document.removeEventListener("click", handleClickOutside, true);
   }, [onClickOutside]);
 
-  if (!enable) return null;
+  if (!enableFilter) return null;
 
   return (
     <>
@@ -148,7 +143,7 @@ function PartFilter({ enable, onClickOutside, onChange }) {
             <Select
               options={machines}
               onChange={(option, action) => handleSelect(option, action)}
-              name="machine_id"
+              name="machineId"
               value={defaultMachine}
             />
           </div>
@@ -157,20 +152,22 @@ function PartFilter({ enable, onClickOutside, onChange }) {
             <Select
               options={headings}
               onChange={(option, action) => handleSelect(option, action)}
-              name="part_heading_id"
+              name="partHeadingId"
               value={defaultHeading}
             />
           </div>
 
-          <div className="mb-10">
-            <label className="form-label fw-bold">Foc Parts:</label>
-            <Select
-              options={type}
-              onChange={(option, action) => handleSelect(option, action)}
-              name="part"
-              value={defaultType}
-            />
-          </div>
+          {paramsType !== "company" && (
+            <div className="mb-10">
+              <label className="form-label fw-bold">Foc Parts:</label>
+              <Select
+                options={partTypes}
+                onChange={(option, action) => handleSelect(option, action)}
+                name="part"
+                value={defaultType}
+              />
+            </div>
+          )}
           {/* <div className="mb-10">
                         <label className="form-label fw-bold">Stock:</label>
                         <div className="d-flex">
@@ -200,9 +197,7 @@ function PartFilter({ enable, onClickOutside, onChange }) {
             <button
               type="button"
               className="btn btn-sm btn-primary"
-              onClick={() => {
-                apply();
-              }}
+              onClick={apply}
             >
               Apply
             </button>
