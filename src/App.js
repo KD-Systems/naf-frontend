@@ -289,7 +289,7 @@ function App() {
 
             {/* Parts start */}
             <Route
-              path="parts"
+              path=":type/parts"
               element={
                 <PrivateRoute>
                   <Parts />
@@ -323,6 +323,10 @@ function App() {
               }
             />
             {/* Parts end */}
+
+            {/* Company Parts start */}
+
+            {/* Company Parts end */}
 
             <Route
               path="profile"
@@ -636,7 +640,7 @@ function App() {
               }
             />
 
-<Route
+            <Route
               path="delivered-foc-part"
               element={
                 <PrivateRoute>

@@ -306,7 +306,7 @@ const SideMenu = () => {
                   className={(navinfo) =>
                     navinfo.isActive ? "menu-link active" : "menu-link"
                   }
-                  to="/panel/parts"
+                  to="/panel/parts/parts"
                 >
                   <span className="menu-icon">
                     <i className="fas fa-tools"></i>
@@ -315,6 +315,28 @@ const SideMenu = () => {
                 </NavLink>
               </div>
             </PermissionAbility>
+
+
+
+            <PermissionAbility permission="parts_access">
+              <div className="menu-item">
+                <NavLink
+                  className={(navinfo) =>
+                    navinfo.isActive ? "menu-link active" : "menu-link"
+                  }
+                  to={`/panel/company/parts`}
+                >
+                  <span className="menu-icon">
+                    <i className="fas fa-tools"></i>
+                  </span>
+                  <span className="menu-title">Company Parts</span>
+                </NavLink>
+              </div>
+            </PermissionAbility>
+
+
+
+
 
             <div className="menu-item">
               <div className="menu-content pt-8 pb-2">

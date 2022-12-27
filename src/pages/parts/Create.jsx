@@ -7,11 +7,10 @@ import PartService from "services/PartService";
 import MachinePartHeadingService from "services/PartHeadingService";
 import Tags from "components/utils/Tags";
 
-const CreatePart = ({ open, onCloseModal, onCreated }) => {
+const CreatePart = ({ open, onCloseModal, onCreated, type }) => {
   const [machines, setMachines] = useState([]);
   const [headings, setHeadings] = useState([]);
   const [foc, setFoc] = useState(false);
-
 
   const handlePartAdd = () => {
     setInputField([...inputField, {}]);
@@ -42,7 +41,8 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
     image: "",
     arm: "",
     unit: "",
-    is_foc:foc
+    is_foc: foc,
+    is_company: ''
   });
 
   const [inputField, setInputField] = useState([{}]);
@@ -119,7 +119,8 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
     formData.append("description", data.description);
     formData.append("parts", JSON.stringify(temp1));
     formData.append("is_foc", foc);
-// console.log("shanto",formData);
+    formData.append("is_company", type === 'company' ? 1 : 0);
+  
     await PartService.create(formData);
     onCreated();
     onCloseModal();
@@ -200,25 +201,25 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
                 ></div>
               </div>
 
-              <div className="d-flex">
-              <div className="flex-lg-row-fluid">
-                <div className="card">
-                  <div className="card-body">
-                    <span>
-                      <input
-                        type="checkbox"
-                        defaultChecked={foc}
-                        onChange={() => setFoc(!foc)}
-                      />
-                    </span>
+              {type !== 'company' && <div className="d-flex">
+                <div className="flex-lg-row-fluid">
+                  <div className="card">
+                    <div className="card-body">
+                      <span>
+                        <input
+                          type="checkbox"
+                          defaultChecked={foc}
+                          onChange={() => setFoc(!foc)}
+                        />
+                      </span>
 
-                    <span className="p-5">FOC</span>
+                      <span className="p-5">FOC</span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
+              </div>}
 
-            {/* <div className="form-group mt-5 mb-2">
+              {/* <div className="form-group mt-5 mb-2">
                 <div className="form-check form-switch form-check-custom form-check-solid">
                   <input
                     className="form-check-input"
@@ -236,7 +237,6 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
               </div> */}
 
               <div className="form-group row">
-
                 <div className="col-12">
                   <label className="required form-label">Name</label>
                   <input
@@ -263,7 +263,7 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
                   >
                     <option>Select Unit</option>
                     {units.map((item) => {
-                      return (<option value={item.value}>{item.label}</option>);
+                      return <option value={item.value}>{item.label}</option>;
                     })}
                   </select>
                 </div>
@@ -334,7 +334,7 @@ const CreatePart = ({ open, onCloseModal, onCreated }) => {
                           onChange={(e) => handlePartChange(e, index)}
                         />
                         <div
-                          className="fv-plugins-message-container invalid-feedback" 
+                          className="fv-plugins-message-container invalid-feedback"
                           htmlFor="part_number[]"
                         ></div>
                       </div>

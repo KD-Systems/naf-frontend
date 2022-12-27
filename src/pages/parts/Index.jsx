@@ -2,7 +2,7 @@ import Confirmation from "components/utils/Confirmation";
 import Table from "components/utils/Table";
 import PermissionAbility from "helpers/PermissionAbility";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import PartService from "services/PartService";
 import CreateContract from "./Create";
 import EditPart from "./Edit";
@@ -10,6 +10,7 @@ import ImportFile from "./ImportFile";
 import PartFilter from "./PartFilter";
 
 const Parts = () => {
+  const { type } = useParams();
   const [loading, setLoading] = useState(true);
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [parts, setParts] = useState([]);
@@ -77,7 +78,8 @@ const Parts = () => {
     },
     {
       name: "Description",
-      selector: (row) => row.description == 'undefined' ? "--" :row.description,
+      selector: (row) =>
+        row.description == "undefined" ? "--" : row.description,
       sortable: true,
       field: "description ",
     },
@@ -135,7 +137,7 @@ const Parts = () => {
   };
 
   const getParts = async (filters) => {
-    const data = await PartService.getAll(filters);
+    const data = await PartService.getAll({ ...filters, type: type});
     setParts(data);
     setLoading(false);
   };
@@ -155,7 +157,7 @@ const Parts = () => {
     if (filter.order)
       //Just to avoid double load
       getParts(filter);
-  }, [filter]);
+  }, [filter, type]);
 
   return (
     <>
@@ -203,6 +205,7 @@ const Parts = () => {
         open={openAddModal}
         onCloseModal={onCloseModal}
         onCreated={getParts}
+        type={type}
       />
       <EditPart
         open={openEditModal}
