@@ -74,7 +74,7 @@ const Settings = () => {
     e.preventDefault();
     setBlock(true);
     const formData = new FormData(document.getElementById("settings")); 
-    formData.append('notifiable_users', data.notifiable_users);
+    formData.append('notifiable_users', data?.notifiable_users);
     SettingsService.create(formData);
     setBlock(false);
   };
@@ -308,8 +308,6 @@ const Settings = () => {
                   />
                   </div>
                 </div>
-
-                
 
                 {/* <div className="row mb-8">
                   <div className="col-xl-3">
