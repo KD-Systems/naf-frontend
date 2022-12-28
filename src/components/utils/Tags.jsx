@@ -13,7 +13,12 @@ const Tags = (props) => {
 
   const setValue = (val) => {
     options = { ...options, value: val };
-    props.onChange({ target: { name: props.name, value: val } });
+    props.onChange({
+      target: {
+        name: props.name,
+        value: JSON.parse(val)?.map((item) => item?.value),
+      },
+    });
   };
 
   const handleChange = async (e) => {
