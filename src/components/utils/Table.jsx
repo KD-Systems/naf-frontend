@@ -2,6 +2,7 @@ import PermissionAbility from "helpers/PermissionAbility";
 import { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import { DebounceInput } from "react-debounce-input";
+
 function Table({
   grandtotal,
   name,

@@ -6,19 +6,22 @@ import DeliverNoteService from "services/DeliverNoteService";
 import InvoiceService from "services/InvoiceService";
 import CreateInvoice from "./Create";
 import InvoiceFilter from "./InvoiceFilter";
+import ReturnPart from './return-parts/returnPart';
 
 const Invoices = () => {
-  
   const [loading, setLoading] = useState(true);
   const [invoices, setInvoices] = useState([]);
   const [filter, setFilter] = useState(false);
   const [block, setBlock] = useState(false);
   const [totalQuantity, setTotalQuantity] = useState(0);
 
+  const [openReturnModal, setOpenReturnModal] = useState(false);
+
+  const [invoice, setInvoice] = useState(null);
+
   const [open, setOpen] = useState(false);
 
   const onOpenModal = () => setOpen(true);
-  const onCloseModal = () => setOpen(false);
 
   const filterdata = (data) => {
     setFilter(false);
@@ -36,6 +39,11 @@ const Invoices = () => {
     setBlock(true);
     await DeliverNoteService.create(data);
     setBlock(false);
+  };
+
+  const onCloseModal = () => {
+    setOpenReturnModal(false);
+    setOpen(false);
   };
 
   const columns = [
@@ -133,7 +141,7 @@ const Invoices = () => {
       selector: (row) => row.status,
       format: (row) => (
         <>
-          <span className="text-end">
+          <span>
             <PermissionAbility permission="invoices_show">
               <Link
                 to={"/panel/invoices/" + row.id}
@@ -142,6 +150,20 @@ const Invoices = () => {
                 <i className="fa fa-eye"></i>
               </Link>
             </PermissionAbility>
+          </span>
+          <span>
+          <PermissionAbility permission="invoices_show">
+            <button
+              className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+              onClick={() => {
+                setInvoice(row);
+                setOpenReturnModal(true);
+              }}
+            >
+              <i className="fa fa-undo"></i>
+            </button>
+          </PermissionAbility>
+
           </span>
           {!row?.previous_due && (
             <>
@@ -216,6 +238,14 @@ const Invoices = () => {
           filterdata(data);
         }}
       />
+      <ReturnPart
+        open={openReturnModal}
+        invoice={invoice}
+        onCloseModal={onCloseModal}
+        getInvoices={getInvoices}
+      />
+
+
     </>
   );
 };
