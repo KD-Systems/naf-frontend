@@ -5,7 +5,6 @@ import InvoiceService from "../../../services/InvoiceService";
 import Select from "react-select";
 
 const ReturnPart = ({ open, onCloseModal, getInvoices, invoice }) => {
-
   const [partItems, setPartItems] = useState([]);
   const [data, setData] = useState(null);
   const [items, setItems] = useState([]);
@@ -17,7 +16,6 @@ const ReturnPart = ({ open, onCloseModal, getInvoices, invoice }) => {
   };
 
   const handleSelect = (input) => {
-
     const data = invoice?.part_items?.find(
       (item) => item.part_id == input.value
     );
@@ -61,9 +59,8 @@ const ReturnPart = ({ open, onCloseModal, getInvoices, invoice }) => {
     console.log({
       data: data,
       items: items,
-      grandTotal: items.reduce((a, itm) => a + itm.qnty * itm.unit_value, 0 )
+      grandTotal: items.reduce((a, itm) => a + itm.qnty * itm.unit_value, 0),
     });
-  
   };
 
   const handleDecrement = (item) => {
@@ -183,7 +180,7 @@ const ReturnPart = ({ open, onCloseModal, getInvoices, invoice }) => {
                                                 {item?.unit_value}
                                               </td>
                                               <td className="w-25">
-                                                {item?.total_value}
+                                                {item?.qnty * item?.total_value}
                                               </td>
                                               <td className="w-25">
                                                 <button
