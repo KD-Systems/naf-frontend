@@ -12,6 +12,11 @@ const get = async (id) => {
   return res.data;
 };
 
+const returnParts = async (data) => {
+  const res = await http.post(`/invoice/return-parts`,data);
+  return res.data;
+};
+
 const create = async (data) => {
   const res = await http.post(`/invoices`, data);
   return res.data;
@@ -54,6 +59,7 @@ const searchPart = async (data) => {
 const InvoiceService = {
   getAll,
   get,
+  returnParts,
   create,
   update,
   remove,

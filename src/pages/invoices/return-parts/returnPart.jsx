@@ -55,12 +55,20 @@ const ReturnPart = ({ open, onCloseModal, getInvoices, invoice }) => {
     onCloseModal();
   };
 
-  const handleSubmit = () => {
-    console.log({
-      data: data,
-      items: items,
-      grandTotal: items.reduce((a, itm) => a + itm.qnty * itm.unit_value, 0),
-    });
+  const handleSubmit = async () => {
+    try {
+      InvoiceService.returnParts({
+        invoice_id: data?.invoice_id,
+        items,
+        grand_total: items.reduce((a, itm) => a + itm.qnty * itm.unit_value, 0),
+      });
+      setItems([]);
+      setData({});
+      onCloseModal();
+      navigate('/panel/invoices');
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleDecrement = (item) => {
@@ -138,7 +146,7 @@ const ReturnPart = ({ open, onCloseModal, getInvoices, invoice }) => {
                                       {items.map((item, index) => {
                                         return (
                                           <>
-                                            <tr key={index}>
+                                            <tr key={index + 1}>
                                               <td className="w-25">
                                                 {item?.name}
                                               </td>
