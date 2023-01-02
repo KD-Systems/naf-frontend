@@ -163,7 +163,7 @@ const Invoices = () => {
               </Link>
             </PermissionAbility>
           </span>
-          { !row?.return_part_tracking_no && row?.type == 'purchase_request' &&
+          { !row?.return_part_tracking_no && row?.type == 'purchase_request' && row?.deliveryNote?.dn_number &&
           <span>
           <PermissionAbility permission="invoices_show">
             <button

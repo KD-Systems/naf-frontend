@@ -5,7 +5,9 @@ import InvoiceService from "../../../services/InvoiceService";
 import Select from "react-select";
 
 const ReturnPart = ({ open, onCloseModal, getInvoices, invoice }) => {
- 
+
+  const [advanced, setAdvanced] = useState(false);
+  const [remarks, SetRemarks] = useState();
   const [partItems, setPartItems] = useState([]);
   const [data, setData] = useState(null);
   const [items, setItems] = useState([]);
@@ -52,24 +54,9 @@ const ReturnPart = ({ open, onCloseModal, getInvoices, invoice }) => {
         .map((part) => ({ value: part.part_id, label: part.name }))
     );
     setItems([]);
+    setAdvanced(false);
+    SetRemarks();
     onCloseModal();
-  };
-
-  const handleSubmit = async () => {
-    try {
-      InvoiceService.returnParts({
-        invoice_id: data?.invoice_id,
-        items,
-        grand_total: items.reduce((a, itm) => a + itm.qnty * itm.unit_value, 0),
-      });
-      setItems([]);
-      setData({});
-      onCloseModal();
-      getInvoices();
-      navigate('/panel/invoices');
-    } catch (error) {
-      console.log(error);
-    }
   };
 
   const handleDecrement = (item) => {
@@ -82,6 +69,28 @@ const ReturnPart = ({ open, onCloseModal, getInvoices, invoice }) => {
     }
   };
 
+  const handleSubmit = async () => {
+    try {
+      InvoiceService.returnParts({
+        invoice_id: data?.invoice_id,
+        company_id: data?.company_id,
+        items,
+        grand_total: items.reduce((a, itm) => a + itm.qnty * itm.unit_value, 0),
+        advanced,
+        remarks,
+      });
+      setItems([]);
+      setData({});
+      onCloseModal();
+      getInvoices();
+      setAdvanced(false);
+      SetRemarks();
+      navigate("/panel/invoices");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     const data = invoice?.part_items
       ?.map((item) => item.part)
@@ -90,7 +99,7 @@ const ReturnPart = ({ open, onCloseModal, getInvoices, invoice }) => {
       .map((part) => ({ value: part.part_id, label: part.name }));
 
     setPartItems(data);
-    setData({ ...data, invoice_id: invoice?.id });
+    setData({ ...data, invoice_id: invoice?.id, company_id: invoice?.company?.id });
   }, [invoice]);
 
   return (
@@ -233,6 +242,32 @@ const ReturnPart = ({ open, onCloseModal, getInvoices, invoice }) => {
                       </div>
                     </div>
 
+                    <div className="row mb-5">
+                      <div className="col-md-12">
+                        <input
+                          id="isAdvanced"
+                          type="checkbox"
+                          defaultChecked={advanced}
+                          onChange={() => setAdvanced(!advanced)}
+                        />
+
+                        <label htmlFor="isAdvanced" className="p-5">
+                          Advanced
+                        </label>
+                      </div>
+                      <div className="col-lg-8">
+                        <label className="form-label fs-6 fw-bolder text-gray-700">
+                          Remarks
+                        </label>
+                        <textarea
+                          name="remarks"
+                          className="form-control form-control-solid"
+                          rows="5"
+                          onChange={(e) => SetRemarks(e.target.value)}
+                        ></textarea>
+                      </div>
+                    </div>
+
                     <button
                       type="button"
                       className="btn btn-primary mr-2 mt-5 float-end"
@@ -243,6 +278,7 @@ const ReturnPart = ({ open, onCloseModal, getInvoices, invoice }) => {
                     </button>
                   </>
                 )}
+
                 <button
                   type="button"
                   className="btn btn-secondary mt-5"
