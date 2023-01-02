@@ -41,6 +41,7 @@ const getPaymentHistories = async (data) => {
   const res = await http.get(`/payment-histories`, {
     params: { id: data },
   });
+
   return res.data;
 };
 

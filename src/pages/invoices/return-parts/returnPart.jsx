@@ -65,6 +65,7 @@ const ReturnPart = ({ open, onCloseModal, getInvoices, invoice }) => {
       setItems([]);
       setData({});
       onCloseModal();
+      getInvoices();
       navigate('/panel/invoices');
     } catch (error) {
       console.log(error);
