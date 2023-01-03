@@ -151,6 +151,7 @@ const Invoices = () => {
     {
       name: "Action",
       selector: (row) => row.status,
+      width: "15%",
       format: (row) => (
         <>
           <span>

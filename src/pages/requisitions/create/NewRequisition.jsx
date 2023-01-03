@@ -664,15 +664,13 @@ const NewRequisition = () => {
             <div className="flex-lg-row-fluid mb-10 mb-lg-0 me-lg-7 me-xl-10">
               <div className="card mb-5">
                 <div className="card-body">
-                  <span>
                     <input
+                      id="notInList"
                       type="checkbox"
                       defaultChecked={req}
                       onChange={() => setReq(!req)}
                     />
-                  </span>
-
-                  <span className="p-5">Not in List?</span>
+                  <label htmlFor="notInList" className="p-5">Not in List?</label>
                 </div>
               </div>
             </div>

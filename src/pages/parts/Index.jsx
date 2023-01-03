@@ -22,14 +22,13 @@ const Parts = () => {
 
 
   const [filter, setFilter] = useState(null);
-  console.log(filter);
-  const getParts = async () => {
+  const getParts = async (filter) => {
     const data = await PartService.getAll({ ...filter, type: type });
     setParts(data);
     setLoading(false);
   };
   useEffect(() => {
-    getParts();
+    getParts(filter);
   }, [filter, type]);
 
   const columns = [
@@ -140,7 +139,7 @@ const Parts = () => {
 
   const deletePart = (partId) => {
     PartService.remove(partId);
-    getParts();
+    getParts(filter);
   };
 
   const onCloseModal = () => {
@@ -190,6 +189,7 @@ const Parts = () => {
             isLoading={loading}
             data={parts}
             columns={columns}
+            onFilter={getParts}
           />
         </div>
       </div>
