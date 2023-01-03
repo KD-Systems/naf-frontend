@@ -71,7 +71,7 @@ const Parts = () => {
     },
     {
       name: "Quantity",
-      selector: (row) => Math.floor(row.stocks[0]?.unit_value) ?? "--",
+      selector: (row) => Math.floor(row?.total_quantity) ?? "--",
       sortable: true,
       field: "unit_value",
     },
