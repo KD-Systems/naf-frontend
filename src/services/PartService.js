@@ -1,6 +1,7 @@
 import http from "../http-common";
 
 const getAll = async (filters) => {
+  console.log(filters);
   const res = await http.get("/parts", {
     params: filters
   });

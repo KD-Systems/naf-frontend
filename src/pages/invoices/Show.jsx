@@ -362,7 +362,7 @@ const ShowInvoice = () => {
                             <thead>
                               <tr className="fw-bolder text-muted">
                                 <th className="min-w-80px">Invoice Id</th>
-                                <th className="min-w-120px">payment Mode</th>
+                                <th className="min-w-120px">Payment Mode</th>
                                 <th className="min-w-120px">Payment Date</th>
                                 <th className="min-w-120px">Amount</th>
                                 <th className="min-w-150x">Action</th>

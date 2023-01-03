@@ -85,7 +85,7 @@ const Invoices = () => {
       selector: (row) =>
         row?.part_items?.reduce((partialSum, a) => partialSum + a.quantity, 0),
       format: (row) => (
-        <div className="mt-2">
+        <div className="mt-2 w-100">
           {row?.previous_due
             ? "N/A"
             : row?.part_items?.reduce(
@@ -135,10 +135,23 @@ const Invoices = () => {
         </div>
       ),
     },
+    {
+      name: "RP Number",
+      selector: (row) => row?.return_part_tracking_no,
+      sortable: true,
+      field: "return_part_tracking_no",
+      format: (row) => (
+        <div className="mt-2">
+          {row?.return_part_tracking_no ? row?.return_part_tracking_no
+            : "N/A"}
+        </div>
+      ),
+    },
 
     {
       name: "Action",
       selector: (row) => row.status,
+      width: "15%",
       format: (row) => (
         <>
           <span>
@@ -151,6 +164,7 @@ const Invoices = () => {
               </Link>
             </PermissionAbility>
           </span>
+          { !row?.return_part_tracking_no && row?.type == 'purchase_request' && row?.deliveryNote?.dn_number &&
           <span>
           <PermissionAbility permission="invoices_show">
             <button
@@ -163,8 +177,7 @@ const Invoices = () => {
               <i className="fa fa-undo"></i>
             </button>
           </PermissionAbility>
-
-          </span>
+          </span>}
           {!row?.previous_due && (
             <>
               <span className="text-end">

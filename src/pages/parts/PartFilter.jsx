@@ -168,24 +168,7 @@ function PartFilter({
               />
             </div>
           )}
-          {/* <div className="mb-10">
-                        <label className="form-label fw-bold">Stock:</label>
-                        <div className="d-flex">
-                            <label className="form-check form-check-sm form-check-custom form-check-solid me-5">
-                                <input className="form-check-input" type="radio" value="all" name="stock" checked={data.stock === 'all'} onChange={(e) => { handleChange(e) }} />
-                                <span className="form-check-label">All</span>
-                            </label>
-                            <label className="form-check form-check-sm form-check-custom form-check-solid me-5">
-                                <input className="form-check-input" type="radio" value="available" name="stock" checked={data.stock === 'available'} onChange={(e) => { handleChange(e) }} />
-                                <span className="form-check-label">Available</span>
-                            </label>
-                            <label className="form-check form-check-sm form-check-custom form-check-solid">
-                                <input className="form-check-input" type="radio" value="unavailable" name="stock" checked={data.stock === 'unavailable'} onChange={(e) => { handleChange(e) }} />
-                                <span className="form-check-label">Unavailable</span>
-                            </label>
-                        </div>
-                    </div> */}
-
+          
           <div className="d-flex justify-content-end">
             <button
               onClick={reset}

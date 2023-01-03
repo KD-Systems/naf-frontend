@@ -80,11 +80,11 @@ const ShowPaymentHistories = () => {
                   <span className="form-control-plaintext">
                     <span className="label label-inline label-danger label-bold">
                       <a 
-                              href={payment.file}
-                              className="h-75 overflow-hidden"
-                              alt=""
-                              target="_blank"
-                            > File</a>
+                        href={payment.file}
+                        className="h-75 overflow-hidden"
+                        alt=""
+                        target="_blank"
+                      > File</a>
                     </span>
                   </span>
                 </div>
