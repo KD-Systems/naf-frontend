@@ -14,8 +14,10 @@ const NewRequisition = () => {
   const navigate = useNavigate();
 
   const [req, setReq] = useState(false);
+  const [companyPart, setCompanyPart] = useState(false);
   const [machineId, setMachineId] = useState([]);
   const [inputField, setInputField] = useState([{}]);
+
   const handleReqSelect = (e, index) => {
     const { name, value } = e.target;
     const list = [...inputField];
@@ -23,9 +25,11 @@ const NewRequisition = () => {
     list[index][name] = value;
     setInputField(list);
   };
+
   const handlePartAdd = () => {
     setInputField([...inputField, {}]);
   };
+
   const handlePartRemove = (index) => {
     const list = [...inputField];
     list.splice(index, 1);
@@ -121,6 +125,7 @@ const NewRequisition = () => {
         ? await RequisitionService.createrequiredrequisitions({
             ...data,
             part_items: inputField,
+            type: companyPart ? "company" : "",
           })
         : await RequisitionService.create(data);
       setBlock(false);
@@ -273,6 +278,7 @@ const NewRequisition = () => {
     let res = await PartService.getSellable({
       ...filter,
       company_id: data?.company_id,
+      is_company: companyPart ? 1 : 0
       // machine_id: machineId,
     });
     setSearchData(res.data);
@@ -656,288 +662,318 @@ const NewRequisition = () => {
                       </div>
                     </div>
                   </form>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="d-flex flex-column flex-lg-row">
-            <div className="flex-lg-row-fluid mb-10 mb-lg-0 me-lg-7 me-xl-10">
-              <div className="card mb-5">
-                <div className="card-body">
-                    <input
-                      id="notInList"
-                      type="checkbox"
-                      defaultChecked={req}
-                      onChange={() => setReq(!req)}
-                    />
-                  <label htmlFor="notInList" className="p-5">Not in List?</label>
-                </div>
-              </div>
-            </div>
-          </div>
 
-          {req ? (
-            <span>
-              {inputField?.map((item, index) => (
-                <Fragment key={index}>
-                  <div className="form-group mt-5">
-                    <div className="row">
-                      <div className="col-sm-3 col-md-3">
-                        <label className="required form-label">Part Name</label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          placeholder="Enter Part Name"
-                          name="part_name"
-                          id="part_name"
-                          onChange={(e) => handleReqSelect(e, index)}
-                        />
-                        <div
-                          className="fv-plugins-message-container invalid-feedback"
-                          htmlFor="part_number[]"
-                        ></div>
-                      </div>
-                      <div className="col-sm-2 col-md-2">
-                        <label className="form-label">Part Number</label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          placeholder="Enter Part Number"
-                          name="part_number"
-                          id="part_number"
-                          onChange={(e) => handleReqSelect(e, index)}
-                        />
-                        <div
-                          className="fv-plugins-message-container invalid-feedback"
-                          htmlFor="part_number[]"
-                        ></div>
-                      </div>
-                      <div className="col-sm-1 col-md-1">
-                        <label className="required form-label">Quantity</label>
-                        <input
-                          className="form-control"
-                          name="qty"
-                          id="qty"
-                          onChange={(e) => handleReqSelect(e, index)}
-                          type="number"
-                        />
-                        <div
-                          className="fv-plugins-message-container invalid-feedback"
-                          htmlFor="part_number[]"
-                        ></div>
-                      </div>
-                      <div className="col-sm-1 mt-8">
+                  <input
+                    id="notInList"
+                    type="checkbox"
+                    defaultChecked={req}
+                    onChange={() => {
+                      setReq(!req);
+                      companyPart && setCompanyPart(false);
+                    }}
+                  />
+                  <label htmlFor="notInList" className="p-5">
+                    Not in List?
+                  </label>
+
+                  {req ? (
+                    <span>
+                      {inputField?.map((item, index) => (
+                        <Fragment key={index}>
+                          <div className="form-group mt-3 ml-5">
+                            <div className="row">
+                              <div className="col-sm-3 col-md-3">
+                                <label className="required form-label">
+                                  Part Name
+                                </label>
+                                <input
+                                  type="text"
+                                  className="form-control"
+                                  placeholder="Enter Part Name"
+                                  name="part_name"
+                                  id="part_name"
+                                  onChange={(e) => handleReqSelect(e, index)}
+                                />
+                                <div
+                                  className="fv-plugins-message-container invalid-feedback"
+                                  htmlFor="part_number[]"
+                                ></div>
+                              </div>
+                              <div className="col-sm-2 col-md-2">
+                                <label className="form-label">
+                                  Part Number
+                                </label>
+                                <input
+                                  type="text"
+                                  className="form-control"
+                                  placeholder="Enter Part Number"
+                                  name="part_number"
+                                  id="part_number"
+                                  onChange={(e) => handleReqSelect(e, index)}
+                                />
+                                <div
+                                  className="fv-plugins-message-container invalid-feedback"
+                                  htmlFor="part_number[]"
+                                ></div>
+                              </div>
+                              <div className="col-sm-1 col-md-1">
+                                <label className="required form-label">
+                                  Quantity
+                                </label>
+                                <input
+                                  className="form-control"
+                                  name="qty"
+                                  id="qty"
+                                  onChange={(e) => handleReqSelect(e, index)}
+                                  type="number"
+                                />
+                                <div
+                                  className="fv-plugins-message-container invalid-feedback"
+                                  htmlFor="part_number[]"
+                                ></div>
+                              </div>
+                              <div className="col-sm-1 mt-8">
+                                <button
+                                  type="button"
+                                  className="btn btn-danger float-right"
+                                  onClick={() => handlePartRemove(index)}
+                                >
+                                  <i className="fa fa-minus"></i>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+
+                          {inputField.length - 1 === index && (
+                            <button
+                              type="button"
+                              className="btn btn-primary mt-5"
+                              onClick={handlePartAdd}
+                            >
+                              <i className="fa fa-plus"></i> Add More
+                            </button>
+                          )}
+                        </Fragment>
+                      ))}
+                      <div className="mt-5 pb-5">
                         <button
-                          type="button"
-                          className="btn btn-danger float-right"
-                          onClick={() => handlePartRemove(index)}
+                          onClick={() => {
+                            storeRequisition();
+                          }}
+                          className="btn btn-primary"
                         >
-                          <i className="fa fa-minus"></i>
+                          Submit
                         </button>
                       </div>
-                    </div>
-                  </div>
-
-                  {inputField.length - 1 === index && (
-                    <button
-                      type="button"
-                      className="btn btn-primary mt-5"
-                      onClick={handlePartAdd}
-                    >
-                      <i className="fa fa-plus"></i> Add More
-                    </button>
-                  )}
-                </Fragment>
-              ))}
-              <div className="mt-5">
-                <button
-                  onClick={() => {
-                    storeRequisition();
-                  }}
-                  className="btn btn-primary"
-                >
-                  Submit
-                </button>
-              </div>
-            </span>
-          ) : (
-            <span>
-              <div className="d-flex flex-column flex-lg-row">
-                <div className="flex-lg-row-fluid mb-10 mb-lg-0 me-lg-7 me-xl-10">
-                  <div className="card mb-5">
-                    <div className="card-body p-12">
-                      <div className="row">
-                        <div className="col-lg-4">
-                          <div className="form-group">
-                            <div
-                              className="fv-plugins-message-container invalid-feedback"
-                              htmlFor="part_heading_id"
-                            ></div>
-                          </div>
-                        </div>
-
-                        <div className="col-lg-12">
-                          <div className="form-group mt-2">
-                            <label htmlFor=""></label>
-                            <DebounceInput
-                              className="form-control"
-                              placeholder="search"
-                              debounceTimeout={300}
-                              onChange={filterData}
-                            />
-
-                            <div>
-                              {searchData.length > 0 ? (
-                                <div className="card border border-secondary ">
-                                  <div className="card-body ">
-                                    {searchData?.map((item, index) => (
-                                      <div key={index}>
-                                        <Link
-                                          to={item?.id}
-                                          style={{ color: "black" }}
-                                          onClick={() => addPart(item)}
-                                        >
-                                          <p>
-                                            {item?.name}
-                                            <span>({item.part_number})</span>
-                                          </p>
-                                        </Link>
-                                      </div>
-                                    ))}
+                    </span>
+                  ) : (
+                    <span>
+                      <div className="d-flex flex-column flex-lg-row">
+                        <div className="flex-lg-row-fluid mb-10 mb-lg-0 me-lg-7 me-xl-10">
+                          <div className="card mb-5">
+                            <div className="card-body p-12">
+                              <input
+                                id="isCompany"
+                                type="checkbox"
+                                defaultChecked={companyPart}
+                                onChange={() => {
+                                  setCompanyPart(!companyPart);
+                                }}
+                              />
+                              <label htmlFor="isCompany" className="p-5">
+                                Company Parts
+                              </label>
+                              <div className="row">
+                                <div className="col-lg-4">
+                                  <div className="form-group">
+                                    <div
+                                      className="fv-plugins-message-container invalid-feedback"
+                                      htmlFor="part_heading_id"
+                                    ></div>
                                   </div>
                                 </div>
-                              ) : (
-                                ""
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              {!selectedPart && (
-                <div className="d-flex flex-column flex-lg-row">
-                  <div className="flex-lg-row-fluid mb-10 mb-lg-0 me-lg-7 me-xl-10">
-                    <div className="p-20 bg-white mb-2 text-center">
-                      No items selected
-                    </div>
-                  </div>
-                </div>
-              )}
-              {selectedPart && list.length > 0 ? (
-                <div className="d-flex flex-column flex-lg-row">
-                  <div className="flex-lg-row-fluid mb-lg-0 me-lg-7 me-xl-10">
-                    <div className="card">
-                      <div className="card-body">
-                        <div className="row">
-                          <div className="col-lg-12">
-                            <div className="table-responsive">
-                              <table
-                                className="table g-5 gs-0 mb-0 fw-bolder text-gray-700"
-                                data-kt-element="items"
-                              >
-                                <thead>
-                                  <tr className="border-bottom fs-7 fw-bolder text-gray-700 text-uppercase">
-                                    <th className="min-w-300px w-475px">
-                                      Item
-                                    </th>
-                                    <th className="min-w-300px w-475px">
-                                      Part Number
-                                    </th>
-                                    <th className="min-w-100px w-250px">QTY</th>
-                                    <th className="min-w-75px w-75px text-end">
-                                      Action
-                                    </th>
-                                  </tr>
-                                </thead>
 
-                                <tbody>
-                                  {list?.map((item, index) => (
-                                    <tr key={index}>
-                                      <td className="pe-7" name="part_name">
-                                        {item?.name}
-                                      </td>
-                                      <td name="part_number">
-                                        {item?.part_number}
-                                      </td>
+                                <div className="col-lg-12">
+                                  <div className="form-group mt-2">
+                                    <label htmlFor=""></label>
+                                    <DebounceInput
+                                      className="form-control"
+                                      placeholder="search"
+                                      debounceTimeout={300}
+                                      onChange={filterData}
+                                    />
 
-                                      <td className="product-quantity">
-                                        <div className="input-group input-group-sm ">
-                                          <div className="input-group-prepend">
-                                            <span
-                                              className="input-group-text"
-                                              id="inputGroup-sizing-sm"
-                                              onClick={() => {
-                                                if (item?.quantity > 0) {
-                                                  decrement(item);
-                                                }
-                                              }}
-                                            >
-                                              <i className="fas fa-minus"></i>
-                                            </span>
-                                          </div>
-                                          <input
-                                            type="text"
-                                            className="form-control"
-                                            aria-label="Small"
-                                            aria-describedby="inputGroup-sizing-sm"
-                                            min="1"
-                                            value={item.quantity ?? ""}
-                                            defaultValue={item.quantity}
-                                            name="quantity"
-                                          />
-
-                                          <div className="input-group-prepend">
-                                            <span
-                                              className="input-group-text"
-                                              onClick={() => increment(item)}
-                                              style={{ cursor: "pointer" }}
-                                            >
-                                              <i className="fas fa-plus"></i>
-                                            </span>
+                                    <div>
+                                      {searchData.length > 0 ? (
+                                        <div className="card border border-secondary ">
+                                          <div className="card-body ">
+                                            {searchData?.map((item, index) => (
+                                              <div key={index}>
+                                                <Link
+                                                  to={item?.id}
+                                                  style={{ color: "black" }}
+                                                  onClick={() => addPart(item)}
+                                                >
+                                                  <p>
+                                                    {item?.name}
+                                                    <span>
+                                                      ({item.part_number})
+                                                    </span>
+                                                  </p>
+                                                </Link>
+                                              </div>
+                                            ))}
                                           </div>
                                         </div>
-                                      </td>
-                                      <td className="text-end">
-                                        <button
-                                          type="button"
-                                          className="btn btn-sm btn-icon btn-danger"
-                                          data-kt-element="remove-item"
-                                          onClick={() => removeItem(item?.id)}
-                                        >
-                                          <i className="fa fa-trash"></i>
-                                        </button>
-                                      </td>
-                                    </tr>
-                                  ))}
-                                </tbody>
-                              </table>
+                                      ) : (
+                                        ""
+                                      )}
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>
-
-                        <div className="separator separator-dashed"></div>
-                        <div className="mt-5">
-                          <button
-                            onClick={() => {
-                              storeRequisition();
-                            }}
-                            className="btn btn-primary"
-                          >
-                            Submit
-                          </button>
-                        </div>
                       </div>
-                    </div>
-                  </div>
+                      {!selectedPart && (
+                        <div className="d-flex flex-column flex-lg-row">
+                          <div className="flex-lg-row-fluid mb-10 mb-lg-0 me-lg-7 me-xl-10">
+                            <div className="p-20 bg-white mb-2 text-center">
+                              No items selected
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                      {selectedPart && list.length > 0 ? (
+                        <div className="d-flex flex-column flex-lg-row">
+                          <div className="flex-lg-row-fluid mb-lg-0 me-lg-7 me-xl-10">
+                            <div className="card">
+                              <div className="card-body">
+                                <div className="row">
+                                  <div className="col-lg-12">
+                                    <div className="table-responsive">
+                                      <table
+                                        className="table g-5 gs-0 mb-0 fw-bolder text-gray-700"
+                                        data-kt-element="items"
+                                      >
+                                        <thead>
+                                          <tr className="border-bottom fs-7 fw-bolder text-gray-700 text-uppercase">
+                                            <th className="min-w-300px w-475px">
+                                              Item
+                                            </th>
+                                            <th className="min-w-300px w-475px">
+                                              Part Number
+                                            </th>
+                                            <th className="min-w-100px w-250px">
+                                              QTY
+                                            </th>
+                                            <th className="min-w-75px w-75px text-end">
+                                              Action
+                                            </th>
+                                          </tr>
+                                        </thead>
+
+                                        <tbody>
+                                          {list?.map((item, index) => (
+                                            <tr key={index}>
+                                              <td
+                                                className="pe-7"
+                                                name="part_name"
+                                              >
+                                                {item?.name}
+                                              </td>
+                                              <td name="part_number">
+                                                {item?.part_number}
+                                              </td>
+
+                                              <td className="product-quantity">
+                                                <div className="input-group input-group-sm ">
+                                                  <div className="input-group-prepend">
+                                                    <span
+                                                      className="input-group-text"
+                                                      id="inputGroup-sizing-sm"
+                                                      onClick={() => {
+                                                        if (
+                                                          item?.quantity > 0
+                                                        ) {
+                                                          decrement(item);
+                                                        }
+                                                      }}
+                                                    >
+                                                      <i className="fas fa-minus"></i>
+                                                    </span>
+                                                  </div>
+                                                  <input
+                                                    type="text"
+                                                    className="form-control"
+                                                    aria-label="Small"
+                                                    aria-describedby="inputGroup-sizing-sm"
+                                                    min="1"
+                                                    value={item.quantity ?? ""}
+                                                    defaultValue={item.quantity}
+                                                    name="quantity"
+                                                  />
+
+                                                  <div className="input-group-prepend">
+                                                    <span
+                                                      className="input-group-text"
+                                                      onClick={() =>
+                                                        increment(item)
+                                                      }
+                                                      style={{
+                                                        cursor: "pointer",
+                                                      }}
+                                                    >
+                                                      <i className="fas fa-plus"></i>
+                                                    </span>
+                                                  </div>
+                                                </div>
+                                              </td>
+                                              <td className="text-end">
+                                                <button
+                                                  type="button"
+                                                  className="btn btn-sm btn-icon btn-danger"
+                                                  data-kt-element="remove-item"
+                                                  onClick={() =>
+                                                    removeItem(item?.id)
+                                                  }
+                                                >
+                                                  <i className="fa fa-trash"></i>
+                                                </button>
+                                              </td>
+                                            </tr>
+                                          ))}
+                                        </tbody>
+                                      </table>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div className="separator separator-dashed"></div>
+                                <div className="mt-5">
+                                  <button
+                                    onClick={() => {
+                                      storeRequisition();
+                                    }}
+                                    className="btn btn-primary"
+                                  >
+                                    Submit
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      ) : (
+                        ""
+                      )}
+                    </span>
+                  )}
                 </div>
-              ) : (
-                ""
-              )}
-            </span>
-          )}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </>
