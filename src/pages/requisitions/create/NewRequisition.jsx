@@ -14,6 +14,7 @@ const NewRequisition = () => {
   const navigate = useNavigate();
 
   const [req, setReq] = useState(false);
+  const [btnActive, setBtnActive] = useState(false);
   const [companyPart, setCompanyPart] = useState(false);
   const [machineId, setMachineId] = useState([]);
   const [inputField, setInputField] = useState([{}]);
@@ -125,9 +126,11 @@ const NewRequisition = () => {
         ? await RequisitionService.createrequiredrequisitions({
             ...data,
             part_items: inputField,
-            type: companyPart ? "company" : "",
           })
-        : await RequisitionService.create(data);
+        : await RequisitionService.create({
+          ...data,
+            is_company: companyPart ? 1 : 0
+        });
       setBlock(false);
       if (req || data?.type == "claim_report") {
         navigate("/panel/require_req");
@@ -953,8 +956,10 @@ const NewRequisition = () => {
                                 <div className="separator separator-dashed"></div>
                                 <div className="mt-5">
                                   <button
+                                    disabled={btnActive}
                                     onClick={() => {
                                       storeRequisition();
+                                      setBtnActive(true)
                                     }}
                                     className="btn btn-primary"
                                   >
