@@ -102,7 +102,14 @@ const ShowCompany = () => {
               </li>
 
               <li className="nav-item">
-                <a className="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#file" onClick={() => { setActive("file"); }} >
+                <a
+                  className="nav-link text-active-primary pb-4"
+                  data-bs-toggle="tab"
+                  href="#file"
+                  onClick={() => {
+                    setActive("file");
+                  }}
+                >
                   Files
                 </a>
               </li>
@@ -119,7 +126,6 @@ const ShowCompany = () => {
                   Activities
                 </a>
               </li>
-              
             </ul>
 
             <div className="tab-content">
@@ -149,27 +155,26 @@ const ShowCompany = () => {
                           </thead>
 
                           <tbody>
-                            
                             {company?.contracts?.map((item, index) => (
                               <tr key={index}>
                                 <td>
-                                  {item?.machine_models?.map((it)=>(
-                                    it?.model?.machine?.name
-                                  )) }
+                                  {item?.machine_models?.map(
+                                    (it) => it?.model?.machine?.name
+                                  )}
                                 </td>
-                                <td>{item?.machine_models?.map((it)=>(
-                                  it?.model?.name
-                                ))}</td>
-                           
+                                <td>
+                                  {item?.machine_models?.map(
+                                    (it) => it?.model?.name
+                                  )}
+                                </td>
+
                                 <td>
                                   <Moment format="YYYY-MM-DD">
                                     {item.end_date}
                                   </Moment>
                                 </td>
 
-                                <td>
-                                    {item.is_foc==true?"FOC":"AMC"}
-                                </td>
+                                <td>{item.is_foc == true ? "FOC" : "AMC"}</td>
 
                                 <td
                                   className={
@@ -178,7 +183,6 @@ const ShowCompany = () => {
                                       : "badge badge-light-danger"
                                   }
                                 >
-                                  
                                   <div
                                     className={
                                       item.status
@@ -204,69 +208,73 @@ const ShowCompany = () => {
               </PermissionAbility>
               {/* Tabs end from here */}
 
-              <div className="tab-pane fade show" id="advancePayment" role="tabpanel" >
+              <div
+                className="tab-pane fade show"
+                id="advancePayment"
+                role="tabpanel"
+              >
                 <div className="card card-xl-stretch mb-xl-10">
-                <CompanyAdvance active={active} companyId={company.id} />
-                  </div>
+                  <CompanyAdvance active={active} companyId={company.id} />
+                </div>
               </div>
 
               <div className="tab-pane fade show" id="file" role="tabpanel">
-                  <div className="card card-custom gutter-b">
-                    <div className="card-body px-0">
-                      <div className="card mb-5 mb-xl-8">
-                        <div className="card-body py-3">
-                          <form
-                            id="attachment-form"
-                            encType="multipart/form-data"
-                          >
-                            <NewDropzone onDrop={uploadFile} />
-                          </form>
-                          <div className="table-responsive">
-                            <table className="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
-                              <thead>
-                                <tr className="fw-bolder text-muted">
-                                  <th className="min-w-50px">SL</th>
-                                  <th className="min-w-120px">File Name</th>
-                                  <th className="min-w-120px">Action</th>
-                                </tr>
-                              </thead>
+                <div className="card card-custom gutter-b">
+                  <div className="card-body px-0">
+                    <div className="card mb-5 mb-xl-8">
+                      <div className="card-body py-3">
+                        <form
+                          id="attachment-form"
+                          encType="multipart/form-data"
+                        >
+                          <NewDropzone onDrop={uploadFile} />
+                        </form>
+                        <div className="table-responsive">
+                          <table className="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
+                            <thead>
+                              <tr className="fw-bolder text-muted">
+                                <th className="min-w-50px">SL</th>
+                                <th className="min-w-120px">File Name</th>
+                                <th className="min-w-120px">Action</th>
+                              </tr>
+                            </thead>
 
-                              <tbody>
-                                {file?.data?.map((item, index) => (
-                                  <tr key={index}>
-                                    <td className="">{index + 1}</td>
-                                    <td className=" fw-bolder mb-1 fs-6">
-                                      <span>{item?.file_name}</span>
-                                    </td>
-                                    <td className=" fw-bolder mb-1 fs-6">
-                                      <button
-                                        className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-                                        onClick={() => {
-                                          setConfirmDelete(true);
-                                          setuuid(item.uuid);
-                                          setModelId(item.model_id);
-                                        }}
-                                      >
-                                        <i className="fa fa-trash"></i>
-                                      </button>
-                                      <a
-                                        className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-                                        href={item?.original_url}
-                                        target="_blank"
-                                      >
-                                        <i className="fa fa-download"></i>
-                                      </a>
-                                    </td>
-                                  </tr>
-                                ))}
-                              </tbody>
-                            </table>
-                          </div>
+                            <tbody>
+                              {file?.data?.map((item, index) => (
+                                <tr key={index}>
+                                  <td className="">{index + 1}</td>
+                                  <td className=" fw-bolder mb-1 fs-6">
+                                    <span>{item?.file_name}</span>
+                                  </td>
+                                  <td className=" fw-bolder mb-1 fs-6">
+                                    <button
+                                      className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+                                      onClick={() => {
+                                        setConfirmDelete(true);
+                                        setuuid(item.uuid);
+                                        setModelId(item.model_id);
+                                      }}
+                                    >
+                                      <i className="fa fa-trash"></i>
+                                    </button>
+                                    <a
+                                      className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+                                      href={item?.original_url}
+                                      target="_blank"
+                                    >
+                                      <i className="fa fa-download"></i>
+                                    </a>
+                                  </td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
+              </div>
 
               <div
                 className="tab-pane fade show"
@@ -274,10 +282,9 @@ const ShowCompany = () => {
                 role="tabpanel"
               >
                 <div className="card card-xl-stretch mb-xl-10">
-                    <Activities logName="companies" modelId={id} tab={active}/>
-                  </div>
+                  <Activities logName="companies" modelId={id} tab={active} />
+                </div>
               </div>
-
             </div>
           </div>
         </div>
