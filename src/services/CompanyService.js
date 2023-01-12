@@ -97,6 +97,27 @@ const getClientCompanyContract = async () => {
   return res.data;
 };
 
+//file upload
+const fileUpload = async (id, data) => {
+  const res = await http.post(`/companies/${id}/files`, data);
+  return res.data;
+};
+
+//get file
+const getFile = async (id) => {
+  const res = await http.get(`/companies/${id}/files`);
+  return res.data;
+};
+
+//delete file
+const deleteFile = async (uuid, model_id) => {
+  console.log(uuid);
+  const res = await http.delete(
+    `/companies/${model_id}/files/${uuid}/delete`
+  );
+  return res.data;
+};
+
 const CompanyService = {
   getAll,
   get,
@@ -115,7 +136,12 @@ const CompanyService = {
   getClientCompany,
   getClientMachines,
   updateDueLimit,
-  getClientCompanyContract
+  getClientCompanyContract,
+
+  //Attachment File functanality
+  fileUpload,
+  getFile,
+  deleteFile,
 
 };
 
