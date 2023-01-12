@@ -6,6 +6,9 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import InvoiceService from "services/InvoiceService";
 import InvoicePartItems from "./partiItems/Index";
 import InvoiceCreatePayment from "./paymentHistories/Create";
+import NewDropzone from "./Dropzone/MyDropzone";
+import Confirmation from "components/utils/Confirmation";
+
 const ShowInvoice = () => {
   let { id } = useParams();
   const navigate = useNavigate();
@@ -18,6 +21,27 @@ const ShowInvoice = () => {
   const [active, setActive] = useState("part_items"); // * tab active or not
   const [tab, setTab] = useState("part_items");
   const [open, setOpen] = useState(false); //* open modal
+
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [uuid, setuuid] = useState();
+  const [model_id, setModelId] = useState();
+  const [file, setFile] = useState({});
+
+  const uploadFile = async (formData) => {
+    await InvoiceService.fileUpload(id, formData);
+    getFile();
+  };
+
+  const deleteItem = async () => {
+    await InvoiceService.deleteFile(uuid, model_id);
+    getFile();
+  };
+
+  const getFile = async () => {
+    const res = await InvoiceService.getFile(id);
+    setFile(res);
+  };
+
   const getInvoice = async () => {
     let res = await InvoiceService.get(id);
     setInvoice(res);
@@ -35,6 +59,7 @@ const ShowInvoice = () => {
 
   useEffect(() => {
     invoice?.part_items?.length == 0 && setActive("payment_histories");
+    getFile();
   }, [invoice]);
 
   const getPaymentHistories = async () => {
@@ -273,6 +298,20 @@ const ShowInvoice = () => {
                     <li className="nav-item">
                       <a
                         className={`nav-link text-active-primary pb-4 ${
+                          tab == "files" ? "active" : ""
+                        }`}
+                        data-bs-toggle="tab"
+                        href="#files"
+                        onClick={() => setTab("files")}
+                      >
+                        Files
+                      </a>
+                    </li>
+                  )}
+                  {invoice?.part_items?.length > 0 && (
+                    <li className="nav-item">
+                      <a
+                        className={`nav-link text-active-primary pb-4 ${
                           tab == "activities" ? "active" : ""
                         }`}
                         data-bs-toggle="tab"
@@ -287,13 +326,92 @@ const ShowInvoice = () => {
 
                 <div className="tab-content">
                   {/* Tabs start from here */}
+                  <div
+                    className={`tab-pane fade ${
+                      tab == "part_items" ? "active show" : ""
+                    }`}
+                    id="requisitions"
+                    role="tabpanel"
+                  >
+                    <InvoicePartItems
+                      active={active}
+                      invoice={invoice}
+                      tab={tab}
+                    />
+                  </div>
 
-                  <InvoicePartItems
-                    active={active}
-                    invoice={invoice}
-                    tab={tab}
-                  />
-                  <Activities logName="invoices" modelId={id} tab={tab} />
+                  <div
+                    className={`tab-pane fade ${
+                      tab == "files" ? "active show" : ""
+                    }`}
+                    id="files"
+                    role="tabpanel"
+                  >
+                    <div className="card card-custom gutter-b">
+                      <div className="card-body px-0">
+                        <div className="card mb-5 mb-xl-8">
+                          <div className="card-body py-3">
+                            <form
+                              id="attachment-form"
+                              encType="multipart/form-data"
+                            >
+                              <NewDropzone onDrop={uploadFile} />
+                            </form>
+                            <div className="table-responsive">
+                              <table className="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
+                                <thead>
+                                  <tr className="fw-bolder text-muted">
+                                    <th className="min-w-50px">SL</th>
+                                    <th className="min-w-120px">File Name</th>
+                                    <th className="min-w-120px">Action</th>
+                                  </tr>
+                                </thead>
+
+                                <tbody>
+                                  {file?.data?.map((item, index) => (
+                                    <tr key={index}>
+                                      <td className="">{index + 1}</td>
+                                      <td className=" fw-bolder mb-1 fs-6">
+                                        <span>{item?.file_name}</span>
+                                      </td>
+                                      <td className=" fw-bolder mb-1 fs-6">
+                                        <button
+                                          className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+                                          onClick={() => {
+                                            setConfirmDelete(true);
+                                            setuuid(item.uuid);
+                                            setModelId(item.model_id);
+                                          }}
+                                        >
+                                          <i className="fa fa-trash"></i>
+                                        </button>
+                                        <a
+                                          className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+                                          href={item?.original_url}
+                                          target="_blank"
+                                        >
+                                          <i className="fa fa-download"></i>
+                                        </a>
+                                      </td>
+                                    </tr>
+                                  ))}
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className={`tab-pane fade ${
+                      tab == "activities" ? "active show" : ""
+                    }`}
+                    id="requisitions"
+                    role="tabpanel"
+                  >
+                    <Activities logName="invoices" modelId={id} tab={tab} />
+                  </div>
                   <div
                     className={`tab-pane fade ${
                       tab == "payment_histories" ? "active show" : ""
@@ -417,6 +535,14 @@ const ShowInvoice = () => {
         onCloseModal={onCloseModal}
         invoice={invoice}
         due={total - totalPayment}
+      />
+      <Confirmation
+        open={confirmDelete}
+        onConfirm={() => {
+          setConfirmDelete(false);
+          deleteItem();
+        }}
+        onCancel={() => setConfirmDelete(false)}
       />
     </>
   );
