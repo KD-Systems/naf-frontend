@@ -111,7 +111,6 @@ const getFile = async (id) => {
 
 //delete file
 const deleteFile = async (uuid, model_id) => {
-  console.log(uuid);
   const res = await http.delete(
     `/companies/${model_id}/files/${uuid}/delete`
   );

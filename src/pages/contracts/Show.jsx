@@ -177,7 +177,7 @@ const ShowContract = () => {
               </ul>
               <div className="tab-content">
                 <div
-                  className="tab-pane fade show"
+                  className="tab-pane fade show active"
                   id="machines"
                   role="tabpanel"
                 >
