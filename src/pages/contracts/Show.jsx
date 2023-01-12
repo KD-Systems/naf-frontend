@@ -9,6 +9,7 @@ import PermissionAbility from "helpers/PermissionAbility";
 import Confirmation from "components/utils/Confirmation";
 
 const ShowContract = () => {
+  
   const [tab, setTab] = useState("machines");
   const navigate = useNavigate();
   let { id } = useParams();
