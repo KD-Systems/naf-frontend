@@ -14,6 +14,11 @@ function RequisitionFilter({ enable, onChange, onClickOutside }) {
     { label: "Pending", value: "pending" },
     { label: "Approved", value: "approved" },
   ];
+
+  const comPartReq = [
+    { label: "All", value: null },
+    { label: "Company part Requisition", value: "1" },
+  ];
  
   const [defaultStatus, setDefaultStatus] = useState({
     label: "All",
@@ -92,6 +97,16 @@ function RequisitionFilter({ enable, onChange, onClickOutside }) {
               options={status}
               onChange={(option, action) => handleSelect(option, action)}
               name="status"
+              value={defaultStatus}
+            />
+          </div>
+
+          <div className="mb-10">
+            <label className="form-label fw-bold">Company part requisition:</label>
+            <Select
+              options={comPartReq}
+              onChange={(option, action) => handleSelect(option, action)}
+              name="comPartReq"
               value={defaultStatus}
             />
           </div>
