@@ -1,10 +1,25 @@
 import { Card, Table } from "react-bootstrap";
+import DashboardService from "services/DashboardService";
 
-const ScrollableTable = ({ headers, records, title, url, height }) => {
+const ScrollableTable = ({ headers, records, title, url, height, exportAble="" }) => {
+
+  const handleOnExport = async () => {
+   const data = await DashboardService.exportStockAlertParts();
+    window.location.href = data;
+  }
+  
   return (
     <Card>
       <Card.Body>
-        <h4 className="header-title mt-0 mb-1">{title}</h4>
+        <div className="d-flex justify-content-between mb-3">
+          <h4 className="header-title">{title}</h4>
+          {exportAble && records.length > 0 &&
+          <button className="btn btn-primary btn-sm" onClick={handleOnExport}>        
+            <i className="fa fa-download"></i> Export File
+          </button>
+          }
+        </div>
+       
 
         <div className="table-responsive" style={{ height: height ?? "" }}>
           <Table className="mb-0" borderless>

@@ -40,6 +40,12 @@ const getTopProductSellingByMonth = async () => {
     return res.data;
   }
 
+//export Stock Alert Part 
+  const exportStockAlertParts = async ()=>{
+    const res = await http.get("/download/stock-alert/parts");
+    return res.data;
+  }
+
 
 const DashboardService = {
     getStatisticsData,
@@ -49,7 +55,8 @@ const DashboardService = {
     getMonthlyData,
     getRecentSale,
     getTopCustomers,
-    getClientInvoiceDetails
+    getClientInvoiceDetails,
+    exportStockAlertParts
 };
 
 export default DashboardService;
