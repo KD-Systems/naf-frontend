@@ -19,6 +19,7 @@ const ShowCompany = () => {
   const [model_id, setModelId] = useState();
   const [file, setFile] = useState({});
   const [active, setActive] = useState("users");
+  const [zoomImage, setZoomImage] = useState(false);
 
   const getCompany = async () => {
     setCompany(await CompanyService.get(id));
@@ -48,8 +49,8 @@ const ShowCompany = () => {
     <div className="post d-flex flex-column-fluid" id="kt_post">
       <div id="kt_content_container" className="container-xxl">
         <div className="form d-flex flex-column flex-lg-row gap-7 gap-lg-10 fv-plugins-bootstrap5 fv-plugins-framework">
-          <CompanyInfo company={company} />
-
+          <CompanyInfo company={company} setZoomImage={setZoomImage} />
+        {!zoomImage && 
           <div className="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
             <ul className="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-bold mb-n2">
               <li className="nav-item">
@@ -287,6 +288,7 @@ const ShowCompany = () => {
               </div>
             </div>
           </div>
+          }
         </div>
       </div>
       <Confirmation
