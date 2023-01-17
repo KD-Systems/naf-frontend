@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import DashboardService from "services/DashboardService";
-
 import ColumnDataLabelsChart from "components/dashboard/ColumnDataLabelsChart";
 import PieChart from "components/dashboard/PieChart";
 import ScrollableTable from "components/dashboard/ScrollableTable";
@@ -85,13 +84,14 @@ const Dashboard = () => {
       data.push({
         id: element?.part_id,
         name: element?.name,
+        part_number: element?.part_number ? element?.part_number : 'N/A',
         warehouse: element?.warehouse,
         remaining: Math.floor(element?.unit_value),
       });
     });
 
     setStockAlert({
-      headers: ["SL", "Product Name", "WareHouse", "Remaining"],
+      headers: ["SL", "Product Name","Part Number", "WareHouse", "Remaining"],
       data: data,
     });
   };
@@ -210,6 +210,7 @@ const Dashboard = () => {
             title="Stocks Alert"
             url="/panel/parts/"
             height={220}
+            exportAble={true}
           />
         </Col>
         <Col xl={4}>

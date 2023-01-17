@@ -1,12 +1,15 @@
 import { Activities } from "components/utils/Activities";
+import Confirmation from "components/utils/Confirmation";
 import PermissionAbility from "helpers/PermissionAbility";
 import UpdateReqInfo from "pages/requierd_requisitions/section/UpdateReqInfo";
+import NewDropzone from "./Dropzone/MyDropzone";
 import { useEffect, useState } from "react";
 import Moment from "react-moment";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Select from "react-select";
 import RequisitionService from "../../services/RequisitionService";
 import UpdatePartInfo from "./section/UpdatePartInfo";
+import ClaimRequisitionService from "services/ClaimRequisitionService";
 
 const ShowClaimRequest = () => {
   let { id } = useParams();
@@ -14,6 +17,26 @@ const ShowClaimRequest = () => {
   const [claimRequest, setClaimRequest] = useState({});
   const [reqId, setReqId] = useState({});
   const [part, setPart] = useState({});
+
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [uuid, setuuid] = useState();
+  const [model_id, setModelId] = useState();
+  const [file, setFile] = useState({});
+
+  const uploadFile = async (formData) => {
+    await ClaimRequisitionService.fileUpload(id, formData);
+    getFile();
+  };
+
+  const deleteItem = async () => {
+    await ClaimRequisitionService.deleteFile(uuid, model_id);
+    getFile();
+  };
+
+  const getFile = async () => {
+    const res = await ClaimRequisitionService.getFile(id);
+    setFile(res);
+  };
 
   const [tab, setTab] = useState("requisitions");
   const [reqisitionInfoModal, setReqisitionInfoModal] = useState(false);
@@ -42,7 +65,10 @@ const ShowClaimRequest = () => {
   };
 
   useEffect(() => {
-    if (id) getRequisition();
+    if (id) {
+      getRequisition();
+      getFile();
+    }
   }, [id]);
 
   return (
@@ -151,21 +177,25 @@ const ShowClaimRequest = () => {
 
                 <div className="fw-bolder mt-5">Status</div>
                 <div className="text-gray-600">
-                 {claimRequest?.status && <span className="badge badge-info">{claimRequest?.status.replace('_',' ').capitalize()}</span>} 
+                  {claimRequest?.status && (
+                    <span className="badge badge-info">
+                      {claimRequest?.status.replace("_", " ").capitalize()}
+                    </span>
+                  )}
                 </div>
 
                 <div className="card-title mt-10 justify-content-center">
                   <h3 className="card-label mr-10">
                     <PermissionAbility permission="companies_edit">
-                    <button
-                      className="btn btn-sm btn-dark"
-                      onClick={() => {
-                        setReqId(id);
-                        setReqisitionInfoModal(true);
-                      }}
-                    >
-                      <i className="fa fa-pen"></i> Update Info
-                    </button>
+                      <button
+                        className="btn btn-sm btn-dark"
+                        onClick={() => {
+                          setReqId(id);
+                          setReqisitionInfoModal(true);
+                        }}
+                      >
+                        <i className="fa fa-pen"></i> Update Info
+                      </button>
                     </PermissionAbility>
                   </h3>
                 </div>
@@ -183,8 +213,8 @@ const ShowClaimRequest = () => {
                     </div>
                   </div>
 
-                  { claimRequest?.status == ("complete" || "from_foc" || "from_sellable" || "both") 
-                  && (
+                  {claimRequest?.status ==
+                    ("complete" || "from_foc" || "from_sellable" || "both") && (
                     <div className="card-header">
                       <div className="card-title">
                         <h3 className="card-label">
@@ -223,7 +253,18 @@ const ShowClaimRequest = () => {
                     Part Items
                   </a>
                 </li>
-
+                <li className="nav-item">
+                  <a
+                    className={`nav-link text-active-primary pb-4 ${
+                      tab == "files" ? "active" : ""
+                    }`}
+                    data-bs-toggle="tab"
+                    href="#files"
+                    onClick={() => setTab("files")}
+                  >
+                    Files
+                  </a>
+                </li>
                 <li className="nav-item">
                   <a
                     className={`nav-link text-active-primary pb-4 ${
@@ -239,13 +280,7 @@ const ShowClaimRequest = () => {
               </ul>
 
               <div className="tab-content">
-                <div
-                  className={`tab-pane fade ${
-                    tab == "requisitions" ? "active show" : ""
-                  }`}
-                  id="requisitions"
-                  role="tabpanel"
-                >
+                <div className={`tab-pane fade ${ tab == "requisitions" ? "active show" : "" }`} id="requisitions" role="tabpanel" >
                   <div className="card card-custom gutter-b">
                     <div className="card-body px-0">
                       <div className="card mb-5 mb-xl-8">
@@ -316,6 +351,63 @@ const ShowClaimRequest = () => {
                     </button>
                   </div>
                 </div>
+                <div className="tab-pane fade show" id="files" role="tabpanel" >
+                  <div className="card card-custom gutter-b">
+                    <div className="card-body px-0">
+                      <div className="card mb-5 mb-xl-8">
+                        <div className="card-body py-3">
+                          <form
+                            id="attachment-form"
+                            encType="multipart/form-data"
+                          >
+                            <NewDropzone onDrop={uploadFile} />
+                          </form>
+                          <div className="table-responsive">
+                            <table className="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
+                              <thead>
+                                <tr className="fw-bolder text-muted">
+                                  <th className="min-w-50px">SL</th>
+                                  <th className="min-w-120px">File Name</th>
+                                  <th className="min-w-120px">Action</th>
+                                </tr>
+                              </thead>
+
+                              <tbody>
+                                {file?.data?.map((item, index) => (
+                                  <tr key={index}>
+                                    <td className="">{index + 1}</td>
+                                    <td className=" fw-bolder mb-1 fs-6">
+                                      <span>{item?.file_name}</span>
+                                    </td>
+                                    <td className=" fw-bolder mb-1 fs-6">
+                                      <button
+                                        className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+                                        onClick={() => {
+                                          setConfirmDelete(true);
+                                          setuuid(item.uuid);
+                                          setModelId(item.model_id);
+                                        }}
+                                      >
+                                        <i className="fa fa-trash"></i>
+                                      </button>
+                                      <a
+                                        className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+                                        href={item?.original_url}
+                                        target="_blank"
+                                      >
+                                        <i className="fa fa-download"></i>
+                                      </a>
+                                    </td>
+                                  </tr>
+                                ))}
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <Activities logName="requisitions" modelId={id} tab={tab} />
               </div>
             </div>
@@ -335,6 +427,14 @@ const ShowClaimRequest = () => {
         part={part}
         onCloseModal={onCloseModal}
         onUpdated={getRequisition}
+      />
+      <Confirmation
+        open={confirmDelete}
+        onConfirm={() => {
+          setConfirmDelete(false);
+          deleteItem();
+        }}
+        onCancel={() => setConfirmDelete(false)}
       />
     </div>
   );

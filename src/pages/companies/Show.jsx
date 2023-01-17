@@ -1,6 +1,7 @@
 import { Activities } from "components/utils/Activities";
 import PermissionAbility from "helpers/PermissionAbility";
 import { useEffect, useState } from "react";
+import NewDropzone from "./Dropzone/MyDropzone";
 import Moment from "react-moment";
 import { useParams } from "react-router-dom";
 import CompanyService from "services/CompanyService";
@@ -8,25 +9,48 @@ import CompanyAdvance from "./company_advance/Index";
 import CompanyMachines from "./machines/Index";
 import CompanyInfo from "./sections/Info";
 import CompanyUsers from "./users/Index";
+import Confirmation from "components/utils/Confirmation";
 
 const ShowCompany = () => {
   const { id } = useParams();
   const [company, setCompany] = useState({});
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [uuid, setuuid] = useState();
+  const [model_id, setModelId] = useState();
+  const [file, setFile] = useState({});
   const [active, setActive] = useState("users");
+  const [zoomImage, setZoomImage] = useState(false);
+
   const getCompany = async () => {
     setCompany(await CompanyService.get(id));
   };
 
+  const uploadFile = async (formData) => {
+    await CompanyService.fileUpload(id, formData);
+    getFile();
+  };
+
+  const deleteItem = async () => {
+    await CompanyService.deleteFile(uuid, model_id);
+    getFile();
+  };
+
+  const getFile = async () => {
+    const res = await CompanyService.getFile(id);
+    setFile(res);
+  };
+
   useEffect(() => {
     getCompany();
+    getFile();
   }, [id]);
 
   return (
     <div className="post d-flex flex-column-fluid" id="kt_post">
       <div id="kt_content_container" className="container-xxl">
         <div className="form d-flex flex-column flex-lg-row gap-7 gap-lg-10 fv-plugins-bootstrap5 fv-plugins-framework">
-          <CompanyInfo company={company} />
-
+          <CompanyInfo company={company} setZoomImage={setZoomImage} />
+        {!zoomImage && 
           <div className="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
             <ul className="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-bold mb-n2">
               <li className="nav-item">
@@ -77,6 +101,20 @@ const ShowCompany = () => {
                   Advance Payment
                 </a>
               </li>
+
+              <li className="nav-item">
+                <a
+                  className="nav-link text-active-primary pb-4"
+                  data-bs-toggle="tab"
+                  href="#file"
+                  onClick={() => {
+                    setActive("file");
+                  }}
+                >
+                  Files
+                </a>
+              </li>
+
               <li className="nav-item">
                 <a
                   className="nav-link text-active-primary pb-4"
@@ -89,7 +127,6 @@ const ShowCompany = () => {
                   Activities
                 </a>
               </li>
-              
             </ul>
 
             <div className="tab-content">
@@ -119,27 +156,26 @@ const ShowCompany = () => {
                           </thead>
 
                           <tbody>
-                            
                             {company?.contracts?.map((item, index) => (
                               <tr key={index}>
                                 <td>
-                                  {item?.machine_models?.map((it)=>(
-                                    it?.model?.machine?.name
-                                  )) }
+                                  {item?.machine_models?.map(
+                                    (it) => it?.model?.machine?.name
+                                  )}
                                 </td>
-                                <td>{item?.machine_models?.map((it)=>(
-                                  it?.model?.name
-                                ))}</td>
-                           
+                                <td>
+                                  {item?.machine_models?.map(
+                                    (it) => it?.model?.name
+                                  )}
+                                </td>
+
                                 <td>
                                   <Moment format="YYYY-MM-DD">
                                     {item.end_date}
                                   </Moment>
                                 </td>
 
-                                <td>
-                                    {item.is_foc==true?"FOC":"AMC"}
-                                </td>
+                                <td>{item.is_foc == true ? "FOC" : "AMC"}</td>
 
                                 <td
                                   className={
@@ -148,7 +184,6 @@ const ShowCompany = () => {
                                       : "badge badge-light-danger"
                                   }
                                 >
-                                  
                                   <div
                                     className={
                                       item.status
@@ -180,8 +215,66 @@ const ShowCompany = () => {
                 role="tabpanel"
               >
                 <div className="card card-xl-stretch mb-xl-10">
-                <CompanyAdvance active={active} companyId={company.id} />
+                  <CompanyAdvance active={active} companyId={company.id} />
+                </div>
+              </div>
+
+              <div className="tab-pane fade show" id="file" role="tabpanel">
+                <div className="card card-custom gutter-b">
+                  <div className="card-body px-0">
+                    <div className="card mb-5 mb-xl-8">
+                      <div className="card-body py-3">
+                        <form
+                          id="attachment-form"
+                          encType="multipart/form-data"
+                        >
+                          <NewDropzone onDrop={uploadFile} />
+                        </form>
+                        <div className="table-responsive">
+                          <table className="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
+                            <thead>
+                              <tr className="fw-bolder text-muted">
+                                <th className="min-w-50px">SL</th>
+                                <th className="min-w-120px">File Name</th>
+                                <th className="min-w-120px">Action</th>
+                              </tr>
+                            </thead>
+
+                            <tbody>
+                              {file?.data?.map((item, index) => (
+                                <tr key={index}>
+                                  <td className="">{index + 1}</td>
+                                  <td className=" fw-bolder mb-1 fs-6">
+                                    <span>{item?.file_name}</span>
+                                  </td>
+                                  <td className=" fw-bolder mb-1 fs-6">
+                                    <button
+                                      className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+                                      onClick={() => {
+                                        setConfirmDelete(true);
+                                        setuuid(item.uuid);
+                                        setModelId(item.model_id);
+                                      }}
+                                    >
+                                      <i className="fa fa-trash"></i>
+                                    </button>
+                                    <a
+                                      className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+                                      href={item?.original_url}
+                                      target="_blank"
+                                    >
+                                      <i className="fa fa-download"></i>
+                                    </a>
+                                  </td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
                   </div>
+                </div>
               </div>
 
               <div
@@ -190,14 +283,22 @@ const ShowCompany = () => {
                 role="tabpanel"
               >
                 <div className="card card-xl-stretch mb-xl-10">
-                    <Activities logName="companies" modelId={id} tab={active}/>
-                  </div>
+                  <Activities logName="companies" modelId={id} tab={active} />
+                </div>
               </div>
-
             </div>
           </div>
+          }
         </div>
       </div>
+      <Confirmation
+        open={confirmDelete}
+        onConfirm={() => {
+          setConfirmDelete(false);
+          deleteItem();
+        }}
+        onCancel={() => setConfirmDelete(false)}
+      />
     </div>
   );
 };

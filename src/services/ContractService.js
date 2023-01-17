@@ -27,12 +27,37 @@ const remove = async (id) => {
   return res.data;
 };
 
+//file upload
+const fileUpload = async (id, data) => {
+  const res = await http.post(`/contracts/${id}/files`, data);
+  return res.data;
+};
+
+//get file
+const getFile = async (id) => {
+  const res = await http.get(`/contracts/${id}/files`);
+  return res.data;
+};
+
+//delete file
+const deleteFile = async (uuid, model_id) => {
+  const res = await http.delete(
+    `/contracts/${model_id}/files/${uuid}/delete`
+  );
+  return res.data;
+};
+
 const ContractService = {
   getAll,
   get,
   create,
   update,
   remove,
+
+   //Attachment File functanality
+   fileUpload,
+   getFile,
+   deleteFile,
 };
 
 export default ContractService;

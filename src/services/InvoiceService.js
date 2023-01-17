@@ -57,6 +57,26 @@ const searchPart = async (data) => {
   return res.data;
 };
 
+//file upload
+const fileUpload = async (id, data) => {
+  const res = await http.post(`/invoices/${id}/files`, data);
+  return res.data;
+};
+
+//get file
+const getFile = async (id) => {
+  const res = await http.get(`/invoices/${id}/files`);
+  return res.data;
+};
+
+//delete file
+const deleteFile = async (uuid, model_id) => {
+  const res = await http.delete(
+    `/invoices/${model_id}/files/${uuid}/delete`
+  );
+  return res.data;
+};
+
 const InvoiceService = {
   getAll,
   get,
@@ -68,6 +88,11 @@ const InvoiceService = {
   getPaymentHistory,
   addPayment,
   searchPart,
+
+   //Attachment File functanality
+   fileUpload,
+   getFile,
+   deleteFile,
 };
 
 export default InvoiceService;

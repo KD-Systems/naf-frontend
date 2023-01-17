@@ -1,4 +1,5 @@
 import PermissionAbility from "helpers/PermissionAbility";
+import ReactImageMagnify from 'react-image-magnify';
 import { useEffect, useState } from "react";
 import Moment from "react-moment";
 import { useNavigate, useParams } from "react-router-dom";
@@ -6,7 +7,7 @@ import AdvanceService from "services/AdvanceService";
 import CompanyService from "services/CompanyService";
 import UpdateTradeLimit from "./UpdateTradeLimit";
 
-const CompanyInfo = () => {
+const CompanyInfo = ({setZoomImage}) => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [companyId, setcompanyId] = useState(null);
@@ -33,22 +34,6 @@ const CompanyInfo = () => {
     if (!updateDueAMountModal) getCompanies();
   }, [updateDueAMountModal]);
 
-  // const [form, setForm] = useState({
-  //   trade_limit: null,
-  //   due_amount: 0,
-  // });
-
-  // const handleSettingState = (e) => {
-  //   setForm({
-  //     ...form,
-  //     [e.target.name]: e.target.value,
-  //   });
-  // };
-
-  // const handleUpdate = async (e) => {
-  //   await CompanyService.updateDueLimit(id, form);
-  // };
-
   return (
     <>
       <div className="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px">
@@ -74,12 +59,27 @@ const CompanyInfo = () => {
                 className="image-input image-input-empty image-input-outline mb-3"
                 data-kt-image-input="true"
               >
-                <div
-                  className="image-input-wrapper w-150px h-150px"
-                  style={{
-                    backgroundImage: "url(" + company.logo + ")",
-                  }}
-                ></div>
+                {/* <div className="image-input-wrapper w-150px h-150px" style={{ backgroundImage: "url(" + company.logo + ")", }} ></div> */}
+               <div onMouseEnter={()=>setZoomImage(true)} onMouseLeave={()=>setZoomImage(false)}>
+               <ReactImageMagnify {...{
+                         smallImage: {
+                            alt: 'Wristwatch by Ted Baker London',
+                            isFluidWidth: true,
+                            src: `${company?.logo}`, 
+                            sizes: '(max-width: 480px) 100vw, (max-width: 1200px) 30vw, 360px'
+                        },
+                        largeImage: {
+                            src: `${company?.logo}`,
+                            width: 1200,
+                            height: 1800
+                        },
+                        enlargedImageContainerDimensions: {
+                            width: '200%',
+                            height: '100%'
+                        }
+                    }} />
+               {/* <ReactImageMagnify {...{ smallImage: { alt: 'Company Logo', isFluidWidth: true, src: `${company?.logo}`}, largeImage: { src: `${company?.logo}`, width: 1200, height: 1800 } }} /> */}
+               </div>
               </div>
               <div className="fs-7">
                 <h2>{company.name}</h2>
