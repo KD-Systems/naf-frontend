@@ -4,11 +4,14 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import RequisitionService from "services/RequisitionService";
 import RequisitionFilter from "./RequisitionFilter";
+import Confirmation from "components/utils/Confirmation";
 
 const Requisitions = () => {
   const [filter, setFilter] = useState(false);
   const [loading, setLoading] = useState(true);
   const [requisitions, setRequisitions] = useState([]);
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [reqId, setReqId] = useState(null);
 
   const filterdata = (data) => {
     setFilter(false);
@@ -114,7 +117,22 @@ const Requisitions = () => {
               <i className="fa fa-eye"></i>
             </Link>
           </PermissionAbility>
+          {!(row?.quotation?.pq_number) && 
+          <PermissionAbility permission="quotations_delete">
+            <Link
+              to="#"
+              className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
+              onClick={() => {
+                setReqId(row.id);
+                setConfirmDelete(true);
+              }}
+            >
+              <i className="fa fa-trash"></i>
+            </Link>
+          </PermissionAbility>
+          }
         </span>
+        
       ),
     },
   ];
@@ -124,6 +142,13 @@ const Requisitions = () => {
     setRequisitions(res);
     setLoading(false);
   };
+
+  const deleteRequisition = (reqId) => {
+    RequisitionService.remove(reqId);
+    setRequisitions();
+    setLoading(false);
+  };
+
   useEffect(() => {
     getRequisitions();
   }, []);
@@ -169,6 +194,14 @@ const Requisitions = () => {
           }}
         />
       )}
+      <Confirmation
+        open={confirmDelete}
+        onConfirm={() => {
+          setConfirmDelete(false);
+          deleteRequisition(reqId);
+        }}
+        onCancel={() => setConfirmDelete(false)}
+      />
     </>
   );
 };
