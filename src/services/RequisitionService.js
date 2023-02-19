@@ -126,20 +126,20 @@ const updateRequestedPart = async (id,data) => {
 
 //file upload
 const requiredFileUpload = async (id, data) => {
-  const res = await http.post(`required-part/${id}/files`, data);
+  const res = await http.post(`required-part-req/${id}/files`, data);
   return res.data;
 };
 
 //get file
 const requiredGetFile = async (id) => {
-  const res = await http.get(`required-part/${id}/files`);
+  const res = await http.get(`required-part-req/${id}/files`);
   return res.data;
 };
 
 //get file
 const requiredDeleteFile = async (uuid, model_id) => {
   const res = await http.delete(
-    `/required-part/${model_id}/files/${uuid}/delete`
+    `/required-part-req/${model_id}/files/${uuid}/delete`
   );
   return res.data;
 };
