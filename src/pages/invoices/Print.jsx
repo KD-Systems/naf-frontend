@@ -6,7 +6,6 @@ const PrintInvoice = () => {
   let { id } = useParams();
   const navigate = useNavigate();
   const [invoice, setInvoice] = useState({});
-  console.log("🚀 ~ file: Print.jsx ~ line 9 ~ PrintInvoice ~ invoice", invoice)
   const [total, setTotal] = useState(0);
 
   const getInvoice = async () => {
