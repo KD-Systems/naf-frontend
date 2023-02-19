@@ -124,6 +124,26 @@ const updateRequestedPart = async (id,data) => {
   return res?.data;
 };
 
+//file upload
+const requiredFileUpload = async (id, data) => {
+  const res = await http.post(`required-part/${id}/files`, data);
+  return res.data;
+};
+
+//get file
+const requiredGetFile = async (id) => {
+  const res = await http.get(`required-part/${id}/files`);
+  return res.data;
+};
+
+//get file
+const requiredDeleteFile = async (uuid, model_id) => {
+  const res = await http.delete(
+    `/required-part/${model_id}/files/${uuid}/delete`
+  );
+  return res.data;
+};
+
 const RequisitionService = {
   getAll,
   get,
@@ -148,7 +168,11 @@ const RequisitionService = {
   createrequiredrequisitions,
   updateRequiredReqInfo,
   getRequestedPart,
-  updateRequestedPart
+  updateRequestedPart,
+  requiredFileUpload,
+  requiredGetFile,
+  requiredDeleteFile
+
 };
 
 export default RequisitionService;
