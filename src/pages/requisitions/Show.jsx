@@ -195,7 +195,7 @@ const ShowRequisition = () => {
                         className="btn btn-sm btn-dark "
                         to={"/panel/requisitions/" + requisition.id + "/print"}
                         style={{ marginRight: "0.75rem" }}
-                        // target="_blank"
+                        target="_blank"
                       >
                         Print
                       </Link>
@@ -280,7 +280,7 @@ const ShowRequisition = () => {
                     onClick={() => setTab("requisitions")}
                   >
                     Part Items
-                  </a>
+                  </a> 
                 </li>
 
                 <li className="nav-item">

@@ -47,20 +47,20 @@ const getAllClaimRequest = async (data) => {
 
 //file upload
 const fileUpload = async (id, data) => {
-  const res = await http.post(`/companies/${id}/files`, data);
+  const res = await http.post(`/claim-request/${id}/files`, data);
   return res.data;
 };
 
 //get file
 const getFile = async (id) => {
-  const res = await http.get(`/companies/${id}/files`);
+  const res = await http.get(`/claim-request/${id}/files`);
   return res.data;
 };
 
 //delete file
 const deleteFile = async (uuid, model_id) => {
   const res = await http.delete(
-    `/companies/${model_id}/files/${uuid}/delete`
+    `/claim-request/${model_id}/files/${uuid}/delete`
   );
   return res.data;
 };
