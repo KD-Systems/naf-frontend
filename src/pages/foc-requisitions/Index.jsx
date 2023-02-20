@@ -2,12 +2,19 @@ import Table from "components/utils/Table";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ClaimRequisitionService from "services/ClaimRequisitionService";
+import RequisitionService from "services/RequisitionService";
 import RequisitionFilter from "./RequisitionFilter";
+import Confirmation from "components/utils/Confirmation";
+import PermissionAbility from "helpers/PermissionAbility";
+
+
 
 const ClaimRequisition = () => {
   const [filter, setFilter] = useState(false);
   const [loading, setLoading] = useState(true);
   const [focRequisition, setFocRequisition] = useState([]);
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [reqId, setReqId] = useState(null);
 
   const columns = [
     {
@@ -86,13 +93,32 @@ const ClaimRequisition = () => {
           <Link to={"/panel/claim-requisitions/" + row.id} className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" >
             <i className="fa fa-eye"></i>
           </Link>
+          <PermissionAbility permission="claim_requisition_delete">
+            <Link
+              to="#"
+              className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
+              onClick={() => {
+                setReqId(row.id);
+                setConfirmDelete(true);
+              }}
+            >
+              <i className="fa fa-trash"></i>
+            </Link>
+          </PermissionAbility>
         </span>
+        
       ),
     },
   ];
 
   const getFocRequisition = async (data) => {
     setFocRequisition(await ClaimRequisitionService.getAll(data));
+    setLoading(false);
+  };
+
+  const deleteRequisition = async (reqId) => {
+    await RequisitionService.remove(reqId);
+    getFocRequisition();
     setLoading(false);
   };
 
@@ -121,6 +147,14 @@ const ClaimRequisition = () => {
         onChange={(data) => {
           getFocRequisition(data);
         }}
+      />
+      <Confirmation
+        open={confirmDelete}
+        onConfirm={() => {
+          setConfirmDelete(false);
+          deleteRequisition(reqId);
+        }}
+        onCancel={() => setConfirmDelete(false)}
       />
     </>
   );

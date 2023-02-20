@@ -118,7 +118,7 @@ const Requisitions = () => {
             </Link>
           </PermissionAbility>
           {!(row?.quotation?.pq_number) && 
-          <PermissionAbility permission="quotations_delete">
+          <PermissionAbility permission="requisition_delete">
             <Link
               to="#"
               className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
@@ -143,9 +143,9 @@ const Requisitions = () => {
     setLoading(false);
   };
 
-  const deleteRequisition = (reqId) => {
-    RequisitionService.remove(reqId);
-    setRequisitions();
+  const deleteRequisition = async (reqId) => {
+    await RequisitionService.remove(reqId);
+    getRequisitions();
     setLoading(false);
   };
 
