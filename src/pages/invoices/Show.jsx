@@ -213,6 +213,21 @@ const ShowInvoice = () => {
                           ?.capitalize()}
                       </div>
 
+                      <div className="fw-bolder mt-5">Sub Total </div>
+                      <div className="text-gray-600">
+                        {invoice?.sub_total ?? "0"}tk
+                      </div>
+
+                      <div className="fw-bolder mt-5">Vat </div>
+                      <div className="text-gray-600">
+                        {invoice?.vat ?? "0"}%
+                      </div>
+
+                      <div className="fw-bolder mt-5">Grand Total</div>
+                      <div className="text-gray-600">
+                        {invoice?.grand_total ?? "0"}tk
+                      </div>
+
                       <div className="fw-bolder mt-5">
                         Requisition Ref Number
                       </div>

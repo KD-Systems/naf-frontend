@@ -108,14 +108,36 @@ const Invoices = () => {
       field: "expected_delivery",
     },
 
+    // {
+    //   name: "Total",
+    //   selector: (row) => row?.previous_due,
+    //   sortable: true,
+    //   field: "total_due",
+    //   format: (row) => (
+    //     <div className="mt-2">{row?.previous_due ?? row?.sub_total} tk</div>
+    //   ),
+    // },
+
+    // {
+    //   name: "Vat",
+    //   selector: (row) => row?.vat+'%',
+    //   sortable: true,
+    //   field: "vat",
+    // },
+
     {
-      name: "Total",
-      selector: (row) => row?.previous_due,
-      sortable: true,
-      field: "total_due",
+      name: "Grand Total",
+      selector: (row) => row?.grand_total,
       format: (row) => (
-        <div className="mt-2">{row?.previous_due ?? row?.totalAmount} tk</div>
+        <div>
+          {row?.grand_total ? (
+            row?.grand_total+'tk'
+          ): "--"}
+         
+        </div>
       ),
+      sortable: true,
+      field: "grand_total",
     },
 
     {

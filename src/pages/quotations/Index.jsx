@@ -64,19 +64,48 @@ const Quotations = () => {
       sortable: true,
       field: "expected_delivery",
     },
+    // {
+    //   name: "Total",
+    //   selector: (row) => row?.part_items?.reduce((partialSum,a)=>partialSum + a.total_value ,0),
+    //   format: (row) => (
+    //     <div className='mt-2'>
+    //       {row?.requisition?.type != 'claim_report' ? (
+    //         row?.part_items?.reduce((partialSum,a)=>partialSum + parseInt(a.total_value) ,0) 
+    //       ):0} Tk.
+         
+    //     </div>
+    //   ),
+    //   sortable: true,
+    //   field: "role",
+    // },
+
+    // {
+    //   name: "Sub Total",
+    //   selector: (row) => row?.sub_total+'tk',
+    //   sortable: true,
+    //   field: "sub_total",
+    // },
+
+    // {
+    //   name: "Vat",
+    //   selector: (row) => row?.vat+'%',
+    //   sortable: true,
+    //   field: "vat",
+    // },
+
     {
-      name: "Total",
-      selector: (row) => row?.part_items?.reduce((partialSum,a)=>partialSum + a.total_value ,0),
+      name: "Grand Total",
+      selector: (row) => row?.grand_total,
       format: (row) => (
-        <div className='mt-2'>
-          {row?.requisition?.type != 'claim_report' ? (
-            row?.part_items?.reduce((partialSum,a)=>partialSum + parseInt(a.total_value) ,0) 
-          ):0} Tk.
+        <div>
+          {row?.grand_total ? (
+            row?.grand_total+'tk'
+          ): "--"}
          
         </div>
       ),
       sortable: true,
-      field: "role",
+      field: "grand_total",
     },
 
     {
