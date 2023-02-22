@@ -6,14 +6,18 @@ import DeliverNoteService from "services/DeliverNoteService";
 import InvoiceService from "services/InvoiceService";
 import CreateInvoice from "./Create";
 import InvoiceFilter from "./InvoiceFilter";
-import ReturnPart from './return-parts/returnPart';
+import ReturnPart from "./return-parts/returnPart";
+import Confirmation from "components/utils/Confirmation";
 
 const Invoices = () => {
+  const [invoiceId, setInvoiceId] = useState(null);
   const [loading, setLoading] = useState(true);
   const [invoices, setInvoices] = useState([]);
+  console.log("🚀 ~ file: Index.jsx:14 ~ Invoices ~ invoices", invoices);
   const [filter, setFilter] = useState(false);
   const [block, setBlock] = useState(false);
   const [totalQuantity, setTotalQuantity] = useState(0);
+  const [confirmDelete, setConfirmDelete] = useState(false);
 
   const [openReturnModal, setOpenReturnModal] = useState(false);
 
@@ -39,6 +43,12 @@ const Invoices = () => {
     setBlock(true);
     await DeliverNoteService.create(data);
     setBlock(false);
+  };
+
+  const deleteInvoice = (invoiceId) => {
+    InvoiceService.remove(invoiceId);
+    getInvoices();
+    setLoading(false);
   };
 
   const onCloseModal = () => {
@@ -142,8 +152,7 @@ const Invoices = () => {
       field: "return_part_tracking_no",
       format: (row) => (
         <div className="mt-2">
-          {row?.return_part_tracking_no ? row?.return_part_tracking_no
-            : "N/A"}
+          {row?.return_part_tracking_no ? row?.return_part_tracking_no : "N/A"}
         </div>
       ),
     },
@@ -164,20 +173,23 @@ const Invoices = () => {
               </Link>
             </PermissionAbility>
           </span>
-          { !row?.return_part_tracking_no && row?.type == 'purchase_request' && row?.deliveryNote?.dn_number &&
-          <span>
-          <PermissionAbility permission="invoices_show">
-            <button
-              className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-              onClick={() => {
-                setInvoice(row);
-                setOpenReturnModal(true);
-              }}
-            >
-              <i className="fa fa-undo"></i>
-            </button>
-          </PermissionAbility>
-          </span>}
+          {!row?.return_part_tracking_no &&
+            row?.type == "purchase_request" &&
+            row?.deliveryNote?.dn_number && (
+              <span>
+                <PermissionAbility permission="invoices_show">
+                  <button
+                    className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+                    onClick={() => {
+                      setInvoice(row);
+                      setOpenReturnModal(true);
+                    }}
+                  >
+                    <i className="fa fa-undo"></i>
+                  </button>
+                </PermissionAbility>
+              </span>
+            )}
           {!row?.previous_due && (
             <>
               <span className="text-end">
@@ -206,6 +218,20 @@ const Invoices = () => {
                 </PermissionAbility>
               </span>
             </>
+          )}
+          {row?.previous_due && (
+            <PermissionAbility permission="invoice_delete">
+              <Link
+                to="#"
+                className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
+                onClick={() => {
+                  setInvoiceId(row.id);
+                  setConfirmDelete(true);
+                }}
+              >
+                <i className="fa fa-trash"></i>
+              </Link>
+            </PermissionAbility>
           )}
         </>
       ),
@@ -257,8 +283,14 @@ const Invoices = () => {
         onCloseModal={onCloseModal}
         getInvoices={getInvoices}
       />
-
-
+      <Confirmation
+        open={confirmDelete}
+        onConfirm={() => {
+          setConfirmDelete(false);
+          deleteInvoice(invoiceId);
+        }}
+        onCancel={() => setConfirmDelete(false)}
+      />
     </>
   );
 };

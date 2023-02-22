@@ -4,12 +4,17 @@ import Table from "components/utils/Table";
 import PermissionAbility from "helpers/PermissionAbility";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Confirmation from "components/utils/Confirmation";
 
 
 const RequiredRequisitions = () => {
   const [filter, setFilter] = useState(false);
   const [loading, setLoading] = useState(true);
   const [requisitions, setRequisitions] = useState([]);
+  const [reqId, setReqId] = useState(null);
+  const [confirmDelete, setConfirmDelete] = useState(false);
+
+
 
   const filterdata = (data) => {    
     setFilter(false);
@@ -110,6 +115,18 @@ const RequiredRequisitions = () => {
               <i className="fa fa-eye"></i>
             </Link>
           </PermissionAbility>
+          <PermissionAbility permission="required_requisition_delete">
+            <Link
+              to="#"
+              className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
+              onClick={() => {
+                setReqId(row.id);
+                setConfirmDelete(true);
+              }}
+            >
+              <i className="fa fa-trash"></i>
+            </Link>
+          </PermissionAbility>
         </span>
       ),
     },
@@ -118,6 +135,11 @@ const RequiredRequisitions = () => {
   const getRequisitions = async (filters) => {
     let res = await RequisitionService.getAllRequiredRequisitions(filters);
     setRequisitions(res);
+    setLoading(false);
+  };
+  const deleteRequisition = (reqId) => {
+    RequisitionService.requiredReqRemove(reqId);
+    getRequisitions();
     setLoading(false);
   };
   useEffect(() => {
@@ -146,6 +168,14 @@ const RequiredRequisitions = () => {
         onChange={(data) => {
           filterdata(data);
         }}
+      />
+      <Confirmation
+        open={confirmDelete}
+        onConfirm={() => {
+          setConfirmDelete(false);
+          deleteRequisition(reqId);
+        }}
+        onCancel={() => setConfirmDelete(false)}
       />
     </>
   );

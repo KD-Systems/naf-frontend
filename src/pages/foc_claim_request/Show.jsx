@@ -213,8 +213,7 @@ const ShowClaimRequest = () => {
                     </div>
                   </div>
 
-                  {claimRequest?.status ==
-                    ("complete" || "from_foc" || "from_sellable" || "both") && (
+                  {claimRequest?.status != 'pending' && (
                     <div className="card-header">
                       <div className="card-title">
                         <h3 className="card-label">
@@ -232,7 +231,7 @@ const ShowClaimRequest = () => {
                         </h3>
                       </div>
                     </div>
-                  )}
+                   )}
                 </span>
               )}
             </div>

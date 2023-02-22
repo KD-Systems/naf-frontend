@@ -6,6 +6,10 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import Select from "react-select";
 import RequisitionService from "../../services/RequisitionService";
 import UpdateReqInfo from "./section/UpdateReqInfo";
+import NewDropzone from "./Dropzone/MyDropzone";
+import Confirmation from "components/utils/Confirmation";
+
+
 
 const ShowRequiredRequisition = () => {
   let { id } = useParams();
@@ -13,6 +17,11 @@ const ShowRequiredRequisition = () => {
   const [requisition, setRequisition] = useState({});
   const [reqId, setReqId] = useState({});
   const [tab, setTab] = useState("requisitions");
+  const [file, setFile] = useState({});
+  const [uuid, setuuid] = useState();
+  const [model_id, setModelId] = useState();
+  const [confirmDelete, setConfirmDelete] = useState(false);
+
 
   const [updateDueAMountModal, setUpdateDueAMountModal] = useState(false);
   const onCloseModal = () => {
@@ -34,6 +43,21 @@ const ShowRequiredRequisition = () => {
     let data = { status: e.value };
     await RequisitionService.changeStatus(id, data);
     setRequisition({ ...requisition, status: e.value });
+  };
+
+  const uploadFile = async (formData) => {
+    await RequisitionService.requiredFileUpload(id, formData);
+    getFile();
+  };
+
+  const deleteItem = async () => {
+    await RequisitionService.requiredDeleteFile(uuid, model_id);
+    getFile();
+  };
+
+  const getFile = async () => {
+    const res = await RequisitionService.requiredGetFile(id);
+    setFile(res);
   };
 
   useEffect(() => {
@@ -215,6 +239,19 @@ const ShowRequiredRequisition = () => {
                 <li className="nav-item">
                   <a
                     className={`nav-link text-active-primary pb-4 ${
+                      tab == "Files" ? "active" : ""
+                    }`}
+                    data-bs-toggle="tab"
+                    href="#files"
+                    onClick={() => setTab("files")}
+                  >
+                    Files
+                  </a>
+                </li>
+
+                <li className="nav-item">
+                  <a
+                    className={`nav-link text-active-primary pb-4 ${
                       tab == "activities" ? "active" : ""
                     }`}
                     data-bs-toggle="tab"
@@ -279,12 +316,88 @@ const ShowRequiredRequisition = () => {
                     </button>
                   </div>
                 </div>
+
+
+
+                <div
+                  className={`tab-pane fade ${
+                    tab == "files" ? "active show" : ""
+                  }`}
+                  id="files"
+                  role="tabpanel"
+                >
+                  <div className="card card-custom gutter-b">
+                    <div className="card-body px-0">
+                      <div className="card mb-5 mb-xl-8">
+                        <div className="card-body py-3">
+                          <form
+                            id="attachment-form"
+                            encType="multipart/form-data"
+                          >
+                            <NewDropzone onDrop={uploadFile} />
+                          </form>
+                          <div className="table-responsive">
+                            <table className="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
+                              <thead>
+                                <tr className="fw-bolder text-muted">
+                                  <th className="min-w-50px">SL</th>
+                                  <th className="min-w-120px">File Name</th>
+                                  <th className="min-w-120px">Action</th>
+                                </tr>
+                              </thead>
+
+                              <tbody>
+                                {file?.data?.map((item, index) => (
+                                  <tr key={index}>
+                                    <td className="">{index + 1}</td>
+                                    <td className=" fw-bolder mb-1 fs-6">
+                                      <span>{item?.file_name}</span>
+                                    </td>
+                                    <td className=" fw-bolder mb-1 fs-6">
+                                      <button
+                                        className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+                                        onClick={() => {
+                                          setConfirmDelete(true);
+                                          setuuid(item.uuid);
+                                          setModelId(item.model_id);
+                                        }}
+                                      >
+                                        <i className="fa fa-trash"></i>
+                                      </button>
+                                      <a
+                                        className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+                                        href={item?.original_url}
+                                        target="_blank"
+                                      >
+                                        <i className="fa fa-download"></i>
+                                      </a>
+                                    </td>
+                                  </tr>
+                                ))}
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
                 <Activities logName="requisitions" modelId={id} tab={tab} />
               </div>
             </div>
           </div>
         </div>
       </div>
+      <Confirmation
+        open={confirmDelete}
+        onConfirm={() => {
+          setConfirmDelete(false);
+          deleteItem();
+        }}
+        onCancel={() => setConfirmDelete(false)}
+      />
       <UpdateReqInfo
         open={updateDueAMountModal}
         reqId={reqId}

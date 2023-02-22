@@ -6,7 +6,6 @@ const PrintRequisition = () => {
   let { id } = useParams();
   const navigate = useNavigate();
   const [requisition, setRequisition] = useState({});
-  console.log("🚀 ~ file: Print.jsx ~ line 9 ~ PrintRequisition ~ requisition", requisition)
   const [total, setTotal] = useState(0);
 
   const getRequisition = async () => {

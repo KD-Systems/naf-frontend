@@ -318,7 +318,7 @@ const SideMenu = () => {
 
 
 
-            <PermissionAbility permission="parts_access">
+            <PermissionAbility permission="company_part_access">
               <div className="menu-item">
                 <NavLink
                   className={(navinfo) =>
@@ -362,7 +362,7 @@ const SideMenu = () => {
               </div>
             </PermissionAbility>
 
-            <PermissionAbility permission="requisitions_access">
+            <PermissionAbility permission="required_requisition_access">
               <div className="menu-item">
                 <NavLink
                   className={(navinfo) =>
@@ -459,7 +459,7 @@ const SideMenu = () => {
               </div>
             </div>
 
-            <PermissionAbility>
+            <PermissionAbility permission="claim_request_access">
             <div className="menu-item">
               <NavLink className={(navinfo) => navinfo.isActive ? "menu-link active" : "menu-link" } to="claim-requests">
                 <span className="menu-icon">
@@ -470,7 +470,7 @@ const SideMenu = () => {
             </div>
             </PermissionAbility>
 
-            <PermissionAbility>
+            <PermissionAbility permission="claim_requisition_access">
             <div className="menu-item">
               <NavLink className={(navinfo) => navinfo.isActive ? "menu-link active" : "menu-link" } to="claim-requisitions">
                 <span className="menu-icon">
@@ -492,7 +492,7 @@ const SideMenu = () => {
               </div>
             </div>
 
-            <PermissionAbility permission="transaction_summary">
+            <PermissionAbility permission="transaction_summary_access">
             <div className="menu-item">
               <NavLink
                 className={(navinfo) =>
@@ -554,7 +554,7 @@ const SideMenu = () => {
             </div>
             </PermissionAbility>
 
-            <PermissionAbility permission="stock_report_access">
+            <PermissionAbility permission="foc_summery_access">
             <div className="menu-item">
               <NavLink
                 className={(navinfo) =>

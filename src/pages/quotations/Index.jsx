@@ -4,11 +4,17 @@ import { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import QuotationService from 'services/QuotationService';
 import CreateModal from "./CreateModal";
+import Confirmation from "components/utils/Confirmation";
+
 
 const Quotations = () => {
   const [loading, setLoading] = useState(true);
   const [quotations, setQuotations] = useState([]);
   const [open, setOpen] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [quoId, setQuoId] = useState(null);
+
+
 
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false); 
@@ -129,14 +135,32 @@ const Quotations = () => {
           >
             <i className="fa fa-eye"></i>
           </Link>
-          </PermissionAbility>     
+          </PermissionAbility>
+          <PermissionAbility permission="quotation_delete">
+            <Link
+              to="#"
+              className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
+              onClick={() => {
+                setQuoId(row.id);
+                setConfirmDelete(true);
+              }}
+            >
+              <i className="fa fa-trash"></i>
+            </Link>
+          </PermissionAbility>
         </span>
       ),
     },
   ];
 
   const getQuotations = async (filters) => {
-    setQuotations(await QuotationService.getAll(filters));
+    setQuotations(await QuotationService.getAll(filters)); 
+    setLoading(false);
+  };
+
+  const deleteQuotation = (quoId) => {
+    QuotationService.remove(quoId);
+    getQuotations();
     setLoading(false);
   };
   let navigate = useNavigate()
@@ -164,13 +188,18 @@ const Quotations = () => {
         />
       </div>
     </div>
-    
-    
-
     <CreateModal
         open={open}
         onCloseModal={onCloseModal}
         getQuotations = {getQuotations}
+      />
+      <Confirmation
+        open={confirmDelete}
+        onConfirm={() => {
+          setConfirmDelete(false);
+          deleteQuotation(quoId);
+        }}
+        onCancel={() => setConfirmDelete(false)}
       />
 </>
     
