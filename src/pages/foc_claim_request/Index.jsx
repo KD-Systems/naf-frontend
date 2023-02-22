@@ -5,12 +5,16 @@ import { Link, useNavigate } from "react-router-dom";
 import ClaimRequisitionService from "services/ClaimRequisitionService";
 import RequisitionService from "services/RequisitionService";
 import ClaimRequestFilter from "./ClaimRequestFilter";
+import Confirmation from "components/utils/Confirmation";
 
 const ClaimRequest = () => {
   const [filter, setFilter] = useState(false);
   const [loading, setLoading] = useState(true);
   const [claimRequest, setClaimRequest] = useState([]);
-  const filterdata = (data) => {    
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [reqId, setReqId] = useState(null);
+
+  const filterdata = (data) => {
     setFilter(false);
     getClaimRequest(data);
   };
@@ -75,7 +79,7 @@ const ClaimRequest = () => {
       selector: (row) => row?.status,
       sortable: true,
       field: "role",
-      format: (row) => ( 
+      format: (row) => (
         <>
           {row?.status == "pending" && (
             <div className="mt-2 text-white bg-warning p-1 px-2 rounded">
@@ -99,12 +103,12 @@ const ClaimRequest = () => {
           )}
           {row?.status == "both" && (
             <div className="mt-2 text-white bg-success p-1 px-2 rounded">
-              Both 
+              Both
             </div>
           )}
           {row?.status == "complete" && (
             <div className="mt-2 text-white bg-success p-1 px-2 rounded">
-              Complete 
+              Complete
             </div>
           )}
         </>
@@ -124,6 +128,18 @@ const ClaimRequest = () => {
               <i className="fa fa-eye"></i>
             </Link>
           </PermissionAbility>
+          <PermissionAbility permission="claim_request_delete">
+            <Link
+              to="#"
+              className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
+              onClick={() => {
+                setReqId(row.id);
+                setConfirmDelete(true);
+              }}
+            >
+              <i className="fa fa-trash"></i>
+            </Link>
+          </PermissionAbility>
         </span>
       ),
     },
@@ -134,6 +150,13 @@ const ClaimRequest = () => {
     setClaimRequest(res);
     setLoading(false);
   };
+
+  const deleteClaimRequest = async (reqId) => {
+    await RequisitionService.requiredReqRemove(reqId);
+    getClaimRequest();
+    setLoading(false);
+  };
+
   useEffect(() => {
     getClaimRequest();
   }, []);
@@ -153,7 +176,6 @@ const ClaimRequest = () => {
             name="Required Requisitions"
             buttonName="Add Claim Request"
             onClickButton={routeChange}
-
             callbackButtons={[
               {
                 name: "Filter",
@@ -162,7 +184,7 @@ const ClaimRequest = () => {
                 },
                 permission: null,
               },
-            ]}     
+            ]}
             isLoading={loading}
             data={claimRequest}
             columns={columns}
@@ -178,6 +200,14 @@ const ClaimRequest = () => {
         onChange={(data) => {
           filterdata(data);
         }}
+      />
+      <Confirmation
+        open={confirmDelete}
+        onConfirm={() => {
+          setConfirmDelete(false);
+          deleteClaimRequest(reqId);
+        }}
+        onCancel={() => setConfirmDelete(false)}
       />
     </>
   );

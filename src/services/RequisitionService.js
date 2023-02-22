@@ -105,6 +105,11 @@ const getAllRequiredRequisitions = async (data) => {
   return res.data;
 };
 
+const requiredReqRemove = async (id) => {
+  const res = await http.delete(`required-part/requisitions/${id}`);
+  return res.data;
+};
+
 const changeStatus = async (id, data) => {
   const res = await http.post(`/required-part/requisitions/status/${id}`, data);
   return res?.data;
@@ -168,6 +173,7 @@ const RequisitionService = {
   createrequiredrequisitions,
   updateRequiredReqInfo,
   getRequestedPart,
+  requiredReqRemove,
   updateRequestedPart,
   requiredFileUpload,
   requiredGetFile,
