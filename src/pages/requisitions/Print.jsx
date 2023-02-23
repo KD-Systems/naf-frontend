@@ -103,7 +103,7 @@ const PrintRequisition = () => {
                       <h6>
                         <strong>Issued By: </strong>
                         <span className="text-muted">
-                          {requisition?.created_by}
+                          {requisition?.user?.name}
                         </span>
                       </h6>
                     </td>

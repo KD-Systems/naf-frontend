@@ -128,7 +128,8 @@ const ClaimRequest = () => {
               <i className="fa fa-eye"></i>
             </Link>
           </PermissionAbility>
-          <PermissionAbility permission="claim_request_delete">
+          {row?.rq_number == null && (
+            <PermissionAbility permission="claim_request_delete">
             <Link
               to="#"
               className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
@@ -140,6 +141,8 @@ const ClaimRequest = () => {
               <i className="fa fa-trash"></i>
             </Link>
           </PermissionAbility>
+          )}
+          
         </span>
       ),
     },

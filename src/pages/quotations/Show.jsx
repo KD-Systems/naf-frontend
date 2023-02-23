@@ -13,7 +13,6 @@ const ShowQuotation = () => {
   let { id } = useParams();
   const navigate = useNavigate();
   const [quotation, setQuotation] = useState({});
-  console.log("🚀 ~ file: Show.jsx:16 ~ ShowQuotation ~ quotation:", quotation);
   const [comment, setComment] = useState({});
   const [block, setBlock] = useState(false);
   const [locked, setLocked] = useState(false);
@@ -36,7 +35,6 @@ const ShowQuotation = () => {
     grand_total: grandTotal,
     part_items: list,
   });
-  console.log("🚀 ~ file: Show.jsx:36 ~ ShowQuotation ~ data:", data);
   useEffect(() => {
     if (quotation) {
       setData({
@@ -192,7 +190,7 @@ const ShowQuotation = () => {
         parseInt(item?.quantity) * parseInt(item?.unit_value);
     });
     setTotal(totalAmount);
-    let GrandTotal = totalAmount * (1 + data?.vat / 100);
+    let GrandTotal = parseInt(totalAmount * (1 + data?.vat / 100));
     setGrandTotal(GrandTotal);
   }, [data?.part_items, data?.vat]);
 
@@ -303,6 +301,18 @@ const ShowQuotation = () => {
                   <div className="fw-bolder mt-5">Remarks</div>
                   <div className="text-gray-600">
                     {quotation?.requisition?.remarks ?? "--"}
+                  </div>
+
+                  <div className="fw-bolder mt-5">Created At </div>
+                  <div className="text-gray-600">
+                    <Moment format="D MMMM YYYY">
+                      {quotation?.created_at}
+                    </Moment>
+                  </div>
+
+                  <div className="fw-bolder mt-5">Created By </div>
+                  <div className="text-gray-600">
+                      {quotation?.created_by}
                   </div>
 
                   {!permissions.includes("quotations_approve") &&

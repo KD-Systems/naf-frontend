@@ -115,7 +115,8 @@ const RequiredRequisitions = () => {
               <i className="fa fa-eye"></i>
             </Link>
           </PermissionAbility>
-          <PermissionAbility permission="required_requisition_delete">
+          {row?.rq_number == null && (
+            <PermissionAbility permission="required_requisition_delete">
             <Link
               to="#"
               className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
@@ -127,6 +128,8 @@ const RequiredRequisitions = () => {
               <i className="fa fa-trash"></i>
             </Link>
           </PermissionAbility>
+          )}
+          
         </span>
       ),
     },

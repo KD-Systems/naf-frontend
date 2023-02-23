@@ -40,7 +40,6 @@ function InvoiceFilter({ enable, onClickOutside, onChange }) {
 
   const apply = () => {
     typeof onChange === "function" && onChange(data);
-    console.log("🚀 ~ file: InvoiceFilter.jsx ~ line 42 ~ apply ~ data", data);
   };
 
   const handleSelect = (option, action) => {

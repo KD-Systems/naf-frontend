@@ -48,13 +48,14 @@ const ShowInvoice = () => {
     if (res?.part_items?.length == 0) {
       setTab("payment_histories");
     }
-    setTotal(
-      res?.previous_due ??
-        res?.part_items?.reduce(
-          (partialSum, a) => parseInt(partialSum) + parseInt(a.total_value),
-          0
-        )
-    );
+    // setTotal(
+    //   res?.previous_due ??
+    //     res?.part_items?.reduce(
+    //       (partialSum, a) => parseInt(partialSum) + parseInt(a.total_value),
+    //       0
+    //     )
+    // );
+    setTotal(res?.previous_due ?? res?.grand_total);
   };
 
   useEffect(() => {
@@ -233,6 +234,18 @@ const ShowInvoice = () => {
                       </div>
                       <div className="text-gray-600">
                         {invoice?.requisition?.ref_number ?? "--"}
+                      </div>
+
+                      <div className="fw-bolder mt-5">Created At </div>
+                      <div className="text-gray-600">
+                        <Moment format="D MMMM YYYY">
+                          {invoice?.invoice_date}
+                        </Moment>
+                      </div>
+
+                      <div className="fw-bolder mt-5">Created By </div>
+                      <div className="text-gray-600">
+                          {invoice?.created_by}
                       </div>
                     </>
                   )}

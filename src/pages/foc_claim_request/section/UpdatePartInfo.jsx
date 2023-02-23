@@ -10,7 +10,6 @@ import Select from "react-select";
 toast.configure();
 
 const UpdatePartInfo = ({ open, part, onCloseModal, onUpdated }) => {
-  console.log("🚀 ~ file: UpdatePartInfo.jsx:13 ~ UpdatePartInfo ~ part", part)
   const [data, setData] = useState({
     status: part.status,
     remarks: part.remarks,

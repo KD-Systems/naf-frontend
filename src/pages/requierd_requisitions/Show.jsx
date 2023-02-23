@@ -9,8 +9,6 @@ import UpdateReqInfo from "./section/UpdateReqInfo";
 import NewDropzone from "./Dropzone/MyDropzone";
 import Confirmation from "components/utils/Confirmation";
 
-
-
 const ShowRequiredRequisition = () => {
   let { id } = useParams();
   const navigate = useNavigate();
@@ -21,7 +19,6 @@ const ShowRequiredRequisition = () => {
   const [uuid, setuuid] = useState();
   const [model_id, setModelId] = useState();
   const [confirmDelete, setConfirmDelete] = useState(false);
-
 
   const [updateDueAMountModal, setUpdateDueAMountModal] = useState(false);
   const onCloseModal = () => {
@@ -163,25 +160,31 @@ const ShowRequiredRequisition = () => {
                   {requisition?.remarks ?? "--"}
                 </div>
 
+                <div className="fw-bolder mt-5">Created At </div>
+                <div className="text-gray-600">
+                  <Moment format="D MMMM YYYY">
+                    {requisition?.created_at}
+                  </Moment>
+                </div>
+
                 <div className="fw-bolder mt-5">Status</div>
                 <div className="text-gray-600">{requisition?.status}</div>
 
                 <div className="card-title mt-10 justify-content-center">
                   <h3 className="card-label mr-10">
                     {/* <PermissionAbility permission="companies_edit"> */}
-                      <button
-                        className="btn btn-sm btn-dark"
-                        onClick={() => {
-                          setReqId(id);
-                          setUpdateDueAMountModal(true);
-                        }}
-                      >
-                        <i className="fa fa-pen"></i> Update Info
-                      </button>
+                    <button
+                      className="btn btn-sm btn-dark"
+                      onClick={() => {
+                        setReqId(id);
+                        setUpdateDueAMountModal(true);
+                      }}
+                    >
+                      <i className="fa fa-pen"></i> Update Info
+                    </button>
                     {/* </PermissionAbility> */}
                   </h3>
                 </div>
-
               </div>
               {!requisition?.requisition_id && (
                 <span>
@@ -317,8 +320,6 @@ const ShowRequiredRequisition = () => {
                   </div>
                 </div>
 
-
-
                 <div
                   className={`tab-pane fade ${
                     tab == "files" ? "active show" : ""
@@ -382,7 +383,6 @@ const ShowRequiredRequisition = () => {
                     </div>
                   </div>
                 </div>
-
 
                 <Activities logName="requisitions" modelId={id} tab={tab} />
               </div>

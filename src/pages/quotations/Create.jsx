@@ -48,7 +48,7 @@ const CreateQuotation = () => {
         parseInt(item?.quantity) * parseInt(item?.unit_value);
     });
     setTotal(totalAmount);
-    let GrandTotal = (totalAmount * (1 + data?.vat / 100))
+    let GrandTotal = parseInt(totalAmount * (1 + data?.vat / 100))
     setGrandTotal(GrandTotal)
   }, [data?.part_items,data?.vat]);
 
