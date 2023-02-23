@@ -13,11 +13,11 @@ const Invoices = () => {
   const [invoiceId, setInvoiceId] = useState(null);
   const [loading, setLoading] = useState(true);
   const [invoices, setInvoices] = useState([]);
-  console.log("🚀 ~ file: Index.jsx:14 ~ Invoices ~ invoices", invoices);
   const [filter, setFilter] = useState(false);
   const [block, setBlock] = useState(false);
   const [totalQuantity, setTotalQuantity] = useState(0);
   const [confirmDelete, setConfirmDelete] = useState(false);
+  const [type, setType] = useState(null);
 
   const [openReturnModal, setOpenReturnModal] = useState(false);
 
@@ -33,7 +33,7 @@ const Invoices = () => {
   };
 
   const getInvoices = async (filters) => {
-    setInvoices(await InvoiceService.getAll(filters));
+    setInvoices(await InvoiceService.getAll(filters)); 
     setLoading(false);
   };
 
@@ -45,8 +45,8 @@ const Invoices = () => {
     setBlock(false);
   };
 
-  const deleteInvoice = (invoiceId) => {
-    InvoiceService.remove(invoiceId);
+  const deleteInvoice = (invoiceId,type) => {
+    InvoiceService.remove(invoiceId,type);
     getInvoices();
     setLoading(false);
   };
@@ -108,14 +108,31 @@ const Invoices = () => {
       field: "expected_delivery",
     },
 
+    // {
+    //   name: "Total",
+    //   selector: (row) => row?.previous_due,
+    //   sortable: true,
+    //   field: "total_due",
+    //   format: (row) => (
+    //     <div className="mt-2">{row?.previous_due ?? row?.sub_total} tk</div>
+    //   ),
+    // },
+
+    // {
+    //   name: "Vat",
+    //   selector: (row) => row?.vat+'%',
+    //   sortable: true,
+    //   field: "vat",
+    // },
+
     {
-      name: "Total",
-      selector: (row) => row?.previous_due,
-      sortable: true,
-      field: "total_due",
+      name: "Grand Total",
+      selector: (row) => row?.grand_total,
       format: (row) => (
-        <div className="mt-2">{row?.previous_due ?? row?.totalAmount} tk</div>
-      ),
+            <div className="mt-2">{row?.previous_due ?? row?.grand_total} tk</div>
+          ),
+      sortable: true,
+      field: "grand_total",
     },
 
     {
@@ -219,13 +236,14 @@ const Invoices = () => {
               </span>
             </>
           )}
-          {row?.previous_due && (
-            <PermissionAbility permission="invoice_delete">
+          {row?.deliveryNote == null && (
+            <PermissionAbility permission="invoices_delete_access">
               <Link
                 to="#"
                 className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
                 onClick={() => {
                   setInvoiceId(row.id);
+                  setType(row.type);
                   setConfirmDelete(true);
                 }}
               >
@@ -287,7 +305,7 @@ const Invoices = () => {
         open={confirmDelete}
         onConfirm={() => {
           setConfirmDelete(false);
-          deleteInvoice(invoiceId);
+          deleteInvoice(invoiceId,type);
         }}
         onCancel={() => setConfirmDelete(false)}
       />

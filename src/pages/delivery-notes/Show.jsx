@@ -123,6 +123,18 @@ const ShowDeliveryNotes = () => {
                   <div className="text-gray-600">
                     {deliveryNote?.remarks ?? "--"}
                   </div>
+
+                  <div className="fw-bolder mt-5">Created At </div>
+                  <div className="text-gray-600">
+                    <Moment format="D MMMM YYYY">
+                      {deliveryNote?.delivery_date}
+                    </Moment>
+                  </div>
+
+                  <div className="fw-bolder mt-5">Created By </div>
+                  <div className="text-gray-600">
+                    {deliveryNote?.created_by}
+                  </div>
                 </div>
 
                 <div className="card-header">
@@ -274,7 +286,13 @@ const ShowDeliveryNotes = () => {
                     </div>
                   </div>
 
-                  <div className={`tab-pane fade ${ tab == "files" ? "active show" : "" }`} id="files" role="tab-panel" >
+                  <div
+                    className={`tab-pane fade ${
+                      tab == "files" ? "active show" : ""
+                    }`}
+                    id="files"
+                    role="tab-panel"
+                  >
                     <div className="card card-custom gutter-b">
                       <div className="card-body px-0">
                         <div className="card mb-5 mb-xl-8">

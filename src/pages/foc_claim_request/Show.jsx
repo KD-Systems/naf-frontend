@@ -175,6 +175,11 @@ const ShowClaimRequest = () => {
                   {claimRequest?.remarks ?? "--"}
                 </div>
 
+                <div className="fw-bolder mt-5">Created At </div>
+                <div className="text-gray-600">
+                  <Moment format="D MMMM YYYY">{claimRequest?.created_at}</Moment>
+                </div>
+
                 <div className="fw-bolder mt-5">Status</div>
                 <div className="text-gray-600">
                   {claimRequest?.status && (
@@ -213,7 +218,7 @@ const ShowClaimRequest = () => {
                     </div>
                   </div>
 
-                  {claimRequest?.status != 'pending' && (
+                  {claimRequest?.status != "pending" && (
                     <div className="card-header">
                       <div className="card-title">
                         <h3 className="card-label">
@@ -231,7 +236,7 @@ const ShowClaimRequest = () => {
                         </h3>
                       </div>
                     </div>
-                   )}
+                  )}
                 </span>
               )}
             </div>
@@ -279,7 +284,13 @@ const ShowClaimRequest = () => {
               </ul>
 
               <div className="tab-content">
-                <div className={`tab-pane fade ${ tab == "requisitions" ? "active show" : "" }`} id="requisitions" role="tabpanel" >
+                <div
+                  className={`tab-pane fade ${
+                    tab == "requisitions" ? "active show" : ""
+                  }`}
+                  id="requisitions"
+                  role="tabpanel"
+                >
                   <div className="card card-custom gutter-b">
                     <div className="card-body px-0">
                       <div className="card mb-5 mb-xl-8">
@@ -350,7 +361,7 @@ const ShowClaimRequest = () => {
                     </button>
                   </div>
                 </div>
-                <div className="tab-pane fade show" id="files" role="tabpanel" >
+                <div className="tab-pane fade show" id="files" role="tabpanel">
                   <div className="card card-custom gutter-b">
                     <div className="card-body px-0">
                       <div className="card mb-5 mb-xl-8">

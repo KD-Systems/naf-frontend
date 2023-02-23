@@ -10,10 +10,17 @@ const CreateQuotation = () => {
   const [list, setList] = useState([]); /* for adding part in quotation */
   const [machineId, setMachineId] = useState("");
   const [itemData, setItemData] = useState([]);
+  const [grandTotal, setGrandTotal] = useState(0);
+  const [total, setTotal] = useState(0);
+
   const [data, setData] = useState({
     requisition_id: "",
+    type: "",
     company_id: "",
     machine_id: "",
+    vat: "",
+    grand_total: grandTotal,
+    sub_total: total,
     part_items: list,
   });
 
@@ -32,6 +39,27 @@ const CreateQuotation = () => {
     // console.log(tempPartStock);
     tempItemPart[name] = parseInt(e.target.value);
     setList(templist);
+  };
+  useEffect(() => {
+    let totalAmount = 0;
+    data?.part_items?.forEach((item) => {
+      totalAmount =
+        parseInt(totalAmount) +
+        parseInt(item?.quantity) * parseInt(item?.unit_value);
+    });
+    setTotal(totalAmount);
+    let GrandTotal = parseInt(totalAmount * (1 + data?.vat / 100))
+    setGrandTotal(GrandTotal)
+  }, [data?.part_items,data?.vat]);
+
+  const handleDataChange = (e) => {
+    let value;
+    if (e.target.name == "vat" || e.target.name == "discount") {
+      value = Math.min(100, Number(e.target.value));
+    } else {
+      value = e.target.value;
+    }
+    setData({ ...data, [e.target.name]: value });
   };
 
   const handleNewChange = (e, item) => {
@@ -102,7 +130,10 @@ const CreateQuotation = () => {
     setMachineId(requisition?.machines?.map((item) => item.id));
     setData({
       ...data,
+      vat: 0,
+      // discount: 0,
       requisition_id: requisition?.id,
+      type: requisition?.type,
       company_id: requisition?.company_id,
       machine_id: requisition?.machines?.map(
         (item, index) => item?.machine_model_id
@@ -111,8 +142,8 @@ const CreateQuotation = () => {
   }, [requisitionId, requisition]);
 
   useEffect(() => {
-    setData({ ...data, part_items: list }); //add part_items and total amount in data
-  }, [list]);
+    setData({ ...data, part_items: list,grand_total: grandTotal,sub_total: total }); //add part_items and total amount in data
+  }, [list,grandTotal,total]);
 
   return (
     <div className="post d-flex flex-column-fluid" id="content">
@@ -309,7 +340,7 @@ const CreateQuotation = () => {
                                   onChange={(e) => handleNewChange(e, item)}
                                 />
                               </td>
-                          
+
                               <td className="product-quantity">
                                 <div className="input-group input-group-sm">
                                   <div className="input-group-prepend">
@@ -359,6 +390,73 @@ const CreateQuotation = () => {
                               </td>
                             </tr>
                           ))}
+                          {data?.type == "purchase_request" && (
+                            <>
+                              <tr className="fw-bolder text-gray-700 fs-5 text-end">
+                                <td colSpan={4}></td>
+                                <td>Sub-total</td>
+                                <td></td>
+                                <td>{total}</td>
+                                <td></td>
+                              </tr>
+                              <tr className="fw-bolder text-gray-700 fs-5 text-end">
+                                <td colSpan={4}></td>
+                                <td className="align-center justify-content-center">
+                                  Vat(%)
+                                </td>
+                                <td className="">
+                                  <input
+                                    type="number"
+                                    pattern="[0-99]*"
+                                    className="form-control"
+                                    aria-label="Small"
+                                    aria-describedby="inputGroup-sizing-sm"
+                                    name="vat"
+                                    value={data?.vat}
+                                    onChange={handleDataChange}
+                                    // onChange={(e) => {
+                                    //   if(e.target.value.length >99) {
+                                    //     toast.error("Amount should not be grater then 100 amount!");
+                                    //   }
+                                    //   // else{
+                                    //   //   return handleDataChange
+                                    //   // }
+                                    // }}
+                                  />
+                                </td>
+                                <td>{(total * data?.vat) / 100}</td>
+                                <td></td>
+                              </tr>
+                              {/* <tr className="fw-bolder text-gray-700 fs-5 text-end">
+                                <td colSpan={3}></td>
+                                <td>Discount(%)</td>
+                                <td>
+                                  <input
+                                    type="number"
+                                    className="form-control"
+                                    aria-label="Small"
+                                    aria-describedby="inputGroup-sizing-sm"
+                                    name="discount"
+                                    placeholder=""
+                                    value={data?.discount}
+                                    onChange={handleDataChange}
+                                  />
+                                </td>
+                                <td>{(total * data?.discount) / 100}</td>
+                                <td></td>
+                              </tr> */}
+                              <tr className="fw-bolder text-gray-700 fs-5 text-end">
+                                <td colSpan={4}></td>
+                                <td>Grand Total</td>
+                                <td></td>
+                                <td>
+                                  {/* {Math.floor(total * (1 + data?.vat / 100))} */}
+                                  {grandTotal}
+                                </td>
+                                <td></td>
+                              </tr>
+                            </>
+                          )}
                         </tbody>
                       </table>
                       <div className="separator separator-dashed"></div>

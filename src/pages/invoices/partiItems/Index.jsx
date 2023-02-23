@@ -68,6 +68,54 @@ const InvoicePartItems = ({ tab, active, invoice }) => {
                           </td>
                         </tr>
                       ))}
+                      {invoice?.requisition?.type ==
+                                  "purchase_request" && (
+                                  <>
+                                    <tr className="fw-bolder text-gray-700 fs-5 text-end">
+                                      <td colSpan={2}></td>
+                                      <td>Sub-total</td>
+                                      <td></td>
+                                      <td>{invoice?.sub_total}</td>
+                                      <td></td>
+                                    </tr>
+                                    <tr className="fw-bolder text-gray-700 fs-5 text-end">
+                                      <td colSpan={2}></td>
+                                      <td className="align-center justify-content-center">
+                                        Vat(%)
+                                      </td>
+                                      <td></td>
+                                      <td>{invoice?.vat}</td>
+                                      <td></td>
+                                    </tr>
+                                    {/* <tr className="fw-bolder text-gray-700 fs-5 text-end">
+                                      <td colSpan={3}></td>
+                                      <td>Discount(%)</td>
+                                      <td>
+                                        <input
+                                          type="number"
+                                          className="form-control"
+                                          aria-label="Small"
+                                          aria-describedby="inputGroup-sizing-sm"
+                                          name="discount"
+                                          placeholder=""
+                                          value={data?.discount}
+                                          onChange={handleDataChange}
+                                        />
+                                      </td>
+                                      <td className="text-danger">
+                                        {(total * data?.discount) / 100}
+                                      </td>
+                                      <td></td>
+                                    </tr> */}
+                                    <tr className="fw-bolder text-gray-700 fs-5 text-end">
+                                      <td colSpan={2}></td>
+                                      <td>Grand Total</td>
+                                      <td></td>
+                                      <td>{invoice?.grand_total}</td>
+                                      <td></td>
+                                    </tr>
+                                  </>
+                                )}
                     </tbody>
                   </table>
                 </div>

@@ -19,6 +19,8 @@ const ShowQuotation = () => {
   const [list, setList] = useState([]);
   const [tab, setTab] = useState("quotations");
   const [message, setMessage] = useState("");
+  const [total, setTotal] = useState(0);
+  const [grandTotal, setGrandTotal] = useState(0);
 
   const [uuid, setuuid] = useState();
   const [model_id, setModelId] = useState();
@@ -27,9 +29,23 @@ const ShowQuotation = () => {
 
   const [data, setData] = useState({
     quotation_id: parseInt(id),
+    type: "",
+    vat: "",
+    sub_total: total,
+    grand_total: grandTotal,
     part_items: list,
   });
-
+  useEffect(() => {
+    if (quotation) {
+      setData({
+        ...data,
+        type: quotation?.requisition?.type,
+        sub_total: quotation?.sub_total,
+        vat: quotation?.vat,
+        grand_total: quotation?.grand_total,
+      });
+    }
+  }, [quotation]);
   const sendComment = async () => {
     if (message) {
       await QuotationService.sendComment({ quotation_id: id, text: message });
@@ -93,7 +109,6 @@ const ShowQuotation = () => {
     setFile(res);
   };
 
-
   useEffect(() => {
     if (id) {
       getQuotation();
@@ -103,8 +118,13 @@ const ShowQuotation = () => {
   }, [id, locked]);
 
   useEffect(() => {
-    setData({ ...data, part_items: list }); //add part_items and total amount in data
-  }, [list]);
+    setData({
+      ...data,
+      part_items: list,
+      grand_total: grandTotal,
+      sub_total: total,
+    }); //add part_items and total amount in data
+  }, [list, grandTotal, total]);
 
   const handleChange = (e, item) => {
     const { name } = e.target;
@@ -119,7 +139,15 @@ const ShowQuotation = () => {
     setList(templist);
   };
   // * Update Quotation Part Items
-
+  const handleDataChange = (e) => {
+    let value;
+    if (e.target.name == "vat" || e.target.name == "discount") {
+      value = Math.min(100, Number(e.target.value));
+    } else {
+      value = e.target.value;
+    }
+    setData({ ...data, [e.target.name]: value });
+  };
   const handleUpdate = async () => {
     setBlock(true);
     await QuotationService.update(id, data);
@@ -153,6 +181,18 @@ const ShowQuotation = () => {
     }
     setList(tempList);
   };
+
+  useEffect(() => {
+    let totalAmount = 0;
+    data?.part_items?.forEach((item) => {
+      totalAmount =
+        parseInt(totalAmount) +
+        parseInt(item?.quantity) * parseInt(item?.unit_value);
+    });
+    setTotal(totalAmount);
+    let GrandTotal = parseInt(totalAmount * (1 + data?.vat / 100));
+    setGrandTotal(GrandTotal);
+  }, [data?.part_items, data?.vat]);
 
   useEffect(() => {
     setList(quotation?.part_items); //add part items into List
@@ -190,7 +230,9 @@ const ShowQuotation = () => {
                   <div className="text-gray-600">{quotation?.pq_number}</div>
 
                   <div className="fw-bolder mt-5">Company</div>
-                  <div className="text-gray-600">{quotation?.company?.name}</div>
+                  <div className="text-gray-600">
+                    {quotation?.company?.name}
+                  </div>
 
                   <div className="fw-bolder mt-5">Machines</div>
                   <div className="text-gray-600">
@@ -228,6 +270,19 @@ const ShowQuotation = () => {
                     </Moment>
                   </div>
 
+                  <div className="fw-bolder mt-5">Sub Total </div>
+                  <div className="text-gray-600">
+                    {quotation?.sub_total ?? "0"}tk
+                  </div>
+
+                  <div className="fw-bolder mt-5">Vat </div>
+                  <div className="text-gray-600">{quotation?.vat ?? "0"}%</div>
+
+                  <div className="fw-bolder mt-5">Grand Total</div>
+                  <div className="text-gray-600">
+                    {quotation?.grand_total ?? "0"}tk
+                  </div>
+
                   <div className="fw-bolder mt-5">Ref Number</div>
                   <div className="text-gray-600">
                     {quotation?.requisition?.ref_number ?? "--"}
@@ -248,21 +303,36 @@ const ShowQuotation = () => {
                     {quotation?.requisition?.remarks ?? "--"}
                   </div>
 
-                  {!permissions.includes("quotations_approve") && quotation?.status == 'pending' && (
-                    <div className="fw-bolder mt-5 badge-lg badge badge-warning">Waitting for Approval</div>
-                  )}
+                  <div className="fw-bolder mt-5">Created At </div>
+                  <div className="text-gray-600">
+                    <Moment format="D MMMM YYYY">
+                      {quotation?.created_at}
+                    </Moment>
+                  </div>
+
+                  <div className="fw-bolder mt-5">Created By </div>
+                  <div className="text-gray-600">
+                      {quotation?.created_by}
+                  </div>
+
+                  {!permissions.includes("quotations_approve") &&
+                    quotation?.status == "pending" && (
+                      <div className="fw-bolder mt-5 badge-lg badge badge-warning">
+                        Waitting for Approval
+                      </div>
+                    )}
                 </div>
                 <div className="card-header">
                   <div className="card-title">
-                  <h3 className="card-label">
-                        <Link
-                          className="btn btn-sm btn-dark "
-                          to={"/panel/quotations/" + quotation.id + "/print"}
-                          style={{ marginRight: "0.75rem" }} 
-                          target="_blank"
-                        >
-                          Print
-                        </Link>
+                    <h3 className="card-label">
+                      <Link
+                        className="btn btn-sm btn-dark "
+                        to={"/panel/quotations/" + quotation.id + "/print"}
+                        style={{ marginRight: "0.75rem" }}
+                        target="_blank"
+                      >
+                        Print
+                      </Link>
                     </h3>
                     {quotation?.status != "pending" && (
                       <h3 className="card-label">
@@ -366,7 +436,6 @@ const ShowQuotation = () => {
                     </a>
                   </li>
 
-
                   <li className="nav-item">
                     <a
                       className={`nav-link text-active-primary pb-4 ${
@@ -379,7 +448,6 @@ const ShowQuotation = () => {
                       Files
                     </a>
                   </li>
-
 
                   <li className="nav-item">
                     <a
@@ -427,7 +495,12 @@ const ShowQuotation = () => {
                                         to={"/panel/parts/" + item?.part?.id}
                                         className="text-dark fw-bolder text-hover-primary"
                                       >
-                                        {item?.part?.aliases[0].name} <span className="text-primary">{item?.part?.is_foc == true ? "Foc":"Non foc"}</span>
+                                        {item?.part?.aliases[0].name}{" "}
+                                        <span className="text-primary">
+                                          {item?.part?.is_foc == true
+                                            ? "Foc"
+                                            : "Non foc"}
+                                        </span>
                                       </Link>
                                     </td>
                                     <td className=" fw-bolder mb-1 fs-6">
@@ -500,6 +573,64 @@ const ShowQuotation = () => {
                                     </td>
                                   </tr>
                                 ))}
+                                {quotation?.requisition?.type ==
+                                  "purchase_request" && (
+                                  <>
+                                    <tr className="fw-bolder text-gray-700 fs-5 text-end">
+                                      <td colSpan={2}></td>
+                                      <td>Sub-total</td>
+                                      <td></td>
+                                      <td>{total}</td>
+                                      <td></td>
+                                    </tr>
+                                    <tr className="fw-bolder text-gray-700 fs-5 text-end">
+                                      <td colSpan={2}></td>
+                                      <td className="align-center justify-content-center">
+                                        Vat(%)
+                                      </td>
+                                      <td className="">
+                                        <input
+                                          type="number"
+                                          className="form-control"
+                                          aria-label="Small"
+                                          aria-describedby="inputGroup-sizing-sm"
+                                          name="vat"
+                                          value={data?.vat}
+                                          onChange={handleDataChange}
+                                        />
+                                      </td>
+                                      <td>{(total * data?.vat) / 100}</td>
+                                      <td></td>
+                                    </tr>
+                                    {/* <tr className="fw-bolder text-gray-700 fs-5 text-end">
+                                      <td colSpan={3}></td>
+                                      <td>Discount(%)</td>
+                                      <td>
+                                        <input
+                                          type="number"
+                                          className="form-control"
+                                          aria-label="Small"
+                                          aria-describedby="inputGroup-sizing-sm"
+                                          name="discount"
+                                          placeholder=""
+                                          value={data?.discount}
+                                          onChange={handleDataChange}
+                                        />
+                                      </td>
+                                      <td className="text-danger">
+                                        {(total * data?.discount) / 100}
+                                      </td>
+                                      <td></td>
+                                    </tr> */}
+                                    <tr className="fw-bolder text-gray-700 fs-5 text-end">
+                                      <td colSpan={2}></td>
+                                      <td>Grand Total</td>
+                                      <td></td>
+                                      <td>{grandTotal}</td>
+                                      <td></td>
+                                    </tr>
+                                  </>
+                                )}
                               </tbody>
                             </table>
                             <PermissionAbility permission="quotations_partItems_update">
@@ -549,7 +680,9 @@ const ShowQuotation = () => {
                                     {new Date(item.updated_at).getMonth()}-
                                     {new Date(item.updated_at).getFullYear()}
                                   </span>
-                                  <span className="border mx-2">{item.type}</span>
+                                  <span className="border mx-2">
+                                    {item.type}
+                                  </span>
                                   <div
                                     className="justify-content-between"
                                     style={{ fontSize: 14 }}
@@ -589,68 +722,68 @@ const ShowQuotation = () => {
                   </div>
                 </div>
                 <div
-                    className={`tab-pane fade ${
-                      tab == "files" ? "active show" : ""
-                    }`}
-                    id="files"
-                    role="tabpanel"
-                  >
-                    <div className="card card-custom gutter-b">
-                      <div className="card-body px-0">
-                        <div className="card mb-5 mb-xl-8">
-                          <div className="card-body py-3">
-                            <form
-                              id="attachment-form"
-                              encType="multipart/form-data"
-                            >
-                              <NewDropzone onDrop={uploadFile} />
-                            </form>
-                            <div className="table-responsive">
-                              <table className="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
-                                <thead>
-                                  <tr className="fw-bolder text-muted">
-                                    <th className="min-w-50px">SL</th>
-                                    <th className="min-w-120px">File Name</th>
-                                    <th className="min-w-120px">Action</th>
-                                  </tr>
-                                </thead>
+                  className={`tab-pane fade ${
+                    tab == "files" ? "active show" : ""
+                  }`}
+                  id="files"
+                  role="tabpanel"
+                >
+                  <div className="card card-custom gutter-b">
+                    <div className="card-body px-0">
+                      <div className="card mb-5 mb-xl-8">
+                        <div className="card-body py-3">
+                          <form
+                            id="attachment-form"
+                            encType="multipart/form-data"
+                          >
+                            <NewDropzone onDrop={uploadFile} />
+                          </form>
+                          <div className="table-responsive">
+                            <table className="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
+                              <thead>
+                                <tr className="fw-bolder text-muted">
+                                  <th className="min-w-50px">SL</th>
+                                  <th className="min-w-120px">File Name</th>
+                                  <th className="min-w-120px">Action</th>
+                                </tr>
+                              </thead>
 
-                                <tbody>
-                                  {file?.data?.map((item, index) => (
-                                    <tr key={index}>
-                                      <td className="">{index + 1}</td>
-                                      <td className=" fw-bolder mb-1 fs-6">
-                                        <span>{item?.file_name}</span>
-                                      </td>
-                                      <td className=" fw-bolder mb-1 fs-6">
-                                        <button
-                                          className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-                                          onClick={() => {
-                                            setConfirmDelete(true);
-                                            setuuid(item.uuid);
-                                            setModelId(item.model_id);
-                                          }}
-                                        >
-                                          <i className="fa fa-trash"></i>
-                                        </button>
-                                        <a
-                                          className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-                                          href={item?.original_url}
-                                          target="_blank"
-                                        >
-                                          <i className="fa fa-download"></i>
-                                        </a>
-                                      </td>
-                                    </tr>
-                                  ))}
-                                </tbody>
-                              </table>
-                            </div>
+                              <tbody>
+                                {file?.data?.map((item, index) => (
+                                  <tr key={index}>
+                                    <td className="">{index + 1}</td>
+                                    <td className=" fw-bolder mb-1 fs-6">
+                                      <span>{item?.file_name}</span>
+                                    </td>
+                                    <td className=" fw-bolder mb-1 fs-6">
+                                      <button
+                                        className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+                                        onClick={() => {
+                                          setConfirmDelete(true);
+                                          setuuid(item.uuid);
+                                          setModelId(item.model_id);
+                                        }}
+                                      >
+                                        <i className="fa fa-trash"></i>
+                                      </button>
+                                      <a
+                                        className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+                                        href={item?.original_url}
+                                        target="_blank"
+                                      >
+                                        <i className="fa fa-download"></i>
+                                      </a>
+                                    </td>
+                                  </tr>
+                                ))}
+                              </tbody>
+                            </table>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
+                </div>
 
                 <Activities logName="quotations" modelId={id} tab={tab} />
               </div>
@@ -659,14 +792,14 @@ const ShowQuotation = () => {
         </div>
       </div>
       <Confirmation
-      open={confirmDelete}
-      onConfirm={() => {
-        setConfirmDelete(false);
-        deleteItem();
-      }}
-      onCancel={() => setConfirmDelete(false)}
-    />
-  </>
+        open={confirmDelete}
+        onConfirm={() => {
+          setConfirmDelete(false);
+          deleteItem();
+        }}
+        onCancel={() => setConfirmDelete(false)}
+      />
+    </>
   );
 };
 

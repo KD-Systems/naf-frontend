@@ -7,6 +7,7 @@ const PrintDeliveryNotes = () => {
   let { id } = useParams();
   const navigate = useNavigate();
   const [deliveryNote, setDeliveryNote] = useState({});
+  console.log("🚀 ~ file: Print.jsx:10 ~ PrintDeliveryNotes ~ deliveryNote:", deliveryNote)
   const [total, setTotal] = useState(0);
 
   const getDeliveryNotes = async () => {
@@ -129,7 +130,7 @@ const PrintDeliveryNotes = () => {
                           <strong>Delivery Date: </strong>
                           <span className="text-muted">
                             <Moment format="D MMMM YYYY">
-                              {deliveryNote?.deliver_date}
+                              {deliveryNote?.delivery_date}
                             </Moment>
                           </span>
                         </h6>

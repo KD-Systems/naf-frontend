@@ -169,25 +169,36 @@ const ShowRequisition = () => {
                 <div className="text-gray-600">
                   {requisition?.remarks ?? "--"}
                 </div>
-                
+
+                <div className="fw-bolder mt-5">Created At </div>
+                <div className="text-gray-600">
+                  <Moment format="D MMMM YYYY">
+                    {requisition?.created_at}
+                  </Moment>
+                </div>
+
+                <div className="fw-bolder mt-5">Created By </div>
+                <div className="text-gray-600">
+                    {requisition?.user?.name}
+                </div>
+
                 <div className="card-title mt-10 justify-content-center">
                   <h3 className="card-label mr-10">
                     {/* <PermissionAbility permission="companies_edit"> */}
-                      <button
-                        className="btn btn-sm btn-dark"
-                        onClick={() => {
-                          setReqId(id);
-                          setUpdateDueAMountModal(true);
-                        }}
-                      >
-                        <i className="fa fa-pen"></i> Update Info
-                      </button>
+                    <button
+                      className="btn btn-sm btn-dark"
+                      onClick={() => {
+                        setReqId(id);
+                        setUpdateDueAMountModal(true);
+                      }}
+                    >
+                      <i className="fa fa-pen"></i> Update Info
+                    </button>
                     {/* </PermissionAbility> */}
                   </h3>
                 </div>
-
               </div>
-              <div className="card-header"> 
+              <div className="card-header">
                 <div className="card-title">
                   <h3 className="card-label">
                     <PermissionAbility permission="requisitions_print">
@@ -256,10 +267,7 @@ const ShowRequisition = () => {
                 </div>
 
                 {!stock && (
-                  <p
-                    className="badge text-danger"
-                    style={{ fontSize: "16px" }}
-                  >
+                  <p className="badge text-danger" style={{ fontSize: "16px" }}>
                     Unavailable Stock
                   </p>
                 )}
@@ -280,7 +288,7 @@ const ShowRequisition = () => {
                     onClick={() => setTab("requisitions")}
                   >
                     Part Items
-                  </a> 
+                  </a>
                 </li>
 
                 <li className="nav-item">
@@ -442,7 +450,7 @@ const ShowRequisition = () => {
                   </div>
                 </div>
 
-                <Activities logName="requisitions" modelId={id} tab={tab} /> 
+                <Activities logName="requisitions" modelId={id} tab={tab} />
               </div>
             </div>
           </div>

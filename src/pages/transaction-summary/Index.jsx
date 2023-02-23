@@ -97,6 +97,20 @@ const Invoices = () => {
     },
 
     {
+      name: "Vat",
+      selector: (row) => row?.vat+'%',
+      sortable: true,
+      field: "grand_total",
+    },
+
+    {
+      name: "Grand Total",
+      selector: (row) => row?.grand_total+'tk',
+      sortable: true,
+      field: "grand_total",
+    },
+
+    {
       name: "Paid",
       selector: (row) => row?.totalPaid,
       sortable: true,

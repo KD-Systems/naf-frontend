@@ -17,6 +17,11 @@ const create = async (data) => {
   return res.data;
 };
 
+const remove = async (id) => {
+  const res = await http.delete(`/delivery-notes/${id}`);
+  return res.data;
+};
+
 const deliveredFocParts = async (data) => {
   const res = await http.get(`/delivered-foc-parts`, {
     params: data
@@ -49,6 +54,7 @@ const DeliverNoteService = {
   getAll,
   get,
   create,
+  remove,
   deliveredFocParts,
 
   //Attachment File functanality

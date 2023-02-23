@@ -23,6 +23,7 @@ const ShowClaimRequisition = () => {
   let { id } = useParams();
   const navigate = useNavigate();
   const [focRequisition, setFocRequisition] = useState({});
+  console.log("🚀 ~ file: Show.jsx:26 ~ ShowClaimRequisition ~ focRequisition:", focRequisition)
   const [file, setFile] = useState({});
   const [tab, setTab] = useState("requisitions");
 
@@ -164,6 +165,13 @@ const ShowClaimRequisition = () => {
                 <div className="fw-bolder mt-5">Remarks</div>
                 <div className="text-gray-600">
                   {focRequisition?.remarks ?? "--"}
+                </div>
+
+                <div className="fw-bolder mt-5">Created At</div>
+                <div className="text-gray-600">
+                  <Moment format="D MMMM YYYY">
+                    {focRequisition?.created_at}
+                  </Moment>
                 </div>
               </div>
               <div className="card-header"> 

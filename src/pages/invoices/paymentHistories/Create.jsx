@@ -10,7 +10,7 @@ const CreateInvoicePayment = ({ open, onCloseModal, invoice, due }) => {
   const [advance, setAdvance] = useState(0);
   const [file, setFile] = useState("");
 
-  const [data, setData] = useState({
+  const [data, setData] = useState({ 
     invoice_id: "",
     payment_mode: "",
     payment_date: "",

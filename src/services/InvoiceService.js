@@ -27,8 +27,10 @@ const update = async (id, data) => {
   return res.data;
 };
 
-const remove = async (id) => {
-  const res = await http.delete(`/invoices/${id}`);
+const remove = async (id,type) => {
+  const res = await http.post(`/invoices-delete/${id}`,{
+    type: type,
+  });
   return res.data;
 };
 
