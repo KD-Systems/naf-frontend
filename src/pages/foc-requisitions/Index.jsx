@@ -93,7 +93,8 @@ const ClaimRequisition = () => {
           <Link to={"/panel/claim-requisitions/" + row.id} className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" >
             <i className="fa fa-eye"></i>
           </Link>
-          <PermissionAbility permission="claim_requisition_delete">
+          {row?.quotation == null && (
+            <PermissionAbility permission="claim_requisition_delete">
             <Link
               to="#"
               className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
@@ -105,6 +106,8 @@ const ClaimRequisition = () => {
               <i className="fa fa-trash"></i>
             </Link>
           </PermissionAbility>
+          )}
+          
         </span>
         
       ),

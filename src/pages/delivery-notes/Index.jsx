@@ -2,12 +2,16 @@ import Table from "components/utils/Table";
 import PermissionAbility from "helpers/PermissionAbility";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import DeliverNoteService from "services/DeliverNoteService";
+import DeliverNoteService from "services/DeliverNoteService"; 
 import CreateDeliveryNote from "./Create";
+import Confirmation from "components/utils/Confirmation";
+
 const DeliveryNotes = () => {
   const [loading, setLoading] = useState(true);
   const [block, setBlock] = useState(false);
   const [deliveryNotes, setDeliveryNotes] = useState([]);
+  const [deliveryNoteId, setDeliveryNoteId] = useState(null);
+  const [confirmDelete, setConfirmDelete] = useState(false);
 
   const [open, setOpen] = useState(false);
 
@@ -16,6 +20,12 @@ const DeliveryNotes = () => {
 
   const getDeliverNotes = async (filters) => {
     setDeliveryNotes(await DeliverNoteService.getAll(filters));
+    setLoading(false);
+  };
+
+  const deleteDeliveryNote = (deliveryNoteId) => {
+    DeliverNoteService.remove(deliveryNoteId);
+    getDeliverNotes();
     setLoading(false);
   };
 
@@ -36,7 +46,9 @@ const DeliveryNotes = () => {
         <div className="d-flex align-items-center">
           <div className="d-flex justify-content-start flex-column">
             <div className="text-dark fw-bolder text-hover-primary">
-              {row?.invoice?.quotation?.requisition?.type.replaceAll("_", " ")?.capitalize()}
+              {row?.invoice?.quotation?.requisition?.type
+                .replaceAll("_", " ")
+                ?.capitalize()}
             </div>
           </div>
         </div>
@@ -75,27 +87,39 @@ const DeliveryNotes = () => {
         <>
           {/* to show delivery note */}
           <span className="text-end">
-          <PermissionAbility permission="deliverynotes_show">
-          <Link
-              to={"/panel/delivery-notes/" + row.id }  
-              className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-            >
-              <i className="fa fa-eye"></i>
-            </Link>
-          </PermissionAbility>
+            <PermissionAbility permission="deliverynotes_show">
+              <Link
+                to={"/panel/delivery-notes/" + row.id}
+                className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+              >
+                <i className="fa fa-eye"></i>
+              </Link>
+            </PermissionAbility>
           </span>
 
           <span className="text-end">
-          <PermissionAbility permission="deliverynotes_print">
-          <Link
-              to={"/panel/delivery-notes/" + row.id + "/print"}
-              target="_blank"
-              className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-            >
-              <i className="fa fa-print"></i> 
-            </Link>
-          </PermissionAbility>
-            
+            <PermissionAbility permission="deliverynotes_print">
+              <Link
+                to={"/panel/delivery-notes/" + row.id + "/print"}
+                target="_blank"
+                className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+              >
+                <i className="fa fa-print"></i>
+              </Link>
+            </PermissionAbility>
+
+            <PermissionAbility permission="deliveryNote_delete_access">
+              <Link
+                to="#"
+                className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
+                onClick={() => {
+                  setDeliveryNoteId(row.id);
+                  setConfirmDelete(true);
+                }}
+              >
+                <i className="fa fa-trash"></i>
+              </Link>
+            </PermissionAbility>
           </span>
         </>
       ),
@@ -122,6 +146,15 @@ const DeliveryNotes = () => {
         open={open}
         onCloseModal={onCloseModal}
         getDeliverNotes={getDeliverNotes}
+      />
+
+      <Confirmation
+        open={confirmDelete}
+        onConfirm={() => {
+          setConfirmDelete(false);
+          deleteDeliveryNote(deliveryNoteId);
+        }}
+        onCancel={() => setConfirmDelete(false)}
       />
     </>
   );
