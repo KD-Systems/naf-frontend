@@ -5,6 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 import QuotationService from "services/QuotationService";
 import CreateModal from "./CreateModal";
 import Confirmation from "components/utils/Confirmation";
+import Moment from "react-moment";
+
 
 const Quotations = () => {
   const [loading, setLoading] = useState(true);
@@ -53,11 +55,11 @@ const Quotations = () => {
     {
       name: "Part Quantity",
       selector: (row) =>
-        row?.part_items?.reduce((partialSum, a) => partialSum + a.quantity, 0),
+        row?.part_items?.reduce((partialSum, a) => parseInt(partialSum) + parseInt(a.quantity), 0),
       format: (row) => (
         <div className="mt-2">
           {row?.part_items?.reduce(
-            (partialSum, a) => partialSum + a.quantity,
+            (partialSum, a) => parseInt(partialSum) + parseInt(a.quantity),
             0
           )}
         </div>
@@ -152,6 +154,18 @@ const Quotations = () => {
       format: (row) => (
         <div className="mt-2">
           {row?.invoice ? row?.invoice : "No invoice yet"}
+        </div>
+      ),
+    },
+
+    {
+      name: "Created At",
+      selector: (row) => row?.created_at,
+      sortable: true,
+      field: "created_at",
+      format: (row) => (
+        <div className="mt-2">
+          <Moment format="D MMMM YYYY">{row?.created_at}</Moment>
         </div>
       ),
     },

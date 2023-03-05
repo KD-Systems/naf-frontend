@@ -198,11 +198,11 @@ const PrintInvoice = () => {
                           <td className="text-start"></td>
                           <td className="text-center"></td>
                           <td className="text-center">
-                            <h4>VAT({invoice.vat})</h4>
+                            <h4>VAT ({invoice?.vat})%</h4>
                           </td>
                           <td className="text-center border-bottom border-1 border-dark">
                             <h4>
-                              {Math.round((invoice.vat_amount - 1) * total)} TK.
+                              {Math.round(total*invoice.vat/100) ?? 0} TK.
                             </h4>
                           </td>
                         </tr>
@@ -241,9 +241,7 @@ const PrintInvoice = () => {
                                 fontSize: 16,
                               }}
                             >
-                              {invoice.discount
-                                ? Math.round(invoice.vat_amount * total) - invoice.discount
-                                : Math.round(invoice.vat_amount* total)}
+                              {invoice?.grand_total}
                               TK.
                             </div>
                           </td>

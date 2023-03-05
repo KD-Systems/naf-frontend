@@ -6,6 +6,8 @@ import ClaimRequisitionService from "services/ClaimRequisitionService";
 import RequisitionService from "services/RequisitionService";
 import ClaimRequestFilter from "./ClaimRequestFilter";
 import Confirmation from "components/utils/Confirmation";
+import Moment from "react-moment";
+
 
 const ClaimRequest = () => {
   const [filter, setFilter] = useState(false);
@@ -116,8 +118,20 @@ const ClaimRequest = () => {
     },
 
     {
+      name: "Created At",
+      selector: (row) => row?.created_at,
+      sortable: true,
+      field: "created_at",
+      format: (row) => (
+        <div className="mt-2">
+          <Moment format="D MMMM YYYY">{row?.created_at}</Moment>
+        </div>
+      ),
+    },
+
+    {
       name: "Action",
-      selector: (row) => row.status,
+      selector: (row) => row?.status,
       format: (row) => (
         <span className="text-end">
           <PermissionAbility permission="requisitions_show">

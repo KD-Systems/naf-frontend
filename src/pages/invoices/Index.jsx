@@ -8,6 +8,8 @@ import CreateInvoice from "./Create";
 import InvoiceFilter from "./InvoiceFilter";
 import ReturnPart from "./return-parts/returnPart";
 import Confirmation from "components/utils/Confirmation";
+import Moment from "react-moment";
+
 
 const Invoices = () => {
   const [invoiceId, setInvoiceId] = useState(null);
@@ -93,13 +95,13 @@ const Invoices = () => {
     {
       name: "Part Quantity",
       selector: (row) =>
-        row?.part_items?.reduce((partialSum, a) => partialSum + a.quantity, 0),
+        row?.part_items?.reduce((partialSum, a) => parseInt(partialSum) + parseInt(a.quantity), 0),
       format: (row) => (
         <div className="mt-2 w-100">
           {row?.previous_due
             ? "N/A"
             : row?.part_items?.reduce(
-                (partialSum, a) => partialSum + a.quantity,
+                (partialSum, a) => parseInt(partialSum) + parseInt(a.quantity),
                 0
               )}
         </div>
@@ -170,6 +172,18 @@ const Invoices = () => {
       format: (row) => (
         <div className="mt-2">
           {row?.return_part_tracking_no ? row?.return_part_tracking_no : "N/A"}
+        </div>
+      ),
+    },
+
+    {
+      name: "Created At",
+      selector: (row) => row?.created_at,
+      sortable: true,
+      field: "created_at",
+      format: (row) => (
+        <div className="mt-2">
+          <Moment format="D MMMM YYYY">{row?.created_at}</Moment>
         </div>
       ),
     },

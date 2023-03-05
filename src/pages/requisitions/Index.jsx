@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import RequisitionService from "services/RequisitionService";
 import RequisitionFilter from "./RequisitionFilter";
 import Confirmation from "components/utils/Confirmation";
+import Moment from "react-moment";
 
 const Requisitions = () => {
   const [filter, setFilter] = useState(false);
@@ -105,6 +106,18 @@ const Requisitions = () => {
     },
 
     {
+      name: "Created At",
+      selector: (row) => row?.created_at,
+      sortable: true,
+      field: "created_at",
+      format: (row) => (
+        <div className="mt-2">
+          <Moment format="D MMMM YYYY">{row?.created_at}</Moment>
+        </div>
+      ),
+    },
+
+    {
       name: "Action",
       selector: (row) => row.status,
       format: (row) => (
@@ -117,22 +130,21 @@ const Requisitions = () => {
               <i className="fa fa-eye"></i>
             </Link>
           </PermissionAbility>
-          {!(row?.quotation?.pq_number) && 
-          <PermissionAbility permission="requisition_delete">
-            <Link
-              to="#"
-              className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
-              onClick={() => {
-                setReqId(row.id);
-                setConfirmDelete(true);
-              }}
-            >
-              <i className="fa fa-trash"></i>
-            </Link>
-          </PermissionAbility>
-          }
+          {!row?.quotation?.pq_number && (
+            <PermissionAbility permission="requisition_delete">
+              <Link
+                to="#"
+                className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
+                onClick={() => {
+                  setReqId(row.id);
+                  setConfirmDelete(true);
+                }}
+              >
+                <i className="fa fa-trash"></i>
+              </Link>
+            </PermissionAbility>
+          )}
         </span>
-        
       ),
     },
   ];

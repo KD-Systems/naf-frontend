@@ -180,6 +180,11 @@ const ShowClaimRequest = () => {
                   <Moment format="D MMMM YYYY">{claimRequest?.created_at}</Moment>
                 </div>
 
+                <div className="fw-bolder mt-5">Created By </div>
+                <div className="text-gray-600">
+                    {claimRequest?.user?.name}
+                </div>
+
                 <div className="fw-bolder mt-5">Status</div>
                 <div className="text-gray-600">
                   {claimRequest?.status && (

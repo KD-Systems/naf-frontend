@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import DeliverNoteService from "services/DeliverNoteService"; 
 import CreateDeliveryNote from "./Create";
 import Confirmation from "components/utils/Confirmation";
+import Moment from "react-moment";
+
 
 const DeliveryNotes = () => {
   const [loading, setLoading] = useState(true);
@@ -78,6 +80,18 @@ const DeliveryNotes = () => {
       ),
       sortable: true,
       field: "expected_delivery",
+    },
+
+    {
+      name: "Created At",
+      selector: (row) => row?.created_at,
+      sortable: true,
+      field: "created_at",
+      format: (row) => (
+        <div className="mt-2">
+          <Moment format="D MMMM YYYY">{row?.created_at}</Moment>
+        </div>
+      ),
     },
 
     {

@@ -23,7 +23,6 @@ const ShowClaimRequisition = () => {
   let { id } = useParams();
   const navigate = useNavigate();
   const [focRequisition, setFocRequisition] = useState({});
-  console.log("🚀 ~ file: Show.jsx:26 ~ ShowClaimRequisition ~ focRequisition:", focRequisition)
   const [file, setFile] = useState({});
   const [tab, setTab] = useState("requisitions");
 
@@ -51,8 +50,6 @@ const ShowClaimRequisition = () => {
   };
 
   const uploadFile = async (formData) => {
-    console.log("a", formData);
-
     await RequisitionService.fileUpload(id, formData);
     getFile();
   };
@@ -71,7 +68,6 @@ const ShowClaimRequisition = () => {
     if (id) getFocRequisition();
     getFile();
   }, [id]);
-
 
   return (
     <div className="d-flex flex-column-fluid">
@@ -173,14 +169,21 @@ const ShowClaimRequisition = () => {
                     {focRequisition?.created_at}
                   </Moment>
                 </div>
+
+                <div className="fw-bolder mt-5">Created By </div>
+                <div className="text-gray-600">
+                  {focRequisition?.user?.name}
+                </div>
               </div>
-              <div className="card-header"> 
+              <div className="card-header">
                 <div className="card-title">
                   <h3 className="card-label">
                     <PermissionAbility permission="requisitions_print">
                       <Link
                         className="btn btn-sm btn-dark "
-                        to={"/panel/requisitions/" + focRequisition.id + "/print"}
+                        to={
+                          "/panel/requisitions/" + focRequisition.id + "/print"
+                        }
                         style={{ marginRight: "0.75rem" }}
                         // target="_blank"
                       >
@@ -243,10 +246,7 @@ const ShowClaimRequisition = () => {
                 </div>
 
                 {!stock && (
-                  <p
-                    className="badge text-danger"
-                    style={{ fontSize: "16px" }}
-                  >
+                  <p className="badge text-danger" style={{ fontSize: "16px" }}>
                     Unavailable Stock
                   </p>
                 )}
@@ -318,50 +318,59 @@ const ShowClaimRequisition = () => {
                                   <th className="min-w-120px">Quantity</th>
                                   <th className="min-w-120px">Stock</th>
                                   <th className="min-w-120px">Status</th>
-                                  <th className="min-w-120px">Remarks</th> 
+                                  <th className="min-w-120px">Remarks</th>
                                   {/* <th className="min-w-120px">Action</th> */}
-
                                 </tr>
                               </thead>
 
                               <tbody>
-                                {focRequisition?.part_items?.map((item, index) => (
-                                  <tr key={index}>
-                                    <td className="">
-                                      <Link
-                                        to={"/panel/parts/" + item?.part?.id}
-                                        className="text-dark fw-bolder text-hover-primary"
-                                      >
-                                        {item?.part?.aliases[0].name} <span className="text-primary">{item?.part?.is_foc == true ? "Foc":"Non foc"}</span>
-                                      </Link>
-                                    </td>
-                                    <td className=" fw-bolder mb-1 fs-6">
-                                      <span>
-                                        {item?.part?.aliases[0].part_number}
-                                      </span>
-                                    </td>
-                                    <td className=" fw-bolder mb-1 fs-6">
-                                      <span>{item?.quantity}</span>
-                                    </td>
+                                {focRequisition?.part_items?.map(
+                                  (item, index) => (
+                                    <tr key={index}>
+                                      <td className="">
+                                        <Link
+                                          to={"/panel/parts/" + item?.part?.id}
+                                          className="text-dark fw-bolder text-hover-primary"
+                                        >
+                                          {item?.part?.aliases[0].name}{" "}
+                                          <span className="text-primary">
+                                            {item?.part?.is_foc == true
+                                              ? "Foc"
+                                              : "Non foc"}
+                                          </span>
+                                        </Link>
+                                      </td>
+                                      <td className=" fw-bolder mb-1 fs-6">
+                                        <span>
+                                          {item?.part?.aliases[0].part_number}
+                                        </span>
+                                      </td>
+                                      <td className=" fw-bolder mb-1 fs-6">
+                                        <span>{item?.quantity}</span>
+                                      </td>
 
-                                    <td className=" fw-bolder mb-1 fs-6">
-                                      {item?.part?.stocks[0]?.unit_value
-                                        ? item?.part?.stocks[0]?.unit_value <
-                                          item?.quantity
-                                          ? () => {
-                                              setStock(false);
-                                              return "Not Available";
-                                            }
-                                          : "Available"
-                                        : "Not Availabe"}
-                                    </td>
-                                    <td className=" fw-bolder mb-1 fs-6">
-                                    <span className="badge badge-info">{item?.status.replaceAll("_", " ")?.capitalize()}</span>
-                                    </td>
-                                    <td className=" fw-bolder mb-1 fs-6">
-                                      <span>{item?.remarks}</span>
-                                    </td>
-                                    {/* <td className=" fw-bolder mb-1 fs-6">
+                                      <td className=" fw-bolder mb-1 fs-6">
+                                        {item?.part?.stocks[0]?.unit_value
+                                          ? item?.part?.stocks[0]?.unit_value <
+                                            item?.quantity
+                                            ? () => {
+                                                setStock(false);
+                                                return "Not Available";
+                                              }
+                                            : "Available"
+                                          : "Not Availabe"}
+                                      </td>
+                                      <td className=" fw-bolder mb-1 fs-6">
+                                        <span className="badge badge-info">
+                                          {item?.status
+                                            .replaceAll("_", " ")
+                                            ?.capitalize()}
+                                        </span>
+                                      </td>
+                                      <td className=" fw-bolder mb-1 fs-6">
+                                        <span>{item?.remarks}</span>
+                                      </td>
+                                      {/* <td className=" fw-bolder mb-1 fs-6">
 
                                         <span className="text-end">
                                           <div
@@ -377,8 +386,9 @@ const ShowClaimRequisition = () => {
                                           </div>
                                         </span>
                                       </td> */}
-                                  </tr>
-                                ))}
+                                    </tr>
+                                  )
+                                )}
                               </tbody>
                             </table>
                           </div>
@@ -472,7 +482,6 @@ const ShowClaimRequisition = () => {
         onCloseModal={onCloseModal}
         onUpdated={getFocRequisition}
       />
-    
     </div>
   );
 };

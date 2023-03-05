@@ -7,15 +7,13 @@ const PrintInvoice = () => {
   const navigate = useNavigate();
   const [invoice, setInvoice] = useState({});
   const [total, setTotal] = useState(0);
-
-  console.log("sssssssssssss", invoice);
   const getInvoice = async () => {
     let res = await QuotationService.get(id);
     setInvoice(res);
 
     setTotal(
       res?.part_items?.reduce(
-        (sum, partItem) => sum + parseFloat(partItem.total_value),
+        (sum, partItem) => sum + parseFloat(partItem.total_value), 
         0
       )
     );
@@ -110,7 +108,7 @@ const PrintInvoice = () => {
               </div>
               {/* Afnan */}
               <div className="d-flex justify-content-between flex-column flex-md-row">
-                <div className="flex-grow-1 pt-2">
+                <div className="flex-grow-1">
                   <div className="table-responsive ">
                     <table className="table">
                       <thead className="m-20">
@@ -217,11 +215,11 @@ const PrintInvoice = () => {
                           <td className="text-start"></td>
                           <td className="text-center"></td>
                           <td className="text-center">
-                            <h4>VAT({invoice.vat})</h4>
+                            <h4>VAT({invoice?.vat}) %</h4>
                           </td>
                           <td className="text-center border-bottom border-1 border-dark">
                             <h4>
-                              {Math.round((invoice.vat_amount - 1) * total)} TK.
+                              {Math.round(total*invoice.vat/100) ?? 0} TK
                             </h4>
                           </td>
                         </tr>
@@ -261,7 +259,7 @@ const PrintInvoice = () => {
                                 fontSize: 16,
                               }}
                             >
-                              {invoice.vat_amount * total} TK.
+                              {invoice.grand_total} TK.
                             </div>
                           </td>
                         </tr>
@@ -331,7 +329,7 @@ const PrintInvoice = () => {
                 </div>
               </div>
 
-              <div className="fixed-bottom mb-10 text-center border-top border-1 border-dark">
+              <div className="fixed-bottom mb-5 text-center border-top border-1 border-dark">
                 <div className="d-flex flex-row justify-content-evenly">
                   <div className="d-flex flex-row">
                     <div className="m-2 p-2 border border-1 rounded-circle border-dark">

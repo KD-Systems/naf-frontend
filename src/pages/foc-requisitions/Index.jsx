@@ -6,7 +6,7 @@ import RequisitionService from "services/RequisitionService";
 import RequisitionFilter from "./RequisitionFilter";
 import Confirmation from "components/utils/Confirmation";
 import PermissionAbility from "helpers/PermissionAbility";
-
+import Moment from "react-moment";
 
 
 const ClaimRequisition = () => {
@@ -83,6 +83,18 @@ const ClaimRequisition = () => {
       sortable: true,
       field: "role",
       format: (row) => (<div className="mt-2"> {row?.quotation?.pq_number ? row?.quotation?.pq_number : "No quotation yet"} </div> ),
+    },
+
+    {
+      name: "Created At",
+      selector: (row) => row?.created_at,
+      sortable: true,
+      field: "created_at",
+      format: (row) => (
+        <div className="mt-2">
+          <Moment format="D MMMM YYYY">{row?.created_at}</Moment>
+        </div>
+      ),
     },
 
     {

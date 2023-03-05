@@ -167,6 +167,11 @@ const ShowRequiredRequisition = () => {
                   </Moment>
                 </div>
 
+                <div className="fw-bolder mt-5">Created By </div>
+                <div className="text-gray-600">
+                    {requisition?.user?.name}
+                </div>
+
                 <div className="fw-bolder mt-5">Status</div>
                 <div className="text-gray-600">{requisition?.status}</div>
 
@@ -189,7 +194,7 @@ const ShowRequiredRequisition = () => {
               {!requisition?.requisition_id && (
                 <span>
                   <div className="card-body py-4">
-                    <div className="fw-bolder mt-5">Change Status</div>
+                    <div className="fw-bolder mt-5">Change Status</div> 
                     <div className="text-gray-600">
                       <Select
                         options={status}
