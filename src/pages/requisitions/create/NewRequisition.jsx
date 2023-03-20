@@ -98,7 +98,7 @@ const NewRequisition = () => {
   const payments = [
     { value: "cash", label: "Cash" },
     { value: "bank", label: "Bank" },
-    { value: "check", label: "Check" },
+    { value: "cheque", label: "Cheque" },
     { value: "card", label: "Card" },
   ];
 

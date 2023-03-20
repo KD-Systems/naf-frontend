@@ -83,8 +83,8 @@ const PrintInvoice = () => {
                                 <span>Email:tajima@nafgroup.org</span><br/>
                               </div>
                               <div>
-                                <h5>Issued By:</h5>
-                                <h2>{invoice?.created_by}</h2>
+                                <h5>Payment Mode: <span>{invoice?.payment_mode}</span></h5>
+                                <h5>Issued By: <span>{invoice?.created_by}</span></h5>
                               </div>
                             </div>
                           </div>
