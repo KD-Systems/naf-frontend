@@ -9,17 +9,19 @@ import ClientInvoiceService from "services/clientServices/ClientInvoiceService";
 import Scrollbars from "react-custom-scrollbars";
 import NewDropzone from "./Dropzone/MyDropzone";
 
-
 const ShowQuotation = () => {
   let { id } = useParams();
   const navigate = useNavigate();
   const [quotation, setQuotation] = useState({});
+  console.log("🚀 ~ file: show.jsx:16 ~ ShowQuotation ~ quotation:", quotation);
   const [comment, setComment] = useState([]);
   const [block, setBlock] = useState(false);
   const [locked, setLocked] = useState(false);
   const [list, setList] = useState([]);
   const [tab, setTab] = useState("quotations");
   const [message, setMessage] = useState("");
+  const [total, setTotal] = useState(0);
+  const [grandTotal, setGrandTotal] = useState(0);
 
   const [uuid, setuuid] = useState();
   const [model_id, setModelId] = useState();
@@ -226,21 +228,14 @@ const ShowQuotation = () => {
                 <div className="text-gray-600">
                   {quotation?.requisition?.remarks ?? "--"}
                 </div>
+
+                <div className="fw-bolder mt-5">Created At </div>
+                <div className="text-gray-600">
+                  <Moment format="D MMMM YYYY">{quotation?.created_at}</Moment>
+                </div>
               </div>
               <div className="card-header">
                 <div className="card-title">
-                  {/* <h3 className="card-label">
-                  <button
-                      className="btn btn-sm btn-dark "
-                      style={{ marginRight: "0.1rem" }}
-                      onClick={() => {
-                        storeInvoice();
-                      }}
-                    >
-                      Generate Invoice
-                    </button>
-                  </h3> */}
-
                   <h3 className="card-label">
                     <Link
                       className="btn btn-sm btn-dark "
@@ -407,6 +402,68 @@ const ShowQuotation = () => {
                                   </td>
                                 </tr>
                               ))}
+
+                              {quotation?.requisition?.type ==
+                                "purchase_request" && (
+                                <>
+                                  <tr className="fw-bolder text-gray-700 fs-5 text-end">
+                                    <td colSpan={2}></td>
+                                    <td>Sub-total</td>
+                                    <td></td>
+                                    <td>{quotation?.sub_total}</td>
+                                    <td></td>
+                                  </tr>
+                                  <tr className="fw-bolder text-gray-700 fs-5 text-end">
+                                    <td colSpan={2}></td>
+                                    <td className="align-center justify-content-center">
+                                      Vat(%)
+                                    </td>
+                                    <td className="">
+                                      <input
+                                        type="number"
+                                        className="form-control"
+                                        aria-label="Small"
+                                        aria-describedby="inputGroup-sizing-sm"
+                                        name="vat"
+                                        value={quotation?.vat}
+                                      />
+                                    </td>
+                                    <td>
+                                      {(quotation?.sub_total * quotation?.vat) /
+                                        100}
+                                    </td>
+                                    <td></td>
+                                  </tr>
+                                  <tr className="fw-bolder text-gray-700 fs-5 text-end">
+                                    <td colSpan={2}></td>
+                                    <td>Discount(%)</td>
+                                    <td>
+                                      <input
+                                        type="number"
+                                        className="form-control"
+                                        aria-label="Small"
+                                        aria-describedby="inputGroup-sizing-sm"
+                                        name="discount"
+                                        placeholder=""
+                                        value={quotation?.discount}
+                                      />
+                                    </td>
+                                    <td className="text-danger">
+                                      {(quotation?.sub_total *
+                                        quotation?.discount) /
+                                        100}
+                                    </td>
+                                    <td></td>
+                                  </tr>
+                                  <tr className="fw-bolder text-gray-700 fs-5 text-end">
+                                    <td colSpan={2}></td>
+                                    <td>Grand Total</td>
+                                    <td></td>
+                                    <td>{quotation?.grand_total}</td>
+                                    <td></td>
+                                  </tr>
+                                </>
+                              )}
                             </tbody>
                           </table>
                         </div>

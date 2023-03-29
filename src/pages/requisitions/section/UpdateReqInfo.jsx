@@ -64,7 +64,7 @@ const UpdateReqInfo = ({ open, reqId, onCloseModal, onUpdated }) => {
                 />
                 <div
                   className="fv-plugins-message-container invalid-feedback"
-                  htmlFor="description"
+                  htmlFor="Expected Delivery date"
                 ></div>
               </div>
 
@@ -81,7 +81,7 @@ const UpdateReqInfo = ({ open, reqId, onCloseModal, onUpdated }) => {
                 />
                 <div
                   className="fv-plugins-message-container invalid-feedback"
-                  htmlFor="description"
+                  htmlFor="remarks"
                 ></div>
               </div>
 

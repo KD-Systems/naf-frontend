@@ -20,7 +20,7 @@ const PrintInvoice = () => {
     let content = document.getElementById("content").innerHTML;
     document.body.innerHTML = content;
     window.print();
-    navigate("/panel/client/quotations/" + id); 
+    navigate("/panel/client/quotations/" + id);
   };
 
   useEffect(() => {
@@ -44,41 +44,32 @@ const PrintInvoice = () => {
                         <div className="px-5">
                           <div className="d-flex justify-content-between">
                             <div className="px-5">
-                              <div>
-                                <h5>Invoice to:</h5>
-                                <h2>{invoice?.company?.name}</h2>
+                              <div style={{ flex: 1, flexDirection: "row" }}>
+                                <h5>Invoice to: {invoice?.company?.name}</h5>
+                              </div>
+                              <div style={{ flex: 1, flexDirection: "row" }}>
+                                <h5>Issued by: {invoice?.created_by}</h5>
                               </div>
                               <div>
-                                <h5>Issued by: </h5>
-                                <p>{invoice?.created_by}</p>
-    
+                                <h5>
+                                  Date:{" "}
+                                  <Moment format="D MMMM YYYY">
+                                    {invoice?.invoice_date}
+                                  </Moment>
+                                </h5>
                               </div>
-
-                              {/* <div>
-                        <strong>Phone: </strong><br/>
-                        <span>
-                          01719753294
-                        </span><br/>
-                        <span>
-                          01719753294
-                        </span>
-                      </div> */}
-
                             </div>
                             <div className="px-5">
-                              <div style={{ flex:1, flexDirection: "row" }}>
+                              <div style={{ flex: 1, flexDirection: "row" }}>
                                 <h5>PQ No: {invoice?.pq_number}</h5>
                               </div>
-                              <div>
-                                <h5>Date: <Moment format="D MMMM YYYY">
-                                    {invoice?.invoice_date}
-                                  </Moment></h5>
-    
-                              </div>
+
                               <div>
                                 <h5>Approved by :</h5>
-                                <span>Tajima Nawaz, Director,Naf Group</span><br/>
-                                <span>Email:tajima@nafgroup.org</span><br/>
+                                <span>Tajima Nawaz, Director,Naf Group</span>
+                                <br />
+                                <span>Email:tajima@nafgroup.org</span>
+                                <br />
                               </div>
                             </div>
                           </div>
@@ -112,19 +103,64 @@ const PrintInvoice = () => {
                       <thead className="m-20">
                         <tr className="fs-6 fw-bolder text-dark text-uppercase">
                           <th className="text-center">
-                            <div className="p-1" style={{ backgroundColor: "#FD7E14", color: "#fff" }} > SL.No </div>
+                            <div
+                              className="p-1"
+                              style={{
+                                backgroundColor: "#FD7E14",
+                                color: "#fff",
+                              }}
+                            >
+                              {" "}
+                              SL.No{" "}
+                            </div>
                           </th>
                           <th className="text-start w-50 ">
-                            <div className="p-1" style={{ backgroundColor: "#009EF7", color: "#fff" }} > Part Name </div>
+                            <div
+                              className="p-1"
+                              style={{
+                                backgroundColor: "#009EF7",
+                                color: "#fff",
+                              }}
+                            >
+                              {" "}
+                              Part Name{" "}
+                            </div>
                           </th>
                           <th className="text-center">
-                            <div className="p-1" style={{ backgroundColor: "#FD7E14", color: "#fff" }} > Qty </div>
+                            <div
+                              className="p-1"
+                              style={{
+                                backgroundColor: "#FD7E14",
+                                color: "#fff",
+                              }}
+                            >
+                              {" "}
+                              Qty{" "}
+                            </div>
                           </th>
                           <th className="text-center">
-                            <div className="p-1" style={{ backgroundColor: "#FD7E14", color: "#fff" }} > Price </div>
+                            <div
+                              className="p-1"
+                              style={{
+                                backgroundColor: "#FD7E14",
+                                color: "#fff",
+                              }}
+                            >
+                              {" "}
+                              Price{" "}
+                            </div>
                           </th>
                           <th className="text-center">
-                            <div className="p-1" style={{ backgroundColor: "#009EF7", color: "#fff"}} > Total </div>
+                            <div
+                              className="p-1"
+                              style={{
+                                backgroundColor: "#009EF7",
+                                color: "#fff",
+                              }}
+                            >
+                              {" "}
+                              Total{" "}
+                            </div>
                           </th>
                         </tr>
                       </thead>
@@ -132,7 +168,10 @@ const PrintInvoice = () => {
                       <tbody>
                         {invoice?.part_items?.map((item, idx) => {
                           return (
-                            <tr className="text-dark border-bottom border-1 border-dark" key={idx} >
+                            <tr
+                              className="text-dark border-bottom border-1 border-dark"
+                              key={idx}
+                            >
                               <td className=" text-center">{idx + 1}</td>
                               <td className="text-start">
                                 <h6>{item?.part?.aliases[0].name}</h6>
@@ -165,34 +204,55 @@ const PrintInvoice = () => {
                           <td className="text-start"></td>
                           <td className="text-center"></td>
                           <td className="text-center">
-                            <h4>VAT({invoice.vat})</h4>
+                            <h4>VAT({invoice?.vat}) %</h4>
                           </td>
-                          <td className="text-center border-bottom border-1 border-dark">
+                          <td className="text-center border-1 border-dark">
                             <h4>
-                              {Math.round((invoice.vat_amount - 1) * total)} TK.
+                              {Math.round((total * invoice.vat) / 100) ?? 0} TK
                             </h4>
                           </td>
                         </tr>
-                        {/* <tr>
+                        <tr>
                           <td className=" text-center"></td>
                           <td className="text-start"></td>
                           <td className="text-center"></td>
-                          <td className=" text-center">
-                            <h4>Discount</h4>
+                          <td className="text-center">
+                            <h4>Discount({invoice?.discount}) %</h4>
                           </td>
-                          <td className="text-center ">
-                            <h4>{invoice.discount ?? "0"} TK.</h4>
+                          <td className="text-center border-bottom border-1 border-dark">
+                            <h4>
+                              {Math.round((total * invoice.discount) / 100) ??
+                                0}{" "}
+                              TK
+                            </h4>
                           </td>
-                        </tr> */}
+                        </tr>
                         <tr>
                           <td></td>
                           <td></td>
                           <td className="text-center" colSpan={2}>
-                            <div className="p-1" style={{ backgroundColor: "#FD7E14", color: "#fff", fontSize: 16, }} > Total </div>
+                            <div
+                              className="p-1"
+                              style={{
+                                backgroundColor: "#FD7E14",
+                                color: "#fff",
+                                fontSize: 16,
+                              }}
+                            >
+                              {" "}
+                              Total{" "}
+                            </div>
                           </td>
                           <td className="text-center">
-                            <div className="p-1" style={{ backgroundColor: "#FD7E14", color: "#fff", fontSize: 16, }}>
-                            {invoice.vat_amount * total} TK.
+                            <div
+                              className="p-1"
+                              style={{
+                                backgroundColor: "#FD7E14",
+                                color: "#fff",
+                                fontSize: 16,
+                              }}
+                            >
+                              {invoice.grand_total} TK.
                             </div>
                           </td>
                         </tr>
@@ -204,7 +264,7 @@ const PrintInvoice = () => {
 
               <div className="d-flex justify-content-between flex-row flex-md-row">
                 <div className="flex-grow-1 pt-2">
-                  <div className="table-responsive ">
+                  <div className="table-responsive fs-9">
                     <p>
                       Terms & conditions :<br />
                       Brand : Tajima <br />
@@ -212,11 +272,13 @@ const PrintInvoice = () => {
                       <br />
                       {invoice?.requisition?.type == "purchase_request" && (
                         <>
-                      Validity : This quotation is valid for 7 days. Price might vary after validity period expired<br/>
-                      
+                          Validity : This quotation is valid for 7 days. Price
+                          might vary after validity period expired
+                          <br />
                           <br />
                           <span>
-                            Payment mode: Cash or Cheque has to br paid before parts delivery
+                            Payment mode: Cash or Cheque has to br paid before
+                            parts delivery
                             <br />
                           </span>
                           <br />
@@ -264,7 +326,7 @@ const PrintInvoice = () => {
 
               <div className="fixed-bottom mb-10 text-center border-top border-1 border-dark">
                 <div className="d-flex flex-row justify-content-evenly">
-                <div className="d-flex flex-row">
+                  <div className="d-flex flex-row">
                     <div className="m-2 p-2 border border-1 rounded-circle border-dark">
                       <span>
                         <img
@@ -275,7 +337,9 @@ const PrintInvoice = () => {
                     </div>
                     <div className="pt-2 text-start">
                       <h4>Central Office</h4>
-                      <span>Tajima Complex, Amloki bagan,</span><br/><span> Akran, Birulia, Savar, Dhaka.</span>
+                      <span>Tajima Complex, Amloki bagan,</span>
+                      <br />
+                      <span> Akran, Birulia, Savar, Dhaka.</span>
                     </div>
                   </div>
                   <div className="d-flex flex-row">
@@ -289,7 +353,11 @@ const PrintInvoice = () => {
                     </div>
                     <div className="pt-2 text-start">
                       <h4>Call Center</h4>
-                      <span>01909045764</span><br/><span>01719753294</span><br/><span>01783424112</span>
+                      <span>01909045764</span>
+                      <br />
+                      <span>01719753294</span>
+                      <br />
+                      <span>01783424112</span>
                     </div>
                   </div>
                   <div className="d-flex flex-row">

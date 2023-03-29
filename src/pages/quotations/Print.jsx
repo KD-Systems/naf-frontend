@@ -44,28 +44,11 @@ const PrintInvoice = () => {
                         <div className="px-5">
                           <div className="d-flex justify-content-between">
                             <div className="px-5">
-                              <div>
-                                <h5>Invoice to:</h5>
-                                <h2>{invoice?.company?.name}</h2>
-                              </div>
-                              <div>
-                                <h5>Issued by: </h5>
-                                <p>{invoice?.created_by}</p>
-                              </div>
-
-                              {/* <div>
-                        <strong>Phone: </strong><br/>
-                        <span>
-                          01719753294
-                        </span><br/>
-                        <span>
-                          01719753294
-                        </span>
-                      </div> */}
-                            </div>
-                            <div className="px-5">
                               <div style={{ flex: 1, flexDirection: "row" }}>
-                                <h5>PQ No: {invoice?.pq_number}</h5>
+                                <h5>Invoice to: {invoice?.company?.name}</h5>
+                              </div>
+                              <div style={{ flex: 1, flexDirection: "row" }}>
+                                <h5>Issued by: {invoice?.created_by}</h5>
                               </div>
                               <div>
                                 <h5>
@@ -75,6 +58,12 @@ const PrintInvoice = () => {
                                   </Moment>
                                 </h5>
                               </div>
+                            </div>
+                            <div className="px-5">
+                              <div style={{ flex: 1, flexDirection: "row" }}>
+                                <h5>PQ No: {invoice?.pq_number}</h5>
+                              </div>
+                              
                               <div>
                                 <h5>Approved by :</h5>
                                 <span>Tajima Nawaz, Director,Naf Group</span>
@@ -217,23 +206,25 @@ const PrintInvoice = () => {
                           <td className="text-center">
                             <h4>VAT({invoice?.vat}) %</h4>
                           </td>
-                          <td className="text-center border-bottom border-1 border-dark">
+                          <td className="text-center border-1 border-dark">
                             <h4>
                               {Math.round(total*invoice.vat/100) ?? 0} TK
                             </h4>
                           </td>
                         </tr>
-                        {/* <tr>
+                        <tr>
                           <td className=" text-center"></td>
                           <td className="text-start"></td>
                           <td className="text-center"></td>
-                          <td className=" text-center">
-                            <h4>Discount</h4>
+                          <td className="text-center">
+                            <h4>Discount({invoice?.discount}) %</h4>
                           </td>
-                          <td className="text-center ">
-                            <h4>{invoice.discount ?? "0"} TK.</h4>
+                          <td className="text-center border-bottom border-1 border-dark">
+                            <h4>
+                              {Math.round(total*invoice.discount/100) ?? 0} TK
+                            </h4>
                           </td>
-                        </tr> */}
+                        </tr>
                         <tr>
                           <td></td>
                           <td></td>
@@ -270,14 +261,15 @@ const PrintInvoice = () => {
               </div>
 
               <div className="d-flex justify-content-between flex-row flex-md-row">
-                <div className="flex-grow-1 pt-2">
-                  <div className="table-responsive ">
+                <div className="flex-grow-1">
+                  <div className="table-responsive fs-9">
+                    
                     <p>
                       Terms & conditions :<br />
                       Brand : Tajima <br />
                       Origin: Japan
                       <br />
-                      {invoice?.requisition?.type == "purchase_request" && (
+                      {invoice?.requisition?.type == "purchase_request" && ( 
                         <>
                       Validity : This quotation is valid for 7 days. Price might vary after validity period expired<br/>
                       

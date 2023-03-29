@@ -19,6 +19,7 @@ const CreateQuotation = () => {
     company_id: "",
     machine_id: "",
     vat: "",
+    discount: "",
     grand_total: grandTotal,
     sub_total: total,
     part_items: list,
@@ -48,9 +49,9 @@ const CreateQuotation = () => {
         parseInt(item?.quantity) * parseInt(item?.unit_value);
     });
     setTotal(totalAmount);
-    let GrandTotal = parseInt(totalAmount * (1 + data?.vat / 100))
+    let GrandTotal = parseInt(totalAmount * (1 + (data?.vat - data?.discount) / 100))
     setGrandTotal(GrandTotal)
-  }, [data?.part_items,data?.vat]);
+  }, [data?.part_items,data?.vat,data?.discount]);
 
   const handleDataChange = (e) => {
     let value;
@@ -131,7 +132,7 @@ const CreateQuotation = () => {
     setData({
       ...data,
       vat: 0,
-      // discount: 0,
+      discount: 0,
       requisition_id: requisition?.id,
       type: requisition?.type,
       company_id: requisition?.company_id,
@@ -427,8 +428,8 @@ const CreateQuotation = () => {
                                 <td>{(total * data?.vat) / 100}</td>
                                 <td></td>
                               </tr>
-                              {/* <tr className="fw-bolder text-gray-700 fs-5 text-end">
-                                <td colSpan={3}></td>
+                              <tr className="fw-bolder text-gray-700 fs-5 text-end">
+                                <td colSpan={4}></td>
                                 <td>Discount(%)</td>
                                 <td>
                                   <input
@@ -444,7 +445,7 @@ const CreateQuotation = () => {
                                 </td>
                                 <td>{(total * data?.discount) / 100}</td>
                                 <td></td>
-                              </tr> */}
+                              </tr>
                               <tr className="fw-bolder text-gray-700 fs-5 text-end">
                                 <td colSpan={4}></td>
                                 <td>Grand Total</td>

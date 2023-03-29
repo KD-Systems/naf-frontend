@@ -31,6 +31,7 @@ const ShowQuotation = () => {
     quotation_id: parseInt(id),
     type: "",
     vat: "",
+    discount: "",
     sub_total: total,
     grand_total: grandTotal,
     part_items: list,
@@ -42,6 +43,7 @@ const ShowQuotation = () => {
         type: quotation?.requisition?.type,
         sub_total: quotation?.sub_total,
         vat: quotation?.vat,
+        discount: quotation?.discount,
         grand_total: quotation?.grand_total,
       });
     }
@@ -190,9 +192,11 @@ const ShowQuotation = () => {
         parseInt(item?.quantity) * parseInt(item?.unit_value);
     });
     setTotal(totalAmount);
-    let GrandTotal = parseInt(totalAmount * (1 + data?.vat / 100));
+    let GrandTotal = parseInt(
+      totalAmount * (1 + (data?.vat - data?.discount) / 100)
+    );
     setGrandTotal(GrandTotal);
-  }, [data?.part_items, data?.vat]);
+  }, [data?.part_items, data?.vat, data?.discount]);
 
   useEffect(() => {
     setList(quotation?.part_items); //add part items into List
@@ -282,6 +286,9 @@ const ShowQuotation = () => {
 
                   <div className="fw-bolder mt-5">Vat </div>
                   <div className="text-gray-600">{quotation?.vat ?? "0"}%</div>
+
+                  <div className="fw-bolder mt-5">Discount </div>
+                  <div className="text-gray-600">{quotation?.discount ?? "0"}%</div>
 
                   <div className="fw-bolder mt-5">Grand Total</div>
                   <div className="text-gray-600">
@@ -605,8 +612,8 @@ const ShowQuotation = () => {
                                       <td>{(total * data?.vat) / 100}</td>
                                       <td></td>
                                     </tr>
-                                    {/* <tr className="fw-bolder text-gray-700 fs-5 text-end">
-                                      <td colSpan={3}></td>
+                                    <tr className="fw-bolder text-gray-700 fs-5 text-end">
+                                      <td colSpan={2}></td>
                                       <td>Discount(%)</td>
                                       <td>
                                         <input
@@ -624,7 +631,7 @@ const ShowQuotation = () => {
                                         {(total * data?.discount) / 100}
                                       </td>
                                       <td></td>
-                                    </tr> */}
+                                    </tr>
                                     <tr className="fw-bolder text-gray-700 fs-5 text-end">
                                       <td colSpan={2}></td>
                                       <td>Grand Total</td>

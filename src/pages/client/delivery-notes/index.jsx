@@ -2,6 +2,8 @@ import Table from "components/utils/Table";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import ClientDeliverNoteService from "services/clientServices/ClientDeliveryNoteService";
+import Moment from "react-moment";
+
 const ClientDeliveryNotes = () => {
   const [loading, setLoading] = useState(true);
   const [block, setBlock] = useState(false);
@@ -25,6 +27,39 @@ const ClientDeliveryNotes = () => {
     },
 
     {
+      name: "Type",
+      selector: (row) => row?.invoice?.quotation?.requisition?.type,
+      sortable: true,
+      field: "name",
+      format: (row) => (
+        <div className="d-flex align-items-center">
+          <div className="d-flex justify-content-start flex-column">
+            <div className="text-dark fw-bolder text-hover-primary">
+              {row?.invoice?.quotation?.requisition?.type
+                .replaceAll("_", " ")
+                ?.capitalize()}
+            </div>
+          </div>
+        </div>
+      ),
+    },
+
+    {
+      name: "Company",
+      selector: (row) => row?.invoice?.company?.name,
+      sortable: true,
+      field: "name",
+      format: (row) => (
+        <div className="d-flex align-items-center">
+          <div className="d-flex justify-content-start flex-column">
+            <div className="text-dark fw-bolder text-hover-primary">
+              {row?.invoice?.company?.name}
+            </div>
+          </div>
+        </div>
+      ),
+    },
+    {
       name: "Invoice Number",
       selector: (row) => row?.invoice?.invoice_number,
       format: (row) => (
@@ -32,6 +67,18 @@ const ClientDeliveryNotes = () => {
       ),
       sortable: true,
       field: "expected_delivery",
+    },
+
+    {
+      name: "Created At",
+      selector: (row) => row?.created_at,
+      sortable: true,
+      field: "created_at",
+      format: (row) => (
+        <div className="mt-2">
+          <Moment format="D MMMM YYYY">{row?.created_at}</Moment>
+        </div>
+      ),
     },
 
     {

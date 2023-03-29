@@ -276,6 +276,55 @@ const ShowDeliveryNotes = () => {
                                         </tr>
                                       )
                                     )}
+
+                                    {deliveryNote?.requisition?.type ==
+                                      "purchase_request" && (
+                                      <>
+                                        <tr className="fw-bolder text-gray-700 fs-5 text-end">
+                                          <td colSpan={2}></td>
+                                          <td>Sub-total</td>
+                                          <td></td>
+                                          <td>{deliveryNote?.invoice?.sub_total}</td>
+                                          <td></td>
+                                        </tr>
+                                        <tr className="fw-bolder text-gray-700 fs-5 text-end">
+                                          <td colSpan={2}></td>
+                                          <td className="align-center justify-content-center">
+                                            Vat({deliveryNote?.invoice?.vat}%)
+                                          </td>
+                                          <td></td>
+                                          <td>
+                                            {(deliveryNote?.invoice?.sub_total *
+                                              deliveryNote?.invoice?.vat) /
+                                              100 ?? "0"}
+                                          </td>
+                                          <td></td>
+                                        </tr>
+                                        <tr className="fw-bolder text-gray-700 fs-5 text-end">
+                                          <td colSpan={2}></td>
+                                          <td className="align-center justify-content-center">
+                                            Discount(
+                                            {deliveryNote?.invoice?.discount}%)
+                                          </td>
+                                          <td></td>
+                                          <td>
+                                            {(deliveryNote?.invoice?.sub_total *
+                                              deliveryNote?.invoice?.discount) /
+                                              100 ?? "0"}
+                                          </td>
+                                          <td></td>
+                                        </tr>
+                                        <tr className="fw-bolder text-gray-700 fs-5 text-end">
+                                          <td colSpan={2}></td>
+                                          <td>Grand Total</td>
+                                          <td></td>
+                                          <td>
+                                            {deliveryNote?.invoice?.grand_total}
+                                          </td>
+                                          <td></td>
+                                        </tr>
+                                      </>
+                                    )}
                                   </tbody>
                                 </table>
                               </div>

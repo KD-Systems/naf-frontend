@@ -48,13 +48,6 @@ const ShowInvoice = () => {
     if (res?.part_items?.length == 0) {
       setTab("payment_histories");
     }
-    // setTotal(
-    //   res?.previous_due ??
-    //     res?.part_items?.reduce(
-    //       (partialSum, a) => parseInt(partialSum) + parseInt(a.total_value),
-    //       0
-    //     )
-    // );
     setTotal(res?.previous_due ?? res?.grand_total);
   };
 
@@ -75,7 +68,6 @@ const ShowInvoice = () => {
   };
   const onCloseModal = () => {
     setOpen(false);
-    // setOpenEditModal(false);
   };
 
   useEffect(() => {
@@ -224,6 +216,11 @@ const ShowInvoice = () => {
                         {invoice?.vat ?? "0"}%
                       </div>
 
+                      <div className="fw-bolder mt-5">Discount </div>
+                      <div className="text-gray-600">
+                        {invoice?.discount ?? "0"}%
+                      </div>
+
                       <div className="fw-bolder mt-5">Grand Total</div>
                       <div className="text-gray-600">
                         {invoice?.grand_total ?? "0"}tk
@@ -244,9 +241,7 @@ const ShowInvoice = () => {
                       </div>
 
                       <div className="fw-bolder mt-5">Created By </div>
-                      <div className="text-gray-600">
-                          {invoice?.created_by}
-                      </div>
+                      <div className="text-gray-600">{invoice?.created_by}</div>
                     </>
                   )}
                 </div>

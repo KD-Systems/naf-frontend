@@ -2,19 +2,11 @@ import Table from "components/utils/Table";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ClientInvoiceService from "services/clientServices/ClientInvoiceService";
-// import CreateInvoice from "./Create";
+import Moment from "react-moment";
+
 const ClientInvoices = () => {
   const [loading, setLoading] = useState(true);
   const [invoices, setInvoices] = useState([]);
-  const [block, setBlock] = useState(false);
-  const [totalQuantity,setTotalQuantity] = useState(0)
-
-  const [open, setOpen] = useState(false);
-
-  const onOpenModal = () => setOpen(true);
-  const onCloseModal = () => setOpen(false);
-
-
 
   const columns = [
     {
@@ -61,13 +53,13 @@ const ClientInvoices = () => {
       field: "expected_delivery",
     },
     {
-      name: "Total",
-      selector: (row) => row?.previous_due,
-      sortable: true,
-      field: "total_due",
+      name: "Grand Total",
+      selector: (row) => row?.grand_total,
       format: (row) => (
-        <div className="mt-2">{row?.previous_due ?? row?.totalAmount} tk</div>
-      ),
+            <div className="mt-2">{row?.previous_due ?? row?.grand_total} tk</div>
+          ),
+      sortable: true,
+      field: "grand_total",
     },
 
     {
@@ -93,6 +85,30 @@ const ClientInvoices = () => {
             row?.deliveryNote?.dn_number
           ): "No delivery note yet"}
          
+        </div>
+      ),
+    },
+
+    {
+      name: "RP Number",
+      selector: (row) => row?.return_part_tracking_no,
+      sortable: true,
+      field: "return_part_tracking_no",
+      format: (row) => (
+        <div className="mt-2">
+          {row?.return_part_tracking_no ? row?.return_part_tracking_no : "N/A"}
+        </div>
+      ),
+    },
+
+    {
+      name: "Created At",
+      selector: (row) => row?.created_at,
+      sortable: true,
+      field: "created_at",
+      format: (row) => (
+        <div className="mt-2">
+          <Moment format="D MMMM YYYY">{row?.created_at}</Moment>
         </div>
       ),
     },
@@ -139,7 +155,6 @@ const ClientInvoices = () => {
         <Table
           name="Quotations"
           buttonName="Add Invoice"
-        //   onClickButton={onOpenModal}
           isLoading={loading}
           data={invoices}
           columns={columns}

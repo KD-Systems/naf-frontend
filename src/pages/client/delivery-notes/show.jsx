@@ -15,7 +15,7 @@ const ShowDeliveryNotes = () => {
   const getDeliveryNotes = async () => {
     let res = await ClientDeliverNoteService.get(id);
     setDeliveryNote(res);
-    
+
     if (document.getElementById("content") != null) {
       let content = document.getElementById("content").innerHTML;
       document.body.innerHTML = content;
@@ -53,11 +53,11 @@ const ShowDeliveryNotes = () => {
 
                   <div className="fw-bolder mt-5">Barcode Number</div>
                   <div className="text-gray-600">
-                  <Barcode 
-                    value={deliveryNote?.dn_number}
-                    height= "50"
-                    format= "CODE128"
-                    className="w-100"
+                    <Barcode
+                      value={deliveryNote?.dn_number}
+                      height="50"
+                      format="CODE128"
+                      className="w-100"
                     />
                   </div>
 
@@ -95,23 +95,32 @@ const ShowDeliveryNotes = () => {
                   <div className="text-gray-600">
                     {deliveryNote?.remarks ?? "--"}
                   </div>
+                  <div className="fw-bolder mt-5">Created At </div>
+                  <div className="text-gray-600">
+                    <Moment format="D MMMM YYYY">
+                      {deliveryNote?.delivery_date}
+                    </Moment>
+                  </div>
                 </div>
 
                 <div className="card-header">
-                <div className="card-title">
-                  <h3 className="card-label">
-                    <Link
-                      className="btn btn-sm btn-dark "
-                      to={"/panel/client/delivery-notes/" + deliveryNote.id + "/print"}
-                      style={{ marginRight: "0.75rem" }}
-                      target="_blank"
-                    >
-                      Print
-                    </Link>
-                  </h3>
+                  <div className="card-title">
+                    <h3 className="card-label">
+                      <Link
+                        className="btn btn-sm btn-dark "
+                        to={
+                          "/panel/client/delivery-notes/" +
+                          deliveryNote.id +
+                          "/print"
+                        }
+                        style={{ marginRight: "0.75rem" }}
+                        target="_blank"
+                      >
+                        Print
+                      </Link>
+                    </h3>
+                  </div>
                 </div>
-              </div>
-
               </div>
             </div>
             {/* div ends here */}
@@ -158,8 +167,6 @@ const ShowDeliveryNotes = () => {
                   >
                     <div className="d-flex flex-column gacompanyIdgap-lg-10">
                       <div className="card card-custom gutter-b">
-                      
-
                         <div className="card-body px-0">
                           <div className="card mb-5 mb-xl-8">
                             <div className="card-body py-3">
@@ -214,6 +221,56 @@ const ShowDeliveryNotes = () => {
                                           </td>
                                         </tr>
                                       )
+                                    )}
+                                    {deliveryNote?.requisition?.type ==
+                                      "purchase_request" && (
+                                      <>
+                                        <tr className="fw-bolder text-gray-700 fs-5 text-end">
+                                          <td colSpan={2}></td>
+                                          <td>Sub-total</td>
+                                          <td></td>
+                                          <td>
+                                            {deliveryNote?.invoice?.sub_total}
+                                          </td>
+                                          <td></td>
+                                        </tr>
+                                        <tr className="fw-bolder text-gray-700 fs-5 text-end">
+                                          <td colSpan={2}></td>
+                                          <td className="align-center justify-content-center">
+                                            Vat({deliveryNote?.invoice?.vat}%)
+                                          </td>
+                                          <td></td>
+                                          <td>
+                                            {(deliveryNote?.invoice?.sub_total *
+                                              deliveryNote?.invoice?.vat) /
+                                              100 ?? "0"}
+                                          </td>
+                                          <td></td>
+                                        </tr>
+                                        <tr className="fw-bolder text-gray-700 fs-5 text-end">
+                                          <td colSpan={2}></td>
+                                          <td className="align-center justify-content-center">
+                                            Discount(
+                                            {deliveryNote?.invoice?.discount}%)
+                                          </td>
+                                          <td></td>
+                                          <td>
+                                            {(deliveryNote?.invoice?.sub_total *
+                                              deliveryNote?.invoice?.discount) /
+                                              100 ?? "0"}
+                                          </td>
+                                          <td></td>
+                                        </tr>
+                                        <tr className="fw-bolder text-gray-700 fs-5 text-end">
+                                          <td colSpan={2}></td>
+                                          <td>Grand Total</td>
+                                          <td></td>
+                                          <td>
+                                            {deliveryNote?.invoice?.grand_total}
+                                          </td>
+                                          <td></td>
+                                        </tr>
+                                      </>
                                     )}
                                   </tbody>
                                 </table>

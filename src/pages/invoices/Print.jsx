@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Moment from "react-moment";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import InvoiceService from "services/InvoiceService";
+
 const PrintInvoice = () => {
   let { id } = useParams();
   const navigate = useNavigate();
@@ -74,8 +75,7 @@ const PrintInvoice = () => {
                             </div>
                             <div className="px-5">
                               <div>
-                                <h5>Invoice No:</h5>
-                                <p>{invoice?.invoice_number}</p>
+                                <h5>Invoice No: {invoice?.invoice_number}</h5>
                               </div>
                               <div>
                                 <h5>Approved by :</h5>
@@ -200,23 +200,25 @@ const PrintInvoice = () => {
                           <td className="text-center">
                             <h4>VAT ({invoice?.vat})%</h4>
                           </td>
-                          <td className="text-center border-bottom border-1 border-dark">
+                          <td className="text-center border-1 border-dark">
                             <h4>
                               {Math.round(total*invoice.vat/100) ?? 0} TK.
                             </h4>
                           </td>
                         </tr>
-                        {/* <tr>
+                        <tr>
                           <td className=" text-center"></td>
                           <td className="text-start"></td>
                           <td className="text-center"></td>
-                          <td className=" text-center">
-                            <h4>Discount</h4>
+                          <td className="text-center">
+                            <h4>Discount ({invoice?.discount})%</h4>
                           </td>
-                          <td className="text-center ">
-                            <h4>{invoice.discount ?? "0"} TK.</h4>
+                          <td className="text-center border-bottom border-1 border-dark">
+                            <h4>
+                              {Math.round(total*invoice.discount/100) ?? 0} TK.
+                            </h4>
                           </td>
-                        </tr> */}
+                        </tr>
                         <tr>
                           <td></td>
                           <td></td>
@@ -254,7 +256,7 @@ const PrintInvoice = () => {
 
               <div className="d-flex justify-content-between flex-row flex-md-row">
                 <div className="flex-grow-1 pt-2">
-                  <div className="table-responsive ">
+                  <div className="table-responsive fs-9">
                     <p>
                       Terms & conditions :<br />
                       Brand : Tajima <br />

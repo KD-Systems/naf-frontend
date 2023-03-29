@@ -26,7 +26,6 @@ const ShowInvoice = () => {
   };
   const onCloseModal = () => {
     setOpen(false);
-    // setOpenEditModal(false);
   };
 
   useEffect(() => {
@@ -150,6 +149,29 @@ const ShowInvoice = () => {
                   <div className="text-gray-600">
                     {invoice?.requisition?.ref_number ?? "--"}
                   </div>
+
+                  <div className="fw-bolder mt-5">Sub Total </div>
+                  <div className="text-gray-600">
+                    {invoice?.sub_total ?? "0"}tk
+                  </div>
+
+                  <div className="fw-bolder mt-5">Vat </div>
+                  <div className="text-gray-600">{invoice?.vat ?? "0"}%</div>
+
+                  <div className="fw-bolder mt-5">Discount </div>
+                  <div className="text-gray-600">{invoice?.discount ?? "0"}%</div>
+
+                  <div className="fw-bolder mt-5">Grand Total</div>
+                  <div className="text-gray-600">
+                    {invoice?.grand_total ?? "0"}tk
+                  </div>
+
+                  <div className="fw-bolder mt-5">Created At </div>
+                  <div className="text-gray-600">
+                    <Moment format="D MMMM YYYY">
+                      {invoice?.invoice_date}
+                    </Moment>
+                  </div>
                 </div>
                 <div className="card-header">
                   <div className="card-title">
@@ -163,16 +185,6 @@ const ShowInvoice = () => {
                         Print
                       </Link>
                     </h3>
-
-                    {/* <h3 className="card-label">
-                    <button
-                      className="btn btn-sm btn-dark "
-                      style={{ marginRight: "0.1rem" }}
-                      onClick={() => navigate(`/panel/client/delivery-notes/${invoice?.id}/create`)}
-                    >
-                       Generate Delivery Note
-                    </button>
-                    </h3>                     */}
                   </div>
                 </div>
               </div>
@@ -223,19 +235,6 @@ const ShowInvoice = () => {
                       Activities
                     </a>
                   </li>
-
-                  {/* <li className="nav-item">
-                  <a
-                    className={`nav-link text-active-primary pb-4 ${
-                      tab == "delivery_notes" ? "active" : ""
-                    }`}
-                    data-bs-toggle="tab"
-                    href="#delivery_notes"
-                    onClick={() => setTab("delivery_notes")}
-                  >
-                    Delivery Notes
-                  </a>
-                </li> */}
                 </ul>
 
                 <div className="tab-content">
@@ -260,53 +259,7 @@ const ShowInvoice = () => {
                           <div className="card-title">
                             <h2>Payment Histories</h2>
                           </div>
-                          <div className="card-toolbar">
-                            {/* <button
-                              type="button"
-                              className="btn btn-light-primary"
-                              onClick={() => {
-                                setOpen(true);
-                              }}
-                            >
-                              <span className="svg-icon svg-icon-3">
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  width="24"
-                                  height="24"
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                >
-                                  <rect
-                                    opacity="0.3"
-                                    x="2"
-                                    y="2"
-                                    width="20"
-                                    height="20"
-                                    rx="5"
-                                    fill="black"
-                                  ></rect>
-                                  <rect
-                                    x="10.8891"
-                                    y="17.8033"
-                                    width="12"
-                                    height="2"
-                                    rx="1"
-                                    transform="rotate(-90 10.8891 17.8033)"
-                                    fill="black"
-                                  ></rect>
-                                  <rect
-                                    x="6.01041"
-                                    y="10.9247"
-                                    width="12"
-                                    height="2"
-                                    rx="1"
-                                    fill="black"
-                                  ></rect>
-                                </svg>
-                              </span>
-                              Add Payment
-                            </button> */}
-                          </div>
+                          <div className="card-toolbar"></div>
                         </div>
                         <div className="card-body pt-0">
                           <table className="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">

@@ -2,7 +2,7 @@ import Table from "components/utils/Table";
 import { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import ClientQuotationService from 'services/clientServices/ClientQuotationService';
-// import CreateModal from "./CreateModal";
+import Moment from "react-moment";
 
 const ClientQuotations = () => {
   const [loading, setLoading] = useState(true);
@@ -41,18 +41,13 @@ const ClientQuotations = () => {
       field: "expected_delivery",
     },
     {
-      name: "Total",
-      selector: (row) => row?.part_items?.reduce((partialSum,a)=>partialSum + a.total_value ,0),
+      name: "Grand Total",
+      selector: (row) => row?.grand_total,
       format: (row) => (
-        <div className='mt-2'>
-          {row?.requisition?.type != 'claim_report' ? (
-            row?.part_items?.reduce((partialSum,a)=>partialSum + parseInt(a.total_value) ,0) 
-          ):0} Tk.
-         
-        </div>
+        <div>{row?.grand_total ? row?.grand_total + "tk" : "--"}</div>
       ),
       sortable: true,
-      field: "role",
+      field: "grand_total",
     },
 
     {
@@ -99,6 +94,18 @@ const ClientQuotations = () => {
         </div>
       ),
     }, 
+
+    {
+      name: "Created At",
+      selector: (row) => row?.created_at,
+      sortable: true,
+      field: "created_at",
+      format: (row) => (
+        <div className="mt-2">
+          <Moment format="D MMMM YYYY">{row?.created_at}</Moment>
+        </div>
+      ),
+    },
   
    
     {
