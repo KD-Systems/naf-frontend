@@ -8,6 +8,7 @@ import InvoicePartItems from "./partiItems/Index";
 import InvoiceCreatePayment from "./paymentHistories/Create";
 import NewDropzone from "./Dropzone/MyDropzone";
 import Confirmation from "components/utils/Confirmation";
+import UpdateInfo from "./section/UpdateInfo";
 
 const ShowInvoice = () => {
   let { id } = useParams();
@@ -26,6 +27,7 @@ const ShowInvoice = () => {
   const [uuid, setuuid] = useState();
   const [model_id, setModelId] = useState();
   const [file, setFile] = useState({});
+  const [updateAMountModal, setUpdateAMountModal] = useState(false);
 
   const uploadFile = async (formData) => {
     await InvoiceService.fileUpload(id, formData);
@@ -68,6 +70,7 @@ const ShowInvoice = () => {
   };
   const onCloseModal = () => {
     setOpen(false);
+    setUpdateAMountModal(false);
   };
 
   useEffect(() => {
@@ -242,12 +245,27 @@ const ShowInvoice = () => {
 
                       <div className="fw-bolder mt-5">Created By </div>
                       <div className="text-gray-600">{invoice?.created_by}</div>
+
+                      <div className="fw-bolder mt-5">Remrks</div>
+                      <div className="text-gray-600">
+                        {invoice?.remarks ?? "--"}
+                      </div>
                     </>
                   )}
                 </div>
                 <div className="card-header">
                   {invoice?.part_items?.length > 0 && (
                     <div className="card-title">
+                      <PermissionAbility permission="invoices_update">
+                        <button className="btn btn-sm btn-dark text-white card-label"
+                          onClick={()=> {
+                            setUpdateAMountModal(true)
+                          }}
+                          >
+                            Update
+                        </button>
+                      </PermissionAbility>
+
                       <PermissionAbility permission="invoices_print">
                         <h3 className="card-label">
                           <Link
@@ -566,6 +584,12 @@ const ShowInvoice = () => {
           deleteItem();
         }}
         onCancel={() => setConfirmDelete(false)}
+      />
+      <UpdateInfo
+        open={updateAMountModal}
+        InvoiceId={id}
+        onCloseModal={onCloseModal}
+        onUpdated={getInvoice}
       />
     </>
   );

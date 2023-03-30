@@ -10,15 +10,18 @@ import ClientUserService from "services/clientServices/ClientUserService";
 
 const ClientDashboard = () => {
   const [statistics, setStatistics] = useState({});
-  const[companyInfo, setCompanyInfo] = useState({});
-  const[companyAdvance, setCompanyAdvance] = useState({});
-  const [clientPaymentDetails, setClientPaymentDetails] = useState({ headers: [], data: [] });
+  const [companyInfo, setCompanyInfo] = useState({});
+  const [companyAdvance, setCompanyAdvance] = useState({});
+  const [clientPaymentDetails, setClientPaymentDetails] = useState({
+    headers: [],
+    data: [],
+  });
   const getStatistics = async () => {
     const res = await DashboardService.getStatisticsData();
     setStatistics(res);
   };
 
-  const getCompanyInfo= async () =>{
+  const getCompanyInfo = async () => {
     const res = await ClientUserService.getCompanyInfo();
     setCompanyInfo(res.user);
     setCompanyAdvance(res);
@@ -26,8 +29,7 @@ const ClientDashboard = () => {
   const getClientPaymentDetails = async () => {
     const res = await DashboardService.getClientInvoiceDetails();
     setClientPaymentDetails(res);
-
-  }
+  };
 
   // const getClientPaymentDetails = async () => {
   //   const res = await DashboardService.getClientInvoiceDetails();
@@ -81,22 +83,22 @@ const ClientDashboard = () => {
     <div id="kt_content_container" className="container-xxl">
       <ClientStatistics
         data={clientPaymentDetails?.total_amount}
-        title={"Grand total"} 
+        title={"Grand total"}
       />
       <br />
       <ClientStatistics
         data={clientPaymentDetails?.total_paid}
-        title={"Paid amount"} 
+        title={"Paid amount"}
       />
-      <br/>
+      <br />
       <ClientStatistics
         data={clientPaymentDetails?.total_due}
-        title={"Due amount"} 
+        title={"Due amount"}
       />
       <br />
       <ClientStatistics
         data={companyAdvance.advanceAmount}
-        title={"Advance Amount"} 
+        title={"Advance Amount"}
       />
       {/* <Row>
 

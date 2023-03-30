@@ -96,6 +96,7 @@ const NewRequisition = () => {
   ];
 
   const payments = [
+    { value: "credit", label: "Credit" },
     { value: "cash", label: "Cash" },
     { value: "bank", label: "Bank" },
     { value: "cheque", label: "Cheque" },
@@ -253,9 +254,6 @@ const NewRequisition = () => {
     //     [name]: value,
     //   });
     // }
-
-    // console.log("shanto",conf)
-    // console.log("shantoargha",option)
     // if(conf.name = "part_heading_id"){
     // setPartHeading(option);
     // }

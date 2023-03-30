@@ -58,6 +58,9 @@ const PrintInvoice = () => {
                                   </Moment>
                                 </h5>
                               </div>
+                              <div style={{ flex: 1, flexDirection: "row" }}>
+                                <h5>Payment Mode: {invoice?.payment_mode?.replaceAll("_", " ")?.capitalize()}</h5>
+                              </div>
                             </div>
                             <div className="px-5">
                               <div style={{ flex: 1, flexDirection: "row" }}>

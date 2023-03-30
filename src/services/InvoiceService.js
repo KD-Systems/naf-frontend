@@ -39,6 +39,12 @@ const addPayment = async (data) => {
   return res.data;
 };
 
+// update remarks
+const updateInfo = async (id,data) => {
+  const res = await http.post(`/invoice-update/${id}`, data);
+  return res.data;
+};
+
 const getPaymentHistories = async (data) => {
   const res = await http.get(`/payment-histories`, {
     params: { id: data },
@@ -90,6 +96,7 @@ const InvoiceService = {
   getPaymentHistory,
   addPayment,
   searchPart,
+  updateInfo,
 
    //Attachment File functanality
    fileUpload,

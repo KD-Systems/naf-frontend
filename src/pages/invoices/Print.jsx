@@ -79,12 +79,12 @@ const PrintInvoice = () => {
                               </div>
                               <div>
                                 <h5>Approved by :</h5>
-                                <span>Tajima Nawaz, Director,Naf Group</span><br/>
+                                <span>Tajima Nawaz, Director,Naf Group</span><br/> 
                                 <span>Email:tajima@nafgroup.org</span><br/>
                               </div>
                               <div>
-                                <h5>Payment Mode: <span>{invoice?.payment_mode}</span></h5>
-                                <h5>Issued By: <span>{invoice?.created_by}</span></h5>
+                                <h5>Payment Mode: <span>{invoice?.payment_mode?.replaceAll("_", " ")?.capitalize()}</span></h5>
+                                <h5>Issued By: <span>{invoice?.created_by?.replaceAll("_", " ")?.capitalize()}</span></h5>
                               </div>
                             </div>
                           </div>

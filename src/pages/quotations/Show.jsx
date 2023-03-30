@@ -257,7 +257,7 @@ const ShowQuotation = () => {
 
                   <div className="fw-bolder mt-5">Payment Mode</div>
                   <div className="text-gray-600">
-                    {quotation?.requisition?.payment_mode ?? "--"}
+                    {quotation?.requisition?.payment_mode?.replaceAll("_", " ")?.capitalize() ?? "--"}
                   </div>
 
                   <div className="fw-bolder mt-5">Priority</div>
@@ -323,7 +323,7 @@ const ShowQuotation = () => {
                   </div>
 
                   <div className="fw-bolder mt-5">Created By </div>
-                  <div className="text-gray-600">{quotation?.created_by}</div>
+                  <div className="text-gray-600">{quotation?.created_by?.replaceAll("_", " ")?.capitalize()}</div>
 
                   {!permissions.includes("quotations_approve") &&
                     quotation?.status == "pending" && (
