@@ -58,6 +58,11 @@ const getPaymentHistory = async (id) => {
   return res.data;
 };
 
+const removePaymentHistory = async (id) => {
+  const res = await http.delete(`/payment-histories/${id}`);
+  return res.data;
+};
+
 const searchPart = async (data) => {
   const res = await http.get(`/invoices-part-search`, {
     params: data,
@@ -94,6 +99,7 @@ const InvoiceService = {
   remove,
   getPaymentHistories,
   getPaymentHistory,
+  removePaymentHistory,
   addPayment,
   searchPart,
   updateInfo,

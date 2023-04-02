@@ -19,11 +19,11 @@ const Confirmation = (props) => {
         }).then((function (t) {
             switch (t.value) {
                 case true:
-                    props.onConfirm && props.onConfirm(props.id)
+                    props?.onConfirm && props?.onConfirm(props?.id)
                     break;
 
                 default:
-                    props.onCancel && props.onCancel(props.id)
+                    props?.onCancel && props?.onCancel(props?.id)
                     break;
             }
         }))

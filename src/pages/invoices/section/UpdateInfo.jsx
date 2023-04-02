@@ -6,14 +6,12 @@ import InvoiceService from "services/InvoiceService";
 toast.configure();
 
 const UpdateInfo = ({ open, InvoiceId, onCloseModal, onUpdated }) => {
-  console.log("🚀 ~ file: UpdateInfo.jsx:9 ~ UpdateInfo ~ InvoiceId:", InvoiceId)
   const [data, setData] = useState({
     remarks: "",
   });
 
   const getInvoice = async () => {
     let res = await InvoiceService.get(InvoiceId);
-    console.log("🚀 ~ file: UpdateInfo.jsx:15 ~ getInvoice ~ res:", res)
     setData({
       ...data,
       remarks: res.remarks,

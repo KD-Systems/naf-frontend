@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import PermissionAbility from "helpers/PermissionAbility";
+
 const InvoicePartItems = ({ tab, active, invoice }) => {
   const { id } = useParams();
   return (
@@ -126,6 +128,19 @@ const InvoicePartItems = ({ tab, active, invoice }) => {
                   <h3 className="card-label">Return Part Items</h3>
                 </div>
               </div>
+              <div className="align-items-center">
+                <span className="text-end">
+                  <PermissionAbility permission="return_invoices_print">
+                    <Link
+                      to={"/panel/return-invoices/" + invoice.id + "/print"}
+                      className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+                      target="_blank"
+                    >
+                      <i className="fa fa-print"></i>
+                    </Link>
+                  </PermissionAbility>
+                </span>
+              </div>
             </div>
 
             <div className="card-body px-0">
@@ -174,8 +189,16 @@ const InvoicePartItems = ({ tab, active, invoice }) => {
                                 </span>
                               </td>
                             </tr>
+                            
                           )
                         )}
+                        <tr className="fw-bolder text-gray-700 fs-5">
+                            <td colSpan={2}></td>
+                            <td>Grand Total(Incuding others)</td>
+                            <td></td>
+                            <td>{invoice?.return_part?.grand_total}</td>
+                            <td></td>
+                          </tr>
                       </tbody>
                     </table>
                   </div>

@@ -51,6 +51,7 @@ import GatePass from "pages/gate-passes/Index";
 import Invoices from "pages/invoices/Index";
 import ShowPaymentHistories from "pages/invoices/paymentHistories/Show";
 import PrintInvoice from "pages/invoices/Print";
+import PrintReturnInvoice from "pages/invoices/partItems/Print";
 import ShowInvoice from "pages/invoices/Show";
 import AppLayout from "pages/layouts/AppLayout";
 import ShowPartHeadings from "pages/machines/headings/Show";
@@ -492,6 +493,15 @@ function App() {
               element={
                 <PrivateRoute>
                   <PrintInvoice />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
+              path="return-invoices/:id/print"
+              element={
+                <PrivateRoute>
+                  <PrintReturnInvoice />
                 </PrivateRoute>
               }
             />

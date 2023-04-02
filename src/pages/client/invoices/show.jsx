@@ -5,7 +5,7 @@ import InvoiceService from "services/InvoiceService";
 import InvoiceCreatePayment from "pages/invoices/paymentHistories/Create";
 import { Activities } from "components/utils/Activities";
 import ClientInvoiceService from "services/clientServices/ClientInvoiceService";
-import InvoicePartItems from "pages/invoices/partiItems/Index";
+import InvoicePartItems from "pages/invoices/partItems/Index";
 const ShowInvoice = () => {
   let { id } = useParams();
   const navigate = useNavigate();

@@ -5,8 +5,8 @@ import InvoiceService from "../../../services/InvoiceService";
 import Select from "react-select";
 
 const ReturnPart = ({ open, onCloseModal, getInvoices, invoice }) => {
-
   const [advanced, setAdvanced] = useState(false);
+  const [refund, setRefund] = useState(false);
   const [remarks, SetRemarks] = useState();
   const [partItems, setPartItems] = useState([]);
   const [data, setData] = useState(null);
@@ -15,6 +15,10 @@ const ReturnPart = ({ open, onCloseModal, getInvoices, invoice }) => {
 
   const addData = (itm) => {
     setItems([...items, itm]);
+  };
+
+  const handleChange = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value });
   };
 
   const handleSelect = (input) => {
@@ -55,6 +59,7 @@ const ReturnPart = ({ open, onCloseModal, getInvoices, invoice }) => {
     );
     setItems([]);
     setAdvanced(false);
+    setRefund(false);
     SetRemarks();
     onCloseModal();
   };
@@ -75,8 +80,9 @@ const ReturnPart = ({ open, onCloseModal, getInvoices, invoice }) => {
         invoice_id: data?.invoice_id,
         company_id: data?.company_id,
         items,
-        grand_total: items.reduce((a, itm) => a + itm.qnty * itm.unit_value, 0),
-        advanced,
+        grand_total: parseInt(data?.grand_total),
+        type: advanced ? "advance" : "refund",
+        refund,
         remarks,
       });
       setItems([]);
@@ -84,6 +90,7 @@ const ReturnPart = ({ open, onCloseModal, getInvoices, invoice }) => {
       onCloseModal();
       getInvoices();
       setAdvanced(false);
+      setRefund(false);
       SetRemarks();
       navigate("/panel/invoices");
     } catch (error) {
@@ -99,7 +106,11 @@ const ReturnPart = ({ open, onCloseModal, getInvoices, invoice }) => {
       .map((part) => ({ value: part.part_id, label: part.name }));
 
     setPartItems(data);
-    setData({ ...data, invoice_id: invoice?.id, company_id: invoice?.company?.id });
+    setData({
+      ...data,
+      invoice_id: invoice?.id,
+      company_id: invoice?.company?.id,
+    });
   }, [invoice]);
 
   return (
@@ -221,14 +232,15 @@ const ReturnPart = ({ open, onCloseModal, getInvoices, invoice }) => {
                                         <td>
                                           <h3>Grand Total</h3>
                                         </td>
-                                        <td>
-                                          <h3>
-                                            {items.reduce(
-                                              (a, itm) =>
-                                                a + itm.qnty * itm.unit_value,
-                                              0
-                                            )}
-                                          </h3>
+                                        <td colSpan={3}>
+                                          <input
+                                            type="number"
+                                            className="form-control"
+                                            placeholder="Enter Amount"
+                                            name="grand_total"
+                                            id="grand_total"
+                                            onChange={handleChange}
+                                          />
                                         </td>
                                         <td></td>
                                       </tr>
@@ -243,16 +255,35 @@ const ReturnPart = ({ open, onCloseModal, getInvoices, invoice }) => {
                     </div>
 
                     <div className="row mb-5">
-                      <div className="col-md-12">
+                      <div className="col-md-6">
                         <input
                           id="isAdvanced"
                           type="checkbox"
-                          defaultChecked={advanced}
-                          onChange={() => setAdvanced(!advanced)}
+                          checked={advanced}
+                          onChange={() => {                            
+                            setRefund(false)
+                            setAdvanced(true)
+                          }
+                          }
                         />
 
                         <label htmlFor="isAdvanced" className="p-5">
                           Advanced
+                        </label>
+                      </div>
+                      <div className="col-md-6">
+                        <input
+                          id="isRefund"
+                          type="checkbox"
+                          checked={refund}
+                          onChange={() =>{
+                             setRefund(true)
+                             setAdvanced(false)
+                            }}
+                        />
+
+                        <label htmlFor="isRefund" className="p-5">
+                          Refund
                         </label>
                       </div>
                       <div className="col-lg-8">
