@@ -11,6 +11,9 @@ const ReturnPart = ({ open, onCloseModal, getInvoices, invoice }) => {
   const [partItems, setPartItems] = useState([]);
   const [data, setData] = useState(null);
   const [items, setItems] = useState([]);
+  console.log("🚀 ~ file: returnPart.jsx:14 ~ ReturnPart ~ items:", items)
+  const [grandTotal, setGrandTotal] = useState({});
+  const [total, setTotal] = useState({});
   const navigate = useNavigate();
 
   const addData = (itm) => {
@@ -35,7 +38,9 @@ const ReturnPart = ({ open, onCloseModal, getInvoices, invoice }) => {
       total_value: data?.total_value,
     });
 
-    const part = partItems?.filter((item) => item?.value != input?.value);
+    const part = partItems?.filter((item) => {
+      return item?.value != input?.value
+    })
     setPartItems(part);
   };
 
@@ -48,6 +53,18 @@ const ReturnPart = ({ open, onCloseModal, getInvoices, invoice }) => {
 
     setItems(item);
   };
+
+  useEffect(() => {
+    let totalAmount = 0;
+    items?.forEach((item) => {
+      totalAmount =
+        parseInt(totalAmount) +
+        parseInt(item?.qnty) * parseInt(item?.unit_value);
+    });
+    setTotal(totalAmount);
+    let GrandTotal = parseInt(totalAmount * (1 + (invoice?.vat - invoice?.discount) / 100))
+    setGrandTotal(GrandTotal)
+  }, [items]);
 
   const handleOnClose = () => {
     setPartItems(
@@ -80,9 +97,10 @@ const ReturnPart = ({ open, onCloseModal, getInvoices, invoice }) => {
         invoice_id: data?.invoice_id,
         company_id: data?.company_id,
         items,
-        grand_total: parseInt(data?.grand_total),
+        grand_total: grandTotal,
         type: advanced ? "advance" : "refund",
         refund,
+        advanced,
         remarks,
       });
       setItems([]);
@@ -209,7 +227,7 @@ const ReturnPart = ({ open, onCloseModal, getInvoices, invoice }) => {
                                                 {item?.unit_value}
                                               </td>
                                               <td className="w-25">
-                                                {item?.qnty * item?.total_value}
+                                                {item?.qnty * item?.unit_value}
                                               </td>
                                               <td className="w-25">
                                                 <button
@@ -232,7 +250,7 @@ const ReturnPart = ({ open, onCloseModal, getInvoices, invoice }) => {
                                         <td>
                                           <h3>Grand Total</h3>
                                         </td>
-                                        <td colSpan={3}>
+                                        {/* <td colSpan={3}>
                                           <input
                                             type="number"
                                             className="form-control"
@@ -241,7 +259,8 @@ const ReturnPart = ({ open, onCloseModal, getInvoices, invoice }) => {
                                             id="grand_total"
                                             onChange={handleChange}
                                           />
-                                        </td>
+                                        </td> */}
+                                        <td><h3>{grandTotal}</h3></td>
                                         <td></td>
                                       </tr>
                                     </tbody>
@@ -260,6 +279,7 @@ const ReturnPart = ({ open, onCloseModal, getInvoices, invoice }) => {
                           id="isAdvanced"
                           type="checkbox"
                           checked={advanced}
+                          required={true}
                           onChange={() => {                            
                             setRefund(false)
                             setAdvanced(true)

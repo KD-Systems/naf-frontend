@@ -47,8 +47,8 @@ const Invoices = () => {
     setBlock(false);
   };
 
-  const deleteInvoice = (invoiceId,type) => {
-    InvoiceService.remove(invoiceId,type);
+  const deleteInvoice = async (invoiceId,type) => {
+    await InvoiceService.remove(invoiceId,type);
     getInvoices();
     setLoading(false);
   };

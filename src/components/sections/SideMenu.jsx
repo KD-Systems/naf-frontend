@@ -441,6 +441,22 @@ const SideMenu = () => {
                 </NavLink>
               </div>
             </PermissionAbility>
+
+            <PermissionAbility permission="return_part_access">
+            <div className="menu-item">
+                <NavLink
+                  className={(navinfo) =>
+                    navinfo.isActive ? "menu-link active" : "menu-link"
+                  }
+                  to="return-part"
+                >
+                  <span className="menu-icon">
+                    <i className="fa fa-truck"></i>
+                  </span>
+                  <span className="menu-title">Return Part</span>
+                </NavLink>
+              </div>
+            </PermissionAbility>
             
 
             <div className="menu-item">

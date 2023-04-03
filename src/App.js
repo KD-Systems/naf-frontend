@@ -39,6 +39,9 @@ import CreateDelivery from "pages/delivery-notes/CreateDelivery";
 import DeliveryNotes from "pages/delivery-notes/Index";
 import PrintDeliveryNotes from "pages/delivery-notes/Print";
 import ShowDeliveryNotes from "pages/delivery-notes/Show";
+
+import ReturnPart from "pages/invoices/return-parts/index";
+
 import Designations from "pages/designations/Index";
 import ShowDesignation from "pages/designations/Show";
 import Employee from "pages/employee/Index";
@@ -553,6 +556,24 @@ function App() {
                 </PrivateRoute>
               }
             />
+
+            <Route
+              path="return-part"
+              element={
+                <PrivateRoute>
+                  <ReturnPart />
+                </PrivateRoute>
+              }
+            />
+
+            {/* <Route
+              path="return-part/:id"
+              element={
+                <PrivateRoute>
+                  <ReturnPartShow />
+                </PrivateRoute>
+              }
+            /> */}
 
             {/* FOC Management Module Routes */}
 
