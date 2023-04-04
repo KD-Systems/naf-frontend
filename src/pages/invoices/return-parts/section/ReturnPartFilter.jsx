@@ -1,34 +1,20 @@
 import { useEffect, useState, useRef } from "react";
 import Select from "react-select";
-import CompanyService from "services/CompanyService";
 
-function InvoiceFilter({ enable, onClickOutside, onChange }) {
+function ReturnPartFilter({ enable, onClickOutside, onChange }) {
   const ref = useRef(null);
   let user = JSON.parse(localStorage.getItem("user"))?.user;
 
   const [data, setData] = useState({
-    status: null,
     type: null,
   });
-  const status = [
-    // { label: "All", value: null },
-    { label: "Paid", value: "paid" },
-    { label: "Due", value: "due" },
+  const types = [
+    { label: "All", value: null },
+    { label: "Advance", value: "advance" },
+    { label: "Refund", value: "refund" },
   ];
   const [type, setType] = useState(null);
 
-  useEffect(async () => {
-    const res = await CompanyService.getAll({ rows: "all" });
-    const companyName = res?.map((itm) => {
-      return { label: itm?.name, value: itm?.id };
-    });
-    setType(companyName);
-  }, []);
-
-  const [defaultStatus, setDefaultStatus] = useState({
-    label: "All",
-    value: null,
-  });
   const [defaultType, setDefaultType] = useState({ label: "All", value: null });
 
   let custom = {
@@ -52,13 +38,7 @@ function InvoiceFilter({ enable, onClickOutside, onChange }) {
       [name]: value,
     });
 
-    if (name === "status")
-      setDefaultStatus({
-        label: option.label,
-        value: value,
-      });
-
-    if (name === "company_id")
+    if (name === "type")
       setDefaultType({
         label: option.label,
         value: value,
@@ -67,11 +47,9 @@ function InvoiceFilter({ enable, onClickOutside, onChange }) {
 
   const reset = () => {
     setData({
-      status: null,
       type: null,
     });
 
-    setDefaultStatus({ label: "All", value: null });
     setDefaultType({ label: "All", value: null });
 
     typeof onChange === "function" &&
@@ -107,20 +85,11 @@ function InvoiceFilter({ enable, onClickOutside, onChange }) {
         <div className="separator border-gray-200"></div>
         <div className="px-7 py-5">
           <div className="mb-10">
-            <label className="form-label fw-bold">Payment Status:</label>
+            <label className="form-label fw-bold">Type:</label>
             <Select
-              options={status}
+              options={types}
               onChange={(option, action) => handleSelect(option, action)}
-              name="status"
-              value={defaultStatus}
-            />
-          </div>
-          <div className="mb-10">
-            <label className="form-label fw-bold">Company:</label>
-            <Select
-              options={type}
-              onChange={(option, action) => handleSelect(option, action)}
-              name="company_id"
+              name="type"
               value={defaultType}
             />
           </div>
@@ -149,4 +118,4 @@ function InvoiceFilter({ enable, onClickOutside, onChange }) {
   );
 }
 
-export default InvoiceFilter;
+export default ReturnPartFilter;

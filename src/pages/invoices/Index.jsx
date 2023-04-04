@@ -10,7 +10,6 @@ import ReturnPart from "./return-parts/returnPart";
 import Confirmation from "components/utils/Confirmation";
 import Moment from "react-moment";
 
-
 const Invoices = () => {
   const [invoiceId, setInvoiceId] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -35,7 +34,7 @@ const Invoices = () => {
   };
 
   const getInvoices = async (filters) => {
-    setInvoices(await InvoiceService.getAll(filters)); 
+    setInvoices(await InvoiceService.getAll(filters));
     setLoading(false);
   };
 
@@ -47,8 +46,8 @@ const Invoices = () => {
     setBlock(false);
   };
 
-  const deleteInvoice = async (invoiceId,type) => {
-    await InvoiceService.remove(invoiceId,type);
+  const deleteInvoice = async (invoiceId, type) => {
+    await InvoiceService.remove(invoiceId, type);
     getInvoices();
     setLoading(false);
   };
@@ -95,7 +94,10 @@ const Invoices = () => {
     {
       name: "Part Quantity",
       selector: (row) =>
-        row?.part_items?.reduce((partialSum, a) => parseInt(partialSum) + parseInt(a.quantity), 0),
+        row?.part_items?.reduce(
+          (partialSum, a) => parseInt(partialSum) + parseInt(a.quantity),
+          0
+        ),
       format: (row) => (
         <div className="mt-2 w-100">
           {row?.previous_due
@@ -114,8 +116,8 @@ const Invoices = () => {
       name: "Grand Total",
       selector: (row) => row?.grand_total,
       format: (row) => (
-            <div className="mt-2">{row?.previous_due ?? row?.grand_total} tk</div>
-          ),
+        <div className="mt-2">{row?.previous_due ?? row?.grand_total} tk</div>
+      ),
       sortable: true,
       field: "grand_total",
     },
@@ -187,9 +189,9 @@ const Invoices = () => {
               </Link>
             </PermissionAbility>
           </span>
-          {/* {!row?.return_part_tracking_no &&
+          {!row?.return_part_tracking_no &&
             row?.type == "purchase_request" &&
-            row?.deliveryNote?.dn_number && ( */}
+            row?.deliveryNote?.dn_number && (
               <span>
                 <PermissionAbility permission="invoices_show">
                   <button
@@ -203,7 +205,7 @@ const Invoices = () => {
                   </button>
                 </PermissionAbility>
               </span>
-            {/* )} */}
+            )}
           {!row?.previous_due && (
             <>
               <span className="text-end">
@@ -302,7 +304,7 @@ const Invoices = () => {
         open={confirmDelete}
         onConfirm={() => {
           setConfirmDelete(false);
-          deleteInvoice(invoiceId,type);
+          deleteInvoice(invoiceId, type);
         }}
         onCancel={() => setConfirmDelete(false)}
       />

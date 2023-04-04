@@ -5,13 +5,13 @@ import InvoiceService from "../../../services/InvoiceService";
 import Select from "react-select";
 
 const ReturnPart = ({ open, onCloseModal, getInvoices, invoice }) => {
-  const [advanced, setAdvanced] = useState(false);
-  const [refund, setRefund] = useState(false);
+  // const [advanced, setAdvanced] = useState(false);
+  // const [refund, setRefund] = useState(false);
+  const [type, setType] = useState({});
   const [remarks, SetRemarks] = useState();
   const [partItems, setPartItems] = useState([]);
   const [data, setData] = useState(null);
   const [items, setItems] = useState([]);
-  console.log("🚀 ~ file: returnPart.jsx:14 ~ ReturnPart ~ items:", items)
   const [grandTotal, setGrandTotal] = useState({});
   const [total, setTotal] = useState({});
   const navigate = useNavigate();
@@ -23,6 +23,10 @@ const ReturnPart = ({ open, onCloseModal, getInvoices, invoice }) => {
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
+  const types = [
+    { label: "Advance", value: "advance" },
+    { label: "Refund", value: "refund" },
+  ];
 
   const handleSelect = (input) => {
     const data = invoice?.part_items?.find(
@@ -39,9 +43,16 @@ const ReturnPart = ({ open, onCloseModal, getInvoices, invoice }) => {
     });
 
     const part = partItems?.filter((item) => {
-      return item?.value != input?.value
-    })
+      return item?.value != input?.value;
+    });
     setPartItems(part);
+  };
+
+  const handleTypeSelect = (option, action) => {
+    const value = option.value;
+    const name = action.name;
+
+    setType(value);
   };
 
   const removeItem = (data) => {
@@ -62,8 +73,10 @@ const ReturnPart = ({ open, onCloseModal, getInvoices, invoice }) => {
         parseInt(item?.qnty) * parseInt(item?.unit_value);
     });
     setTotal(totalAmount);
-    let GrandTotal = parseInt(totalAmount * (1 + (invoice?.vat - invoice?.discount) / 100))
-    setGrandTotal(GrandTotal)
+    let GrandTotal = parseInt(
+      totalAmount * (1 + (invoice?.vat - invoice?.discount) / 100)
+    );
+    setGrandTotal(GrandTotal);
   }, [items]);
 
   const handleOnClose = () => {
@@ -75,8 +88,8 @@ const ReturnPart = ({ open, onCloseModal, getInvoices, invoice }) => {
         .map((part) => ({ value: part.part_id, label: part.name }))
     );
     setItems([]);
-    setAdvanced(false);
-    setRefund(false);
+    // setAdvanced(false);
+    // setRefund(false);
     SetRemarks();
     onCloseModal();
   };
@@ -98,19 +111,18 @@ const ReturnPart = ({ open, onCloseModal, getInvoices, invoice }) => {
         company_id: data?.company_id,
         items,
         grand_total: grandTotal,
-        type: advanced ? "advance" : "refund",
-        refund,
-        advanced,
+        type: type,
+        // type: advanced ? "advance" : "refund",
         remarks,
       });
       setItems([]);
       setData({});
       onCloseModal();
       getInvoices();
-      setAdvanced(false);
-      setRefund(false);
+      // setAdvanced(false);
+      // setRefund(false);
       SetRemarks();
-      navigate("/panel/invoices");
+      navigate("/panel/return-part");
     } catch (error) {
       console.log(error);
     }
@@ -141,7 +153,7 @@ const ReturnPart = ({ open, onCloseModal, getInvoices, invoice }) => {
         body={
           <>
             <>
-              <form id="create-contract">
+              <form id="create-return-part">
                 {partItems && (
                   <div className="form-group">
                     <label className="required form-label">Part Name</label>
@@ -260,12 +272,26 @@ const ReturnPart = ({ open, onCloseModal, getInvoices, invoice }) => {
                                             onChange={handleChange}
                                           />
                                         </td> */}
-                                        <td><h3>{grandTotal}</h3></td>
+                                        <td>
+                                          <h3>{grandTotal}</h3>
+                                        </td>
                                         <td></td>
                                       </tr>
                                     </tbody>
                                   </table>
                                 </div>
+                              </div>
+                              <div className="col-lg-4">
+                                <label className="required form-label fw-bold">
+                                  Type:
+                                </label>
+                                <Select
+                                  options={types}
+                                  onChange={(option, action) =>
+                                    handleTypeSelect(option, action)
+                                  }
+                                  name="type"
+                                />
                               </div>
                             </div>
                           </div>
@@ -273,7 +299,7 @@ const ReturnPart = ({ open, onCloseModal, getInvoices, invoice }) => {
                       </div>
                     </div>
 
-                    <div className="row mb-5">
+                    {/* <div className="row mb-5">
                       <div className="col-md-6">
                         <input
                           id="isAdvanced"
@@ -317,7 +343,7 @@ const ReturnPart = ({ open, onCloseModal, getInvoices, invoice }) => {
                           onChange={(e) => SetRemarks(e.target.value)}
                         ></textarea>
                       </div>
-                    </div>
+                    </div> */}
 
                     <button
                       type="button"

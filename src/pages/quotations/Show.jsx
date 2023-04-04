@@ -13,6 +13,7 @@ const ShowQuotation = () => {
   let { id } = useParams();
   const navigate = useNavigate();
   const [quotation, setQuotation] = useState({});
+  console.log("🚀 ~ file: Show.jsx:16 ~ ShowQuotation ~ quotation:", quotation)
   const [comment, setComment] = useState({});
   const [block, setBlock] = useState(false);
   const [locked, setLocked] = useState(false);
@@ -344,6 +345,16 @@ const ShowQuotation = () => {
                         Print
                       </Link>
                     </h3>
+
+                    {/* <h3 className="card-label">
+                      <Link
+                        className="btn btn-sm btn-dark "
+                        to={"/panel/invoices/" + quotation.id + "/create"}
+                        style={{ marginRight: "0.75rem" }}
+                      >
+                        Invoice
+                      </Link>
+                    </h3> */}
                     {quotation?.status != "pending" && (
                       <h3 className="card-label">
                         <PermissionAbility permission="quotations_generate_invoice">

@@ -96,12 +96,26 @@ const InvoicePartItems = ({ tab, active, invoice }) => {
                               Discount({invoice?.discount}%)
                             </td>
                             <td></td>
-                            <td>
+                            <td className="text-danger">
                               {(invoice?.sub_total * invoice?.discount) / 100 ??
                                 "0"}
                             </td>
                             <td></td>
                           </tr>
+                          {invoice?.return_part?.return_part_items?.length > 0 && (
+                            <tr className="fw-bolder text-gray-700 fs-5 text-end">
+                            <td colSpan={2}></td>
+                            <td className="align-center justify-content-center">
+                                Return part amount
+                            </td>
+                            <td></td>
+                            <td className="text-danger">
+                              {invoice?.grand_total - invoice?.return_part?.grand_total ??
+                                "0"}
+                            </td>
+                            <td></td>
+                          </tr>
+                          )}
                           <tr className="fw-bolder text-gray-700 fs-5 text-end">
                             <td colSpan={2}></td>
                             <td>Grand Total</td>
@@ -125,7 +139,7 @@ const InvoicePartItems = ({ tab, active, invoice }) => {
             <div className="card-header card-header-tabs-line">
               <div className="card-toolbar">
                 <div className="card-title">
-                  <h3 className="card-label">Return Part Items</h3>
+                  <h3 className="card-label">Return Part Items <span>({invoice?.return_part?.type})</span></h3>
                 </div>
               </div>
               <div className="align-items-center">
@@ -133,7 +147,7 @@ const InvoicePartItems = ({ tab, active, invoice }) => {
                   <PermissionAbility permission="return_invoices_print">
                     <Link
                       to={"/panel/return-invoices/" + invoice.id + "/print"}
-                      className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+                      className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1 mt-5"
                       target="_blank"
                     >
                       <i className="fa fa-print"></i>

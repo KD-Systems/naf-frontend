@@ -121,7 +121,7 @@ const DeliveryNotes = () => {
                 <i className="fa fa-print"></i>
               </Link>
             </PermissionAbility>
-
+            { row?.return_part == null && (
             <PermissionAbility permission="deliveryNote_delete_access">
               <Link
                 to="#"
@@ -134,6 +134,7 @@ const DeliveryNotes = () => {
                 <i className="fa fa-trash"></i>
               </Link>
             </PermissionAbility>
+            )}
           </span>
         </>
       ),

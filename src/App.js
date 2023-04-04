@@ -52,6 +52,7 @@ import ShowClaimRequisition from "pages/foc-requisitions/Show";
 import Forbidden from "pages/Forbidden";
 import GatePass from "pages/gate-passes/Index";
 import Invoices from "pages/invoices/Index";
+import InvoiceCreate from "pages/invoices/CreateSection";
 import ShowPaymentHistories from "pages/invoices/paymentHistories/Show";
 import PrintInvoice from "pages/invoices/Print";
 import PrintReturnInvoice from "pages/invoices/partItems/Print";
@@ -475,6 +476,15 @@ function App() {
             {/* Invoice Start */}
 
             <Route
+              path="invoices/:quotationId/create"
+              element={
+                <PrivateRoute>
+                  <InvoiceCreate />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
               path="invoices"
               element={
                 <PrivateRoute>
@@ -565,15 +575,6 @@ function App() {
                 </PrivateRoute>
               }
             />
-
-            {/* <Route
-              path="return-part/:id"
-              element={
-                <PrivateRoute>
-                  <ReturnPartShow />
-                </PrivateRoute>
-              }
-            /> */}
 
             {/* FOC Management Module Routes */}
 

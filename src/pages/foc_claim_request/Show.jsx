@@ -15,6 +15,7 @@ const ShowClaimRequest = () => {
   let { id } = useParams();
   const navigate = useNavigate();
   const [claimRequest, setClaimRequest] = useState({});
+  console.log("🚀 ~ file: Show.jsx:18 ~ ShowClaimRequest ~ claimRequest:", claimRequest)
   const [reqId, setReqId] = useState({});
   const [part, setPart] = useState({});
 
@@ -210,7 +211,7 @@ const ShowClaimRequest = () => {
                   </h3>
                 </div>
               </div>
-              {!claimRequest?.requisition_id && (
+              {!claimRequest?.requisitions != null && (
                 <span>
                   <div className="card-body py-4">
                     <div className="fw-bolder mt-5">Change Status</div>
