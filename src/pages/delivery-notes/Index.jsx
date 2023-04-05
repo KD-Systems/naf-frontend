@@ -25,8 +25,8 @@ const DeliveryNotes = () => {
     setLoading(false);
   };
 
-  const deleteDeliveryNote = (deliveryNoteId) => {
-    DeliverNoteService.remove(deliveryNoteId);
+  const deleteDeliveryNote = async (deliveryNoteId) => {
+    await DeliverNoteService.remove(deliveryNoteId);
     getDeliverNotes();
     setLoading(false);
   };

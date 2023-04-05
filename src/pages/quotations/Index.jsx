@@ -78,15 +78,15 @@ const Quotations = () => {
       field: "grand_total",
     },
 
-    {
-      name: "lock",
-      selector: (row) => row?.locked_at,
-      format: (row) => (
-        <div className="mt-2">{row?.locked_at ? "Locked" : "Not locked"}</div>
-      ),
-      sortable: true,
-      field: "id",
-    },
+    // {
+    //   name: "lock",
+    //   selector: (row) => row?.locked_at,
+    //   format: (row) => (
+    //     <div className="mt-2">{row?.locked_at ? "Locked" : "Not locked"}</div>
+    //   ),
+    //   sortable: true,
+    //   field: "id",
+    // },
     {
       name: "Status",
       selector: (row) => row?.status,

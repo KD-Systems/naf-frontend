@@ -4,29 +4,15 @@ import QuotationService from "../../services/QuotationService";
 import { Link, useParams } from "react-router-dom";
 import Moment from "react-moment";
 import { swal } from "assets/plugins/global/plugins.bundle";
-
+import InvoiceService from "services/InvoiceService";
 
 const CreateInvoice = () => {
   let { quotationId } = useParams();
-  const [quotation, setQuotation] = useState({}); //get quotation details
   const navigate = useNavigate();
-  console.log("🚀 ~ file: CreateSection.jsx:10 ~ CreateInvoice ~ quotation:", quotation)
+  const [block, setBlock] = useState(false);
+  const [quotation, setQuotation] = useState({}); //get quotation details
   const [list, setList] = useState([]);
-  console.log("🚀 ~ file: CreateSection.jsx:14 ~ CreateInvoice ~ list:", list)
-  const [grandTotal, setGrandTotal] = useState(0);
-  const [total, setTotal] = useState(0);
-
-  // const [data, setData] = useState({
-  //   quotation_id: "",
-  //   type: "",
-  //   company_id: "",
-  //   machine_id: "",
-  //   vat: "",
-  //   discount: "",
-  //   grand_total: grandTotal,
-  //   sub_total: total,
-  //   part_items: list,
-  // });
+  const [data, setData] = useState(null);
 
   const getQuotation = async () => {
     if (quotationId) {
@@ -34,30 +20,53 @@ const CreateInvoice = () => {
       setQuotation(res);
     }
   };
-  const removeItem = (id) => {
-    const newList = list.filter((item) => item?.id !== id);
-    if(newList?.length>0){
-      setList(newList);
-    }else{
-      console.log("cant remove")
-    }
-  };
 
-  useEffect(()=>{
+  useEffect(() => {
+    setList(quotation?.part_items);
+    setData({
+      quotation_id: quotation?.id,
+      company: quotation?.company,
+      requisition: quotation?.requisition,
+      type: quotation?.requisition?.type,
+      vat: quotation?.vat,
+      discount: quotation?.discount,
+    });
+  }, [quotation]);
+
+  //calculation for total and grand total
+  useEffect(() => {
     let totalAmount = 0;
     list?.forEach((item) => {
       totalAmount =
         parseInt(totalAmount) +
         parseInt(item?.quantity) * parseInt(item?.unit_value);
     });
-    setTotal(totalAmount);
-    let GrandTotal = parseInt(totalAmount * (1 + (quotation?.vat - quotation?.discount) / 100))
-    setGrandTotal(GrandTotal)
-  },[list])
+    let GrandTotal = parseInt(
+      totalAmount * (1 + (data?.vat - data?.discount) / 100)
+    );
+    setData({
+      ...data,
+      part_items: list,
+      grand_total: GrandTotal,
+      sub_total: totalAmount,
+    });
+  }, [list]);
 
-  useEffect(()=>{
-    setList(quotation?.part_items)
-  },[quotation])
+  const removeItem = (id) => {
+    const newList = list.filter((item) => item?.id !== id);
+    if (newList?.length > 0) {
+      setList(newList);
+    } else {
+      console.log("cant remove");
+    }
+  };
+
+  const storeInvoice = async () => {
+    setBlock(true);
+    await InvoiceService.create(data);
+    setBlock(false);
+    navigate("/panel/invoices");
+  };
 
   useEffect(() => {
     getQuotation();
@@ -90,7 +99,7 @@ const CreateInvoice = () => {
                         <small>Head Office:Naya paltan,Dhaka,Bangladesh</small>
                         <br />
                         <small>
-                          Tel:44564,Fax:sddsf,Email:asd@gmail.com,Web:example.com
+                          Tel:44564,Fax:123456,Email:Example@gmail.com,Web:example.com
                         </small>
                       </p>
                     </div>
@@ -182,6 +191,9 @@ const CreateInvoice = () => {
                             <th className="min-w-80px pb-9 text-end">
                               Parts Number
                             </th>
+                            <th className="min-w-80px pb-9 text-end">
+                              Qutantity
+                            </th>
                           </tr>
                         </thead>
                         <tbody>
@@ -195,6 +207,7 @@ const CreateInvoice = () => {
                               </td>
                               <td>{item?.part?.aliases[0]?.name}</td>
                               <td>{item?.part?.aliases[0]?.part_number}</td>
+                              <td>{item?.quantity}</td>
                               <td className="text-end">
                                 <button
                                   type="button"
@@ -206,51 +219,52 @@ const CreateInvoice = () => {
                                 </button>
                               </td>
                             </tr>
+                            
                           ))}
-                          {/* {data?.type == "purchase_request" && ( */}
+                          {data?.type == "purchase_request" && (
                             <>
                               <tr className="fw-bolder text-gray-700 fs-5 text-end">
-                                <td colSpan={1}></td>
+                                <td colSpan={2}></td>
                                 <td>Sub-total</td>
                                 <td></td>
-                                <td>{total}</td>
+                                <td>{data?.sub_total}</td>
                                 <td></td>
                               </tr>
                               <tr className="fw-bolder text-gray-700 fs-5 text-end">
-                                <td colSpan={1}></td>
+                                <td colSpan={2}></td>
                                 <td className="align-center justify-content-center">
-                                  Vat(%)
+                                  Vat({data?.vat}%)
                                 </td>
                                 <td></td>
-                                <td>{(total * quotation?.vat) / 100}</td>
+                                <td>{(data?.sub_total * data?.vat) / 100}</td>
                                 <td></td>
                               </tr>
                               <tr className="fw-bolder text-gray-700 fs-5 text-end">
-                                <td colSpan={1}></td>
-                                <td>Discount(%)</td>
-                                <td></td>
-                                <td>{(total * quotation?.discount) / 100}</td>
-                                <td></td>
-                              </tr>
-                              <tr className="fw-bolder text-gray-700 fs-5 text-end">
-                                <td colSpan={1}></td>
-                                <td>Grand Total</td>
+                                <td colSpan={2}></td>
+                                <td>Discount({data?.discount}%)</td>
                                 <td></td>
                                 <td>
-                                  {grandTotal}
+                                  {(data?.sub_total * data?.discount) / 100}
                                 </td>
+                                <td></td>
+                              </tr>
+                              <tr className="fw-bolder text-gray-700 fs-5 text-end">
+                                <td colSpan={2}></td>
+                                <td>Grand Total</td>
+                                <td></td>
+                                <td>{data?.grand_total}</td>
                                 <td></td>
                               </tr>
                             </>
-                          {/* )} */}
+                          )}
                         </tbody>
                       </table>
                       <div className="separator separator-dashed"></div>
                       <button
                         className="btn btn-primary mt-5"
-                        // onClick={() => {
-                        //   storeQuotation();
-                        // }}
+                        onClick={() => {
+                          storeInvoice();
+                        }}
                       >
                         Submit
                       </button>

@@ -38,7 +38,6 @@ const CreateInvoice = ({ open, onCloseModal, getInvoices }) => {
     if (quotationId) {
       setBlock(true);
       let res = await InvoiceService.create(quotation);
-      // console.log(res.data);
       setBlock(false);
       navigate("/panel/invoices");
     }

@@ -82,10 +82,10 @@ const ClientDashboard = () => {
   return (
     <div id="kt_content_container" className="container-xxl">
       <ClientStatistics
-        data={clientPaymentDetails?.total_amount}
-        title={"Grand total"}
+        data={[clientPaymentDetails, companyAdvance]}
+        title={["Grand total", "Paid Amount", "Due Amount", "Advance Amount"]}
       />
-      <br />
+      {/* <br />
       <ClientStatistics
         data={clientPaymentDetails?.total_paid}
         title={"Paid amount"}
@@ -99,7 +99,7 @@ const ClientDashboard = () => {
       <ClientStatistics
         data={companyAdvance.advanceAmount}
         title={"Advance Amount"}
-      />
+      /> */}
       {/* <Row>
 
         <Col xl={12}>

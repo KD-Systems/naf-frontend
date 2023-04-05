@@ -13,7 +13,6 @@ const ShowQuotation = () => {
   let { id } = useParams();
   const navigate = useNavigate();
   const [quotation, setQuotation] = useState({});
-  console.log("🚀 ~ file: Show.jsx:16 ~ ShowQuotation ~ quotation:", quotation)
   const [comment, setComment] = useState({});
   const [block, setBlock] = useState(false);
   const [locked, setLocked] = useState(false);
@@ -66,14 +65,6 @@ const ShowQuotation = () => {
   const getQuotationComment = async () => {
     let res = await QuotationService.getComment(id);
     setComment(res);
-  };
-
-  //* Generating Invoice
-  const storeInvoice = async () => {
-    setBlock(true);
-    let res = await InvoiceService.create(quotation);
-    setBlock(false);
-    navigate(`/panel/invoices/${res.data?.id}`);
   };
 
   const lockedPartItems = async () => {
@@ -258,7 +249,9 @@ const ShowQuotation = () => {
 
                   <div className="fw-bolder mt-5">Payment Mode</div>
                   <div className="text-gray-600">
-                    {quotation?.requisition?.payment_mode?.replaceAll("_", " ")?.capitalize() ?? "--"}
+                    {quotation?.requisition?.payment_mode
+                      ?.replaceAll("_", " ")
+                      ?.capitalize() ?? "--"}
                   </div>
 
                   <div className="fw-bolder mt-5">Priority</div>
@@ -289,7 +282,9 @@ const ShowQuotation = () => {
                   <div className="text-gray-600">{quotation?.vat ?? "0"}%</div>
 
                   <div className="fw-bolder mt-5">Discount </div>
-                  <div className="text-gray-600">{quotation?.discount ?? "0"}%</div>
+                  <div className="text-gray-600">
+                    {quotation?.discount ?? "0"}%
+                  </div>
 
                   <div className="fw-bolder mt-5">Grand Total</div>
                   <div className="text-gray-600">
@@ -324,7 +319,9 @@ const ShowQuotation = () => {
                   </div>
 
                   <div className="fw-bolder mt-5">Created By </div>
-                  <div className="text-gray-600">{quotation?.created_by?.replaceAll("_", " ")?.capitalize()}</div>
+                  <div className="text-gray-600">
+                    {quotation?.created_by?.replaceAll("_", " ")?.capitalize()}
+                  </div>
 
                   {!permissions.includes("quotations_approve") &&
                     quotation?.status == "pending" && (
@@ -346,32 +343,19 @@ const ShowQuotation = () => {
                       </Link>
                     </h3>
 
-                    {/* <h3 className="card-label">
-                      <Link
-                        className="btn btn-sm btn-dark "
-                        to={"/panel/invoices/" + quotation.id + "/create"}
-                        style={{ marginRight: "0.75rem" }}
-                      >
-                        Invoice
-                      </Link>
-                    </h3> */}
-                    {quotation?.status != "pending" && (
-                      <h3 className="card-label">
-                        <PermissionAbility permission="quotations_generate_invoice">
-                          <button
+                    {(quotation?.status != "rejected" && quotation?.status != "pending") && (
+                        <h3 className="card-label">
+                          <Link
                             className="btn btn-sm btn-dark "
-                            style={{ marginRight: "0.1rem" }}
-                            onClick={() => {
-                              storeInvoice();
-                            }}
+                            to={"/panel/invoices/" + quotation?.id + "/create"}
+                            style={{ marginRight: "0.75rem" }}
                           >
                             Generate Invoice
-                          </button>
-                        </PermissionAbility>
-                      </h3>
-                    )}
+                          </Link>
+                        </h3>
+                      )}
 
-                    {quotation?.status != "pending" && (
+                    {/* {quotation?.status != "pending" && (
                       <PermissionAbility permission="quotations_lock">
                         {!locked ? (
                           <h3>
@@ -393,7 +377,7 @@ const ShowQuotation = () => {
                           </h3>
                         )}
                       </PermissionAbility>
-                    )}
+                    )} */}
                     <PermissionAbility permission="quotations_approve">
                       {quotation?.status == "pending" && (
                         <h3 className="card-label">
