@@ -1,15 +1,16 @@
 import Modal from "components/utils/Modal";
 import { useState } from "react";
-
+import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AdvanceService from "services/AdvanceService";
 toast.configure();
 
 const AdvanceAmount = ({ open, companyId, onCloseModal, onUpdated }) => {
+  let { id } = useParams();
 
    const [data, setData] = useState({
-    company_id: companyId,
+    company_id: id,
     amount:'',
     remarks: "",
     transaction_type: true

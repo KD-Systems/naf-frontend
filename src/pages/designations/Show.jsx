@@ -44,7 +44,7 @@ const ShowDesignation = () => {
                   <label className="col-4 col-form-label">Id:</label>
                   <div className="col-8">
                     <span className="form-control-plaintext font-weight-bolder">
-                      {designation.id}
+                      {designation?.id}
                     </span>
                   </div>
                 </div>
@@ -52,7 +52,7 @@ const ShowDesignation = () => {
                   <label className="col-4 col-form-label">Name:</label>
                   <div className="col-8">
                     <span className="form-control-plaintext font-weight-bolder">
-                      {designation.name}
+                      {designation?.name}
                     </span>
                   </div>
                 </div>
@@ -62,7 +62,7 @@ const ShowDesignation = () => {
                     <span className="form-control-plaintext">
                       <span className="label label-inline label-danger label-bold">
                         <Moment format="D MMMM YYYY">
-                          {designation.created_at}
+                          {designation?.created_at}
                         </Moment>
                       </span>
                     </span>
@@ -73,7 +73,7 @@ const ShowDesignation = () => {
                   <div className="col-8">
                     <span className="form-control-plaintext font-weight-bolder">
                       <Moment format="D MMMM YYYY">
-                        {designation.updated_at}
+                        {designation?.updated_at}
                       </Moment>
                     </span>
                   </div>
@@ -82,7 +82,7 @@ const ShowDesignation = () => {
                   <label className="col-4 col-form-label">Description:</label>
                   <div className="col-8">
                     <span className="form-control-plaintext font-weight-bolder">
-                      {designation.description}
+                      {designation?.description}
                     </span>
                   </div>
                 </div>

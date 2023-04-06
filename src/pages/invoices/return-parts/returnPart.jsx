@@ -20,9 +20,6 @@ const ReturnPart = ({ open, onCloseModal, getInvoices, invoice }) => {
     setItems([...items, itm]);
   };
 
-  const handleChange = (e) => {
-    setData({ ...data, [e.target.name]: e.target.value });
-  };
   const types = [
     { label: "Advance", value: "advance" },
     { label: "Refund", value: "refund" },
@@ -262,16 +259,6 @@ const ReturnPart = ({ open, onCloseModal, getInvoices, invoice }) => {
                                         <td>
                                           <h3>Grand Total</h3>
                                         </td>
-                                        {/* <td colSpan={3}>
-                                          <input
-                                            type="number"
-                                            className="form-control"
-                                            placeholder="Enter Amount"
-                                            name="grand_total"
-                                            id="grand_total"
-                                            onChange={handleChange}
-                                          />
-                                        </td> */}
                                         <td>
                                           <h3>{grandTotal}</h3>
                                         </td>

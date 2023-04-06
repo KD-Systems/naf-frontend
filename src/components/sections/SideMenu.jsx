@@ -453,7 +453,7 @@ const SideMenu = () => {
                   <span className="menu-icon">
                     <i className="fa fa-truck"></i>
                   </span>
-                  <span className="menu-title">Return Part</span>
+                  <span className="menu-title">Return Parts</span>
                 </NavLink>
               </div>
             </PermissionAbility>

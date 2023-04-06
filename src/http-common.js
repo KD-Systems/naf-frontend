@@ -70,6 +70,7 @@ let Api = axios.create({
 
         case errors?.length:
         // toast.warning(response.message);
+        break;
 
         default:
           //

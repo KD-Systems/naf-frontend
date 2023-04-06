@@ -229,7 +229,7 @@ const PrintInvoice = () => {
                             </td>
                             <td className="text-center border-bottom border-1 border-dark">
                               <h4>
-                              {invoice?.grand_total - invoice?.return_part?.grand_total ??
+                              {invoice?.return_part?.grand_total ??
                                 "0"} Tk
                               </h4>
                             </td>

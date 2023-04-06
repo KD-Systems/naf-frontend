@@ -324,7 +324,7 @@ const ShowDeliveryNotes = () => {
                                             </td>
                                             <td></td>
                                             <td className="text-danger">
-                                              {deliveryNote?.invoice?.grand_total - deliveryNote?.return_part?.grand_total ?? "0"}
+                                              {deliveryNote?.return_part?.grand_total ?? "0"}
                                             </td>
                                             <td></td>
                                           </tr>

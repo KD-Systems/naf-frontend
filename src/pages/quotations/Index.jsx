@@ -118,17 +118,17 @@ const Quotations = () => {
       ),
     },
 
-    {
-      name: "IN Number",
-      selector: (row) => row?.invoice,
-      sortable: true,
-      field: "id",
-      format: (row) => (
-        <div className="mt-2">
-          {row?.invoice ? row?.invoice : "No invoice yet"}
-        </div>
-      ),
-    },
+    // {
+    //   name: "IN Number",
+    //   selector: (row) => row?.invoice,
+    //   sortable: true,
+    //   field: "id",
+    //   format: (row) => (
+    //     <div className="mt-2">
+    //       {row?.invoice ? row?.invoice : "No invoice yet"}
+    //     </div>
+    //   ),
+    // },
 
     {
       name: "Created At",

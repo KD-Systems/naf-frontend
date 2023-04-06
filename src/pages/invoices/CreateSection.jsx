@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import QuotationService from "../../services/QuotationService";
 import { Link, useParams } from "react-router-dom";
 import Moment from "react-moment";
-import { swal } from "assets/plugins/global/plugins.bundle";
 import InvoiceService from "services/InvoiceService";
 
 const CreateInvoice = () => {

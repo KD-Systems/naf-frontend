@@ -110,7 +110,7 @@ const InvoicePartItems = ({ tab, active, invoice }) => {
                             </td>
                             <td></td>
                             <td className="text-danger">
-                              {invoice?.grand_total - invoice?.return_part?.grand_total ??
+                              {invoice?.return_part?.grand_total ??
                                 "0"}
                             </td>
                             <td></td>
