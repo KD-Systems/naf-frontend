@@ -6,7 +6,6 @@ import DatePicker from "react-datepicker";
 import "react-toastify/dist/ReactToastify.css";
 import CompanyService from "services/CompanyService";
 import RequisitionService from "services/RequisitionService";
-import ClaimRequisitionService from "services/ClaimRequisitionService";
 import ClientClaimRequisitionService from "services/clientServices/ClientClaimRequisitionService";
 
 const CreateClientClaimRequisition = () => {
@@ -86,25 +85,6 @@ const CreateClientClaimRequisition = () => {
     navigate("/panel/client-claim-requests");
   };
 
-  // const addPart = (item) => {
-  //   item["quantity"] = 0;
-  //   let hasItem = list.find((itm) => itm.id == item.id);
-  //   if (hasItem) return false;
-
-  //   const newList = list.concat(item);
-  //   setList(
-  //     Array.from(new Set(newList))
-  //   ); /* add part in the List and remove duplicates from array */
-  //   setSelectedPart(true);
-  //   setFilter({ ...filter, q: "" });
-  //   setSearchData("");
-  // };
-
-  // const removeItem = (id) => {
-  //   const newList = list.filter((item) => item.id !== id);
-  //   setList(newList);
-  // };
-
   const getEngineers = async () => {
     let dt = await RequisitionService.engineers();
     dt = dt.map((itm) => ({ label: itm?.name, value: itm?.id }));
@@ -114,20 +94,6 @@ const CreateClientClaimRequisition = () => {
   const getMachineModels = async (companyId) => {
     setBlock(false);
     let dt = await CompanyService.getMachinesforRequisitions(companyId);
-    // if (data?.type == "purchase_request") {
-      // dt = dt[0].machine_model.map((itm) => ({
-      //   label: itm.name,
-      //   value: itm.company_machine_id,
-      //   machineId: itm.machine_id,
-      // })); //Parse the data as per the select requires
-
-      // setMachineModels(dt);
-
-      // setData({
-      //   ...data,
-      //   ...{ machine_model_id: null },
-      // });
-    // } else {
       let carry = [];
 
       dt[0].contracts.forEach((element) => {
@@ -294,34 +260,6 @@ const CreateClientClaimRequisition = () => {
                               ></div>
                             </div>
                           </div>
-
-                          {/* <div className="col-lg-4">
-                            <label className="form-label">
-                              Expected Delivery
-                            </label>
-                            <div className="mb-5">
-                              <div className="form-group ">
-                                <DatePicker
-                                  className="form-control"
-                                  name="expected_delivery"
-                                  selected={data.expected_delivery}
-                                  onChange={(date) =>
-                                    handleDateSelect(date, "expected_delivery")
-                                  }
-                                />
-                                <input
-                                  type="hidden"
-                                  name="expected_delivery"
-                                  id="expected_delivery"
-                                  value={data.expected_delivery}
-                                />
-                                <div
-                                  className="fv-plugins-message-container invalid-feedback"
-                                  htmlFor="expected_delivery"
-                                ></div>
-                              </div>
-                            </div>
-                          </div> */}
                           <div className="col-lg-4"></div>
                           <div className="col-lg-4"></div>                          
 

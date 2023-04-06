@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import Moment from "react-moment";
-import InvoiceService from "services/InvoiceService";
 import PartService from "services/PartService";
 import ClientDeliverNoteService from "services/clientServices/ClientDeliveryNoteService";
 import ClientInvoiceService from "services/clientServices/ClientInvoiceService";
@@ -24,13 +23,12 @@ const CreateDelivery = () => {
     invoice: invoice,
     part_items: list,
   });
-  // console.log(data);
 
   const getParts = async () => {
     let res = await PartService.getClientPart(filter);
     setSearchData(res.data);
     let items = res.data?.map((dt) => {
-      return { label: dt.name, value: dt.id }; 
+      return { label: dt.name, value: dt.id };
     });
 
     setParts(items);
@@ -55,8 +53,8 @@ const CreateDelivery = () => {
   const addPart = (item) => {
     //* quantity Set
     const res = invoice?.part_items?.find((it) => it.part_id === item.id);
-    
-    item['unit_value'] = res.unit_value
+
+    item["unit_value"] = res.unit_value;
     if (res?.part_id == item.id) {
       item["quantity"] = res.quantity;
       item["invoice_exists"] = true;
@@ -127,7 +125,7 @@ const CreateDelivery = () => {
       setBlock(true);
       let res = await ClientDeliverNoteService.create(data);
       setBlock(false);
-    //   navigate(`/panel/delivery-notes/${res.data?.id}/show`);
+      //   navigate(`/panel/delivery-notes/${res.data?.id}/show`);
     }
   };
 

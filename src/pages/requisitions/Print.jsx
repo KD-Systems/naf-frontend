@@ -103,7 +103,7 @@ const PrintRequisition = () => {
                       <h6>
                         <strong>Issued By: </strong>
                         <span className="text-muted">
-                          {requisition?.user?.name}
+                          {requisition?.user?.name?.replaceAll("_", " ")?.capitalize()}
                         </span>
                       </h6>
                     </td>

@@ -3,18 +3,19 @@ import Moment from "react-moment";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import InvoiceService from "services/InvoiceService";
 
-const PrintInvoice = () => {
+const PrintReturnInvoice = () => {
   let { id } = useParams();
   const navigate = useNavigate();
   const [invoice, setInvoice] = useState({});
   const [total, setTotal] = useState(0);
+  console.log("🚀 ~ file: Print.jsx:11 ~ PrintReturnInvoice ~ total:", total)
 
   const getInvoice = async () => {
     let res = await InvoiceService.get(id);
     setInvoice(res);
     setTotal(
-      res?.part_items?.reduce(
-        (sum, partItem) => sum + parseFloat(partItem.total_value),
+      res?.return_part?.return_part_items?.reduce(
+        (sum, partItem) => sum + parseFloat(partItem.total),
         0
       )
     );
@@ -56,7 +57,7 @@ const PrintInvoice = () => {
                       </td>
                       <td>
                         <div className="px-5">
-                          <div style={{ fontSize: 36 }}>INVOICE</div>
+                          <div style={{ fontSize: 26 }}>RETURN INVOICE</div>
                           <div className="d-flex justify-content-between">
                             <div className="">
                               <div className="py-2">
@@ -76,6 +77,7 @@ const PrintInvoice = () => {
                             <div className="px-5">
                               <div>
                                 <h5>Invoice No: {invoice?.invoice_number}</h5>
+                                <h5>Tracking No: {invoice?.return_part?.tracking_number}</h5>
                               </div>
                               <div>
                                 <h5>Approved by :</h5>
@@ -83,7 +85,7 @@ const PrintInvoice = () => {
                                 <span>Email:tajima@nafgroup.org</span><br/>
                               </div>
                               <div>
-                                <h5>Payment Mode: <span>{invoice?.payment_mode?.replaceAll("_", " ")?.capitalize()}</span></h5>
+                                <h5>Return Type: <span>{invoice?.return_part?.type?.replaceAll("_", " ")?.capitalize()}</span></h5>
                                 <h5>Issued By: <span>{invoice?.created_by?.replaceAll("_", " ")?.capitalize()}</span></h5>
                               </div>
                             </div>
@@ -160,7 +162,7 @@ const PrintInvoice = () => {
                       </thead>
 
                       <tbody>
-                        {invoice?.part_items?.map((item, idx) => {
+                        {invoice?.return_part?.return_part_items?.map((item, idx) => {
                           return (
                             <tr
                               className="text-dark border-bottom border-1 border-dark"
@@ -168,15 +170,15 @@ const PrintInvoice = () => {
                             >
                               <td className=" text-center">{idx + 1}</td>
                               <td className="text-start">
-                                <h6>{item?.part?.aliases[0].name}</h6>
-                                <div>{item?.part?.aliases[0].part_number}</div>
+                                <h6>{item?.alias?.name}</h6>
+                                <div>{item?.alias?.part_number}</div>
                               </td>
                               <td className="text-center">{item?.quantity}</td>
                               <td className=" text-center">
-                                {item?.unit_value}
+                                {item?.unit_price}
                               </td>
                               <td className="text-center">
-                                {item?.total_value}
+                                {item?.total}
                               </td>
                             </tr>
                           );
@@ -187,10 +189,10 @@ const PrintInvoice = () => {
                           <td className="text-start"></td>
                           <td className="text-center"></td>
                           <td className="text-center">
-                            <h5>Sub-Total</h5>
+                            <h4>Sub-Total</h4>
                           </td>
                           <td className="text-center">
-                            <h5>{total} TK.</h5>
+                            <h4>{total} TK.</h4>
                           </td>
                         </tr>
                         <tr>
@@ -198,43 +200,14 @@ const PrintInvoice = () => {
                           <td className="text-start"></td>
                           <td className="text-center"></td>
                           <td className="text-center">
-                            <h5>VAT ({invoice?.vat})%</h5>
+                            <h4>Others (VAT/Discount)</h4>
                           </td>
-                          <td className="text-center border-1 border-dark">
-                            <h5>
-                              {Math.round(total*invoice.vat/100) ?? 0} TK.
-                            </h5>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className=" text-center"></td>
-                          <td className="text-start"></td>
-                          <td className="text-center"></td>
-                          <td className="text-center">
-                            <h5>Discount ({invoice?.discount})%</h5>
-                          </td>
-                          <td className="text-center border-bottom border-1 border-dark">
-                            <h5>
-                              {Math.round(total*invoice.discount/100) ?? 0} TK.
-                            </h5>
+                          <td className="text-center border-1 border-dark fs-5">
+                            <h4>
+                              {Math.round(invoice?.return_part?.grand_total - total) ?? 0} TK.
+                            </h4>
                           </td>
                         </tr>
-                        {invoice?.return_part?.return_part_items?.length > 0 && (
-                            <tr>
-                            <td className=" text-center"></td>
-                            <td className="text-start"></td>
-                            <td className="text-center"></td>
-                            <td className="text-center">
-                              <h4>Return Part Amount</h4>
-                            </td>
-                            <td className="text-center border-bottom border-1 border-dark">
-                              <h4>
-                              {invoice?.return_part?.grand_total ??
-                                "0"} Tk
-                              </h4>
-                            </td>
-                          </tr>
-                          )}
                         <tr>
                           <td></td>
                           <td></td>
@@ -259,7 +232,7 @@ const PrintInvoice = () => {
                                 fontSize: 16,
                               }}
                             >
-                              {invoice?.grand_total}
+                              {invoice?.return_part?.grand_total}
                               TK.
                             </div>
                           </td>
@@ -280,7 +253,7 @@ const PrintInvoice = () => {
                       <br />
                       {invoice?.requisition?.type == "purchase_request" && (
                         <>
-                            Payment mode: {invoice?.requisition?.payment_mode}
+                            Return Type: {invoice?.return_part?.type}
                         </>
                       )}
                       <br />
@@ -376,4 +349,4 @@ const PrintInvoice = () => {
   );
 };
 
-export default PrintInvoice;
+export default PrintReturnInvoice;

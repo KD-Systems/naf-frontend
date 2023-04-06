@@ -10,19 +10,18 @@ const ClientContracts = () => {
   const [contracts, setContracts] = useState([]);
   const [openAddModal, setOpenAddModal] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
-  const [contractId, setContractId] = useState(null);
 
   //Set the columns
   const columns = [
     {
-      name: 'Company',
-      selector: row => row.company?.name,
+      name: "Company",
+      selector: (row) => row.company?.name,
       sortable: true,
-      field: 'company',
-      format: row => (
+      field: "company",
+      format: (row) => (
         <div className="d-flex align-items-center">
           <div className="symbol symbol-50px me-5">
-            <span className="symbol-label bg-light"> 
+            <span className="symbol-label bg-light">
               <img
                 src={row.company?.logo_url}
                 className="h-75 overflow-hidden"
@@ -31,13 +30,7 @@ const ClientContracts = () => {
             </span>
           </div>
           <div className="d-flex justify-content-start flex-column">
-          {/* <Link
-              to={'/panel/companies/' + row.company?.id}
-              className="text-dark fw-bolder text-hover-primary mb-1 fs-6"
-            >
-              {row.company?.name}
-            </Link> */}
-
+            {" "}
             <Link
               to="#"
               className="text-dark fw-bolder text-hover-primary mb-1 fs-6"
@@ -46,36 +39,35 @@ const ClientContracts = () => {
             </Link>
           </div>
         </div>
-      )
+      ),
     },
     {
-      name: 'Machines',
-      selector: row => row?.machine_models,
+      name: "Machines",
+      selector: (row) => row?.machine_models,
       sortable: true,
-      field: 'machine_models',
-      format: row => (
-        row.machine_models.map((dt) => (<Link
+      field: "machine_models",
+      format: (row) =>
+        row.machine_models.map((dt) => (
+          <Link
             to={`/panel/machines/${dt.model.machine_id}/models/${dt.model.id}`}
             className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
           >
             {dt.model.name}
-          </Link>))
-      )
+          </Link>
+        )),
     },
     {
-      name: 'Contract Type',
-      selector: row => row.is_foc,
+      name: "Contract Type",
+      selector: (row) => row.is_foc,
       sortable: true,
-      field: 'machines',
+      field: "machines",
       format: (row) => (
         <span
           className={
-            row.is_foc
-              ? "badge badge-light-warning"
-              : "badge badge-light-info"
+            row.is_foc ? "badge badge-light-warning" : "badge badge-light-info"
           }
         >
-          {row.is_foc? "FOC" : "AMC"}
+          {row.is_foc ? "FOC" : "AMC"}
         </span>
       ),
     },
@@ -103,21 +95,19 @@ const ClientContracts = () => {
       field: "status",
       format: (row) => (
         <span className="text-gray-600 text-hover-primary">
-        <Moment format='YYYY-MM-DD'>
-          {row.end_date}
-        </Moment>
-        {row.has_expired ?
-          <div className="badge badge-light-danger">
-            Expired
-          </div> : ''
-        }
-      </span>
+          <Moment format="YYYY-MM-DD">{row.end_date}</Moment>
+          {row.has_expired ? (
+            <div className="badge badge-light-danger">Expired</div>
+          ) : (
+            ""
+          )}
+        </span>
       ),
     },
     {
-      name: 'Action',
-      selector: row => row.status,
-      format: row => (
+      name: "Action",
+      selector: (row) => row.status,
+      format: (row) => (
         <span className="text-end">
           <Link
             to={"/panel/client/contracts/" + row.id}
@@ -126,26 +116,23 @@ const ClientContracts = () => {
             <i className="fa fa-eye"></i>
           </Link>
         </span>
-      )
+      ),
     },
   ];
 
   const getContracts = async (filters) => {
-    const res = await ClientContractService.getAll(filters)
-    setContracts(res?.data)
+    const res = await ClientContractService.getAll(filters);
+    setContracts(res?.data);
     setLoading(false);
   };
-
-
 
   const onCloseModal = () => {
     setOpenAddModal(false);
     setOpenEditModal(false);
   };
 
-
   React.useEffect(() => {
-    getContracts()
+    getContracts();
   }, []);
 
   return (
@@ -154,10 +141,11 @@ const ClientContracts = () => {
         <div className="container-xxl">
           {
             // contracts.length > 0 && (
-              <Table
+            <Table
               name="Contracts"
               onClickButton={() => setOpenAddModal(true)}
-              isLoading={loading} data={contracts}
+              isLoading={loading}
+              data={contracts}
               columns={columns}
               onFilter={getContracts}
             />

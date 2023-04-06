@@ -189,10 +189,10 @@ const PrintInvoice = () => {
                           <td className="text-start"></td>
                           <td className="text-center"></td>
                           <td className="text-center">
-                            <h4>Sub-Total</h4>
+                            <h5>Sub-Total</h5>
                           </td>
                           <td className="text-center">
-                            <h4>{total} TK.</h4>
+                            <h5>{total} TK.</h5>
                           </td>
                         </tr>
                         <tr>
@@ -200,12 +200,12 @@ const PrintInvoice = () => {
                           <td className="text-start"></td>
                           <td className="text-center"></td>
                           <td className="text-center">
-                            <h4>VAT ({invoice?.vat})%</h4>
+                            <h5>VAT ({invoice?.vat})%</h5>
                           </td>
                           <td className="text-center border-1 border-dark">
-                            <h4>
+                            <h5>
                               {Math.round(total*invoice.vat/100) ?? 0} TK.
-                            </h4>
+                            </h5>
                           </td>
                         </tr>
                         <tr>
@@ -213,14 +213,30 @@ const PrintInvoice = () => {
                           <td className="text-start"></td>
                           <td className="text-center"></td>
                           <td className="text-center">
-                            <h4>Discount ({invoice?.discount})%</h4>
+                            <h5>Discount ({invoice?.discount})%</h5>
                           </td>
                           <td className="text-center border-bottom border-1 border-dark">
-                            <h4>
+                            <h5>
                               {Math.round(total*invoice.discount/100) ?? 0} TK.
-                            </h4>
+                            </h5>
                           </td>
                         </tr>
+                        {invoice?.return_part?.return_part_items?.length > 0 && (
+                            <tr>
+                            <td className=" text-center"></td>
+                            <td className="text-start"></td>
+                            <td className="text-center"></td>
+                            <td className="text-center">
+                              <h5>Return Part Amount</h5>
+                            </td>
+                            <td className="text-center border-bottom border-1 border-dark">
+                              <h5>
+                              {invoice?.grand_total - invoice?.return_part?.grand_total ??
+                                "0"} Tk
+                              </h5>
+                            </td>
+                          </tr>
+                          )}
                         <tr>
                           <td></td>
                           <td></td>

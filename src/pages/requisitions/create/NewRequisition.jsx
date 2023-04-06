@@ -96,6 +96,7 @@ const NewRequisition = () => {
   ];
 
   const payments = [
+    { value: "credit", label: "Credit" },
     { value: "cash", label: "Cash" },
     { value: "bank", label: "Bank" },
     { value: "cheque", label: "Cheque" },
@@ -128,9 +129,9 @@ const NewRequisition = () => {
             part_items: inputField,
           })
         : await RequisitionService.create({
-          ...data,
-            is_company: companyPart ? 1 : 0
-        });
+            ...data,
+            is_company: companyPart ? 1 : 0,
+          });
       setBlock(false);
       if (req || data?.type == "claim_report") {
         navigate("/panel/require_req");
@@ -253,9 +254,6 @@ const NewRequisition = () => {
     //     [name]: value,
     //   });
     // }
-
-    // console.log("shanto",conf)
-    // console.log("shantoargha",option)
     // if(conf.name = "part_heading_id"){
     // setPartHeading(option);
     // }
@@ -281,7 +279,7 @@ const NewRequisition = () => {
     let res = await PartService.getSellable({
       ...filter,
       company_id: data?.company_id,
-      is_company: companyPart ? 1 : 0
+      is_company: companyPart ? 1 : 0,
       // machine_id: machineId,
     });
     setSearchData(res.data);
@@ -959,7 +957,7 @@ const NewRequisition = () => {
                                     disabled={btnActive}
                                     onClick={() => {
                                       storeRequisition();
-                                      setBtnActive(true)
+                                      setBtnActive(true);
                                     }}
                                     className="btn btn-primary"
                                   >

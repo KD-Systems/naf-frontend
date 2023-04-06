@@ -2,16 +2,14 @@ import Table from "components/utils/Table";
 import PermissionAbility from "helpers/PermissionAbility";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import ClaimRequisitionService from "services/ClaimRequisitionService";
 import ClientClaimRequisitionService from "services/clientServices/ClientClaimRequisitionService";
-import RequisitionService from "services/RequisitionService";
 import ClaimRequestFilter from "./ClaimRequestFilter";
 
 const ClientClaimRequest = () => {
   const [filter, setFilter] = useState(false);
   const [loading, setLoading] = useState(true);
   const [focClaimRequest, setFocClaimRequest] = useState([]);
-  const filterdata = (data) => {    
+  const filterdata = (data) => {
     setFilter(false);
     getFocClaimRequest(data);
   };
@@ -83,13 +81,15 @@ const ClientClaimRequest = () => {
               Pending
             </div>
           )}
-          {row?.status.includes("from_foc" || "from_sellable" || "complete" || 'both') && (
+          {row?.status.includes(
+            "from_foc" || "from_sellable" || "complete" || "both"
+          ) && (
             <div className="mt-2 text-white bg-info p-1 px-2 rounded">
               Complete
             </div>
           )}
-          
-          {row?.status == "waiting_for_tajima" && ( 
+
+          {row?.status == "waiting_for_tajima" && (
             <div className="mt-2 text-white bg-success p-1 px-2 rounded">
               Waiting for Mother Company
             </div>
@@ -103,21 +103,21 @@ const ClientClaimRequest = () => {
       selector: (row) => row.status,
       format: (row) => (
         <span className="text-end">
-            <Link
-              to={"/panel/client-claim-requests/" + row.id}
-              className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" 
-            >
-              <i className="fa fa-eye"></i>
-            </Link>
+          <Link
+            to={"/panel/client-claim-requests/" + row.id}
+            className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+          >
+            <i className="fa fa-eye"></i>
+          </Link>
         </span>
       ),
     },
-
-
   ];
 
   const getFocClaimRequest = async (filters) => {
-    let res = await ClientClaimRequisitionService.getAllClientClaimRequest(filters);
+    let res = await ClientClaimRequisitionService.getAllClientClaimRequest(
+      filters
+    );
     setFocClaimRequest(res);
     setLoading(false);
   };
@@ -136,11 +136,10 @@ const ClientClaimRequest = () => {
     <>
       <div className="post d-flex flex-column-fluid">
         <div className="container-xxl">
-        <Table
+          <Table
             name="Required Requisitions"
             buttonName="Add Claim Request"
             onClickButton={routeChange}
-
             callbackButtons={[
               {
                 name: "Filter",
@@ -149,7 +148,7 @@ const ClientClaimRequest = () => {
                 },
                 permission: null,
               },
-            ]}     
+            ]}
             isLoading={loading}
             data={focClaimRequest}
             columns={columns}

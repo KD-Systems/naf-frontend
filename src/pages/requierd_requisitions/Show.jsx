@@ -169,11 +169,11 @@ const ShowRequiredRequisition = () => {
 
                 <div className="fw-bolder mt-5">Created By </div>
                 <div className="text-gray-600">
-                    {requisition?.user?.name}
+                    {requisition?.user?.name?.replaceAll("_", " ")?.capitalize()}
                 </div>
 
                 <div className="fw-bolder mt-5">Status</div>
-                <div className="text-gray-600">{requisition?.status}</div>
+                <div className="text-gray-600">{requisition?.status?.replaceAll("_", " ")?.capitalize()}</div>
 
                 <div className="card-title mt-10 justify-content-center">
                   <h3 className="card-label mr-10">

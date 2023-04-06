@@ -2,9 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Activities } from "components/utils/Activities";
 import Moment from "react-moment";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import ContractService from 'services/ContractService';
 import MachineModels from "./machines/index";
-import PermissionAbility from "helpers/PermissionAbility";
 import ClientContractService from "services/clientServices/ClientContractService";
 
 const ShowClientContract = () => {
@@ -41,26 +39,26 @@ const ShowClientContract = () => {
                   <div className="separator"></div>
 
                   <div className="pb-5 fs-6">
-                    <div className="fw-bolder mt-5">{data?.is_foc ? 'Installation' : 'Contract'} Date</div>
+                    <div className="fw-bolder mt-5">
+                      {data?.is_foc ? "Installation" : "Contract"} Date
+                    </div>
                     <div className="text-gray-600">
                       <span className="text-gray-600 text-hover-primary">
-                        <Moment format='YYYY-MM-DD'>
-                          {data.start_date}
-                        </Moment>
+                        <Moment format="YYYY-MM-DD">{data.start_date}</Moment>
                       </span>
                     </div>
 
                     <div className="fw-bolder mt-5">Expriation Date</div>
                     <div className="text-gray-600">
                       <span className="text-gray-600 text-hover-primary">
-                        <Moment format='YYYY-MM-DD'>
-                          {data.end_date}
-                        </Moment>
-                        {data.has_expired ?
+                        <Moment format="YYYY-MM-DD">{data.end_date}</Moment>
+                        {data.has_expired ? (
                           <div className="badge badge-light-danger">
                             Expired
-                          </div> : ''
-                        }
+                          </div>
+                        ) : (
+                          ""
+                        )}
                       </span>
                     </div>
 
@@ -89,13 +87,15 @@ const ShowClientContract = () => {
                     <div className="fw-bolder mt-5">Machines</div>
                     <div className="text-gray-600">
                       <span className="text-gray-600 text-hover-primary">
-                        {data.machine_models?.map((dt,index) => (<Link
-                        key={index}
-                          to={`/panel/machines/${dt.model.machine_id}/models/${dt.model.id}`}
-                          className="text-gray-600 text-hover-primary fw-bolder d-block mb-1 fs-6"
-                        >
-                          {dt?.model?.name}
-                        </Link>))}
+                        {data.machine_models?.map((dt, index) => (
+                          <Link
+                            key={index}
+                            to={`/panel/machines/${dt.model.machine_id}/models/${dt.model.id}`}
+                            className="text-gray-600 text-hover-primary fw-bolder d-block mb-1 fs-6"
+                          >
+                            {dt?.model?.name}
+                          </Link>
+                        ))}
                       </span>
                     </div>
 
@@ -105,19 +105,18 @@ const ShowClientContract = () => {
                         {data.notes}
                       </span>
                     </div>
-
                   </div>
                 </div>
               </div>
-
             </div>
 
             <div className="flex-lg-row-fluid ms-lg-15">
               <ul className="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-bold mb-8">
                 <li className="nav-item">
                   <a
-                    className={`nav-link text-active-primary pb-4 ${tab === "machines" ? "active" : ""
-                      }`}
+                    className={`nav-link text-active-primary pb-4 ${
+                      tab === "machines" ? "active" : ""
+                    }`}
                     data-bs-toggle="tab"
                     href="#machines"
                     onClick={() => setTab("machines")}
@@ -127,8 +126,9 @@ const ShowClientContract = () => {
                 </li>
                 <li className="nav-item">
                   <a
-                    className={`nav-link text-active-primary pb-4 ${tab === "activities" ? "active" : ""
-                      }`}
+                    className={`nav-link text-active-primary pb-4 ${
+                      tab === "activities" ? "active" : ""
+                    }`}
                     data-bs-toggle="tab"
                     href="#activities"
                     onClick={() => setTab("activities")}
@@ -136,7 +136,6 @@ const ShowClientContract = () => {
                     Activities
                   </a>
                 </li>
-
               </ul>
 
               <div className="tab-content" id="machines">
@@ -146,11 +145,10 @@ const ShowClientContract = () => {
               </div>
               <div className="tab-content" id="machines">
                 <div className="tab-content">
-                <Activities logName="contracts" modelId={id} tab={tab}/>
+                  <Activities logName="contracts" modelId={id} tab={tab} />
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </div>

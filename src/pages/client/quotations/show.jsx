@@ -247,7 +247,7 @@ const ShowQuotation = () => {
                     </Link>
                   </h3>
 
-                  {!locked ? (
+                  {/* {!locked ? (
                     <h3>
                       <button
                         className="btn btn-sm btn-dark float-end fs-6 "
@@ -265,7 +265,7 @@ const ShowQuotation = () => {
                         Locked
                       </button>
                     </h3>
-                  )}
+                  )} */}
                 </div>
               </div>
             </div>

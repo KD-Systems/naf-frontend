@@ -39,6 +39,12 @@ const addPayment = async (data) => {
   return res.data;
 };
 
+// update remarks
+const updateInfo = async (id,data) => {
+  const res = await http.post(`/invoice-update/${id}`, data);
+  return res.data;
+};
+
 const getPaymentHistories = async (data) => {
   const res = await http.get(`/payment-histories`, {
     params: { id: data },
@@ -49,6 +55,11 @@ const getPaymentHistories = async (data) => {
 
 const getPaymentHistory = async (id) => {
   const res = await http.get(`/payment-histories/${id}`);
+  return res.data;
+};
+
+const removePaymentHistory = async (id) => {
+  const res = await http.delete(`/payment-histories/${id}`);
   return res.data;
 };
 
@@ -88,8 +99,10 @@ const InvoiceService = {
   remove,
   getPaymentHistories,
   getPaymentHistory,
+  removePaymentHistory,
   addPayment,
   searchPart,
+  updateInfo,
 
    //Attachment File functanality
    fileUpload,

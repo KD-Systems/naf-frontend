@@ -50,20 +50,20 @@ const ClientQuotations = () => {
       field: "grand_total",
     },
 
-    {
-      name: "Lock",
-      selector: (row) => row?.locked_at,
-      format: (row) => (
-        <div className='mt-2'>
-          {row?.locked_at ? (
-            "Locked"
-          ): "on-going"}
+    // {
+    //   name: "Lock",
+    //   selector: (row) => row?.locked_at,
+    //   format: (row) => (
+    //     <div className='mt-2'>
+    //       {row?.locked_at ? (
+    //         "Locked"
+    //       ): "on-going"}
          
-        </div>
-      ),
-      sortable: true,
-      field: "id",
-    },
+    //     </div>
+    //   ),
+    //   sortable: true,
+    //   field: "id",
+    // },
 
     {
       name: "Status",

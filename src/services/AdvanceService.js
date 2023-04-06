@@ -1,7 +1,7 @@
 import http from "../http-common";
 
 const getAll = async (param) => {
-  const res = await http.get(`/advance-payment`, {params:param});
+  const res = await http.get(`/advance-payment`, { params: param });
   return res.data;
 };
 
@@ -14,12 +14,18 @@ const create = async (data) => {
   return http.post("/advance-payment", data);
 };
 
-
+const remove = async (id, advanceId) => {
+  const res = await http.delete(`/advance-payment/${id}`, {
+    params: { advanceId: advanceId },
+  });
+  return res.data;
+};
 
 const AdvanceService = {
   getAll,
   get,
   create,
+  remove,
 };
 
 export default AdvanceService;

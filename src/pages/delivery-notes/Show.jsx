@@ -284,7 +284,9 @@ const ShowDeliveryNotes = () => {
                                           <td colSpan={2}></td>
                                           <td>Sub-total</td>
                                           <td></td>
-                                          <td>{deliveryNote?.invoice?.sub_total}</td>
+                                          <td>
+                                            {deliveryNote?.invoice?.sub_total}
+                                          </td>
                                           <td></td>
                                         </tr>
                                         <tr className="fw-bolder text-gray-700 fs-5 text-end">
@@ -307,13 +309,27 @@ const ShowDeliveryNotes = () => {
                                             {deliveryNote?.invoice?.discount}%)
                                           </td>
                                           <td></td>
-                                          <td>
+                                          <td className="text-danger">
                                             {(deliveryNote?.invoice?.sub_total *
                                               deliveryNote?.invoice?.discount) /
                                               100 ?? "0"}
                                           </td>
                                           <td></td>
                                         </tr>
+                                        {deliveryNote?.return_part != null && (
+                                          <tr className="fw-bolder text-gray-700 fs-5 text-end">
+                                            <td colSpan={2}></td>
+                                            <td className="align-center justify-content-center">
+                                              Return Part Amount
+                                            </td>
+                                            <td></td>
+                                            <td className="text-danger">
+                                              {deliveryNote?.return_part?.grand_total ?? "0"}
+                                            </td>
+                                            <td></td>
+                                          </tr>
+                                        )}
+
                                         <tr className="fw-bolder text-gray-700 fs-5 text-end">
                                           <td colSpan={2}></td>
                                           <td>Grand Total</td>

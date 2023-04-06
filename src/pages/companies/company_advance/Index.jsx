@@ -4,15 +4,16 @@ import moment from "moment";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import AdvanceService from "services/AdvanceService";
+import CompanyService from "services/CompanyService";
 import AdvanceAmount from "./AdvanceAmount";
 import EditUser from "./Edit";
 
 const CompanyAdvance = ({ active }) => {
+  let { id } = useParams();
   const [confirmDelete, setConfirmDelete] = useState(false);
-  const [userId, setUserId] = useState(null);
-  const [users, setUsers] = useState([]);
+  const [advanceId, setAdvanceId] = useState(null);
+  const [advance, setAdvance] = useState([]);
   const [openEditModal, setOpenEditModal] = useState(false);
-  const { id } = useParams();
 
   const [dueModal, setDueModal] = useState(false);
 
@@ -20,17 +21,16 @@ const CompanyAdvance = ({ active }) => {
     setOpenEditModal(false);
   };
 
-  const getUsers = async () => {
-    setUsers(await AdvanceService.getAll({id:id}));
+  const getAdvance = async () => {
+    setAdvance(await AdvanceService.getAll({ id: id }));
   };
 
-  const deleteUser = async (userId) => {
-    // if (window.confirm("Are you sure want to delete?"))
-    // await CompanyService.deleteUser(id, userId);
+  const deleteUser = async (advanceId) => {
+    await AdvanceService.remove(id, advanceId);
   };
 
   useEffect(() => {
-    if (id) getUsers();
+    if (id) getAdvance();
   }, [id]);
 
   return (
@@ -41,7 +41,7 @@ const CompanyAdvance = ({ active }) => {
           id="advancePayment"
           role="tab-panel"
         >
-          <div className="d-flex flex-column gacompanyIdgap-lg-10">
+          <div className="d-flex flex-column gaidgap-lg-10">
             <div className="card card-flush py-4">
               <div className="card-header">
                 <div className="card-title">
@@ -111,12 +111,12 @@ const CompanyAdvance = ({ active }) => {
                   </thead>
 
                   <tbody>
-                    {users?.map((item, index) => (
+                    {advance?.map((item, index) => (
                       <tr key={index}>
                         <td>
                           <div className="d-flex align-items-center">
                             <div className="d-flex justify-content-start flex-column">
-                              {moment(item.created_at).format("MMM Do YY")}
+                              {moment(item?.created_at).format("MMM Do YY")}
                             </div>
                           </div>
                         </td>
@@ -124,7 +124,7 @@ const CompanyAdvance = ({ active }) => {
                         <td>
                           <div className="d-flex align-items-center">
                             <div className="d-flex justify-content-start flex-column">
-                              {item.amount}
+                              {item?.amount}
                             </div>
                           </div>
                         </td>
@@ -132,7 +132,9 @@ const CompanyAdvance = ({ active }) => {
                         <td>
                           <div className="d-flex align-items-center">
                             <div className="d-flex justify-content-start flex-column">
-                              {item.transaction_type ? "Addition" : "Deduction"}
+                              {item?.transaction_type
+                                ? "Addition"
+                                : "Deduction"}
                             </div>
                           </div>
                         </td>
@@ -140,7 +142,7 @@ const CompanyAdvance = ({ active }) => {
                         <td>
                           <div className="d-flex align-items-center">
                             <div className="d-flex justify-content-start flex-column">
-                              {item.invoice_number ?? "Manually Added"}
+                              {item?.invoice_number ?? "Manually Added"}
                             </div>
                           </div>
                         </td>
@@ -177,7 +179,7 @@ const CompanyAdvance = ({ active }) => {
                             <button
                               onClick={() => {
                                 setConfirmDelete(true);
-                                setUserId(item.id);
+                                setAdvanceId(item.id);
                               }}
                               className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
                             >
@@ -197,7 +199,7 @@ const CompanyAdvance = ({ active }) => {
             open={confirmDelete}
             onConfirm={() => {
               setConfirmDelete(false);
-              deleteUser(userId);
+              deleteUser(advanceId);
             }}
             onCancel={() => setConfirmDelete(false)}
           />
@@ -208,17 +210,17 @@ const CompanyAdvance = ({ active }) => {
               onCloseModal();
             }}
             onUpdate={() => {
-              getUsers();
+              getAdvance();
             }}
-            companyId={id}
-            userId={userId}
+            id={id}
+            advanceId={advanceId}
           />
 
           <AdvanceAmount
             open={dueModal}
-            companyId={id}
+            id={id}
             onCloseModal={() => setDueModal(false)}
-            onUpdated={getUsers}
+            onUpdated={getAdvance}
           />
         </div>
       </div>

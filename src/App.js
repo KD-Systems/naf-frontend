@@ -39,6 +39,9 @@ import CreateDelivery from "pages/delivery-notes/CreateDelivery";
 import DeliveryNotes from "pages/delivery-notes/Index";
 import PrintDeliveryNotes from "pages/delivery-notes/Print";
 import ShowDeliveryNotes from "pages/delivery-notes/Show";
+
+import ReturnPart from "pages/invoices/return-parts/index";
+
 import Designations from "pages/designations/Index";
 import ShowDesignation from "pages/designations/Show";
 import Employee from "pages/employee/Index";
@@ -49,8 +52,10 @@ import ShowClaimRequisition from "pages/foc-requisitions/Show";
 import Forbidden from "pages/Forbidden";
 import GatePass from "pages/gate-passes/Index";
 import Invoices from "pages/invoices/Index";
+import InvoiceCreate from "pages/invoices/CreateSection";
 import ShowPaymentHistories from "pages/invoices/paymentHistories/Show";
 import PrintInvoice from "pages/invoices/Print";
+import PrintReturnInvoice from "pages/invoices/partItems/Print";
 import ShowInvoice from "pages/invoices/Show";
 import AppLayout from "pages/layouts/AppLayout";
 import ShowPartHeadings from "pages/machines/headings/Show";
@@ -471,6 +476,15 @@ function App() {
             {/* Invoice Start */}
 
             <Route
+              path="invoices/:quotationId/create"
+              element={
+                <PrivateRoute>
+                  <InvoiceCreate />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
               path="invoices"
               element={
                 <PrivateRoute>
@@ -492,6 +506,15 @@ function App() {
               element={
                 <PrivateRoute>
                   <PrintInvoice />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
+              path="return-invoices/:id/print"
+              element={
+                <PrivateRoute>
+                  <PrintReturnInvoice />
                 </PrivateRoute>
               }
             />
@@ -540,6 +563,15 @@ function App() {
               element={
                 <PrivateRoute>
                   <CreateDelivery />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
+              path="return-part"
+              element={
+                <PrivateRoute>
+                  <ReturnPart />
                 </PrivateRoute>
               }
             />

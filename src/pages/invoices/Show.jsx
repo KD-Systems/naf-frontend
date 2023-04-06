@@ -4,10 +4,11 @@ import { useEffect, useState } from "react";
 import Moment from "react-moment";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import InvoiceService from "services/InvoiceService";
-import InvoicePartItems from "./partiItems/Index";
+import InvoicePartItems from "./partItems/Index";
 import InvoiceCreatePayment from "./paymentHistories/Create";
 import NewDropzone from "./Dropzone/MyDropzone";
 import Confirmation from "components/utils/Confirmation";
+import UpdateInfo from "./section/UpdateInfo";
 
 const ShowInvoice = () => {
   let { id } = useParams();
@@ -16,6 +17,8 @@ const ShowInvoice = () => {
   const [total, setTotal] = useState(0);
   const [totalPayment, setTotalPayment] = useState(0);
   const [paymentHistories, setPaymentHistories] = useState([]);
+  const [paymentHistoriesId, setPaymentHistoriesId] = useState({});
+  const [paymentHistoriesDelete, setPaymentHistoriesDelete] = useState(false);
 
   const [block, setBlock] = useState(false);
   const [active, setActive] = useState("part_items"); // * tab active or not
@@ -26,14 +29,10 @@ const ShowInvoice = () => {
   const [uuid, setuuid] = useState();
   const [model_id, setModelId] = useState();
   const [file, setFile] = useState({});
+  const [updateAMountModal, setUpdateAMountModal] = useState(false);
 
   const uploadFile = async (formData) => {
     await InvoiceService.fileUpload(id, formData);
-    getFile();
-  };
-
-  const deleteItem = async () => {
-    await InvoiceService.deleteFile(uuid, model_id);
     getFile();
   };
 
@@ -66,8 +65,20 @@ const ShowInvoice = () => {
       )
     );
   };
+
+  const deleteItem = async () => {
+    if(paymentHistoriesDelete == true){
+      await InvoiceService.removePaymentHistory(paymentHistoriesId);
+      getPaymentHistories()
+    }else{
+      await InvoiceService.deleteFile(uuid, model_id);
+      getFile();
+    }
+    
+  };
   const onCloseModal = () => {
     setOpen(false);
+    setUpdateAMountModal(false);
   };
 
   useEffect(() => {
@@ -105,6 +116,8 @@ const ShowInvoice = () => {
                 <div className="card-body py-4">
                   <div className="fw-bolder mt-5">Invoice Number</div>
                   <div className="text-gray-600">{invoice?.invoice_number}</div>
+                  <div className="fw-bolder mt-5">Quotation Number</div>
+                  <div className="text-gray-600">{invoice?.quotation}</div>
                   {invoice?.part_items?.length > 0 && (
                     <>
                       <div className="fw-bolder mt-5">Invoice Status</div>
@@ -242,12 +255,27 @@ const ShowInvoice = () => {
 
                       <div className="fw-bolder mt-5">Created By </div>
                       <div className="text-gray-600">{invoice?.created_by}</div>
+
+                      <div className="fw-bolder mt-5">Remrks</div>
+                      <div className="text-gray-600">
+                        {invoice?.remarks ?? "--"}
+                      </div>
                     </>
                   )}
                 </div>
                 <div className="card-header">
                   {invoice?.part_items?.length > 0 && (
                     <div className="card-title">
+                      <PermissionAbility permission="invoices_update">
+                        <button className="btn btn-sm btn-dark text-white card-label"
+                          onClick={()=> {
+                            setUpdateAMountModal(true)
+                          }}
+                          >
+                            Update
+                        </button>
+                      </PermissionAbility>
+
                       <PermissionAbility permission="invoices_print">
                         <h3 className="card-label">
                           <Link
@@ -537,6 +565,20 @@ const ShowInvoice = () => {
                                         <i className="fa fa-eye"></i>
                                       </Link>
                                     </span>
+                                    <PermissionAbility permission="payment_history_delete">
+                                    <span className="text-end">
+                                      <button
+                                      onClick={()=>{
+                                        setPaymentHistoriesId(item?.id)
+                                        setPaymentHistoriesDelete(true)
+                                        setConfirmDelete(true);
+                                      }}
+                                        className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+                                      >
+                                        <i className="fa fa-trash"></i>
+                                      </button>
+                                    </span>
+                                    </PermissionAbility>
                                   </td>
                                 </tr>
                               ))}
@@ -566,6 +608,12 @@ const ShowInvoice = () => {
           deleteItem();
         }}
         onCancel={() => setConfirmDelete(false)}
+      />
+      <UpdateInfo
+        open={updateAMountModal}
+        InvoiceId={id}
+        onCloseModal={onCloseModal}
+        onUpdated={getInvoice}
       />
     </>
   );

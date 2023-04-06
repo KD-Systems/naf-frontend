@@ -36,8 +36,6 @@ const CreateQuotation = () => {
     const templist = [...list];
     const tempItem = templist?.filter((val) => val?.id === item?.id);
     const tempItemPart = tempItem[0]?.part;
-
-    // console.log(tempPartStock);
     tempItemPart[name] = parseInt(e.target.value);
     setList(templist);
   };
@@ -123,7 +121,7 @@ const CreateQuotation = () => {
       requisition?.part_items?.map((dt) => {
         return {
           unit_value:
-            dt?.part?.stocks[dt?.part?.stocks.length - 1]?.selling_price,
+            dt?.part?.stocks[dt?.part?.stocks.length - 1]?.selling_price, 
           id: dt.id,
         };
       })
@@ -173,7 +171,7 @@ const CreateQuotation = () => {
                         <small>Head Office:Naya paltan,Dhaka,Bangladesh</small>
                         <br />
                         <small>
-                          Tel:44564,Fax:sddsf,Email:asd@gmail.com,Web:example.com
+                          Tel:44564,Fax:1234,Email:example@gmail.com,Web:example.com
                         </small>
                       </p>
                     </div>
@@ -337,7 +335,6 @@ const CreateQuotation = () => {
                                     itemData?.find((x) => x.id === item.id)
                                       ?.unit_value ?? ""
                                   }
-                                  // onChange={(e) => handleChange(e, item)}
                                   onChange={(e) => handleNewChange(e, item)}
                                 />
                               </td>

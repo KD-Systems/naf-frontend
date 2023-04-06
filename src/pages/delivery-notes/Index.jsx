@@ -25,8 +25,8 @@ const DeliveryNotes = () => {
     setLoading(false);
   };
 
-  const deleteDeliveryNote = (deliveryNoteId) => {
-    DeliverNoteService.remove(deliveryNoteId);
+  const deleteDeliveryNote = async (deliveryNoteId) => {
+    await DeliverNoteService.remove(deliveryNoteId);
     getDeliverNotes();
     setLoading(false);
   };
@@ -121,7 +121,7 @@ const DeliveryNotes = () => {
                 <i className="fa fa-print"></i>
               </Link>
             </PermissionAbility>
-
+            { row?.return_part == null && (
             <PermissionAbility permission="deliveryNote_delete_access">
               <Link
                 to="#"
@@ -134,6 +134,7 @@ const DeliveryNotes = () => {
                 <i className="fa fa-trash"></i>
               </Link>
             </PermissionAbility>
+            )}
           </span>
         </>
       ),

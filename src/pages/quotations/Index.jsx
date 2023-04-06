@@ -78,15 +78,15 @@ const Quotations = () => {
       field: "grand_total",
     },
 
-    {
-      name: "lock",
-      selector: (row) => row?.locked_at,
-      format: (row) => (
-        <div className="mt-2">{row?.locked_at ? "Locked" : "Not locked"}</div>
-      ),
-      sortable: true,
-      field: "id",
-    },
+    // {
+    //   name: "lock",
+    //   selector: (row) => row?.locked_at,
+    //   format: (row) => (
+    //     <div className="mt-2">{row?.locked_at ? "Locked" : "Not locked"}</div>
+    //   ),
+    //   sortable: true,
+    //   field: "id",
+    // },
     {
       name: "Status",
       selector: (row) => row?.status,
@@ -118,17 +118,17 @@ const Quotations = () => {
       ),
     },
 
-    {
-      name: "IN Number",
-      selector: (row) => row?.invoice,
-      sortable: true,
-      field: "id",
-      format: (row) => (
-        <div className="mt-2">
-          {row?.invoice ? row?.invoice : "No invoice yet"}
-        </div>
-      ),
-    },
+    // {
+    //   name: "IN Number",
+    //   selector: (row) => row?.invoice,
+    //   sortable: true,
+    //   field: "id",
+    //   format: (row) => (
+    //     <div className="mt-2">
+    //       {row?.invoice ? row?.invoice : "No invoice yet"}
+    //     </div>
+    //   ),
+    // },
 
     {
       name: "Created At",

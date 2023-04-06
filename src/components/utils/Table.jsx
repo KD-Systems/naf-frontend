@@ -140,8 +140,8 @@ function Table({
           progressPending={isLoading}
           pagination
           paginationServer
-          paginationTotalRows={data.meta?.total}
-          currentPage={data.meta?.current_page}
+          paginationTotalRows={data?.meta?.total}
+          currentPage={data?.meta?.current_page}
           onChangeRowsPerPage={handlePerRowsChange}
           onChangePage={handlePageChange}
           onSort={handleOrder}

@@ -134,18 +134,12 @@ const ShowClientClaimRequest = () => {
                 <div className="fw-bolder mt-5">Status</div>
                 <div className="text-gray-600">
                   {claimRequest?.status == "pending" && (
-                    <span className="badge badge-info">
-                      Pending
-                    </span>
+                    <span className="badge badge-info">Pending</span>
                   )}
 
                   {claimRequest?.status?.includes(
                     "from_foc" || "from_sellable" || "complete" || "both"
-                  ) && (
-                    <div className="badge badge-info">
-                      Complete
-                    </div>
-                  )}
+                  ) && <div className="badge badge-info">Complete</div>}
 
                   {claimRequest?.status == "waiting_for_tajima" && (
                     <div className="badge badge-info">
@@ -230,15 +224,6 @@ const ShowClientClaimRequest = () => {
                       </div>
                     </div>
                   </div>
-                  {/* <div className="mt-10">
-                    <button
-                      className="btn btn-sm btn-dark "
-                      style={{ marginRight: "0.1rem" }}
-                      onClick={() => navigate(`/panel/parts`)}
-                    >
-                      Add Part
-                    </button>
-                  </div> */}
                 </div>
                 <Activities logName="requisitions" modelId={id} tab={tab} />
               </div>

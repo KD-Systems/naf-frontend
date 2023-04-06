@@ -1,6 +1,5 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import ClientService from "services/ClientService";
 import ClientCompanyMachinesService from "services/clientServices/ClientCompanyMachinesService";
 
 const ClientCompanyMachines = () => {
@@ -13,12 +12,9 @@ const ClientCompanyMachines = () => {
     setLoading(false);
   };
 
-
   useEffect(() => {
     getClientComapnyMachines();
   }, []);
-
-
 
   return (
     <div className="post d-flex flex-column-fluid" id="kt_post">
@@ -53,16 +49,7 @@ const ClientCompanyMachines = () => {
                   {data?.data?.map((item, index) => (
                     <tr>
                       <Fragment key={index}>
-                        <td>
-                          {/* <Link
-                            to={"/panel/machines/" + item?.model?.machine?.id}
-                            className="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
-                          >
-                            {item?.model?.machine?.name} 
-                          </Link> */}
-                          
-                            {item?.model?.machine?.name} 
-                        </td>
+                        <td>{item?.model?.machine?.name}</td>
                         <td>{item?.model?.name}</td>
                         <td>{item?.mfg_number}</td>
                       </Fragment>

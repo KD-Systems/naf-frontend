@@ -1,23 +1,28 @@
 import Modal from "components/utils/Modal";
-import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import AdvanceService from "services/AdvanceService";
+import InvoiceService from "services/InvoiceService";
 toast.configure();
 
-const AdvanceAmount = ({ open, companyId, onCloseModal, onUpdated }) => {
-  let { id } = useParams();
-
-   const [data, setData] = useState({
-    company_id: id,
-    amount:'',
+const UpdateInfo = ({ open, InvoiceId, onCloseModal, onUpdated }) => {
+  const [data, setData] = useState({
     remarks: "",
-    transaction_type: true
   });
 
-  const updateCompany = async () => {
-    await AdvanceService.create(data);
+  const getInvoice = async () => {
+    let res = await InvoiceService.get(InvoiceId);
+    setData({
+      ...data,
+      remarks: res.remarks,
+    });
+  };
+  useEffect(() => {
+    if (InvoiceId) getInvoice();
+  }, [InvoiceId, open]);
+
+  const updateInfo = async () => {
+    await InvoiceService.updateInfo(InvoiceId,data);
     onUpdated();
     onCloseModal();
   };
@@ -32,48 +37,27 @@ const AdvanceAmount = ({ open, companyId, onCloseModal, onUpdated }) => {
     });
   };
 
-
-
-
-
   return (
     <div>
       <Modal
         open={open}
         onCloseModal={onCloseModal}
-        title={<>Add Advance Amount</>}
+        title={<>Update Info</>}
         body={
           <>
-            <form id="update-company">
-              <div className="mb-5 fv-row fv-plugins-icon-container">
-                <label className="form-label">Advance Amount</label>
-                <input
-                  type="number"
-                  className="form-control"
-                  placeholder="Amount"
-                  name="amount"
-                  onChange={handleChange}
-                />
-                <div
-                  className="fv-plugins-message-container invalid-feedback"
-                  htmlFor="description"
-                ></div>
-              </div>
-
+            <form id="update-info">
               <div className="mb-5 fv-row fv-plugins-icon-container">
                 <label className="form-label">Remarks</label>
-                <input
-                  type="text"
+                <textarea
                   className="form-control"
-                  placeholder="Enter Description"
                   name="remarks"
-                  id="description"
+                  id="remarks"
                   value={data.remarks ?? ""}
                   onChange={handleChange}
-                />
+                ></textarea>
                 <div
                   className="fv-plugins-message-container invalid-feedback"
-                  htmlFor="description"
+                  htmlFor="remarks"
                 ></div>
               </div>
 
@@ -81,7 +65,7 @@ const AdvanceAmount = ({ open, companyId, onCloseModal, onUpdated }) => {
                 type="reset"
                 className="btn btn-primary mr-2 mt-5"
                 style={{ marginRight: "1rem" }}
-                onClick={updateCompany}
+                onClick={updateInfo}
               >
                 Update
               </button>
@@ -100,4 +84,4 @@ const AdvanceAmount = ({ open, companyId, onCloseModal, onUpdated }) => {
   );
 };
 
-export default AdvanceAmount;
+export default UpdateInfo;

@@ -130,7 +130,9 @@ const ShowRequisition = () => {
 
                 <div className="fw-bolder mt-5">Payment Mode</div>
                 <div className="text-gray-600">
-                  {requisition?.payment_mode ?? "--"}
+                  {requisition?.payment_mode
+                    ?.replaceAll("_", " ")
+                    ?.capitalize() ?? "--"}
                 </div>
 
                 <div className="fw-bolder mt-5">Account details</div>
@@ -183,7 +185,9 @@ const ShowRequisition = () => {
                 </div>
 
                 <div className="fw-bolder mt-5">Created By </div>
-                <div className="text-gray-600">{requisition?.user?.name}</div>
+                <div className="text-gray-600">
+                  {requisition?.user?.name?.replaceAll("_", " ")?.capitalize()}
+                </div>
 
                 <div className="card-title mt-10 justify-content-center">
                   <h3 className="card-label mr-10">
