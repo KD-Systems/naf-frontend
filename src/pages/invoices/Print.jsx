@@ -273,6 +273,7 @@ const PrintInvoice = () => {
               <div className="d-flex justify-content-between flex-row flex-md-row">
                 <div className="flex-grow-1 pt-2">
                   <div className="table-responsive fs-9">
+                    <span className="fs-6"> Remarks: {invoice?.remarks ?? "--"}</span>
                     <p>
                       Terms & conditions :<br />
                       Brand : Tajima <br />
