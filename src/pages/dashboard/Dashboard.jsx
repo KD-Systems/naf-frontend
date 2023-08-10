@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
-import { Col, Row } from "react-bootstrap";
-import DashboardService from "services/DashboardService";
 import ColumnDataLabelsChart from "components/dashboard/ColumnDataLabelsChart";
 import PieChart from "components/dashboard/PieChart";
 import ScrollableTable from "components/dashboard/ScrollableTable";
 import Statistics from "components/dashboard/Statistics";
 import moment from "moment";
+import { useEffect, useState } from "react";
+import { Col, Row } from "react-bootstrap";
+import DashboardService from "services/DashboardService";
 
 const Dashboard = () => {
   const [statistics, setStatistics] = useState({});
@@ -101,8 +101,8 @@ const Dashboard = () => {
     var data = [];
     var label = [];
     res.forEach((element) => {
-      data.push(element?.totalSell);
-      label.push(element?.name[0]);
+      data?.push(element?.totalSell ?? 0);
+      label?.push(element?.name ? element?.name[0] : "N/A");
     });
 
     setTopSellingProductbyYear({
@@ -117,22 +117,22 @@ const Dashboard = () => {
     res.forEach((element) => {
       data.push({
         id: element?.part_id,
-        Product_Name: element?.part_name,
-        Product_Number: element?.part_number,
+        Purchse_Date: moment(element?.created_at).format("DD-MMM-YYYY"),
+        // Product_Name: element?.part_name,
+        // Product_Number: element?.part_number,
         Company_Name: element?.company_name,
         Qnty: element?.quantity,
-        Purchse_Date: moment(element?.created_at).format("DD-MMM-YYYY"),
       });
     });
 
     setRecentSales({
       headers: [
         "SL",
-        "Product Name",
-        "Part Number",
+        "Date",
+        // "Product Name",
+        // "Part Number",
         "Company Name",
         "Qnty",
-        "Purchse Date",
       ],
       data: data,
     });
@@ -143,8 +143,8 @@ const Dashboard = () => {
     var data = [];
     var label = [];
     res.forEach((element) => {
-      label.push(element?.company_name);
-      data.push(element?.quantity);
+      label?.push(element?.company_name);
+      data?.push(element?.quantity);
     });
     setTopCustomers({
       data: data,
@@ -187,14 +187,14 @@ const Dashboard = () => {
       <Row>
         <Col xl={8}>
           <ColumnDataLabelsChart
-            data={monthlyReport.data}
-            categories={monthlyReport.label}
+            data={monthlyReport?.data}
+            categories={monthlyReport?.label}
             title="Monthly Report"
           />
         </Col>
         <Col xl={4}>
           <PieChart
-            pieChartData={topSellingProductbyYear.data}
+            pieChartData={topSellingProductbyYear?.data}
             height={355}
             labels={topSellingProductbyYear.label}
             title={"Top Selling Product (" + new Date().getFullYear() + ")"}

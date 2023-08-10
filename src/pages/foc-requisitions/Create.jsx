@@ -2,13 +2,13 @@ import moment from "moment";
 import { useEffect, useState } from "react";
 import { DebounceInput } from "react-debounce-input";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import Select from "react-select";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ClaimRequisitionService from "services/ClaimRequisitionService";
 import CompanyService from "services/CompanyService";
 import PartService from "services/PartService";
 import RequisitionService from "services/RequisitionService";
-import Select from "react-select";
-import ClaimRequisitionService from "services/ClaimRequisitionService";
 
 const ClaimRequestRequisitionCreate = () => {
   const navigate = useNavigate();
@@ -270,7 +270,7 @@ const ClaimRequestRequisitionCreate = () => {
                           <input
                             type="text"
                             className="form-control"
-                            value={machineList.slice(1, machineList.length)}
+                            value={machineList?.slice(1, machineList.length)}
                             disabled
                           />
                           <div

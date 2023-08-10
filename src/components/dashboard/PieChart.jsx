@@ -1,7 +1,5 @@
-import React from "react";
 import Chart from "react-apexcharts";
 import { Card } from "react-bootstrap";
-import { ApexOptions } from "apexcharts";
 
 const PieChart = ({ pieChartData, labels, height, title }) => {
   const options = {

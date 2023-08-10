@@ -244,7 +244,7 @@ const RequiredRequisitionCreate = () => {
                           <input
                             type="text"
                             className="form-control"
-                            value={machineList.slice(1, machineList.length)}
+                            value={machineList?.slice(1, machineList.length)}
                             disabled
                           />
                           <div
