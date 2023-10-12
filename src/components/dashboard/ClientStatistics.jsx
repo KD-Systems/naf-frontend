@@ -1,61 +1,23 @@
-import React from "react";
-import { Row, Col } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import StatisticsChartWidget from "./StatisticsChartWidget";
 
-const ClientStatistics = ({data, title}) => {
+const ClientStatistics = ({ data }) => {
   return (
     <div>
       <Row>
-      <Col sm={6} xl={4}>
-          <StatisticsChartWidget
-            title={title[0]}
-            stats={data[0]?.total_amount}
-            trend={{
-              textClass: "text-success",
-              icon: "uil uil-arrow-up",
-              // value: "10.21%",
-            }}
-            colors={["#727cf5"]}
-          />
-        </Col>
-
-        <Col sm={6} xl={4}>
-          <StatisticsChartWidget
-            title={title[1]}
-            stats={data[0]?.total_paid}
-            trend={{
-              textClass: "text-success",
-              icon: "uil uil-arrow-up",
-              // value: "10.21%",
-            }}
-            colors={["#727cf5"]}
-          />
-        </Col>
-        <Col sm={6} xl={4}>
-          <StatisticsChartWidget
-            title={title[2]}
-            stats={data[0]?.total_due ?? "0"}
-            trend={{
-              textClass: "text-success",
-              icon: "uil uil-arrow-up",
-              // value: "10.21%",
-            }}
-            colors={["#727cf5"]}
-          />
-        </Col>
-        
-        <Col sm={6} xl={4} className="mt-5">
-          <StatisticsChartWidget
-            title={title[3]}
-            stats={data[1]?.advanceAmount ?? "0"}
-            trend={{
-              textClass: "text-success",
-              icon: "uil uil-arrow-up",
-              // value: "10.21%",
-            }}
-            colors={["#727cf5"]}
-          />
-        </Col>
+        {data?.map((item, index) => (
+          <Col sm={6} xl={4} key={index}>
+            <StatisticsChartWidget
+              title={item?.name}
+              stats={`BDT ${item?.value}`}
+              trend={{
+                textClass: "text-success",
+                icon: "uil uil-arrow-up",
+              }}
+              colors={["#727cf5"]}
+            />
+          </Col>
+        ))}
       </Row>
     </div>
   );

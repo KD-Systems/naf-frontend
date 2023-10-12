@@ -1,119 +1,153 @@
+import ClientStatistics from "components/dashboard/ClientStatistics";
+import ColumnDataLabelsChart from "components/dashboard/ColumnDataLabelsChart";
+import PieChart from "components/dashboard/PieChart";
 import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import DashboardService from "services/DashboardService";
 
-import ScrollableTable from "components/dashboard/ScrollableTable";
-import StatisticsChartWidget from "components/dashboard/StatisticsChartWidget";
-import Statistics from "components/dashboard/Statistics";
-import ClientStatistics from "components/dashboard/ClientStatistics";
-import ClientUserService from "services/clientServices/ClientUserService";
+const Dashboard = () => {
+  const [data, setData] = useState(null);
+  console.log("🚀 ~ file: ClientDashboard.jsx:10 ~ Dashboard ~ data:", data);
 
-const ClientDashboard = () => {
-  const [statistics, setStatistics] = useState({});
-  const [companyInfo, setCompanyInfo] = useState({});
-  const [companyAdvance, setCompanyAdvance] = useState({});
-  const [clientPaymentDetails, setClientPaymentDetails] = useState({
-    headers: [],
-    data: [],
-  });
-  const getStatistics = async () => {
-    const res = await DashboardService.getStatisticsData();
-    setStatistics(res);
-  };
+  const getData = async () => {
+    const res = await DashboardService.getDashboardData();
+    var varData = {};
 
-  const getCompanyInfo = async () => {
-    const res = await ClientUserService.getCompanyInfo();
-    setCompanyInfo(res.user);
-    setCompanyAdvance(res);
-  };
-  const getClientPaymentDetails = async () => {
-    const res = await DashboardService.getClientInvoiceDetails();
-    setClientPaymentDetails(res);
-  };
+    const top_product = res?.top_product;
+    var data = [];
+    var label = [];
+    top_product.forEach((element) => {
+      data?.push(element?.totalSell ?? 0);
+      label?.push(element?.name ? element?.name[0] : "N/A");
+    });
 
-  // const getClientPaymentDetails = async () => {
-  //   const res = await DashboardService.getClientInvoiceDetails();
-  //   console.log("🚀 ~ file: ClientDashboard.jsx ~ line 34 ~ getClientPaymentDetails ~ res", res)
-  //   var data = [];
-  //   res.forEach((element) => {
-  //     data.push({
-  //       id: element?.id,
-  //       invoice_number: element?.invoice_number,
-  //       quotation_number: element?.quotation_number,
-  //       requistion_number: element?.requistion_number,
-  //       type:
-  //         element?.type == "purchase_request" ? (
-  //           <div className="mt-0 text-white bg-warning p-1 rounded d-flex justify-content-center">
-  //             Purchase Request
-  //           </div>
-  //         ) : (
-  //           <div className="mt-0 text-white bg-success p-1 rounded d-flex justify-content-center">
-  //             Claim Report
-  //           </div>
-  //         ),
-  //       total_amount: Math.floor(element?.total_amount),
-  //       total_paid: element?.total_paid
-  //         ? Math.floor(element?.total_paid)
-  //         : "--",
-  //     });
-  //   });
-  //   setClientPaymentDetails({
-  //     headers: [
-  //       "SL",
-  //       "Invoice Number",
-  //       "Quotation Number",
-  //       "Requisition Number",
-  //       "Type",
-  //       "Total Amount",
-  //       "Paid Amount",
-  //       // "Due Amount",
-  //     ],
-  //     data: data,
-  //   });
-  // };
+    varData = { ...varData, top_product: { data: data, label: label } };
+    varData = {
+      ...varData,
+      statistics: [
+        {
+          name: "GRAND TOTAL",
+          value: res?.sales,
+        },
+        {
+          name: "DUE AMOUNT",
+          value: res?.due,
+        },
+        {
+          name: "ADVANCE AMOUNT",
+          value: res?.advance,
+        },
+      ],
+    };
+
+    var carr = {
+      Jan: 0,
+      Feb: 0,
+      Mar: 0,
+      Apr: 0,
+      May: 0,
+      Jun: 0,
+      Jul: 0,
+      Aug: 0,
+      Sep: 0,
+      Oct: 0,
+      Nov: 0,
+      Dec: 0,
+    };
+    var data = [];
+    var label = [];
+    try {
+      carr = { ...carr, ...res?.monthWise?.monthly };
+    } catch (error) {
+      console.log(error);
+    }
+
+    for (var name in carr) {
+      data.push(carr[name]);
+      label.push(name);
+    }
+
+    varData = { ...varData, monthly_report: { data: data, label: label } };
+
+    setData(varData);
+  };
 
   useEffect(() => {
-    getStatistics();
-    getClientPaymentDetails();
-    getCompanyInfo();
-    // getCompanyAdvance();
+    getData();
   }, []);
 
   return (
     <div id="kt_content_container" className="container-xxl">
       <ClientStatistics
-        data={[clientPaymentDetails, companyAdvance]}
-        title={["Grand total", "Paid Amount", "Due Amount", "Advance Amount"]}
-      />
-      {/* <br />
-      <ClientStatistics
-        data={clientPaymentDetails?.total_paid}
-        title={"Paid amount"}
+        data={data?.statistics}
       />
       <br />
-      <ClientStatistics
-        data={clientPaymentDetails?.total_due}
-        title={"Due amount"}
-      />
-      <br />
-      <ClientStatistics
-        data={companyAdvance.advanceAmount}
-        title={"Advance Amount"}
-      /> */}
-      {/* <Row>
-
-        <Col xl={12}>
-          <ScrollableTable
-          
-            headers={clientPaymentDetails.headers}
-            records={clientPaymentDetails.data}
-            title="Payment Histories"
-            url="/panel/client/invoices/"
+      <Row>
+        <Col xl={8}>
+          <ColumnDataLabelsChart
+            data={data?.monthly_report?.data}
+            categories={data?.monthly_report?.label}
+            title="Monthly Report"
           />
         </Col>
-      </Row> */}
+        <Col xl={4}>
+          {data?.top_product?.data?.length > 0 && (
+            <PieChart
+              pieChartData={data?.top_product?.data}
+              height={355}
+              labels={data?.top_product?.label}
+              title={"Top Selling Product (" + new Date().getFullYear() + ")"}
+            />
+          )}
+        </Col>
+      </Row>
+      {/* <br />
+      <Row>
+        <Col xl={8}>
+          <ScrollableTable
+            headers={stockAlert.headers}
+            records={stockAlert.data}
+            title="Stocks Alert"
+            url="/panel/parts/"
+            height={220}
+            exportAble={true}
+          />
+        </Col>
+        <Col xl={4}>
+          <ScrollableTable
+            headers={topSellingProductbyMonth.headers}
+            records={topSellingProductbyMonth.data}
+            title={
+              "Top Selling Product (" + monthNames[new Date().getMonth()] + ")"
+            }
+            url="/panel/parts/"
+            height={220}
+          />
+        </Col>
+      </Row>
+      <br />
+      <Row>
+        <Col xl={8}>
+          <ScrollableTable
+            headers={recentSales.headers}
+            records={recentSales.data}
+            title="Recent Sales"
+            url="/panel/parts/"
+            height={380}
+          />
+        </Col>
+        <Col xl={4}>
+          <PieChart
+            pieChartData={topCustomers.data}
+            labels={topCustomers.label}
+            height={380}
+            title="Top 5 Customers"
+          />
+        </Col>
+      </Row>
+      <br /> */}
     </div>
   );
 };
 
-export default ClientDashboard;
+export default Dashboard;

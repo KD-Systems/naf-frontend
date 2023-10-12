@@ -47,7 +47,7 @@ const ScrollableTable = ({ headers, records, title, url, height, exportAble="" }
                       return (
                         <td>
                           <a
-                            href={url + record["id"]}
+                            href={url + record["invoice_id"]}
                             style={{ color: "#000" }}
                           >
                             {item}

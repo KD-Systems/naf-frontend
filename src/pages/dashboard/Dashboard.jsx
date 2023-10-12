@@ -122,6 +122,7 @@ const Dashboard = () => {
         // Product_Number: element?.part_number,
         Company_Name: element?.company_name,
         Qnty: element?.quantity,
+        invoice_id: element?.invoice_id
       });
     });
 
@@ -232,7 +233,7 @@ const Dashboard = () => {
             headers={recentSales.headers}
             records={recentSales.data}
             title="Recent Sales"
-            url="/panel/parts/"
+            url="/panel/invoices/"
             height={380}
           />
         </Col>
