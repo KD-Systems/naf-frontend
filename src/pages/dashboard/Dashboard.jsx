@@ -66,7 +66,7 @@ const Dashboard = () => {
     res.forEach((element) => {
       data.push({
         id: element?.part_id,
-        name: element?.name[0],
+        name: element?.name ? element?.name[0] : '',
         value: element?.totalSell,
       });
     });

@@ -15,15 +15,10 @@ const RequiredRequisitions = () => {
   const [reqId, setReqId] = useState(null);
   const [confirmDelete, setConfirmDelete] = useState(false);
 
-
-
   const filterdata = (data) => {    
     setFilter(false);
     getRequisitions(data);
   };
-  useEffect(() => {
-    filterdata();
-  }, []);
 
   const columns = [
     {
@@ -158,9 +153,6 @@ const RequiredRequisitions = () => {
     getRequisitions();
     setLoading(false);
   };
-  useEffect(() => {
-    getRequisitions();
-  }, []);
 
   return (
     <>

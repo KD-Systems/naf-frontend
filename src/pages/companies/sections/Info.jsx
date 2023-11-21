@@ -59,9 +59,9 @@ const CompanyInfo = ({setZoomImage}) => {
                 className="image-input image-input-empty image-input-outline mb-3"
                 data-kt-image-input="true"
               >
-                {/* <div className="image-input-wrapper w-150px h-150px" style={{ backgroundImage: "url(" + company.logo + ")", }} ></div> */}
-               <div onMouseEnter={()=>setZoomImage(true)} onMouseLeave={()=>setZoomImage(false)}>
-               <ReactImageMagnify {...{
+                <div className="image-input-wrapper w-150px h-150px" style={{ backgroundImage: "url(" + company.logo + ")", }} ></div>
+               {/* <div onMouseEnter={()=>setZoomImage(true)} onMouseLeave={()=>setZoomImage(false)}> */}
+               {/* <ReactImageMagnify {...{
                          smallImage: {
                             alt: 'Wristwatch by Ted Baker London',
                             isFluidWidth: true,
@@ -77,9 +77,9 @@ const CompanyInfo = ({setZoomImage}) => {
                             width: '200%',
                             height: '100%'
                         }
-                    }} />
+                    }} /> */}
                {/* <ReactImageMagnify {...{ smallImage: { alt: 'Company Logo', isFluidWidth: true, src: `${company?.logo}`}, largeImage: { src: `${company?.logo}`, width: 1200, height: 1800 } }} /> */}
-               </div>
+               {/* </div> */}
               </div>
               <div className="fs-7">
                 <h2>{company.name}</h2>

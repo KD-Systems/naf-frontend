@@ -26,10 +26,6 @@ const Index = () => {
     await WareHouseService.remove(id);
     getWareHouses();
   };
-
-  useEffect(() => {
-    getWareHouses();
-  }, []);
   return (
     <>
       <div className="post d-flex flex-column-fluid" id="kt_post">

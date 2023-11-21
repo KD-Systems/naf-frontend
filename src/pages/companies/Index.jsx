@@ -124,9 +124,9 @@ const Companies = () => {
     setOpenEditModal(false);
   };
 
-  useEffect(() => {
-    getCompanies();
-  }, []);
+  // useEffect(() => {
+  //   getCompanies();
+  // }, []);
 
   return (
     <>

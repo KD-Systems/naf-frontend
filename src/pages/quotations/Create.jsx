@@ -20,6 +20,8 @@ const CreateQuotation = () => {
     machine_id: "",
     vat: "",
     discount: "",
+    discount_type: "percentage",
+    vat_type: "percentage",
     grand_total: grandTotal,
     sub_total: total,
     part_items: list,
@@ -47,9 +49,13 @@ const CreateQuotation = () => {
         parseInt(item?.quantity) * parseInt(item?.unit_value);
     });
     setTotal(totalAmount);
-    let GrandTotal = parseInt(totalAmount * (1 + (data?.vat - data?.discount) / 100))
+
+    let discount = parseFloat(data.discount_type ==='percentage' ? (total * data?.discount) / 100 : data?.discount);
+    let vat = parseFloat(data.vat_type ==='percentage' ? (total * data?.vat) / 100 : data?.vat);
+
+    let GrandTotal = parseFloat((totalAmount - discount) + vat)
     setGrandTotal(GrandTotal)
-  }, [data?.part_items,data?.vat,data?.discount]);
+  }, [data?.part_items,data?.vat,data?.discount,data?.vat_type,data?.discount_type]);
 
   const handleDataChange = (e) => {
     let value;
@@ -253,7 +259,7 @@ const CreateQuotation = () => {
                 <div className="d-flex justify-content-between flex-column flex-md-row">
                   <div className="flex-grow-1 pt-8 mb-13">
                     <div className="table-responsive ">
-                      <table className="table">
+                      <table className="table align-middle">
                         <thead>
                           <tr className="fs-6 fw-bolder text-dark text-uppercase">
                             <th className="min-w-75px pb-9">SL.No</th>
@@ -269,7 +275,7 @@ const CreateQuotation = () => {
                             <th className="min-w-80px pb-9 text-end">
                               Formula Price
                             </th>
-                            <th className="min-w-80px pb-9 text-end">
+                            <th className="min-w-150px pb-9 text-end">
                               Selling Price
                             </th>
                             <th className="min-w-100px pe-lg-6 pb-9 text-end">
@@ -310,8 +316,6 @@ const CreateQuotation = () => {
                                   disabled
                                   type="number"
                                   className="form-control"
-                                  aria-label="Small"
-                                  aria-describedby="inputGroup-sizing-sm"
                                   name="formula_price"
                                   placeholder="0TK"
                                   value={
@@ -327,8 +331,6 @@ const CreateQuotation = () => {
                                 <input
                                   type="number"
                                   className="form-control"
-                                  aria-label="Small"
-                                  aria-describedby="inputGroup-sizing-sm"
                                   name="selling_price"
                                   placeholder="0TK"
                                   value={
@@ -340,11 +342,9 @@ const CreateQuotation = () => {
                               </td>
 
                               <td className="product-quantity">
-                                <div className="input-group input-group-sm">
-                                  <div className="input-group-prepend">
+                                <div className="input-group">
                                     <span
                                       className="input-group-text"
-                                      id="inputGroup-sizing-sm"
                                       onClick={() => {
                                         if (item?.quantity > 0) {
                                           decrement(item);
@@ -353,19 +353,14 @@ const CreateQuotation = () => {
                                     >
                                       <i className="fas fa-minus"></i>
                                     </span>
-                                  </div>
                                   <input
                                     type="text"
                                     className="form-control"
-                                    aria-label="Small"
-                                    aria-describedby="inputGroup-sizing-sm"
                                     min="1"
                                     value={item?.quantity ?? ""}
                                     // defaultValue={item?.quantity ?? ""}
                                     name="quantity"
                                   />
-
-                                  <div className="input-group-prepend">
                                     <span
                                       className="input-group-text"
                                       onClick={() => increment(item)}
@@ -373,7 +368,6 @@ const CreateQuotation = () => {
                                     >
                                       <i className="fas fa-plus"></i>
                                     </span>
-                                  </div>
                                 </div>
                               </td>
                               <td className="text-end">
@@ -399,48 +393,49 @@ const CreateQuotation = () => {
                               </tr>
                               <tr className="fw-bolder text-gray-700 fs-5 text-end">
                                 <td colSpan={4}></td>
-                                <td className="align-center justify-content-center">
-                                  Vat(%)
+                                <td>Discount</td>
+                                <td>
+                                <div className="input-group">
+                                    <input
+                                      type="number"
+                                      className="form-control"
+                                      name="discount"
+                                      value={data?.discount}
+                                      onChange={handleDataChange}
+                                    />
+                                    <select className="form-select" name="discount_type" onChange={handleDataChange}>
+                                      <option value="percentage">%</option>
+                                      <option value="fixed">BDT</option>
+                                    </select>
+                                  </div>
                                 </td>
-                                <td className="">
-                                  <input
-                                    type="number"
-                                    pattern="[0-99]*"
-                                    className="form-control"
-                                    aria-label="Small"
-                                    aria-describedby="inputGroup-sizing-sm"
-                                    name="vat"
-                                    value={data?.vat}
-                                    onChange={handleDataChange}
-                                    // onChange={(e) => {
-                                    //   if(e.target.value.length >99) {
-                                    //     toast.error("Amount should not be grater then 100 amount!");
-                                    //   }
-                                    //   // else{
-                                    //   //   return handleDataChange
-                                    //   // }
-                                    // }}
-                                  />
-                                </td>
-                                <td>{(total * data?.vat) / 100}</td>
+                                <td>{ parseFloat(data.discount_type ==='percentage' ? (total * data?.discount) / 100 : data?.discount) }</td>
                                 <td></td>
                               </tr>
                               <tr className="fw-bolder text-gray-700 fs-5 text-end">
                                 <td colSpan={4}></td>
-                                <td>Discount(%)</td>
-                                <td>
-                                  <input
-                                    type="number"
-                                    className="form-control"
-                                    aria-label="Small"
-                                    aria-describedby="inputGroup-sizing-sm"
-                                    name="discount"
-                                    placeholder=""
-                                    value={data?.discount}
-                                    onChange={handleDataChange}
-                                  />
+                                <td className="align-center justify-content-center">
+                                  Vat
                                 </td>
-                                <td>{(total * data?.discount) / 100}</td>
+                                <td className="">
+                                <div className="input-group">
+                                    <input
+                                      type="number"
+                                      pattern="[0-99]*"
+                                      className="form-control"
+                                      aria-label="Small"
+                                      aria-describedby="inputGroup-sizing-sm"
+                                      name="vat"
+                                      value={data?.vat}
+                                      onChange={handleDataChange}
+                                    />
+                                    <select className="form-select" name="vat_type" onChange={handleDataChange}>
+                                      <option value="percentage">%</option>
+                                      <option value="fixed">BDT</option>
+                                    </select>
+                                  </div>
+                                </td>
+                                <td>{ parseFloat(data.vat_type ==='percentage' ? (total * data?.vat) / 100 : data?.vat) }</td>
                                 <td></td>
                               </tr>
                               <tr className="fw-bolder text-gray-700 fs-5 text-end">
@@ -448,7 +443,6 @@ const CreateQuotation = () => {
                                 <td>Grand Total</td>
                                 <td></td>
                                 <td>
-                                  {/* {Math.floor(total * (1 + data?.vat / 100))} */}
                                   {grandTotal}
                                 </td>
                                 <td></td>

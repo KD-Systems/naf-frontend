@@ -19,10 +19,6 @@ const Requisitions = () => {
     getRequisitions(data);
   };
 
-  useEffect(() => {
-    filterdata();
-  }, []);
-
   const columns = [
     {
       name: "Id",
@@ -160,10 +156,6 @@ const Requisitions = () => {
     getRequisitions();
     setLoading(false);
   };
-
-  useEffect(() => {
-    getRequisitions();
-  }, []);
 
   let navigate = useNavigate();
 

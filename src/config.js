@@ -1,7 +1,6 @@
 export default {
-  baseUrl: "https://naf-api.viserx.net/api",
-  // "baseUrl": 'http://nafappapi.viserx.net/api',
   // baseUrl: "http://naf.test/api",
+  baseUrl: 'https://api.nafaftersales.com/api/',
 }; 
 
 

@@ -16,6 +16,7 @@ const BoxHeadings = () => {
   const [boxId, setBoxId] = useState(null);
   const [updateOpen, setUpdateOpen] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
+  const [timeoutData, setTimeoutData] = useState(null);
 
   const getBoxHeadings = async () => {
     const res = await BoxHeadingService.getAll(filter);
@@ -36,7 +37,9 @@ const BoxHeadings = () => {
   };
 
   useEffect(() => {
-    getBoxHeadings();
+    if(timeoutData) clearTimeout(timeoutData);
+
+    setTimeoutData(setTimeout(() => getBoxHeadings(), 300));
   }, [filter]);
 
   const columns = [

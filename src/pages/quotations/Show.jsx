@@ -32,6 +32,8 @@ const ShowQuotation = () => {
     type: "",
     vat: "",
     discount: "",
+    discount_type: "percentage",
+    vat_type: "percentage",
     sub_total: total,
     grand_total: grandTotal,
     part_items: list,
@@ -44,6 +46,8 @@ const ShowQuotation = () => {
         sub_total: quotation?.sub_total,
         vat: quotation?.vat,
         discount: quotation?.discount,
+        discount_type: quotation?.discount_type,
+        vat_type: quotation?.vat_type,
         grand_total: quotation?.grand_total,
       });
     }
@@ -184,11 +188,27 @@ const ShowQuotation = () => {
         parseInt(item?.quantity) * parseInt(item?.unit_value);
     });
     setTotal(totalAmount);
-    let GrandTotal = parseInt(
-      totalAmount * (1 + (data?.vat - data?.discount) / 100)
+
+    let discount = parseFloat(
+      data.discount_type === "percentage"
+        ? (totalAmount * data?.discount) / 100
+        : data?.discount
     );
+    let vat = parseFloat(
+      data.vat_type === "percentage"
+        ? (totalAmount * data?.vat) / 100
+        : data?.vat
+    );
+
+    let GrandTotal = parseFloat(totalAmount - discount + vat);
     setGrandTotal(GrandTotal);
-  }, [data?.part_items, data?.vat, data?.discount]);
+  }, [
+    data?.part_items,
+    data?.vat,
+    data?.discount,
+    data?.vat_type,
+    data?.discount_type,
+  ]);
 
   useEffect(() => {
     setList(quotation?.part_items); //add part items into List
@@ -275,20 +295,24 @@ const ShowQuotation = () => {
 
                   <div className="fw-bolder mt-5">Sub Total </div>
                   <div className="text-gray-600">
-                    {quotation?.sub_total ?? "0"}tk
+                    {quotation?.sub_total ?? "0"}Tk
                   </div>
 
                   <div className="fw-bolder mt-5">Vat </div>
-                  <div className="text-gray-600">{quotation?.vat ?? "0"}%</div>
+                  <div className="text-gray-600">
+                    {quotation?.vat ?? "0"}
+                    {quotation?.vat_type == "percentage" ? "%" : "TK"}
+                  </div>
 
                   <div className="fw-bolder mt-5">Discount </div>
                   <div className="text-gray-600">
-                    {quotation?.discount ?? "0"}%
+                    {quotation?.discount ?? "0"}
+                    {quotation?.discount_type == "percentage" ? "%" : "Tk"}
                   </div>
 
                   <div className="fw-bolder mt-5">Grand Total</div>
                   <div className="text-gray-600">
-                    {quotation?.grand_total ?? "0"}tk
+                    {quotation?.grand_total ?? "0"}Tk
                   </div>
 
                   <div className="fw-bolder mt-5">Ref Number</div>
@@ -343,7 +367,8 @@ const ShowQuotation = () => {
                       </Link>
                     </h3>
 
-                    {(quotation?.status != "rejected" && quotation?.status != "pending") && (
+                    {quotation?.status != "rejected" &&
+                      quotation?.status != "pending" && (
                         <h3 className="card-label">
                           <Link
                             className="btn btn-sm btn-dark "
@@ -485,10 +510,10 @@ const ShowQuotation = () => {
                               <thead>
                                 <tr className="fw-bolder text-muted">
                                   <th className="min-w-50px">Part Name</th>
-                                  <th className="min-w-120px">Part Number</th>
-                                  <th className="min-w-120px">Quantity</th>
-                                  <th className="min-w-120px">Unit </th>
-                                  <th className="min-w-120px">Total </th>
+                                  <th>Part Number</th>
+                                  <th>Quantity</th>
+                                  <th>Unit </th>
+                                  <th>Total </th>
                                 </tr>
                               </thead>
 
@@ -515,21 +540,19 @@ const ShowQuotation = () => {
                                     </td>
 
                                     <td>
-                                      <div className="input-group input-group-sm">
-                                        <div className="input-group-prepend">
-                                          <button
-                                            disabled={locked ? true : false}
-                                            className="input-group-text"
-                                            id="inputGroup-sizing-sm"
-                                            onClick={() => {
-                                              if (item?.quantity > 0) {
-                                                decrement(item);
-                                              }
-                                            }}
-                                          >
-                                            <i className="fas fa-minus"></i>
-                                          </button>
-                                        </div>
+                                      <div className="input-group">
+                                        <button
+                                          disabled={locked ? true : false}
+                                          className="input-group-text"
+                                          id="inputGroup-sizing-sm"
+                                          onClick={() => {
+                                            if (item?.quantity > 0) {
+                                              decrement(item);
+                                            }
+                                          }}
+                                        >
+                                          <i className="fas fa-minus"></i>
+                                        </button>
                                         <input
                                           disabled={locked ? true : false}
                                           type="text"
@@ -541,16 +564,14 @@ const ShowQuotation = () => {
                                           name="quantity"
                                         />
 
-                                        <div className="input-group-prepend">
-                                          <button
-                                            className="input-group-text"
-                                            onClick={() => increment(item)}
-                                            style={{ cursor: "pointer" }}
-                                            disabled={locked ? true : false}
-                                          >
-                                            <i className="fas fa-plus"></i>
-                                          </button>
-                                        </div>
+                                        <button
+                                          className="input-group-text"
+                                          onClick={() => increment(item)}
+                                          style={{ cursor: "pointer" }}
+                                          disabled={locked ? true : false}
+                                        >
+                                          <i className="fas fa-plus"></i>
+                                        </button>
                                       </div>
                                     </td>
                                     <td className=" fw-bolder mb-1 fs-6">
@@ -590,40 +611,74 @@ const ShowQuotation = () => {
                                     </tr>
                                     <tr className="fw-bolder text-gray-700 fs-5 text-end">
                                       <td colSpan={2}></td>
-                                      <td className="align-center justify-content-center">
-                                        Vat(%)
+                                      <td>Discount</td>
+                                      <td>
+                                        <div className="input-group">
+                                          <input
+                                            type="number"
+                                            className="form-control"
+                                            name="discount"
+                                            value={data?.discount}
+                                            onChange={handleDataChange}
+                                          />
+                                          <select
+                                            value={data.discount_type}
+                                            className="form-select"
+                                            name="discount_type"
+                                            onChange={handleDataChange}
+                                          >
+                                            <option value="percentage">
+                                              %
+                                            </option>
+                                            <option value="fixed">BDT</option>
+                                          </select>
+                                        </div>
                                       </td>
-                                      <td className="">
-                                        <input
-                                          type="number"
-                                          className="form-control"
-                                          aria-label="Small"
-                                          aria-describedby="inputGroup-sizing-sm"
-                                          name="vat"
-                                          value={data?.vat}
-                                          onChange={handleDataChange}
-                                        />
+                                      <td>
+                                        {parseFloat(
+                                          data.discount_type === "percentage"
+                                            ? (total * data?.discount) / 100
+                                            : data?.discount
+                                        )}
                                       </td>
-                                      <td>{(total * data?.vat) / 100}</td>
                                       <td></td>
                                     </tr>
                                     <tr className="fw-bolder text-gray-700 fs-5 text-end">
                                       <td colSpan={2}></td>
-                                      <td>Discount(%)</td>
-                                      <td>
-                                        <input
-                                          type="number"
-                                          className="form-control"
-                                          aria-label="Small"
-                                          aria-describedby="inputGroup-sizing-sm"
-                                          name="discount"
-                                          placeholder=""
-                                          value={data?.discount}
-                                          onChange={handleDataChange}
-                                        />
+                                      <td className="align-center justify-content-center">
+                                        Vat
                                       </td>
-                                      <td className="text-danger">
-                                        {(total * data?.discount) / 100}
+                                      <td className="">
+                                        <div className="input-group">
+                                          <input
+                                            type="number"
+                                            pattern="[0-99]*"
+                                            className="form-control"
+                                            aria-label="Small"
+                                            aria-describedby="inputGroup-sizing-sm"
+                                            name="vat"
+                                            value={data?.vat}
+                                            onChange={handleDataChange}
+                                          />
+                                          <select
+                                            value={data.vat_type}
+                                            className="form-select"
+                                            name="vat_type"
+                                            onChange={handleDataChange}
+                                          >
+                                            <option value="percentage">
+                                              %
+                                            </option>
+                                            <option value="fixed">BDT</option>
+                                          </select>
+                                        </div>
+                                      </td>
+                                      <td>
+                                        {parseFloat(
+                                          data.vat_type === "percentage"
+                                            ? (total * data?.vat) / 100
+                                            : data?.vat
+                                        )}
                                       </td>
                                       <td></td>
                                     </tr>

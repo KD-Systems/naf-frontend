@@ -17,7 +17,7 @@ const ShowRequisition = () => {
 
   const [uuid, setuuid] = useState();
   const [model_id, setModelId] = useState();
-  const [reqId, setReqId] = useState({});
+  const [reqId, setReqId] = useState(null);
 
   const [stock, setStock] = useState(true);
 
