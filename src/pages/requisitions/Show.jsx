@@ -7,17 +7,20 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import RequisitionService from "../../services/RequisitionService";
 import NewDropzone from "./Dropzone/MyDropzone";
 import UpdateReqInfo from "./section/UpdateReqInfo";
+import AddItem from "./section/AddItem";
 
 const ShowRequisition = () => {
   const [updateDueAMountModal, setUpdateDueAMountModal] = useState(false);
   const onCloseModal = () => {
     setUpdateDueAMountModal(false);
+    setItemAddModal(false);
   };
   const [confirmDelete, setConfirmDelete] = useState(false);
 
   const [uuid, setuuid] = useState();
   const [model_id, setModelId] = useState();
   const [reqId, setReqId] = useState(null);
+  const [itemAddModal, setItemAddModal] = useState(false);
 
   const [stock, setStock] = useState(true);
 
@@ -64,6 +67,10 @@ const ShowRequisition = () => {
     const res = await RequisitionService.getFile(id);
     setFile(res);
   };
+
+  const addItemModal = () => {
+    setItemAddModal(true);
+  }
 
   useEffect(() => {
     if (id) getRequisition();
@@ -189,94 +196,86 @@ const ShowRequisition = () => {
                   {requisition?.user?.name?.replaceAll("_", " ")?.capitalize()}
                 </div>
 
-                <div className="card-title mt-10 justify-content-center">
-                  <h3 className="card-label mr-10">
-                    {/* <PermissionAbility permission="companies_edit"> */}
-                    <button
-                      className="btn btn-sm btn-dark"
-                      onClick={() => {
-                        setReqId(id);
-                        setUpdateDueAMountModal(true);
-                      }}
-                    >
-                      <i className="fa fa-pen"></i> Update Info
-                    </button>
-                    {/* </PermissionAbility> */}
-                  </h3>
-                </div>
-              </div>
-              <div className="card-header">
-                <div className="card-title">
-                  <h3 className="card-label">
-                    <PermissionAbility permission="requisitions_print">
-                      <Link
-                        className="btn btn-sm btn-dark "
-                        to={"/panel/requisitions/" + requisition.id + "/print"}
-                        style={{ marginRight: "0.75rem" }}
-                        target="_blank"
-                      >
-                        Print
-                      </Link>
-                    </PermissionAbility>
-                  </h3>
-                  {stock && (
-                    <>
-                      {requisition.status == "approved" ? (
-                        <h3 className="card-label">
-                          <PermissionAbility permission="requisitions_generate_quotation">
-                            <button
-                              className="btn btn-sm btn-dark "
-                              style={{ marginRight: "0.1rem" }}
-                              onClick={() =>
-                                navigate(
-                                  `/panel/quotations/${requisition?.id}/create`
-                                )
-                              }
-                            >
-                              Generate Quotation
-                            </button>
-                          </PermissionAbility>
-                        </h3>
-                      ) : (
-                        <>
-                          <PermissionAbility permission="requisitions_approve">
-                            {requisition.status == "rejected" ? (
-                              <h3 className="card-label">
-                                <div className="btn btn-sm bg-danger disabled text-white">
-                                  Rejected Requisition
-                                </div>
-                              </h3>
-                            ) : (
-                              <>
-                                <h3 className="card-label">
-                                  <button
-                                    onClick={approveRequisition}
-                                    className="btn btn-sm btn-primary"
-                                  >
-                                    Approve
-                                  </button>
-                                </h3>
-                                <h3 className="card-label">
-                                  <button
-                                    onClick={rejectRequisition}
-                                    className="btn btn-sm btn-danger"
-                                  >
-                                    Reject
-                                  </button>
-                                </h3>
-                              </>
-                            )}
-                          </PermissionAbility>
-                        </>
-                      )}
-                    </>
-                  )}
-                </div>
+                {requisition.status == "rejected" ? (
+                  <>
+                    <div className="fw-bolder mt-5">Status </div>
+                    <div className="text-gray-600">
+                      <div className="badge badge-danger mt-1">Rejected</div>
+                    </div>
+                  </>
+                ) : (
+                  ""
+                )}
+
+                <hr />
 
                 {!stock && (
                   <p className="badge text-danger" style={{ fontSize: "16px" }}>
-                    Unavailable Stock
+                    Stock Unavailable
                   </p>
+                )}
+
+                {/* <PermissionAbility permission="companies_edit"> */}
+                <a
+                  className="btn btn-sm btn-dark d-block my-2"
+                  onClick={() => {
+                    setReqId(id);
+                    setUpdateDueAMountModal(true);
+                  }}
+                >
+                  <i className="fa fa-pen"></i> Edit Info
+                </a>
+                {/* </PermissionAbility> */}
+
+                <PermissionAbility permission="requisitions_print">
+                  <Link
+                    className="btn btn-sm btn-dark d-block my-2"
+                    to={"/panel/requisitions/" + requisition.id + "/print"}
+                    target="_blank"
+                  >
+                    Print
+                  </Link>
+                </PermissionAbility>
+
+                {stock && (
+                  <>
+                    {requisition.status == "approved" ? (
+                      <PermissionAbility permission="requisitions_generate_quotation">
+                        <a
+                          className="btn btn-sm btn-dark d-block my-2"
+                          onClick={() =>
+                            navigate(
+                              `/panel/quotations/${requisition?.id}/create`
+                            )
+                          }
+                        >
+                          Generate Quotation
+                        </a>
+                      </PermissionAbility>
+                    ) : (
+                      <PermissionAbility permission="requisitions_approve">
+                        {requisition.status != "rejected" ? (
+                          <>
+                            <a
+                              onClick={approveRequisition}
+                              className="btn btn-sm btn-primary d-block my-2"
+                            >
+                              Approve
+                            </a>
+
+                            <a
+                              onClick={rejectRequisition}
+                              className="btn btn-sm btn-danger d-block my-2"
+                            >
+                              Reject
+                            </a>
+                          </>
+                        ) : (
+                          ""
+                        )}
+                      </PermissionAbility>
+                    )}
+                  </>
                 )}
               </div>
             </div>
@@ -337,6 +336,18 @@ const ShowRequisition = () => {
                     <div className="card-body px-0">
                       <div className="card mb-5 mb-xl-8">
                         <div className="card-body py-3">
+                          <div className="card-header p-0 m-0" style={{minHeight: 0}}>
+                          <h3 className="card-title align-items-start flex-column">			
+                            <span className="card-label fw-bold text-gray-800">Part Items</span>
+                          </h3>
+
+                          <div className="card-toolbar">
+                            <button onClick={addItemModal} className="btn btn-sm btn-primary">
+                              Add Item
+                            </button>
+                          </div>
+                          </div>
+
                           <div className="table-responsive">
                             <table className="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
                               <thead>
@@ -473,9 +484,15 @@ const ShowRequisition = () => {
       />
       <UpdateReqInfo
         open={updateDueAMountModal}
-        reqId={reqId}
+        requisition={requisition}
         onCloseModal={onCloseModal}
         onUpdated={getRequisition}
+      />
+      <AddItem
+        open={itemAddModal}
+        onCloseModal={onCloseModal}
+        onAdded={getRequisition}
+        requisition={requisition}
       />
     </div>
   );
