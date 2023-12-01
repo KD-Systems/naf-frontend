@@ -333,10 +333,9 @@ const ShowRequisition = () => {
                   role="tabpanel"
                 >
                   <div className="card card-custom gutter-b">
-                    <div className="card-body px-0">
+                    <div className="card-body p-0 py-2">
                       <div className="card mb-5 mb-xl-8">
-                        <div className="card-body py-3">
-                          <div className="card-header p-0 m-0" style={{minHeight: 0}}>
+                      <div className="card-header" style={{minHeight: 0}}>
                           <h3 className="card-title align-items-start flex-column">			
                             <span className="card-label fw-bold text-gray-800">Part Items</span>
                           </h3>
@@ -348,6 +347,7 @@ const ShowRequisition = () => {
                           </div>
                           </div>
 
+                        <div className="card-body py-3">
                           <div className="table-responsive">
                             <table className="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
                               <thead>

@@ -75,6 +75,12 @@ const sendComment = async (data) => {
 
 };
 
+//add items
+const addItems = async (id, data) => {
+  const res = await http.post(`quotations/${id}/add-items`, data);
+  return res?.data;
+};
+
 const QuotationService = {
   getAll,
   get,
@@ -88,8 +94,8 @@ const QuotationService = {
   reject,
   fileUpload,
   getFile,
-  deleteFile
-
+  deleteFile,
+  addItems
 };
 
 export default QuotationService;

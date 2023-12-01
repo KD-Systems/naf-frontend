@@ -5,10 +5,10 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CompanyService from "services/CompanyService";
 import PartService from "services/PartService";
-import RequisitionService from "services/RequisitionService";
+import QuotationService from "services/QuotationService";
 toast.configure();
 
-const AddItem = ({ open, requisition, onCloseModal, onAdded }) => {
+const AddItem = ({ open, quotation, onCloseModal, onAdded }) => {
   const [machineModels, setMachineModels] = useState([]);
   const [search, setSearch] = useState(null);
   const [selectedMachines, setSelectedMachines] = useState([]);
@@ -19,7 +19,7 @@ const AddItem = ({ open, requisition, onCloseModal, onAdded }) => {
   const [pause, setPause] = useState(null);
 
   const addItems = async () => {
-    await RequisitionService.addItems(requisition?.id, {
+    await QuotationService.addItems(quotation?.id, {
       machines: selectedMachines.map(dt => dt.value),
       parts: selectedParts,
       remarks
@@ -36,9 +36,9 @@ const AddItem = ({ open, requisition, onCloseModal, onAdded }) => {
     setBlock(true);
 
     let models = await CompanyService.getMachinesforRequisitions(
-      requisition?.company_id
+      quotation.company?.id
     );
-    if (requisition?.type == "purchase_request") {
+    if (quotation.requisition?.type == "purchase_request") {
       if (!models.length) {
         return;
       }
@@ -78,8 +78,8 @@ const AddItem = ({ open, requisition, onCloseModal, onAdded }) => {
   const getParts = async () => {
     let res = await PartService.getSellable({
       q: search,
-      company_id: requisition?.company_id,
-      is_company: requisition?.is_foc ? 1 : 0,
+      company_id: quotation?.company_id,
+      is_company: quotation.requisition?.is_foc ? 1 : 0,
       machine_id: selectedMachines.map((itm) => itm.value),
       quantity: 0,
     });
@@ -88,7 +88,7 @@ const AddItem = ({ open, requisition, onCloseModal, onAdded }) => {
       ?.map((dt) => {
         return { name: dt.name, id: dt.id, number: dt.part_number, quantity: 0 };
       })
-      .filter((item) => !requisition.part_items.filter((dt) => dt.part_id == item.id).length);
+      .filter((item) => !quotation.part_items.filter((dt) => dt.part_id == item.id).length);
 
     setParts(items);
   };
@@ -132,10 +132,10 @@ const AddItem = ({ open, requisition, onCloseModal, onAdded }) => {
 
   useEffect(() => {
     if (open) {
-      setRemarks(requisition.remarks);
+      setRemarks(quotation.requisition?.remarks);
       getMachineModels();
       setSelectedMachines(
-        requisition.machines.map((itm) => ({
+        quotation.requisition.machines.map((itm) => ({
           label: itm.model?.name,
           value: itm.machine_model_id,
         }))

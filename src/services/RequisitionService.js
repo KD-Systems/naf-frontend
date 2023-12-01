@@ -149,6 +149,12 @@ const requiredDeleteFile = async (uuid, model_id) => {
   return res.data;
 };
 
+//add items
+const addItems = async (id, data) => {
+  const res = await http.post(`requisitions/${id}/add-items`, data);
+  return res?.data;
+};
+
 const RequisitionService = {
   getAll,
   get,
@@ -166,6 +172,7 @@ const RequisitionService = {
   changeStatus,
   updateReqInfo,
   updateFocRequisitionPart,
+  addItems,
 
   ///////////////////////////////////////// For required requisition ///////////////////////////////////////////
   getAllRequiredRequisitions,

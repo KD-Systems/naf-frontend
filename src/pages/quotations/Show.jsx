@@ -3,11 +3,11 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import Moment from "react-moment";
 import Confirmation from "components/utils/Confirmation";
 import QuotationService from "services/QuotationService";
-import InvoiceService from "services/InvoiceService";
 import { Activities } from "components/utils/Activities";
 import PermissionAbility from "helpers/PermissionAbility";
 import Scrollbars from "react-custom-scrollbars";
 import NewDropzone from "./Dropzone/MyDropzone";
+import AddItem from "./AddItem";
 
 const ShowQuotation = () => {
   let { id } = useParams();
@@ -26,6 +26,7 @@ const ShowQuotation = () => {
   const [model_id, setModelId] = useState();
   const [file, setFile] = useState({});
   const [confirmDelete, setConfirmDelete] = useState(false);
+  const [itemAddModal, setItemAddModal] = useState(false);
 
   const [data, setData] = useState({
     quotation_id: parseInt(id),
@@ -59,6 +60,10 @@ const ShowQuotation = () => {
       setMessage("");
     } else {
     }
+  };
+
+  const onCloseModal = () => {
+    setItemAddModal(false);
   };
 
   const getQuotation = async () => {
@@ -502,8 +507,20 @@ const ShowQuotation = () => {
                   role="tabpanel"
                 >
                   <div className="card card-custom gutter-b">
-                    <div className="card-body px-0">
+                    <div className="card-body p-0 py-2">
                       <div className="card mb-5 mb-xl-8">
+                      <div className="card-header" style={{minHeight: 0}}>
+                          <h3 className="card-title align-items-start flex-column">			
+                            <span className="card-label fw-bold text-gray-800">Part Items</span>
+                          </h3>
+
+                          <div className="card-toolbar">
+                            <button onClick={() => setItemAddModal(true)} className="btn btn-sm btn-primary">
+                              Add Item
+                            </button>
+                          </div>
+                          </div>
+
                         <div className="card-body py-3">
                           <div className="table-responsive">
                             <table className="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
@@ -858,6 +875,13 @@ const ShowQuotation = () => {
           deleteItem();
         }}
         onCancel={() => setConfirmDelete(false)}
+      />
+
+      <AddItem
+        open={itemAddModal}
+        onCloseModal={onCloseModal}
+        onAdded={getQuotation}
+        quotation={quotation}
       />
     </>
   );
