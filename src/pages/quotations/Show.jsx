@@ -20,6 +20,8 @@ const ShowQuotation = () => {
   const [tab, setTab] = useState("quotations");
   const [message, setMessage] = useState("");
   const [total, setTotal] = useState(0);
+  const [discount, setDiscount] = useState(0);
+  const [vat, setVat] = useState(0);
   const [grandTotal, setGrandTotal] = useState(0);
 
   const [uuid, setuuid] = useState();
@@ -194,19 +196,9 @@ const ShowQuotation = () => {
     });
     setTotal(totalAmount);
 
-    let discount = parseFloat(
-      data.discount_type === "percentage"
-        ? (totalAmount * data?.discount) / 100
-        : data?.discount
-    );
-    let vat = parseFloat(
-      data.vat_type === "percentage"
-        ? (totalAmount * data?.vat) / 100
-        : data?.vat
-    );
-
-    let GrandTotal = parseFloat(totalAmount - discount + vat);
-    setGrandTotal(GrandTotal);
+    setDiscount(parseFloat(data.discount_type ==='percentage' ? (total * data?.discount) / 100 : data?.discount));
+    setVat(parseFloat(data.vat_type ==='percentage' ? ((total - discount) * data?.vat) / 100 : data?.vat));    
+    setGrandTotal((total - discount) + vat);
   }, [
     data?.part_items,
     data?.vat,
@@ -530,7 +522,7 @@ const ShowQuotation = () => {
                                   <th>Part Number</th>
                                   <th>Quantity</th>
                                   <th>Unit </th>
-                                  <th>Total </th>
+                                  <th width="80">Total </th>
                                 </tr>
                               </thead>
 
@@ -624,7 +616,6 @@ const ShowQuotation = () => {
                                       <td>Sub-total</td>
                                       <td></td>
                                       <td>{total}</td>
-                                      <td></td>
                                     </tr>
                                     <tr className="fw-bolder text-gray-700 fs-5 text-end">
                                       <td colSpan={2}></td>
@@ -652,11 +643,7 @@ const ShowQuotation = () => {
                                         </div>
                                       </td>
                                       <td>
-                                        {parseFloat(
-                                          data.discount_type === "percentage"
-                                            ? (total * data?.discount) / 100
-                                            : data?.discount
-                                        )}
+                                        - {discount}
                                       </td>
                                       <td></td>
                                     </tr>
@@ -691,20 +678,14 @@ const ShowQuotation = () => {
                                         </div>
                                       </td>
                                       <td>
-                                        {parseFloat(
-                                          data.vat_type === "percentage"
-                                            ? (total * data?.vat) / 100
-                                            : data?.vat
-                                        )}
+                                        + {vat}
                                       </td>
-                                      <td></td>
                                     </tr>
                                     <tr className="fw-bolder text-gray-700 fs-5 text-end">
                                       <td colSpan={2}></td>
                                       <td>Grand Total</td>
                                       <td></td>
                                       <td>{grandTotal}</td>
-                                      <td></td>
                                     </tr>
                                   </>
                                 )}

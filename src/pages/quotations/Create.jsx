@@ -10,6 +10,8 @@ const CreateQuotation = () => {
   const [list, setList] = useState([]); /* for adding part in quotation */
   const [machineId, setMachineId] = useState("");
   const [itemData, setItemData] = useState([]);
+  const [discount, setDiscount] = useState(0);
+  const [vat, setVat] = useState(0);
   const [grandTotal, setGrandTotal] = useState(0);
   const [total, setTotal] = useState(0);
 
@@ -50,11 +52,9 @@ const CreateQuotation = () => {
     });
     setTotal(totalAmount);
 
-    let discount = parseFloat(data.discount_type ==='percentage' ? (total * data?.discount) / 100 : data?.discount);
-    let vat = parseFloat(data.vat_type ==='percentage' ? (total * data?.vat) / 100 : data?.vat);
-
-    let GrandTotal = parseFloat((totalAmount - discount) + vat)
-    setGrandTotal(GrandTotal)
+    setDiscount(parseFloat(data.discount_type ==='percentage' ? (total * data?.discount) / 100 : data?.discount));
+    setVat(parseFloat(data.vat_type ==='percentage' ? ((total - discount) * data?.vat) / 100 : data?.vat));    
+    setGrandTotal((total - discount) + vat);
   }, [data?.part_items,data?.vat,data?.discount,data?.vat_type,data?.discount_type]);
 
   const handleDataChange = (e) => {
@@ -409,7 +409,7 @@ const CreateQuotation = () => {
                                     </select>
                                   </div>
                                 </td>
-                                <td>{ parseFloat(data.discount_type ==='percentage' ? (total * data?.discount) / 100 : data?.discount) }</td>
+                                <td>- { parseFloat(data.discount_type ==='percentage' ? (total * data?.discount) / 100 : data?.discount) }</td>
                                 <td></td>
                               </tr>
                               <tr className="fw-bolder text-gray-700 fs-5 text-end">
@@ -432,7 +432,7 @@ const CreateQuotation = () => {
                                     </select>
                                   </div>
                                 </td>
-                                <td>{ parseFloat(data.vat_type ==='percentage' ? (total * data?.vat) / 100 : data?.vat) }</td>
+                                <td>+ { parseFloat(data.vat_type ==='percentage' ? (grandTotal * data?.vat) / 100 : data?.vat) }</td>
                                 <td></td>
                               </tr>
                               <tr className="fw-bolder text-gray-700 fs-5 text-end">
