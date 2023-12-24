@@ -1,9 +1,10 @@
-import React, { useState } from "react";
 import Modal from "components/utils/Modal";
+import { useEffect, useState } from "react";
+import Select from "react-select";
 import CompanyService from "services/CompanyService";
+import DesignationService from "../../../services/DesignationService";
 
 const AddUser = ({ open, onCloseModal, onCreate, companyId }) => {
-
   const [block, setBlock] = useState(false);
   // Set the selected image to preview
   const setImage = async (e) => {
@@ -18,37 +19,63 @@ const AddUser = ({ open, onCloseModal, onCreate, companyId }) => {
 
   //Store data
   const storeUser = async (e) => {
-    setBlock(true)
+    setBlock(true);
     let formData = new FormData(document.getElementById("update-company"));
     await CompanyService.addUser(companyId, formData);
     onCreate();
     onCloseModal();
-    setBlock(false)
+    setBlock(false);
   };
 
+  const [designations, setDesignations] = useState([]);
   const [data, setData] = useState({
     name: "",
     email: "",
-    password: "",
-    phone: "", 
-  })
+    designation_id: null,
+    phone: "",
+  });
 
   const handleChange = (e) => {
-    setBlock(false)
     const value = e.target.value;
     const name = e.target.name;
 
     setData({
-      ...data, [name]: value
-    })
-  }
+      ...data,
+      [name]: value,
+    });
+  };
+
+  const handleSelect = (option, conf) => {
+    const value = option.value;
+    const name = conf.name;
+
+    setData({
+      ...data,
+      [name]: value,
+    });
+  };
+
+  const getDesignations = async () => {
+    DesignationService.getAll().then((designations) => {
+      setDesignations(
+        designations.map((designation) => ({
+          label: designation.name,
+          value: designation.id,
+        }))
+      );
+    });
+  };
+
+  useEffect(() => {
+    open && getDesignations();
+  }, [open]);
 
   return (
     <div>
       <Modal
         open={open}
         onCloseModal={onCloseModal}
-        title={<>Add User</>}
+        title={<>Add Client</>}
         body={
           <>
             <form id="update-company">
@@ -76,11 +103,17 @@ const AddUser = ({ open, onCloseModal, onCreate, companyId }) => {
                       type="file"
                       name="avatar"
                       accept=".png, .jpg, .jpeg"
-                      onChange={(e) => { setImage(e); handleChange(e) }}
+                      onChange={(e) => {
+                        setImage(e);
+                        handleChange(e);
+                      }}
                     />
                   </label>
                 </div>
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="avatar"></div>
+                <div
+                  className="fv-plugins-message-container invalid-feedback"
+                  htmlFor="avatar"
+                ></div>
               </div>
 
               <div className="mb-5 fv-row fv-plugins-icon-container">
@@ -94,7 +127,10 @@ const AddUser = ({ open, onCloseModal, onCreate, companyId }) => {
                   value={data.name}
                   onChange={handleChange}
                 />
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="name"></div>
+                <div
+                  className="fv-plugins-message-container invalid-feedback"
+                  htmlFor="name"
+                ></div>
               </div>
 
               <div className="mb-5 fv-row fv-plugins-icon-container">
@@ -108,21 +144,10 @@ const AddUser = ({ open, onCloseModal, onCreate, companyId }) => {
                   value={data.email}
                   onChange={handleChange}
                 />
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="email"></div>
-              </div>
-
-              <div className="mb-5 fv-row fv-plugins-icon-container">
-                <label className="form-label required">Password</label>
-                <input
-                  type="password"
-                  className="form-control"
-                  placeholder="Enter Password"
-                  name="password"
-                  id="password"
-                  value={data.password}
-                  onChange={handleChange}
-                />
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="password"></div>
+                <div
+                  className="fv-plugins-message-container invalid-feedback"
+                  htmlFor="email"
+                ></div>
               </div>
 
               <div className="mb-5 fv-row fv-plugins-icon-container">
@@ -136,7 +161,26 @@ const AddUser = ({ open, onCloseModal, onCreate, companyId }) => {
                   value={data.phone}
                   onChange={handleChange}
                 />
-                <div className="fv-plugins-message-container invalid-feedback" htmlFor="phone"></div>
+                <div
+                  className="fv-plugins-message-container invalid-feedback"
+                  htmlFor="phone"
+                ></div>
+              </div>
+
+              <div className="form-group">
+                <label className="required form-label">Designation</label>
+                <Select
+                  options={designations}
+                  onChange={handleSelect}
+                  name="designation_id"
+                  maxMenuHeight={250}
+                  placeholder="Select Designation"
+                />
+
+                <div
+                  className="fv-plugins-message-container invalid-feedback"
+                  htmlFor="designation_id"
+                ></div>
               </div>
 
               <button

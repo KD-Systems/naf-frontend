@@ -1,15 +1,20 @@
-import React, { useEffect, useState } from "react";
 import Modal from "components/utils/Modal";
+import { useEffect, useState } from "react";
+import Select from "react-select";
 import CompanyService from "services/CompanyService";
+import DesignationService from "../../../services/DesignationService";
 
 const EditUser = ({ open, onCloseModal, onUpdate, companyId, userId }) => {
   const [block, setBlock] = useState(false);
+  const [designations, setDesignations] = useState([]);
+  const [defaultDesignation, setDefaultDesignation] = useState(null);
+
   const [data, setData] = useState({
     name: "",
     email: "",
-    password: "",
     phone: "",
     avatar: "",
+    designation: null,
     status: false,
   });
 
@@ -26,7 +31,7 @@ const EditUser = ({ open, onCloseModal, onUpdate, companyId, userId }) => {
 
   //Get user data
   const getUser = async () => {
-    setData(await CompanyService.getUser(companyId, userId));
+    setData({ ...(await CompanyService.getUser(companyId, userId)) });
   };
 
   //Store data
@@ -51,6 +56,32 @@ const EditUser = ({ open, onCloseModal, onUpdate, companyId, userId }) => {
     setData(tempdata);
   };
 
+  const handleSelect = (option, conf) => {
+    const value = option.value;
+    const name = conf.name;
+
+    setData({
+      ...data,
+      [name]: value,
+    });
+  };
+
+  const getDesignations = async () => {
+    DesignationService.getAll().then((designations) => {
+      setDesignations(
+        designations.map((designation) => ({
+          label: designation.name,
+          value: designation.id,
+        }))
+      );
+    });
+  };
+
+  useEffect(() => {
+    open && getDesignations();
+    open && setDefaultDesignation(null);
+  }, [open]);
+
   useEffect(() => {
     if (userId) getUser();
 
@@ -59,14 +90,22 @@ const EditUser = ({ open, onCloseModal, onUpdate, companyId, userId }) => {
       window.$('[data-bs-toggle="popover"]').popover();
       window.$('[data-bs-toggle="tooltip"]').tooltip();
     }, 100);
-  }, [userId]);
+  }, [open, userId]);
+
+  useEffect(() => {
+    open &&
+      setDefaultDesignation({
+        label: data?.designation?.name,
+        value: data?.designation?.id,
+      });
+  }, [data.designation]);
 
   return (
     <div>
       <Modal
         open={open}
         onCloseModal={onCloseModal}
-        title={<>Edit User</>}
+        title={<>Edit Client</>}
         body={
           <>
             <form id="update-user">
@@ -143,32 +182,6 @@ const EditUser = ({ open, onCloseModal, onUpdate, companyId, userId }) => {
               </div>
 
               <div className="mb-10 fv-row fv-plugins-icon-container">
-                <label className="form-label">
-                  Password
-                  <i
-                    className="fas fa-exclamation-circle ms-2 fs-7"
-                    data-bs-toggle="popover"
-                    data-bs-trigger="hover"
-                    data-bs-html="true"
-                    data-bs-content="Keep the input box empty to unchanged the password."
-                  />
-                </label>
-                <input
-                  type="password"
-                  className="form-control mb-2"
-                  placeholder="Enter Password"
-                  name="password"
-                  id="password"
-                  value={data.password ?? ""}
-                  onChange={handleChange}
-                />
-                <div
-                  className="fv-plugins-message-container invalid-feedback"
-                  htmlFor="password"
-                ></div>
-              </div>
-
-              <div className="mb-10 fv-row fv-plugins-icon-container">
                 <label className="form-label">Phone</label>
                 <input
                   type="text"
@@ -185,17 +198,39 @@ const EditUser = ({ open, onCloseModal, onUpdate, companyId, userId }) => {
                 ></div>
               </div>
 
+              <div className="form-group">
+                <label className="required form-label">Designation</label>
+
+                {defaultDesignation && (
+                  <Select
+                    options={designations}
+                    onChange={handleSelect}
+                    name="designation_id"
+                    maxMenuHeight={250}
+                    defaultValue={defaultDesignation}
+                    placeholder="Select Designation"
+                  />
+                )}
+
+                <div
+                  className="fv-plugins-message-container invalid-feedback"
+                  htmlFor="designation_id"
+                ></div>
+              </div>
+
               <div className="form-group mt-5">
                 <div className="form-check form-switch form-check-custom form-check-solid">
-                  {data.name && (<input
-                    className="form-check-input"
-                    type="checkbox"
-                    defaultChecked={data.status}
-                    defaultValue={data.status === true}
-                    name="status"
-                    id="status"
-                    onChange={handleChange}
-                  />) }
+                  {data.name && (
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      defaultChecked={data.status}
+                      defaultValue={data.status === true}
+                      name="status"
+                      id="status"
+                      onChange={handleChange}
+                    />
+                  )}
                   <label
                     className="form-check-label"
                     htmlFor="flexSwitchDefault"

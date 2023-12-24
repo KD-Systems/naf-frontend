@@ -1,15 +1,15 @@
 import { Activities } from "components/utils/Activities";
+import Confirmation from "components/utils/Confirmation";
 import PermissionAbility from "helpers/PermissionAbility";
 import { useEffect, useState } from "react";
-import NewDropzone from "./Dropzone/MyDropzone";
 import Moment from "react-moment";
 import { useParams } from "react-router-dom";
 import CompanyService from "services/CompanyService";
+import NewDropzone from "./Dropzone/MyDropzone";
 import CompanyAdvance from "./company_advance/Index";
 import CompanyMachines from "./machines/Index";
 import CompanyInfo from "./sections/Info";
 import CompanyUsers from "./users/Index";
-import Confirmation from "components/utils/Confirmation";
 
 const ShowCompany = () => {
   const { id } = useParams();
@@ -62,7 +62,7 @@ const ShowCompany = () => {
                     setActive("users");
                   }}
                 >
-                  Users
+                  Clients
                 </a>
               </li>
               <li className="nav-item">
@@ -261,7 +261,7 @@ const ShowCompany = () => {
                                     <a
                                       className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
                                       href={item?.original_url}
-                                      target="_blank"
+                                      target="_blank" rel="noreferrer"
                                     >
                                       <i className="fa fa-download"></i>
                                     </a>
