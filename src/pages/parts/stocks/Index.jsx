@@ -18,7 +18,7 @@ const PartStocks = ({ tab, part, onChange }) => {
   const [updateOpen, setUpdateOpen] = useState(false);
   const totalStock = useMemo(
     () =>
-      stocks.reduce(
+      stocks?.reduce(
         (accumulator, currentValue) =>
           accumulator + parseFloat(currentValue.unit_value),
         0
