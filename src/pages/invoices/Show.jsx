@@ -1,13 +1,15 @@
 import { Activities } from "components/utils/Activities";
+import Confirmation from "components/utils/Confirmation";
 import PermissionAbility from "helpers/PermissionAbility";
+import moment from "moment";
 import { useEffect, useState } from "react";
+import DatePicker from "react-datepicker";
 import Moment from "react-moment";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import InvoiceService from "services/InvoiceService";
+import NewDropzone from "./Dropzone/MyDropzone";
 import InvoicePartItems from "./partItems/Index";
 import InvoiceCreatePayment from "./paymentHistories/Create";
-import NewDropzone from "./Dropzone/MyDropzone";
-import Confirmation from "components/utils/Confirmation";
 import UpdateInfo from "./section/UpdateInfo";
 
 const ShowInvoice = () => {
@@ -19,12 +21,9 @@ const ShowInvoice = () => {
   const [paymentHistories, setPaymentHistories] = useState([]);
   const [paymentHistoriesId, setPaymentHistoriesId] = useState({});
   const [paymentHistoriesDelete, setPaymentHistoriesDelete] = useState(false);
-
-  const [block, setBlock] = useState(false);
   const [active, setActive] = useState("part_items"); // * tab active or not
   const [tab, setTab] = useState("part_items");
   const [open, setOpen] = useState(false); //* open modal
-
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [uuid, setuuid] = useState();
   const [model_id, setModelId] = useState();
@@ -67,18 +66,28 @@ const ShowInvoice = () => {
   };
 
   const deleteItem = async () => {
-    if(paymentHistoriesDelete == true){
+    if (paymentHistoriesDelete == true) {
       await InvoiceService.removePaymentHistory(paymentHistoriesId);
-      getPaymentHistories()
-    }else{
+      getPaymentHistories();
+    } else {
       await InvoiceService.deleteFile(uuid, model_id);
       getFile();
     }
-    
   };
   const onCloseModal = () => {
     setOpen(false);
     setUpdateAMountModal(false);
+  };
+
+  const updateInvoiceDate = async (date) => {
+    setInvoice({
+      ...invoice,
+      invoice_date: new Date(date),
+    });
+
+    await InvoiceService.updateInfo(id, {
+      created_at: moment(date).format("YYYY-MM-DD") + " 00:00:00",
+    });
   };
 
   useEffect(() => {
@@ -175,11 +184,18 @@ const ShowInvoice = () => {
                   <div className="fw-bolder mt-5">Company</div>
                   <div className="text-gray-600">{invoice?.company?.name}</div>
 
-                  <div className="fw-bolder mt-5">Invoice Date</div>
+                  <div className="fw-bolder mt-5 mb-3">Invoice Date</div>
                   <div className="text-gray-600">
-                    <Moment format="D MMMM YYYY">
-                      {invoice?.invoice_date}
-                    </Moment>
+                    <DatePicker
+                      className="form-control"
+                      name="payment_date"
+                      selected={
+                        new Date(
+                          moment(invoice?.invoice_date).format("YYYY-MM-DD")
+                        )
+                      }
+                      onChange={updateInvoiceDate}
+                    />
                   </div>
                   {invoice?.part_items?.length > 0 && (
                     <>
@@ -267,12 +283,13 @@ const ShowInvoice = () => {
                   {invoice?.part_items?.length > 0 && (
                     <div className="card-title">
                       <PermissionAbility permission="invoices_update">
-                        <button className="btn btn-sm btn-dark text-white card-label"
-                          onClick={()=> {
-                            setUpdateAMountModal(true)
+                        <button
+                          className="btn btn-sm btn-dark text-white card-label"
+                          onClick={() => {
+                            setUpdateAMountModal(true);
                           }}
-                          >
-                            Update
+                        >
+                          Update
                         </button>
                       </PermissionAbility>
 
@@ -440,6 +457,7 @@ const ShowInvoice = () => {
                                           className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
                                           href={item?.original_url}
                                           target="_blank"
+                                          rel="noreferrer"
                                         >
                                           <i className="fa fa-download"></i>
                                         </a>
@@ -566,18 +584,18 @@ const ShowInvoice = () => {
                                       </Link>
                                     </span>
                                     <PermissionAbility permission="payment_history_delete">
-                                    <span className="text-end">
-                                      <button
-                                      onClick={()=>{
-                                        setPaymentHistoriesId(item?.id)
-                                        setPaymentHistoriesDelete(true)
-                                        setConfirmDelete(true);
-                                      }}
-                                        className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-                                      >
-                                        <i className="fa fa-trash"></i>
-                                      </button>
-                                    </span>
+                                      <span className="text-end">
+                                        <button
+                                          onClick={() => {
+                                            setPaymentHistoriesId(item?.id);
+                                            setPaymentHistoriesDelete(true);
+                                            setConfirmDelete(true);
+                                          }}
+                                          className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+                                        >
+                                          <i className="fa fa-trash"></i>
+                                        </button>
+                                      </span>
                                     </PermissionAbility>
                                   </td>
                                 </tr>

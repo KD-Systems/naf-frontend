@@ -2,9 +2,11 @@ import Table from "components/utils/Table";
 import PermissionAbility from "helpers/PermissionAbility";
 import { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
+import Moment from "react-moment";
 import { Link } from "react-router-dom";
 import ReportService from "services/ReportService";
 import DateFilter from "./DateFilter";
+
 const PartStockReport = () => {
   const [loading, setLoading] = useState(true);
   const [stockHistory, setStockHistory] = useState([]);
@@ -12,7 +14,7 @@ const PartStockReport = () => {
   const [enableFilter, setEnableFilter] = useState(false);
 
   const [isModal, setIsModal] = useState(false);
-  const [modalData, setModalData] = useState({})
+  const [modalData, setModalData] = useState({});
 
   const getReports = async (filters) => {
     const res = await ReportService.stockHistory(filters);
@@ -24,9 +26,8 @@ const PartStockReport = () => {
   };
 
   const handleModal = (data) => {
-    setModalData(data)
+    setModalData(data);
     setIsModal(true);
-
   };
   // console.log(modalData);
 
@@ -117,7 +118,6 @@ const PartStockReport = () => {
         </div>
       ),
     },
-
     {
       name: "Unit",
       selector: (row) => row?.type,
@@ -141,6 +141,15 @@ const PartStockReport = () => {
     },
 
     {
+      name: "Arrival Date",
+      selector: (row) => row?.created_at,
+      format: (history) => (
+        <Moment format="DD MMM YYYY">{history.created_at}</Moment>
+      ),
+      sortable: true,
+      field: "type",
+    },
+    {
       name: "Action",
       selector: (row) => row.remarks,
       format: (row) => (
@@ -148,7 +157,7 @@ const PartStockReport = () => {
           <span className="text-end">
             <PermissionAbility permission="stock_report_view">
               <div
-                onClick={()=>handleModal(row)}
+                onClick={() => handleModal(row)}
                 className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
                 data-toggle="tooltip"
                 title="Add Delivery Note"
@@ -225,37 +234,56 @@ const PartStockReport = () => {
           centered
         >
           <Modal.Header closeButton>
-            <Modal.Title id="contained-modal-title-vcenter" className="text-uppercase">
-            {modalData.part_name}
+            <Modal.Title
+              id="contained-modal-title-vcenter"
+              className="text-uppercase"
+            >
+              {modalData.part_name}
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
             {/* <h4>{modalData.part_name}</h4> */}
             <div className="row">
               <div className="col-md-6">
-                <div> <span className="fw-bold">Previous Unit Value :</span> {Math.round(modalData.prev_unit_value)}</div>
+                <div>
+                  {" "}
+                  <span className="fw-bold">Previous Unit Value :</span>{" "}
+                  {Math.round(modalData.prev_unit_value)}
+                </div>
               </div>
 
               <div className="col-md-6">
-              <div> <span className="fw-bold">Current Unit Value :</span> {Math.round(modalData.current_unit_value)}</div>
+                <div>
+                  {" "}
+                  <span className="fw-bold">Current Unit Value :</span>{" "}
+                  {Math.round(modalData.current_unit_value)}
+                </div>
               </div>
             </div>
-            <hr/>
+            <hr />
             <div className="row">
               <div className="col-md-6">
-                <div> <span className="fw-bold">Box :</span> {modalData.box_heading_name}</div>
-                <div> <span className="fw-bold">WareHouse :</span> {modalData.warehouse_name}</div>
+                <div>
+                  {" "}
+                  <span className="fw-bold">Box :</span>{" "}
+                  {modalData.box_heading_name}
+                </div>
+                <div>
+                  {" "}
+                  <span className="fw-bold">WareHouse :</span>{" "}
+                  {modalData.warehouse_name}
+                </div>
               </div>
 
               <div className="col-md-6">
-              <div className="text-primary">{modalData.remarks}</div>
+                <div className="text-primary">{modalData.remarks}</div>
               </div>
             </div>
-            
-            
           </Modal.Body>
           <Modal.Footer>
-            <button type="button" className="btn btn-danger"
+            <button
+              type="button"
+              className="btn btn-danger"
               onClick={() => {
                 setIsModal(false);
               }}
