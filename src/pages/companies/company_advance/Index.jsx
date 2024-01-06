@@ -4,7 +4,6 @@ import moment from "moment";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import AdvanceService from "services/AdvanceService";
-import CompanyService from "services/CompanyService";
 import AdvanceAmount from "./AdvanceAmount";
 import EditUser from "./Edit";
 

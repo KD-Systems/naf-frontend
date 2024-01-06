@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 import CompanyService from "services/CompanyService";
 import NewDropzone from "./Dropzone/MyDropzone";
 import CompanyAdvance from "./company_advance/Index";
-import DuePayment from "./company_advance/payment_type/Due";
+import DuePayment from "./company_advance/due/Index";
 import CompanyMachines from "./machines/Index";
 import CompanyInfo from "./sections/Info";
 import CompanyUsers from "./users/Index";

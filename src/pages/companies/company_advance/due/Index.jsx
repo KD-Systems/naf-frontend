@@ -3,27 +3,31 @@ import PermissionAbility from "helpers/PermissionAbility";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import AdvanceService from "services/AdvanceService";
+import { toast } from "react-toastify";
+import DuePaymentService from "services/DuePaymentService";
+import DueForm from "./Form";
 
-const PaymentDue = ({ active }) => {
+const DueCompoent = () => {
   let { id } = useParams();
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [advanceId, setAdvanceId] = useState(null);
   const [advance, setAdvance] = useState([]);
-  const [openEditModal, setOpenEditModal] = useState(false);
-
   const [dueModal, setDueModal] = useState(false);
 
-  const onCloseModal = () => {
-    setOpenEditModal(false);
-  };
-
   const getAdvance = async () => {
-    setAdvance(await AdvanceService.getAll({ id: id }));
+    setAdvance(await DuePaymentService.getAll({ id: id }));
   };
 
-  const deleteUser = async (advanceId) => {
-    await AdvanceService.remove(id, advanceId);
+  const deleteRecord = async (duePaymentHistoryId) => {
+    try {
+      await DuePaymentService.remove(duePaymentHistoryId, id);
+
+      setAdvance(
+        advance.filter((duePayment) => duePayment.id != duePaymentHistoryId)
+      );
+    } catch (error) {
+      toast("Recored not deleted", { type: "error" });
+    }
   };
 
   useEffect(() => {
@@ -175,33 +179,21 @@ const PaymentDue = ({ active }) => {
             open={confirmDelete}
             onConfirm={() => {
               setConfirmDelete(false);
-              deleteUser(advanceId);
+              deleteRecord(advanceId);
             }}
             onCancel={() => setConfirmDelete(false)}
           />
 
-          {/* <EditUser
-            open={openEditModal}
-            onCloseModal={() => {
-              onCloseModal();
-            }}
-            onUpdate={() => {
-              getAdvance();
-            }}
-            id={id}
-            advanceId={advanceId}
-          /> */}
-
-          {/* <AdvanceAmount
+          <DueForm
             open={dueModal}
             id={id}
             onCloseModal={() => setDueModal(false)}
             onUpdated={getAdvance}
-          /> */}
+          />
         </div>
       </div>
     </div>
   );
 };
 
-export default PaymentDue;
+export default DueCompoent;
