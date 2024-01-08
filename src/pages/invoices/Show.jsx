@@ -166,7 +166,7 @@ const ShowInvoice = () => {
                               ) == 0 ? (
                               <span className="badge badge-light-danger">
                                 {" "}
-                                UnPaid
+                                Unpaid
                               </span>
                             ) : (
                               <span className="badge badge-light-danger">
@@ -279,38 +279,34 @@ const ShowInvoice = () => {
                     </>
                   )}
                 </div>
-                <div className="card-header">
+                <div className="text-center p-3">
                   {invoice?.part_items?.length > 0 && (
-                    <div className="card-title">
-                      <PermissionAbility permission="invoices_update">
-                        <button
-                          className="btn btn-sm btn-dark text-white card-label"
-                          onClick={() => {
-                            setUpdateAMountModal(true);
-                          }}
-                        >
-                          Update
-                        </button>
-                      </PermissionAbility>
-
-                      <PermissionAbility permission="invoices_print">
-                        <h3 className="card-label">
-                          <Link
-                            className="btn btn-sm btn-dark "
-                            to={"/panel/invoices/" + invoice.id + "/print"}
-                            style={{ marginRight: "0.75rem" }}
-                            target="_blank"
-                          >
-                            Print
-                          </Link>
-                        </h3>
-                      </PermissionAbility>
-
-                      <PermissionAbility permission="invoices_generate_delivery_note">
-                        <h3 className="card-label">
+                    <div>
+                        <PermissionAbility permission="invoices_update">
                           <button
-                            className="btn btn-sm btn-dark "
-                            style={{ marginRight: "0.1rem" }}
+                            className="btn btn-sm btn-primary text-white m-1"
+                            onClick={() => {
+                              setUpdateAMountModal(true);
+                            }}
+                          >
+                            Edit
+                          </button>
+                        </PermissionAbility>
+
+                        <PermissionAbility permission="invoices_print">
+                            <Link
+                              className="btn btn-sm btn-secondary m-1"
+                              to={"/panel/invoices/" + invoice.id + "/print"}
+                              style={{ marginRight: "0.75rem" }}
+                              target="_blank"
+                            >
+                              Print
+                            </Link>
+                        </PermissionAbility>
+                      
+                      <PermissionAbility permission="invoices_generate_delivery_note">
+                          <button
+                            className="btn btn-sm btn-primary m-1"
                             onClick={() =>
                               navigate(
                                 `/panel/delivery-notes/${invoice?.id}/create`
@@ -319,7 +315,6 @@ const ShowInvoice = () => {
                           >
                             Generate Delivery Note
                           </button>
-                        </h3>
                       </PermissionAbility>
                     </div>
                   )}

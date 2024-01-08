@@ -29,6 +29,7 @@ const Parts = () => {
   };
   useEffect(() => {
     getParts(filter);
+    localStorage.setItem('parts_filter', filter);
   }, [filter, type]);
 
   const columns = [
