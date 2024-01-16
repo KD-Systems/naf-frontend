@@ -147,7 +147,7 @@ const ShowQuotation = () => {
   const handleDataChange = (e) => {
     let value;
     if (e.target.name == "vat" || e.target.name == "discount") {
-      value = Math.min(100, Number(e.target.value));
+      value = Number(e.target.value);
     } else {
       value = e.target.value;
     }
@@ -656,7 +656,6 @@ const ShowQuotation = () => {
                                         <div className="input-group">
                                           <input
                                             type="number"
-                                            pattern="[0-99]*"
                                             className="form-control"
                                             aria-label="Small"
                                             aria-describedby="inputGroup-sizing-sm"

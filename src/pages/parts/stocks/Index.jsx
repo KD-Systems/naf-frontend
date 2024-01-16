@@ -143,9 +143,11 @@ const PartStocks = ({ tab, part, onChange }) => {
                       <td>{item.shipment_invoice}</td>
 
                       <td>
+                        { item.arrival_date ?
                         <Moment format="DD MMM YYYY">
-                          {item.shipment_date}
+                          {item.arrival_date}
                         </Moment>
+                         : '' }
                       </td>
 
                       <td className="text-end">

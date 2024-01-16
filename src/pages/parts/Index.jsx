@@ -22,14 +22,22 @@ const Parts = () => {
 
 
   const [filter, setFilter] = useState(null);
-  const getParts = async (filter) => {
-    const data = await PartService.getAll({ ...filter, type: type });
+  const getParts = async (params) => {
+    let storedFilter = JSON.parse(localStorage.getItem('parts_filter'));
+    let filterData = {...storedFilter, ...filter, ...params};
+
+    if(JSON.stringify(filter) != JSON.stringify(filterData)) {
+      localStorage.setItem('parts_filter', JSON.stringify(filterData))
+      setFilter(filterData);
+    } else {
+    const data = await PartService.getAll(filterData);
     setParts(data);
     setLoading(false);
+    }
   };
+
   useEffect(() => {
-    getParts(filter);
-    localStorage.setItem('parts_filter', filter);
+      getParts({});
   }, [filter, type]);
 
   const columns = [
@@ -140,7 +148,7 @@ const Parts = () => {
 
   const deletePart = (partId) => {
     PartService.remove(partId);
-    getParts(filter);
+    getParts({});
   };
 
   const onCloseModal = () => {
@@ -159,6 +167,7 @@ const Parts = () => {
             buttonName="Add Part"
             onClickButton={() => setOpenAddModal(true)}
             buttonPermission="parts_create"
+            filter={filter}
             callbackButtons={
               type !== "company"
                 ? [

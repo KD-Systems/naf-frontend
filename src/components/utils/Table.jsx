@@ -15,6 +15,7 @@ function Table({
   onClickButton,
   buttonPermission,
   callbackButtons,
+  filter
 }) {
   const [filters, setFilters] = useState({
     order: {},
@@ -74,7 +75,7 @@ function Table({
               data-filter="search"
               className="form-control form-control-solid w-250px ps-14"
               placeholder={"Search " + name}
-              value={filters?.q}
+              value={filters?.q ?? filter?.q}
               onChange={onSearch}
             />
           </div>
