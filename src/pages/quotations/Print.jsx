@@ -7,6 +7,9 @@ const PrintInvoice = () => {
   const navigate = useNavigate();
   const [invoice, setInvoice] = useState({});
   const [total, setTotal] = useState(0);
+  const [discount, setDiscount] = useState(0);
+  const [vat, setVat] = useState(0);
+  const [grandTotal, setGrandTotal] = useState(0);
   const getInvoice = async () => {
     let res = await QuotationService.get(id);
     setInvoice(res);
@@ -22,6 +25,25 @@ const PrintInvoice = () => {
     window.print();
     navigate("/panel/quotations/" + id);
   };
+
+  useEffect(() => {
+    if(Object.values(invoice).length) {
+      let totalAmount = 0;
+      invoice?.part_items?.forEach((item) => {
+          totalAmount =
+            parseInt(totalAmount) +
+            parseInt(item?.quantity) * parseInt(item?.unit_value);
+        });
+        setTotal(totalAmount);
+    
+        let discount = parseFloat(invoice.discount_type ==='percentage' ? (totalAmount * invoice?.discount) / 100 : invoice?.discount)
+        let vat = parseFloat(invoice.vat_type ==='percentage' ? ((totalAmount - discount) * invoice?.vat) / 100 : invoice?.vat);    
+        setDiscount(discount);
+        setVat(vat);
+  
+        setGrandTotal((totalAmount - discount) + vat);
+  }
+  }, [invoice])
 
   useEffect(() => {
     if (id) getInvoice();
@@ -207,11 +229,11 @@ const PrintInvoice = () => {
                           <td className="text-start"></td>
                           <td className="text-center"></td>
                           <td className="text-center">
-                            <h4>VAT({invoice?.vat}) %</h4>
+                            <h4>VAT({invoice?.vat}{invoice?.vat_type == 'percentage' ? '%' : ' BDT'})</h4>
                           </td>
                           <td className="text-center border-1 border-dark">
                             <h4>
-                              {Math.round(total*invoice.vat/100) ?? 0} TK
+                              {vat ?? 0} TK
                             </h4>
                           </td>
                         </tr>
@@ -220,11 +242,11 @@ const PrintInvoice = () => {
                           <td className="text-start"></td>
                           <td className="text-center"></td>
                           <td className="text-center">
-                            <h4>Discount({invoice?.discount}) %</h4>
+                            <h4>Discount({invoice?.discount}){invoice?.discount_type == 'percentage' ? '%' : ' BDT'}</h4>
                           </td>
                           <td className="text-center border-bottom border-1 border-dark">
                             <h4>
-                              {Math.round(total*invoice.discount/100) ?? 0} TK
+                              {discount} TK
                             </h4>
                           </td>
                         </tr>
@@ -253,7 +275,7 @@ const PrintInvoice = () => {
                                 fontSize: 16,
                               }}
                             >
-                              {invoice.grand_total} TK.
+                              {grandTotal} TK.
                             </div>
                           </td>
                         </tr>

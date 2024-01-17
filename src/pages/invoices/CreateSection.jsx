@@ -12,7 +12,11 @@ const CreateInvoice = () => {
   const [quotation, setQuotation] = useState({}); //get quotation details
   const [list, setList] = useState([]);
   const [data, setData] = useState(null);
-
+  const [total, setTotal] = useState(0);
+  const [discount, setDiscount] = useState(0);
+  const [vat, setVat] = useState(0);
+  const [grandTotal, setGrandTotal] = useState(0);
+  
   const getQuotation = async () => {
     if (quotationId) {
       let res = await QuotationService.get(quotationId);
@@ -22,34 +26,38 @@ const CreateInvoice = () => {
 
   useEffect(() => {
     setList(quotation?.part_items);
-    setData({
-      quotation_id: quotation?.id,
-      company: quotation?.company,
-      requisition: quotation?.requisition,
-      type: quotation?.requisition?.type,
-      vat: quotation?.vat,
-      discount: quotation?.discount,
-    });
-  }, [quotation]);
 
-  //calculation for total and grand total
-  useEffect(() => {
+    if(Object.values(quotation).length) {
     let totalAmount = 0;
-    list?.forEach((item) => {
-      totalAmount =
-        parseInt(totalAmount) +
-        parseInt(item?.quantity) * parseInt(item?.unit_value);
-    });
-    let GrandTotal = parseInt(
-      totalAmount * (1 + (data?.vat - data?.discount) / 100)
-    );
-    setData({
-      ...data,
-      part_items: list,
-      grand_total: GrandTotal,
-      sub_total: totalAmount,
-    });
-  }, [list]);
+    quotation?.part_items?.forEach((item) => {
+        totalAmount =
+          parseInt(totalAmount) +
+          parseInt(item?.quantity) * parseInt(item?.unit_value);
+      });
+      setTotal(totalAmount);
+  
+      let discount = parseFloat(quotation.discount_type ==='percentage' ? (totalAmount * quotation?.discount) / 100 : quotation?.discount)
+      let vat = parseFloat(quotation.vat_type ==='percentage' ? ((totalAmount - discount) * quotation?.vat) / 100 : quotation?.vat);    
+      setDiscount(discount);
+      setVat(vat);
+
+      setGrandTotal((totalAmount - discount) + vat);
+
+      setData({
+        part_items: quotation?.part_items,
+        sub_total: totalAmount,
+        grand_total: (totalAmount - discount) + vat,
+        quotation_id: quotation?.id,
+        company: quotation?.company,
+        requisition: quotation?.requisition,
+        type: quotation?.requisition?.type,
+        vat: vat,
+        vat_type: quotation?.vat_type,
+        discount: discount,
+        discount_type: quotation?.discount_type,
+      });
+    }
+  }, [quotation]);
 
   const removeItem = (id) => {
     const newList = list.filter((item) => item?.id !== id);
@@ -226,32 +234,32 @@ const CreateInvoice = () => {
                                 <td colSpan={2}></td>
                                 <td>Sub-total</td>
                                 <td></td>
-                                <td>{data?.sub_total}</td>
+                                <td>{total}</td>
+                                <td></td>
+                              </tr>
+                              <tr className="fw-bolder text-gray-700 fs-5 text-end">
+                                <td colSpan={2}></td>
+                                <td>Discount({data?.discount}{data?.discount_type == 'percentage' ? '%' : ' BDT'})</td>
+                                <td></td>
+                                <td>
+                                  - {discount}
+                                </td>
                                 <td></td>
                               </tr>
                               <tr className="fw-bolder text-gray-700 fs-5 text-end">
                                 <td colSpan={2}></td>
                                 <td className="align-center justify-content-center">
-                                  Vat({data?.vat}%)
+                                  Vat({data?.vat}{data?.vat_type == 'percentage' ? '%' : ' BDT'})
                                 </td>
                                 <td></td>
-                                <td>{(data?.sub_total * data?.vat) / 100}</td>
-                                <td></td>
-                              </tr>
-                              <tr className="fw-bolder text-gray-700 fs-5 text-end">
-                                <td colSpan={2}></td>
-                                <td>Discount({data?.discount}%)</td>
-                                <td></td>
-                                <td>
-                                  {(data?.sub_total * data?.discount) / 100}
-                                </td>
+                                <td>+ {vat}</td>
                                 <td></td>
                               </tr>
                               <tr className="fw-bolder text-gray-700 fs-5 text-end">
                                 <td colSpan={2}></td>
                                 <td>Grand Total</td>
                                 <td></td>
-                                <td>{data?.grand_total}</td>
+                                <td>{grandTotal}</td>
                                 <td></td>
                               </tr>
                             </>

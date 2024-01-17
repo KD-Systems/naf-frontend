@@ -82,39 +82,36 @@ const InvoicePartItems = ({ tab, active, invoice }) => {
                           <tr className="fw-bolder text-gray-700 fs-5 text-end">
                             <td colSpan={2}></td>
                             <td className="align-center justify-content-center">
-                              Vat({invoice?.vat}%)
+                              Discount
                             </td>
                             <td></td>
-                            <td>
-                              {(invoice?.sub_total * invoice?.vat) / 100 ?? "0"}
+                            <td className="text-danger">
+                              - {invoice?.discount ?? "0"}
                             </td>
                             <td></td>
                           </tr>
                           <tr className="fw-bolder text-gray-700 fs-5 text-end">
                             <td colSpan={2}></td>
                             <td className="align-center justify-content-center">
-                              Discount({invoice?.discount}%)
+                              Vat
                             </td>
                             <td></td>
-                            <td className="text-danger">
-                              {(invoice?.sub_total * invoice?.discount) / 100 ??
-                                "0"}
-                            </td>
+                            <td>+ {invoice?.vat ?? "0"}</td>
                             <td></td>
                           </tr>
-                          {invoice?.return_part?.return_part_items?.length > 0 && (
+                          {invoice?.return_part?.return_part_items?.length >
+                            0 && (
                             <tr className="fw-bolder text-gray-700 fs-5 text-end">
-                            <td colSpan={2}></td>
-                            <td className="align-center justify-content-center">
+                              <td colSpan={2}></td>
+                              <td className="align-center justify-content-center">
                                 Return part amount
-                            </td>
-                            <td></td>
-                            <td className="text-danger">
-                              {invoice?.return_part?.grand_total ??
-                                "0"}
-                            </td>
-                            <td></td>
-                          </tr>
+                              </td>
+                              <td></td>
+                              <td className="text-danger">
+                                {invoice?.return_part?.grand_total ?? "0"}
+                              </td>
+                              <td></td>
+                            </tr>
                           )}
                           <tr className="fw-bolder text-gray-700 fs-5 text-end">
                             <td colSpan={2}></td>
@@ -139,7 +136,10 @@ const InvoicePartItems = ({ tab, active, invoice }) => {
             <div className="card-header card-header-tabs-line">
               <div className="card-toolbar">
                 <div className="card-title">
-                  <h3 className="card-label">Return Part Items <span>({invoice?.return_part?.type})</span></h3>
+                  <h3 className="card-label">
+                    Return Part Items{" "}
+                    <span>({invoice?.return_part?.type})</span>
+                  </h3>
                 </div>
               </div>
               <div className="align-items-center">
@@ -203,16 +203,15 @@ const InvoicePartItems = ({ tab, active, invoice }) => {
                                 </span>
                               </td>
                             </tr>
-                            
                           )
                         )}
                         <tr className="fw-bolder text-gray-700 fs-5">
-                            <td colSpan={2}></td>
-                            <td>Grand Total(Incuding others)</td>
-                            <td></td>
-                            <td>{invoice?.return_part?.grand_total}</td>
-                            <td></td>
-                          </tr>
+                          <td colSpan={2}></td>
+                          <td>Grand Total(Incuding others)</td>
+                          <td></td>
+                          <td>{invoice?.return_part?.grand_total}</td>
+                          <td></td>
+                        </tr>
                       </tbody>
                     </table>
                   </div>

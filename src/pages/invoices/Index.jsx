@@ -16,7 +16,6 @@ const Invoices = () => {
   const [invoices, setInvoices] = useState([]);
   const [filter, setFilter] = useState(false);
   const [block, setBlock] = useState(false);
-  const [totalQuantity, setTotalQuantity] = useState(0);
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [type, setType] = useState(null);
 
@@ -33,8 +32,17 @@ const Invoices = () => {
     getInvoices(data);
   };
 
+  const [filters, setFilters] = useState({})
   const getInvoices = async (filters) => {
-    setInvoices(await InvoiceService.getAll(filters));
+    let storedFilter = JSON.parse(localStorage.getItem('invoice_filter'));
+    let filterData = {...storedFilter, ...filters};
+
+    if(JSON.stringify(filters) != JSON.stringify(storedFilter)) {
+      localStorage.setItem('invoice_filter', JSON.stringify(filterData))
+      setFilters(storedFilter)
+    }
+
+    setInvoices(await InvoiceService.getAll(filterData));
     setLoading(false);
   };
 
@@ -277,6 +285,7 @@ const Invoices = () => {
             columns={columns}
             onFilter={getInvoices}
             buttonPermission="invoices_create"
+            filter={filters}
           />
         </div>
       </div>

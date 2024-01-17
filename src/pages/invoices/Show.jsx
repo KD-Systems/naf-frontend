@@ -242,12 +242,12 @@ const ShowInvoice = () => {
 
                       <div className="fw-bolder mt-5">Vat </div>
                       <div className="text-gray-600">
-                        {invoice?.vat ?? "0"}%
+                        {invoice?.vat ?? "0"}{invoice?.vat_type == 'percentage' ? '%' : ' BDT'}
                       </div>
 
                       <div className="fw-bolder mt-5">Discount </div>
                       <div className="text-gray-600">
-                        {invoice?.discount ?? "0"}%
+                        {invoice?.discount ?? "0"}{invoice?.discount_type == 'percentage' ? '%' : ' BDT'}
                       </div>
 
                       <div className="fw-bolder mt-5">Grand Total</div>

@@ -174,9 +174,17 @@ const Quotations = () => {
     },
   ];
 
+  const [filter, setFilter] = useState({})
   const getQuotations = async (filters) => {
-    setQuotations(await QuotationService.getAll(filters));
-    setLoading(false);
+    let storedFilter = JSON.parse(localStorage.getItem('quotation_filter'));
+    let filterData = {...storedFilter, ...filters};
+
+    if(JSON.stringify(filters) != JSON.stringify(storedFilter)) {
+      localStorage.setItem('quotation_filter', JSON.stringify(filterData))
+      setFilter(filterData)
+    }
+      setQuotations(await QuotationService.getAll(filterData));
+      setLoading(false);
   };
 
   const deleteQuotation = (quoId) => {
@@ -204,6 +212,7 @@ const Quotations = () => {
             columns={columns}
             onFilter={getQuotations}
             buttonPermission="quotations_create"
+            filter={filter}
           />
         </div>
       </div>
