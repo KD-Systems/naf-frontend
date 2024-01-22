@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Moment from "react-moment";
 import ReportService from "services/ReportService";
 import DateFilter from "./DateFilter";
+import { Link } from "react-router-dom";
 const Reports = () => {
   const [loading, setLoading] = useState(true);
   const [reports, setReports] = useState([]);
@@ -16,69 +17,66 @@ const Reports = () => {
 
   const columns = [
     {
-      name: "Part Name",
-      selector: (row) => row?.part_name,
-      sortable: true,
-      field: "name",
-      format: (row) => (
-        <div className="d-flex align-items-center">
-          <div className="d-flex justify-content-start flex-column">
-            <div className="text-dark fw-bolder text-hover-primary">
-              {row?.part_name}
-            </div>
-          </div>
-        </div>
-      ),
-    },
-
-    {
-      name: "Part Number",
-      selector: (row) => row?.part_number,
-      format: (row) => <div className="mt-2">{row?.part_number}</div>,
-      sortable: true,
-      field: "part_number",
-    },
-
-    {
       name: "Company",
       selector: (row) => row?.company_name,
       sortable: true,
       field: "name",
       format: (row) => (
-        <div className="d-flex align-items-center">
-          <div className="d-flex justify-content-start flex-column">
-            <div className="text-dark fw-bolder text-hover-primary">
-              {row?.company_name}
-            </div>
-          </div>
-        </div>
+        <Link
+            to={"/panel/companies/" + row?.company_id}
+            className="text-dark fw-bolder text-hover-primary"
+          >
+            {row?.company_name}
+        </Link>
       ),
     },
 
     {
-      name: "Quantity",
-      selector: (row) => row?.quantity,
-      format: (row) => <div className="mt-2">{row?.quantity}</div>,
+      name: "Invoice",
+      selector: (row) => row?.invoice_numbers,
       sortable: true,
-      field: "quantity",
+      field: "name",
+      wrap: true,
+      format: (row) => {
+        let numbers = row?.invoice_numbers.split(',');
+        return row.invoice_ids.split(',').map((id, i) => { 
+        return <><Link
+            to={"/panel/invoices/" + id}
+            className="text-dark fw-bolder text-hover-primary"
+            >
+            {numbers[i]}
+          </Link>
+          {numbers.length == ++i ? '' : ', '}
+          </>
+        })
+      }
+    },
+    {
+      name: "Sub Total",
+      selector: (row) => row?.sub_total,
+      format: (row) => <div className="mt-2">{row?.sub_total} BDT</div>,
+      sortable: true,
+      field: "sub_total",
     },
 
     {
-      name: "Total",
-      selector: (row) => row?.total_value,
-      format: (row) => <div className="mt-2">{row?.total_value}</div>,
+      name: "Grand Total",
+      selector: (row) => row?.grand_total,
+      format: (row) => <div className="mt-2">{row?.grand_total} BDT</div>,
       sortable: true,
-      field: "total_value",
+      field: "grand_total",
     },
 
     {
-      name: "Created At",
-      selector: (row) => row?.created_at,
-      format: (row) => (
-        <div className="mt-2">
-          <Moment format="YYYY-MM-DD">{row?.created_at}</Moment>
-        </div>
-      ),
+      name: "Date",
+      wrap: true,
+      selector: (row) => row?.dates,
+      format: (row) => {
+        let dates = row.dates.split(',');
+        return dates.map((date, i) => {
+          return <><Moment format="YYYY-MM-DD">{date}</Moment>{dates.length == ++i ? '' : ', '}</>
+        })
+      },
       sortable: true,
       field: "created_at",
     },

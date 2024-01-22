@@ -145,6 +145,7 @@ const CreateInvoicePayment = ({ open, onCloseModal, invoice, due }) => {
                       className="form-control"
                       name="payment_date"
                       selected={data.payment_date}
+                      autoComplete="off"
                       onChange={(date) =>
                         handleDateSelect(date, "payment_date")
                       }
