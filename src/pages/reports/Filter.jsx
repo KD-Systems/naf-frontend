@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import DatePicker from "react-datepicker";
-import moment, { now } from "moment";
+import moment from "moment";
 import CompanyService from "services/CompanyService";
 import Select from "react-select";
 
@@ -57,7 +56,7 @@ const DateFilter = ({ enable, onClickOutside, onChange }) => {
 
   let custom = {
     zIndex: 20,
-    position: "absolute",
+    position: "fixed",
     inset: "0px 0px auto auto",
     margin: 0,
     top: "-15px",
