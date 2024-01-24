@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import DatePicker from "react-datepicker";
-import moment from "moment";
+import moment, { now } from "moment";
 import CompanyService from "services/CompanyService";
 import Select from "react-select";
 
@@ -34,15 +34,12 @@ const DateFilter = ({ enable, onClickOutside, onChange }) => {
     { value: 2029, label: "2029" },
     { value: 2030, label: "2030" },
   ];
+
+  const storedFilter = JSON.parse(localStorage.getItem("reports_filter"));
   const [data, setData] = useState({
-    stock: "all",
-    start_date: null,
-    end_date: null,
-    start_date_format: null,
-    end_date_format: null,
-    company_id: "",
-    month: "",
-    year: "",
+    company_id: storedFilter?.company_id,
+    month: storedFilter?.month,
+    year: storedFilter?.year ?? moment().format("YYYY"),
   });
   const getCompanies = async () => {
     let dt = await CompanyService.getAll({
@@ -72,13 +69,17 @@ const DateFilter = ({ enable, onClickOutside, onChange }) => {
   };
   //for company
   const handleSelect = (option, conf) => {
-    let value = option.value;
+    let value = option?.value;
     if (Array.isArray(option))
       value = option.map((dt) => {
         return dt.value;
       });
 
     const name = conf.name;
+    if(name == 'year' && !value) {
+      value = moment().format('YYYY');
+    }
+    
     setData({
       ...data,
       [name]: value,
@@ -160,10 +161,11 @@ const DateFilter = ({ enable, onClickOutside, onChange }) => {
           <div className="mb-10">
             <label className="form-label fw-bold">Company:</label>
             <Select
+              isClearable
               options={companies}
               onChange={handleSelect}
               name="company_id"
-              value={companies.filter(dt => dt.value == data.company_id)}
+              value={companies.filter((dt) => dt.value == data.company_id)}
             />
             <div
               className="fv-plugins-message-container invalid-feedback"
@@ -173,7 +175,13 @@ const DateFilter = ({ enable, onClickOutside, onChange }) => {
 
           <div className="mb-10">
             <label className="form-label fw-bold">Months:</label>
-            <Select options={months} onChange={handleSelect} name="month" value={months.filter(dt => dt.value == data.month)} />
+            <Select
+              isClearable
+              options={months}
+              onChange={handleSelect}
+              name="month"
+              value={months.filter((dt) => dt.value == data.month)}
+            />
             <div
               className="fv-plugins-message-container invalid-feedback"
               htmlFor="month"
@@ -184,10 +192,11 @@ const DateFilter = ({ enable, onClickOutside, onChange }) => {
             <label className="form-label fw-bold">Year:</label>
             <Select
               selected
+              isClearable
               options={year}
               onChange={handleSelect}
               name="year"
-              value={year.filter(dt => dt.value == data.year)}
+              value={year.filter((dt) => dt.value == data.year)}
             />
             <div
               className="fv-plugins-message-container invalid-feedback"

@@ -5,7 +5,7 @@ import Modal from "react-bootstrap/Modal";
 import Moment from "react-moment";
 import { Link } from "react-router-dom";
 import ReportService from "services/ReportService";
-import DateFilter from "./DateFilter";
+import DateFilter from "./Filter";
 
 const PartStockReport = () => {
   const [loading, setLoading] = useState(true);

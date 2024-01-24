@@ -2,16 +2,26 @@ import Table from "components/utils/Table";
 import { useEffect, useState } from "react";
 import Moment from "react-moment";
 import ReportService from "services/ReportService";
-import DateFilter from "./DateFilter";
+import Filter from "./Filter";
 import { Link } from "react-router-dom";
+import moment from "moment";
 const Reports = () => {
   const [loading, setLoading] = useState(true);
   const [reports, setReports] = useState([]);
-  const [filter, setFilter] = useState({});
+  const storedFilter = JSON.parse(localStorage.getItem("reports_filter"));
+  const [filter, setFilter] = useState({
+    year: storedFilter?.year ?? moment().format("YYYY"),
+  });
   const [enableFilter, setEnableFilter] = useState(false);
 
   const getReports = async (filters) => {
-    setReports(await ReportService.getAll(filters));
+    let filterData = { ...(storedFilter ?? []), ...filters };
+
+    if (JSON.stringify(filters) != JSON.stringify(storedFilter)) {
+      localStorage.setItem("reports_filter", JSON.stringify(filterData));
+    }
+
+    setReports(await ReportService.getAll(filterData));
     setLoading(false);
   };
 
@@ -23,10 +33,10 @@ const Reports = () => {
       field: "name",
       format: (row) => (
         <Link
-            to={"/panel/companies/" + row?.company_id}
-            className="text-dark fw-bolder text-hover-primary"
-          >
-            {row?.company_name}
+          to={"/panel/companies/" + row?.company_id}
+          className="text-dark fw-bolder text-hover-primary"
+        >
+          {row?.company_name}
         </Link>
       ),
     },
@@ -38,18 +48,21 @@ const Reports = () => {
       field: "name",
       wrap: true,
       format: (row) => {
-        let numbers = row?.invoice_numbers.split(',');
-        return row.invoice_ids.split(',').map((id, i) => { 
-        return <><Link
-            to={"/panel/invoices/" + id}
-            className="text-dark fw-bolder text-hover-primary"
-            >
-            {numbers[i]}
-          </Link>
-          {numbers.length == ++i ? '' : ', '}
-          </>
-        })
-      }
+        let numbers = row?.invoice_numbers.split(",");
+        return row.invoice_ids.split(",").map((id, i) => {
+          return (
+            <>
+              <Link
+                to={"/panel/invoices/" + id}
+                className="text-dark fw-bolder text-hover-primary"
+              >
+                {numbers[i]}
+              </Link>
+              {numbers.length == ++i ? "" : ", "}
+            </>
+          );
+        });
+      },
     },
     {
       name: "Sub Total",
@@ -72,10 +85,15 @@ const Reports = () => {
       wrap: true,
       selector: (row) => row?.dates,
       format: (row) => {
-        let dates = row.dates.split(',');
+        let dates = row.dates.split(",");
         return dates.map((date, i) => {
-          return <><Moment format="YYYY-MM-DD">{date}</Moment>{dates.length == ++i ? '' : ', '}</>
-        })
+          return (
+            <>
+              <Moment format="YYYY-MM-DD">{date}</Moment>
+              {dates.length == ++i ? "" : ", "}
+            </>
+          );
+        });
       },
       sortable: true,
       field: "created_at",
@@ -100,7 +118,7 @@ const Reports = () => {
   };
 
   useEffect(() => {
-    if (filter.order)
+    if (filter?.year)
       //Just to avoid double load
       getReports(filter);
   }, [filter]);
@@ -110,6 +128,7 @@ const Reports = () => {
       <div className="post d-flex flex-column-fluid">
         <div className="container-xxl">
           <Table
+            filter={storedFilter}
             name="Reports"
             isLoading={loading}
             data={reports}
@@ -131,7 +150,7 @@ const Reports = () => {
           />
         </div>
       </div>
-      <DateFilter
+      <Filter
         enable={enableFilter}
         onClickOutside={() => {
           setEnableFilter(!enableFilter);
