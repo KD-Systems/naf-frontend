@@ -147,7 +147,7 @@ const ShowQuotation = () => {
   const handleDataChange = (e) => {
     let value;
     if (e.target.name == "vat" || e.target.name == "discount") {
-      value = Number(e.target.value);
+      value = Number(e.target.value).toFixed(2);
     } else {
       value = e.target.value;
     }
@@ -194,11 +194,7 @@ const ShowQuotation = () => {
         parseInt(totalAmount) +
         parseInt(item?.quantity) * parseInt(item?.unit_value);
     });
-    setTotal(totalAmount);
-
-    setDiscount(parseFloat(data.discount_type ==='percentage' ? (total * data?.discount) / 100 : data?.discount));
-    setVat(parseFloat(data.vat_type ==='percentage' ? ((total - discount) * data?.vat) / 100 : data?.vat));    
-    setGrandTotal((total - discount) + vat);
+    setTotal(totalAmount); 
   }, [
     data?.part_items,
     data?.vat,
@@ -206,6 +202,12 @@ const ShowQuotation = () => {
     data?.vat_type,
     data?.discount_type,
   ]);
+
+  useEffect(() => {
+    setDiscount(parseFloat(data.discount_type ==='percentage' ? (total * data?.discount) / 100 : data?.discount));
+    setVat(parseFloat(data.vat_type ==='percentage' ? ((total - discount) * data?.vat) / 100 : data?.vat));   
+    setGrandTotal((total - discount) + vat);
+  }, [total, discount, vat]);
 
   useEffect(() => {
     setList(quotation?.part_items); //add part items into List
@@ -620,7 +622,7 @@ const ShowQuotation = () => {
                                     <tr className="fw-bolder text-gray-700 fs-5 text-end">
                                       <td colSpan={2}></td>
                                       <td>Discount</td>
-                                      <td>
+                                      <td className="text-end">
                                         <div className="input-group">
                                           <input
                                             type="number"
@@ -638,12 +640,12 @@ const ShowQuotation = () => {
                                             <option value="percentage">
                                               %
                                             </option>
-                                            <option value="fixed">BDT</option>
+                                            <option value="fixed">TK.</option>
                                           </select>
                                         </div>
                                       </td>
-                                      <td>
-                                        - {discount}
+                                      <td className="text-end">
+                                        -{discount.toFixed(2)}
                                       </td>
                                       <td></td>
                                     </tr>
@@ -652,7 +654,7 @@ const ShowQuotation = () => {
                                       <td className="align-center justify-content-center">
                                         Vat
                                       </td>
-                                      <td className="">
+                                      <td className="text-end">
                                         <div className="input-group">
                                           <input
                                             type="number"
@@ -672,19 +674,19 @@ const ShowQuotation = () => {
                                             <option value="percentage">
                                               %
                                             </option>
-                                            <option value="fixed">BDT</option>
+                                            <option value="fixed">TK.</option>
                                           </select>
                                         </div>
                                       </td>
-                                      <td>
-                                        + {vat}
+                                      <td className="text-end">
+                                        +{vat.toFixed(2)}
                                       </td>
                                     </tr>
                                     <tr className="fw-bolder text-gray-700 fs-5 text-end">
                                       <td colSpan={2}></td>
                                       <td>Grand Total</td>
                                       <td></td>
-                                      <td>{grandTotal}</td>
+                                      <td>{grandTotal.toFixed(2)}</td>
                                     </tr>
                                   </>
                                 )}

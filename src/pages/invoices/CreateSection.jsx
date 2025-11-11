@@ -51,9 +51,9 @@ const CreateInvoice = () => {
         company: quotation?.company,
         requisition: quotation?.requisition,
         type: quotation?.requisition?.type,
-        vat: vat,
+        vat: quotation?.vat,
         vat_type: quotation?.vat_type,
-        discount: discount,
+        discount: quotation?.discount,
         discount_type: quotation?.discount_type,
       });
     }
@@ -242,7 +242,7 @@ const CreateInvoice = () => {
                                 <td>Discount({data?.discount}{data?.discount_type == 'percentage' ? '%' : ' BDT'})</td>
                                 <td></td>
                                 <td>
-                                  - {discount}
+                                  - {discount.toFixed(2)}
                                 </td>
                                 <td></td>
                               </tr>
@@ -252,14 +252,14 @@ const CreateInvoice = () => {
                                   Vat({data?.vat}{data?.vat_type == 'percentage' ? '%' : ' BDT'})
                                 </td>
                                 <td></td>
-                                <td>+ {vat}</td>
+                                <td>+{vat.toFixed(2)}</td>
                                 <td></td>
                               </tr>
                               <tr className="fw-bolder text-gray-700 fs-5 text-end">
                                 <td colSpan={2}></td>
                                 <td>Grand Total</td>
                                 <td></td>
-                                <td>{grandTotal}</td>
+                                <td>{grandTotal.toFixed(2)}</td>
                                 <td></td>
                               </tr>
                             </>

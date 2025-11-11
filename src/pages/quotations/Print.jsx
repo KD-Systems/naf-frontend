@@ -229,11 +229,11 @@ const PrintInvoice = () => {
                           <td className="text-start"></td>
                           <td className="text-center"></td>
                           <td className="text-center">
-                            <h4>VAT({invoice?.vat}{invoice?.vat_type == 'percentage' ? '%' : ' BDT'})</h4>
+                            <h4>Discount({invoice?.discount}){invoice?.discount_type == 'percentage' ? '%' : ' BDT'}</h4>
                           </td>
-                          <td className="text-center border-1 border-dark">
+                          <td className="text-center border-bottom border-1 border-dark">
                             <h4>
-                              {vat ?? 0} TK
+                              -{discount?.toFixed(2)} TK
                             </h4>
                           </td>
                         </tr>
@@ -242,11 +242,11 @@ const PrintInvoice = () => {
                           <td className="text-start"></td>
                           <td className="text-center"></td>
                           <td className="text-center">
-                            <h4>Discount({invoice?.discount}){invoice?.discount_type == 'percentage' ? '%' : ' BDT'}</h4>
+                            <h4>VAT({invoice?.vat}{invoice?.vat_type == 'percentage' ? '%' : ' BDT'})</h4>
                           </td>
-                          <td className="text-center border-bottom border-1 border-dark">
+                          <td className="text-center border-1 border-dark">
                             <h4>
-                              {discount} TK
+                              +{vat?.toFixed(2) ?? 0} TK
                             </h4>
                           </td>
                         </tr>
@@ -262,8 +262,7 @@ const PrintInvoice = () => {
                                 fontSize: 16,
                               }}
                             >
-                              {" "}
-                              Total{" "}
+                              Total
                             </div>
                           </td>
                           <td className="text-center">
@@ -275,7 +274,7 @@ const PrintInvoice = () => {
                                 fontSize: 16,
                               }}
                             >
-                              {grandTotal} TK.
+                              {grandTotal?.toFixed(2)} TK.
                             </div>
                           </td>
                         </tr>

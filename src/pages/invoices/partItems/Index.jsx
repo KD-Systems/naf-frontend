@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import PermissionAbility from "helpers/PermissionAbility";
 
-const InvoicePartItems = ({ tab, active, invoice }) => {
+const InvoicePartItems = ({ tab, active, invoice, vat, discount }) => {
   const { id } = useParams();
   return (
     <div
@@ -31,7 +31,7 @@ const InvoicePartItems = ({ tab, active, invoice }) => {
                         <th className="min-w-120px">Part Number</th>
                         <th className="min-w-120px">Quantity</th>
                         <th className="min-w-120px">Unit </th>
-                        <th className="min-w-120px">Total </th>
+                        <th className="min-w-120px text-end">Total </th>
                       </tr>
                     </thead>
 
@@ -60,7 +60,7 @@ const InvoicePartItems = ({ tab, active, invoice }) => {
                             <span>{item?.unit_value}</span>
                           </td>
 
-                          <td className=" fw-bolder mb-1 fs-6">
+                          <td className=" fw-bolder mb-1 fs-6 text-end">
                             <span>
                               {invoice?.requisition?.type != "claim_report"
                                 ? parseInt(item.total_value)
@@ -76,7 +76,7 @@ const InvoicePartItems = ({ tab, active, invoice }) => {
                             <td colSpan={2}></td>
                             <td>Sub-total</td>
                             <td></td>
-                            <td>{invoice?.sub_total}</td>
+                            <td>{invoice?.sub_total} TK.</td>
                             <td></td>
                           </tr>
                           <tr className="fw-bolder text-gray-700 fs-5 text-end">
@@ -86,7 +86,7 @@ const InvoicePartItems = ({ tab, active, invoice }) => {
                             </td>
                             <td></td>
                             <td className="text-danger">
-                              - {invoice?.discount ?? "0"}
+                              -{discount ?? "0"} TK.
                             </td>
                             <td></td>
                           </tr>
@@ -96,7 +96,7 @@ const InvoicePartItems = ({ tab, active, invoice }) => {
                               Vat
                             </td>
                             <td></td>
-                            <td>+ {invoice?.vat ?? "0"}</td>
+                            <td>+{vat ?? "0"} TK.</td>
                             <td></td>
                           </tr>
                           {invoice?.return_part?.return_part_items?.length >
@@ -108,7 +108,7 @@ const InvoicePartItems = ({ tab, active, invoice }) => {
                               </td>
                               <td></td>
                               <td className="text-danger">
-                                {invoice?.return_part?.grand_total ?? "0"}
+                                {invoice?.return_part?.grand_total ?? "0"} TK.
                               </td>
                               <td></td>
                             </tr>
@@ -117,7 +117,7 @@ const InvoicePartItems = ({ tab, active, invoice }) => {
                             <td colSpan={2}></td>
                             <td>Grand Total</td>
                             <td></td>
-                            <td>{invoice?.grand_total}</td>
+                            <td>{invoice?.grand_total} TK.</td>
                             <td></td>
                           </tr>
                         </>

@@ -8,6 +8,8 @@ const PrintInvoice = () => {
   const navigate = useNavigate();
   const [invoice, setInvoice] = useState({});
   const [total, setTotal] = useState(0);
+  const [discount, setDiscount] = useState(0);
+  const [vat, setVat] = useState(0);
 
   const getInvoice = async () => {
     let res = await InvoiceService.get(id);
@@ -23,6 +25,12 @@ const PrintInvoice = () => {
     window.print();
     navigate("/panel/invoices/" + id);
   };
+
+  useEffect(() => {
+    const tempDiscount = invoice.discount_type === "percentage" ? (invoice.sub_total * invoice.discount) / 100 : invoice.discount
+    setDiscount(tempDiscount);
+    setVat(invoice.vat_type === "percentage" ? ((invoice.sub_total - tempDiscount) * invoice.vat) / 100 : invoice.vat);
+  }, [total, invoice]);
 
   useEffect(() => {
     if (id) getInvoice();
@@ -185,37 +193,34 @@ const PrintInvoice = () => {
                         <tr>
                           <td className=" text-center"></td>
                           <td className="text-start"></td>
-                          <td className="text-center"></td>
-                          <td className="text-center">
+                          <td className="text-center" colSpan={2}>
                             <h5>Sub-Total</h5>
                           </td>
                           <td className="text-center">
                             <h5>{total} TK.</h5>
                           </td>
                         </tr>
-                        <tr>
+                         <tr>
                           <td className=" text-center"></td>
                           <td className="text-start"></td>
-                          <td className="text-center"></td>
-                          <td className="text-center">
-                            <h5>VAT</h5>
+                          <td className="text-center" colSpan={2}>
+                            <h5>Discount {invoice?.discount_type == 'percentage' ? '('+invoice?.discount + '%)' : ''}</h5>
                           </td>
-                          <td className="text-center border-1 border-dark">
+                          <td className="text-center border-bottom border-1 border-dark">
                             <h5>
-                              {invoice.vat ?? 0} TK.
+                              -{discount?.toFixed(2)} TK.
                             </h5>
                           </td>
                         </tr>
                         <tr>
                           <td className=" text-center"></td>
                           <td className="text-start"></td>
-                          <td className="text-center"></td>
-                          <td className="text-center">
-                            <h5>Discount</h5>
+                          <td className="text-center" colSpan={2}>
+                            <h5>VAT {invoice?.vat_type == 'percentage' ? '('+invoice?.vat + '%)' : ''}</h5>
                           </td>
-                          <td className="text-center border-bottom border-1 border-dark">
+                          <td className="text-center border-1 border-dark">
                             <h5>
-                              {invoice.discount ?? 0} TK.
+                              +{vat?.toFixed(2)} TK.
                             </h5>
                           </td>
                         </tr>

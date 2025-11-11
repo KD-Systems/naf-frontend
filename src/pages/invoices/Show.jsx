@@ -29,6 +29,8 @@ const ShowInvoice = () => {
   const [model_id, setModelId] = useState();
   const [file, setFile] = useState({});
   const [updateAMountModal, setUpdateAMountModal] = useState(false);
+  const [vat, setVat] = useState(0);
+  const [discount, setDiscount] = useState(0);
 
   const uploadFile = async (formData) => {
     await InvoiceService.fileUpload(id, formData);
@@ -47,6 +49,8 @@ const ShowInvoice = () => {
       setTab("payment_histories");
     }
     setTotal(res?.previous_due ?? res?.grand_total);
+    setVat(res?.vat_type == 'percentage' ? (res?.vat * res?.sub_total) / 100 : res?.vat);
+    setDiscount(res?.discount_type == 'percentage' ? (res?.discount * res?.sub_total) / 100 : res?.discount);    
   };
 
   useEffect(() => {
@@ -242,12 +246,12 @@ const ShowInvoice = () => {
 
                       <div className="fw-bolder mt-5">Vat </div>
                       <div className="text-gray-600">
-                        {invoice?.vat ?? "0"}{invoice?.vat_type == 'percentage' ? '%' : ' BDT'}
+                        {invoice?.vat ?? "0"}{invoice?.vat_type == 'percentage' ? '%' : ' TK.'}
                       </div>
 
                       <div className="fw-bolder mt-5">Discount </div>
                       <div className="text-gray-600">
-                        {invoice?.discount ?? "0"}{invoice?.discount_type == 'percentage' ? '%' : ' BDT'}
+                        {invoice?.discount ?? "0"}{invoice?.discount_type == 'percentage' ? '%' : ' TK.'}
                       </div>
 
                       <div className="fw-bolder mt-5">Grand Total</div>
@@ -400,6 +404,8 @@ const ShowInvoice = () => {
                       active={active}
                       invoice={invoice}
                       tab={tab}
+                      discount={discount}
+                      vat={vat}
                     />
                   </div>
 
