@@ -18,9 +18,7 @@ function Table({
   filter
 }) {
   const [filters, setFilters] = useState({
-    order: {},
-    page: 1,
-    rows: 10,
+    order: {}
   });
 
   //Handle ordering
@@ -141,6 +139,7 @@ function Table({
           progressPending={isLoading}
           pagination
           paginationServer
+          paginationDefaultPage={data?.meta?.current_page}
           paginationTotalRows={data?.meta?.total}
           currentPage={data?.meta?.current_page}
           onChangeRowsPerPage={handlePerRowsChange}

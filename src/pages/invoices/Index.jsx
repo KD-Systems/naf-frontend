@@ -1,6 +1,6 @@
 import Table from "components/utils/Table";
 import PermissionAbility from "helpers/PermissionAbility";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import DeliverNoteService from "services/DeliverNoteService";
 import InvoiceService from "services/InvoiceService";
@@ -32,18 +32,38 @@ const Invoices = () => {
     getInvoices(data);
   };
 
-  const [filters, setFilters] = useState({})
-  const getInvoices = async (filters) => {
-    let storedFilter = JSON.parse(localStorage.getItem('invoice_filter'));
-    let filterData = {...storedFilter, ...filters};
-
-    if(JSON.stringify(filters) != JSON.stringify(storedFilter)) {
-      localStorage.setItem('invoice_filter', JSON.stringify(filterData))
-      setFilters(storedFilter)
+  useEffect(() => {
+    const filterData = localStorage.getItem("invoice_filter");
+    if (filterData) {
+      setFilters(JSON.parse(filterData));
     }
+  }, []);
 
-    setInvoices(await InvoiceService.getAll(filterData));
-    setLoading(false);
+  const [filters, setFilters] = useState({});
+
+  useEffect(() => {
+    const storedFilter = localStorage.getItem("invoice_filter");
+    if (storedFilter) {
+      setFilters(JSON.parse(storedFilter));
+    }
+  }, []);
+
+  let timeout;
+  const getInvoices = async (filters) => {
+    if (timeout) clearTimeout(timeout);
+
+    timeout = setTimeout(async () => {
+      let storedFilter = JSON.parse(localStorage.getItem("invoice_filter"));
+      let filterData = { ...storedFilter, ...filters };
+
+      if (JSON.stringify(filters) != JSON.stringify(storedFilter)) {
+        localStorage.setItem("invoice_filter", JSON.stringify(filterData));
+        setFilters(storedFilter);
+      }
+
+      setInvoices(await InvoiceService.getAll(filterData));
+      setLoading(false);
+    }, 500);
   };
 
   let navigate = useNavigate();
