@@ -7,6 +7,7 @@ import Select from 'react-select';
 import BoxHeadingService from "services/BoxHeadingService";
 import PartStockService from "services/PartStockService";
 import WareHouseService from "services/WareHouseService";
+import SettingsService from "services/SettingsService";
 
 const AddPartStock = ({ open, onCloseModal, onCreated }) => {
   let { id } = useParams();
@@ -14,22 +15,23 @@ const AddPartStock = ({ open, onCloseModal, onCreated }) => {
   const [headings, setHeadings] = useState([])
   const [data, setData] = useState({})
   const [block, setBlock] = useState(false);
+  const [formulaValue, setFormulaValue] = useState(0);
 
   const handleChange = (e) => {
     const value = e.target.value;
     const name = e.target.name;
     setBlock(false)
 
-    if(name == 'yen_price'){
+    if (name == 'yen_price') {
       setData({
-        ...data, 'yen_price': value, 'formula_price': Math.floor(value*3.38), 'selling_price': Math.floor(value*3.38)
+        ...data, 'yen_price': value, 'formula_price': Math.floor(value * formulaValue), 'selling_price': Math.floor(value * formulaValue)
       })
     }
-    else{
+    else {
       setData({
         ...data, [name]: value
       })
-    }    
+    }
   }
 
   const handleSelect = (option, conf) => {
@@ -67,15 +69,17 @@ const AddPartStock = ({ open, onCloseModal, onCreated }) => {
   const getHeadings = async () => {
     setBlock(false)
     let res = await BoxHeadingService.getAllHeadings()
-    let dt = res?.map(itm => ({ label: itm.name, value: itm.id })) 
+    let dt = res?.map(itm => ({ label: itm.name, value: itm.id }))
     setHeadings(dt);
     setBlock(false)
   };
 
-  useEffect(() => {
+  useEffect(async () => {
     if (open) {
       getWarehouses();
       getHeadings();
+      const res = await SettingsService.getAll();
+      setFormulaValue(res.data.yen_formula_value);
     }
     setBlock(false)
   }, [open]);

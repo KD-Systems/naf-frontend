@@ -1,4 +1,4 @@
 export default {
-  // baseUrl: "http://aftersales.test/api",
+  // baseUrl: "http://naf-backend.test/api",
   baseUrl: 'https://api.nafaftersales.com/api/',
 };

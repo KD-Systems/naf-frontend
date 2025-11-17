@@ -309,6 +309,23 @@ const Settings = () => {
                   </div>
                 </div>
 
+                <div className="row mb-8">
+                  <div className="col-xl-3">
+                    <div className="fs-6 fw-bold mt-2 mb-3">Yen(¥) Formula Value</div>
+                  </div>
+
+                  <div className="col-xl-9 fv-row">
+                    <input
+                      type="text"
+                      className="form-control form-control-solid"
+                      name="yen_formula_value"
+                      value={data?.yen_formula_value ?? ""}
+                      placeholder="Yen(¥) Formula Value"
+                      onChange={handleChange}
+                    />
+                  </div>
+                </div>
+
                 {/* <div className="row mb-8">
                   <div className="col-xl-3">
                     <div className="fs-6 fw-bold mt-2 mb-3">Project Type</div>
