@@ -28,7 +28,7 @@ const PrintInvoice = () => {
 
   useEffect(() => {
     const tempDiscount = invoice.discount_type === "percentage" ? (invoice.sub_total * invoice.discount) / 100 : invoice.discount
-    setDiscount(tempDiscount);
+    setDiscount(parseFloat(tempDiscount));
     setVat(invoice.vat_type === "percentage" ? ((invoice.sub_total - tempDiscount) * invoice.vat) / 100 : invoice.vat);
   }, [total, invoice]);
 

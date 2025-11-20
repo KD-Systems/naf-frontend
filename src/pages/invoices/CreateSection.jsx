@@ -242,7 +242,7 @@ const CreateInvoice = () => {
                                 <td>Discount({data?.discount}{data?.discount_type == 'percentage' ? '%' : ' BDT'})</td>
                                 <td></td>
                                 <td>
-                                  - {discount.toFixed(2)}
+                                  - {discount?.toFixed(2)}
                                 </td>
                                 <td></td>
                               </tr>

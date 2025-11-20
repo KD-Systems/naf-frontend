@@ -645,7 +645,7 @@ const ShowQuotation = () => {
                                         </div>
                                       </td>
                                       <td className="text-end">
-                                        -{discount.toFixed(2)}
+                                        -{discount?.toFixed(2)}
                                       </td>
                                       <td></td>
                                     </tr>
